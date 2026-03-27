@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--==================================================================================
+ Copyright (c) 2004, 2008, Oracle and/or its affiliates.All rights reserved. 
+        This material is the confidential property of Oracle Corporation or its
+        licensors and may be used, reproduced, stored or transmitted only in
+        accordance with a valid Oracle license or sublicense agreement.
+        =================================================================================-->
+
+<xs:schema 
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+  <xs:annotation>
+  	<xs:documentation xml:lang="en">
+ Copyright (c) 2005, 2008, Oracle and/or its affiliates.All rights reserved. 
+		This material is the confidential property of Oracle Corporation or its
+		licensors and may be used, reproduced, stored or transmitted only in
+		accordance with a valid Oracle license or sublicense agreement.
+	</xs:documentation>
+  </xs:annotation>
+  
+  <xs:complexType name="BusinessProfileConfigurationType">
+    <xs:sequence>
+
+      <xs:element name="BusinessProfileList" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+
+            <xs:element name="BusinessProfile" minOccurs="1" 
+						maxOccurs="unbounded">
+              <xs:complexType>
+
+                <xs:sequence>
+                  <xs:element name="Desc" type="businessConfig:desc.type" minOccurs="0" 
+							maxOccurs="1"/>
+                  <xs:element name="TemplateId" type="businessConfig:templateId.type" 
+					minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element ref="businessConfig:NameValue" minOccurs="0" 
+						maxOccurs="unbounded"/>
+                </xs:sequence>
+
+                <xs:attribute name="name" type="businessConfig:configName" use="required"/>
+
+                <xs:attribute name="action" use="optional">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="delete"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+
+		<xs:attribute name="type" use="optional">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Invoice"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+
+              </xs:complexType>
+
+              <xs:unique name="uniqueBusProfKeys">
+                <xs:annotation>
+                  <xs:documentation>
+                  This uniqueness constraint ensures that, the key in the
+                                NameValue pair appear only once.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:selector xpath="./businessConfig:NameValue"/>
+                <xs:field xpath="@key"/>
+              </xs:unique>
+
+              <xs:unique name="uniqueTemplateId">
+                <xs:annotation>
+                  <xs:documentation>
+                    This uniqueness constraint ensures that, the template
+                        names and type are unique.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:selector xpath="./businessConfig:TemplateId"/>
+                <xs:field xpath="@type"/>
+                <xs:field xpath="@name"/>
+              </xs:unique>
+
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+       
+        <xs:unique name="uniqueBusProfileNames">
+          <xs:annotation>
+            <xs:documentation>
+              This uniqueness constraint ensures that, the business 
+				profile names appear only once.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:selector xpath="./*"/>
+          <xs:field xpath="@name"/>
+        </xs:unique>
+
+      </xs:element>
+
+      <xs:element name="TemplateList" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+
+            <xs:element name="Template" minOccurs="1" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="businessConfig:templateId.type">
+
+                    <xs:sequence>
+                      <xs:element name="Desc" type="businessConfig:desc.type" minOccurs="0" 
+								maxOccurs="1"/>
+                      <xs:element name="Iscript" type="xs:string" 
+						minOccurs="0" maxOccurs="1"/>
+                      <xs:element ref="businessConfig:NameValue" minOccurs="0" 
+						maxOccurs="unbounded"/>
+                    </xs:sequence>
+
+                    <xs:attribute name="action" use="optional">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="delete"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:attribute>
+
+                  </xs:extension>
+                </xs:complexContent>
+              </xs:complexType>
+
+              <xs:unique name="uniqueTemplateKeys">         
+                <xs:annotation>
+                  <xs:documentation>
+                  This uniqueness constraint ensures that, the key in the
+                                NameValue pair appear only once.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:selector xpath="./businessConfig:NameValue"/>
+                <xs:field xpath="@key"/>
+              </xs:unique>
+            </xs:element>
+
+          </xs:sequence>
+        </xs:complexType>
+
+        <xs:unique name="uniqueTemplateNames">
+          <xs:annotation>
+            <xs:documentation>
+              This uniqueness constraint ensures that, the template 
+			names and type are unique.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:selector xpath="./*"/>
+          <xs:field xpath="@type"/>
+          <xs:field xpath="@name"/>
+        </xs:unique>
+
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="NameValue">
+      <xs:complexType>
+      <xs:attribute name="key" use="required">
+		<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="255"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+        <xs:attribute name="value" use="required">
+		<xs:simpleType>
+       		<xs:restriction base="xs:string">
+                	<xs:minLength value="1"/>        
+                	<xs:maxLength value="255"/>        
+                	<xs:whiteSpace value="collapse"/>        
+        	</xs:restriction>        
+        	</xs:simpleType>        
+       	</xs:attribute>	
+    	</xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="configName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:pattern value="[A-Za-z][A-Za-z0-9_ \d]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="templateId.type">
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255"/>
+          <xs:pattern value="/[a-z][a-z_]*(/[a-z][a-z_\d]*)*"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="name" type="configName" use="required"/>
+  </xs:complexType>
+ 
+  <xs:simpleType name="desc.type">
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="collapse"/>
+      <xs:maxLength value="255"/>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>

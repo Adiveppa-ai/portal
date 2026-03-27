@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# @(#)%full_filespec: pin_amt_test~18:java:1 %
+#
+# Copyright (c) 2006, 2021, Oracle and/or its affiliates. All rights reserved.
+#      This material is the confidential property of Oracle Corporation
+#      or its licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+#
+
+
+PIN_DIR=/home/pin/opt/portal/BRM
+ORA_DIR=${ORACLE_HOME}
+JAVA_DIR=$JAVA_HOME
+
+AMT_DIR=${PIN_DIR}/apps/amt
+JAR_DIR=${PIN_DIR}/jars
+CLASSPATH=.:$JAR_DIR/amt.jar:$JAR_DIR/pcm.jar:$JAR_DIR/pcmext.jar:$AMT_DIR:$ORA_DIR/jdbc/lib/classes12.zip:$ORA_DIR/jdbc/lib/ojdbc8.jar:$ORA_DIR/lib/ojdbc8.jar:$JAR_DIR/oraclepki.jar:$JAR_DIR/osdt_cert.jar:$JAR_DIR/osdt_core.jar
+
+PATH=${PATH}:${ORA_DIR}/bin
+
+export CLASSPATH PATH
+
+JAVA=$JAVA_DIR/bin/java
+
+$JAVA -DPIN_HOME=$PIN_DIR com.portal.amt.CompileAccountSearchSpec $*
+
+

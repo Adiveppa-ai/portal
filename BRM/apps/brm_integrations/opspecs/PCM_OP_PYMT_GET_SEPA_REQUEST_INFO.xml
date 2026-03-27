@@ -1,0 +1,194 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO" visibility="private" transaction="required" component="fm_pymt" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>
+	This opcode is to fetch all the information required by pin_sepa application to generate the 
+	Sepa request XML file. The opcode will take a set of Sepa request objects as input and return 
+	the information related to those transactions.
+  </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="typeonly">
+        <Doc>Typeonly poid of the sepa object for which the data is required. </Doc>
+        <ClassRef>obj://sepa.dd</ClassRef>
+        <ClassRef>obj://sepa.ct</ClassRef>
+        <ClassRef>obj://sepa.dd.reversal</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_POIDS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+        <Doc>Array of Sepa request object poids for which the data is required
+         </Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc>Sepa request object poid</Doc>
+            <ClassRef>obj://sepa</ClassRef>
+          </Poid>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="typeonly">
+        <Doc>Typeonly poid of the sepa object for which the data is retrieved. </Doc>
+        <ClassRef>obj://sepa.dd</ClassRef>
+        <ClassRef>obj://sepa.ct</ClassRef>
+        <ClassRef>obj://sepa.dd.reversal</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_MSG_ID" use="required" maxlen="35">
+        <Doc>Creditor's unique file reference id. Unique for the Sepa request file 
+               sent to bank for processing</Doc>
+      </String>
+      <Substruct name="PIN_FLD_PAYMENT" use="optional" isRecursive="false">
+        <Doc>Populated only for reversal requests. Holds group header details of the 
+               payment request sent to bank for processing</Doc>
+        <Fields>
+          <String name="PIN_FLD_MSG_ID" use="required" maxlen="35">
+            <Doc>Unique file Id of the original payment request sent to the bank. </Doc>
+          </String>
+        </Fields>
+      </Substruct>
+      <Array name="PIN_FLD_PYMT_INFO" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+        <Doc>Array of payment information sorted by Creditor ID. This array will hold the Sepa 
+	      transactions for a particular creditor/debtor.
+         </Doc>
+        <Fields>
+          <String name="PIN_FLD_PYMT_INFO_ID" use="required" maxlen="35">
+            <Doc>Unique identification assigned by the creditor to unambiguously 
+                  identify a particular PmtInf element in the Sepa request file. 
+               </Doc>
+          </String>
+          <String name="PIN_FLD_CREDITOR_ID" use="required" maxlen="35">
+            <Doc>Unique identification of the creditor.</Doc>
+          </String>
+          <Substruct name="PIN_FLD_PAYMENT" use="optional" isRecursive="false">
+            <Doc>Populated only for reversal requests. Holds payment group details of the
+                    payment request sent to bank for processing</Doc>
+            <Fields>
+              <String name="PIN_FLD_PYMT_INFO_ID" use="required" maxlen="35">
+                <Doc>Identifier of the payment group whose transaction is being reversed. </Doc>
+              </String>
+              <Int name="PIN_FLD_TOTAL_RECORDS" use="optional">
+                <Doc>Total number of transactions that were part of this payment group.</Doc>
+              </Int>
+            </Fields>
+          </Substruct>
+          <Array name="PIN_FLD_TRANSACTIONS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+            <Doc>Array of Sepa transactions (either DD, CT or reversal).</Doc>
+            <Fields>
+              <Poid name="PIN_FLD_PAYINFO_OBJ" use="required" mode="complete">
+                <Doc>Payinfo Poid.</Doc>
+                <ClassRef>obj://payinfo</ClassRef>
+              </Poid>
+              <String name="PIN_FLD_TRANS_ID" use="required" maxlen="35">
+                <Doc>Unique reference id for a particular financial transaction.</Doc>
+              </String>
+              <Timestamp name="PIN_FLD_COLLECTION_DATE" use="optional">
+                <Doc> The date by which bank must process the transaction.</Doc>
+              </Timestamp>
+              <Decimal name="PIN_FLD_AMOUNT" use="required">
+                <Doc> The amount for which the payment is made.</Doc>
+              </Decimal>
+              <Int name="PIN_FLD_CURRENCY" use="required">
+                <Doc>Currency in which payment is made.</Doc>
+              </Int>
+              <String name="PIN_FLD_RESOURCE_NAME" use="required" maxlen="3">
+                <Doc>ISO 4217 alpha-3 representation of the currency.</Doc>
+              </String>
+              <Enum name="PIN_FLD_MANDATE_TYPE" use="required">
+                <Doc>This field specifies the sequence type of payment collection.
+                       Valid values are: FRST (1), RCUR (2), FNAL (3), OOFF (4)</Doc>
+              </Enum>
+              <Int name="PIN_FLD_MANDATE_AMENDED" use="required">
+                <Doc>Specifies what fields have been amended. Will be 0 if no amendment 
+                       has happened since last transaction processing.</Doc>
+              </Int>
+              <Substruct name="PIN_FLD_ORIG_MANDATE_INFO" use="optional" isRecursive="false">
+                <Doc> Original Mandate information. This substruct will be present if
+                         MANDATE_AMENDED is non-zero. Contains original value of the fields
+                         which have got amended.</Doc>
+                <Fields>
+                  <String name="PIN_FLD_CREDITOR_ID" use="optional" maxlen="35">
+                    <Doc>Original creditor ID.</Doc>
+                  </String>
+                  <String name="PIN_FLD_IBAN" use="optional" maxlen="34">
+                    <Doc>Original debtor IBAN</Doc>
+                  </String>
+                  <String name="PIN_FLD_BIC" use="optional" maxlen="11">
+                    <Doc>Original debtor BIC.</Doc>
+                  </String>
+                  <String name="PIN_FLD_MANDATE_UNIQUE_REFERENCE" use="optional" maxlen="35">
+                    <Doc>Original mandate reference number.</Doc>
+                  </String>
+                  <String name="PIN_FLD_CREDITOR_NAME" use="optional" maxlen="255">
+                    <Doc>Original creditor name.</Doc>
+                  </String>
+                </Fields>
+              </Substruct>
+              <Substruct name="PIN_FLD_PAYMENT" use="optional" isRecursive="false">
+                <Doc> Populted only for reversal requests. Holds transaction and debtor
+                         details that were used for making a payment.</Doc>
+                <Fields>
+                  <String name="PIN_FLD_TRANS_ID" use="required" maxlen="35">
+                    <Doc>Transaction Id of the payment.</Doc>
+                  </String>
+                  <Int name="PIN_FLD_CURRENCY" use="required">
+                    <Doc>Currency in which the payment was collected.</Doc>
+                  </Int>
+                  <String name="PIN_FLD_RESOURCE_NAME" use="required" maxlen="3">
+                    <Doc>ISO 4217 alpha-3 representation of the currency in which payment was collected.</Doc>
+                  </String>
+                  <String name="PIN_FLD_REASON_CODE" use="required" maxlen="4">
+                    <Doc>Reason of reversing the payment.</Doc>
+                  </String>
+                  <Timestamp name="PIN_FLD_COLLECTION_DATE" use="required">
+                    <Doc> The date by which bank must processed the payment transaction.</Doc>
+                  </Timestamp>
+                  <Decimal name="PIN_FLD_AMOUNT" use="required">
+                    <Doc> The amount for which the payment was made.</Doc>
+                  </Decimal>
+                  <Array name="PIN_FLD_DEBTOR_INFO" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+                    <Doc>Holds debtor details using which the payment was initiated.</Doc>
+                    <Fields>
+                      <String name="PIN_FLD_IBAN" use="required" maxlen="34">
+                        <Doc>Debtor IBAN</Doc>
+                      </String>
+                      <String name="PIN_FLD_BIC" use="required" maxlen="11">
+                        <Doc>Debtor BIC.</Doc>
+                      </String>
+                      <String name="PIN_FLD_MANDATE_UNIQUE_REFERENCE" use="required" maxlen="35">
+                        <Doc>Mandate reference number.</Doc>
+                      </String>
+                      <Enum name="PIN_FLD_MANDATE_TYPE" use="required">
+                        <Doc>Mandate type during sepa payment initiation. </Doc>
+                      </Enum>
+                    </Fields>
+                  </Array>
+                </Fields>
+              </Substruct>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

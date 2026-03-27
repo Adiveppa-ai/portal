@@ -1,0 +1,134 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_CUST_GET_NEWSFEED" visibility="private" transaction="supports" component="fm_cust" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>The opcode PCM_OP_CUST_GET_NEWSFEED is used to fetch newsfeed entries based on
+          input parameters.</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Poid of the account for which newsfeed entries
+			 are requested.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_BILLINFO_OBJ" use="optional" mode="complete">
+        <Doc> Billinfo associated with the newsfeed object.</Doc>
+        <ClassRef>obj://billinfo</ClassRef>
+      </Poid>
+      <Timestamp name="PIN_FLD_START_T" use="optional">
+        <Doc>Newsfeeds created at or after this timestamp
+			 will be fetched.</Doc>
+      </Timestamp>
+      <Timestamp name="PIN_FLD_END_T" use="optional">
+        <Doc>Newsfeed entry with timetamp less than
+			 this timestamp will be fetched.</Doc>
+      </Timestamp>
+      <String name="PIN_FLD_TYPE_STR" use="optional" maxlen="2000">
+        <Doc>Comma-separated values of type of newsfeed that must be retrieved</Doc>
+      </String>
+      <Decimal name="PIN_FLD_AMOUNT_FROM" use="optional">
+        <Doc>Newsfeed entry with amount greater than
+			 or equal to this amount will be fetched.</Doc>
+      </Decimal>
+      <Decimal name="PIN_FLD_AMOUNT_TO" use="optional">
+        <Doc>Newsfeed entry with amount lesser than
+			 this amount will be fetched.</Doc>
+      </Decimal>
+      <String name="PIN_FLD_LOCALE" use="optional" maxlen="8">
+        <Doc>Fetches localized string for the message and type in the requested locale.
+			 If absent, newsfeeds are returned as they were retrieved.</Doc>
+      </String>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>POID from input.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+        <Doc>Array of newsfeeds fetched based on the selection criteria.</Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc>Poid of the newsfeed object.</Doc>
+            <ClassRef>obj://newsfeed</ClassRef>
+          </Poid>
+          <Timestamp name="PIN_FLD_CREATED_T" use="required">
+            <Doc> Time the object was created.</Doc>
+          </Timestamp>
+          <Timestamp name="PIN_FLD_MOD_T" use="optional">
+            <Doc> Time the object was last modified.</Doc>
+          </Timestamp>
+          <String name="PIN_FLD_READ_ACCESS" use="required" maxlen="255">
+            <Doc>Read Access level for object. Valid values are S(Self), 
+				 G(Global), L(BrandLineage), B(BrandGroup), A(Ancestral).</Doc>
+          </String>
+          <String name="PIN_FLD_WRITE_ACCESS" use="required" maxlen="255">
+            <Doc>Write Access level for object. Valid values are S(Self), 
+				 G(Global), L(BrandLineage), B(BrandGroup), A(Ancestral).</Doc>
+          </String>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+            <Doc>Account associated with newsfeed.</Doc>
+            <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <Decimal name="PIN_FLD_AMOUNT" use="required">
+            <Doc> Amount associated with the newsfeed.</Doc>
+          </Decimal>
+          <Poid name="PIN_FLD_BILLINFO_OBJ" use="required" mode="complete">
+            <Doc>Bill associated with the newsfeed.</Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_EVENT_OBJ" use="required" mode="complete">
+            <Doc>Event associated with the newsfeed.</Doc>
+            <ClassRef>obj://event</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_MESSAGE" use="required" maxlen="2000">
+            <Doc>Combination of Id and value used for localizing details.
+				 If locale is passed in input, then this contains localized data.</Doc>
+          </String>
+          <Poid name="PIN_FLD_OBJECT" use="required" mode="complete">
+            <Doc>Pointer to item, bill or other object related to newsfeed.</Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Int name="PIN_FLD_REASON_DOMAIN_ID" use="required">
+            <Doc>Reason info for newsfeed.</Doc>
+          </Int>
+          <Int name="PIN_FLD_REASON_ID" use="required">
+            <Doc>Reason code for newsfeed.</Doc>
+          </Int>
+          <Int name="PIN_FLD_RESOURCE_ID" use="optional">
+            <Doc>Numeric value of the resource that is impacted.</Doc>
+          </Int>
+          <Enum name="PIN_FLD_TYPE" use="required">
+            <Doc>Used to specify type of newsfeed entry.</Doc>
+          </Enum>
+          <String name="PIN_FLD_TYPE_STR" use="optional" maxlen="255">
+            <Doc>Additional details related to type of newsfeed (e.g. Bill Unit Id)..</Doc>
+          </String>
+          <String name="PIN_FLD_REASON_CODE" use="optional" maxlen="255">
+            <Doc>Localized string specifying the type of newsfeed. Passed only if locale was specified.</Doc>
+          </String>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

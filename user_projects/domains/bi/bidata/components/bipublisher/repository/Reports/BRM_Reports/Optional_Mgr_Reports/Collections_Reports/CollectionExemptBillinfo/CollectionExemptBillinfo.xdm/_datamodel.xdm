@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ "ACCOUNT_T"."POID_ID0",
+ "ACCOUNT_T"."ACCOUNT_NO",
+ "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "ACCOUNT_T"."CURRENCY",
+ "BAL_GRP_SUB_BALS_T"."REC_ID2",
+ "BILLINFO_T"."STATUS",
+ "BILLINFO_T"."EXEMPT_FROM_COLLECTIONS",
+ "CONFIG_BEID_BALANCES_T"."NAME",
+ "BAL_GRP_SUB_BALS_T"."CURRENT_BAL"
+ FROM
+ "ACCOUNT_T" "ACCOUNT_T",
+ "BILLINFO_T" "BILLINFO_T",
+ "BAL_GRP_T" "BAL_GRP_T",
+ "BAL_GRP_SUB_BALS_T" "BAL_GRP_SUB_BALS_T",
+ "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T",
+ "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T"
+ WHERE
+ "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0" AND
+ "ACCOUNT_T"."POID_ID0"="BILLINFO_T"."ACCOUNT_OBJ_ID0" AND
+ "ACCOUNT_T"."POID_ID0"="BAL_GRP_T"."ACCOUNT_OBJ_ID0" AND
+ "BILLINFO_T"."POID_ID0"="BAL_GRP_T"."BILLINFO_OBJ_ID0" AND
+ "BAL_GRP_T"."POID_ID0"="BAL_GRP_SUB_BALS_T"."OBJ_ID0" AND
+ "CONFIG_BEID_BALANCES_T"."REC_ID" = "ACCOUNT_T"."CURRENCY" AND
+ "ACCOUNT_T"."POID_DB">0 AND
+ "ACCOUNT_NAMEINFO_T"."REC_ID"=1 AND
+ ("ACCOUNT_T"."CURRENCY" IN (SELECT DISTINCT "CONFIG_BEID_BALANCES_T"."REC_ID"
+ FROM "CONFIG_BEID_BALANCES_T","ACCOUNT_T"
+ WHERE "ACCOUNT_T"."CURRENCY"="CONFIG_BEID_BALANCES_T"."REC_ID" AND "CONFIG_BEID_BALANCES_T"."NAME"
+ LIKE NVL(:PARAM_RESOURCE_TYPE, "CONFIG_BEID_BALANCES_T"."NAME") )) AND
+ "BAL_GRP_SUB_BALS_T"."CURRENT_BAL"<>0 AND
+ "ACCOUNT_T"."POID_ID0">1 AND
+ ("BILLINFO_T"."STATUS">=NVL(:PARAM_BILLINFO_STATUS,10100) AND
+ "BILLINFO_T"."STATUS"<= NVL(:PARAM_BILLINFO_STATUS,10103)) AND
+ ("BILLINFO_T"."EXEMPT_FROM_COLLECTIONS"=1 OR
+  "BILLINFO_T"."EXEMPT_FROM_COLLECTIONS"=5 OR
+  "BILLINFO_T"."EXEMPT_FROM_COLLECTIONS"=3)
+ ORDER BY "BAL_GRP_SUB_BALS_T"."REC_ID2", "BILLINFO_T"."STATUS", "ACCOUNT_T"."ACCOUNT_NO"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="1"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="2"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="3"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="4"/>
+    <element name="CURRENCY" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="5"/>
+    <element name="REC_ID2" value="REC_ID2" dataType="xsd:integer" label="REC_ID2" breakOrder="None" fieldOrder="6"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="7"/>
+    <element name="EXEMPT_FROM_COLLECTIONS" value="EXEMPT_FROM_COLLECTIONS" dataType="xsd:integer" label="EXEMPT_FROM_COLLECTIONS" breakOrder="None" fieldOrder="8"/>
+    <element name="NAME" value="NAME" dataType="xsd:string" label="NAME" breakOrder="None" fieldOrder="9"/>
+    <element name="CURRENT_BAL" value="CURRENT_BAL" dataType="xsd:integer" label="CURRENT_BAL" breakOrder="None" fieldOrder="10"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="LOV_REPORT_TYPE">
+         <nvPairs>
+            <nvPair label="SUMMARY" value="SUMMARY"/>
+            <nvPair label="DETAIL" value="DETAIL"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_RESOURCE_TYPE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "CONFIG_BEID_BALANCES_T"."NAME" FROM "CONFIG_BEID_BALANCES_T"]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_BILLINFO_STATUS">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_REPORT_TYPE" dataType="String">
+         <select label="Select SUMMARY for summary report  or DETAIL for detail report" valueSet="LOV_REPORT_TYPE" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_RESOURCE_TYPE" dataType="xsd:string">
+         <select label=" Select a resource, or select ALL to include all resources." valueSet="LOV_RESOURCE_TYPE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_BILLINFO_STATUS" dataType="xsd:string">
+         <select label="Select a specific billinfo status, or select ALL to include all accounts." valueSet="LOV_BILLINFO_STATUS" multiple="false" all="true" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

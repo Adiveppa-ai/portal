@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<price_list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="7.2" xsi:noNamespaceSchemaLocation="price_list.xsd">
+	<plan_list status="active" type="addon">
+		<plan_list_name>default</plan_list_name>
+		<description>The plan list for add on.</description>
+		<plan_name>Email</plan_name>
+	</plan_list>
+	<plan_list status="active" type="new">
+		<plan_list_name>default</plan_list_name>
+		<description>The plan list if the application name can not be found.</description>
+		<plan_name>Basic</plan_name>
+		<plan_name>Standard</plan_name>
+		<plan_name>Power</plan_name>
+	</plan_list>
+	<plan_list status="active" type="new">
+		<plan_list_name>admintool</plan_list_name>
+		<description>The plan list for admintool</description>
+		<plan_name>Basic</plan_name>
+		<plan_name>Standard</plan_name>
+		<plan_name>Power</plan_name>
+		<plan_name>CSR</plan_name>
+	</plan_list>
+	<plan_list status="active" type="new">
+		<plan_list_name>CSR</plan_list_name>
+		<description>The plan list for CSR</description>
+		<plan_name>Basic</plan_name>
+		<plan_name>CSR</plan_name>
+		<plan_name>Power</plan_name>
+		<plan_name>Standard</plan_name>
+	</plan_list>
+	<plan ondemand_billing="no">
+		<plan_name>Email</plan_name>
+		<description>Add Email to Basic Plan</description>
+		<credit_limit>
+			<resource_id>840</resource_id>
+			<limit>150.0</limit>
+			<floor>0.0</floor>
+		</credit_limit>
+		<service_deal>
+			<service_name>/service/email</service_name>
+			<deal_name>Email Promotion</deal_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+	</plan>
+	<plan ondemand_billing="no">
+		<plan_name>CSR</plan_name>
+		<description>Customer Support Rep, and Ldap</description>
+		<service_deal>
+			<service_name>/service/admin_client</service_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/email</service_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/ldap</service_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+	</plan>
+	<plan ondemand_billing="no">
+		<plan_name>Basic</plan_name>
+		<description>IP with 10 Free HRS per Month and Ldap</description>
+		<credit_limit>
+			<resource_id>840</resource_id>
+			<limit>100.0</limit>
+			<floor>0.0</floor>
+		</credit_limit>
+		<credit_limit>
+			<resource_id>1000001</resource_id>
+			<limit>0.0</limit>
+			<floor>0.0</floor>
+		</credit_limit>
+		<service_deal>
+			<service_name>/service/ip</service_name>
+			<deal_name>IP Basic</deal_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/ldap</service_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+	</plan>
+	<plan ondemand_billing="no">
+		<plan_name>Standard</plan_name>
+		<description>IP and Email with 10 Free HRS per Month and Ldap</description>
+		<credit_limit>
+			<resource_id>840</resource_id>
+			<limit>150.0</limit>
+			<floor>0.0</floor>
+		</credit_limit>
+		<credit_limit>
+			<resource_id>1000001</resource_id>
+			<limit>0.0</limit>
+			<floor>0.0</floor>
+		</credit_limit>
+		<service_deal>
+			<service_name>/service/ip</service_name>
+			<deal_name>IP Basic</deal_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/email</service_name>
+			<deal_name>Email Promotion</deal_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/ldap</service_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+	</plan>
+	<plan ondemand_billing="no">
+		<plan_name>Power</plan_name>
+		<description>IP and Email with Unlimited IP Usage and Ldap</description>
+		<credit_limit>
+			<resource_id>840</resource_id>
+			<limit>200.0</limit>
+			<floor>10.0</floor>
+		</credit_limit>
+		<service_deal>
+			<service_name>/service/ip</service_name>
+			<deal_name>IP Power</deal_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/email</service_name>
+			<deal_name>Email Promotion</deal_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+		<service_deal>
+			<service_name>/service/ldap</service_name>
+			<bal_info_index>0</bal_info_index>
+			<subscription_index>0</subscription_index>
+		</service_deal>
+	</plan>
+	<deal customization_flag="optional" ondemand_billing="no">
+		<deal_name>IP Extended</deal_name>
+		<permitted>/service/ip</permitted>
+		<deal_product status="active">
+			<product_name>IP async measured</product_name>
+			<product_code>IP async measured</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+		<deal_product status="active">
+			<product_name>IP async bulk 30</product_name>
+			<product_code>IP async bulk 30</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+	</deal>
+	<deal customization_flag="optional" ondemand_billing="no">
+		<deal_name>IP Basic</deal_name>
+		<permitted>/service/ip</permitted>
+		<deal_product status="active">
+			<product_name>IP async measured</product_name>
+			<product_code>IP async measured</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+		<deal_product status="active">
+			<product_name>IP async bulk 10</product_name>
+			<product_code>IP async bulk 10</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+		<deal_product status="active">
+			<product_name>IP async bulk hour unit</product_name>
+			<product_code>IP async bulk hour unit</product_code>
+			<quantity>2.5</quantity>
+		</deal_product>
+	</deal>
+	<deal customization_flag="optional" ondemand_billing="no">
+		<deal_name>Email Promotion</deal_name>
+		<permitted>/service/email</permitted>
+		<deal_product status="active">
+			<product_name>Email service</product_name>
+			<product_code>Email service</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+	</deal>
+	<deal customization_flag="optional" ondemand_billing="no">
+		<deal_name>IP Starter</deal_name>
+		<permitted>/service/ip</permitted>
+		<deal_product status="active">
+			<product_name>IP async measured</product_name>
+			<product_code>IP async measured</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+	</deal>
+	<deal customization_flag="optional" ondemand_billing="no">
+		<deal_name>IP Power</deal_name>
+		<permitted>/service/ip</permitted>
+		<deal_product status="active">
+			<product_name>IP async unlimited</product_name>
+			<product_code>IP async unlimited</product_code>
+			<quantity>1.0</quantity>
+		</deal_product>
+	</deal>
+	<product partial="no" type="subscription">
+		<product_name>IP async measured</product_name>
+		<product_code>IP async measured</product_code>
+		<priority>100.0</priority>
+		<purchase_max>1.0</purchase_max>
+		<own_max>1.0</own_max>
+		<permitted>/service/ip</permitted>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>cycle_forward_monthly</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="prorate" step_type="total_quantity_rated" type="default">
+						<description>Monthly Fee for IP Async Measured Service</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable proratable" scaled_unit="none">
+								<resource_id>840</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>4.95</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+		<event_rating_map incr_unit="second" min_unit="minute" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/session</event_type>
+			<rum_name>Duration</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>6.0</incr_quantity>
+			<rate_plan_name>ip/dialup/async/hourly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>ip/dialup/async/hourly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/session</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>bulk hour oriented usage rate</rate_tier_name>
+					<priority>2.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="normal">
+						<description>IP Async Dialup Session</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable" scaled_unit="hour">
+								<resource_id>1000001</resource_id>
+								<glid>104</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>1.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>dollar oriented usage rate</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="default">
+						<description>IP Async Dialup Session</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable" scaled_unit="hour">
+								<resource_id>840</resource_id>
+								<glid>104</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>2.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/cycle/fold</event_type>
+			<rum_name>Fold</rum_name>
+			<min_quantity>0.0</min_quantity>
+			<incr_quantity>0.0</incr_quantity>
+			<rate_plan_selector>
+				<rate_plan_selector_name>delete unused hours</rate_plan_selector_name>
+				<selector>
+					<column operator="equal" separator="">
+						<field_name>PIN_FLD_FOLD.PIN_FLD_RESOURCE_ID</field_name>
+					</column>
+					<value_range>
+						<value>1000001</value>
+						<rate_plan_name>Remove unused hours</rate_plan_name>
+						<impact_category>default</impact_category>
+					</value_range>
+				</selector>
+			</rate_plan_selector>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>Remove unused hours</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/cycle/fold</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>unused hours</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="default">
+						<description>Unused async bulk houres deleted</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact scaled_unit="hour">
+								<resource_id>1000001</resource_id>
+								<impact_category>default</impact_category>
+								<glid>0</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>-1.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+	</product>
+	<product partial="yes" type="item">
+		<product_name>IP async bulk hour unit</product_name>
+		<product_code>IP async bulk hour unit</product_code>
+		<priority>0.0</priority>
+		<permitted>/service/ip</permitted>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/purchase</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>purchase</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>purchase</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/purchase</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>purchase</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="default">
+						<description>Promotional Credit for IP Async Connect Time</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable" scaled_unit="hour">
+								<resource_id>1000001</resource_id>
+								<glid>101</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>-1.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+	</product>
+	<product partial="no" type="subscription">
+		<product_name>Default System Product</product_name>
+		<product_code>Default System Product</product_code>
+		<priority>0.0</priority>
+		<description>Global rates container</description>
+		<purchase_max>1.0</purchase_max>
+		<purchase_min>1.0</purchase_min>
+		<own_max>1.0</own_max>
+		<own_min>1.0</own_min>
+	</product>
+	<product partial="no" type="subscription">
+		<product_name>IP async unlimited</product_name>
+		<product_code>IP async unlimited</product_code>
+		<priority>0.0</priority>
+		<purchase_max>1.0</purchase_max>
+		<own_max>1.0</own_max>
+		<permitted>/service/ip</permitted>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/purchase</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>purchase</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>purchase</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/purchase</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>purchase</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="default">
+						<description>Purchase Fee for IP Async Unlimited Service</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable" scaled_unit="none">
+								<resource_id>840</resource_id>
+								<glid>101</glid>
+								<fixed_amount>5.0</fixed_amount>
+								<scaled_amount>0.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>cycle_forward_monthly</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="prorate" step_type="total_quantity_rated" type="default">
+						<description>Monthly Fee for IP Async Unlimited Service</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable proratable" scaled_unit="none">
+								<resource_id>840</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>19.95</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+	</product>
+	<product partial="no" type="subscription">
+		<product_name>IP async bulk 30</product_name>
+		<product_code>IP async bulk 30</product_code>
+		<priority>50.0</priority>
+		<purchase_max>1.0</purchase_max>
+		<own_max>1.0</own_max>
+		<permitted>/service/ip</permitted>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>cycle_forward_monthly</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="prorate" step_type="total_quantity_rated" type="default">
+						<description>Monthly Fee for IP Async 30-Hour Package</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable proratable" scaled_unit="none">
+								<resource_id>840</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>30.0</scaled_amount>
+							</balance_impact>
+							<balance_impact flag="discountable" scaled_unit="hour">
+								<resource_id>1000001</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>-30.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+		<event_rating_map incr_unit="second" min_unit="minute" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/session</event_type>
+			<rum_name>Duration</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>6.0</incr_quantity>
+			<rate_plan_name>ip/dialup/async/hourly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>ip/dialup/async/hourly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/session</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>ip/dialup/async/hourly</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="default">
+						<description>IP Async Dialup Session</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable" scaled_unit="hour">
+								<resource_id>840</resource_id>
+								<glid>104</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>1.5</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+	</product>
+	<product partial="no" type="subscription">
+		<product_name>IP async bulk 10</product_name>
+		<product_code>IP async bulk 10</product_code>
+		<priority>0.0</priority>
+		<purchase_max>1.0</purchase_max>
+		<own_max>1.0</own_max>
+		<permitted>/service/ip</permitted>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>cycle_forward_monthly</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated" type="default">
+						<description>Monthly Fee for IP Async 10-Hour Package</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable proratable" scaled_unit="none">
+								<resource_id>840</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>15.0</scaled_amount>
+							</balance_impact>
+							<balance_impact flag="discountable" scaled_unit="hour">
+								<resource_id>1000001</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>-10.0</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+	</product>
+	<product partial="no" type="subscription">
+		<product_name>Email service</product_name>
+		<product_code>Email service</product_code>
+		<priority>0.0</priority>
+		<purchase_max>1.0</purchase_max>
+		<own_max>1.0</own_max>
+		<permitted>/service/email</permitted>
+		<event_rating_map incr_unit="none" min_unit="none" rounding_rule="nearest" timezone_mode="server" tod_mode="start_time">
+			<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+			<rum_name>Occurrence</rum_name>
+			<min_quantity>1.0</min_quantity>
+			<incr_quantity>1.0</incr_quantity>
+			<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+			<rate_plan advance_billing_unit="day" tax_when="never">
+				<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+				<currency_id>840</currency_id>
+				<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+				<advance_billing_offset>0</advance_billing_offset>
+				<cycle_fee_flags>0</cycle_fee_flags>
+				<rate_tier date_range_type="absolute">
+					<rate_tier_name>cycle_forward_monthly</rate_tier_name>
+					<priority>1.0</priority>
+					<rate prorate_first="prorate" prorate_last="prorate" step_type="total_quantity_rated" type="default">
+						<description>Monthly Fee for Basic Email Service</description>
+						<step_resource_id>0</step_resource_id>
+						<quantity_tier>
+							<balance_impact flag="discountable proratable" scaled_unit="none">
+								<resource_id>840</resource_id>
+								<glid>102</glid>
+								<fixed_amount>0.0</fixed_amount>
+								<scaled_amount>2.5</scaled_amount>
+							</balance_impact>
+						</quantity_tier>
+					</rate>
+				</rate_tier>
+			</rate_plan>
+		</event_rating_map>
+	</product>
+</price_list>

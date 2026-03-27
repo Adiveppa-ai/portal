@@ -1,0 +1,51 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="false"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT  
+     "CONFIG_GLID_ACCTS_T"."REC_ID2", 
+     "CONFIG_GLID_ACCTS_T"."GL_AR_ACCT", 
+     "CONFIG_GLID_ACCTS_T"."GL_OFFSET_ACCT", 
+     "CONFIG_GLID_T"."DESCR" 
+FROM   
+     "CONFIG_GLID_ACCTS_T" "CONFIG_GLID_ACCTS_T" 
+     INNER JOIN "CONFIG_GLID_T" "CONFIG_GLID_T" 
+     ON "CONFIG_GLID_ACCTS_T"."REC_ID2"="CONFIG_GLID_T"."REC_ID" AND "CONFIG_GLID_ACCTS_T"."ATTRIBUTE"=8
+ORDER BY 
+     "CONFIG_GLID_ACCTS_T"."REC_ID2",
+     "CONFIG_GLID_T"."REC_ID"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="ROWSET">
+  <group name="ROW" source="Q1" label="ROW">
+    <element name="REC_ID2" value="REC_ID2" dataType="xsd:integer" label="REC_ID2" breakOrder="None" fieldOrder="1"/>
+    <element name="GL_AR_ACCT" value="GL_AR_ACCT" dataType="xsd:string" label="GL_AR_ACCT" breakOrder="None" fieldOrder="2"/>
+    <element name="GL_OFFSET_ACCT" value="GL_OFFSET_ACCT" dataType="xsd:string" label="GL_OFFSET_ACCT" breakOrder="None" fieldOrder="3"/>
+    <element name="DESCR" value="DESCR" dataType="xsd:string" label="DESCR" breakOrder="None" fieldOrder="4"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="ROWSET" left="28px" top="14px"/><layout name="Q1" left="274px" top="17px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

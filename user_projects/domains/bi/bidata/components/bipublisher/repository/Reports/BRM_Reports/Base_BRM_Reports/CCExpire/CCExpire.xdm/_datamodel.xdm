@@ -1,0 +1,119 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "ACCOUNT_NAMEINFO_T"."OBJ_ID0", "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "ACCOUNT_NAMEINFO_T"."FIRST_NAME","PAYINFO_CC_T"."DEBIT_NUM",
+ CCEXPIRE.GET_CONVERTED_DATE(TO_DATE("PAYINFO_CC_T"."DEBIT_EXP", 'mmyy')) "EXPIRY_DATE" ,
+ "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE",
+ "PAYINFO_CC_T"."NAME", "ACCOUNT_T"."STATUS", "ACCOUNT_T"."ACCOUNT_NO",
+ "ACCOUNT_T"."POID_ID0", "ACCOUNT_NAMEINFO_T"."REC_ID", "ACCOUNT_T"."POID_DB"
+ FROM (("ACCOUNT_T" "ACCOUNT_T"
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T"
+ ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ INNER JOIN "PAYINFO_T" "PAYINFO_T" ON "ACCOUNT_T"."POID_ID0"="PAYINFO_T"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "PAYINFO_CC_T" "PAYINFO_CC_T" ON "PAYINFO_T"."POID_ID0"="PAYINFO_CC_T"."OBJ_ID0"
+ WHERE "ACCOUNT_T"."POID_DB">0
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:PARAM_COUNTRY,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:PARAM_STATE,"ACCOUNT_NAMEINFO_T"."STATE")
+ AND "ACCOUNT_T"."STATUS" LIKE NVL(:PARAM_ACCOUNT_STATUS, "ACCOUNT_T"."STATUS")
+ AND "ACCOUNT_T"."POID_ID0">1
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND ((TO_DATE("PAYINFO_CC_T"."DEBIT_EXP", 'mmyy') >= substr(:PARAM_CURRENT_DATE,0,instr(:PARAM_CURRENT_DATE,' ')))
+AND (TO_DATE("PAYINFO_CC_T"."DEBIT_EXP", 'mmyy')  <= ADD_MONTHS(substr(:PARAM_CURRENT_DATE,0,instr(:PARAM_CURRENT_DATE,' ')),:PARAM_EXPIRE_PERIOD)))
+ ORDER BY "ACCOUNT_NAMEINFO_T"."COUNTRY", to_date("PAYINFO_CC_T"."DEBIT_EXP", 'mmyy'),
+ "ACCOUNT_T"."STATUS","ACCOUNT_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="OBJ_ID0" value="OBJ_ID0" dataType="xsd:integer" label="OBJ_ID0" breakOrder="None" fieldOrder="1"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="2"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="3"/>
+    <element name="DEBIT_NUM" value="DEBIT_NUM" dataType="xsd:string" label="DEBIT_NUM" breakOrder="None" fieldOrder="4"/>
+    <element name="EXPIRY_DATE" value="EXPIRY_DATE" dataType="xsd:string" label="EXPIRY_DATE" breakOrder="None" fieldOrder="5"/>
+    <element name="COUNTRY" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="6"/>
+    <element name="STATE" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="7"/>
+    <element name="NAME" value="NAME" dataType="xsd:string" label="NAME" breakOrder="None" fieldOrder="8"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="9"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="10"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="11"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="12"/>
+    <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="13"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="LOV_ACCOUNT_STATUS">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_EXPIRE_PERIOD">
+         <nvPairs>
+            <nvPair label="Current Month" value="0"/>
+            <nvPair label="Current &amp; Next Month" value="1"/>
+            <nvPair label="Current &amp; Next 2 Months" value="2"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_MASK_CCNO">
+         <nvPairs>
+            <nvPair label="Yes" value="0"/>
+            <nvPair label="No" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_COUNTRY" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries." valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_ACCOUNT_STATUS" dataType="xsd:string">
+         <select label="Select a specific account status, or select ALL to include all accounts. " valueSet="LOV_ACCOUNT_STATUS" multiple="false" all="true" allValue="null" refreshParameters="false"/>
+      </parameter>
+      <parameter name="PARAM_EXPIRE_PERIOD" dataType="xsd:string">
+         <select label="Select the months for the report to cover." valueSet="LOV_EXPIRE_PERIOD" multiple="false" all="false" allValue="lov"/>
+      </parameter>
+      <parameter name="PARAM_MASK_CCNO" dataType="xsd:string">
+         <select label="Select YES to mask credit card numbers; select NO to display entire number." valueSet="LOV_MASK_CCNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_CURRENT_DATE" dataType="xsd:date">
+         <date label="Current Date (MMyy) [To be masked latter]" size="10" format="MMyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

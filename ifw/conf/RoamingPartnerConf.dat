@@ -1,0 +1,12 @@
+#######################################################
+# Configuration file for repeating blocks in registry #
+#######################################################
+
+
+# Column Headers
+################################################################################################################################################################################################################
+VPLMN|TAPOUT_SEQUENCER|NRTRDEOUT_SEQUENCER|TAPOUT_STREAM|NRTRDEOUT_STREAM|TAPOUT_PATH|NRTRDEOUT_PATH|TAPOUT_PREFIX|NRTRDEOUT_PREFIX|TMP_PREFIX|TMP_DATA_PREFIX|COUNTRYCODE|DECIMALPLACES|NRTRDEOUTPUTSTREAMMODULE
+################################################################################################################################################################################################################
+
+OPRT1|SEQ_GEN_TAPOUT_OPRT1|SEQ_GEN_NRTRDEOUT_OPRT1|TAPOutput_OPRT1|NRTRDEOutput_OPRT1|./data/outcollect/tapout/oprt1|./data/outcollect/nrtrdeout/oprt1|CDEUR01OPRT1|NREUR01OPRT1|temptest_oprt1|temp.oprt1.tmp.|42|5|OUT_DevNull
+OPRT2|SEQ_GEN_TAPOUT_OPRT2|SEQ_GEN_NRTRDEOUT_OPRT2|TAPOutput_OPRT2|NRTRDEOutput_OPRT2|./data/outcollect/tapout/oprt2|./data/outcollect/nrtrdeout/oprt2|CDEUR01OPRT2|NREUR01OPRT2|temptest_oprt2|temp.oprt2.tmp.|42|5|OUT_GenericStream

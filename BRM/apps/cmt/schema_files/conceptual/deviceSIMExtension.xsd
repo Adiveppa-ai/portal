@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="deviceExtensions.xsd"/>
+	<xs:complexType name="deviceSIMType">
+		<xs:complexContent>
+			<xs:extension base="deviceExtensionType">
+				<xs:sequence>
+					<xs:element name="FldImsi" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldPin1" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="30"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldPin2" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="30"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldPuk1" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="30"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldPuk2" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="30"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldKi" minOccurs="1" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldAdm1" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="30"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FldNetworkElement" type="NetworkElement" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+				<xs:attribute name="elem" type="xs:integer" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="DeviceSIMlExtension" type="deviceSIMType" substitutionGroup="DeviceExtension"/>
+</xs:schema>

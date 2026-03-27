@@ -1,0 +1,13 @@
+#
+PCM_OP_IPT_AUTHORIZE
+# number of field entries allocated 10, used 10
+0 PIN_FLD_POID           POID [0] 0.0.0.1 /service/telephony -1 0
+0 PIN_FLD_LOGIN           STR [0] "$L"
+0 PIN_FLD_PROGRAM_NAME    STR [0] "radius"
+0 PIN_FLD_NETWORK         STR [0] "my-network"
+0 PIN_FLD_TIMEZONE        INT [0] 28800
+0 PIN_FLD_TERMSERV_ID     STR [0] "156.151.76.$R(1,250)"
+0 PIN_FLD_TERMSERV_PORT    STR [0] "25"
+0 PIN_FLD_DNIS            STR [0] "1415$R(0,2)111111"
+0 PIN_FLD_ANI             STR [0] "1415$R(0,2)111111"
+0 PIN_FLD_TRANS_ID        STR [0] "B566EC63 4BC003F $U F186B3C"

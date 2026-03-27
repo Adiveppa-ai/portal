@@ -1,0 +1,72 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#
+#  This material is the confidential property of Oracle Corporation
+#  or its subsidiaries or licensors and may be used, reproduced, stored
+#  or transmitted only in accordance with a valid Oracle license or
+#  sublicense agreement.
+
+
+if ( $ARGV[0] ) {
+$sfile=$ARGV[0];
+} else {
+$sfile="opcode_load.event";
+}
+
+if ( open ( INFILE,$sfile ) ) {
+
+$xx = 0.0;
+$X = 0.0;
+$maxx = 0.0;
+$last_time = 0;
+$begin_time = 0;
+$n = 0;
+
+while (<INFILE>) {
+    @Fld = split(' ', $_, 99);
+    if (/^Event: Entire_Session/) {
+	$value = $Fld[4];
+	$xx += $value * $value;
+	$X += $value;
+	$n++;
+
+	if ($value > $maxx) {	
+	    $maxx = $value;
+	}
+	if ($begin_time == 0) {	
+	    $begin_time = $Fld[5];
+	}
+	$last_time = $Fld[4] + $Fld[5];
+    }
+    if (/^Event: OP-CODE/) {
+	$value = $Fld[5];
+	$oxx{$Fld[2]} += $value * $value;
+	$oX{$Fld[2]} += $value;
+	$n{$Fld[2]}++;
+
+	if (!$omaxx{$Fld[2]} || ( $value > $omaxx{$Fld[2]})) {	
+	    $omaxx{$Fld[2]} = $value;
+	}
+    }
+}
+
+printf "Created sessions: %d\n", $n;
+printf "Running time: %.0fs\n", ($last_time - $begin_time) / 1000.0;
+printf "Mean time to create session: %dms\n", $X / $n;
+printf "Sdev time to create session: %dms\n",
+
+  sqrt($xx / $n - ($X * $X) / ($n * $n));
+printf "Max  time to create session: %dms\n", $maxx;
+foreach $op_codes ( keys(%oxx)) {
+  printf "OP-CODE: %s \n", $op_codes;
+  printf "Mean time to run opcode: %dms\n", $oX{$op_codes} / $n{$op_codes};
+  printf "Sdev time to run opcode: %dms\n",
+     sqrt($oxx{$op_codes} / $n{$op_codes} - ($oX{$op_codes} * $oX{$op_codes}) / ($n{$op_codes} * $n{$op_codes}));
+  printf "Max  time to run opcode: %dms\n", $omaxx{$op_codes};
+}
+printf "Sessions per second created: %.1f\n", $n / ($last_time - $begin_time) * 1000;
+
+}
+
+

@@ -1,0 +1,185 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql>
+            <![CDATA[SELECT "account_t"."POID_ID0", "account_nameinfo_t"."REC_ID",
+ "event_tax_jurisdictions_t"."TYPE",
+ "event_tax_jurisdictions_t"."NAME" "JURISDICTION_NAME",
+ BIP_TAXES.GET_JURISDICTION
+ ("event_tax_jurisdictions_t"."NAME",
+ 'STATE'
+ ) "JURISDICTION_STATE",
+ "event_tax_jurisdictions_t"."AMOUNT",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 0, "event_tax_jurisdictions_t"."AMOUNT",
+ 0
+ ) "FEDERAL_TAX",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 1, "event_tax_jurisdictions_t"."AMOUNT",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 7, "event_tax_jurisdictions_t"."AMOUNT",
+ 0
+ )
+ ) "STATE_TAX",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 2, "event_tax_jurisdictions_t"."AMOUNT",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 4, "event_tax_jurisdictions_t"."AMOUNT",
+ 0
+ )
+ ) "COUNTY_TAX",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 3, "event_tax_jurisdictions_t"."AMOUNT",
+ DECODE ("event_tax_jurisdictions_t"."TYPE",
+ 5, "event_tax_jurisdictions_t"."AMOUNT",
+ 0
+ )
+ ) "CITY_TAX",
+ "account_t"."ACCOUNT_NO", "account_nameinfo_t"."LAST_NAME",
+ "account_nameinfo_t"."FIRST_NAME", "event_t"."POID_ID0" POID_ID01,
+ "event_t"."CURRENCY",
+ "CONFIG_BEID_BALANCES_T"."NAME" "RESOURCE_NAME",
+ "item_t"."EFFECTIVE_T", "account_t"."POID_DB",
+ "CONFIG_TAXS_T"."NAME" "TAX_SUPPLIER_NAME"
+ FROM ((((("ACCOUNT_T" "account_t" INNER JOIN "EVENT_T" "event_t" ON
+ "account_t"."POID_ID0" = "event_t"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "EVENT_TAX_JURISDICTIONS_T" "event_tax_jurisdictions_t" ON
+ "event_t"."POID_ID0" = "event_tax_jurisdictions_t"."OBJ_ID0")
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t" ON
+ "event_t"."ACCOUNT_OBJ_ID0" = "account_nameinfo_t"."OBJ_ID0")
+ INNER JOIN "ITEM_T" "item_t" ON "event_t"."ITEM_OBJ_ID0" = "item_t"."POID_ID0")
+ INNER JOIN "CONFIG_TAXS_T" "CONFIG_TAXS_T" ON
+ "event_t"."TAX_SUPPLIER" = "CONFIG_TAXS_T"."REC_ID")
+ INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON
+ "event_t"."CURRENCY" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+ WHERE "account_t"."POID_DB" >
+ 0
+ AND "account_nameinfo_t"."REC_ID" = 1
+ AND "CONFIG_TAXS_T"."NAME" LIKE
+ NVL (:param_tax_supplier, "CONFIG_TAXS_T"."NAME")
+ AND ( bipext.infcheckdates (:param_start_date, :param_end_date) = 1
+ AND "item_t"."EFFECTIVE_T" >=
+ bipext.infstrtotimet (:param_start_date, 2)
+ AND "item_t"."EFFECTIVE_T" <=
+ (bipext.infstrtotimet (:param_end_date, 2) - 1
+ )
+ )
+ AND "account_t"."POID_ID0" >
+ 1
+ AND (BIP_TAXES.GET_JURISDICTION("event_tax_jurisdictions_t"."NAME",
+ 'FEDERAL'
+ ) LIKE :param_country
+ )
+ AND (BIP_TAXES.GET_JURISDICTION("event_tax_jurisdictions_t"."NAME",
+ 'STATE'
+ ) LIKE
+ NVL (DECODE (:param_state, 'ALL', '%', :param_state),
+ '')
+ )
+ ORDER BY "event_t"."CURRENCY", "CONFIG_TAXS_T"."NAME"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="TaxAllSummary" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="Q1" label="Q1" source="Q1">
+               <element name="POID_ID0" value="POID_ID0" label="POID_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="1"/>
+               <element name="REC_ID" value="REC_ID" label="REC_ID" dataType="xsd:integer" breakOrder="" fieldOrder="2"/>
+               <element name="TYPE" value="TYPE" label="TYPE" dataType="xsd:integer" breakOrder="" fieldOrder="3"/>
+               <element name="JURISDICTION_NAME" value="JURISDICTION_NAME" label="JURISDICTION_NAME" dataType="xsd:string" breakOrder="" fieldOrder="4"/>
+               <element name="JURISDICTION_STATE" value="JURISDICTION_STATE" label="JURISDICTION_STATE" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="AMOUNT" value="AMOUNT" label="AMOUNT" dataType="xsd:integer" breakOrder="" fieldOrder="6"/>
+               <element name="FEDERAL_TAX" value="FEDERAL_TAX" label="FEDERAL_TAX" dataType="xsd:integer" breakOrder="" fieldOrder="7"/>
+               <element name="STATE_TAX" value="STATE_TAX" label="STATE_TAX" dataType="xsd:integer" breakOrder="" fieldOrder="8"/>
+               <element name="COUNTY_TAX" value="COUNTY_TAX" label="COUNTY_TAX" dataType="xsd:integer" breakOrder="" fieldOrder="9"/>
+               <element name="CITY_TAX" value="CITY_TAX" label="CITY_TAX" dataType="xsd:integer" breakOrder="" fieldOrder="10"/>
+               <element name="ACCOUNT_NO" value="ACCOUNT_NO" label="ACCOUNT_NO" dataType="xsd:string" breakOrder="" fieldOrder="11"/>
+               <element name="LAST_NAME" value="LAST_NAME" label="LAST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="12"/>
+               <element name="FIRST_NAME" value="FIRST_NAME" label="FIRST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="13"/>
+               <element name="POID_ID01" value="POID_ID01" label="POID_ID01" dataType="xsd:integer" breakOrder="" fieldOrder="14"/>
+               <element name="CURRENCY" value="CURRENCY" label="CURRENCY" dataType="xsd:integer" breakOrder="" fieldOrder="15"/>
+               <element name="RESOURCE_NAME" value="RESOURCE_NAME" label="RESOURCE_NAME" dataType="xsd:string" breakOrder="" fieldOrder="16"/>
+               <element name="EFFECTIVE_T" value="EFFECTIVE_T" label="EFFECTIVE_T" dataType="xsd:integer" breakOrder="" fieldOrder="17"/>
+               <element name="POID_DB" value="POID_DB" label="POID_DB" dataType="xsd:integer" breakOrder="" fieldOrder="18"/>
+               <element name="TAX_SUPPLIER_NAME" value="TAX_SUPPLIER_NAME" label="TAX_SUPPLIER_NAME" dataType="xsd:string" breakOrder="" fieldOrder="19"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="STATE_DETAILS_LOV">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="COUNTRY_LOV">
+         <nvPairs>
+            <nvPair label="US" value="US"/>
+            <nvPair label="CA" value="CA"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="TAX_SUPPLIER_DETAILS_LOV">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="TAX_SUPPLIER_LOV">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(name) from config_taxs_t]]>
+         </sql>
+      </valueSet>
+      <valueSet id="STATE_LOV">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT BIP_TAXES.GET_JURISDICTION("EVENT_TAX_JURISDICTIONS_T"."NAME",'STATE') STATE
+FROM "EVENT_TAX_JURISDICTIONS_T" "EVENT_TAX_JURISDICTIONS_T"
+where (BIP_TAXES.GET_JURISDICTION("EVENT_TAX_JURISDICTIONS_T"."NAME",'FEDERAL') in ('US','CA'))]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_STATE_DETAILS" dataType="xsd:float">
+         <select label="Include state-level details?" valueSet="STATE_DETAILS_LOV" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" dataType="xsd:string">
+         <select label="Select US for United States or CA for Canada" valueSet="COUNTRY_LOV" multiple="false" all="false" allValue="null" refreshParameters="false"/>
+      </parameter>
+      <parameter name="PARAM_STATE" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all state" valueSet="STATE_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_TAX_SUPPLIER_DETAILS" dataType="xsd:float">
+         <select label="Include tax supplier details?" valueSet="TAX_SUPPLIER_DETAILS_LOV" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_TAX_SUPPLIER" dataType="xsd:string">
+         <select label="Enter a specific tax supplier name, or select ALL to include all tax suppliers" valueSet="TAX_SUPPLIER_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)" size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)" size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+      <layouts>
+         <layout name="Q1" left="285px" top="28px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

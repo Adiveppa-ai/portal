@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!-- Copyright (c) 2014, 2016, Oracle and/or its affiliates. 
+All rights reserved.-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" elementFormDefault="qualified" xmlns="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:op="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+   <xsd:element name="PCM_OP_READ_FLDS_inputFlist">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:any processContents="skip" namespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" maxOccurs="unbounded" minOccurs="0" />
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="PCM_OP_READ_FLDS_outputFlist">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:any processContents="skip" namespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes"  maxOccurs="unbounded" minOccurs="0" />
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+</xsd:schema>

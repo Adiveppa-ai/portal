@@ -1,0 +1,12 @@
+# @(#)% %
+#
+# Copyright (c) 1999, 2020, Oracle and/or its affiliates. All rights reserved.
+#      This material is the confidential property of Oracle Corporation
+#      or its licensors and may be used, reproduced, stored
+#      or transmitted only in accordance with a valid Oracle license
+#      or sublicense agreement.
+#
+
+__JAVA_HOME__/bin/java -classpath __JAVA_HOME__/lib/jre/rt.jar:__PIN_HOME__/jars/pcm.jar:__PIN_HOME__/jars/pcmext.jar:__PIN_HOME__/jars/oraclepki.jar:__PIN_HOME__/jars/osdt_cert.jar:__PIN_HOME__/jars/osdt_core.jar:uel.jar:. -mx100000000 com.portal.gel.Gel $1 $2 $3 $4 $5 $6 $7
+
+

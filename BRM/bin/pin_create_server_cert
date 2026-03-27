@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# $Header: common_vob/common_platform/pcm_pcp/ssl_wallets/server/pin_create_server_cert.sh /cgbubrm_mainbrm.portalbase/1 2017/10/06 05:23:27 anirbisw Exp $
+#
+# pin_create_server_cert.sh
+#
+# Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
+#
+#    NAME
+#      pin_create_server_cert.sh - <one-line expansion of the name>
+#
+#    DESCRIPTION
+#      This script creates an Oracle wallet in $PIN_HOME/wallet/server 
+#      location.The TLS certificates used by BRM server processes is
+#      craeted and stored in the Oracle wallet.
+#
+#    NOTES
+#      <other useful comments, qualifications, etc.>
+#
+#    MODIFIED   (MM/DD/YY)
+#    anirbisw    10/05/17 - Creation
+#
+PKI=${PIN_HOME}/jars/oraclepki.jar
+SVRWALLET=${PIN_HOME}/jars/svrwallet.jar
+CLASSPATH=.:$PKI:$SVRWALLET
+
+export CLASSPATH
+
+JAVA=${JAVA_HOME}/bin/java
+
+$JAVA -DJAVA_OPTS="-Xmx2048m -Xms256m" com.oracle.brm.wallet.CreateServerWallet $*

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><adapter-config xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata" adapter="Oracle BRM Adapter" name="BRMCUSTService">
+    <connection-factory UIConnectionName="" adapterRef="" location="eis/BRM"/>
+    <endpoint-interaction operation="PCM_OP_CUST_UPDATE_SERVICES" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_UPDATE_SERVICES"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_UPDATE_SERVICES.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_CREATE_PROFILE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_CREATE_PROFILE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_CREATE_PROFILE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_COMMIT_CUSTOMER" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_COMMIT_CUSTOMER"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_COMMIT_CUSTOMER.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_SET_STATUS" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_SET_STATUS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_SET_STATUS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_UPDATE_CUSTOMER" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_UPDATE_CUSTOMER"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_UPDATE_CUSTOMER.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_MODIFY_PROFILE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_MODIFY_PROFILE"/>
+            <property name="OpcodeFlags" value="32"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_MODIFY_PROFILE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_DELETE_PAYINFO" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_DELETE_PAYINFO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_DELETE_PAYINFO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_MODIFY_CUSTOMER" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_MODIFY_CUSTOMER"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_MODIFY_CUSTOMER.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_DELETE_ACCT" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_DELETE_ACCT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_DELETE_ACCT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_DELETE_PROFILE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_DELETE_PROFILE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_DELETE_PROFILE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_GET_NEWSFEED" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_GET_NEWSFEED"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_GET_NEWSFEED.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_GET_NOTE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_GET_NOTE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_GET_NOTE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_SET_NOTE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_SET_NOTE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_SET_NOTE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_SET_TAXINFO" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_SET_TAXINFO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_SET_TAXINFO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_FIND_PROFILE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_FIND_PROFILE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_FIND_PROFILE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_SET_BAL_GRP" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_SET_BAL_GRP"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_SET_BAL_GRP.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE" portType="BRMCUSTService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+</adapter-config>

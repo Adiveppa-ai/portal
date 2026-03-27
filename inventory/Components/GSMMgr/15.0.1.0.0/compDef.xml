@@ -1,0 +1,67 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="GSMMgr" version="15.0.1.0.0" description="GSM Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="40890" dest="dd_objects_telco_gsm.source" mode="0664"/>
+               <file size="1368" dest="7.2_7.3_dd_objects_telco_gsm.source" mode="0664"/>
+               <file size="12372" dest="dd_objects_settlement.source" mode="0664"/>
+               <file size="1820" dest="7.2_7.3_dd_objects_settlement.source" mode="0664"/>
+               <file size="698" dest="create_indexes_settlement_oracle.source" mode="0664"/>
+               <file size="545" dest="drop_tables_settlement_oracle.source" mode="0664"/>
+               <file size="2139" dest="create_indexes_telco_gsm_oracle.source" mode="0664"/>
+               <file size="664" dest="drop_indexes_telco_gsm_oracle.source" mode="0664"/>
+               <file size="690" dest="drop_tables_telco_gsm_oracle.source" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="dd_objects_telco_gsm.source"/>
+            <permission mode="0664" wildcard="dd_objects_settlement.source"/>
+            <permission mode="0664" wildcard="7.2_7.3_dd_objects_telco_gsm.source"/>
+            <permission mode="0664" wildcard="7.2_7.3_dd_objects_settlement.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2139" dest="pin_telco_service_order_state_gsm_data" mode="0644"/>
+               <file size="1140" dest="pin_device_permit_map_sim_telco_gsm" mode="0644"/>
+               <file size="7342" dest="pin_config_provisioning_tags_droppedcall.xml" mode="0644"/>
+               <file size="2122" dest="pin_telco_service_order_state_gsm" mode="0644"/>
+               <file size="8880" dest="pin_event_map_telco_gsm" mode="0644"/>
+               <file size="1196" dest="pin_device_permit_map_num_telco_gsm" mode="0644"/>
+               <file size="2149" dest="pin_telco_service_order_state_gsm_telephony" mode="0644"/>
+               <file size="3288" dest="pin_config_provisioning_tags_mostcalled.xml" mode="0644"/>
+               <file size="2137" dest="pin_telco_service_order_state_gsm_sms" mode="0644"/>
+               <file size="2137" dest="pin_telco_service_order_state_gsm_fax" mode="0644"/>
+               <file size="12143" dest="pin_telco_tags_gsm" mode="0644"/>
+               <file size="17812" dest="pin_telco_provisioning_gsm" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="pin*"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="16824" dest="fm_gsm.so" mode="0755"/>
+         <file size="16392" dest="fm_gsm_pol.so" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="fm_gsm.so"/>
+            <permission mode="0755" wildcard="fm_gsm_pol.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6036" dest="GSMPricePlanWithMostCalledDiscount.xml" mode="0664"/>
+            <file size="57769" dest="TelcoGSMSamplePricePlan.xml" mode="0664"/>
+            <file size="2364" dest="pin_cnf_gsm.pl" mode="0775"/>
+            <file size="16326" dest="pin_cmp_gsm.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="*.pl"/>
+            <permission mode="0664" wildcard="*.xml"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

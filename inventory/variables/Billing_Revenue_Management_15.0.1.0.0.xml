@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<variables-info name="Billing Revenue Management" version="15.0.1.0.0" xmlns="http://xmlns.oracle.com/oui/variables">
+   <variables type="product" resource="resources/Billing_Revenue_Management_15.0.1.0.0">
+      <variable name="CM_PORT" value="11960" type="number" helpid="" publish="true"/>
+      <variable name="DMO_PORT" value="12950" type="number" helpid="" publish="true"/>
+      <variable name="BRM_VAR" type="string" helpid="" publish="true"/>
+      <variable name="NEW_DBUSER_FLAG" value="2" type="number" helpid="" publish="true"/>
+      <variable name="DB_USERNAME" type="string" helpid="" publish="true"/>
+      <variable name="DB_PASSWORD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="DB_PASSWORD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="DB_PASSWORD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="BRM_ROOT_PW" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="BRM_ROOT_PW_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="BRM_ROOT_PW_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="BRM_ROLE_PW" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="BRM_ROLE_PW_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="BRM_ROLE_PW_ENC" type="string" secure="true" helpid="" publish="false"/>
+      <variable name="RUN_PIN_SETUP" value="1" type="number" helpid="" publish="true"/>
+      <variable name="CM_HOST" type="string" helpid="" publish="true"/>
+      <variable name="DATABASE_TYPE" value="1" type="number" helpid="" publish="true"/>
+      <variable name="DM_HOSTNAME" type="string" helpid="" publish="true"/>
+      <variable name="s_ReturnCode" type="string" helpid="" publish="true"/>
+      <variable name="CLIENT_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="CLIENT_WALLET_PASSWD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="CLIENT_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ROOT_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ROOT_WALLET_PASSWD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ROOT_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="SERVER_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="SERVER_WALLET_PASSWD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="SERVER_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ONLY_DM" value="0" type="number" helpid="" publish="true"/>
+      <variable name="ONLY_CM" value="0" type="number" helpid="" publish="true"/>
+      <variable name="CONNECT_STRING" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ASM" value="false" type="boolean" helpid="" publish="true"/>
+      <variable name="DB_CLIENT_VER" value="19" type="string" helpid="" publish="true"/>
+      <variable name="EAI_PORT" value="11970" type="number" helpid="" publish="true"/>
+      <variable name="SYS_HOSTNAME" type="string" helpid="" publish="true"/>
+      <variable name="SYS_PORT" value="1521" type="number" helpid="" publish="true"/>
+      <variable name="SYS_DBALIAS" type="string" helpid="" publish="true"/>
+      <variable name="SYS_USERNAME" type="string" helpid="" publish="true"/>
+      <variable name="SYS_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="SYS_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="STORAGE_MODEL_NUM" value="1" type="number" helpid="" publish="true"/>
+      <variable name="TABLE_GROUP" type="string" helpid="" publish="true"/>
+      <variable name="INDEX_GROUP" type="string" helpid="" publish="true"/>
+      <variable name="PARTITION_EVENT_TABLE" value="1" type="number" helpid="" publish="true"/>
+      <variable name="PARTITION_FIX" value="1" type="number" helpid="" publish="true"/>
+      <variable name="PARTITION_DETAILS" value="journal,journal_master,user_activity,newsfeed,sepa" type="string" helpid="" publish="true"/>
+      <variable name="DROP_TABLES" value="1" type="number" helpid="" publish="true"/>
+      <variable name="CHAR_SET" value="" type="string" helpid="" publish="true"/>
+      <variable name="DB_VERSION" value="" type="string" helpid="" publish="true"/>
+      <variable name="DB_NUMBER" value="0.0.0.1" type="string" helpid="" publish="true"/>
+      <variable name="DB_SERVICE" value="" type="string" helpid="" publish="true"/>
+      <variable name="IS_PRIMARY_DB" value="1" type="number" helpid="" publish="true"/>
+      <variable name="MULTIDB_PRIMARY_DBALIAS" type="string" helpid="" publish="true"/>
+      <variable name="MULTIDB_PRIMARY_DBUSER" type="string" helpid="" publish="true"/>
+      <variable name="MULTIDB_PRIMARY_DBPASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="MULTIDB_PRIMARY_DBPASSWD_ENC" type="string" secure="true" helpid="" publish="false"/>
+      <variable name="SYS_HOSTNAME_PIPELINE" type="string" helpid="" publish="true"/>
+      <variable name="SYS_PORT_PIPELINE" value="1521" type="number" helpid="" publish="true"/>
+      <variable name="SYS_DBALIAS_PIPELINE" type="string" helpid="" publish="true"/>
+      <variable name="SYS_USERNAME_PIPELINE" type="string" helpid="" publish="true"/>
+      <variable name="SYS_PASSWD_PIPELINE" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="SYS_PASSWD_PIPELINE_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="INFRANET_DB_USERNAME" type="string" helpid="" publish="true"/>
+      <variable name="INFRANET_DB_PASSWORD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="INFRANET_DB_PASSWORD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="INFRANET_TABLESPACE_TABLE" type="string" helpid="" publish="true"/>
+      <variable name="INFRANET_TABLESPACE_INDEX" type="string" helpid="" publish="true"/>
+      <variable name="IFW_DB_USERNAME" type="string" helpid="" publish="true"/>
+      <variable name="IFW_DB_PASSWORD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="IFW_DB_PASSWORD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="IFW_DB_PASSWORD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="IFW_TABLESPACE_TABLE" type="string" helpid="" publish="true"/>
+      <variable name="IFW_TABLESPACE_INDEX" type="string" helpid="" publish="true"/>
+      <variable name="IFW_USER_FLAG" value="1" type="number" helpid="" publish="true"/>
+      <variable name="CLIENT_WALLET_PASSWD_PIPE" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="CLIENT_WALLET_PASSWD_PIPE_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ONLY_PIPELINE" value="0" type="number" helpid="" publish="true"/>
+      <variable name="CONNECT_STRING_PIPE" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="ASM_PIPELINE" value="false" type="boolean" helpid="" publish="true"/>
+      <variable name="BRM_THIRDPARTY_LIBRARIES" type="string" helpid="" publish="true"/>
+      <variable name="OJDBC" type="string" helpid="" publish="true"/>
+      <variable name="BRM_VERSION" value="15.0.1.0.0" type="string" helpid="" publish="true"/>
+      <variable name="OVERLAY" value="false" type="boolean" helpid="" publish="true"/>
+      <variable name="SSL" value="true" type="boolean" helpid="" publish="true"/>
+      <variable name="IS_UPGRADE" value="0" type="number" helpid="" publish="true"/>
+      <variable name="IS_PIPE_UPGRADE" value="0" type="number" helpid="" publish="true"/>
+      <variable name="IS_DBA" value="1" type="number" helpid="" publish="true"/>
+      <variable name="DB_SSL_MODE" value="1" type="number" helpid="" publish="true"/>
+      <variable name="DB_SSL_TRUSTSTORE_TYPE" value="0" type="number" helpid="" publish="true"/>
+      <variable name="DB_SSL_KEYSTORE_TYPE" value="0" type="number" helpid="" publish="true"/>
+      <variable name="DB_SSL_TRUSTSTORE_LOC" type="string" helpid="" publish="true"/>
+      <variable name="DB_SSL_TRUSTSTORE_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="DB_SSL_KEYSTORE_LOC" type="string" helpid="" publish="true"/>
+      <variable name="DB_SSL_KEYSTORE_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="DB_SSL_TRUSTSTORE_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="DB_SSL_KEYSTORE_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="OS_TYPE" value="Linux" type="string" helpid="" publish="false"/>
+      <variable name="PRIMARY_DB_INDEX" value="1" type="number" helpid="" publish="false"/>
+      <variable name="SECONDARY_DB_INDEX" value="2" type="number" helpid="" publish="false"/>
+      <variable name="PIN_PERL_VERSION" value="5.38.2" type="string" helpid="" publish="false"/>
+      <variable name="SETUP_PRICING" value="2" type="number" helpid="" publish="true"/>
+      <variable name="CMP_PORT" value="11953" type="number" helpid="" publish="true"/>
+      <variable name="CMMP_PORT" value="11959" type="number" helpid="" publish="true"/>
+      <variable name="DME_PORT" value="12820" type="number" helpid="" publish="true"/>
+      <variable name="DMI_PORT" value="12860" type="number" helpid="" publish="true"/>
+      <variable name="UPGRADE_ROOT_KEY_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="UPGRADE_ROOT_KEY_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <variable name="UPGRADE_WALLET_LOCATION" type="string" helpid="" publish="true"/>
+   </variables>
+</variables-info>

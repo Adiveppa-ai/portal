@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><LIB_LIST>
+   <QUERY_LIST>
+      <LIB NAME="generalQueries" VER="10.2.0.2.1" REP_VER="0.0" MIN_INST_VER="11.2.0.0.0" INV_LOC="Queries/generalQueries/10.2.0.2.1/generalQueries.jar"/>
+      <LIB NAME="jdkGeneralQueries" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="11.2.0.0.0" INV_LOC="Queries/jdkGeneralQueries/12.1.3.0.0/jdkGeneralQueries.jar"/>
+      <LIB NAME="areasQueries" VER="10.2.0.1.0" REP_VER="0.0" MIN_INST_VER="11.2.0.0.0" INV_LOC="Queries/areasQueries/10.2.0.1.0/areasQueries.jar"/>
+   </QUERY_LIST>
+   <DIALOG_LIST/>
+   <ACTION_LIST>
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="11.2.0.2.0" INV_LOC="Actions/fileActions/12.1.3.0.0/fileActionLib.jar"/>
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="11.1.0.0.0" INV_LOC="Actions/SpawnActions/10.1.0.3.4/spawnActions.jar"/>
+      <LIB NAME="generalActions" VER="10.2.0.9.0" REP_VER="0.0" MIN_INST_VER="11.2.0.0.0" INV_LOC="Actions/generalActions/10.2.0.9.0/generalActions.jar"/>
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="11.2.0.0.0" INV_LOC="Actions/dbActions/10.1.0.2.0/dbActions.jar"/>
+      <LIB NAME="unixActions" VER="10.2.0.3.0" REP_VER="0.0" MIN_INST_VER="11.2.0.0.0" INV_LOC="Actions/unixActions/10.2.0.3.0/unixActions.jar"/>
+   </ACTION_LIST>
+</LIB_LIST>

@@ -1,0 +1,65 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_TRANS_COMMIT" visibility="public" transaction="required" component="server_platform" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes         opspec.xsd">
+  <Doc> This opcode commits a currently open transaction.
+  </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Partial Poid. Only the DB piece of the POID is significant. </Doc>
+      </Poid>
+      <String name="PIN_FLD_TRANS_ID" use="optional">
+        <Doc>Reserved for internal use.
+	<br/>
+         This field is used to represent the XID of the transaction in string format 
+	<br/>
+	 containing the formatId, global transaction id and branch qualifier separated by commas.
+	<br/>
+	The global transaction id  and branch qualifier byte values are encoded in 2-byte hexadecimal characters
+	<br/>
+	For example, to represent XID with format Id numeric value = 100, global transaction id bytes  with values 49, 50, 51
+	<br/>
+	and branch qualifier bytes with value 52,
+	<br/>
+	the field will have the string "100,313233,34"
+	<br/>
+	</Doc>
+      </String>
+      <Int name="PIN_FLD_FLAGS" use="optional">
+        <Doc>Reserved for internal use.
+	<br/>
+        This field is used to indicate additional parameters for 
+        <br/>
+        XA transactions.
+        </Doc>
+      </Int>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>POID passed in the input flist </Doc>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

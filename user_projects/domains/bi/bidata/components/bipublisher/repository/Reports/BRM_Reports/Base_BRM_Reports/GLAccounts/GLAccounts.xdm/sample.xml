@@ -1,0 +1,2020 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ROWSET>
+<ROW>
+<REC_ID2>0</REC_ID2>
+<GL_AR_ACCT>undef.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>undef.credit</GL_OFFSET_ACCT>
+<DESCR>undefined</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>0</REC_ID2>
+<GL_AR_ACCT>undef.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>undef.credit</GL_OFFSET_ACCT>
+<DESCR>undefined</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.debit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.debit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.debit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.credit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>101</REC_ID2>
+<GL_AR_ACCT>purchase.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>purchase.debit</GL_OFFSET_ACCT>
+<DESCR>Purchase Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.debit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>102</REC_ID2>
+<GL_AR_ACCT>monthly.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>monthly.credit</GL_OFFSET_ACCT>
+<DESCR>Monthly Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.debit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.debit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.debit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.debit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>103</REC_ID2>
+<GL_AR_ACCT>cancel.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.credit</GL_OFFSET_ACCT>
+<DESCR>Cancel Fees</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.debit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.debit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.debit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.credit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>104</REC_ID2>
+<GL_AR_ACCT>dialup.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dialup.debit</GL_OFFSET_ACCT>
+<DESCR>Dialup Usage Fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>105</REC_ID2>
+<GL_AR_ACCT>misc.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>misc.debit</GL_OFFSET_ACCT>
+<DESCR>Misc Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>105</REC_ID2>
+<GL_AR_ACCT>misc.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>misc.debit</GL_OFFSET_ACCT>
+<DESCR>Misc Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>105</REC_ID2>
+<GL_AR_ACCT>misc.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>misc.debit</GL_OFFSET_ACCT>
+<DESCR>Misc Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>105</REC_ID2>
+<GL_AR_ACCT>misc.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>misc.debit</GL_OFFSET_ACCT>
+<DESCR>Misc Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>106</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Writeoff Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>106</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Writeoff Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>106</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Writeoff Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>106</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Writeoff Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>107</REC_ID2>
+<GL_AR_ACCT>dispute.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dispute.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>107</REC_ID2>
+<GL_AR_ACCT>dispute.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dispute.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>107</REC_ID2>
+<GL_AR_ACCT>dispute.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dispute.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>107</REC_ID2>
+<GL_AR_ACCT>dispute.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>dispute.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Adjustments</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>108</REC_ID2>
+<GL_AR_ACCT>settlement.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>settlement.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Settlements</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>108</REC_ID2>
+<GL_AR_ACCT>settlement.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>settlement.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Settlements</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>108</REC_ID2>
+<GL_AR_ACCT>settlement.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>settlement.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Settlements</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>108</REC_ID2>
+<GL_AR_ACCT>settlement.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>settlement.debit</GL_OFFSET_ACCT>
+<DESCR>Dispute Settlements</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>109</REC_ID2>
+<GL_AR_ACCT>cash.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cash.debit</GL_OFFSET_ACCT>
+<DESCR>Payment received</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>109</REC_ID2>
+<GL_AR_ACCT>cash.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cash.debit</GL_OFFSET_ACCT>
+<DESCR>Payment received</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>109</REC_ID2>
+<GL_AR_ACCT>cash.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cash.debit</GL_OFFSET_ACCT>
+<DESCR>Payment received</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>109</REC_ID2>
+<GL_AR_ACCT>cash.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cash.debit</GL_OFFSET_ACCT>
+<DESCR>Payment received</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>110</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Re-writeoff while WOR</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>110</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Re-writeoff while WOR</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>110</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Re-writeoff while WOR</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>110</REC_ID2>
+<GL_AR_ACCT>writeoff.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff.debit</GL_OFFSET_ACCT>
+<DESCR>Re-writeoff while WOR</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>111</REC_ID2>
+<GL_AR_ACCT>writeoff-reversal.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff-reversal.debit</GL_OFFSET_ACCT>
+<DESCR>Write-off reversal</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>111</REC_ID2>
+<GL_AR_ACCT>writeoff-reversal.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff-reversal.debit</GL_OFFSET_ACCT>
+<DESCR>Write-off reversal</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>111</REC_ID2>
+<GL_AR_ACCT>writeoff-reversal.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff-reversal.debit</GL_OFFSET_ACCT>
+<DESCR>Write-off reversal</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>111</REC_ID2>
+<GL_AR_ACCT>writeoff-reversal.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>writeoff-reversal.debit</GL_OFFSET_ACCT>
+<DESCR>Write-off reversal</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1001</REC_ID2>
+<GL_AR_ACCT>sales.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>sales.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on purchase fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1001</REC_ID2>
+<GL_AR_ACCT>sales.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>sales.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on purchase fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1001</REC_ID2>
+<GL_AR_ACCT>sales.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>sales.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on purchase fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1001</REC_ID2>
+<GL_AR_ACCT>sales.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>sales.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on purchase fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1002</REC_ID2>
+<GL_AR_ACCT>cycle.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cycle.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cycle forward fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1003</REC_ID2>
+<GL_AR_ACCT>cancel.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cancellation fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1003</REC_ID2>
+<GL_AR_ACCT>cancel.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cancellation fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1003</REC_ID2>
+<GL_AR_ACCT>cancel.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cancellation fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1003</REC_ID2>
+<GL_AR_ACCT>cancel.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>cancel.tax.credit</GL_OFFSET_ACCT>
+<DESCR>Tax on cancellation fee</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1004</REC_ID2>
+<GL_AR_ACCT>usage.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>usage.tax.credit</GL_OFFSET_ACCT>
+<DESCR>ip/dialup/async/hourly Tax</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1004</REC_ID2>
+<GL_AR_ACCT>usage.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>usage.tax.credit</GL_OFFSET_ACCT>
+<DESCR>ip/dialup/async/hourly Tax</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1004</REC_ID2>
+<GL_AR_ACCT>usage.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>usage.tax.credit</GL_OFFSET_ACCT>
+<DESCR>ip/dialup/async/hourly Tax</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1004</REC_ID2>
+<GL_AR_ACCT>usage.tax.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>usage.tax.credit</GL_OFFSET_ACCT>
+<DESCR>ip/dialup/async/hourly Tax</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1420</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime Telephony</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1421</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime Tel.</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1430</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1431</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Airtime SMS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1440</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1441</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Airtime other GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1450</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1451</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International Usage GPRS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1460</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Nat. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1461</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Intl. Usage other Services</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1500</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1501</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Euro Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1503</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Incomming Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1504</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Int. Outgoing Roaming GSM</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1510</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>National VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1511</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>International VAS</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1512</REC_ID2>
+<GL_AR_ACCT>rounding.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>rounding.credit</GL_OFFSET_ACCT>
+<DESCR>GL for Rounding Errors</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1512</REC_ID2>
+<GL_AR_ACCT>rounding.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>rounding.credit</GL_OFFSET_ACCT>
+<DESCR>GL for Rounding Errors</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1512</REC_ID2>
+<GL_AR_ACCT>rounding.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>rounding.credit</GL_OFFSET_ACCT>
+<DESCR>GL for Rounding Errors</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1512</REC_ID2>
+<GL_AR_ACCT>rounding.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>rounding.credit</GL_OFFSET_ACCT>
+<DESCR>GL for Rounding Errors</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1513</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Incollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1514</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>Roaming Outcollect</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.debit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.credit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+<ROW>
+<REC_ID2>1600</REC_ID2>
+<GL_AR_ACCT>wireless.credit</GL_AR_ACCT>
+<GL_OFFSET_ACCT>wireless.debit</GL_OFFSET_ACCT>
+<DESCR>GSM Sample Usage</DESCR>
+</ROW>
+</ROWSET>

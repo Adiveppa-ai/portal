@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="VertexMgr" version="15.0.1.0.0" description="Vertex Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="15608" dest="libqutil.so" mode="0775"/>
+         <file size="16096" dest="libloc.so" mode="0775"/>
+         <file size="16128" dest="libctq.so" mode="0775"/>
+         <file size="16432" dest="libvst.so" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="libvst.so"/>
+            <permission mode="0775" wildcard="libqutil.so"/>
+            <permission mode="0775" wildcard="libctq.so"/>
+            <permission mode="0775" wildcard="libloc.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_vertex" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1150" dest="init-d.pin.dm_vertex" mode="0775"/>
+         </directory>
+         <directory dest="dd" mode="750" patchable="true">
+            <directory dest="data" mode="750" patchable="true">
+               <file size="585" dest="drop_tables_telephony_oracle.source" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="init-d.pin.dm_vertex"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_vertex" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="481632" dest="dm_vertex_stq90.so" mode="0775"/>
+            <file size="502728" dest="dm_vertex_ctq30105.so" mode="0775"/>
+            <file size="481632" dest="dm_vertex_stq100.so" mode="0775"/>
+            <file size="502728" dest="dm_vertex_ctq30206.so" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="dm_vertex_ctq30105.so"/>
+            <permission mode="0775" wildcard="dm_vertex_stq90.so"/>
+            <permission mode="0775" wildcard="dm_vertex_ctq30206.so"/>
+            <permission mode="0775" wildcard="dm_vertex_stq100.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2573" dest="pin_cmp_dm_vertex.pl" mode="0775"/>
+            <file size="9700" dest="pin_cnf_dm_vertex.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_cmp_dm_vertex.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_dm_vertex.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="893" dest="stop_dm_vertex" mode="0755"/>
+         <file size="1918" dest="install_dm_vertex" mode="0755"/>
+         <file size="1562" dest="start_dm_vertex" mode="0755"/>
+         <file size="578224" dest="dm_vertex" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_dm_vertex"/>
+            <permission mode="0755" wildcard="stop_dm_vertex"/>
+            <permission mode="0755" wildcard="install_dm_vertex"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

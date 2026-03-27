@@ -1,0 +1,75 @@
+#!/bin/sh
+#
+# Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+#      This material is the confidential property of Oracle Corporation
+#      or its licensors and may be used, reproduced, stored
+#      or transmitted only in accordance with a valid Oracle license
+#      or sublicense agreement.
+#
+
+
+PINDIR=/home/pin/opt/portal/BRM
+PATH=${PINDIR}/bin:/usr/bin:/bin:.:${PATH}
+
+RELDIR=${PINDIR}/apps/pin_rel
+LOGDIR=${RELDIR}
+REL_DAEMON_LOG=${LOGDIR}/RelDaemon.log
+REL_DAEMON_PID=${LOGDIR}/RelDaemon.pid
+
+# does the propreties file exist?  Success implies that ${LOGDIR} exists...
+if [ ! -r  ${RELDIR}/Infranet.properties ]; then
+   echo "HELP: no Infranet.properties for RelDaemon in \"${RELDIR}\"!"
+   exit 1
+fi
+
+
+
+# For Oracle 12C DB, set to client install home
+# ORACLE_HOME=
+# export ORACLE_HOME 
+ORA_CLIENT_LIB_PATH=${ORACLE_HOME}/lib
+OJDBCJAR=ojdbc8.jar
+
+REL_CLIENT_LIBS=${ORA_CLIENT_LIB_PATH}
+REL_LIBS=${REL_CLIENT_LIBS}:${PIN_HOME}/lib64:${PIN_HOME}/lib
+
+uname=`uname`
+if [ "$uname" = "SunOS" -o "$uname" = "Linux" ];
+then
+    if [ "$LD_LIBRARY_PATH" = "" ];
+    then
+          LD_LIBRARY_PATH=${REL_LIBS}
+    else
+          LD_LIBRARY_PATH=${REL_LIBS}:${LD_LIBRARY_PATH}
+    fi
+    export LD_LIBRARY_PATH
+fi
+      
+
+
+#set JAR_DIR to be the full pathname of the dir where the
+# jar files are located
+JARDIR=${PINDIR}/jars
+
+JAVA=$JAVA_HOME/bin/java
+
+#The location of ojdbc8.jar varies for full DB client and Oracle Intstant client
+# set the classpath variable
+CLASSPATH=${RELDIR}:${JARDIR}/batch.jar:${JARDIR}/pcm.jar:${JARDIR}/pcmext.jar:${JARDIR}/rel.jar:$JAVA_HOME/lib/rt.jar:$ORACLE_HOME/jdbc/lib/${OJDBCJAR}:$ORACLE_HOME/lib/${OJDBCJAR}:${JARDIR}/oraclepki.jar:${JARDIR}/osdt_cert.jar:${JARDIR}/osdt_core.jar
+
+
+
+# XXX ought to save old log file, or check for > some-size...
+( cd ${RELDIR} ;
+  echo "started RelDaemon at..." >> ${REL_DAEMON_LOG}
+  date >> ${REL_DAEMON_LOG}
+
+  # The headless AWT option is used to avoid an unnecessary X server run-time requirement.
+  ${JAVA} -server -Djava.awt.headless=true -Xms1024m -Xmx1024m -classpath ${CLASSPATH} com.portal.batch.BatchControllerMain REL >> ${REL_DAEMON_LOG} 2>&1 &
+
+  echo $! > ${REL_DAEMON_PID} ;
+  chmod 640 ${REL_DAEMON_LOG} ;
+  chmod 640 ${REL_DAEMON_PID} )
+
+# get rc from RelDaemon startup
+exit $?

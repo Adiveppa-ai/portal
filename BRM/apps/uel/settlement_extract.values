@@ -1,0 +1,66 @@
+#===============================================================================
+#
+# 2002 (c) Copyright by solution42 - IT systems & consulting GmbH & Co. KG
+#                          Quickborn (Germany)
+#
+#                          ALL RIGHTS RESERVED
+#
+#            Reproduction for internal use only is permitted.
+#      Disclosure to any third parties, in any form or circumstances
+#                 whatsoever, is not permitted at all.
+#
+#-------------------------------------------------------------------------------
+# Block: TLS
+#-------------------------------------------------------------------------------
+# Module Description:
+#   Contains mappings for Integrate values to Infranet values
+#
+# Open Points:
+#   none
+#
+# Review Status:
+#   <in-work>
+#
+#-------------------------------------------------------------------------------
+# Responsible: Nathan Brizzee
+#
+# $RCSfile: settlement.values,v $
+# $Revision: 1.0 $
+# $Author: nbrizzee $
+# $Date: 2002/05/24 17:16:52 $
+# $Locker:  $
+#-------------------------------------------------------------------------------
+# $Log: settlement.values,v $
+# Revision 1.0  2002/05/24 17:16:52  nbrizzee
+# PETS#
+#
+#===============================================================================
+
+
+#=======================================================================
+# Infranet PIN_RESOURCE_ID mappings for Integrate IC_DAILY.RESOURCE_NAME
+#=======================================================================
+$IC_DAILY_RESOURCE_NAME{'USD'} = '4711';
+$IC_DAILY_RESOURCE_NAME{'EUR'} = '4712';
+$IC_DAILY_RESOURCE_NAME{'RESOURC_NM'} = 'Nate';
+
+
+#=======================================================================
+# Infranet PIN_PRODUCT_POID mappings for Integrate
+# IC_DAILY.ICPRODUCT and IC_DAILY.BILL_DIRECTION.
+#
+# The values are created by concatenating ICPRODUCT and BILL_DIRECTION
+# together to form one string.
+# 
+# example:  If ICPRODUCT='XYZ' and BILL_DIRECTION='I' then the value
+#           would be 'XYZI'.
+#=======================================================================
+$IC_DAILY_ICPRODUCT{'XYZI'} = 'pIn';
+$IC_DAILY_ICPRODUCT{'XYZO'} = 'pOut';
+$IC_DAILY_ICPRODUCT{'ICPRODUCTI'} = 'NAte';
+
+
+#=======================================================================
+# Don't remove this
+#=======================================================================
+1;

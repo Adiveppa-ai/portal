@@ -1,0 +1,6 @@
+0 PIN_FLD_RESULTS       ARRAY [0] allocated 20, used 1
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /account 123 0
+0 PIN_FLD_RESULTS       ARRAY [1] allocated 20, used 1
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /account 234 0
+0 PIN_FLD_RESULTS       ARRAY [2] allocated 20, used 1
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /account 345 0

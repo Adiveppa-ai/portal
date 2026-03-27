@@ -1,0 +1,58 @@
+        NAS-IP-Address = 156.151.2.65
+        NAS-Port = 25
+        User-Name = user2001
+        Calling-Station-Id = 14153032121
+        h323-conf-id = 'h323-conf-id\=B566EC63 4BC003F 0 F186B3C'
+        User-Password = password
+        Request-Type = Auth-Req
+
+        NAS-IP-Address = 156.151.2.65
+        NAS-Port = 25
+        User-Name = user2001
+        h323-conf-id = 'h323-conf-id\=B566EC63 4BC003F 0 F186B3C'
+        Called-Station-Id = 14088614655
+        Calling-Station-Id = 14153032121
+        User-Password = password
+        Request-Type = Auth-Req
+
+        NAS-IP-Address = 156.151.2.65
+        NAS-Port = 25
+        User-Name = user2001
+        Calling-Station-Id = 14153032121
+        Acct-Status-Type = Start
+        Service-Type = Login
+        h323-gw-id = 'h323-gw-id\=portal_voip_gw_2.portal.com'
+        h323-conf-id = 'h323-conf-id\=B666EC63 4BC003F 0 F186B3C'
+        h323-call-origin = 'h323-call-origin\=originate'
+        h323-call-type = 'h323-call-type\=VoIP'
+        h323-setup-time = 'h323-setup-time\=16:03:58.550 DST Fri Jul 2 1999'
+        Acct-Session-Id = 00000026
+        Acct-Delay-Time = 0
+        Request-Type = Acct-Req
+
+        NAS-IP-Address = 156.151.2.65
+        NAS-Port = 25
+        User-Name = user2001
+        Called-Station-Id = 14088614655
+        Calling-Station-Id = 14153032121
+        Acct-Status-Type = Stop
+        Service-Type = Login
+        h323-gw-id = 'h323-gw-id\=portal_voip_gw_2.portal.com'
+        h323-conf-id = 'h323-conf-id\=B666EC63 4BC003F 0 F186B3C'
+        h323-call-origin = 'h323-call-origin\=originate'
+        h323-call-type = 'h323-call-type\=Telephony'
+        h323-setup-time = 'h323-setup-time\=16:03:58.550 DST Fri Jul 2 1999'
+        h323-connect-time = 'h323-connect-time\=16:03:58.580 DST Fri Jul 2 1999'
+        h323-disconnect-time = 'h323-disconnect-time\=16:05:03.360 DST Fri Jul 2 1999'
+        h323-disconnect-cause = 'h323-disconnect-cause\=10'
+        h323-voice-quality = 'h323-voice-quality\=0'
+        Acct-Session-Id = 00000026
+        Acct-Input-Octets = 21824
+        Acct-Output-Octets = 148984
+        Acct-Input-Packets = 682
+        Acct-Output-Packets = 1475
+        Acct-Session-Time = 65
+        Acct-Delay-Time = 0
+        Request-Type = Acct-Req
+
+

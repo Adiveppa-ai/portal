@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="CMT_Types.xsd"/>	
+	<xs:complexType name="payinfoExtensionType"/>
+	<xs:element name="payinfoExtension" type="payinfoExtensionType" abstract="true"/>
+</xs:schema>

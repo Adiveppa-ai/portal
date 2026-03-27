@@ -1,0 +1,32 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+# ---------------------------------------------------------------------------------
+#      
+#      This step will create the jsa tables,indexes and synonyms.
+#
+# ---------------------------------------------------------------------------------
+
+
+
+$osid = $ENV{'DB_SID'};
+if ("a$osid" eq "a") {
+   $osid = $ENV{'ORACLE_SID'};
+}
+
+print "** IFW database jsa setup using sqlplus $ENV{'JSA_USER'}\/$ENV{'JSA_PSWD'}\@$osid";
+open (stream, ">$ENV{'INT_HOME'}/tmp.sql") || die ("Could not open file. $!");
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/JSA_Create\n";
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/JSA_Prepare\n";
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/JSA_Synonyms\n";
+print stream "exit;";
+close(stream);
+$cmd = "sqlplus -S $ENV{'JSA_USER'}\/$ENV{'JSA_PSWD'}\@$osid \@$ENV{'INT_HOME'}/tmp.sql";
+system($cmd);
+
+exit 0;

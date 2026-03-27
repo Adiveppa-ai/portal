@@ -1,0 +1,154 @@
+<!--
+ Copyright (c) 2012, 2017, Oracle and/or its affiliates. All rights reserved.
+-->
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO" visibility="public" transaction="required" component="fm_collections" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc><!--h:p>
+		<h:i>
+		Copyright &#169; 2012, 2017 Oracle and/or its affiliates. All rights reserved.
+		This material is the confidential property of Oracle
+		Corporation or its licensors and may be used, reproduced,
+		stored or transmitted only in accordance with a valid Oracle
+		license or sublicense agreement.
+		</h:i>
+	</h:p-->
+	For a given billinfo provides information whether it belongs to collections group or not.
+        If this opcode is called with account scope, then collections group participation information is returned for each billinfo of account.
+	</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc> The account poid</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_SCOPE_OBJ" use="required" mode="complete">
+        <Doc> The account or billinfo poid</Doc>
+        <ClassRef>obj://billinfo</ClassRef>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The account poid</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false">
+        <Doc>For each billinfo one results array is created. If billinfo is parent then total of pending receivable, name,
+  		and the details of the members with their pending receivables are provided</Doc>
+        <Fields>
+          <Int name="PIN_FLD_BOOLEAN" use="required">
+            <Doc>This field specifies whether its part of collections group or not.&lt;br&gt;
+                 Values are 0 (not part of collections group) and 1 (parent or member of collections group)
+            </Doc>
+          </Int>
+          <Poid name="PIN_FLD_BILLINFO_OBJ" use="required" mode="complete">
+            <Doc>Poid of the billinfo object to whom these collections group details belong</Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+            <Doc>Poid of the account object</Doc>
+            <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_BILLINFO_ID" use="required" maxlen="60">
+            <Doc>A string identifying the billinfo by name</Doc>
+          </String>
+          <Int name="PIN_FLD_EXEMPT_FROM_COLLECTIONS" use="required">
+            <Doc>This field tells if the billinfo is parent or member or not participating in collections group at all
+            </Doc>
+          </Int>
+          <Decimal name="PIN_FLD_PENDING_RECV" use="required">
+            <Doc>Pending receivable for the billinfo</Doc>
+          </Decimal>
+          <String name="PIN_FLD_ACCOUNT_NO" use="optional" maxlen="60">
+            <Doc>A string identifying the account</Doc>
+          </String>
+          <String name="PIN_FLD_FIRST_NAME" use="optional" maxlen="90">
+            <Doc>First name of the account holder</Doc>
+          </String>
+          <String name="PIN_FLD_LAST_NAME" use="optional" maxlen="90">
+            <Doc>Last name of the account holder</Doc>
+          </String>
+          <Poid name="PIN_FLD_POID" use="optional" mode="complete">
+            <Doc>The collections group poid. This field is not present if billinfo is not part of any collections group.</Doc>
+            <ClassRef>obj://group.collections_targets</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_NAME" use="optional" maxlen="255">
+            <Doc>Name of the collections group. This field is not present if billinfo is not part of any collections group.</Doc>
+          </String>
+          <Int name="PIN_FLD_COUNT" use="optional">
+            <Doc>The total number of member billinfos. This field is present only if billinfo is a parent</Doc>
+          </Int>
+          <Poid name="PIN_FLD_PARENT" use="optional" mode="complete">
+            <Doc>Poid of the collections group owner billinfo. This field is present only if billinfo is member of collections group.</Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Decimal name="PIN_FLD_AMOUNT" use="optional">
+            <Doc> Total pending receivable of group. This field is present only if billinfo is a parent</Doc>
+          </Decimal>
+          <Array name="PIN_FLD_MEMBERS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false">
+            <Doc>Details of members of collections group. This array is present only if billinfo is a parent</Doc>
+            <Fields>
+              <Poid name="PIN_FLD_BILLINFO_OBJ" use="required" mode="complete">
+                <Doc>Poid of member billinfo</Doc>
+                <ClassRef>obj://billinfo</ClassRef>
+              </Poid>
+              <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+                <Doc>Poid of the account object</Doc>
+                <ClassRef>obj://account</ClassRef>
+              </Poid>
+              <String name="PIN_FLD_BILLINFO_ID" use="required" maxlen="60">
+                <Doc>A string identifying the billinfo by name</Doc>
+              </String>
+              <Int name="PIN_FLD_EXEMPT_FROM_COLLECTIONS" use="required">
+                <Doc>This field tells that billinfo is member of collections group</Doc>
+              </Int>
+              <Decimal name="PIN_FLD_PENDING_RECV" use="required">
+                <Doc>Pending receivable for member billinfo</Doc>
+              </Decimal>
+              <String name="PIN_FLD_ACCOUNT_NO" use="required" maxlen="60">
+                <Doc>A string identifying the account</Doc>
+              </String>
+              <String name="PIN_FLD_FIRST_NAME" use="required" maxlen="90">
+                <Doc>First name of the account holder</Doc>
+              </String>
+              <String name="PIN_FLD_LAST_NAME" use="required" maxlen="90">
+                <Doc>Last name of the account holder</Doc>
+              </String>
+              <Poid name="PIN_FLD_POID" use="required" mode="complete">
+                <Doc>The collections group poid</Doc>
+                <ClassRef>obj://group.collections_targets</ClassRef>
+              </Poid>
+              <Poid name="PIN_FLD_PARENT_BILLINFO_OBJ" use="required" mode="complete">
+                <Doc>The collections group owners poid</Doc>
+                <ClassRef>obj://billinfo</ClassRef>
+              </Poid>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

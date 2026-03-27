@@ -1,0 +1,69 @@
+//==============================================================================
+//
+// Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_GetCamelFlag.isc
+//------------------------------------------------------------------------------
+// Module Description:
+//   This is a sample iScript to show the fetching of the Camel Flag for a given
+//   PLMN.At the time of implementaion,this flag needs to be used properly for
+//   processing of the event
+//------------------------------------------------------------------------------
+// Responsible: Archan Misra
+//
+//------------------------------------------------------------------------------
+//==============================================================================
+// include the OpFlag Extension interface
+use IXT_OpFlag;
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  //----------------------------------------------------------------------------
+  // Connect the extension with the DAT_InterConnect plugin
+  //----------------------------------------------------------------------------
+  if (setDAT_InterConnectModule("ifw.DataPool.ICDataModule.Module") == true )
+  {
+    logPipeline( "INFO: Roaming Ic Module set \n",0);
+  }
+  else
+  {
+    logPipeline( "ERROR: Could not set Ic Module \n",4);
+    scriptUsable( false );
+  }
+}
+
+function onDetailEdr
+{
+  String visitorPLMN;
+  String camelflag;
+  String msg;
+
+  //----------------------------------------------------------------------------
+  // check the value of camel flag for the incoming PLMN
+  //----------------------------------------------------------------------------
+  visitorPLMN = edrString(DETAIL.SOURCE_NETWORK);
+  camelflag = getCamelFlag(visitorPLMN);
+
+  if(camelflag == "")
+  {
+    msg = "ERROR: camelflag value not found for this visitor PLMN " + visitorPLMN;
+    edrAddError("ERR_PLMN_NOT_FOUND", 3, msg);
+    edrSetIsValidDetail( false );
+    return;
+  }
+  else
+  {
+    msg = "Camel flag for the PLMN :" + visitorPLMN + " is set as :" + camelflag + "\n";
+    logPipeline(msg);
+  }
+  
+} // end onDetailEdr + end iScript
+

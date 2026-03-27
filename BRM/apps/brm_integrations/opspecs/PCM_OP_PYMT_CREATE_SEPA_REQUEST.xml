@@ -1,0 +1,70 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_PYMT_CREATE_SEPA_REQUEST" visibility="private" transaction="required" component="fm_pymt" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>
+	This opcode is introduced to create /sepa/dd, /sepa/ct or /sepa/dd/reversal object on request.
+	The opcode takes in required information which includes a flag based on which the type of SEPA 
+        request object is decided. The opcode performs few validations before creating the object.
+	It returns the poid of the created object.
+  </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Poid of the account object for which the sepa object needs to be created.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_BILLINFO_OBJ" use="required" mode="complete">
+        <Doc>Link to the billinfo object of the account for which the sepa object needs to be created.</Doc>
+        <ClassRef>obj://billinfo</ClassRef>
+      </Poid>
+      <Int name="PIN_FLD_FLAGS" use="required">
+        <Doc>This is used to identify which object needs to be created.
+	     1 - SEPA_DD
+	     2 - SEPA_CT
+	     3 - SEPA_DD_REVERSAL
+	     When creating SEPA_DD object we check for the presence of a valid mandate to create the object.
+        </Doc>
+      </Int>
+      <Timestamp name="PIN_FLD_COLLECTION_DATE" use="optional">
+        <Doc> The date by which bank must process the transaction for the account.</Doc>
+      </Timestamp>
+      <Decimal name="PIN_FLD_AMOUNT" use="required">
+        <Doc> The amount for which the payment is made for the particular object.</Doc>
+      </Decimal>
+      <Int name="PIN_FLD_CURRENCY" use="required">
+        <Doc>Currency in which payment is made.</Doc>
+      </Int>
+      <String name="PIN_FLD_TRANS_ID" use="required" maxlen="35">
+        <Doc>Unique reference id for a particular financial transaction.</Doc>
+      </String>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Poid of the /sepa object created. Could be /sepa/dd, /sepa/ct or /sepa/dd/reversal object</Doc>
+        <ClassRef>obj://sepa</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

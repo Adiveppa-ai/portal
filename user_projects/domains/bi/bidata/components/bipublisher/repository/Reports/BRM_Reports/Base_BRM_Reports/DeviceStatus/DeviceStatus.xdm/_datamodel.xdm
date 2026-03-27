@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 					"DEVICE_T"."POID_TYPE",
+ 					"DEVICE_T"."STATE_ID",
+ 					"DEVICE_T"."DEVICE_ID",
+ "STRINGS_T"."STRING"
+ 				FROM
+ 					"DEVICE_T" "DEVICE_T",
+ "STRINGS_T"
+ 				WHERE
+ "DEVICE_T"."STATE_ID" = "STRINGS_T"."STRING_ID"
+ AND "STRINGS_T"."DOMAIN" like DECODE(:PARAM_DEVICE_TYPE, null, 'config_device_state_%', 'config_device_state_'||SUBSTR(:PARAM_DEVICE_TYPE,9))
+ 				 	 AND "DEVICE_T"."POID_TYPE" LIKE DECODE(:PARAM_DEVICE_TYPE,null, '%',:PARAM_DEVICE_TYPE) 	
+ AND "STRINGS_T"."STRING" LIKE DECODE(:PARAM_DEVICE_STATUS,null, '%',:PARAM_DEVICE_STATUS)
+ AND SUBSTR("DEVICE_T"."POID_TYPE",9) = SUBSTR("STRINGS_T"."DOMAIN",21)
+ 				GROUP BY
+ 					"DEVICE_T"."POID_TYPE",
+ 					"DEVICE_T"."STATE_ID",
+ 					"DEVICE_T"."DEVICE_ID",
+ "STRINGS_T"."STRING"
+ 				ORDER BY
+ 					"DEVICE_T"."POID_TYPE",
+ 					"DEVICE_T"."STATE_ID",
+ 					"DEVICE_T"."DEVICE_ID",
+ "STRINGS_T"."STRING"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="POID_TYPE" value="POID_TYPE" dataType="xsd:string" label="POID_TYPE" breakOrder="None" fieldOrder="1"/>
+    <element name="STATE_ID" value="STATE_ID" dataType="xsd:integer" label="STATE_ID" breakOrder="None" fieldOrder="2"/>
+    <element name="DEVICE_ID" value="DEVICE_ID" dataType="xsd:string" label="DEVICE_ID" breakOrder="None" fieldOrder="3"/>
+    <element name="STRING" value="STRING" dataType="xsd:string" label="STRING" breakOrder="None" fieldOrder="4"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_DEVICE_TYPE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+	DISTINCT POID_TYPE
+FROM
+	DEVICE_T]]>
+         </sql>
+      </valueSet>
+      <valueSet id="PARAM_DEVICE_STATUS">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+	STRING
+FROM
+	STRINGS_T
+WHERE
+	DOMAIN LIKE 'config_device_state_'||SUBSTR(:PARAM_DEVICE_TYPE,9)]]>
+         </sql>
+         <input id="PARAM_DEVICE_TYPE" value="${PARAM_DEVICE_TYPE}" dataType="xsd:string"/>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_DEVICE_TYPE" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific device type, or select ALL for all devices.  " valueSet="PARAM_DEVICE_TYPE" multiple="false" all="true" allValue="null" refreshParameters="true"/>
+      </parameter>
+      <parameter name="PARAM_DEVICE_STATUS" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific device status, or select ALL to include all devices." valueSet="PARAM_DEVICE_STATUS" multiple="false" all="true" allValue="null" refreshParameters="false"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

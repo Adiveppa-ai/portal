@@ -1,0 +1,122 @@
+#
+# Copyright (c) 2007 Oracle. All rights reserved.
+#
+# This material is the confidential property of Oracle Corporation or its
+# licensors and may be used, reproduced, stored or transmitted only in
+# accordance with a valid Oracle license or sublicense agreement.
+#
+
+    Creating journals using PL/SQL package 'JOURNAL' and Perl driver script
+    =======================================================================
+
+Previously, the application pin_ledger_report was run in 'create_journal' mode
+to create journals from events. This document describes a new program that
+enables creation of journals in a more efficient way, especially when dealing
+with a huge volume of events.
+
+A PL/SQL package called 'JOURNAL' has been developed for creating journals.
+The PL/SQL procedures are invoked from a Perl driver script (create_journal.pl)
+as opposed to the application pin_ledger_report. With this, the mode
+'create_journal' for pin_ledger_report will be deprecated. It is recommended
+that journals be created from events using this Perl script and not
+pin_ledger_report.
+
+create_journal.pl creates journal entries in a 2-step process.
+
+Step 1: Create temporary journal tables for specified periods of time
+Step 2: Move the journal entries from these tables into the real journal table
+
+This 2-step sequence is especially useful during the upgrade process. It
+enables creation of journals in the 'migrate-from' environment and quick
+movement of these journals into the 'migrate-to' environment, thus minimizing
+downtime during the upgrade process.
+
+Script create_journal.pl works in 2 modes.
+
+Mode 1: create_temp_journals
+Creates temporary journal tables
+
+Mode 2: move_into_partitions
+Moves contents of temporary journal tables into partitions in journal_t and
+drops the temporary tables. Also recreates the indexes on journal_t.
+
+Please run 'perl create_journal.pl -help' for exhaustive usage information.
+
+The script gets its input from command-line as well as a configuration file.
+
+The configuration file ('create_journal.config' by default) contains static
+information such as database connection parameters and start date from which
+journals are desired to be created.
+
+Configuration parameter 'journal_partition_days' is used to specify the
+partition intervals in terms of days. This interval DOES NOT need to match the
+partition scheme to be finally used for table journal_t. Repartitioning can
+later be done once the journals have been created. This parameter is used for
+creating partitions initially in the second step of the process.
+
+A typical example of running the script is as follows.
+
+Assume that journals have to be created for the overall period 01/01/2007 to
+04/17/2007.
+
+Configuration parameter 'journal_start_date' => 01/01/2007
+Configuration parameter 'journal_partition_days' => 10 (just an example)
+
+Step 1
+------
+perl create_journal.pl -mode create_temp_journals -end_date 01/06/2007
+perl create_journal.pl -mode create_temp_journals -end_date 01/11/2007
+perl create_journal.pl -mode create_temp_journals -end_date 01/16/2007
+...
+...
+...
+perl create_journal.pl -mode create_temp_journals -end_date 04/18/2007
+
+[Note: The last end date is one day later than the overall period end date]
+
+Step 2
+------
+perl create_journal.pl -mode move_into_partitions
+
+There will be as many temporary tables created as there are runs of the Perl
+script in step 1. The number of partitions created in table journal_t depends
+on the value of 'journal_partition_days' as well as the date interval chosen
+for the multiple runs of the script. In this case, the interval for creating
+temporary journal tables has been chosen as 5. This interval and the value of
+'journal_partition_days' are really independent of each other.
+
+Note that the script displays the output of SQL commands to standard output
+and displays one of the following messages at the end depending on whether the
+processing succeeded or not.
+
+    create_journal.pl: Processing SUCCEEDED
+    create_journal.pl: Processing FAILED
+
+If the script fails with the message 'Processing FAILED', you must rerun the
+script with the same parameters.
+
+Notes:
+
+1. Once the value of 'journal_partition_days' has been defined in the
+configuration file, always use the same value for subsequent runs of the
+script.
+
+2. Run the script in mode 'create_temp_journals' to cover till the last date
+for which journals need to be created prior to running it in mode
+'move_into_partitions'.
+
+3. When executing step 2, existing indexes on table journal_t will be dropped
+and recreated. Only the standard indexes that come with the system will be
+recreated. If you had created additional indexes, they would be dropped too
+and you will need to recreate them manually.
+
+4. When running the script in mode 'create_temp_journals', make sure that
+table journal_t (if present) has no records AND that there are no partitions
+on journal_t. Otherwise, the script will abort with an error message.
+
+5. If, for any reason, you decide to abort the process of running the script
+in mode 'create_temp_journals' and restart from scratch, remember to drop the
+temporary status table 'TEMP_XXX_DATA_JOURNAL_T' apart from cleaning up any
+temporary journal tables already created.
+
+                                ---x---

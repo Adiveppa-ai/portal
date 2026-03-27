@@ -1,0 +1,241 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_Bursting_Invoice_Report_Data_Source">
+   <description>
+      <![CDATA[0.0.0.1]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="BRM_Bursting_Invoice_Report_Data_Set" type="complex">
+         <sql>
+            <![CDATA[with INVOICES as  (select
+                           "INVOICE_T"."POID_ID0" as "POID_ID0",
+                           "INVOICE_T"."STATUS" as "STATUS",
+                           "INVOICE_T"."CREATED_T" as "CREATED_T",
+                           "INVOICE_T"."BILL_NO" as "BILL_NO",
+                           "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE_NAME",
+                           "BILLINFO_T"."PARENT_FLAGS" as "PARENT_FLAGS",
+                           "BILLINFO_T"."PARENT_BILLINFO_OBJ_ID0" as "PARENT_BILLINFO_OBJ_ID0"
+
+                   from    "BILLINFO_T" "BILLINFO_T",
+                           "INVOICE_T" "INVOICE_T"
+
+                   where           "INVOICE_T"."BILLINFO_OBJ_ID0" = "BILLINFO_T"."POID_ID0"
+                            and    "INVOICE_T"."STATUS" = :p_Inv_Status
+                            and    "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t
+                            and    "INVOICE_T"."CREATED_T" < :p_Inv_End_t
+                            and    "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+                            and    "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+                            and    ((:p_Inv_Type = 0 and "BILLINFO_T"."PARENT_FLAGS" = 0)
+                                  or(:p_Inv_Type = 1 and "BILLINFO_T"."PARENT_FLAGS" > 0)
+                                  or(:p_Inv_Type = 2))
+                            and    ("BILLINFO_T"."AR_BILLINFO_OBJ_ID0" = "BILLINFO_T"."POID_ID0" or "INVOICE_T"."CHECK_SPLIT_FLAGS" = 0)
+
+                  order by parent_flags desc)
+
+ select
+
+        inv.to_clob("INVOICE_FORMATS_BUF_T"."BUFFER_BUF") as "BUFFER_BUF",
+         "INVOICE_FORMATS_BUF_T"."OBJ_ID0" as "OBJ_ID0",
+         "INVOICE_T"."STATUS" as "STATUS",
+         "INVOICE_T"."CREATED_T" as "CREATED_T",
+         "INVOICE_T"."BILL_NO" as "BILL_NO",
+         "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE_NAME",
+         "BILLINFO_T"."PARENT_FLAGS" as "PARENT_FLAGS",
+         "BILLINFO_T"."PARENT_BILLINFO_OBJ_ID0" as "PARENT_BILLINFO_OBJ_ID0"
+
+from     "INVOICE_FORMATS_BUF_T" "INVOICE_FORMATS_BUF_T",
+         "INVOICE_T" "INVOICE_T",
+         "BILLINFO_T" "BILLINFO_T",
+         "INVOICES" "INVOICES"
+
+where       "INVOICE_T"."BILLINFO_OBJ_ID0" = "BILLINFO_T"."POID_ID0" 
+	and "INVOICE_FORMATS_BUF_T"."OBJ_ID0" = "INVOICE_T"."POID_ID0"
+        and "INVOICES"."BILL_NO" = "INVOICE_T"."BILL_NO"
+        and "INVOICES"."STATUS" = "INVOICE_T"."STATUS"
+
+order by "PARENT_BILLINFO_OBJ_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="ROW_SET" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="ROW_SET">
+            <group name="ROW" label="ROW" source="BRM_Bursting_Invoice_Report_Data_Set">
+               <element name="BUFFER_BUF" value="BUFFER_BUF" label="BUFFER_BUF" dataType="xdo:xml" breakOrder="" fieldOrder="1"/>
+               <element name="OBJ_ID0" value="OBJ_ID0" label="OBJ_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="2"/>
+               <element name="STATUS" value="STATUS" label="STATUS" dataType="xsd:integer" breakOrder="" fieldOrder="3"/>
+               <element name="CREATED_T" value="CREATED_T" label="CREATED_T" dataType="xsd:integer" breakOrder="" fieldOrder="4"/>
+               <element name="PARENT_FLAGS" value="PARENT_FLAGS" label="PARENT_FLAGS" dataType="xsd:integer" breakOrder="" fieldOrder="7"/>
+               <element name="BILL_NO" value="BILL_NO" label="BILL_NO" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="TEMPLATE_NAME" value="TEMPLATE_NAME" label="TEMPLATE_NAME" dataType="xsd:string" breakOrder="" fieldOrder="6"/>
+ 		<element name="PARENT_BILLINFO_OBJ_ID0" value="PARENT_BILLINFO_OBJ_ID0" label="PARENT_BILLINFO_OBJ_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="8"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets/>
+   <parameters>
+      <parameter name="p_Inv_Status" defaultValue="0" dataType="xsd:integer" rowPlacement="1">
+         <input label="Invoice Status (0=Pending, 1=Generated, etc,)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_Type" defaultValue="2" dataType="xsd:integer" rowPlacement="1">
+         <input label="Invoice Type (0=Consumer,1=Corp,2=both)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_End_t" defaultValue="2147483647" dataType="xsd:integer" rowPlacement="2">
+         <input label="Invoices generated before this time (1/19/2038)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_Start_t" defaultValue="0" dataType="xsd:integer" rowPlacement="2">
+         <input label="Invoices generated after this time (1/1/1970)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_MIN_POID" defaultValue="1" dataType="xsd:integer" rowPlacement="3">
+         <input label="Minimum Invoice POID ID" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_MAX_POID" defaultValue="999999999" dataType="xsd:integer" rowPlacement="3">
+         <input label="Maximum Invoice POID ID" size="20"/>
+      </parameter>
+   </parameters>
+   <bursting>
+      <burst name="BRM_Bursting_Invoice_Report_Bursting_Query" enabled="true">
+         <property name="BURSTING_NODE" value="/ROW_SET/LIST_ROW/ROW/BILL_NO"/>
+         <property name="DELIVERY_KEY" value="/ROW_SET/LIST_ROW/ROW/OBJ_ID0"/>
+         <dataSet>
+            <sql>
+               <![CDATA[
+-- /invoice 10001 paytype - Delivery option = Email
+select  "INVOICE_T"."POID_ID0" as "KEY",
+        "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE", 
+        'en-US' as "LOCALE",
+        'PDF' as "OUTPUT_FORMAT",
+        'EMAIL' as "DEL_CHANNEL",
+        'America/Los_Angeles' as "TIMEZONE",
+        'GREGORIAN' as "CALENDAR",
+        "INVOICE_T"."POID_ID0" as "OUTPUT_NAME",
+        'true' as "SAVE_OUTPUT",
+        "PAYINFO_INV_T"."DELIVERY_DESCR" as "PARAMETER1",
+        '' as "PARAMETER2",
+        'BIP' as "PARAMETER3",
+        "INVOICE_T"."TEMPLATE_NAME" ||  ' Invoice for Account ' || "ACCOUNT_T"."ACCOUNT_NO" || ' Bill No ' || "INVOICE_T"."BILL_NO" as "PARAMETER4",
+        'Please find the attached invoice' as "PARAMETER5",
+        'true' as "PARAMETER6",
+        '' as "PARAMETER7",
+        '' as PARAMETER8
+
+ from	"INVOICE_T","PAYINFO_T","PAYINFO_INV_T","ACCOUNT_T","BILLINFO_T" 
+
+ where             "BILLINFO_T"."PAYINFO_OBJ_ID0"="PAYINFO_T"."POID_ID0"
+        and        "PAYINFO_T"."POID_ID0"="PAYINFO_INV_T"."OBJ_ID0"
+        and        "INVOICE_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0"
+        and        "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"           
+        and        "INVOICE_T"."STATUS" = :p_Inv_Status 
+        and        "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t 
+        and        "INVOICE_T"."CREATED_T" < :p_Inv_End_t 
+        and        "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+        and        "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+        and        "INVOICE_T"."POID_TYPE" != '/invoice/trial'
+        and        "BILLINFO_T"."PAY_TYPE" = '10001'
+        and        "PAYINFO_INV_T"."DELIVERY_PREFER"=0
+    
+UNION ALL
+
+-- /invoice 10001 paytype - Delivery option = FTP 
+
+select  "INVOICE_T"."POID_ID0" as "KEY",
+        "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE",
+        'en-US' as "LOCALE",
+        'PDF' as "OUTPUT_FORMAT",
+        'FTP' as "DEL_CHANNEL",
+        'America/Los_Angeles' as "TIMEZONE",
+        'GREGORIAN' as "CALENDAR",
+        "INVOICE_T"."POID_ID0" as "OUTPUT_NAME",
+        'true' as "SAVE_OUTPUT",
+        '__FTP_SERVERNAME__' as "PARAMETER1",
+        '' as "PARAMETER2",
+        '' as "PARAMETER3",
+        '__FTP_REMOTE_DIRECTORY__' as "PARAMETER4",
+        "INVOICE_T"."TEMPLATE_NAME" || '_' || "ACCOUNT_T"."ACCOUNT_NO" || '_' || "BILLINFO_T"."POID_ID0" ||  '_' || "INVOICE_T"."INV_FLAGS" ||  '.pdf' as "PARAMETER5",
+        'false' as "PARAMETER6",
+        '' as "PARAMETER7",
+        '' as PARAMETER8
+
+ from	"INVOICE_T","PAYINFO_T","PAYINFO_INV_T","ACCOUNT_T","BILLINFO_T"
+
+ where             "BILLINFO_T"."PAYINFO_OBJ_ID0"="PAYINFO_T"."POID_ID0"
+        and        "PAYINFO_T"."POID_ID0"="PAYINFO_INV_T"."OBJ_ID0"
+        and        "INVOICE_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0"
+        and        "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"           
+        and        "INVOICE_T"."STATUS" = :p_Inv_Status 
+        and        "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t 
+        and        "INVOICE_T"."CREATED_T" < :p_Inv_End_t 
+        and        "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+        and        "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+        and        "INVOICE_T"."POID_TYPE" != '/invoice/trial'
+        and        "BILLINFO_T"."PAY_TYPE" = '10001'
+        and        "PAYINFO_INV_T"."DELIVERY_PREFER"!=0
+
+
+UNION ALL
+
+-- Subords that were not split/stitched
+-- Non Invoice/non subord paytype
+-- /invoice/trial 10001 paytype
+-- -> Delivery option = None
+
+select  "INVOICE_T"."POID_ID0" as "KEY",
+        "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE",
+        'en-US' as "LOCALE",
+        'PDF' as "OUTPUT_FORMAT",
+        '' as "DEL_CHANNEL",
+        'America/Los_Angeles' as "TIMEZONE",
+        'GREGORIAN' as "CALENDAR",
+        "INVOICE_T"."POID_ID0" as "OUTPUT_NAME",
+        'true' as "SAVE_OUTPUT",
+        '' as "PARAMETER1",
+        '' as "PARAMETER2",
+        '' as "PARAMETER3",
+        '' as "PARAMETER4",
+        '' as "PARAMETER5",
+        '' as "PARAMETER6",
+        '' as "PARAMETER7",
+        '' as PARAMETER8
+
+ from   "INVOICE_T", "BILLINFO_T"
+
+ where             "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"
+        and        "INVOICE_T"."STATUS" = :p_Inv_Status 
+        and        "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t 
+        and        "INVOICE_T"."CREATED_T" < :p_Inv_End_t 
+        and        "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+        and        "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+
+        and        (    (        "BILLINFO_T"."PAY_TYPE" = '10007'
+                          and    "INVOICE_T"."CHECK_SPLIT_FLAGS" = '0'
+                        )
+                     or ("BILLINFO_T"."PAY_TYPE" NOT IN (10001,10007)
+                        )
+                     or (       "INVOICE_T"."POID_TYPE" = '/invoice/trial'
+                         and    "BILLINFO_T"."PAY_TYPE" = '10001'
+                        )
+                   )
+
+
+order by "TEMPLATE" desc
+                ]]>
+            </sql>
+         </dataSet>
+      </burst>
+   </bursting>
+   <display>
+      <layouts>
+         <layout name="BRM_Bursting_Invoice_Report_Data_Set" left="285px" top="28px"/>
+         <layout name="ROW_SET" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

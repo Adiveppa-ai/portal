@@ -1,0 +1,168 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="NumberMgr" version="15.0.1.0.0" description="Number Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="12448" dest="dd_objects_num.source" mode="0664"/>
+               <file size="2432" dest="6.5_6.7_dd_objects_device_number.source" mode="0664"/>
+               <file size="1404" dest="create_indexes_num_oracle.source" mode="0664"/>
+               <file size="578" dest="drop_tables_num_oracle.source" mode="0664"/>
+               <file size="518" dest="drop_indexes_num_oracle.source" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="dd_objects_num.source"/>
+            <permission mode="0664" wildcard="6.5_6.7_dd_objects_device_number.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1246" dest="pin_device_permit_map_num" mode="0664"/>
+               <file size="1034" dest="pin_num_config" mode="0664"/>
+               <file size="2467" dest="pin_device_state_num" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="pin_device_state_num"/>
+            <permission mode="0664" wildcard="pin_device_permit_map_num"/>
+            <permission mode="0664" wildcard="pin_num_config"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="90048" dest="fm_num.so" mode="0775"/>
+         <file size="70496" dest="fm_num_pol.so" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="fm_num.so"/>
+            <permission mode="0775" wildcard="fm_num_pol.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="numcategories" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3367" dest="num_categories.fr" mode="0664"/>
+               <file size="3359" dest="num_categories.en_US" mode="0664"/>
+               <file size="3349" dest="num_categories.ko" mode="0664"/>
+               <file size="3356" dest="num_categories.zh" mode="0664"/>
+               <file size="3352" dest="num_categories.es" mode="0664"/>
+               <file size="3360" dest="num_categories.de" mode="0664"/>
+               <file size="3354" dest="num_categories.ja" mode="0664"/>
+               <file size="3357" dest="num_categories.it" mode="0664"/>
+               <file size="3372" dest="num_categories.pt_BR" mode="0664"/>
+               <file size="3365" dest="num_categories.zh_TW" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="num_categories.en_US"/>
+            <permission mode="0664" wildcard="num_categories.de"/>
+            <permission mode="0664" wildcard="num_categories.fr"/>
+            <permission mode="0664" wildcard="num_categories.es"/>
+            <permission mode="0664" wildcard="num_categories.it"/>
+            <permission mode="0664" wildcard="num_categories.ja"/>
+            <permission mode="0664" wildcard="num_categories.zh"/>
+            <permission mode="0664" wildcard="num_categories.zh_TW"/>
+            <permission mode="0664" wildcard="num_categories.ko"/>
+            <permission mode="0664" wildcard="num_categories.pt_BR"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="numvanities" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3405" dest="num_vanities.fr" mode="0664"/>
+               <file size="3407" dest="num_vanities.ja" mode="0664"/>
+               <file size="3404" dest="num_vanities.de" mode="0664"/>
+               <file size="3408" dest="num_vanities.it" mode="0664"/>
+               <file size="3408" dest="num_vanities.es" mode="0664"/>
+               <file size="3428" dest="num_vanities.pt_BR" mode="0664"/>
+               <file size="3421" dest="num_vanities.zh_TW" mode="0664"/>
+               <file size="3416" dest="num_vanities.en_US" mode="0664"/>
+               <file size="3415" dest="num_vanities.zh" mode="0664"/>
+               <file size="3405" dest="num_vanities.ko" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="num_vanities.en_US"/>
+            <permission mode="0664" wildcard="num_vanities.de"/>
+            <permission mode="0664" wildcard="num_vanities.fr"/>
+            <permission mode="0664" wildcard="num_vanities.it"/>
+            <permission mode="0664" wildcard="num_vanities.es"/>
+            <permission mode="0664" wildcard="num_vanities.ja"/>
+            <permission mode="0664" wildcard="num_vanities.zh"/>
+            <permission mode="0664" wildcard="num_vanities.zh_TW"/>
+            <permission mode="0664" wildcard="num_vanities.ko"/>
+            <permission mode="0664" wildcard="num_vanities.pt_BR"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="12249" dest="pin_cmp_number_manager.pl" mode="0775"/>
+            <file size="1440" dest="pin_cnf_number_manager.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_cnf_number_manager.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_number_manager.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="32576" dest="load_pin_num_config" mode="0775"/>
+         <file size="36872" dest="pin_change_num_quarantine" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="load_pin_num_config"/>
+            <permission mode="0775" wildcard="pin_change_num_quarantine"/>
+         </file-perms>
+      </directory>
+      <directory dest="source" mode="750" patchable="true">
+         <directory dest="sys" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="fm_num_pol" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="8830" dest="fm_num_pol_device_set_attr.c" mode="0664"/>
+               <file size="6524" dest="fm_num_pol_device_set_brand.c" mode="0664"/>
+               <file size="3549" dest="fm_num_pol_device_create.c" mode="0664"/>
+               <file size="35783" dest="fm_num_pol_device_associate.c" mode="0664"/>
+               <file size="1671" dest="Makefile" mode="0664"/>
+               <file size="1771" dest="fm_num_pol_config.c" mode="0664"/>
+               <file size="13070" dest="fm_num_pol_util.c" mode="0664"/>
+               <file size="9876" dest="fm_num_pol_canonicalize.c" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="fm_num_pol_canonicalize.c"/>
+            <permission mode="0664" wildcard="fm_num_pol_config.c"/>
+            <permission mode="0664" wildcard="fm_num_pol_device_associate.c"/>
+            <permission mode="0664" wildcard="fm_num_pol_device_create.c"/>
+            <permission mode="0664" wildcard="fm_num_pol_device_set_attr.c"/>
+            <permission mode="0664" wildcard="fm_num_pol_device_set_brand.c"/>
+            <permission mode="0664" wildcard="fm_num_pol_util.c"/>
+            <permission mode="0664" wildcard="Makefile"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="numdevicestates" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4235" dest="num_device_states.pt_BR" mode="0664"/>
+               <file size="4204" dest="num_device_states.es" mode="0664"/>
+               <file size="3680" dest="num_device_states.de" mode="0664"/>
+               <file size="4182" dest="num_device_states.ja" mode="0664"/>
+               <file size="4165" dest="num_device_states.zh" mode="0664"/>
+               <file size="4202" dest="num_device_states.zh_TW" mode="0664"/>
+               <file size="4173" dest="num_device_states.ko" mode="0664"/>
+               <file size="4175" dest="num_device_states.en_US" mode="0664"/>
+               <file size="4231" dest="num_device_states.fr" mode="0664"/>
+               <file size="4224" dest="num_device_states.it" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="num_device_states.en_US"/>
+            <permission mode="0664" wildcard="num_device_states.de"/>
+            <permission mode="0664" wildcard="num_device_states.fr"/>
+            <permission mode="0664" wildcard="num_device_states.es"/>
+            <permission mode="0664" wildcard="num_device_states.it"/>
+            <permission mode="0664" wildcard="num_device_states.ja"/>
+            <permission mode="0664" wildcard="num_device_states.zh"/>
+            <permission mode="0664" wildcard="num_device_states.zh_TW"/>
+            <permission mode="0664" wildcard="num_device_states.ko"/>
+            <permission mode="0664" wildcard="num_device_states.pt_BR"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

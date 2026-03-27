@@ -1,0 +1,80 @@
+//==============================================================================
+//
+// Copyright (c) 2012, 2013, Oracle and/or its affiliates. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+// Module Description:
+//   Duplicates DETAIL EDRs and sends them to their corresponding NRTRDE Streams
+//
+//==============================================================================
+
+// include the OpFlag Extension interface
+use IXT_OpFlag;
+
+
+String nrtrdeStream;
+
+function BEGIN
+{
+  //----------------------------------------------------------------------------
+  // Connect the extension with the DAT_InterConnect plugin
+  //----------------------------------------------------------------------------
+  if (setDAT_InterConnectModule("ifw.DataPool.ICDataModule.Module") == true )
+  {
+    logPipeline( "INFO: Roaming Ic Module set \n",0);
+  }
+  else
+  {
+    logPipeline( "ERROR: Could not set Ic Module \n",4);
+    scriptUsable( false );
+  }
+
+  nrtrdeStream = regString(registryNodeName() + ".NRTRDE_STREAM_PATTERN");
+  if (nrtrdeStream == "")
+  {
+    logPipeline( "ERROR: Could not get NRTRDE_STREAM_PATTERN from the registry\n",4);
+    scriptUsable( false );
+  }
+
+}
+
+function onDetailEdr
+{
+
+  String visitorPLMN;
+  String nrtrdeflag;
+  String msg;
+
+  //----------------------------------------------------------------------------
+  // check the value of NRTDE flag for the incoming PLMN
+  //----------------------------------------------------------------------------
+  visitorPLMN = edrString(DETAIL.SOURCE_NETWORK);
+  nrtrdeflag = getNRTRDEFlag(visitorPLMN);
+
+  if(nrtrdeflag == "")
+  {
+    msg = "ERROR: nrtrdeflag value not found for this visitor PLMN " + visitorPLMN;
+    logPipeline(msg);
+    edrAddError("ERR_PLMN_NOT_FOUND", 3, msg);
+    edrSetIsValidDetail( false );
+    return;
+  }
+  else if(nrtrdeflag == "N")
+  {
+    // No need to send the output to NRTRDE stream
+    return;
+  } 
+  else
+  {
+    Long index = edrDuplicate();
+    if ( edrSetCurrent(index) == true )
+    {
+      String outputStream = nrtrdeStream + visitorPLMN; 
+      edrSetStream(outputStream);
+    }
+
+  }
+}

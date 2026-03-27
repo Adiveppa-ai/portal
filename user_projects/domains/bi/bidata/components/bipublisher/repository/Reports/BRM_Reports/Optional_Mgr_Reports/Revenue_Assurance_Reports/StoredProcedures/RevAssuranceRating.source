@@ -1,0 +1,3351 @@
+--
+-- Copyright (c) 2009, 2016, Oracle and/or its affiliates. All rights reserved.
+--
+--     This material is the confidential property of Oracle Corporation
+--     or licensors and may be used, reproduced, stored or transmitted
+--     only in accordance with a valid Oracle license or sublicense agreement.
+--
+
+create or replace
+PACKAGE RARating AS
+TYPE refcursor IS REF CURSOR;
+TYPE QUERY_TYPE is table of VARCHAR2(30000) index by binary_integer;
+
+FUNCTION RARatingSummary(
+              	pStartDate 		IN VARCHAR2,
+		pEndDate 		IN VARCHAR2,
+		pTransStartDate 	IN VARCHAR2,
+		pTransEndDate 	        IN VARCHAR2,
+              	pFlowType 		IN VARCHAR2,
+              	pControlPoint 	        IN VARCHAR2,
+              	pServiceType 	        IN VARCHAR2,
+              	pBatchTypeStart 	IN NUMBER,
+              	pBatchTypeEnd 	        IN NUMBER
+                         ) RETURN RARating.refcursor;
+
+FUNCTION RARatingDetail(
+              	pStartDate 		IN VARCHAR2,
+		pEndDate 		IN VARCHAR2,
+		pTransStartDate 	IN VARCHAR2,
+		pTransEndDate 	        IN VARCHAR2,
+              	pFlowType 		IN VARCHAR2,
+              	pControlPoint 	        IN VARCHAR2,
+              	pServiceType 	        IN VARCHAR2,
+              	pBatchID 		IN VARCHAR2,
+                pReportType     	IN VARCHAR2,
+              	pSuccess 		IN VARCHAR2,
+              	pSuspense 		IN VARCHAR2,
+              	pWrittenOff 	        IN VARCHAR2,
+                pRaScope                 IN VARCHAR2) RETURN RARating.refcursor;
+
+FUNCTION CreateDynamicQuery(
+            pstartdate        IN VARCHAR2,   
+            penddate          IN VARCHAR2,   
+            ptransstartdate   IN VARCHAR2,   
+            ptransenddate     IN VARCHAR2,   
+            pflowtype         IN VARCHAR2,   
+            pcontrolpoint     IN VARCHAR2,   
+            pservicetype      IN VARCHAR2,   
+            pbatchid          IN VARCHAR2,   
+            pdetailstablename IN VARCHAR2,   
+            pRaScope           IN VARCHAR2) RETURN VARCHAR2;
+
+FUNCTION ref_cur(dquery IN VARCHAR2) RETURN rarating.refcursor;
+
+END;
+/
+
+create or replace
+PACKAGE BODY RARating AS
+
+FUNCTION RARatingSummary(
+              	pStartDate 	IN VARCHAR2,
+		pEndDate 	IN VARCHAR2,
+		pTransStartDate IN VARCHAR2,
+		pTransEndDate 	IN VARCHAR2,
+              	pFlowType 	IN VARCHAR2,
+              	pControlPoint 	IN VARCHAR2,
+              	pServiceType 	IN VARCHAR2,
+              	pBatchTypeStart IN NUMBER,
+              	pBatchTypeEnd 	IN NUMBER
+                         ) RETURN RARating.refcursor IS
+                      l_cursor RARating.refcursor;
+
+      FlowType1               VARCHAR(200):=NULL;	
+      FlowType                VARCHAR(200):=NULL;
+      ServiceType1            VARCHAR(200):=NULL;
+      ServiceType             VARCHAR(200):=NULL;
+      ControlPoint1           VARCHAR(200):=NULL;
+      ControlPoint            VARCHAR(200):=NULL;
+      MyQuery                 QUERY_TYPE;
+      
+      myquery10 varchar2(6000):=null;
+      INVALID_ARGUMENT        EXCEPTION;
+      INVALID_SERVICE_TYPE    EXCEPTION;
+      INVALID_FLOW_TYPE       EXCEPTION;
+      INVALID_CONTROL_POINT   EXCEPTION;
+      INVALID_RANGE           EXCEPTION;
+      
+      
+  BEGIN
+
+  IF ( pBatchTypeStart > pBatchTypeEnd ) THEN
+         RAISE INVALID_RANGE;
+  END IF;
+  IF (pFlowType is NULL) THEN
+         RAISE INVALID_FLOW_TYPE;
+  END IF;
+  IF (pControlPoint is NULL) THEN
+         RAISE INVALID_CONTROL_POINT;
+  END IF;
+--  IF (pServiceType = 'NULL') THEN
+--         RAISE INVALID_SERVICE_TYPE;
+--  END IF;
+
+  IF (UPPER(pControlPoint) = 'ALL' ) THEN
+      ControlPoint := ' like ''%''  ';
+  ELSIF instr(pControlPoint, ':') <> 0 THEN
+      ControlPoint1 := replace(pControlPoint,':',''',''');
+      ControlPoint := ' in ( '''||ControlPoint1||''' ) ' ; 	
+  ELSE
+      ControlPoint := ' in ( ''' || pControlPoint || ''' ) ' ;
+  END IF;
+
+  IF (pServiceType = 'NULL' ) THEN
+      ServiceType := ' = NULL  ';
+  ELSIF ( instr(pServiceType, ':') <> 0 ) THEN
+      ServiceType1 := replace(pServiceType,':',''',''');
+      ServiceType := ' in ( '''||ServiceType1||''' ) ' ; 	
+  ELSE
+      ServiceType := ' in ( ''' || pServiceType || ''' ) ' ;
+  END IF;
+
+  IF ( pFlowType IS NULL ) THEN
+      FlowType := ' = NULL ';
+  ELSIF ( instr(pFlowType, ':') <> 0 ) THEN
+      FlowType1 := replace(pFlowType,':',''',''');
+      FlowType := ' in ( '''||FlowType1||''' ) ' ; 	
+  ELSE
+      FlowType := ' in ( ''' || pFlowType || ''' ) ' ;
+  END IF;
+-- This query corresponds to RA_11 scenario where the grouping is based on
+-- outputstream and object type is /process_audit/batchstat/outputstream
+MyQuery(1) := 'SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   1                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_OSTRM_T" "GDTLS_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_OSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+			bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+			bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_OSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_OSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+			bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+			bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_03 scenario where the grouping is based on
+-- Service Type and object type is /process_audit/batchstat/svctype
+MyQuery(2) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   2                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_STYPE_T" "GDTLS_STYPE_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_T"."SERVICE_TYPE"  ' || ServiceType || '
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_06 scenario where the grouping is based on
+-- Revenue stream and EDR Status and object type is /process_audit/batchstat/revstream_status
+ MyQuery(3) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   3                                        POID_VAL
+FROM("GDTLS_RSTRM_STS_T" "GDTLS_RSTRM_STS_T"
+INNER JOIN(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE")) ON "GDTLS_RSTRM_STS_T"."OBJ_ID0" = "PROC_AUD_T"."POID_ID0")
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_STS_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_08 scenario where the grouping is based on Revenue stream,
+-- Service Type and EDR Status and object type is /process_audit/batchstat/revstream_svctype_status
+MyQuery(4) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   4                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_RSTRM_STYPE_STS_T" "GDTLS_RSTRM_STYPE_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_RSTRM_STYPE_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_STYPE_STS_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_STYPE_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "GDTLS_RSTRM_STYPE_STS_T"."SERVICE_TYPE"  ' || ServiceType || '
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_07 scenario where the grouping is based on
+-- Revenue stream and Service Type and object type is /process_audit/batchstat/revstream_svctype
+MyQuery(5) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   5                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_RSTRM_STYPE_T" "GDTLS_RSTRM_STYPE_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_RSTRM_STYPE_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_STYPE_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_STYPE_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "GDTLS_RSTRM_STYPE_T"."SERVICE_TYPE"  ' || ServiceType || '
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_05 scenario where the grouping is based on
+-- Revenue Stream and object type is /process_audit/batchstat/revstream
+MyQuery(6) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   6                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_RSTRM_T" "GDTLS_RSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_RSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_02 scenario where the grouping is based on
+-- EDRStatus and object type is /process_audit/batchstat/status
+MyQuery(7) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   7                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_STS_T" "GDTLS_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STS_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_12 scenario where the grouping is based on Service Type, Revenue Stream
+-- and outputstream and object type is /process_audit/batchstat/svctype_revstream_outputstream
+MyQuery(8) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   8                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_STYPE_RSTRM_OSTRM_T" "GDTLS_STYPE_RSTRM_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_OSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_OSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_OSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_RSTRM_OSTRM_T"."SERVICE_TYPE"  ' || ServiceType || '
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_15 scenario where the grouping is based on Service Type, Revenue Stream,
+-- EDR Status and Output Stream and object type is /process_audit/batchstat/svctype_revstream_status_outputstream
+MyQuery(9) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   9                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_STYPE_RSTRM_STS_OSTRM_T" "GDTLS_STYPE_RSTRM_STS_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_STS_OSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."SERVICE_TYPE"  ' || ServiceType || '
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+-- This query corresponds to RA_10 scenario where the grouping is based on
+-- Revenue stream and EDR Status  and object type is /process_audit/batchstat/svctype_revstream_status
+myquery10 := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   10                                       POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_STYPE_RSTRM_STS_T" "GDTLS_STYPE_RSTRM_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"  ' || FlowType || '
+ AND "PROC_AUD_T"."PROCESS_NAME"  ' || ControlPoint || '
+ AND("PROC_AUD_BSTAT_T"."BATCH_TYPE" >=  ' || pBatchTypeStart || '
+ AND "PROC_AUD_BSTAT_T"."BATCH_TYPE" <=  ' || pBatchTypeEnd || ' )
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet( ''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_STS_T"."USAGE_START_T" >= bipext.infStrToTimet( ''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_RSTRM_STS_T"."SERVICE_TYPE"  ' || ServiceType || '
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4 ';
+
+
+    OPEN l_cursor FOR
+         MyQuery(1)  || ' UNION ALL ' || MyQuery(2)  || ' UNION ALL ' ||
+         MyQuery(3)  || ' UNION ALL ' || MyQuery(4)  || ' UNION ALL ' ||
+         MyQuery(5)  || ' UNION ALL ' || MyQuery(6)  || ' UNION ALL ' ||
+         MyQuery(7)  || ' UNION ALL ' || MyQuery(8) || ' UNION ALL ' ||
+         MyQuery(9) ;--|| ' UNION ALL ' || myquery10;
+         --|| ' UNION ALL ' ||
+         -- MyQuery(11) || ' UNION ALL ' || MyQuery(12) || ' UNION ALL ' ||
+         -- MyQuery(13) || ' UNION ALL ' || MyQuery(14) || ' UNION ALL ' ||
+         --MyQuery(15);
+	if (l_cursor is null) then
+	  OPEN l_cursor FOR
+			SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   SUSPENSE_CODE                            SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   13                                       POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_SUSPENSE_T" "GDTLS_SUSPENSE_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_SUSPENSE_T"."OBJ_ID0";
+	  end if;	 
+
+    RETURN l_cursor;
+  EXCEPTION
+      WHEN INVALID_FLOW_TYPE       THEN
+          RAISE_APPLICATION_ERROR (-20001, 'Flow Type Cannot be NULL');
+      WHEN INVALID_CONTROL_POINT   THEN
+          RAISE_APPLICATION_ERROR (-20002, 'Control Type Cannot be NULL');
+	WHEN INVALID_RANGE           THEN
+          RAISE_APPLICATION_ERROR (-20003, 'Invalid Range for Batch Type');
+     return l_cursor;
+  END RARatingSummary;
+
+FUNCTION RARatingDetail(
+              	pStartDate 		IN VARCHAR2,
+			pEndDate 		IN VARCHAR2,
+			pTransStartDate 	IN VARCHAR2,
+			pTransEndDate 	IN VARCHAR2,
+              	pFlowType 		IN VARCHAR2,
+              	pControlPoint 	IN VARCHAR2,
+              	pServiceType 	IN VARCHAR2,
+              	pBatchID 		IN VARCHAR2,
+                	pReportType     	IN VARCHAR2,
+              	pSuccess 		IN VARCHAR2,
+              	pSuspense 		IN VARCHAR2,
+              	pWrittenOff 	IN VARCHAR2,
+                  pRaScope           IN VARCHAR2       )RETURN RARating.refcursor IS
+                      l_cursor RARating.refcursor;
+      MyQuery                       QUERY_TYPE;
+      INVALID_ARGUMENT              EXCEPTION;
+      INVALID_BATCH_ID              EXCEPTION;
+      INVALID_FLOW_TYPE             EXCEPTION;
+      INVALID_CONTROL_POINT         EXCEPTION;
+
+      EDR_STATUS              VARCHAR2(256):=NULL;
+      TOTAL_COUNT             VARCHAR2(256):=NULL;
+      TOTAL_DURATION          VARCHAR2(256):=NULL;
+      OLD_RETAIL_AMOUNT       VARCHAR2(256):=NULL;
+      TOTAL_RETAIL_AMOUNT     VARCHAR2(256):=NULL;
+      TOTAL_DISCOUNT_VALUE    VARCHAR2(256):=NULL;
+      OLD_DISCOUNT_VALUE      VARCHAR2(256):=NULL;
+      BATCH_TYPE              VARCHAR2(256):=NULL;
+      PROCESS_NAME            VARCHAR2(256):=NULL;
+      BATCH_ID                VARCHAR2(256):=NULL;
+      original_batch_id       VARCHAR2(256):=NULL;
+      suspended_from_batch_id VARCHAR2(256):=NULL;
+      -- Variable declaration for RA02 Dynamic data
+      success_recycle_count_ra02    NUMBER(10, 2) := 0;
+      success_static_count_ra02     NUMBER(10, 2) := 0;
+      failed_static_count_ra02      NUMBER(10, 2) := 0;
+      writtenoff_count_ra02         NUMBER(10, 2) := 0;
+      flag_rerate_recycle_ra02      NUMBER(10, 2) := 0;
+      flag_writtenoff_ra02          NUMBER(10, 2) := 0;
+
+      success_recycle_duration_ra02 NUMBER(10, 2) := 0;
+      success_static_duration_ra02  NUMBER(10, 2) := 0;
+      failed_static_duration_ra02   NUMBER(10, 2) := 0;
+      writtenoff_duration_ra02      NUMBER(10, 2) := 0;
+
+      success_recycle_amount_ra02   NUMBER(10, 2) := 0;
+      success_static_amount_ra02    NUMBER(10, 2) := 0;
+      failed_static_amount_ra02     NUMBER(10, 2) := 0;
+      success_rerating_amount_ra02  NUMBER(10, 2) := 0;
+      failed_rerating_amount_ra02   NUMBER(10, 2) := 0;
+      CurrentAmount_ra02            NUMBER(10, 2) := 0;
+
+      -- Variable declaration for RA10 Dynamic data
+      success_recycle_count_ra10    NUMBER(10, 2) := 0;
+      success_static_count_ra10     NUMBER(10, 2) := 0;
+      failed_static_count_ra10      NUMBER(10, 2) := 0;
+      writtenoff_count_ra10         NUMBER(10, 2) := 0;
+      flag_rerate_recycle_ra10      NUMBER(10, 2) := 0;
+      flag_writtenoff_ra10          NUMBER(10, 2) := 0;
+
+      success_recycle_duration_ra10 NUMBER(10, 2) := 0;
+      success_static_duration_ra10  NUMBER(10, 2) := 0;
+      failed_static_duration_ra10   NUMBER(10, 2) := 0;
+      writtenoff_duration_ra10      NUMBER(10, 2) := 0;
+
+      success_recycle_amount_ra10   NUMBER(10, 2) := 0;
+      success_static_amount_ra10    NUMBER(10, 2) := 0;
+      failed_static_amount_ra10     NUMBER(10, 2) := 0;
+      success_rerating_amount_ra10  NUMBER(10, 2) := 0;
+      failed_rerating_amount_ra10   NUMBER(10, 2) := 0;
+      CurrentAmount_ra10            NUMBER(10, 2) := 0;
+
+      -- Variable declaration for RA04 Dynamic data
+      success_recycle_count_ra04    NUMBER(10, 2) := 0;
+      success_static_count_ra04     NUMBER(10, 2) := 0;
+      failed_static_count_ra04      NUMBER(10, 2) := 0;
+      writtenoff_count_ra04         NUMBER(10, 2) := 0;
+      flag_rerate_recycle_ra04      NUMBER(10, 2) := 0;
+      flag_writtenoff_ra04          NUMBER(10, 2) := 0;
+
+      success_recycle_duration_ra04 NUMBER(10, 2) := 0;
+      success_static_duration_ra04  NUMBER(10, 2) := 0;
+      failed_static_duration_ra04   NUMBER(10, 2) := 0;
+      writtenoff_duration_ra04      NUMBER(10, 2) := 0;
+
+      success_recycle_amount_ra04   NUMBER(10, 2) := 0;
+      success_static_amount_ra04    NUMBER(10, 2) := 0;
+      failed_static_amount_ra04     NUMBER(10, 2) := 0;
+      success_rerating_amount_ra04  NUMBER(10, 2) := 0;
+      failed_rerating_amount_ra04   NUMBER(10, 2) := 0;
+      CurrentAmount_ra04            NUMBER(10, 2) := 0;
+
+      -- Variable declaration for RA08 Dynamic data
+      success_recycle_count_ra08    NUMBER(10, 2) := 0;
+      success_static_count_ra08     NUMBER(10, 2) := 0;
+      failed_static_count_ra08      NUMBER(10, 2) := 0;
+      writtenoff_count_ra08         NUMBER(10, 2) := 0;
+      flag_rerate_recycle_ra08      NUMBER(10, 2) := 0;
+      flag_writtenoff_ra08          NUMBER(10, 2) := 0;
+
+      success_recycle_duration_ra08 NUMBER(10, 2) := 0;
+      success_static_duration_ra08  NUMBER(10, 2) := 0;
+      failed_static_duration_ra08   NUMBER(10, 2) := 0;
+      writtenoff_duration_ra08      NUMBER(10, 2) := 0;
+
+      success_recycle_amount_ra08   NUMBER(10, 2) := 0;
+      success_static_amount_ra08    NUMBER(10, 2) := 0;
+      failed_static_amount_ra08     NUMBER(10, 2) := 0;
+      success_rerating_amount_ra08  NUMBER(10, 2) := 0;
+      failed_rerating_amount_ra08   NUMBER(10, 2) := 0;
+      CurrentAmount_ra08            NUMBER(10, 2) := 0;
+
+      -- Variable declaration for RA14 Dynamic data
+      success_recycle_count_ra14    NUMBER(10, 2) := 0;
+      success_static_count_ra14     NUMBER(10, 2) := 0;
+      failed_static_count_ra14      NUMBER(10, 2) := 0;
+      writtenoff_count_ra14         NUMBER(10, 2) := 0;
+      flag_rerate_recycle_ra14      NUMBER(10, 2) := 0;
+      flag_writtenoff_ra14          NUMBER(10, 2) := 0;
+
+      success_recycle_duration_ra14 NUMBER(10, 2) := 0;
+      success_static_duration_ra14  NUMBER(10, 2) := 0;
+      failed_static_duration_ra14   NUMBER(10, 2) := 0;
+      writtenoff_duration_ra14      NUMBER(10, 2) := 0;
+
+      success_recycle_amount_ra14   NUMBER(10, 2) := 0;
+      success_static_amount_ra14    NUMBER(10, 2) := 0;
+      failed_static_amount_ra14     NUMBER(10, 2) := 0;
+      success_rerating_amount_ra14  NUMBER(10, 2) := 0;
+      failed_rerating_amount_ra14   NUMBER(10, 2) := 0;
+      CurrentAmount_ra14            NUMBER(10, 2) := 0;
+
+      -- Variable declaration for RA06 Dynamic data
+      success_recycle_count_ra06    NUMBER(10, 2) := 0;
+      success_static_count_ra06     NUMBER(10, 2) := 0;
+      failed_static_count_ra06      NUMBER(10, 2) := 0;
+      writtenoff_count_ra06         NUMBER(10, 2) := 0;
+      flag_rerate_recycle_ra06      NUMBER(10, 2) := 0;
+      flag_writtenoff_ra06          NUMBER(10, 2) := 0;
+
+      success_recycle_duration_ra06 NUMBER(10, 2) := 0;
+      success_static_duration_ra06  NUMBER(10, 2) := 0;
+      failed_static_duration_ra06   NUMBER(10, 2) := 0;
+      writtenoff_duration_ra06      NUMBER(10, 2) := 0;
+
+      success_recycle_amount_ra06   NUMBER(10, 2) := 0;
+      success_static_amount_ra06    NUMBER(10, 2) := 0;
+      failed_static_amount_ra06     NUMBER(10, 2) := 0;
+      success_rerating_amount_ra06  NUMBER(10, 2) := 0;
+      failed_rerating_amount_ra06   NUMBER(10, 2) := 0;
+      CurrentAmount_ra06            NUMBER(10, 2) := 0;
+
+      BEGIN
+
+      IF ( pBatchID is NULL ) THEN
+         RAISE INVALID_BATCH_ID;
+      END IF;
+      IF (pFlowType is NULL) THEN
+         RAISE INVALID_FLOW_TYPE;
+      END IF;
+      IF (pControlPoint is NULL) THEN
+         RAISE INVALID_CONTROL_POINT;
+      END IF;
+
+     IF pReportType = 'NO' THEN
+
+-- This query corresponds to RA_11 scenario where the grouping is based on
+-- outputstream and object type is /process_audit/batchstat/outputstream
+MyQuery(1) := 'SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   1                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_OSTRM_T" "GDTLS_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_OSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_OSTRM_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_OSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_OSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND bipext.infCheckDates(''' || pStartDate || ''', ''' || pEndDate || ''') = 1
+ AND bipext.infCheckDates(''' || pTransStartDate || ''', ''' || pTransEndDate || ''') = 1
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+
+-- This query corresponds to RA_03 scenario where the grouping is based on
+-- Service Type and object type is /process_audit/batchstat/svctype
+MyQuery(2) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		        OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   2                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STYPE_T" "GDTLS_STYPE_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STYPE_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_06 scenario where the grouping is based on
+-- Revenue stream and EDR Status and object type is /process_audit/batchstat/revstream_status
+MyQuery(3) := 'SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   3                                        POID_VAL
+FROM "GDTLS_RSTRM_STS_T" "GDTLS_RSTRM_STS_T"
+INNER JOIN(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE")) ON "GDTLS_RSTRM_STS_T"."OBJ_ID0" = "PROC_AUD_T"."POID_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_RSTRM_STS_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_STS_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_08 scenario where the grouping is based on Revenue stream, Service Type
+-- and EDR Status and object type is /process_audit/batchstat/revstream_svctype_status
+MyQuery(4) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   4                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_RSTRM_STYPE_STS_T" "GDTLS_RSTRM_STYPE_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_RSTRM_STYPE_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_RSTRM_STYPE_STS_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_STYPE_STS_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_STYPE_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_RSTRM_STYPE_STS_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_07 scenario where the grouping is based on
+-- Revenue stream and Service Type and object type is /process_audit/batchstat/revstream_svctype
+MyQuery(5) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   5                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_RSTRM_STYPE_T" "GDTLS_RSTRM_STYPE_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_RSTRM_STYPE_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_RSTRM_STYPE_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_STYPE_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_STYPE_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_RSTRM_STYPE_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_05 scenario where the grouping is based on
+-- Revenue Stream and object type is /process_audit/batchstat/revstream
+MyQuery(6) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   6                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_RSTRM_T" "GDTLS_RSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_RSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_RSTRM_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_RSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_RSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_02 scenario where the grouping is based on
+-- EDRStatus and object type is /process_audit/batchstat/status
+MyQuery(7) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                 VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   7                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STS_T" "GDTLS_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STS_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STS_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_12 scenario where the grouping is based on Service Type, Revenue stream
+-- and outputstream and object type is /process_audit/batchstat/svctype_revstream_outputstream
+MyQuery(8) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   8                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STYPE_RSTRM_OSTRM_T" "GDTLS_STYPE_RSTRM_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_OSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STYPE_RSTRM_OSTRM_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_OSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_OSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_RSTRM_OSTRM_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_14 scenario where the grouping is based on Service Type, Revenue Stream,
+-- EDR Status and Output Stream and object type is /process_audit/batchstat/svctype_revstream_status_outputstream
+MyQuery(9) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   9                                        POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STYPE_RSTRM_STS_OSTRM_T" "GDTLS_STYPE_RSTRM_STS_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_STS_OSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_RSTRM_STS_OSTRM_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_10 scenario where the grouping is based on
+-- Revenue stream and EDR Status  and object type is /process_audit/batchstat/svctype_revstream_status
+MyQuery(10) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   10                                       POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STYPE_RSTRM_STS_T" "GDTLS_STYPE_RSTRM_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STYPE_RSTRM_STS_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_STS_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_RSTRM_STS_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_11 scenario where the grouping is based on
+-- outputstream and object type is /process_audit/batchstat/outputstream
+MyQuery(11) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   11                                       POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STYPE_RSTRM_T" "GDTLS_STYPE_RSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STYPE_RSTRM_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_RSTRM_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_RSTRM_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_RSTRM_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_04 scenario where the grouping is based on
+-- Service Type and Status and object type is /process_audit/batchstat/svctype_status
+MyQuery(12) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   EDR_STATUS                               EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   UPPER(EDR_STATUS)                        UEDR_STATUS,
+   12                                       POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_STYPE_STS_T" "GDTLS_STYPE_STS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_STS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_STYPE_STS_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_STYPE_STS_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_STYPE_STS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "GDTLS_STYPE_STS_T"."SERVICE_TYPE" = ''' || pServiceType || '''
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_13 scenario where the suspended records are captured.
+-- The object type is /process_audit/batchstat/suspense
+MyQuery(13) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   SUSPENSE_CODE                            SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   13                                       POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_SUSPENSE_T" "GDTLS_SUSPENSE_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_SUSPENSE_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_SUSPENSE_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_SUSPENSE_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_SUSPENSE_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_01 scenario where no grouping is
+-- used and object type is /process_audit/batchstat/simple
+MyQuery(14) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   14                                       POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_T" "GDTLS_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND "GDTLS_T"."ORIGINAL_BATCH_ID" = ''' || pBatchID || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND("GDTLS_T"."USAGE_START_T" >= bipext.infStrToTimet(''' || pTransStartDate || ''', 2)
+ AND "GDTLS_T"."USAGE_START_T" <= DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+        	bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)))
+ AND "PROC_AUD_T"."VERSION_ID" = 4';
+
+-- This query corresponds to RA_15 scenario where the REL records are captured.
+-- The object type is /process_audit/batchstat/rel
+MyQuery(15) := ' SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   NULL      		                    OLD_DISCOUNT_VALUE,
+   NULL                                     OLD_RETAIL_AMOUNT,
+   NULL                                     ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   NULL                                     TOTAL_COUNT,
+   NULL                                     TOTAL_DISCOUNT_VALUE,
+   NULL                                     TOTAL_DURATION,
+   NULL                                     TOTAL_RETAIL_AMOUNT,
+   NULL                                     TOTAL_VOLUME_RECEIVED,
+   NULL                                     TOTAL_VOLUME_SENT,
+   NULL                                     TOTAL_WHOLESALE_AMOUNT,
+   NULL                                     USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+  "GDTLS_REL_T"."OBJ_ID0"		    GDTLS_REL_T_OBJ_ID0,
+  "GDTLS_REL_T"."TOTAL_VALUE"               GDTLS_REL_T_TOTAL_VALUE,
+  "GDTLS_REL_T"."EVENT_COUNT"               GDTLS_REL_T_EVENT_COUNT,
+   NULL                                     OUTPUT_STREAM,
+   NULL                                     REVENUE_STREAM,
+   NULL                                     SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   NULL                                     UOUTPUT_STREAM,
+   NULL                                     UREVENUE_STREAM,
+   NULL                                     USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   15                                       POID_VAL
+FROM(("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "GDTLS_REL_T" "GDTLS_REL_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_REL_T"."OBJ_ID0"
+WHERE "CONFIG_RA_FLOWS_T"."FLOW_NAME"= ''' || pFlowType  || '''
+ AND "PROC_AUD_T"."PROCESS_NAME"= ''' || pControlPoint || '''
+ AND("PROC_AUD_T"."CREATED_T" >= bipext.infStrToTimet(''' || pStartDate || ''', 2)
+ AND "PROC_AUD_T"."CREATED_T" <= DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+        bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+ AND "PROC_AUD_T"."VERSION_ID" = 4
+ORDER BY POID_VAL,
+  UFLOW_NAME,
+  UPROCESS_NAME,
+  USERVICE_TYPE,
+  UREVENUE_STREAM,
+  UOUTPUT_STREAM,
+  UEDR_STATUS,
+  SUSPENSE_CODE,
+  GDTLS_REL_T_OBJ_ID0';
+
+      OPEN l_cursor FOR
+         MyQuery(1)  || ' UNION ALL ' || MyQuery(2)  || ' UNION ALL ' ||
+         MyQuery(3)  || ' UNION ALL ' || MyQuery(4)  || ' UNION ALL ' ||
+         MyQuery(5)  || ' UNION ALL ' || MyQuery(6)  || ' UNION ALL ' ||
+         MyQuery(7)  || ' UNION ALL ' || MyQuery(8)  || ' UNION ALL ' ||
+         MyQuery(9)  || ' UNION ALL ' || MyQuery(10) || ' UNION ALL ' ||
+         MyQuery(11) || ' UNION ALL ' || MyQuery(12) || ' UNION ALL ' ||
+         MyQuery(13) || ' UNION ALL ' || MyQuery(14) || ' UNION ALL ' ||
+         MyQuery(15);
+ END IF; -- End of  pReportType = 'NO'
+
+    -- pReportType = 'YES' means request for dynamic report.
+
+    IF pReportType = 'YES' THEN
+
+           -- Create query for RA02
+           myquery(1) := CreateDynamicQuery(pstartdate,  penddate, ptransstartdate, ptransenddate,
+                                        pflowtype, pcontrolpoint, NULL, pbatchid, 'gdtls_sts_t', pRaScope);
+
+           -- Create query for RA04
+           myquery(2) := CreateDynamicQuery(pstartdate,  penddate, ptransstartdate, ptransenddate,
+                                        pflowtype, pcontrolpoint, pservicetype, pbatchid, 'gdtls_stype_sts_t', pRaScope);
+
+           -- Create query for RA06
+           myquery(3) := CreateDynamicQuery(pstartdate,  penddate, ptransstartdate, ptransenddate,
+                                        pflowtype, pcontrolpoint, NULL, pbatchid, 'GDTLS_RSTRM_STS_T', pRaScope);
+
+           -- Create query for RA08
+           myquery(4) := CreateDynamicQuery(pstartdate,  penddate, ptransstartdate, ptransenddate,
+                                        pflowtype, pcontrolpoint, pservicetype, pbatchid, 'gdtls_rstrm_stype_sts_t', pRaScope);
+           -- Create query for RA10
+           myquery(5) := CreateDynamicQuery(pstartdate,  penddate, ptransstartdate, ptransenddate,
+                                        pflowtype, pcontrolpoint, pservicetype, pbatchid, 'gdtls_stype_rstrm_sts_t', pRaScope);
+
+           -- Create query for RA14
+           myquery(6) := CreateDynamicQuery(pstartdate,  penddate, ptransstartdate, ptransenddate,
+                                        pflowtype, pcontrolpoint, pservicetype, pbatchid, 'gdtls_stype_rstrm_sts_ostrm_t', pRaScope);
+
+            -- This query corresponds to RA_02 scenario where the grouping is based on
+            -- EDRStatus and object type is /process_audit/batchstat/status
+            DECLARE
+            l_ref_cur refcursor;
+
+            BEGIN
+            l_ref_cur := ref_cur(myquery(1));
+
+              LOOP
+               FETCH l_ref_cur into 	EDR_STATUS,
+                                        TOTAL_COUNT,
+                                        TOTAL_DURATION,
+                                        OLD_RETAIL_AMOUNT,
+                                        TOTAL_RETAIL_AMOUNT,
+                                        TOTAL_DISCOUNT_VALUE,
+                                        OLD_DISCOUNT_VALUE,
+                                        BATCH_TYPE,
+                                        PROCESS_NAME,
+                                        BATCH_ID,
+                                        original_batch_id,
+                                        suspended_from_batch_id ;
+               EXIT WHEN l_ref_cur%NOTFOUND;
+                IF pRaScope='Batch Rating' THEN
+
+                    -- Mediation success Count
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0  OR batch_type = 4 ) THEN
+                      success_static_count_ra02 := success_static_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Mediation failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_count_ra02 := failed_static_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recyle success Count
+
+                    IF  edr_status = psuccess
+                     AND(( batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id) OR  batch_type = 5) THEN
+                      success_recycle_count_ra02 := success_recycle_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra02 := writtenoff_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Mediation and Mediation-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_duration_ra02 := success_static_duration_ra02 +  total_duration;
+                    END IF;
+
+                    -- Mediation and Mediation-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_duration_ra02 := failed_static_duration_ra02 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id THEN
+                      success_recycle_duration_ra02 := success_recycle_duration_ra02 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra02 := writtenoff_duration_ra02 +  total_duration;
+                    END IF;
+
+                    currentamount_ra02 :=  total_retail_amount +  old_retail_amount +  total_discount_value +  old_discount_value;
+
+                    -- Mediation success Amount
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_amount_ra02 := success_static_amount_ra02 + currentamount_ra02;
+                    END IF;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 and success_static_count_ra02 > 0 THEN
+                      success_rerating_amount_ra02 := success_rerating_amount_ra02 + currentamount_ra02;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                    IF  edr_status = psuspense
+                     AND  batch_type = 1 and success_static_count_ra02 > 0 THEN
+                      failed_rerating_amount_ra02 := failed_rerating_amount_ra02 + currentamount_ra02;
+                    END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2 THEN
+                      success_recycle_amount_ra02 := success_recycle_amount_ra02 + currentamount_ra02;
+                    END IF;
+
+                    -- Set the flags accordingly
+                    IF batch_type = 0 OR  batch_type = 1 OR  batch_type = 2 OR  batch_type = 4 OR  batch_type = 5 THEN
+                      flag_rerate_recycle_ra02 := 1;
+                    END IF;
+
+                    IF  batch_type = 3 THEN
+                      flag_writtenoff_ra02 := 1;
+                    END IF;
+                 -- Revenue Assurance Scope is rerating.
+                 ELSIF pRaScope = 'Rerating' THEN
+                    IF batch_type = 1 OR batch_type = 2 OR batch_type = 5 THEN
+                      flag_rerate_recycle_ra02 := 1;
+                    END IF;
+
+                    IF batch_type = 3 THEN
+                      flag_writtenoff_ra02 := 1;
+                    END IF;
+
+                    -- Rerating/Rerating Update success Count
+
+                    IF  edr_status = psuccess
+                     AND  (batch_type = 1 OR batch_type = 5) THEN
+                      success_static_count_ra02 := success_static_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Rerating/Rerating Update failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1  OR batch_type = 5 ) THEN
+                      failed_static_count_ra02 := failed_static_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recycle success Count
+                    IF  edr_status = psuccess
+                     AND( batch_type = 2) THEN
+                      success_recycle_count_ra02 := success_recycle_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra02 := writtenoff_count_ra02 +  total_count;
+                    END IF;
+
+                    -- Rerating and Rerating-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      success_static_duration_ra02 := success_static_duration_ra02 +  total_duration;
+                    END IF;
+
+                    -- Rerating and Rerating-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      failed_static_duration_ra02 := failed_static_duration_ra02 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess AND  batch_type = 2 THEN
+                      success_recycle_duration_ra02 := success_recycle_duration_ra02 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra02 := writtenoff_duration_ra02 +  total_duration;
+                    END IF;
+
+                    currentamount_ra02 :=  total_retail_amount +  total_discount_value;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra02 := success_rerating_amount_ra02 + currentamount_ra02;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                 --   IF  edr_status = psuspense
+                  --   AND  batch_type = 1 THEN
+                  --    failed_rerating_amount_ra02 := failed_rerating_amount_ra02 + currentamount_ra02;
+                  --  END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  ( batch_type = 2 or batch_type = 5 ) THEN
+                      success_recycle_amount_ra02 := success_recycle_amount_ra02 + currentamount_ra02;
+                    END IF;
+                 END IF;
+              END LOOP;
+            END;
+
+            -- This query corresponds to RA_04 scenario where the grouping is based on
+            -- Service Type and Status and object type is /process_audit/batchstat/svctype_status
+
+            DECLARE
+            l_ref_cur refcursor;
+
+            BEGIN
+            l_ref_cur := ref_cur(myquery(2));
+
+              LOOP
+               FETCH l_ref_cur into 	EDR_STATUS,
+                                        TOTAL_COUNT,
+                                        TOTAL_DURATION,
+                                        OLD_RETAIL_AMOUNT,
+                                        TOTAL_RETAIL_AMOUNT,
+                                        TOTAL_DISCOUNT_VALUE,
+                                        OLD_DISCOUNT_VALUE,
+                                        BATCH_TYPE,
+                                        PROCESS_NAME,
+                                        BATCH_ID,
+                                        original_batch_id,
+                                        suspended_from_batch_id ;
+               EXIT WHEN l_ref_cur%NOTFOUND;
+                IF pRaScope='Batch Rating' THEN
+
+                    -- Mediation success Count
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0  OR batch_type = 4 ) THEN
+                      success_static_count_ra04 := success_static_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Mediation failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_count_ra04 := failed_static_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recyle success Count
+
+                    IF  edr_status = psuccess
+                     AND(( batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id) OR  batch_type = 5) THEN
+                      success_recycle_count_ra04 := success_recycle_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra04 := writtenoff_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Mediation and Mediation-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_duration_ra04 := success_static_duration_ra04 +  total_duration;
+                    END IF;
+
+                    -- Mediation and Mediation-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_duration_ra04 := failed_static_duration_ra04 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id THEN
+                      success_recycle_duration_ra04 := success_recycle_duration_ra04 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra04 := writtenoff_duration_ra04 +  total_duration;
+                    END IF;
+
+                    currentamount_ra04 :=  total_retail_amount +  old_retail_amount +  total_discount_value +  old_discount_value;
+
+                    -- Mediation success Amount
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_amount_ra04 := success_static_amount_ra04 + currentamount_ra04;
+                    END IF;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 and success_static_count_ra04 > 0  THEN
+                      success_rerating_amount_ra04 := success_rerating_amount_ra04 + currentamount_ra04;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                    IF  edr_status = psuspense
+                     AND  batch_type = 1 and success_static_count_ra04 > 0 THEN
+                      failed_rerating_amount_ra04 := failed_rerating_amount_ra04 + currentamount_ra04;
+                    END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2 THEN
+                      success_recycle_amount_ra04 := success_recycle_amount_ra04 + currentamount_ra04;
+                    END IF;
+
+                    -- Set the flags accordingly
+                    IF batch_type = 0 OR  batch_type = 1 OR  batch_type = 2 OR  batch_type = 4 OR  batch_type = 5 THEN
+                      flag_rerate_recycle_ra04 := 1;
+                    END IF;
+
+                    IF  batch_type = 3 THEN
+                      flag_writtenoff_ra04 := 1;
+                    END IF;
+
+                 -- Revenue Assurance Scope is rerating.
+                 ELSIF pRaScope = 'Rerating' THEN
+                    IF batch_type = 1 OR batch_type = 2 OR batch_type = 5 THEN
+                      flag_rerate_recycle_ra04 := 1;
+                    END IF;
+
+                    IF batch_type = 3 THEN
+                      flag_writtenoff_ra04 := 1;
+                    END IF;
+
+                    -- Rerating/Rerating Update success Count
+
+                    IF  edr_status = psuccess
+                     AND  (batch_type = 1 OR batch_type = 5) THEN
+                      success_static_count_ra04 := success_static_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Rerating/Rerating Update failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1  OR batch_type = 5 ) THEN
+                      failed_static_count_ra04 := failed_static_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recycle success Count
+                    IF  edr_status = psuccess
+                     AND( batch_type = 2) THEN
+                      success_recycle_count_ra04 := success_recycle_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra04 := writtenoff_count_ra04 +  total_count;
+                    END IF;
+
+                    -- Rerating and Rerating-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      success_static_duration_ra04 := success_static_duration_ra04 +  total_duration;
+                    END IF;
+
+                    -- Rerating and Rerating-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      failed_static_duration_ra04 := failed_static_duration_ra04 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess AND  batch_type = 2 THEN
+                      success_recycle_duration_ra04 := success_recycle_duration_ra04 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra04 := writtenoff_duration_ra04 +  total_duration;
+                    END IF;
+
+                    currentamount_ra04 :=  total_retail_amount +  total_discount_value;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra04 := success_rerating_amount_ra04 + currentamount_ra04;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                 --   IF  edr_status = psuspense
+                  --   AND  batch_type = 1 THEN
+                  --    failed_rerating_amount_ra04 := failed_rerating_amount_ra04 + currentamount_ra04;
+                  --  END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  ( batch_type = 2 or batch_type = 5 ) THEN
+                      success_recycle_amount_ra04 := success_recycle_amount_ra04 + currentamount_ra04;
+                    END IF;
+                 END IF;
+              END LOOP;
+            END;
+
+            -- This query corresponds to RA_06 scenario where the grouping is based on
+            -- Revenue stream and EDR Status and object type is /process_audit/batchstat/revstream_status
+            DECLARE
+            l_ref_cur refcursor;
+
+            BEGIN
+            l_ref_cur := ref_cur(myquery(3));
+
+              LOOP
+               FETCH l_ref_cur into 	EDR_STATUS,
+                                        TOTAL_COUNT,
+                                        TOTAL_DURATION,
+                                        OLD_RETAIL_AMOUNT,
+                                        TOTAL_RETAIL_AMOUNT,
+                                        TOTAL_DISCOUNT_VALUE,
+                                        OLD_DISCOUNT_VALUE,
+                                        BATCH_TYPE,
+                                        PROCESS_NAME,
+                                        BATCH_ID,
+                                        original_batch_id,
+                                        suspended_from_batch_id ;
+               EXIT WHEN l_ref_cur%NOTFOUND;
+                IF pRaScope='Batch Rating' THEN
+
+                    -- Mediation success Count
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0  OR batch_type = 4 ) THEN
+                      success_static_count_ra06 := success_static_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Mediation failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_count_ra06 := failed_static_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recyle success Count
+
+                    IF  edr_status = psuccess
+                     AND(( batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id) OR  batch_type = 5) THEN
+                      success_recycle_count_ra06 := success_recycle_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra06 := writtenoff_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Mediation and Mediation-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_duration_ra06 := success_static_duration_ra06 +  total_duration;
+                    END IF;
+
+                    -- Mediation and Mediation-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_duration_ra06 := failed_static_duration_ra06 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id THEN
+                      success_recycle_duration_ra06 := success_recycle_duration_ra06 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra06 := writtenoff_duration_ra06 +  total_duration;
+                    END IF;
+
+                    currentamount_ra06 :=  total_retail_amount +  total_discount_value;
+
+                    -- Mediation success Amount
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_amount_ra06 := success_static_amount_ra06 + currentamount_ra06;
+                    END IF;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 and success_static_count_ra06 > 0 THEN
+                      success_rerating_amount_ra06 := success_rerating_amount_ra06 + currentamount_ra06;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                    IF  edr_status = psuspense
+                     AND  batch_type = 1 and success_static_count_ra06 > 0 THEN
+                      failed_rerating_amount_ra06 := failed_rerating_amount_ra06 + currentamount_ra06;
+                    END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2 THEN
+                      success_recycle_amount_ra06 := success_recycle_amount_ra06 + currentamount_ra06;
+                    END IF;
+
+                    -- Set the flags accordingly
+                    IF  batch_type = 0 OR  batch_type = 1 OR  batch_type = 2 OR  batch_type = 4 OR  batch_type = 5 THEN
+                      flag_rerate_recycle_ra06 := 1;
+                    END IF;
+
+                    IF  batch_type = 3 THEN
+                      flag_writtenoff_ra06 := 1;
+                    END IF;
+
+                 -- Revenue Assurance Scope is rerating.
+                 ELSIF pRaScope = 'Rerating' THEN
+                    IF batch_type = 1 OR batch_type = 2 OR batch_type = 5 THEN
+                      flag_rerate_recycle_ra06 := 1;
+                    END IF;
+
+                    IF batch_type = 3 THEN
+                      flag_writtenoff_ra06 := 1;
+                    END IF;
+
+                    -- Rerating/Rerating Update success Count
+
+                    IF  edr_status = psuccess
+                     AND  (batch_type = 1 OR batch_type = 5) THEN
+                      success_static_count_ra06 := success_static_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Rerating/Rerating Update failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1  OR batch_type = 5 ) THEN
+                      failed_static_count_ra06 := failed_static_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recycle success Count
+                    IF  edr_status = psuccess
+                     AND( batch_type = 2) THEN
+                      success_recycle_count_ra06 := success_recycle_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra06 := writtenoff_count_ra06 +  total_count;
+                    END IF;
+
+                    -- Rerating and Rerating-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      success_static_duration_ra06 := success_static_duration_ra06 +  total_duration;
+                    END IF;
+
+                    -- Rerating and Rerating-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      failed_static_duration_ra06 := failed_static_duration_ra06 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess AND  batch_type = 2 THEN
+                      success_recycle_duration_ra06 := success_recycle_duration_ra06 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra06 := writtenoff_duration_ra06 +  total_duration;
+                    END IF;
+
+                    currentamount_ra06 :=  total_retail_amount +  total_discount_value;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra06 := success_rerating_amount_ra06 + currentamount_ra06;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                 --   IF  edr_status = psuspense
+                  --   AND  batch_type = 1 THEN
+                  --    failed_rerating_amount_ra06 := failed_rerating_amount_ra06 + currentamount_ra06;
+                  --  END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  ( batch_type = 2 or batch_type = 5 ) THEN
+                      success_recycle_amount_ra06 := success_recycle_amount_ra06 + currentamount_ra06;
+                    END IF;
+                 END IF;
+              END LOOP;
+            END;
+
+            -- This query corresponds to RA_08 scenario where the grouping is based on Revenue stream,
+            -- Service Type and EDR Status and object type is /process_audit/batchstat/revstream_svctype_status
+            DECLARE
+            l_ref_cur refcursor;
+
+            BEGIN
+            l_ref_cur := ref_cur(myquery(4));
+
+              LOOP
+               FETCH l_ref_cur into 	EDR_STATUS,
+                                        TOTAL_COUNT,
+                                        TOTAL_DURATION,
+                                        OLD_RETAIL_AMOUNT,
+                                        TOTAL_RETAIL_AMOUNT,
+                                        TOTAL_DISCOUNT_VALUE,
+                                        OLD_DISCOUNT_VALUE,
+                                        BATCH_TYPE,
+                                        PROCESS_NAME,
+                                        BATCH_ID,
+                                        original_batch_id,
+                                        suspended_from_batch_id ;
+               EXIT WHEN l_ref_cur%NOTFOUND;
+
+                IF pRaScope='Batch Rating' THEN
+                    -- Mediation success Count
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0  OR batch_type = 4 ) THEN
+                      success_static_count_ra08 := success_static_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Mediation failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_count_ra08 := failed_static_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recyle success Count
+
+                    IF  edr_status = psuccess
+                     AND(( batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id) OR  batch_type = 5) THEN
+                      success_recycle_count_ra08 := success_recycle_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra08 := writtenoff_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Mediation and Mediation-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_duration_ra08 := success_static_duration_ra08 +  total_duration;
+                    END IF;
+
+                    -- Mediation and Mediation-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_duration_ra08 := failed_static_duration_ra08 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id THEN
+                      success_recycle_duration_ra08 := success_recycle_duration_ra08 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra08 := writtenoff_duration_ra08 +  total_duration;
+                    END IF;
+
+                    currentamount_ra08 :=  total_retail_amount +  old_retail_amount +  total_discount_value +  old_discount_value;
+
+                    -- Mediation success Amount
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_amount_ra08 := success_static_amount_ra08 + currentamount_ra08;
+                    END IF;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra08 := success_rerating_amount_ra08 + currentamount_ra08;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                    IF  edr_status = psuspense
+                     AND  batch_type = 1 and success_static_count_ra08 > 0 THEN
+                      failed_rerating_amount_ra08 := failed_rerating_amount_ra08 + currentamount_ra08;
+                    END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2 and success_static_count_ra08 > 0 THEN
+                      success_recycle_amount_ra08 := success_recycle_amount_ra08 + currentamount_ra08;
+                    END IF;
+
+                    -- Set the flags accordingly
+                    IF  (batch_type = 0 OR batch_type = 1 OR  batch_type = 2 OR  
+			  batch_type = 4 OR  batch_type = 5) and success_static_count_ra08 > 0  THEN
+                      flag_rerate_recycle_ra08 := 1;
+                    END IF;
+
+                    IF  batch_type = 3 THEN
+                      flag_writtenoff_ra08 := 1;
+                    END IF;
+
+                 -- Revenue Assurance Scope is rerating.
+                 ELSIF pRaScope = 'Rerating' THEN
+                    IF batch_type = 1 OR batch_type = 2 OR batch_type = 5 THEN
+                      flag_rerate_recycle_ra08 := 1;
+                    END IF;
+
+                    IF batch_type = 3 THEN
+                      flag_writtenoff_ra08 := 1;
+                    END IF;
+
+                    -- Rerating/Rerating Update success Count
+
+                    IF  edr_status = psuccess
+                     AND  (batch_type = 1 OR batch_type = 5) THEN
+                      success_static_count_ra08 := success_static_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Rerating/Rerating Update failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1  OR batch_type = 5 ) THEN
+                      failed_static_count_ra08 := failed_static_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recycle success Count
+                    IF  edr_status = psuccess
+                     AND( batch_type = 2) THEN
+                      success_recycle_count_ra08 := success_recycle_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra08 := writtenoff_count_ra08 +  total_count;
+                    END IF;
+
+                    -- Rerating and Rerating-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      success_static_duration_ra08 := success_static_duration_ra08 +  total_duration;
+                    END IF;
+
+                    -- Rerating and Rerating-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      failed_static_duration_ra08 := failed_static_duration_ra08 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess AND  batch_type = 2 THEN
+                      success_recycle_duration_ra08 := success_recycle_duration_ra08 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra08 := writtenoff_duration_ra08 +  total_duration;
+                    END IF;
+
+                    currentamount_ra08 :=  total_retail_amount +  total_discount_value ;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra08 := success_rerating_amount_ra08 + currentamount_ra08;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                 --   IF  edr_status = psuspense
+                  --   AND  batch_type = 1 THEN
+                  --    failed_rerating_amount_ra08 := failed_rerating_amount_ra08 + currentamount_ra08;
+                  --  END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  ( batch_type = 2 or batch_type = 5 ) THEN
+                      success_recycle_amount_ra08 := success_recycle_amount_ra08 + currentamount_ra08;
+                    END IF;
+                END IF;
+              END LOOP;
+            END;
+
+            -- This query corresponds to RA_10 scenario where the grouping is based on
+            -- Revenue stream and EDR Status  and object type is /process_audit/batchstat/svctype_revstream_status
+
+            DECLARE
+            l_ref_cur refcursor;
+
+            BEGIN
+            l_ref_cur := ref_cur(myquery(5));
+
+              LOOP
+               FETCH l_ref_cur into 	EDR_STATUS,
+                                        TOTAL_COUNT,
+                                        TOTAL_DURATION,
+                                        OLD_RETAIL_AMOUNT,
+                                        TOTAL_RETAIL_AMOUNT,
+                                        TOTAL_DISCOUNT_VALUE,
+                                        OLD_DISCOUNT_VALUE,
+                                        BATCH_TYPE,
+                                        PROCESS_NAME,
+                                        BATCH_ID,
+                                        original_batch_id,
+                                        suspended_from_batch_id ;
+               EXIT WHEN l_ref_cur%NOTFOUND;
+                IF pRaScope='Batch Rating' THEN
+
+                    -- Mediation success Count
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0  OR batch_type = 4 ) THEN
+                      success_static_count_ra10 := success_static_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Mediation failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_count_ra10 := failed_static_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recyle success Count
+
+                    IF  edr_status = psuccess
+                     AND(( batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id) OR  batch_type = 5) THEN
+                      success_recycle_count_ra10 := success_recycle_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra10 := writtenoff_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Mediation and Mediation-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_duration_ra10 := success_static_duration_ra10 +  total_duration;
+                    END IF;
+
+                    -- Mediation and Mediation-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_duration_ra10 := failed_static_duration_ra10 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id THEN
+                      success_recycle_duration_ra10 := success_recycle_duration_ra10 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra10 := writtenoff_duration_ra10 +  total_duration;
+                    END IF;
+
+                    currentamount_ra10 :=  total_retail_amount +  old_retail_amount +  total_discount_value +  old_discount_value;
+
+                    -- Mediation success Amount
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_amount_ra10 := success_static_amount_ra10 + currentamount_ra10;
+                    END IF;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 and success_static_count_ra10 > 0 THEN
+                      success_rerating_amount_ra10 := success_rerating_amount_ra10 + currentamount_ra10;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                    IF  edr_status = psuspense
+                     AND  batch_type = 1 and success_static_count_ra10 > 0 THEN
+                      failed_rerating_amount_ra10 := failed_rerating_amount_ra10 + currentamount_ra10;
+                    END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2 THEN
+                      success_recycle_amount_ra10 := success_recycle_amount_ra10 + currentamount_ra10;
+                    END IF;
+
+                    -- Set the flags accordingly
+                    IF  batch_type = 0 OR  batch_type = 1 OR  batch_type = 2 OR  batch_type = 4 OR  batch_type = 5 THEN
+                      flag_rerate_recycle_ra10 := 1;
+                    END IF;
+
+                    IF  batch_type = 3 THEN
+                      flag_writtenoff_ra10 := 1;
+                    END IF;
+
+                 -- Revenue Assurance Scope is rerating.
+                 ELSIF pRaScope = 'Rerating' THEN
+                    IF batch_type = 1 OR batch_type = 2 OR batch_type = 5 THEN
+                      flag_rerate_recycle_ra10 := 1;
+                    END IF;
+
+                    IF batch_type = 3 THEN
+                      flag_writtenoff_ra10 := 1;
+                    END IF;
+
+                    -- Rerating/Rerating Update success Count
+
+                    IF  edr_status = psuccess
+                     AND  (batch_type = 1 OR batch_type = 5) THEN
+                      success_static_count_ra10 := success_static_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Rerating/Rerating Update failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1  OR batch_type = 5 ) THEN
+                      failed_static_count_ra10 := failed_static_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recycle success Count
+                    IF  edr_status = psuccess
+                     AND( batch_type = 2) THEN
+                      success_recycle_count_ra10 := success_recycle_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra10 := writtenoff_count_ra10 +  total_count;
+                    END IF;
+
+                    -- Rerating and Rerating-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      success_static_duration_ra10 := success_static_duration_ra10 +  total_duration;
+                    END IF;
+
+                    -- Rerating and Rerating-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      failed_static_duration_ra10 := failed_static_duration_ra10 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess AND  batch_type = 2 THEN
+                      success_recycle_duration_ra10 := success_recycle_duration_ra10 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra10 := writtenoff_duration_ra10 +  total_duration;
+                    END IF;
+
+                    currentamount_ra10 :=  total_retail_amount +  total_discount_value;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra10 := success_rerating_amount_ra10 + currentamount_ra10;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                 --   IF  edr_status = psuspense
+                  --   AND  batch_type = 1 THEN
+                  --    failed_rerating_amount_ra10 := failed_rerating_amount_ra10 + currentamount_ra10;
+                  --  END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  ( batch_type = 2 or batch_type = 5 ) THEN
+                      success_recycle_amount_ra10 := success_recycle_amount_ra10 + currentamount_ra10;
+                    END IF;
+                 END IF;
+              END LOOP;
+            END;
+
+            -- This query corresponds to RA_14 scenario where the grouping is based on Service Type, Revenue Stream,
+            -- EDR Status and Output Stream and object type is /process_audit/batchstat/svctype_revstream_status_outputstream
+            DECLARE
+            l_ref_cur refcursor;
+
+            BEGIN
+            l_ref_cur := ref_cur(myquery(6));
+
+              LOOP
+               FETCH l_ref_cur into 	EDR_STATUS,
+                                        TOTAL_COUNT,
+                                        TOTAL_DURATION,
+                                        OLD_RETAIL_AMOUNT,
+                                        TOTAL_RETAIL_AMOUNT,
+                                        TOTAL_DISCOUNT_VALUE,
+                                        OLD_DISCOUNT_VALUE,
+                                        BATCH_TYPE,
+                                        PROCESS_NAME,
+                                        BATCH_ID,
+                                        original_batch_id,
+                                        suspended_from_batch_id ;
+               EXIT WHEN l_ref_cur%NOTFOUND;
+                IF pRaScope='Batch Rating' THEN
+
+                    -- Mediation success Count
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0  OR batch_type = 4 ) THEN
+                      success_static_count_ra14 := success_static_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Mediation failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_count_ra14 := failed_static_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recyle success Count
+
+                    IF  edr_status = psuccess
+                     AND(( batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id) OR  batch_type = 5) THEN
+                      success_recycle_count_ra14 := success_recycle_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra14 := writtenoff_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Mediation and Mediation-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_duration_ra14 := success_static_duration_ra14 +  total_duration;
+                    END IF;
+
+                    -- Mediation and Mediation-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      failed_static_duration_ra14 := failed_static_duration_ra14 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2
+                     AND  original_batch_id =  suspended_from_batch_id THEN
+                      success_recycle_duration_ra14 := success_recycle_duration_ra14 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra14 := writtenoff_duration_ra14 +  total_duration;
+                    END IF;
+
+                    currentamount_ra14 :=  total_retail_amount +  old_retail_amount +  total_discount_value +  old_discount_value;
+
+                    -- Mediation success Amount
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 0 OR  batch_type = 4) THEN
+                      success_static_amount_ra14 := success_static_amount_ra14 + currentamount_ra14;
+                    END IF;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 and success_static_count_ra14 > 0 THEN
+                      success_rerating_amount_ra14 := success_rerating_amount_ra14 + currentamount_ra14;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                    IF  edr_status = psuspense
+                     AND  batch_type = 1 and success_static_count_ra14 > 0 THEN
+                      failed_rerating_amount_ra14 := failed_rerating_amount_ra14 + currentamount_ra14;
+                    END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 2 THEN
+                      success_recycle_amount_ra14 := success_recycle_amount_ra14 + currentamount_ra14;
+                    END IF;
+
+                    -- Set the flags accordingly
+                    IF  batch_type = 0 OR  batch_type = 1 OR  batch_type = 2 OR  batch_type = 4 OR  batch_type = 5 THEN
+                      flag_rerate_recycle_ra14 := 1;
+                    END IF;
+
+                    IF  batch_type = 3 THEN
+                      flag_writtenoff_ra14 := 1;
+                    END IF;
+
+                 -- Revenue Assurance Scope is rerating.
+                 ELSIF pRaScope = 'Rerating' THEN
+                    IF batch_type = 1 OR batch_type = 2 OR batch_type = 5 THEN
+                      flag_rerate_recycle_ra14 := 1;
+                    END IF;
+
+                    IF batch_type = 3 THEN
+                      flag_writtenoff_ra14 := 1;
+                    END IF;
+
+                    -- Rerating/Rerating Update success Count
+
+                    IF  edr_status = psuccess
+                     AND  (batch_type = 1 OR batch_type = 5) THEN
+                      success_static_count_ra14 := success_static_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Rerating/Rerating Update failed Count
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1  OR batch_type = 5 ) THEN
+                      failed_static_count_ra14 := failed_static_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Recycle/Rerate-Recycle success Count
+                    IF  edr_status = psuccess
+                     AND( batch_type = 2) THEN
+                      success_recycle_count_ra14 := success_recycle_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Written-off Count
+
+                    IF edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_count_ra14 := writtenoff_count_ra14 +  total_count;
+                    END IF;
+
+                    -- Rerating and Rerating-update success Duration
+
+                    IF  edr_status = psuccess
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      success_static_duration_ra14 := success_static_duration_ra14 +  total_duration;
+                    END IF;
+
+                    -- Rerating and Rerating-update failed Duration
+
+                    IF  edr_status = psuspense
+                     AND( batch_type = 1 OR  batch_type = 5) THEN
+                      failed_static_duration_ra14 := failed_static_duration_ra14 +  total_duration;
+                    END IF;
+
+                    -- Recycle success Duration
+
+                    IF  edr_status = psuccess AND  batch_type = 2 THEN
+                      success_recycle_duration_ra14 := success_recycle_duration_ra14 +  total_duration;
+                    END IF;
+
+                    -- Written-off Duration
+
+                    IF  edr_status = pwrittenoff
+                     AND  batch_type = 3 THEN
+                      writtenoff_duration_ra14 := writtenoff_duration_ra14 +  total_duration;
+                    END IF;
+
+                    currentamount_ra14 :=  total_retail_amount +  total_discount_value;
+
+                    -- Rerating success Amount
+
+                    IF  edr_status = psuccess
+                     AND  batch_type = 1 THEN
+                      success_rerating_amount_ra14 := success_rerating_amount_ra14 + currentamount_ra14;
+                    END IF;
+
+                    -- Rerating failed Amount
+
+                 --   IF  edr_status = psuspense
+                  --   AND  batch_type = 1 THEN
+                  --    failed_rerating_amount_ra14 := failed_rerating_amount_ra14 + currentamount_ra14;
+                  --  END IF;
+
+                    -- Recycle success Amount
+
+                    IF  edr_status = psuccess
+                     AND  ( batch_type = 2 or batch_type = 5 ) THEN
+                      success_recycle_amount_ra14 := success_recycle_amount_ra14 + currentamount_ra14;
+                    END IF;
+                 END IF;
+              END LOOP;
+            END;
+
+    OPEN l_cursor FOR
+        SELECT
+                    success_recycle_count_ra02 as success_recycle_count_ra02,
+                    success_static_count_ra02 as success_static_count_ra02,
+                    failed_static_count_ra02 as failed_static_count_ra02,
+                    writtenoff_count_ra02 as writtenoff_count_ra02 ,
+                    flag_rerate_recycle_ra02 as flag_rerate_recycle_ra02,
+                    flag_writtenoff_ra02 as flag_writtenoff_ra02,
+                    success_recycle_duration_ra02 as success_recycle_duration_ra02,
+                    success_static_duration_ra02 as success_static_duration_ra02,
+                    failed_static_duration_ra02 as failed_static_duration_ra02,
+                    writtenoff_duration_ra02 as writtenoff_duration_ra02,
+                    success_recycle_amount_ra02 as success_recycle_amount_ra02,
+                    success_static_amount_ra02 as success_static_amount_ra02,
+                    failed_static_amount_ra02 as failed_static_amount_ra02,
+                    success_rerating_amount_ra02 as success_rerating_amount_ra02,
+                    failed_rerating_amount_ra02 as failed_rerating_amount_ra02,
+                    CurrentAmount_ra02 as CurrentAmount_ra02,
+                    success_recycle_count_ra10 as success_recycle_count_ra10,
+                    success_static_count_ra10 as success_static_count_ra10,
+                    failed_static_count_ra10 as failed_static_count_ra10,
+                    writtenoff_count_ra10 as writtenoff_count_ra10 ,
+                    flag_rerate_recycle_ra10 as flag_rerate_recycle_ra10,
+                    flag_writtenoff_ra10 as flag_writtenoff_ra10,
+                    success_recycle_duration_ra10 as success_recycle_duration_ra10,
+                    success_static_duration_ra10 as success_static_duration_ra10,
+                    failed_static_duration_ra10 as failed_static_duration_ra10,
+                    writtenoff_duration_ra10 as writtenoff_duration_ra10,
+                    success_recycle_amount_ra10 as success_recycle_amount_ra10,
+                    success_static_amount_ra10 as success_static_amount_ra10,
+                    failed_static_amount_ra10 as failed_static_amount_ra10,
+                    success_rerating_amount_ra10 as success_rerating_amount_ra10,
+                    failed_rerating_amount_ra10 as failed_rerating_amount_ra10,
+                    CurrentAmount_ra10 as CurrentAmount_ra10,
+                    success_recycle_count_ra04 as success_recycle_count_ra04,
+                    success_static_count_ra04 as success_static_count_ra04,
+                    failed_static_count_ra04 as failed_static_count_ra04,
+                    writtenoff_count_ra04 as writtenoff_count_ra04 ,
+                    flag_rerate_recycle_ra04 as flag_rerate_recycle_ra04,
+                    flag_writtenoff_ra04 as flag_writtenoff_ra04,
+                    success_recycle_duration_ra04 as success_recycle_duration_ra04,
+                    success_static_duration_ra04 as success_static_duration_ra04,
+                    failed_static_duration_ra04 as failed_static_duration_ra04,
+                    writtenoff_duration_ra04 as writtenoff_duration_ra04,
+                    success_recycle_amount_ra04 as success_recycle_amount_ra04,
+                    success_static_amount_ra04 as success_static_amount_ra04,
+                    failed_static_amount_ra04 as failed_static_amount_ra04,
+                    success_rerating_amount_ra04 as success_rerating_amount_ra04,
+                    failed_rerating_amount_ra04 as failed_rerating_amount_ra04,
+                    CurrentAmount_ra04 as CurrentAmount_ra04,
+                    success_recycle_count_ra08 as success_recycle_count_ra08,
+                    success_static_count_ra08 as success_static_count_ra08,
+                    failed_static_count_ra08 as failed_static_count_ra08,
+                    writtenoff_count_ra08 as writtenoff_count_ra08 ,
+                    flag_rerate_recycle_ra08 as flag_rerate_recycle_ra08,
+                    flag_writtenoff_ra08 as flag_writtenoff_ra08,
+                    success_recycle_duration_ra08 as success_recycle_duration_ra08,
+                    success_static_duration_ra08 as success_static_duration_ra08,
+                    failed_static_duration_ra08 as failed_static_duration_ra08,
+                    writtenoff_duration_ra08 as writtenoff_duration_ra08,
+                    success_recycle_amount_ra08 as success_recycle_amount_ra08,
+                    success_static_amount_ra08 as success_static_amount_ra08,
+                    failed_static_amount_ra08 as failed_static_amount_ra08,
+                    success_rerating_amount_ra08 as success_rerating_amount_ra08,
+                    failed_rerating_amount_ra08 as failed_rerating_amount_ra08,
+                    CurrentAmount_ra08 as CurrentAmount_ra08,
+                    success_recycle_count_ra14 as success_recycle_count_ra14,
+                    success_static_count_ra14 as success_static_count_ra14,
+                    failed_static_count_ra14 as failed_static_count_ra14,
+                    writtenoff_count_ra14 as writtenoff_count_ra14 ,
+                    flag_rerate_recycle_ra14 as flag_rerate_recycle_ra14,
+                    flag_writtenoff_ra14 as flag_writtenoff_ra14,
+                    success_recycle_duration_ra14 as success_recycle_duration_ra14,
+                    success_static_duration_ra14 as success_static_duration_ra14,
+                    failed_static_duration_ra14 as failed_static_duration_ra14,
+                    writtenoff_duration_ra14 as writtenoff_duration_ra14,
+                    success_recycle_amount_ra14 as success_recycle_amount_ra14,
+                    success_static_amount_ra14 as success_static_amount_ra14,
+                    failed_static_amount_ra14 as failed_static_amount_ra14,
+                    success_rerating_amount_ra14 as success_rerating_amount_ra14,
+                    failed_rerating_amount_ra14 as failed_rerating_amount_ra14,
+                    CurrentAmount_ra14 as CurrentAmount_ra14,
+                    success_recycle_count_ra06 as success_recycle_count_ra06,
+                    success_static_count_ra06 as success_static_count_ra06,
+                    failed_static_count_ra06 as failed_static_count_ra06,
+                    writtenoff_count_ra06 as writtenoff_count_ra06 ,
+                    flag_rerate_recycle_ra06 as flag_rerate_recycle_ra06,
+                    flag_writtenoff_ra06 as flag_writtenoff_ra06,
+                    success_recycle_duration_ra06 as success_recycle_duration_ra06,
+                    success_static_duration_ra06 as success_static_duration_ra06,
+                    failed_static_duration_ra06 as failed_static_duration_ra06,
+                    writtenoff_duration_ra06 as writtenoff_duration_ra06,
+                    success_recycle_amount_ra06 as success_recycle_amount_ra06,
+                    success_static_amount_ra06 as success_static_amount_ra06,
+                    failed_static_amount_ra06 as failed_static_amount_ra06,
+                    success_rerating_amount_ra06 as success_rerating_amount_ra06,
+                    failed_rerating_amount_ra06 as failed_rerating_amount_ra06,
+                    CurrentAmount_ra06 as CurrentAmount_ra06
+        FROM
+                    DUAL;
+   END IF;
+   RETURN l_cursor;
+
+   EXCEPTION
+          WHEN INVALID_BATCH_ID THEN
+               RAISE_APPLICATION_ERROR (-20001, 'Batch ID cannot be NULL');
+          WHEN INVALID_FLOW_TYPE THEN
+               RAISE_APPLICATION_ERROR (-20002, 'Flow Type cannot be NULL');
+          WHEN INVALID_CONTROL_POINT THEN
+               RAISE_APPLICATION_ERROR (-20003, 'Control Point cannot be NULL');
+           return l_cursor;
+  END RARatingDetail;
+
+  FUNCTION CreateDynamicQuery(
+            pstartdate        IN VARCHAR2,
+            penddate          IN VARCHAR2,
+            ptransstartdate   IN VARCHAR2,
+            ptransenddate     IN VARCHAR2,
+            pflowtype         IN VARCHAR2,
+            pcontrolpoint     IN VARCHAR2,
+            pservicetype      IN VARCHAR2,
+            pbatchid          IN VARCHAR2,
+            pdetailstablename IN VARCHAR2,
+            pRaScope           IN VARCHAR2) RETURN VARCHAR2 AS
+      dquery VARCHAR2(6000) := NULL;
+      groupby VARCHAR2(200) := NULL;
+      orderby VARCHAR2(200) := NULL;
+      BEGIN
+      -- Based on RA scope, create the query to fetch dynamic data.
+        dquery := 'select
+                        EDR_STATUS,
+                        sum(v1.TOTAL_COUNT) TOTAL_COUNT,
+                        sum(v1.TOTAL_DURATION) TOTAL_DURATION,
+                        sum(v1.OLD_RETAIL_AMOUNT) OLD_RETAIL_AMOUNT,
+                        sum(v1.TOTAL_RETAIL_AMOUNT) TOTAL_RETAIL_AMOUNT,
+                        sum(v1.TOTAL_DISCOUNT_VALUE) TOTAL_DISCOUNT_VALUE,
+                        sum(v1.OLD_DISCOUNT_VALUE) OLD_DISCOUNT_VALUE,
+                        v1.BATCH_TYPE BATCH_TYPE,
+                        v1.PROCESS_NAME,
+                        v1.BATCH_ID,
+                        v1.original_batch_id,
+                        v1.suspended_from_batch_id
+                  from
+                      (select /*+ ORDERED */
+                          EDR_STATUS,';
+                  IF (pServiceType is NOT NULL) THEN -- add only when service type is requested
+                          dQuery :=  dQuery || ' SERVICE_TYPE,';
+                  END IF;
+        dQuery :=  dQuery || ' details.TOTAL_COUNT ,
+                          details.TOTAL_DURATION ,
+                          details.OLD_RETAIL_AMOUNT ,
+                          details.TOTAL_RETAIL_AMOUNT ,
+                          details.TOTAL_DISCOUNT_VALUE,
+                          details.OLD_DISCOUNT_VALUE,
+                          BATCH_TYPE ,
+                          PROCESS_NAME,
+                          BATCH_ID,
+                          details.original_batch_id,
+                          details.suspended_from_batch_id
+                       from   (select /*+ USE_NL (proc_aud_t proc_aud_bstat_t) NO_MERGE */
+                                        proc_aud_t.poid_id0,
+                                        proc_aud_bstat_t.batch_type,
+                                        proc_aud_t.process_name,
+                                        proc_aud_bstat_t.batch_id
+                              FROM proc_aud_t,
+                                        proc_aud_bstat_t
+                              WHERE proc_aud_bstat_t.OBJ_ID0 = proc_aud_t.POID_ID0 ';
+                                IF (pRaScope = 'Batch Rating') THEN
+                                 dQuery :=  dQuery || ' and proc_aud_bstat_t.BATCH_TYPE in (0, 2, 4) ' ;
+                                ELSIF (pRaScope = 'Rerating') THEN
+                                 dQuery :=  dQuery || ' and proc_aud_bstat_t.BATCH_TYPE in (1, 2, 5) ';
+                                END IF;
+                                dQuery :=  dQuery || ' and proc_aud_t.PROCESS_NAME = ''' || pcontrolpoint || '''
+                                and proc_aud_t.CREATED_T >= (bipext.infStrToTimet(''' || pstartdate || ''', 2))
+                                and proc_aud_t.CREATED_T <=  (DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+							bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+							bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+                                and proc_aud_t.VERSION_ID = 4) p, ' || pdetailstablename || ' details
+                       where details.OBJ_ID0 = p.POID_ID0
+                              and details.SUSPENDED_FROM_BATCH_ID = ''' || pbatchid || '''
+                              and (details.USAGE_START_T >= (bipext.infStrToTimet(''' || ptransstartdate || ''', 2))
+                              and  details.USAGE_START_T <= (DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+							bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+							bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2))))
+                       UNION ALL
+                       select /*+ ORDERED */
+                           EDR_STATUS,';
+                      IF (pServiceType is NOT NULL) THEN
+                          dQuery :=  dQuery || ' SERVICE_TYPE,';
+                      END IF;
+        dQuery :=  dQuery || ' details.TOTAL_COUNT ,
+                           details.TOTAL_DURATION ,
+                           details.OLD_RETAIL_AMOUNT ,
+                           details.TOTAL_RETAIL_AMOUNT ,
+                           details.TOTAL_DISCOUNT_VALUE,
+                           details.OLD_DISCOUNT_VALUE,
+                           BATCH_TYPE ,
+                           PROCESS_NAME,
+                           BATCH_ID,
+                           details.ORIGINAL_BATCH_ID,
+                           details.SUSPENDED_FROM_BATCH_ID
+                        from  (select /*+ USE_NL (proc_aud_t proc_aud_bstat_t) NO_MERGE */
+                                        proc_aud_t.poid_id0,
+                                        proc_aud_bstat_t.batch_type,
+                                        proc_aud_t.process_name,
+                                        proc_aud_bstat_t.BATCH_ID
+                               FROM proc_aud_t,
+                                        proc_aud_bstat_t
+                               WHERE proc_aud_bstat_t.OBJ_ID0 = proc_aud_t.POID_ID0 ' ;
+                                IF (pRaScope = 'Batch Rating') THEN
+                                  dQuery :=  dQuery || ' and proc_aud_bstat_t.BATCH_TYPE in (1, 2, 3, 5) ';
+                                ELSIF (pRaScope = 'Rerating') THEN
+                                  dQuery :=  dQuery || ' and proc_aud_bstat_t.BATCH_TYPE = 3 ';
+                                END IF;
+                                  dQuery :=  dQuery || ' and proc_aud_t.PROCESS_NAME in
+                                  (select CONTROL_POINT
+                                        from CONFIG_CONTROLPOINTS_LINKS_T
+                                        where PARENT_CTRL_POINT = ''' || pControlPoint || ''')
+                                  and proc_aud_t.CREATED_T >= (bipext.infStrToTimet(''' || pstartdate || ''', 2))
+                                  and proc_aud_t.CREATED_T <=  (DECODE((instr( ''' || pEndDate || ''' , '':'', 1, 2)), 0, 
+								bipext.INFSTRTOTIMET(''' || pEndDate || ''' , 2)-1, 
+								bipext.INFSTRTOTIMET(''' || pEndDate || ''',2)))
+                                  and proc_aud_t.VERSION_ID = 4) p, ' || pdetailstablename || ' details
+                         where details.OBJ_ID0 = p.POID_ID0 ' ;
+                             IF (pRaScope = 'Batch Rating') THEN
+                              dQuery :=  dQuery || ' and details.ORIGINAL_BATCH_ID = ''' || pbatchid || '''';
+                             ELSIF (pRaScope = 'Rerating') THEN
+                              dQuery :=  dQuery || ' and details.SUSPENDED_FROM_BATCH_ID = ''' || pbatchid || '''';
+                             END IF;
+                              dQuery :=  dQuery || ' AND (details.usage_start_t >=(bipext.infstrtotimet(''' || ptransStartDate || ''',   2))
+                              AND details.usage_start_t <=(DECODE((instr( ''' || pTransEndDate || ''' , '':'', 1, 2)), 0, 
+					bipext.INFSTRTOTIMET(''' || pTransEndDate || ''' , 2)-1, 
+					bipext.INFSTRTOTIMET(''' || pTransEndDate || ''',2)) ))) v1 ';
+
+                  IF (pServiceType is NOT NULL) THEN  -- add only when service type is requested
+                      dQuery :=  dQuery || ' WHERE service_type = ''' || pServiceType || '''';
+                  END IF;
+     groupby := ' Group By EDR_STATUS, BATCH_TYPE, PROCESS_NAME, BATCH_ID, ORIGINAL_BATCH_ID, SUSPENDED_FROM_BATCH_ID ';
+     orderby := ' Order By EDR_STATUS, BATCH_TYPE, PROCESS_NAME, BATCH_ID, ORIGINAL_BATCH_ID, SUSPENDED_FROM_BATCH_ID ';
+
+     dquery := dquery || groupby || orderby;
+     RETURN dquery;
+
+  END;
+
+
+  FUNCTION ref_cur(dquery IN VARCHAR2) RETURN rarating.refcursor IS
+      l_ref_cur rarating.refcursor;
+  BEGIN
+      OPEN l_ref_cur FOR dquery;
+	if (l_ref_cur is null) then
+	  OPEN l_ref_cur FOR
+			SELECT
+  "PROC_AUD_T"."CREATED_T"                  CREATED_T,
+  "CONFIG_RA_FLOWS_T"."FLOW_NAME"           FLOW_NAME,
+   OLD_DISCOUNT_VALUE      		    OLD_DISCOUNT_VALUE,
+   OLD_RETAIL_AMOUNT                        OLD_RETAIL_AMOUNT,
+   ORIGINAL_BATCH_ID                        ORIGINAL_BATCH_ID,
+  "PROC_AUD_T"."POID_TYPE"                  POID_TYPE,
+  "PROC_AUD_T"."PROCESS_NAME"               PROCESS_NAME,
+   TOTAL_COUNT                              TOTAL_COUNT,
+   TOTAL_DISCOUNT_VALUE                     TOTAL_DISCOUNT_VALUE,
+   TOTAL_DURATION                           TOTAL_DURATION,
+   TOTAL_RETAIL_AMOUNT                      TOTAL_RETAIL_AMOUNT,
+   TOTAL_VOLUME_RECEIVED                    TOTAL_VOLUME_RECEIVED,
+   TOTAL_VOLUME_SENT                        TOTAL_VOLUME_SENT,
+   TOTAL_WHOLESALE_AMOUNT                   TOTAL_WHOLESALE_AMOUNT,
+   USAGE_START_T                            USAGE_START_T,
+  "PROC_AUD_T"."VERSION_ID"                  VERSION_ID,
+   NULL                                     EDR_STATUS,
+   NULL		                            GDTLS_REL_T_OBJ_ID0,
+   NULL                                     GDTLS_REL_T_TOTAL_VALUE,
+   NULL                                     GDTLS_REL_T_EVENT_COUNT,
+   OUTPUT_STREAM                            OUTPUT_STREAM,
+   REVENUE_STREAM                           REVENUE_STREAM,
+   SERVICE_TYPE                             SERVICE_TYPE,
+   NULL                                     SUSPENSE_CODE,
+   UPPER("CONFIG_RA_FLOWS_T"."FLOW_NAME")   UFLOW_NAME,
+   UPPER("PROC_AUD_T"."PROCESS_NAME")       UPROCESS_NAME,
+   UPPER(OUTPUT_STREAM)                     UOUTPUT_STREAM,
+   UPPER(REVENUE_STREAM)                    UREVENUE_STREAM,
+   UPPER(SERVICE_TYPE)                      USERVICE_TYPE,
+   NULL                                     UEDR_STATUS,
+   8                                        POID_VAL
+FROM((("CONFIG_RA_CTRL_PT_T" "CONFIG_RA_CTRL_PT_T"
+INNER JOIN "CONFIG_RA_FLOWS_T" "CONFIG_RA_FLOWS_T" ON("CONFIG_RA_CTRL_PT_T"."OBJ_ID0" = "CONFIG_RA_FLOWS_T"."OBJ_ID0")
+ AND("CONFIG_RA_CTRL_PT_T"."REC_ID2" = "CONFIG_RA_FLOWS_T"."REC_ID"))
+INNER JOIN "PROC_AUD_T" "PROC_AUD_T" ON("CONFIG_RA_CTRL_PT_T"."CP_NAME" = "PROC_AUD_T"."PROCESS_NAME")
+ AND("CONFIG_RA_CTRL_PT_T"."OBJ_TYPE" = "PROC_AUD_T"."POID_TYPE"))
+INNER JOIN "PROC_AUD_BSTAT_T" "PROC_AUD_BSTAT_T" ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BSTAT_T"."OBJ_ID0")
+INNER JOIN "GDTLS_STYPE_RSTRM_OSTRM_T" "GDTLS_STYPE_RSTRM_OSTRM_T" ON "PROC_AUD_T"."POID_ID0" = "GDTLS_STYPE_RSTRM_OSTRM_T"."OBJ_ID0";
+	  end if;
+      RETURN l_ref_cur;
+  END;
+
+END RARating;
+/

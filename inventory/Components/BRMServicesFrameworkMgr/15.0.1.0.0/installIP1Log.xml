@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ACTION_LIST>
+   <ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values tcframework" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/deInstall.pl sys/cm fm_tcf" TYPE="String" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/deInstall.pl " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/deInstall.pl sys/cm _prov_" TYPE="String" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/telco/service_orders" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+</ACTION_LIST>

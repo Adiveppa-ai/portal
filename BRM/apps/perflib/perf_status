@@ -1,0 +1,374 @@
+#!/bin/ksh
+# Copyright (c) 2020, Oracle and/or its affiliates. 
+#------------------------------------------------------------------------------#
+# SCRIPT: perf_status
+#
+# DESCRIPTION:
+#
+# Simple script to check the current status of performance timing and to allow
+# us to switch timing on/off, clear log files, delete them etc.
+#
+# INFORMATION:
+#
+# None
+#
+# REVISION:
+#
+# $Revision: 1.21 $
+# $Author: ihargrea $
+# $Date: 2019/06/19 14:45:01 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# abort - Exit with error message
+#------------------------------------------------------------------------------#
+abort()
+{
+   printf "ERROR : $CMD - $@\n" >&2
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# usage - Exit with usage message
+#------------------------------------------------------------------------------#
+usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-h]
+
+where   -h    This help message
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# data_file_bits - determine whether we are 64-bit or 32-bit ...
+#------------------------------------------------------------------------------#
+data_file_bits()
+{
+typeset df="$1"
+typeset bits=32
+typeset ver_info=
+
+   ver_info=$(head -1 $df | grep "perflib" 2>&1)
+   [ -n "$ver_info" ] && bits=$(expr "$ver_info" : "perflib-\(..\)bit")
+   printf "$bits\n"
+   return 1
+}
+
+#------------------------------------------------------------------------------#
+# data_file_var_value - get the value of a variable from the data file
+#------------------------------------------------------------------------------#
+data_file_var_value()
+{
+typeset df="$1"
+typeset key="$2"
+typeset T=
+typeset bits=$(data_file_bits $df)
+typeset pstatus=$PSTATUS
+
+   [ "$bits" = 64 ] && pstatus=$PSTATUS64
+   T=$($pstatus -v ${df} 2>&1 | grep "${key}=")
+   if [ $? -eq 0 ]
+   then
+      T=$(expr "$T" : "${key}=\(.*\)")
+   else
+      return 0
+   fi
+   printf "${T}\n"
+   return 1
+}
+
+#------------------------------------------------------------------------------#
+# header
+#------------------------------------------------------------------------------#
+header()
+{
+   clear
+   printf "\n"
+   printf "\t\t\tPerfLib - $(date +'%Y/%m/%d %H:%M:%S')\n"
+   printf "\t\t\t=============================\n"
+   printf "\n"
+}
+
+#------------------------------------------------------------------------------#
+# data_file_name - Find the data file for this process ...
+#------------------------------------------------------------------------------#
+data_file_name()
+{
+typeset df_file=
+
+   df_file=$(eval printf \${PERFLIB_DATA_FILE})
+   if [ -r "$df_file" ]
+   then
+      printf "$df_file";
+      return 1
+   else
+      return 0
+   fi
+}
+
+#------------------------------------------------------------------------------#
+# show_status
+#------------------------------------------------------------------------------#
+show_status()
+{
+typeset now=
+typeset time_on=
+typeset flist_on=
+typeset alarm_on=
+typeset time_files=0
+typeset flist_files=0
+typeset alarm_files=0
+
+   header
+
+   #
+   # Check status ...
+   #
+   DATA_FILE=$(data_file_name)
+   if [ -r "$DATA_FILE"  ]
+   then
+      # timing ...
+      STATUS=$(data_file_var_value $DATA_FILE "time_on")
+      [ "$STATUS" -eq 0 ] && time_on="disabled" || time_on="active ($STATUS)"
+      # flist ...
+      STATUS=$(data_file_var_value $DATA_FILE "flist_on")
+      [ "$STATUS" -eq 0 ] && flist_on="disabled" || flist_on="active ($STATUS)"
+      # alarm ...
+      STATUS=$(data_file_var_value $DATA_FILE "alarm_on")
+      [ "$STATUS" -eq 0 ] && alarm_on="disabled" || alarm_on="active ($STATUS)"
+   else
+      time_on="disabled"
+      flist_on="disabled"
+      alarm_on="disabled"
+      DATA_FILE="no data file '$DATA_FILE' found"
+   fi
+
+   #
+   # Get log files ...
+   #
+   time_files=$(ls -1 $PERFLIB_LOGDIR/*.*plog.txt 2>/dev/null | \
+                wc -l | tr -d " ")
+   flist_files=$(ls -1 $PERFLIB_LOGDIR/*.*flog.txt 2>/dev/null | \
+                 wc -l | tr -d " ")
+   alarm_files=$(ls -1 $PERFLIB_LOGDIR/*.*alarm.txt 2>/dev/null | \
+                 wc -l | tr -d " ")
+
+   #
+   # Show status ...
+   #
+   printf "Status for CM\n"
+   printf "=============\n"
+   printf "\tData file         : $DATA_FILE\n"
+   printf "\tTiming log status : $time_on\n"
+   printf "\tFlist log status  : $flist_on\n"
+   printf "\tAlarm log status  : $alarm_on\n"
+   printf "\n"
+}
+
+#------------------------------------------------------------------------------#
+# clear_logs
+#------------------------------------------------------------------------------#
+clear_logs()
+{
+typeset to_del=$1
+
+   time_files=$(ls $PERFLIB_LOGDIR/*.${proc}*plog.txt 2>/dev/null)
+   flist_files=$(ls $PERFLIB_LOGDIR/*.${proc}*flog.txt 2>/dev/null)
+   alarm_files=$(ls $PERFLIB_LOGDIR/*.${proc}*alarm.txt 2>/dev/null)
+
+   i=0
+
+   for f in $time_files $flist_files $alarm_files
+   do
+      [ -n "$to_del" ] && rm -f $f || :>$f
+      i=$((i+1))
+   done
+
+   printf "\nCleared $i $proc trace/alarm files.\n\n"
+}
+
+#------------------------------------------------------------------------------#
+# on_off
+#------------------------------------------------------------------------------#
+on_off()
+{
+typeset type=${1}
+typeset val=${2}
+typeset bits=
+typeset df=
+typeset pstatus=$PSTATUS
+
+   #
+   # Determine type and get size of data-file ...
+   #
+   type=$(printf "$type\n" | tr "[A-Z]" "[a-z]")
+   df=$(data_file_name)
+   bits=$(data_file_bits $df)
+   [ "$bits" = 64 ] && pstatus=$PSTATUS64
+
+   #
+   # Set the value in the mmap file ...
+   #
+   case "$type" in
+   time)  $pstatus -t$val $DATA_FILE >/dev/null 2>&1;;
+   flist) $pstatus -f$val $DATA_FILE >/dev/null 2>&1;;
+   alarm) $pstatus -a$val $DATA_FILE >/dev/null 2>&1;;
+   esac
+}
+
+#------------------------------------------------------------------------------#
+# Main
+#------------------------------------------------------------------------------#
+CMD=$(basename $0)
+ENV_F=${PERFLIB_HOME:-$(pwd)}/perf.env
+
+#
+# Check options ...
+#
+while getopts ":hd" OPTION
+do
+   case "$OPTION" in
+   h)  usage;;
+   \?) printf "Unknown option '$OPTARG'\n" >&2
+       usage;;
+   :)  printf "Option '$OPTARG' requires an argument\n" >&2
+       usage;;
+   *)  break;;
+   esac
+done
+shift $((OPTIND - 1))
+
+#
+# Check parameters ...
+#
+[ $# -eq 0 ] || usage
+
+#
+# Source environment ...
+#
+[ -r $ENV_F ] || abort "Could not locate environment file '$ENV_F'"
+. $ENV_F
+export PSTATUS=$PERFLIB_HOME/pstatus
+export PSTATUS64=$PERFLIB_HOME/pstatus64
+
+#
+# Loop indefinitely while awaiting input ...
+#
+DONE=
+while [ -z "$DONE" ]
+do   
+   show_status
+
+   #
+   # Get user options ...
+   #
+   ANS=
+   printf "\n\n"
+   printf "Please enter one of:\n"
+   printf "   (t)iming on/off or (f)list on/off or (a)larm on/off\n"
+   printf "   (l)ist or (c)lear or (d)elete or (q)uit\n\n"
+   printf "   For timing/flist/alarm values, enter the desired status value:\n"
+   printf "      [timing] t0 = Off, t1 = Real-Time, t2 = Batch, t3 = Both\n"
+   printf "       [flist] f0 = Off, f1 = Summary, f2 = Detailed, f3 = Both\n"
+   printf "      [alarms] a0 = Off, a1 = On\n"
+   printf "\n"
+   printf "Enter option >> "
+   read ANS
+
+   #
+   # Determine operation and value
+   #
+   case "$ANS" in
+   l|L)   OP="show_status";;
+   c|C)   OP="clear_logs";;
+   d|D)   OP="delete_logs";;
+   t*|T*) OP="set_time";;
+   f*|F*) OP="set_flist";;
+   a*|A*) OP="set_alarm";;
+   [qQ])  OP="quit";;
+   *)     OP=;;
+   esac
+   [ -n "$OP" ] && VAL=$(expr "$ANS" : ".\(.*\)") || VAL=0
+
+   #
+   # Validate the values ...
+   #
+   EMSG=
+   case "$OP" in
+   set_time)  [ $VAL -lt 0 -o $VAL -gt 3 ] && EMSG="Time must be set to 0, 1, 2, or 3";;
+   set_flist) [ $VAL -lt 0 -o $VAL -gt 3 ] && EMSG="Flist must be set to 0, 1, 2, or 3";;
+   set_alarm) [ $VAL -lt 0 -o $VAL -gt 1 ] && EMSG="Alarm must be set to 0 or 1";;
+   *) : ;;
+   esac
+   [ -n "$EMSG" ] && {
+      printf "\nERROR: $EMSG\n"
+      printf "\n\nPress RETURN to continue"
+      read ANS
+      OP=
+   }
+   
+   #
+   # Execute operation ...
+   #
+   case "$OP" in
+   show_status)
+         header
+         printf "Time log files:\n"
+         printf "    %-60.60s   %-12.12s   %10s\n" \
+                "Filename" "Date/Time" "File Size"
+         printf "    %-60.60s   %-12.12s   %10s\n" \
+                "--------" "---------" "---------"
+
+         (cd $PERFLIB_LOGDIR; ls -lt *.*plog.txt 2>/dev/null | \
+            awk '{ printf "    %-60.60s   %-3.3s %-2.2s %-5.5s   %10d (%0.2f Kb)\n", \
+                          $9, $6, $7, $8, $5, $5/1024 }')
+
+         printf "\n"
+         printf "Flist log files:\n"
+         printf "    %-60.60s   %-12.12s   %10s\n" \
+                "Filename" "Date/Time" "File Size"
+         printf "    %-60.60s   %-12.12s   %10s\n" \
+                "--------" "---------" "---------"
+         (cd $PERFLIB_LOGDIR; ls -lt *.*flog.txt 2>/dev/null | \
+            awk '{ printf "%-60.60s   %-3.3s %-2.2s %-5.5s   %10d (%0.2f Kb)\n", \
+                          $9, $6, $7, $8, $5, $5/1024 }')
+
+         printf "\n"
+         printf "Alarm files:\n"
+         printf "    %-60.60s   %-12.12s   %10s\n" \
+                "Filename" "Date/Time" "File Size"
+         printf "    %-60.60s   %-12.12s   %10s\n" \
+                "--------" "---------" "---------"
+         (cd $PERFLIB_LOGDIR; ls -lt *.*alarm.txt 2>/dev/null | \
+            awk '{ printf "    %-60.60s   %-3.3s %-2.2s %-5.5s   %10d (%0.2f Kb)\n", \
+                          $9, $6, $7, $8, $5, $5/1024 }')
+
+         printf "\n\nPress RETURN to continue"
+         read ANS
+         ;;
+   clear_logs)
+         clear_logs
+         echo "\n\nPress RETURN to continue\c"
+         read ANS
+         ;;
+   delete_logs)
+         clear_logs DELETE
+         echo "\n\nPress RETURN to continue\c"
+         read ANS
+         ;;
+   set_time)
+         on_off TIME $VAL
+         ;;
+   set_flist)
+         on_off FLIST $VAL
+         ;;
+   set_alarm)
+         on_off ALARM $VAL
+         ;;
+   quit) DONE=Y
+         ;;
+   esac
+done
+exit 0

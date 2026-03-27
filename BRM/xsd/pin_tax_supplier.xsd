@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+  targetNamespace="http://www.portal.com/PortalXMLSchema"
+  xmlns="http://www.portal.com/PortalXMLSchema"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"> 
+
+  <xs:annotation>
+    <xs:documentation>
+ Copyright (c) 2014, Oracle and/or its affiliates. All rights reserved.
+	This material is the confidential property of Oracle Corporation or its
+	licensors and may be used, reproduced, stored or transmitted only in
+	accordance with a valid Oracle license or sublicense agreement.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element 
+    name="TaxSupplierConfiguration"> 
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="TaxSupplierElement">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="Address" type="xs:string" minOccurs="0" />
+              <xs:element name="NexusInfo" type="xs:string" minOccurs="0" />
+              <xs:element name="RegulatedFlag" type="xs:string" minOccurs="0" />
+              <xs:element name="DefaultFlag" type="xs:string" minOccurs="0" />
+              <xs:element name="VATInfo" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CanonCountry" type="xs:string" minOccurs="0" />
+                    <xs:element name="VATCertificate" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Geocode" type="xs:string" minOccurs="0" />
+              <xs:element name="TaxPackage" minOccurs="0">
+		<xs:simpleType>
+			<xs:restriction base="xs:nonNegativeInteger">
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="4"/>
+				<xs:whiteSpace value="collapse"/>
+			</xs:restriction>
+		</xs:simpleType>
+	      </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

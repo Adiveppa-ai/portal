@@ -1,0 +1,62 @@
+create or replace
+PACKAGE CCExpire
+AS
+   FUNCTION GET_CONVERTED_DATE (
+      pInputDate       IN   TIMESTAMP WITH TIME ZONE
+   )
+      RETURN VARCHAR2;
+      FUNCTION GETVALUE (
+      pInputDate       IN   TIMESTAMP WITH TIME ZONE
+   )
+      RETURN VARCHAR2;
+END;
+/
+create or replace
+PACKAGE BODY ccexpire
+ AS
+    FUNCTION get_converted_date (pinputdate IN TIMESTAMP WITH TIME ZONE)
+       RETURN VARCHAR2
+    IS
+       monthpart        INTEGER :=0;
+       yearpart         INTEGER :=0;
+       converteddate    VARCHAR2 (24);
+    BEGIN
+          
+      select extract (month from pinputdate) into monthpart from dual;
+      select extract (year from pinputdate) into yearpart from dual;
+ 
+      converteddate:=monthpart||yearpart;
+       RETURN (converteddate);
+
+      EXCEPTION
+        WHEN OTHERS THEN
+           RAISE_APPLICATION_ERROR (-20001, 'Not a valid Month / Year
+ Format');
+      return 0;
+
+ END get_converted_date;
+ 
+  FUNCTION GETVALUE (  pInputDate       IN   TIMESTAMP WITH TIME ZONE  ) return varchar2 as
+  testval varchar2(60):=null;
+  month_val integer:=0;
+  year_val integer:=0;
+  str_month_val varchar2(60):=null;
+  
+  
+  begin
+  
+  select extract(month from pinputdate) into month_val from dual;
+  select extract(year from pinputdate) into year_val from dual; 
+  
+    if month_val <10 then
+      str_month_val := '0'||month_val;
+    else
+      str_month_val := month_val;
+    end if;   
+    
+  testval:=to_char(to_date(str_month_val||year_val,'mmyyyy'),'mmyy');
+  
+  return testval;
+  end getvalue;
+ END ccexpire;
+/

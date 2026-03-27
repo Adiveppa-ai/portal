@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/PortalXMLSchema" xmlns="http://www.portal.com/PortalXMLSchema"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="AccountReceivablesConfiguration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TaxConfigurationList" type="TaxConfigurationListType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Event">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="/event/billing/adjustment/item"/>
+				<xs:enumeration value="/event/billing/dispute/item"/>
+				<xs:enumeration value="/event/billing/settlement/item"/>
+				<xs:enumeration value="/event/billing/adjustment/account"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Name" type="xs:string"/>
+	<xs:element name="TaxCode" type="xs:string"/>
+	<xs:complexType name="TaxConfigurationType">
+		<xs:all>
+			<xs:element ref="Event"/>
+			<xs:element ref="Name"/>
+			<xs:element ref="TaxCode"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="TaxConfigurationListType">
+		<xs:sequence>
+			<xs:element name="TaxConfiguration" type="TaxConfigurationType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+

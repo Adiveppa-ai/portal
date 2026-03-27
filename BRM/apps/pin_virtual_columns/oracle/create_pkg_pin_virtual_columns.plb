@@ -1,0 +1,74 @@
+CREATE or REPLACE PACKAGE
+pin_virtual_columns wrapped 
+a000000
+367
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+9
+272 160
+hVHIVMdiG585MeLHhs/orGtYwugwg5DQNQxqZy8CAP7qR8w1a3dtq3pZn8ZXRVhGMTFnrm0w
+xXfFJ3NzGysdCaPywdJwMJoSZOn+45SvBeCNnW+7Tx6wAT8/TOIPKyypUmX7UwwGX/03GFZ4
+Qx2t2awqkDN7A1uhMqEjOfKnww6EMv5NgqWRGiqZgAtbYsVAZ6i3cIhNtOnJtWqk4WB3hRmi
+pKEZuc/LmIxKWK9/v7n+AyA5bczpkprkxCTJoahdYFv68XP7Gh3y8fypicsd+ByDtVnBUE/2
+FKsY8EsTulN1LrCc6pWnIF7AZB4juLJgCFAzc9orDATC9ublbG9JmunhJoI=
+
+/
+CREATE or REPLACE PACKAGE BODY pin_virtual_columns wrapped 
+a000000
+367
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+11d9 64a
+vYYne5b+VaDWoKScr8EfYJNJFAowg9creSAF3y8ZsV3qcSSTOSXbUusN48H7oKKYg5GhDhoh
+OqJNLbHex5Fyn6P1fdCa91EU/GJS9zkK97TTQjTEwb7aktvkkEcWWXoeOd+hlyRsBXMQNAbE
+Hj1zTEUd03YdRngiRAWrRZHcOm7OerrnyhS2B6x4AtUVR79GsvDuHrEQS0xth2pdOc9Jj2H9
+JYgBjHHQaWWgO58ASCFPack0Iwo+Jn3i5b5lBT0WEyh9UFE3YBHmZ8e2qyIf4VgdUKVg50f6
+Kuq9aVKvQwRAwR8g0Rm8kjoG1+dp57XPi1h3GARAj4Oo1Df2tnsDTOQNG06pEsx9gO4++cfG
+nyazA+uRT9sKXZoUc7QYgxu8c9r5U4o9hAANTYSEJ9JjeWLlwIyrWGFK/V7Q+4wbkr1gqf3J
+5xldeEi61rZC5+hHE9YBUnGV16kHL75hweFSdjClqYWIGP7QpHJOAnJefFAlJvFAD9SNzzOo
+z4BM7vHpLgd8GK6Fbb5ySS5NTnEnZePWp5RV8Xr3MXKixmYGXqjlX6zkoB1OQXyxnxecUNZk
+DzUopg8SnJXlX0xWNTQxVobNy7k8BWyKtV9eVLDEnlem/DbDiH7pzM0y+z4iX7T7Q9v+pAUU
+qKyvPgscgl14i5sYVzDTqA5IhUjcDkl40aihJKhqb0vj/n+83eCvsSz5oxm5v8+qQJb4lhNs
+Ip9Go9sNtW4R7lNvySt66/a3khX9vvkcTp7ixmLT0yKBZo7rCUxnPB6hg1Gnsy3i2AI5Ghkj
+qxTK5oynV4ypvpem4ZbUIzCUb+TODiFYM/WiGNKy9XrL4oOjBsU9SaCLSOo1SALFH+rGgMbm
+h6AvfuoBnav8sgqMrjjdtKlkfm9g2+5eB0dLm3JtPxoNojgQVOwkZARcHAssgE8CW/f2GBrm
+yfQF+7/vxu7hAfe227Qv/wxkm/89gLBq476VBAPIen5Ko9ZQ369JdPg+Msh2wBlcOWA55mvT
+B1FL6qg7CT8ZEX8nhHL14k0T0bhnRNWV1sw+Hu7fmcXmpCoIwFfdrocdtO/EHnI+5C1MmjXU
+EEGKMCOdowiBK3oGV3FWZT+Zv5i2D4QRYISVW4gt91LyLrnh8XaMhHz7ODSsfgsbjbhrJlvd
+0x5Eh4Pz2Esz4dXc/I2npCf/b+0hafDqzlVcSUI30D3rTSdepLuLWdVEXepYdeKI2af0P3Oh
+hphDiGHbLm5+CBCx1ezYTRXCQxynoMbrK6Fov1lMEpvS0gDs3YTB8ovTK4k71KErgMhWd49p
+QvELas7BP75zCVghEHkjX47AFdejRAHq1Kebwiz8Qvzo5F2nW7TVGCpSv02WboEcYqCwKtS1
+N11bV5I0jtNKJxTFICzQs02hqMyrW/7Btn3Jd8Sgiv+8igKQ7b5VLT8fbcCA/dveCspNXxZu
+cTBb+uQAXRlpmb2NpDhUZqfJvsh+KyeBCQ8+nosWsSWH6xDOlDkJ0/KXJCgNngaMrsW3JXEz
+dJvpZL0y1gp3ojtme9F/Q5SLTYdXcm91X+YHdpnmUT67g5tKPqLPNNddH+rrx1G+/V8/kijP
+vIl+
+
+/
+SHOW errors;

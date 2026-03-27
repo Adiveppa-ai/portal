@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><adapter-config xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata" adapter="Oracle BRM Adapter" name="BRMSUBSCRIPTIONService">
+    <connection-factory UIConnectionName="" adapterRef="" location="eis/BRM"/>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_CHANGE_DEAL" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_CHANGE_DEAL"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_CHANGE_DEAL.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SET_PRODINFO" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SET_PRODINFO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SET_PRODINFO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SET_BUNDLE" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SET_BUNDLE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SET_BUNDLE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER" portType="BRMSUBSCRIPTIONService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+</adapter-config>

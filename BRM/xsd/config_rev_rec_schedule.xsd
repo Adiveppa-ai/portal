@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema 
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    Description: Schema definition for /config/rev_rec_schedule, which defines how 
+      revenue should be recognized - primarily at what calender
+      time and/or at which milestone completion.
+    Type: Multiple config object in the system.
+    Behavior: Config object will be created or replaced if already exist in db.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="PinTypes.xsd" />
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ConfigObject" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID" type="PinPoid" minOccurs="0" />
+              <xs:element name="ACCOUNT_OBJ" type="PinPoid" minOccurs="0" />
+              <xs:element name="DESCR" type="xs:string" minOccurs="0" />
+              <xs:element name="HOSTNAME" type="xs:string" minOccurs="0" />
+              <xs:element name="NAME" type="xs:string" minOccurs="1" />
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="VALUE" type="xs:string" minOccurs="0" />
+              <xs:element name="VERSION" type="xs:string" minOccurs="0" />
+              <xs:element name="EXTENDED_INFO" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="CODE" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="GL_TIME_PERIODS" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GL_ID" type="PinGLId" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="START_TIME_INFO" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MODE_STR" type="PinValidityMode" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="UNIT_STR" type="PinValidityUnit" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="START_OFFSET" type="xs:int" maxOccurs="1" minOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="END_TIME_INFO" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MODE_STR" type="PinValidityMode" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="UNIT_STR" type="PinValidityUnit" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="END_OFFSET" type="xs:int" maxOccurs="1" minOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PERCENT" type="xs:decimal" maxOccurs="1" minOccurs="1" />
+                  </xs:sequence>
+                  <xs:attribute name="elem" type="xs:nonNegativeInteger" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="GL_MILESTONES" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GL_ID" type="PinGLId" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="NAME" type="xs:string" minOccurs="1" />
+                    <xs:element name="START_TIME_INFO" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MODE_STR" type="PinValidityMode" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="UNIT_STR" type="PinValidityUnit" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="START_OFFSET" type="xs:int" maxOccurs="1" minOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="END_TIME_INFO" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MODE_STR" type="PinValidityMode" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="UNIT_STR" type="PinValidityUnit" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="END_OFFSET" type="xs:int" maxOccurs="1" minOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PERCENT" type="xs:decimal" maxOccurs="1" minOccurs="1" />
+                    <xs:element name="MILESTONE_DEADLINE_INFO" minOccurs="1" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MODE_STR" type="PinValidityMode" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="UNIT_STR" type="PinValidityUnit" maxOccurs="1" minOccurs="1" />
+                          <xs:element name="END_OFFSET" type="xs:int" maxOccurs="1" minOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="elem" type="xs:nonNegativeInteger" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="configName" type="xs:string" default="/config/rev_rec_schedule" />
+      <xs:attribute name="configMode" type="xs:string" default="replace" />
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

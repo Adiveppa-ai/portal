@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+#"@(#)$Id: pin_config_editor /cgbubrm_mainbrm.portalbase/1 2017/05/26 07:37:30 subange Exp $";
+#
+# Copyright (c) 2001, 2017, Oracle and/or its affiliates. All rights reserved.
+#
+# This material is the confidential property of Oracle Corporation
+# or its licensors and may be used, reproduced, stored or transmitted
+# only in accordance with a valid Oracle license or sublicense agreement.
+#
+
+PKI=${PIN_HOME}/jars/oraclepki.jar
+CET=${PIN_HOME}/jars/cet.jar
+CLASSPATH=.:$PKI:$CET
+
+export CLASSPATH 
+
+JAVA=${JAVA_HOME}/bin/java
+
+$JAVA -DPIN_HOME=$PIN_DIR -DJAVA_OPTS="-Xmx2048m -Xms256m" com.portal.cet.ConfigEditor $*

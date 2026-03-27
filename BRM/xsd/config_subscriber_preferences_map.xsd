@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved. 
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+
+<xs:schema
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+ <xs:include schemaLocation="PinTypes.xsd" />
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ConfigObject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DESCR" type="xs:string" minOccurs="0" />
+              <xs:element name="NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="SUBSCRIBER_PREFERENCES" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+                    <xs:element name="SUBSCRIBER_PREFERENCE_ID" type="xs:string" minOccurs="1"/>
+                    <xs:element name="STRING_ID" type="xs:string" minOccurs="1"/>
+                    <xs:element name="STR_VERSION" type="xs:string" minOccurs="1"/>
+                    <xs:element name="DEFAULT" type="xs:string" minOccurs="1"/>
+                    <xs:element name="TYPE" type="xs:string" minOccurs="1"/>
+                    <xs:element name="VALUES" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="VALUE" type="xs:string" minOccurs="1" />
+                          <xs:element name="STRING_ID" type="xs:string" minOccurs="1"/>
+                          <xs:element name="STR_VERSION" type="xs:string" minOccurs="1"/>
+                        </xs:sequence>
+                        <xs:attribute name="elem" form="unqualified" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="elem" form="unqualified" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:attribute name="configName" type="xs:string" default="/config/subscriber_preferences_map" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

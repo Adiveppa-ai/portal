@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/******************************************************************************
+ * FILE: log4j2.xml
+ *
+ * DESCRIPTION:
+ *
+ * Log configuration for Perflib ...
+ *
+ * INFORMATION:
+ *
+ * Perflib performance utilities ...
+ *
+ * REVISION:
+ *  
+ * $Revision: 1.1 $
+ * $Author: ri-user-1 $
+ * $Date: 2023/08/30 17:50:12 $
+ ******************************************************************************/
+-->
+<Configuration>
+  <Appenders>
+    <RollingFile name="PERFLIB" fileName="${sys:PERFLIB_LOG_BASE}.log" filePattern="${sys:PERFLIB_LOG_BASE}.log.%i">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%t] %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="100MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="99"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.oracle.perflib.monitor" level="INFO" additivity="false">
+      <AppenderRef ref="PERFLIB"/>
+    </Logger>
+    <Root level="INFO" additivity="false">
+      <AppenderRef ref="PERFLIB"/>
+    </Root>
+  </Loggers>
+</Configuration>

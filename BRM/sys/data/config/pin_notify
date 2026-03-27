@@ -1,0 +1,384 @@
+#
+# (#)$Id: pin_notify /cgbubrm_7.3.2.rwsmod/3 2009/11/18 02:18:05 mvenkate Exp $ $
+#
+version 1
+#======================================================================
+#
+# Copyright (c) 1999, 2021, Oracle and/or its affiliates.
+#
+#    This software is the confidential and proprietary information of
+#    Oracle Corporation.  You shall not disclose such confidential and pro-
+#    proprietary information and shall use it only in accordance with the
+#    terms of the license agreement you entered into with Oracle Corporation.
+#
+#    Oracle makes no representations or warranties about the suit-
+#    ability of the software, either express or implied, including but not
+#    limited to the implied warranties of merchantability, fitness for a
+#    particular purpose, or non-infringement.  Oracle Corporation. shall not be
+#    liable for any damages suffered by licensee as a result of using,
+#    modifying or distributing this software or its derivatives.
+#
+#    Oracle Corporation is located at http://www.oracle.com.
+#
+#    This notice may not be removed or altered.
+#    and open the template in the editor.
+#
+#======================================================================
+# Use this file to map an event to the policy opcode you want
+# Infranet to call when that event occurs.
+#
+# After defining the events and the corresponding opcodes,
+# run the 'load_pin_notify' utility to create the new config/notify
+# storable object and load this notification list into the Infranet
+# database. Then restart the Connection Manager for these changes
+# to take effect. When the event occurs, the system passes the
+# entire /event storable object as the input flist to the opcode.
+#
+# Use the following syntax for defining event notification:
+#
+# <opcode_number>  <opcode_flag>  <event>
+#
+# Where:
+#  <opcode_number> is the identifying number of the policy opcode
+#       that you want called when the event occurs. You can find
+#       the identifying numbers for standard policy opcodes in the
+#       pcm_ops.h file in the /include directory. For custom
+#       opcodes, define their numbers either in the pcm_ops.h file
+#       or in a different header file that you link with the code.
+#       The numbers from 1 through 10000 are reserved for standard
+#       Infranet opcodes.
+#  <opcode_flag> is the flag that is passed to the opcode when
+#       Infranet calls the opcode.
+#  <event> is the event that triggers the notification. You can use
+#       standard event types or a custom event type, as long as
+#       the event type has a corresponding /event storable
+#       object in the database.
+#
+# Note: You can have more than one notification opcode for an
+#       event. Infranet calls the opcodes in the order they appear
+#       in the list.
+#======================================================================
+#
+#
+#======================================================================
+# The following entries set up Infranet to automatically notify a
+# customer by email about the status of their purchase order. When
+# they approach their purchase order amount (threshold) or expiration
+# date (datethreshold), the event calls the PCM_OP_ACT_POL_EVENT_NOTIFY
+# opcode (#301), which sends the customer a reminder. When the
+# customer exceeds the purchase order amount or the purchase order
+# expires, the event calls the PCM_OP_ACT_POL_EVENT_LIMIT opcode
+# (#304), which notifies the customer. This opcode can also deactivate
+# the account.
+#
+301	0	/event/session
+301	0	/event/session/dialup
+301	0	/event/notification/threshold
+301	0	/event/notification/datethreshold
+304	0	/event/notification/limit
+304	0	/event/notification/datexpire
+
+
+# This causes SVC_LISTENER opcode to be called when the following
+# events happen
+4008    0       /event/billing/deal/purchase
+4008    0       /event/billing/product/action/modify
+4008    0       /event/billing/deal/cancel
+4008    0       /event/billing/product/action/cancel
+4008    0       /event/billing/product/action/purchase
+
+#
+# The following entries set up Infranet to automatically log the
+# the activities that need to be audited. this happens by calling the
+# opcode PCM_OP_ACT_LOG_USER_ACTIVITY(#179), which stores information in
+# user_activity storable class. Only activities that are
+# configured for auditing are recorded. The information that is tracked
+# is the type of activity, the date and time and the IP Address of the
+# client machine are stored on the server side.Later if the user wants to
+# more information then he can customize it by using the policy opcode
+# PCM_OP_ACT_POL_LOG_USER_ACTIVITY.
+#
+179	0	/event/notification/account/create
+179    	0       /event/customer/login
+179	0	/event/customer/password
+179    	0       /event/billing/product/action/purchase
+179    	0       /event/billing/product/action/modify
+179    	0       /event/billing/product/action/cancel
+179    	0       /event/group/parent
+179    	0       /event/group/member
+179    	0       /event/billing/limit
+179    	0       /event/customer/billinfo/modify
+179    	0       /event/billing/credit
+179    	0       /event/billing/adjustment/event
+179    	0       /event/billing/adjustment/item
+179    	0       /event/billing/adjustment/account
+179    	0       /event/notification/billing/start
+179    	0       /event/billing/dispute
+179    	0       /event/billing/settlement/event
+179    	0       /event/billing/payment
+179    	0       /event/billing/writeoff
+179    	0       /event/billing/refund
+179    	0       /event/schedule/create
+179    	0       /event/schedule/modify
+179    	0       /event/schedule/delete
+179    	0       /event/billing/vouchertopup
+179    	0       /event/group/sharing/charges/create
+179    	0       /event/group/sharing/discounts/create
+179    	0       /event/group/sharing/monitor/create
+179    	0       /event/group/sharing/profiles/create
+179    	0       /event/group/sharing/charges/modify
+179    	0       /event/group/sharing/discounts/modify
+179    	0       /event/group/sharing/monitor/modify
+179    	0       /event/group/sharing/profiles/modify
+179    	0       /event/group/sharing/charges/delete
+179    	0       /event/group/sharing/discounts/delete
+179    	0       /event/group/sharing/monitor/delete
+179    	0       /event/group/sharing/profiles/delete
+
+
+#
+# Device Management Framework related event notification
+# For regesting new Event notification provide the Complete event object name
+2706	0	/event/notification/device/state
+2706	0	/event/notification/device/state/in_transition
+
+#
+# Settlements and disputes related event notifications
+2354	0	/event/billing/settlement/notify
+2354    0   /event/billing/settlement/item
+2354    0   /event/billing/settlement/event
+2354    0   /event/billing/settlement/account
+2354    0   /event/billing/settlement/tax_event
+# below entries are commented based on input recieved  from BRM team on Bug 33999845 - 12.0PS6M2:CNE: issue with bill dispute 
+#2355	 0   /event/billing/dispute/notify
+#2355    0   /event/billing/dispute/item
+#2355    0   /event/billing/dispute/event
+#2355    0   /event/billing/dispute/account
+#2355    0   /event/billing/dispute/tax_event
+#
+# Rerating related event notification
+3787	0	/event/notification/auto_rerate
+3787	0	/event/notification/rate_change
+3787	0	/event/notification/rollover_correction/rerate
+#
+# Rate change related event notification
+3768    0       /event/audit/price/product_update
+3768    0       /event/audit/price/product_complete
+#
+# Events impacting discounts based on number of lines
+#3773    0       /event/notification/billing/start$
+#3773    0       /event/notification/billing/start_partial$
+#3773    0       /event/group/sharing/discounts/create
+#
+# Automated Monitor Setup related event notification
+# Uncomment these lines when AMS feature is enabled
+#7853    0       /event/group/sharing/monitor/create
+#7854    0       /event/notification/service/pre_purchase
+#7855    0       /event/notification/service/pre_purchase
+#7856    0       /event/notification/service/pre_purchase
+#7857    0       /event/customer/billinfo/modify
+#7855    0       /event/customer/billinfo/modify
+#7857    0       /event/group/member
+#7854    0       /event/group/member
+#7857    0       /event/notification/bal_grp/modify
+#7855    0       /event/notification/bal_grp/modify
+#7854    0       /event/audit/subscription/transfer
+#7860    0       /event/billing/monitor/update
+
+#
+# Event notifications related to aggregation counter (JP1035/36)
+#3774   0       /event/billing/adjustment/account
+#3774   0       /event/billing/adjustment/event
+#3774   0       /event/billing/adjustment/item
+#3774   0       /event/billing/adjustment/tax_event
+#
+# Event notifications related to contract days counter (JP1033)
+#3775   0       /event/notification/billing/start_partial$
+#3775   0       /event/notification/billing/start$
+#3775   0       /event/notification/billing/end$
+#3775   0       /event/customer/status
+#
+# Event notifications related to Rollover Enhancements across accounts
+#9069   0       /event/billing/cycle/rollover/monthly
+#9069   0       /event/billing/cycle/rollover_correction
+
+# Event notifications related to Automated subscription to sharing groups
+3788   0	/event/group/sharing/profiles/create
+3788   0	/event/group/sharing/profiles/modify
+3788   0    /event/group/sharing/profiles/delete
+3789   0	/event/notification/service/create
+
+# Tachyon needed events for ifw_sync
+
+1301    0       /event/billing/adjustment/account
+1301    0       /event/billing/adjustment/event
+1301    0       /event/billing/adjustment/item
+1301    0       /event/billing/adjustment/tax_event
+1301    0       /event/notification/service/pre_create
+1301    0       /event/notification/service/create
+1301    0       /event/billing/writeoff/billinfo
+1301    0       /event/billing/writeoff/bill
+1301    0       /event/notification/billing/start
+1301    0       /event/notification/billing/end
+1301    0       /event/billing/product/fee/cycle/cycle_forward_monthly
+1301    0       /event/billing/product/fee/cycle/cycle_forward_bimonthly
+1301    0       /event/billing/product/fee/cycle/cycle_forward_quarterly
+1301    0       /event/billing/product/fee/cycle/cycle_forward_semiannual
+1301    0       /event/billing/product/fee/cycle/cycle_forward_annual
+1301    0       /event/billing/product/fee/cycle/cycle_forward_arrear
+1301    0       /event/billing/cycle/rollover/monthly
+1301    0       /event/billing/cycle/fold
+1301    0       /event/billing/product/fee/purchase
+1301    0       /event/billing/writeoff/item
+1301    0       /event/billing/writeoff/tax_item
+1301    0       /event/billing/payment/voucher
+1301    0       /event/billing/vouchertopup
+1301    0       /event/billing/writeoff_reversal
+#1301   0       /event/billing/cycle/discount
+1301    0       /event/billing/credit
+1301    0       /event/billing/debit
+1301    0       /event/notification/account/create
+1301    0       /event/notification/customer/reg_complete
+1301    0       /event/billing/payment/cc
+1301    0       /event/billing/payment/cash
+1301    0       /event/billing/payment/wtransfer
+1301    0       /event/billing/payment/check
+1301    0       /event/billing/payment/dd
+1301    0       /event/billing/payment/postalorder
+1301    0       /event/billing/payment/sepa
+3626    0       /event/billing/product/action/purchase
+1301   0        /event/billing/product/action/modify
+1301   0        /event/billing/product/action/modify/status
+1301   0        /event/billing/product/action/set_validity
+1301   0        /event/billing/product/action/cancel
+1301   0        /event/billing/discount/action/purchase
+1301   0        /event/billing/discount/action/modify
+1301   0        /event/billing/discount/action/modify/status
+1301   0        /event/billing/discount/action/set_validity
+1301   0        /event/billing/discount/action/cancel
+1301    0      /event/customer/billinfo/create
+1301    0      /event/customer/billinfo/modify
+1301    0      /event/notification/service_item/bill_now
+1301    0      /event/notification/service_item/make_bill
+1301    0      /event/notification/bal_grp/create
+1301    0      /event/notification/bal_grp/modify
+1301   0       /event/billing/ordered_balgrp/create
+1301   0       /event/billing/ordered_balgrp/modify
+1301   0       /event/billing/ordered_balgrp/delete
+1301   0       /event/group/sharing/discounts/create
+1301   0       /event/group/sharing/discounts/modify
+1301   0       /event/group/sharing/discounts/delete
+1301   0       /event/group/sharing/charges/create
+1301   0       /event/group/sharing/charges/modify
+1301   0       /event/group/sharing/charges/delete
+1301   0       /event/customer/login
+1301   0       /event/customer/status
+1301   0       /event/notification/price/products/modify
+1301   0       /event/notification/price/discounts/modify
+1301   0       /event/notification/price/sponsorships/modify
+1301   0       /event/notification/profile/create
+1301   0       /event/notification/profile/modify
+1301   0       /event/notification/profile/delete
+1301   0       /event/notification/cycle/start
+1301   0       /event/notification/cycle/end
+1301   0       /event/notification/rerating/PrepareToRerate
+1301   0       /event/notification/rerating/ReratingCompleted
+1301   0       /event/notification/rerating/delta_balances
+1301   0       /event/notification/rerating/delta_balances
+1301   0       /event/notification/rerating/delta_balances
+1301    0      /event/notification/offer_profile/create
+1301    0      /event/notification/offer_profile/update
+1301    0      /event/notification/offer_profile/delete
+1301    0      /event/notification/offer_profile/ThresholdBreach
+1301    0      /event/billing/cycle/tax
+1301    0      /event/billing/sub_bal_validity
+1301    0      /event/notification/billing/start_partial
+1301    0      /event/notification/billing/end_partial
+1301    0      /event/notification/service_item/make_bill_start
+1301    0      /event/billing/product/fee/cycle/cycle_arrear
+# New events for AMT account migration process
+1301    0      /event/notification/amt/HoldCDRProcessing
+1301    0      /event/notification/amt/ResumeCDRProcessing
+1301    0      /event/notification/amt/MigrateAcct
+1301    0      /event/notification/amt/MigrateSource
+1301    0      /event/notification/amt/MigrateDestination
+# Events for Profile Sharing
+1301    0       /event/group/sharing/profiles/create
+1301    0       /event/group/sharing/profiles/modify
+1301    0       /event/group/sharing/profiles/delete
+# Service Balance Group transfer event
+1301    0      /event/notification/service_balgrp_transfer/data
+# Customer delete event
+1301    0      /event/notification/account/delete
+1301    0       /event/notification/billing/item/transfer
+#Auto Top Up event
+1301    0       /event/notification/topup/create
+1301    0       /event/notification/topup/delete
+#Loan related events
+1301    0       /event/billing/fee/balance_transfer
+1301    0       /event/billing/topup
+1301    0       /event/billing/loan_fee
+1301    0       /event/billing/loan_debit
+1301    0       /event/billing/loan_credit
+1301    0       /event/billing/loan_grant
+1301    0       /event/billing/loan_recovery
+1301    0       /event/billing/loan_pullback
+1301    0       /event/billing/loan_recovery_reversal
+1301    0       /event/billing/loan_late_fee
+
+#Deposit related events
+1301    0       /event/billing/deposit/interest/credit
+1301    0       /event/billing/product/fee/purchase/deposit
+1301    0       /event/billing/deposit/reversal
+1301    0       /event/billing/product/fee/purchase/deposit/refund
+1301    0       /event/billing/deposit/interest/debit
+ 
+#Installment related events
+1301    0       /event/billing/installment/debit
+1301    0       /event/billing/installment/credit
+
+#TCL related events
+1301    0       /event/notification/billing/temp_limit
+1301    0       /event/billing/limit
+
+#Deposit and installments events which are missing as per Bug 33929114
+5827    0       /event/notification/billing/start
+5825    0       /event/billing/item/transfer
+4859    0       /event/billing/item/transfer
+4860    0       /event/billing/product/fee/purchase/deposit
+
+#Reversal and Refund related events
+1301    0       /event/billing/refund/cc
+1301    0       /event/billing/refund/dd
+1301    0       /event/billing/refund/check
+1301    0       /event/billing/refund/cash
+1301    0       /event/billing/refund/sepa
+1301    0       /event/billing/reversal/cc
+1301    0       /event/billing/reversal/dd
+1301    0       /event/billing/reversal/check
+1301    0       /event/billing/reversal/cash
+1301    0       /event/billing/reversal/sepa
+
+#Group Monitor Sharing
+1301    0       /event/group/sharing/monitor/create
+1301    0       /event/group/sharing/monitor/modify
+1301    0       /event/group/sharing/monitor/delete
+
+#Product Sharing
+1301    0       /event/group/sharing/products/create
+1301    0       /event/group/sharing/products/modify
+1301    0       /event/group/sharing/products/delete
+
+#Monitor balance update
+1301    0       /event/billing/monitor/update
+
+#Offering Override event notification
+1301    0       /event/notification/offering_override/create
+1301    0       /event/notification/offering_override/modify
+1301    0       /event/notification/offering_override/delete
+
+#Dispute Item
+1301    0       /event/billing/dispute/item
+
+#Cancel Penalty
+1301    0       /event/billing/product/fee/cancel/penalty

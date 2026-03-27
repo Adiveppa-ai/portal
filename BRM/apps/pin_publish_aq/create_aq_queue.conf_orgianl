@@ -1,0 +1,19 @@
+#
+# 2003, 2023, Oracle and/or its affiliates.
+# or its licensors and may be used, reproduced, stored or transmitted only in accordance with a valid Oracle
+# license or sublicense  agreement.
+#
+
+# Oracle storage clause
+$storage_clause = "tablespace pin00 initrans 5 storage (initial 200k next 200k maxextents unlimited pctincrease 0 )";
+
+# Oracle AQ retention time (messages in state PROCESSED, messages in state READY are retained forever)
+$retention_time = 0;
+
+# Replace <pin> with the name of the local schema (in a single-schema setup) OR with the schema which has the queue 
+# where events from other schemas would be enqueued - typically the schema where ACK queue resides (in a multi-schema setup).
+# Specify the schema name within double quotes (eg: $primary_schema = "pin01") 
+$primary_schema = "<pin>";
+
+# please do not remove the line following this comment
+1

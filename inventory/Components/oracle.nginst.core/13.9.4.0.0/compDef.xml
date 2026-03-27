@@ -1,0 +1,222 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="oracle.nginst.core" version="13.9.4.0.0" description="Next Generation Installation Core" description-key="component.description" gdr-version="1.8.4.0" singleton="true" pom-gen="false" groupId="com.oracle.oui" patch-level="18" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="oracle.nginst.core.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="modules" mode="750" patchable="true">
+         <directory dest="private" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="190402" checksum="9e51e39f74432f5c95be1ead9f1eacbeba27e1e1" dest="srvmasm.jar" mode="640"/>
+            <file size="3916088" checksum="53a700a68771647ad5dc2802aa05a3485c8f5493" dest="srvm.jar" mode="640"/>
+            <file size="1120300" checksum="a29da9d05899555ecc567a3b4ffb03fe656d6084" dest="bcpkix-jdk15to18-1.74.jar" mode="640"/>
+            <file size="6532993" checksum="b1a91d0d102042e4ec02084384e1b52b73f125ab" dest="bcprov-jdk15to18-1.74.jar" mode="640"/>
+            <file size="549142" checksum="894e7277f5a69668479653808efda354b272a605" dest="oracle_ice5.jar" mode="640"/>
+            <file size="41119" checksum="fe32886058252fcd4b3038ee501db72561c43890" dest="slf4j-api-1.7.28.jar" mode="640"/>
+            <file size="8498" checksum="f9c384e20061a78c964a4f0b34e4b394ac3c60a4" dest="slf4j-jdk14-1.7.28.jar" mode="640"/>
+            <file size="565618" checksum="868b06d455b9757535bcd8e1a94ba2e7b372cf54" dest="http_client.jar" mode="640"/>
+            <file size="923614" checksum="037dad86ae9758d6aa2d261692442667ff532093" dest="sshd-core-2.12.0.jar" mode="640"/>
+            <file size="380125" checksum="0f96f00a07b186ea62838a6a4122e8f4cad44df6" dest="sshd-sftp-2.12.0.jar" mode="640"/>
+            <file size="919880" checksum="67ee82ff9e26ef3dd170fdfe87b775f6aebafbbe" dest="sshd-common-2.12.0.jar" mode="640"/>
+            <file size="63292" checksum="1901c8d4d8bffb7d79027686cfb91e704217c3e1" dest="eddsa-0.3.0.jar" mode="640"/>
+            <file size="171625" checksum="4a257448534988935260ada293e2d30e86e79890" dest="org.eclipse.jgit.ssh.apache-5.9.0.202009080501-r.jar" mode="640"/>
+            <file size="2689717" checksum="54088835160a9c8b5277548a49d752597e8974d9" dest="jewt4.jar" mode="640"/>
+            <file size="542179" checksum="e44e491892cf2b949ca52815fc6cdbfbfa3606bb" dest="help-share.jar" mode="640"/>
+            <file size="438977" checksum="a29911a1717b2ad3405c10433e1b6a9f82416869" dest="ohj.jar" mode="640"/>
+            <file size="512239" checksum="4b55574e733457608749f3cf432374395510c583" dest="olaf2.jar" mode="640"/>
+            <file size="56416" checksum="9a4613636382b83a5fb39892113b66692ec73d20" dest="share.jar" mode="640"/>
+            <file size="1816230" checksum="ccd7c28f3f220f2ce2d588daef9ac774cf1959e4" dest="xmlparserv2.jar" mode="640"/>
+         </directory>
+         <file size="4245018" checksum="2da8e31174046aab880dc01bb336e6a91e2bfc54" dest="com.oracle.cie.ora-installer_12.8.4.0.jar" mode="640"/>
+         <file size="5060" checksum="a45d46efefeafafd7d41f05f565e7d71a90c06bb" dest="com.oracle.cie.ora-installer-net_12.8.4.0.jar" mode="640"/>
+         <file size="46723" checksum="102c1c9e63c865659b21cf1f96f4223abf9d4c76" dest="com.oracle.cie.ora-suite-installer_12.8.4.0.jar" mode="640"/>
+         <file size="40991" checksum="ba47dcbcf838bd0e5cff4ced9391b25023bc9a6d" dest="com.oracle.cie.oui-fixup_12.8.4.0.jar" mode="640"/>
+         <file size="265687" checksum="40f8b8321ef4f5e27df154ee68f2946ca7de39cd" dest="com.oracle.cie.oui-remote-interfaces_12.8.4.0.jar" mode="640"/>
+         <file size="98141" checksum="9048c2156e190c39ad0a241aa49d737314ca9378" dest="com.oracle.cie.oui-ssh_12.8.4.0.jar" mode="640"/>
+         <file size="1390" checksum="c52e7e8433cf4809831cf2417753ed2e13344763" dest="installer-launch.jar" mode="640"/>
+         <file size="1390" checksum="c52e7e8433cf4809831cf2417753ed2e13344763" dest="OraInstaller.jar" mode="640"/>
+         <file size="776" checksum="04b0e09d4752660b214fd3496d7a294af8bde966" dest="opatchauto-classpath.jar" mode="640"/>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+      <modifier type="text" regex=".*\.sh"/>
+      <modifier type="text" regex=".*\.cmd"/>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="866" checksum="3de5da042b9ed3f84de1ec54d30427c14ee3f1d4" dest="attachHome.sh" mode="750"/>
+         <file size="473" checksum="726d090c5b88d964b2639be3dcaf48fa7e99776d" dest="detachHome.sh" mode="750"/>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.thirdparty.symbol" source="filegroup2.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="5633" checksum="7991c2fcefa979b0ea51715d455b00d916d43f4b" dest="copyBinary.sh" mode="750"/>
+         <file size="6801" checksum="a0db8fdf84d6fdcc0d040458e02135aa7d097901" dest="pasteBinary.sh" mode="750"/>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.core.symbol" source="filegroup3.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="prov" mode="750" patchable="true">
+         <directory dest="resources" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1662" checksum="eb00d298f30b23bd415e1673ae32e184f1b24a71" dest="logging_conf.xml" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <directory dest="prov" mode="750" patchable="true">
+         <directory dest="resources" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="727" checksum="7f98b2b6f1106aaee60eebb3f8fe29153a5aa2ed" dest="Paths.properties" mode="640"/>
+            <file size="2266" checksum="c5e4cabda9969dcfa9b476118953d8adb627ef73" dest="ignoreMessages.txt" mode="640"/>
+            <file size="3010" checksum="52d7903dac243cdb80c7534626d0d8945bc5d341" dest="platformInfo.properties" mode="640"/>
+            <file size="0" checksum="da39a3ee5e6b4b0d3255bfef95601890afd80709" dest="remoteinterfaces_config.properties" mode="640"/>
+            <file size="4011" checksum="9b6d77f1ee98b872b92c06e1c7334429db3f6c2c" dest="sPaths.properties" mode="640"/>
+            <file size="689" checksum="6da00d572eb0fec359feb284c62ab5431096fc4a" dest="ssPaths_aix.properties" mode="640"/>
+            <file size="710" checksum="6de19e6bd835451407bcc8e8f0bf084c5bf00500" dest="ssPaths_decunix.properties" mode="640"/>
+            <file size="752" checksum="2b64156c357616482c56e4ed74c582a9dac2e090" dest="ssPaths_hpi.properties" mode="640"/>
+            <file size="764" checksum="4e0eb5074470c0fa5b76d7e2ad11a3825a2cc48d" dest="ssPaths_hpuix.properties" mode="640"/>
+            <file size="3370" checksum="e6e3de2e9a88328c3783d000c999c344b5e2ece2" dest="ssPaths_linux_ia64.properties" mode="640"/>
+            <file size="3370" checksum="bcde6473018bb7f0ece85714076f3c7a5c333bdd" dest="ssPaths_linux_ppc64.properties" mode="640"/>
+            <file size="3365" checksum="47fc864eeada724d7f9e7e4243e7eada71313565" dest="ssPaths_linux_zseries64.properties" mode="640"/>
+            <file size="3370" checksum="bcde6473018bb7f0ece85714076f3c7a5c333bdd" dest="ssPaths_linuxx64.properties" mode="640"/>
+            <file size="2562" checksum="4bda72eac3b0b09588a2450a5e0e06d152aa4f91" dest="ssPaths_msplats.properties" mode="640"/>
+            <file size="665" checksum="cbb92e55e53c617dca68974890716cfaba08170c" dest="ssPaths_sol.properties" mode="640"/>
+            <file size="571" checksum="4280623b0ae769efa9d79960943194729baa8861" dest="ssPaths_solx64.properties" mode="640"/>
+            <file size="571" checksum="4280623b0ae769efa9d79960943194729baa8861" dest="ssPaths_solx86.properties" mode="640"/>
+            <file size="552" checksum="651fe67da590f7e28b12a7f2afb5b54a49f57115" dest="system.properties" mode="640"/>
+            <file size="355" checksum="8fb9787f7b39e7a2140c82b1f359e5511091a370" dest="userPaths.properties" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="text" regex=".*" match-dirs="true"/>
+   </file-map>
+   <stringsubs>
+      <ns2:group id="test">
+         <ns2:file-entry name="$oracle.nginst.core.symbol.path$/bin/attachHome.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.core.symbol.path$/bin/attachHome.sh"/>
+         <ns2:file-entry name="$oracle.nginst.core.symbol.path$/bin/detachHome.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.core.symbol.path$/bin/detachHome.sh"/>
+         <ns2:change-pair-ref name="ORACLE_HOME"/>
+         <ns2:change-pair-ref name="ORACLE_HOME_NAME"/>
+      </ns2:group>
+      <ns2:change-pair id="ORACLE_HOME" before="@ORACLE_HOME@" after="$ORACLE_HOME$"/>
+      <ns2:change-pair id="ORACLE_HOME_NAME" before="@ORACLE_HOME_NAME@" after="$ORACLE_HOME_NAME$"/>
+   </stringsubs>
+   <bug-info>
+      <bug number="28218773" description=""/>
+      <bug number="29292673" description=""/>
+      <bug number="29396325" description=""/>
+      <bug number="29253949" description=""/>
+      <bug number="29410238" description=""/>
+      <bug number="29655515" description=""/>
+      <bug number="29334003" description=""/>
+      <bug number="29902141" description=""/>
+      <bug number="29909359" description=""/>
+      <bug number="30317205" description=""/>
+      <bug number="30317648" description=""/>
+      <bug number="29206542" description=""/>
+      <bug number="30368770" description=""/>
+      <bug number="30639894" description=""/>
+      <bug number="30312757" description=""/>
+      <bug number="30600358" description=""/>
+      <bug number="30240291" description=""/>
+      <bug number="30650032" description=""/>
+      <bug number="30614758" description=""/>
+      <bug number="30240291" description=""/>
+      <bug number="30753555" description=""/>
+      <bug number="30409930" description=""/>
+      <bug number="30749684" description=""/>
+      <bug number="30435930" description=""/>
+      <bug number="30473772" description=""/>
+      <bug number="30877765" description=""/>
+      <bug number="30839943" description=""/>
+      <bug number="30809875" description=""/>
+      <bug number="30822364" description=""/>
+      <bug number="30687963" description=""/>
+      <bug number="30880919" description=""/>
+      <bug number="30874310" description=""/>
+      <bug number="30922561" description=""/>
+      <bug number="30984608" description=""/>
+      <bug number="31011778" description=""/>
+      <bug number="31060664" description=""/>
+      <bug number="31070601" description=""/>
+      <bug number="30984674" description=""/>
+      <bug number="30740897" description=""/>
+      <bug number="31085467" description=""/>
+      <bug number="31222597" description=""/>
+      <bug number="31159294" description=""/>
+      <bug number="31254271" description=""/>
+      <bug number="31311599" description=""/>
+      <bug number="30610728" description=""/>
+      <bug number="30853484" description=""/>
+      <bug number="31369453" description=""/>
+      <bug number="31319799" description=""/>
+      <bug number="31428504" description=""/>
+      <bug number="31512132" description=""/>
+      <bug number="31603376" description=""/>
+      <bug number="32288557" description=""/>
+      <bug number="32378264" description=""/>
+      <bug number="32313635" description=""/>
+      <bug number="32482751" description=""/>
+      <bug number="32497672" description=""/>
+      <bug number="32408912" description=""/>
+      <bug number="32502607" description=""/>
+      <bug number="32646653" description=""/>
+      <bug number="32700066" description=""/>
+      <bug number="31179277" description=""/>
+      <bug number="32648357" description=""/>
+      <bug number="32859451" description=""/>
+      <bug number="31254271" description=""/>
+      <bug number="1737" description=""/>
+      <bug number="32593759" description=""/>
+      <bug number="32891084" description=""/>
+      <bug number="32882423" description=""/>
+      <bug number="32922497" description=""/>
+      <bug number="33053103" description=""/>
+      <bug number="32873521" description=""/>
+      <bug number="33073691" description=""/>
+      <bug number="32947565" description=""/>
+      <bug number="33236608" description=""/>
+      <bug number="33315745" description=""/>
+      <bug number="33574346" description=""/>
+      <bug number="33607547" description=""/>
+      <bug number="33620637" description=""/>
+      <bug number="33587953" description=""/>
+      <bug number="33922565" description=""/>
+      <bug number="33952942" description=""/>
+      <bug number="33936643" description=""/>
+      <bug number="33743451" description=""/>
+      <bug number="28419295" description=""/>
+      <bug number="34029130" description=""/>
+      <bug number="34067104" description=""/>
+      <bug number="32920864" description=""/>
+      <bug number="34337739" description=""/>
+      <bug number="34492784" description=""/>
+      <bug number="34575535" description=""/>
+      <bug number="34678476" description=""/>
+      <bug number="34616719" description=""/>
+      <bug number="34820519" description=""/>
+      <bug number="34873831" description=""/>
+      <bug number="34916897" description=""/>
+      <bug number="34696818" description=""/>
+      <bug number="33997851" description=""/>
+      <bug number="34593549" description=""/>
+      <bug number="35143216" description=""/>
+      <bug number="35291810" description=""/>
+      <bug number="35304320" description=""/>
+      <bug number="35383056" description=""/>
+      <bug number="35509483" description=""/>
+      <bug number="35472513" description=""/>
+      <bug number="35027739" description=""/>
+      <bug number="35619659" description=""/>
+      <bug number="34685482" description=""/>
+      <bug number="23335292" description=""/>
+      <bug number="34129741" description=""/>
+      <bug number="35780473" description=""/>
+      <bug number="35795296" description=""/>
+      <bug number="35901359" description=""/>
+      <bug number="35995785" description=""/>
+      <bug number="35697888" description=""/>
+      <bug number="36047016" description=""/>
+      <bug number="36194419" description=""/>
+      <bug number="36223827" description=""/>
+      <bug number="36001660" description=""/>
+   </bug-info>
+</component-def>

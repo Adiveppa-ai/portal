@@ -1,0 +1,12 @@
+#OP-find-cust                   100 op-find-acct
+#OP-find-cust                   100 op-find-acct,op-update-addr
+#OP-update-cust-addr            100 op-find-acct,op-read-acct,op-update-addr
+#OP-find-usage                  100 op-find-acct,op-find-acct-by-num
+#OP-find-event                  100 op-find-acct,op-read-acct,op-find-acct-by-num,op-find-event
+#OP-find-event                  100 op-find-acct,op-find-bill
+#OP-update-bill-info             100 op-find-acct,op-read-acct,op-update-bill-info,op-find-bill,op-find-invoice,op-make-invoice
+#OP-find-bill                   100 op-find-acct,op-read-acct,op-find-acct-by-num,op-find-bill,op-find-invoice,op-make-invoice
+#OP-find-bill                   100 op-find-acct,op-find-bill,op-find-invoice
+OP-find-bill                   100 op-find-acct,op-find-bill,op-make-invoice
+#OP-find-usage-update-bill-info  100 op-find-acct,op-read-acct,op-find-acct-by-num,op-find-dialup-event,op-update-bill-info
+

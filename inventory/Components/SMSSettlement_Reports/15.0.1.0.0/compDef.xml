@@ -1,0 +1,43 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="SMSSettlement_Reports" version="15.0.1.0.0" description="SMSSettlement_Reports" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="uel" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2325" dest="SMSSettlementRptTemplate.xml" mode="0755"/>
+            <file size="2340" dest="settlement_extract.values" mode="0755"/>
+            <file size="9382" dest="SettlementTemplate.xml" mode="0755"/>
+            <file size="26910" dest="settlement_extract.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="settlement_extract.pl"/>
+            <permission mode="0755" wildcard="settlement_extract.values"/>
+            <permission mode="0755" wildcard="SettlementTemplate.xml"/>
+            <permission mode="0755" wildcard="SMSSettlementRptTemplate.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="9048" dest="dd_objects_sms_settle_report.source" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="dd_objects_sms_settle_report.source"/>
+            <permission mode="0755" wildcard="drop_tables_sms_settle_report.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="4043" dest="pin_cmp_sms_settle_report.pl" mode="0755"/>
+            <file size="2285" dest="pin_cnf_sms_settle_report.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cmp_sms_settle_report.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_sms_settle_report.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="30008" dest="fm_ic.so" mode="0755"/>
+      </directory>
+   </file-map>
+</component-def>

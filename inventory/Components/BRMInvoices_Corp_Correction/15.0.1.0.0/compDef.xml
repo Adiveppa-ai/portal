@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="BRMInvoices_Corp_Correction" version="15.0.1.0.0" description="BRMInvoices Corporate Correction" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="root.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="BRM_Bursting_Invoice_Report.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="1352646" dest="BRM_Corporate_Correction_Invoice.rtf" mode="0755"/>
+                                       <file size="1390709" dest="BRM_Corporate_Correction_Invoice_HIT.rtf" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRM_Corporate_Correction_Invoice.rtf"/>
+            <permission mode="0755" wildcard="BRM_Corporate_Correction_Invoice_HIT.rtf"/>
+            <permission mode="0755" wildcard="BRM_Corporate_Correction_Invoice.rtf.png"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="ViewInvoiceReport.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="1352646" dest="BRM_Corporate_Correction_Invoice_en_US.rtf" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRM_Corporate_Correction_Invoice_en_US.rtf"/>
+            <permission mode="0755" wildcard="BRM_Corporate_Correction_Invoice.rtf.png"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

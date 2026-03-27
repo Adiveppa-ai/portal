@@ -1,0 +1,39 @@
+PKG_HOME=/home/pin/opt/portal/ifw
+IFW_HOME=/home/pin/opt/portal/ifw
+NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+
+INT_PERL_LIB=$PKG_HOME/tools/PerlLib
+INT_BROWSER_HOME=$PKG_HOME/tools/Browser
+
+if [ "$PATH" = "" ]
+then
+  PATH=$PKG_HOME/bin
+else
+  PATH=$PKG_HOME/bin:$PATH
+fi
+if [ "$LD_LIBRARY_PATH" = "" ]
+then
+  LD_LIBRARY_PATH=$PKG_HOME/lib
+else
+  LD_LIBRARY_PATH=$PKG_HOME/lib:$LD_LIBRARY_PATH
+fi
+if [ "$LD_LIBRARY_PATH_64" != "" ]
+then
+  LD_LIBRARY_PATH_64=$PKG_HOME/lib:$LD_LIBRARY_PATH_64
+  export LD_LIBRARY_PATH
+fi
+if [ "$SHLIB_PATH" = "" ]
+then
+  SHLIB_PATH=$PKG_HOME/lib
+else
+  SHLIB_PATH=$PKG_HOME/lib:$SHLIB_PATH
+fi
+if [ "$LIBPATH" = "" ]
+then
+  LIBPATH=$PKG_HOME/lib
+else
+  LIBPATH=$PKG_HOME/lib:$LIBPATH
+fi
+export IFW_HOME PKG_HOME NLS_LANG INT_PERL_LIB INT_BROWSER_HOME
+export PATH LD_LIBRARY_PATH SHLIB_PATH LIBPATH
+

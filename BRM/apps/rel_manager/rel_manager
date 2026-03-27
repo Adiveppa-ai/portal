@@ -1,0 +1,278 @@
+#!/bin/bash
+# Copyright (c) 2022 Oracle and/or its affiliates. 
+#------------------------------------------------------------------------------#
+# SCRIPT: rel_manager
+#
+# DESCRIPTION:
+#
+# Invokes the RELManager class ...
+#
+# INFORMATION:
+#
+# REL Manager ...
+#
+# REVISION:
+#
+# $Revision: 1.7 $
+# $Author: ri-user-1 $
+# $Date: 2022/11/23 16:48:00 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# log_msg - Print a simple message to the log file ... If the type is 'D' (for
+#           debug) only print if DEBUG is enbaled. If the message is a Fatal
+#           one, then log it to stderr as well.
+#------------------------------------------------------------------------------#
+function log_msg
+{
+typeset type="$1"
+typeset dt=$(date +"%Y/%m/%d %H:%M:%S")
+
+   shift
+   [ "$type" = "D" -a "$DEBUG" = N ] && return 0
+   if [ -n "$LOG_FILE" ]
+   then
+      printf "$type $dt : $CMD[$$] : $@\n" >> $LOG_FILE
+      [ "$type" = "F" ] && printf "$type $dt : $CMD[$$] : $@\n" >&2
+   else
+      if [ "$type" = "F" ]
+      then
+         printf "$type $dt : $CMD[$$] : $@\n" >&2
+      else
+         printf "$type $dt : $CMD[$$] : $@\n"
+      fi
+   fi
+}
+
+#------------------------------------------------------------------------------#
+# abort - Exit with error message
+#------------------------------------------------------------------------------#
+function abort
+{
+   log_msg F "FATAL : $@"
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# get_component_attribute - Retrieves the specified attribute from a component
+# definition file. The parameters are:
+#   1. Component file - the file to look in
+#   2. Component attribute - what we're looking for
+#   3. Whether we expect a result (Y  or N)
+#   4. A default value (optinal) in the case of non mandatory values
+# The value will be printed on stdout.
+# Will return 0 (success) or 1 (failure).
+#------------------------------------------------------------------------------#
+function get_component_attribute
+{
+typeset comp_file="${1}"
+typeset comp_attr="${2}"
+typeset mandatory="${3}"
+typeset def_value="${4}"
+typeset value=
+
+   [ -r "$comp_file" ] || {
+      log_msg E "COMPONENT_FILE[$comp_file] NOT FOUND"
+      return 1
+   }
+   value=$(grep "^${comp_attr}=" $comp_file | sed -e "s/^${comp_attr}=//")
+   if [ -z "$value" -a "$mandatory" = Y ]
+   then
+      log_msg E "COMPONENT_FILE[$comp_file] MANDATORY ATTRIBUTE[$comp_attr] MISSING"
+      return 1
+   elif [ -n "$value" ]
+   then
+      value=$(eval printf "$value") # replace environment variables
+   else
+      value="$def_value"
+   fi
+   printf "%s\n" "$value"
+   return 0
+}
+
+#------------------------------------------------------------------------------#
+# usage - Exit with usage message
+#------------------------------------------------------------------------------#
+function usage
+{
+   cat - >&2 <<!
+usage : $CMD [-h] [-d] [-f <filename>] [-t <format>] [-s <schema>] [<command> ...]
+
+where : -h            This help message
+        -d            Enable debug mode ...
+        -f <filename>  Filename containing commands to execute (process will exit after processing)
+        -s <schema>    Optional schema number to connect to (default is 1)
+        -t <format>    Format for table output ('csv', 'text', 'json'). 'text' is default
+
+        <command>     Command to execute (process will exit after executing)
+
+note :  By default, the schema configured in the RELM.properties will be used.
+!
+   exit 1
+}
+
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+CMD=$(basename $0)
+DEBUG=N
+DEF_MIN_MEM=128m
+DEF_MAX_MEM=1024m
+SPEC_FILE=component_specification
+COMP_NAME=rel_manager
+SCHEMA_ID=
+FORMAT=
+COMMAND_FILENAME=
+
+#
+# Check options ...
+#
+while getopts "hdt:f:s:" OPTION
+do
+   case "$OPTION" in
+   h)  usage
+       ;;
+   d)  DEBUG=Y
+       ;;
+   t)  FORMAT="-t $OPTARG"
+       ;;
+   f)  COMMAND_FILENAME="-f $OPTARG"
+       ;;
+   s)  SCHEMA_ID="-s $OPTARG"
+       ;;
+   \?) echo "Unknown option '$OPTARG'" >&2
+       usage
+       ;;
+   :)  echo "Option '$OPTARG' requires an argument" >&2
+       usage
+       ;;
+   *)  break
+       ;;
+   esac
+done
+shift $((OPTIND - 1))
+COMP_INSTANCE=$COMP_NAME
+
+log_msg D "STARTING COMPONENT[$COMP_INSTANCE]"
+
+#
+# Now get mandatory parameters for this instance ...
+#
+COMP_FILE=$PIN_HOME/apps/$COMP_INSTANCE/$SPEC_FILE
+[ -r "$COMP_FILE" ] || \
+   abort "Unable to read component configuration file '$COMP_FILE'"
+
+DESCRIPTION=$(get_component_attribute $COMP_FILE "description" Y)
+MIN_MEM=$(get_component_attribute $COMP_FILE "min_mem" N "$DEF_MIN_MEM")
+MAX_MEM=$(get_component_attribute $COMP_FILE "max_mem" N "$DEF_MAX_MEM")
+JMX_PORT=$(get_component_attribute $COMP_FILE "jmx_port" N)
+#
+# Set basic directory stuff ...
+#
+LOGDIR=$PIN_LOG_DIR/$COMP_INSTANCE
+APP="$DESCRIPTION ($COMP_INSTANCE)"
+APPDIR=$PIN_HOME/apps/$COMP_INSTANCE
+APPCFGDIR=$APPDIR/config
+
+log_msg D "MIN_MEM[$MIN_MEM] MAX_MEM[$MAX_MEM] JMX_PORT[$JMX_PORT] DESCRIPTION[$DESCRIPTION]"
+
+export LD_LIBRARY_PATH="$PIN_HOME/lib64:$LD_LIBRARY_PATH"
+
+#
+# Check mandatory files and build log directory, if necessary ...
+#
+if [ ! -r  ${APPDIR}/RELM.properties ]
+then
+   abort "No RELM.properties for '$APP' in '$APPDIR'"
+fi
+
+if [ ! -d $LOGDIR ]
+then
+   mkdir -p $LOGDIR || abort "failed making LOGDIR '$LOGDIR'"
+fi
+
+#
+# JAR directories ...
+#
+BRM_JAR_DIR=$PIN_HOME/jars
+
+#
+# BRM jars ...
+#
+BRM_JARS=$BRM_JAR_DIR/brm-rated-event-manager.jar:\
+$BRM_JAR_DIR/brm-rel-manager.jar:\
+$BRM_JAR_DIR/pcm.jar:\
+$BRM_JAR_DIR/pcmext.jar:\
+$BRM_JAR_DIR/oraclepki.jar:\
+$BRM_JAR_DIR/osdt_cert.jar:\
+$BRM_JAR_DIR/osdt_core.jar
+for J in $(ls $BRM_JAR_DIR/log4j-*.jar $BRM_JAR_DIR/jline-3.* $BRM_JAR_DIR/jansi-2.*.jar $BRM_JAR_DIR/jackson*.jar)
+do
+    BRM_JARS="${BRM_JARS}:$J"
+done
+
+#
+# JDBC jars ...
+#
+if [ "$DOCKER" == "1" ]; then
+  JDBC_JARS=$BRM_JAR_DIR/ojdbc8.jar:$BRM_JAR_DIR/ucp.jar
+else
+  JDBC_JARS=${ORACLE_HOME}/ucp/lib/ucp.jar
+  JDBC_JARS=${JDBC_JARS}:${ORACLE_HOME}/jdbc/lib/ojdbc8.jar
+fi
+
+#
+# Build final classpath ...
+#
+export CLASSPATH=".:$APPDIR:$APPCFGDIR:$BRM_JARS:$JDBC_JARS"
+
+#
+# Locale options ...
+#
+COUNTRY=US
+LANGUAGE=en
+if [ -n "$COUNTRY" -a -n "$LANGUAGE" ]
+then
+   LOCALE_OPTIONS="-Duser.country=${COUNTRY} -Duser.language=${LANGUAGE}"
+fi
+
+#
+# Alternative GC options you might want to try (or maybe not - G1 is usually pretty good):
+#
+# -XX:+UseSerialGC     (use the Serial GC)
+# -XX:+UseParallelGC   (use Parallel GC - this is the default for HotSpot VM)
+# -XX:+UseParNewGC     (use CMS - Concurrent Mark and Sweep - GC)
+#
+JMX_OPTIONS=
+if [ -n "$JMX_PORT" ]
+then
+   JMX_OPTIONS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.authenticate=false"
+   JMX_OPTIONS="$JMX_OPTIONS -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=$(hostname)"
+fi
+GC_OPTIONS="-XX:+UseG1GC -XX:MaxGCPauseMillis=100 -Xloggc:${LOGDIR}/GC_rem -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=3"
+GC_OPTIONS="$GC_OPTIONS -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintAdaptiveSizePolicy"
+
+OPTIONS="-DRELM_LOG_BASE=${PIN_LOG_DIR}/${COMP_INSTANCE}/relm \
+$GC_OPTIONS \
+$JMX_OPTIONS \
+$LOCALE_OPTIONS"
+EXTRA_OPTIONS="-Xusealtsigs"  # For Solaris Studio 'collect' ...
+
+log_msg D "OPTIONS[$OPTIONS]"
+log_msg D "CLASSPATH[$CLASSPATH]"
+
+#
+# Define which version of Java we're using and run the application ...
+#
+JAVA=java
+(
+   cd ${APPDIR}
+   $JAVA -D${COMP_INSTANCE}=1 -ms$MIN_MEM -mx$MAX_MEM $OPTIONS ${TRACE} -cp $CLASSPATH  com.oracle.brm.rel_manager.RELManager $SCHEMA_ID $COMMAND_FILENAME $FORMAT "$@"
+)
+if [ $? -eq 0 ]
+then
+   log_msg D "SUCCESFULLY STARTED[$COMP_INSTANCE]"
+else
+   log_msg F "ERROR STARTING[$COMP_INSTANCE] EXIT[$?]"
+fi

@@ -1,0 +1,161 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ "account_nameinfo_t"."COUNTRY" "COUNTRY",
+ "account_nameinfo_t"."STATE" "STATE", "account_nameinfo_t"."REC_ID",
+ "account_t"."ACCOUNT_NO", "account_nameinfo_t"."FIRST_NAME",
+ "account_nameinfo_t"."LAST_NAME", "service_t"."LOGIN",
+ "event_t"."DESCR", "account_t"."POID_ID0", "account_t"."STATUS",
+ "event_t"."END_T", "account_t"."POID_DB",
+ "EVENT_BAL_IMPACTS_T"."AMOUNT" "EVENT_AMOUNT",
+ "EVENT_BAL_IMPACTS_T"."RESOURCE_ID" "EVENT_RESOURCE_ID",
+ "CONFIG_BEID_BALANCES_T"."NAME" "EVENT_RESOURCE_NAME",
+ "EVENT_BAL_IMPACTS_T"."OBJ_ID0", "BILLINFO_T"."PAY_TYPE",
+ "event_t"."POID_TYPE"
+ FROM ((((((("EVENT_T" "event_t" INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T"
+ ON "event_t"."POID_ID0" ="EVENT_BAL_IMPACTS_T"."OBJ_ID0")
+ INNER JOIN "ACCOUNT_T" "account_t" ON "event_t"."ACCOUNT_OBJ_ID0" = "account_t"."POID_ID0")
+ INNER JOIN "EVENT_T" "EVENT_T_1" ON "event_t"."SESSION_OBJ_ID0" = "EVENT_T_1"."POID_ID0")
+ INNER JOIN "ITEM_T" "ITEM_T" ON "event_t"."ITEM_OBJ_ID0" = "ITEM_T"."POID_ID0")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "ITEM_T"."BILLINFO_OBJ_ID0" = "BILLINFO_T"."POID_ID0")
+ INNER JOIN "SERVICE_T" "service_t" ON "EVENT_T_1"."SERVICE_OBJ_ID0" = "service_t"."POID_ID0")
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t"
+ ON "account_t"."POID_ID0" = "account_nameinfo_t"."OBJ_ID0")
+ INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"
+ = "CONFIG_BEID_BALANCES_T"."REC_ID"
+ WHERE "account_t"."POID_DB" >
+ 0
+ AND "account_nameinfo_t"."STATE" LIKE
+ NVL (:param_state, "account_nameinfo_t"."STATE")
+ AND "BILLINFO_T"."PAY_TYPE" LIKE
+ NVL(:param_pay_type,"BILLINFO_T"."PAY_TYPE")
+ AND ("account_t"."STATUS" >= NVL (:param_account_status, 10100)
+ AND "account_t"."STATUS" <= NVL (:param_account_status, 10103))
+ AND "account_nameinfo_t"."REC_ID" = 1
+ AND ( (bipext.infcheckdates (:param_start_date, :param_end_date) = 1)
+ AND "event_t"."END_T" >= bipext.infstrtotimet (:param_start_date, 2)
+ AND "event_t"."END_T" <=(bipext.infstrtotimet (:param_end_date, 2) - 1))
+ AND "account_nameinfo_t"."COUNTRY" LIKE NVL(:param_country, "account_nameinfo_t"."COUNTRY")
+ AND "account_t"."POID_ID0" >
+ 1
+ AND ( "event_t"."POID_TYPE" = '/event/billing/debit'
+ OR "event_t"."POID_TYPE" = '/event/billing/adjustment/account')
+ ORDER BY "EVENT_BAL_IMPACTS_T"."RESOURCE_ID",
+ UPPER ("account_nameinfo_t"."COUNTRY"),
+ UPPER ("account_nameinfo_t"."STATE"),
+ "account_t"."POID_ID0",
+ "EVENT_BAL_IMPACTS_T"."OBJ_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="COUNTRY" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="1"/>
+    <element name="STATE" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="2"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="3"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="4"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="6"/>
+    <element name="LOGIN" value="LOGIN" dataType="xsd:string" label="LOGIN" breakOrder="None" fieldOrder="7"/>
+    <element name="DESCR" value="DESCR" dataType="xsd:string" label="DESCR" breakOrder="None" fieldOrder="8"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="9"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="10"/>
+    <element name="END_T" value="END_T" dataType="xsd:integer" label="END_T" breakOrder="None" fieldOrder="11"/>
+    <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="12"/>
+    <element name="EVENT_AMOUNT" value="EVENT_AMOUNT" dataType="xsd:integer" label="EVENT_AMOUNT" breakOrder="None" fieldOrder="13"/>
+    <element name="EVENT_RESOURCE_ID" value="EVENT_RESOURCE_ID" dataType="xsd:integer" label="EVENT_RESOURCE_ID" breakOrder="None" fieldOrder="14"/>
+    <element name="EVENT_RESOURCE_NAME" value="EVENT_RESOURCE_NAME" dataType="xsd:string" label="EVENT_RESOURCE_NAME" breakOrder="None" fieldOrder="15"/>
+    <element name="OBJ_ID0" value="OBJ_ID0" dataType="xsd:integer" label="OBJ_ID0" breakOrder="None" fieldOrder="16"/>
+    <element name="PAY_TYPE" value="PAY_TYPE" dataType="xsd:integer" label="PAY_TYPE" breakOrder="None" fieldOrder="17"/>
+    <element name="POID_TYPE" value="POID_TYPE" dataType="xsd:string" label="POID_TYPE" breakOrder="None" fieldOrder="18"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="ACCOUNT_STATUS_LOV">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="PAY_TYPE_LOV">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="SUBORDINATE" value="10007"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="STATE_DETAILS_LOV">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="COUNTRY_LOV">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="STATE_LOV">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is NOT NULL]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_ACCOUNT_STATUS" dataType="xsd:float">
+         <select label="Select a specific account status, or select ALL to include all accounts" valueSet="ACCOUNT_STATUS_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_PAY_TYPE" dataType="xsd:float">
+         <select label="Select a type of billing, or select ALL to include all types of billing" valueSet="PAY_TYPE_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries" valueSet="COUNTRY_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states" valueSet="STATE_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)" size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)" size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_STATE_DETAILS" dataType="xsd:float">
+         <select label="Include state-level details?" valueSet="STATE_DETAILS_LOV" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="DATA_DS" left="28px" top="14px"/><layout name="Q1" left="274px" top="17px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

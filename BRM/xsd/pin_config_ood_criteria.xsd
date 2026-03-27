@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2006 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation 
+			or its licensors and may be used, reproduced, stored or transmitted
+			only in accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="OodCriteriaConfiguration" type="businessConfig:OodCriteriaConfigurationType" />
+
+	<xs:complexType name="OodCriteriaConfigurationType">
+	  <xs:sequence>
+	    <xs:element name="OodCriteriaElement" type="businessConfig:OodCriteriaElementType" 
+			      minOccurs="1" maxOccurs="unbounded"/>
+          </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="OodCriteriaElementType">
+	  <xs:sequence>
+	    <xs:element name="CriteriaName" type="businessConfig:CriteriaNameType" maxOccurs="1"/>
+	    <xs:element name="ParameterList" type="businessConfig:ParameterListType" maxOccurs="1"/>
+          </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ParameterListType" >
+	  <xs:sequence>
+	    <xs:element name="Parameter" type="businessConfig:ParameterType" 
+			minOccurs="1" maxOccurs="unbounded" />
+          </xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ParameterType" >
+          <xs:simpleContent>
+            <xs:extension  base="xs:string">
+              <xs:attribute name="Type" type="businessConfig:ParamValueType"/>
+            </xs:extension>
+           </xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="ParamValueType">
+          <xs:restriction base="xs:string">
+	    <xs:pattern value="Service|Event|Product|Discount"/>
+	  </xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CriteriaNameType">
+          <xs:restriction base="xs:string">
+	    <xs:minLength value="1"/>
+	  </xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

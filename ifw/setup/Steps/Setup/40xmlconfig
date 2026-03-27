@@ -1,0 +1,29 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#    This step will parse the  LoadIfwConfig,and append the DB Config values
+# ---------------------------------------------------------------------------------
+
+@list;
+open("REG","$ENV{'INT_HOME'}/tools/XmlLoader/LoadIfwConfig.reg");
+$count=0;
+$orver=$ENV{'DB_LIBRARY'};
+$xmlfilepath="$ENV{'INT_HOME'}/tools/XmlLoader/Metadata.xml";
+map{$list[$count]=$_;$count++;}<REG>;
+close(REG);
+open("REG1",">$ENV{'INT_HOME'}/tools/XmlLoader/LoadIfwConfig.reg");
+map{s/^(\s*DatabaseName\s*=).*$/$1 $ENV{"DB_SID"}/;
+    s/^(\s*UserName\s*=).*$/$1 $ENV{"INT_USER"}/;
+    s/^(\s*PassWord\s*=).*$/$1 $ENV{"INT_PSWD"}/;
+    s/^(\s*AccessLib\s*=).*$/$1 $orver/;
+    s/^(\s*XMLSchemaFile\s*=).*$/$1 $xmlfilepath/;
+    print REG1 $_;}@list;
+close(REG1);
+exit 0;

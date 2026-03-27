@@ -1,0 +1,100 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_BILL_ITEM_REFUND" visibility="public" transaction="required" component="fm_bill" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>
+</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Account object</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_PROGRAM_NAME" use="optional" maxlen="256">
+        <Doc> Optional PROGRAM_NAME to record the events associated with the item_refund  If the program_name is not specified the system will automatically assign  "Refund Opcode" as the default.</Doc>
+      </String>
+      <Poid name="PIN_FLD_BILLINFO_OBJ" use="optional" mode="complete">
+        <Doc> either BILLINFO_OBJ or BILL_OBJ must be present  since account level refund is obsolete; if not, then  the default billinfo for the account will be refunded   Optional AR billinfo to issue the refund against.</Doc>
+        <ClassRef>obj://billinfo</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_BILL_OBJ" use="optional" mode="complete">
+        <Doc> Optional AR bill_object to issue the refund against.</Doc>
+        <ClassRef>obj://bill</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_SESSION_OBJ" use="optional" mode="complete">
+        <Doc>
+Session object - session in which event took place 
+(Usually the Refund Batch event).null means none. 
+</Doc>
+        <ClassRef>obj://event.billing.batch.refund</ClassRef>
+      </Poid>
+      <Decimal name="PIN_FLD_AMOUNT" use="optional">
+        <Doc> Optional AMOUNT for doing partial refund   If this specified amount is 0 or NULL, it'll be treated as full refund;   If this specified amount is beyond the refundable amount, it'll be treated as   full refund.    Positive value will be negated inside the opcode, so the sign doesn't matter.</Doc>
+      </Decimal>
+      <String name="PIN_FLD_ITEM_NO" use="optional" maxlen="256">
+        <Doc> Optional item_no for the new refund item. It not passed the opcode  will generate it.  This can only work if a AR billinfo or AR Bill  is passed in</Doc>
+      </String>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Account object against which the refund was issued.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Enum name="PIN_FLD_RESULT" use="required">
+        <Doc>Result of the refund operation</Doc>
+        <Values>
+          <Value>1</Value>
+          <Doc> 1 for Success.</Doc>
+        </Values>
+        <Values>
+          <Value>0</Value>
+          <Doc>0 for Fail.</Doc>
+        </Values>
+      </Enum>
+      <Decimal name="PIN_FLD_AMOUNT" use="required">
+        <Doc> Refund amount. Incase of multi-refund item, this will be 0.
+      Amount will be under PIN_FLD_ITEMS array.</Doc>
+      </Decimal>
+      <Poid name="PIN_FLD_ITEM_OBJ" use="required" mode="complete">
+        <Doc> Item obj for the new refund item. Incase of multi-refund item, this will be NULL.
+      New refund items will be under PIN_FLD_ITEMS array.</Doc>
+        <ClassRef>obj://item</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_ITEMS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false">
+        <Doc>
+Array of refund items created.
+</Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc> Item object - Refund item poid created.</Doc>
+            <ClassRef>obj://item</ClassRef>
+          </Poid>
+          <Decimal name="PIN_FLD_AMOUNT" use="required">
+            <Doc> Refund amount.  </Doc>
+          </Decimal>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

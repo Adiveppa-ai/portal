@@ -1,0 +1,168 @@
+---
+---     Copyright (c) 2008 Oracle. All rights reserved.
+---     This material is the confidential property of Oracle Corporation
+---     or its licensors and may be used, reproduced, stored
+---     or transmitted only in accordance with a valid Oracle license or
+---     sublicense agreement.
+---
+
+create or replace
+PACKAGE NCMULTIPLE_PERIOD AS
+TYPE refcursor IS REF CURSOR;
+
+FUNCTION GET_PEROID_DATA( 	
+			     pCountry IN VARCHAR2,
+			     pState   IN VARCHAR2,
+			     pPayType IN VARCHAR2,
+			     pTimePeriod IN VARCHAR2,
+ 		             pStartMonth IN timestamp,
+ 		             pStartWeek IN timestamp) RETURN NCMULTIPLE_PERIOD.refcursor;
+
+END;
+/
+
+
+create or replace
+PACKAGE BODY ncmultiple_period
+AS
+   FUNCTION get_peroid_data (
+      pcountry      IN   VARCHAR2,
+      pstate        IN   VARCHAR2,
+      ppaytype      IN   VARCHAR2,
+      ptimeperiod   IN   VARCHAR2,
+      pstartmonth   IN   timestamp,
+      pstartweek
+                    IN   timestamp
+   )
+      RETURN ncmultiple_period.refcursor
+   IS
+      l_cursor     ncmultiple_period.refcursor;
+      datestring         VARCHAR (30):=NULL;
+      TIMEZONE           VARCHAR (30):=NULL;
+      startdate          VARCHAR (30):=NULL;
+      startdate_wo_tz    VARCHAR (30):=NULL;
+      enddate            VARCHAR (30):=NULL;
+      istartdate         NUMBER:=0;
+      ienddate           NUMBER:=0;
+	  tz_hour			 NUMBER:=0;
+	  tz_min			 NUMBER:=0;
+	  tz_value			 NUMBER:=0;
+
+   BEGIN
+      IF UPPER (ptimeperiod) = 'MONTH'
+      THEN
+           
+--         TIMEZONE := SUBSTR (pstartmonth, INSTR (pstartmonth, ' '));
+--         datestring := SUBSTR (pstartmonth, 0, INSTR (pstartmonth, ' '));
+--         startdate := TO_CHAR (TO_DATE (datestring, 'mm/yyyy'), 'mm/dd/yyyy') || TIMEZONE;
+--         startdate_wo_tz := TO_CHAR (TO_DATE (datestring, 'mm/yyyy'), 'mm/dd/yyyy') || ' +0000';
+--         enddate := TO_CHAR (ADD_MONTHS (TO_DATE (datestring, 'mm/yyyy'), 12), 'mm/dd/yyyy') || TIMEZONE;
+--		 
+--		 IF ( Length(TIMEZONE) = 5) THEN
+--            tz_hour  := to_number(substr(TIMEZONE, 1, 3));
+--            tz_min   := to_number(substr(TIMEZONE, 4));
+--
+--	    -- TZ_Minute will also negative if Timezone is -ve
+--            IF (instr(TIMEZONE, '-') != 0) THEN
+--                tz_min := -(tz_min);
+--            END IF;
+--			tz_value := tz_hour*60*60 + tz_min * 60;
+--		END IF;
+		
+-- Open cursor to return Months data.
+         OPEN l_cursor FOR
+            SELECT "account_t"."CREATED_T" ,
+  "account_t"."LAST_STATUS_T" ,
+  "account_t"."STATUS" STS,
+  "account_nameinfo_t"."COUNTRY",
+  "account_nameinfo_t"."STATE",
+  bipext.infstrtotimet(pstartmonth,2) m_StartDate,
+  DECODE(SIGN(last_status_t           - (bipext.infstrtotimet(pstartmonth,2))), -1, 0, (FLOOR (ABS (MONTHS_BETWEEN ( TO_DATE ('01-jan-1970', 'dd-mon-yyyy') + ((last_status_t) / 86400) , TO_DATE ('01-jan-1970','dd-mon-yyyy') + ( bipext.infstrtotimet(pstartmonth,2)/ 86400) ) ) )+1)) m_l,
+  DECODE(SIGN("account_t"."CREATED_T" - (bipext.infstrtotimet(pstartmonth,2))), -1, 0, (FLOOR (ABS (MONTHS_BETWEEN ( TO_DATE ('01-jan-1970','dd-mon-yyyy') + (("account_t"."CREATED_T") / 86400), TO_DATE ('01-jan-1970', 'dd-mon-yyyy') + ( bipext.infstrtotimet(pstartmonth, 2) / 86400) ) ) )+1)) m_c
+FROM ("ACCOUNT_T" "account_t"
+INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t"
+ON "account_t"."POID_ID0" = "account_nameinfo_t"."OBJ_ID0")
+INNER JOIN "BILLINFO_T" "BILLINFO_T"
+ON "account_nameinfo_t"."OBJ_ID0" = "BILLINFO_T"."ACCOUNT_OBJ_ID0"
+WHERE "account_t"."POID_DB"       > 0
+AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(ppaytype,"BILLINFO_T"."PAY_TYPE")
+AND "account_nameinfo_t"."REC_ID" = 1
+AND "account_nameinfo_t"."STATE" LIKE NVL (pstate, "account_nameinfo_t"."STATE")
+AND "account_t"."STATUS"            <> 0
+AND ((( "account_t"."LAST_STATUS_T" >= bipext.infstrtotimet (pstartmonth, 2))
+AND ("account_t"."LAST_STATUS_T"    <= bipext.infstrtotimet (ADD_MONTHS(substr(pstartmonth,0,instr(pstartmonth,' ')),12), 2) - 1) )
+OR (("account_t"."CREATED_T"        >= bipext.infstrtotimet (pstartmonth, 2))
+AND ("account_t"."CREATED_T"        <= bipext.infstrtotimet (ADD_MONTHS(substr(pstartmonth,0,instr(pstartmonth,' ')),12), 2) - 1) ))
+AND "account_nameinfo_t"."COUNTRY" LIKE NVL (pcountry, "account_nameinfo_t"."COUNTRY")
+AND "account_t"."POID_ID0" > 1
+ORDER BY "account_nameinfo_t"."COUNTRY",
+  "account_nameinfo_t"."STATE",
+  "account_t"."ACCOUNT_NO";
+      END IF;
+	  IF UPPER (ptimeperiod) = 'WEEK' 
+	  THEN
+         istartdate := bipext.infstrtotimet(pstartweek,2);
+         ienddate   := bipext.infstrtotimet(pstartweek,2) + (13*7*86400) - 86400;
+
+-- Open cursor to return Weeks data.
+         OPEN l_cursor FOR
+            SELECT   
+					 istartdate w_StartDate,
+					 "account_t"."CREATED_T", 
+					 "account_t"."POID_ID0",
+					 "account_t"."LAST_STATUS_T",
+                     "account_t"."STATUS" STS, 
+					 "account_nameinfo_t"."COUNTRY",
+                     "account_nameinfo_t"."STATE",
+					 DECODE(SIGN(last_status_t - istartdate), -1, 0, 
+					            (floor(abs((LAST_STATUS_t - istartdate) / 86400)/7) +1)) w_l,
+                     DECODE(SIGN("account_t"."CREATED_T" - istartdate), -1, 0, 
+					            (floor(abs(("account_t"."CREATED_T" - istartdate) / 86400)/7) +1)) w_c
+                FROM ("ACCOUNT_T" "account_t" INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t" ON "account_t"."POID_ID0" =
+                                                                                                        "account_nameinfo_t"."OBJ_ID0")
+                     INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "account_nameinfo_t"."OBJ_ID0" =
+                                                               "BILLINFO_T"."ACCOUNT_OBJ_ID0"
+               WHERE "account_t"."POID_DB" > 0
+		AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(ppaytype,"BILLINFO_T"."PAY_TYPE")
+                 AND "account_nameinfo_t"."REC_ID" = 1
+                 AND "account_nameinfo_t"."STATE" LIKE
+                                    NVL (pstate, "account_nameinfo_t"."STATE")
+                 AND "account_t"."STATUS" <> 0
+                 AND ((    "account_t"."LAST_STATUS_T" >= istartdate
+                           AND "account_t"."LAST_STATUS_T" <= ienddate - 1
+                      ) OR
+                      ("account_t"."CREATED_T" >= istartdate 
+					    AND
+                       "account_t"."CREATED_T" <= ienddate - 1 ))
+                 AND "account_nameinfo_t"."COUNTRY" LIKE
+                                NVL (pcountry, "account_nameinfo_t"."COUNTRY")
+                 AND "account_t"."POID_ID0" > 1
+            ORDER BY "account_nameinfo_t"."COUNTRY",
+                     "account_nameinfo_t"."STATE",
+                     "account_t"."ACCOUNT_NO";
+	  END IF;
+
+	if (l_cursor is null) then 
+	  OPEN l_cursor FOR
+            SELECT   
+					 istartdate w_StartDate,
+					 "account_t"."CREATED_T", 
+					 "account_t"."POID_ID0",
+					 "account_t"."LAST_STATUS_T",
+                     "account_t"."STATUS" STS, 
+					 "account_nameinfo_t"."COUNTRY",
+                     "account_nameinfo_t"."STATE",
+					 DECODE(SIGN(last_status_t - istartdate), -1, 0, 
+					            (floor(abs((LAST_STATUS_t - istartdate) / 86400)/7) +1)) w_l,
+                     DECODE(SIGN("account_t"."CREATED_T" - istartdate), -1, 0, 
+					            (floor(abs(("account_t"."CREATED_T" - istartdate) / 86400)/7) +1)) w_c
+                FROM ("ACCOUNT_T" "account_t" INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t" ON "account_t"."POID_ID0" =
+                                                                                                        "account_nameinfo_t"."OBJ_ID0")
+                     INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "account_nameinfo_t"."OBJ_ID0" =
+                                                               "BILLINFO_T"."ACCOUNT_OBJ_ID0";
+	 end if;
+
+      RETURN l_cursor;
+   END get_peroid_data;
+END ncmultiple_period;
+/

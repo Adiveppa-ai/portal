@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ACTION_LIST>
+   <ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="mkdir -p /home/pin/opt/portal/ifw/Plugins/INP /home/pin/opt/portal/ifw/Plugins/IXT /home/pin/opt/portal/ifw/Plugins/OUT /home/pin/opt/portal/ifw/samples/simple/data/discount /home/pin/opt/portal/ifw/samples/simple/data/done /home/pin/opt/portal/ifw/samples/simple/data/err /home/pin/opt/portal/ifw/samples/simple/data/out /home/pin/opt/portal/ifw/samples/simple/data/rej /home/pin/opt/portal/ifw/samples/simple/data/seq /home/pin/opt/portal/ifw/samples/simple/data/TAM /home/pin/opt/portal/ifw/samples/simple/data/log/pipeline /home/pin/opt/portal/ifw/samples/simple/data/log/stream /home/pin/opt/portal/ifw/cache /home/pin/opt/portal/ifw/conf/dbloader /home/pin/opt/portal/ifw/data/archive /home/pin/opt/portal/ifw/data/assembly /home/pin/opt/portal/ifw/data/backout/done /home/pin/opt/portal/ifw/data/backout/error /home/pin/opt/portal/ifw/data/backout/in /home/pin/opt/portal/ifw/data/backout/log/pipeline /home/pin/opt/portal/ifw/data/backout/log/stream /home/pin/opt/portal/ifw/data/backout/out/gprs /home/pin/opt/portal/ifw/data/backout/out/gsm/data /home/pin/opt/portal/ifw/data/backout/out/gsm/fax /home/pin/opt/portal/ifw/data/backout/out/gsm/sms /home/pin/opt/portal/ifw/data/backout/out/gsm/telephony /home/pin/opt/portal/ifw/data/backout/out/wap /home/pin/opt/portal/ifw/data/backout/reject /home/pin/opt/portal/ifw/data/dump /home/pin/opt/portal/ifw/data/rerate/done /home/pin/opt/portal/ifw/data/rerate/error /home/pin/opt/portal/ifw/data/rerate/in /home/pin/opt/portal/ifw/data/rerate/log/pipeline /home/pin/opt/portal/ifw/data/rerate/log/stream /home/pin/opt/portal/ifw/data/rerate/out/gprs /home/pin/opt/portal/ifw/data/rerate/out/gsm/data /home/pin/opt/portal/ifw/data/rerate/out/gsm/fax /home/pin/opt/portal/ifw/data/rerate/out/gsm/sms /home/pin/opt/portal/ifw/data/rerate/out/gsm/telephony /home/pin/opt/portal/ifw/data/rerate/out/wap /home/pin/opt/portal/ifw/data/rerate/reject /home/pin/opt/portal/ifw/log/dump" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+</ACTION_LIST>

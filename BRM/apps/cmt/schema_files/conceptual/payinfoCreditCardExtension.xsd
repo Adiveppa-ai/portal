@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="payinfoExtensions.xsd"/>
+	<xs:complexType name="payinfoCreditCardType">
+		<xs:complexContent>
+			<xs:extension base="payinfoExtensionType">
+				<xs:sequence>
+					<xs:element name="FldAddress" type="Address" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldCity" type="City" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldCountry" type="Country" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldDebitExp" minOccurs="1" maxOccurs="1">
+						<xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                                <xs:maxLength value="128"/>
+                                                        </xs:restriction>
+                                                </xs:simpleType>
+                                        </xs:element>
+					<xs:element name="FldDebitNum" type="DebitNum" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="CdTyp" type="CardType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldName" type="Name" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldState" type="State" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldZip" type="Zip" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldPinless" type="YesOrNo" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+				<xs:attribute name="elem" type="xs:integer" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="payinfoCreditCardlExtension" type="payinfoCreditCardType" substitutionGroup="payinfoExtension"/>
+</xs:schema>

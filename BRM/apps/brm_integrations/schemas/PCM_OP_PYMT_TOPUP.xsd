@@ -1,0 +1,738 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" elementFormDefault="qualified" xmlns="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:op="http://www.portal.com/schemas/BusinessOpcodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <!--Copyright (c) 2007, 2018, Oracle and/or its affiliates. All rights reserved.
+
+        This material is the confidential property of Oracle Corporation or
+        its licensors and may be used, reproduced, stored or transmitted only
+        in accordance with a valid Oracle license or sublicense agreement.-->
+   <xsd:element name="PCM_OP_PYMT_TOPUP_inputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_12112" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="DESCR" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="255"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="END_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="INHERITED_INFO" type="INHERITED_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_1219" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LOCALE" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="255"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(account)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="PROGRAM_NAME" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="60"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="REASON_DOMAIN_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="REASON_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="START_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ZONEMAP_NAME" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="255"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="ZONEMAP_TARGET" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="255"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="INHERITED_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_1219">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="TOPUP_INFO" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="TOPUP_INFO_ARRAY_PCM_OP_PYMT_TOPUP_121922">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="VOUCHERS_INFO" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="VOUCHERS_INFO_ARRAY_PCM_OP_PYMT_TOPUP_121921">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="VOUCHERS_INFO_ARRAY_PCM_OP_PYMT_TOPUP_121921">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BAL_GRP_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BILLINFO_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(billinfo)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="DEAL_INFO" type="DEAL_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_12192126" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="DEAL_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(deal)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="DEVICE_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="SERVICE_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(service)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="VOUCHER_PIN" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="DEAL_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_12192126">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:complexType>
+   <xsd:complexType name="TOPUP_INFO_ARRAY_PCM_OP_PYMT_TOPUP_121922">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="ACCOUNT_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(account)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BAL_GRP_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BAL_INFO" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="BAL_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192227">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="BILLINFO_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(billinfo)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="CYCLE_TOPPED_AMT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="DEAL_INFO" type="DEAL_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_121922221" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="DEAL_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(deal)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="GROUP_INDEX" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="GROUP_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="LAST_TOPUP_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="NEXT_TOPUP_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(topup)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="PARENT" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(account)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="PAYINFO" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="PAYINFO_ARRAY_PCM_OP_PYMT_TOPUP_121922220">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="PAYINFO_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(payinfo)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="PIN" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="POID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(topup)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="RESOURCE_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="SERVICE_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(service)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TOPUP_AMT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="TOPUP_CAP" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="TOPUP_INTERVAL" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="BAL_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192227">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BAL_GRP_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="REASON_DOMAIN_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="REASON_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="PAYINFO_ARRAY_PCM_OP_PYMT_TOPUP_121922220">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CASH_INFO" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="CASH_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222024">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="CC_INFO" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="CC_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222021">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="CHECK_INFO" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="CHECK_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222025">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="DD_INFO" minOccurs="0" maxOccurs="1">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="DD_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222022">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="PAY_TYPE" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="10011"/>
+                  <xsd:enumeration value="10012"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CC_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222021">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="ADDRESS" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="CITY" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="90"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="COUNTRY" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="DEBIT_EXP" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="DEBIT_NUM" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="NAME" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="SECURITY_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="STATE" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="90"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="ZIP" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="DD_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222022">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="ADDRESS" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BANK_NO" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="CITY" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="90"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="COUNTRY" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="DEBIT_NUM" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="NAME" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="STATE" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="90"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TYPE" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="0"/>
+                  <xsd:enumeration value="1"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="ZIP" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CASH_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222024">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="EFFECTIVE_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="RECEIPT_NO" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CHECK_INFO_ARRAY_PCM_OP_PYMT_TOPUP_12192222025">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BANK_ACCOUNT_NO" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BANK_CODE" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="CHECK_NO" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="60"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EFFECTIVE_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="DEAL_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_121922221">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:complexType>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_12112">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:element name="PCM_OP_PYMT_TOPUP_outputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="AMOUNT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_13110" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CURRENCY" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="DEAL_INFO" minOccurs="0" maxOccurs="1">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="DEAL_INFO_ARRAY_PCM_OP_PYMT_TOPUP_1319">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(account)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="RESULT" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:enumeration value="0"/>
+                     <xsd:enumeration value="1"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="RESULTS" minOccurs="1" maxOccurs="1">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="RESULTS_ARRAY_PCM_OP_PYMT_TOPUP_1318">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="VALID_FROM" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="VALID_TO" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="VOUCHERS_INFO" minOccurs="1" maxOccurs="1">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="VOUCHERS_INFO_ARRAY_PCM_OP_PYMT_TOPUP_1313">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="VOUCHERS_INFO_ARRAY_PCM_OP_PYMT_TOPUP_1313">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BAL_GRP_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BILLINFO_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(billinfo)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="DEVICE_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXPIRATION_T" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="SERVICE_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(service)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="VALID_FROM" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="VALID_TO" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="VOUCHER_PIN" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="RESULTS_ARRAY_PCM_OP_PYMT_TOPUP_1318">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BAL_IMPACTS" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="BAL_IMPACTS_ARRAY_PCM_OP_PYMT_TOPUP_131823">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="EVENT_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(event/billing/topup)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="LOAN_INFO" type="LOAN_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_131822" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="POID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(event/billing/debit)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(event/billing/payment)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="RESULT" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="1"/>
+                  <xsd:enumeration value="0"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="BAL_IMPACTS_ARRAY_PCM_OP_PYMT_TOPUP_131823">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="ACCOUNT_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(account)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="AMOUNT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="BAL_GRP_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="IMPACT_TYPE" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="1"/>
+                  <xsd:enumeration value="2"/>
+                  <xsd:enumeration value="4"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="ITEM_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(item)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="RESOURCE_ID" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="VALID_FROM" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_TO" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="LOAN_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_131822">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="AMOUNT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="AVAILABLE_LOAN_LIMIT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="CREDIT_LIMIT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="OUTSTANDING_AMOUNT" type="UNION_PCM_OP_PYMT_TOPUP" minOccurs="1" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="DEAL_INFO_ARRAY_PCM_OP_PYMT_TOPUP_1319">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+   </xsd:complexType>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_TOPUP_13110">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="BUFFER_PCM_OP_PYMT_TOPUP">
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:hexBinary">
+            <xsd:attribute name="flags" type="xsd:string" use="optional"/>
+            <xsd:attribute name="size" type="xsd:string" use="optional"/>
+            <xsd:attribute name="offset" type="xsd:string" use="optional"/>
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   <xsd:simpleType name="EMPTY_PCM_OP_PYMT_TOPUP">
+      <xsd:restriction base="xsd:string">
+         <xsd:length value="0"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UNION_PCM_OP_PYMT_TOPUP">
+      <xsd:union memberTypes="xsd:decimal EMPTY_PCM_OP_PYMT_TOPUP"/>
+   </xsd:simpleType>
+</xsd:schema>

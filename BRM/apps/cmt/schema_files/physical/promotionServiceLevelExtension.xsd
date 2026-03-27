@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="CMT_Types.xsd"/>
+	<xs:include schemaLocation="promotionExtensions.xsd"/>
+	<xs:complexType name="promotionServiceLevelType">
+		<xs:complexContent>
+			<xs:extension base="promotionExtensionType">
+				<xs:sequence>
+					<xs:element name="SLPSta" type="ServiceStatus" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Label" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="RefCount" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="SLPArr" type="ServiceLevelPromotionArrayType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ServiceLevelPromotionArrayType">
+		<xs:sequence>
+			<xs:element name="Nam" type="Name" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Val" type="Value" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VldT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VldF" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+	<xs:element name="PrmSrvLvlExtn" type="promotionServiceLevelType" substitutionGroup="PrmExtn"/>
+</xs:schema>

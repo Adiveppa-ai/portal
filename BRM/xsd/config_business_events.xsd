@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2016, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    Schema definition for business_events config object.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="PinTypes.xsd"/>
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ConfigObject" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID"         type="PinPoid"   minOccurs="0"/>
+              <xs:element name="ACCOUNT_OBJ"  type="PinPoid"   minOccurs="0"/>
+              <xs:element name="DESCR"        type="xs:string" minOccurs="0"/>
+              <xs:element name="HOSTNAME"     type="xs:string" minOccurs="0"/>
+              <xs:element name="NAME"         type="xs:string" minOccurs="1"/>
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0"/>
+	      <xs:element name="VALUE"        type="xs:string" minOccurs="0"/>
+              <xs:element name="VERSION"      type="xs:string" minOccurs="0"/>	
+              <xs:element name="EVENTS" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="DESCR"           type="xs:string"  maxOccurs="1" minOccurs="0" />
+                    <xs:element name="EVENT_NAME"      type="xs:string"  maxOccurs="1" minOccurs="1" />		
+                    <xs:element name="EVENT_TYPE"      type="xs:string"  maxOccurs="1" minOccurs="1" /> 
+                    <xs:element name="FLAGS"           type="xs:int"  	 maxOccurs="1" minOccurs="1" />
+                    <xs:element name="NAME"            type="xs:string"  maxOccurs="1" minOccurs="1" />	 
+                    <xs:element name="STATUS_FLAGS"    type="xs:int"     maxOccurs="1" minOccurs="0" />
+                    <xs:element name="NOTIFY_OPCODE"   type="xs:int"     maxOccurs="1" minOccurs="0" />
+                    <xs:element name="NOTIFY_SEARCH_LEVEL"   type="xs:int"     maxOccurs="1" minOccurs="0" />
+                  </xs:all>
+                  <xs:attribute name="elem" type="xs:integer" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="configName" type="xs:string" default="/config/business_events" />
+      <xs:attribute name="configMode" type="xs:string" default="replace" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

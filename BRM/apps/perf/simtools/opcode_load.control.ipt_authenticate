@@ -1,0 +1,6 @@
+#
+PCM_OP_IPT_AUTHENTICATE
+# number of field entries allocated 3, used 3
+0 PIN_FLD_POID           POID [0] 0.0.0.1 /service/telephony -1 0
+0 PIN_FLD_LOGIN           STR [0] "$L"
+0 PIN_FLD_PASSWD_CLEAR    STR [0] "password"

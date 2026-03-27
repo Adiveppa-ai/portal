@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+        <xs:annotation>
+                <xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2018, Oracle and/or its affiliates. All rights reserved.
+                        This material is the confidential property of Oracle Corporation or its
+                        licensors and may be used, reproduced, stored or transmitted only in
+                        accordance with a valid Oracle license or sublicense agreement.
+                </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType name="BusParamsCustomerType">
+                <xs:sequence>
+                        <xs:element name="SubscriberLifeCycle" type="businessConfig:switch">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+                                		This parameter indicates Subscriber Lifecycle Management feature enabled/disabled. The default is disabled(0).	
+					</xs:documentation>
+                        	</xs:annotation>
+                        </xs:element>
+
+                        <xs:element name="EnablePasswordRestriction" type="businessConfig:switch">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+                                		This parameter indicates if password restriction should apply on service. The default is enabled(1).	
+					</xs:documentation>
+                        	</xs:annotation>
+                        </xs:element>
+                        <xs:element name="ClosedAcctsRetentionMonths">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+						This parameter indicates the number of months to retain the deleted accounts in system.Default(0) is to keep the accounts forever.
+					</xs:documentation>
+                        	</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+                        </xs:element>
+                        <xs:element name="ActgDom">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+						Specifies the day of the month when Portal should bill accounts.
+					</xs:documentation>
+                        	</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+                        </xs:element>
+                        <xs:element name="BillWhen">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+						Specifies the number of accounting cycles before the customer is billed.
+					</xs:documentation>
+                        	</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+                        </xs:element>
+			<xs:element name="CCchecksum" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter indicates whether to run a checksum validation on the customer's credit card during registration. The default is enabled(1).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                </xs:sequence>
+        </xs:complexType>
+
+</xs:schema>
+

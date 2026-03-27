@@ -1,0 +1,25 @@
+-- ******************************************************************************
+-- NAME:       create_table_report_sequence.suorce
+-- PURPOSE:    Stored Automatically generated sequence number for High Usage Report
+--
+-- @(#)$Id: hur_create_table_report_sequence.source /cgbubrm_7.5.0.clients/1 2013/06/07 03:08:50 vinodrao Exp $
+--
+-- Copyright (c) 2010, 2013, Oracle and/or its affiliates. All rights reserved.
+--
+-- This material is the confidential property of Oracle Corporation or its licensors
+-- and may be used, reproduced, stored or transmitted only in accordance with a valid
+-- Oracle license or sublicense agreement.
+--
+-- SQL Script
+--
+--
+-- ******************************************************************************
+
+CREATE TABLE REPORT_SEQUENCE
+(
+  SEQUENCE_NUMBER         INTEGER     NOT NULL,
+  HPMNO_TAP_CODE          VARCHAR2(20 BYTE)     NOT NULL,
+  OBSERVATION_START_DATE  DATE,
+  OBSERVATION_END_DATE    DATE,
+  REPORT_TYPE             VARCHAR2(50 BYTE)
+);

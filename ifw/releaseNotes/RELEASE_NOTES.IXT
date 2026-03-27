@@ -1,0 +1,20 @@
+================================================================================
+EXT_iScript
+--------------------------------------------------------------------------------
+Module Release Notes 
+--------------------------------------------------------------------------------
+$RCSfile: RELEASE_NOTES.IXT,v $
+$Revision: 1.4 $
+$Author: pborah $
+$Date: 2005/09/02 12:22:52 $ 
+
+================================================================================
+14-Sep-2007: bug6407450 ROAMING REG CORE DUMP DURING SHUTDOWN 
+02-Sep-2005: PRSF00180912  "WARNING logged as MAJOR error (timos_platform)"
+18-Feb-2004: PRSF00092596   unknown return value constants for iscript functions
+02-Feb-2001: Bugfix for "certified iScripts need a linefeed at the end of the
+             file"
+04-Dec-2000: Module moved from IXT to EXT_iScript.
+27-Sep-2000: Initial version of the integRate iScript extension.
+
+================================================================================

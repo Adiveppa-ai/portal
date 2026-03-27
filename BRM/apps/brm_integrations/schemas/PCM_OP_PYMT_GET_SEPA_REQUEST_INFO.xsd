@@ -1,0 +1,327 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" elementFormDefault="qualified" xmlns="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:op="http://www.portal.com/schemas/BusinessOpcodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <!--Copyright (c) 2007, 2018, Oracle and/or its affiliates. All rights reserved.
+
+        This material is the confidential property of Oracle Corporation or
+        its licensors and may be used, reproduced, stored or transmitted only
+        in accordance with a valid Oracle license or sublicense agreement.-->
+   <xsd:element name="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_inputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1213" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa/dd)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa/ct)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa/dd/reversal)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="POIDS" minOccurs="0" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="POIDS_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1212">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="POIDS_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1212">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1213">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:element name="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_outputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1315" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MSG_ID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="35"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="PAYMENT" type="PAYMENT_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1313" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa/dd)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa/ct)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(sepa/dd/reversal)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="PYMT_INFO" minOccurs="0" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="PYMT_INFO_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1314">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="PYMT_INFO_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1314">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CREDITOR_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="PAYMENT" type="PAYMENT_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_131423" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="PYMT_INFO_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TRANSACTIONS" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="TRANSACTIONS_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_131424">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="TRANSACTIONS_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_131424">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="AMOUNT" type="UNION_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="COLLECTION_DATE" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="CURRENCY" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="MANDATE_AMENDED" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="MANDATE_TYPE" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string"/>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="ORIG_MANDATE_INFO" type="ORIG_MANDATE_INFO_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_13142429" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="PAYINFO_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(payinfo)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="PAYMENT" type="PAYMENT_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_131424210" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="RESOURCE_NAME" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="3"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TRANS_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="ORIG_MANDATE_INFO_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_13142429">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BIC" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="11"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="CREDITOR_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="CREDITOR_NAME" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="IBAN" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="34"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="MANDATE_UNIQUE_REFERENCE" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="PAYMENT_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_131424210">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="AMOUNT" type="UNION_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="COLLECTION_DATE" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="CURRENCY" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="DEBTOR_INFO" minOccurs="1" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="DEBTOR_INFO_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_13142421027">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="REASON_CODE" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="4"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="RESOURCE_NAME" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="3"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TRANS_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="DEBTOR_INFO_ARRAY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_13142421027">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="BIC" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="11"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="IBAN" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="34"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="MANDATE_TYPE" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string"/>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="MANDATE_UNIQUE_REFERENCE" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="PAYMENT_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_131423">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="PYMT_INFO_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TOTAL_RECORDS" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="PAYMENT_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1313">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="MSG_ID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="35"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO_1315">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="BUFFER_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO">
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:hexBinary">
+            <xsd:attribute name="flags" type="xsd:string" use="optional"/>
+            <xsd:attribute name="size" type="xsd:string" use="optional"/>
+            <xsd:attribute name="offset" type="xsd:string" use="optional"/>
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   <xsd:simpleType name="EMPTY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO">
+      <xsd:restriction base="xsd:string">
+         <xsd:length value="0"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UNION_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO">
+      <xsd:union memberTypes="xsd:decimal EMPTY_PCM_OP_PYMT_GET_SEPA_REQUEST_INFO"/>
+   </xsd:simpleType>
+</xsd:schema>

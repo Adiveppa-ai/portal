@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="serviceExtensions.xsd"/>
+	<xs:complexType name="serviceTelcoGSMType">
+		<xs:complexContent>
+			<xs:extension base="serviceExtensionType">
+				<xs:sequence>
+					<xs:element name="Ftr" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Nam" type="Name" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="FtrStat" type="ServiceStatus" minOccurs="0" maxOccurs="1"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="MSISDN" type="xs:integer" minOccurs="0" maxOccurs="1" default="1"/>
+					<xs:element name="BSrv" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="IMEI" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SrvTlcoGSMlExtn" type="serviceTelcoGSMType" substitutionGroup="SrvExtn"/>
+</xs:schema>

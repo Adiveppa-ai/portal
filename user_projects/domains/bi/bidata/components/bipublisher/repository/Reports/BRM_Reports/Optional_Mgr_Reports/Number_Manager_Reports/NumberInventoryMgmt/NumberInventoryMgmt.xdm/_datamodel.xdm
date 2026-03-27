@@ -1,0 +1,71 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT NumberInventory.NumberInventoryMgmt(:PARAM_REPORT_TYPE,:PARAM_START_DATE,:PARAM_END_DATE) FROM dual]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="DATA_DS" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="Q1" label="Q1" source="Q1">
+               <element name="BLOCK_T_POID_ID0" value="BLOCK_T.POID_ID0" label="BLOCK_T.POID_ID0" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" label="ACCOUNT_OBJ_ID0" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="DEVICE_T_POID_ID0" value="DEVICE_T.POID_ID0" label="DEVICE_T.POID_ID0" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="DEVICE_ID" value="DEVICE_ID" label="DEVICE_ID" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="STATE_ID" value="STATE_ID" label="STATE_ID" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="CATEGORY_ID" value="CATEGORY_ID" label="CATEGORY_ID" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="CREATED_T" value="CREATED_T" label="CREATED_T" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="FIRST_NAME" value="FIRST_NAME" label="FIRST_NAME" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="LAST_NAME" value="LAST_NAME" label="LAST_NAME" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="REC_ID" value="REC_ID" label="REC_ID" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="NAME" value="NAME" label="NAME" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="START_NUMBER" value="START_NUMBER" label="START_NUMBER" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="END_NUMBER" value="END_NUMBER" label="END_NUMBER" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="VANITY" value="VANITY" label="VANITY" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+               <element name="STRING" value="STRING" label="STRING" dataType="xsd:string" breakOrder="None" fieldOrder="null"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_REPORT_TYPE ">
+         <nvPairs>
+            <nvPair label="Number Category" value="1"/>
+            <nvPair label="Vanity Number" value="2"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_REPORT_TYPE" defaultValue="1" dataType="xsd:string" rowPlacement="1">
+         <select label="Please select the report type" valueSet="PARAM_REPORT_TYPE " multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY).  " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label=" Enter end date (MM/DD/YYYY).  " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q1" left="249px" top="66px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

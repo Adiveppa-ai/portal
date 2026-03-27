@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="CMT_Balances.xsd"/>
+	<xs:include schemaLocation="CMT_Types.xsd"/>
+	<!-- Extension schemas  -->
+	<xs:include schemaLocation="serviceExtensions.xsd"/>
+	<xs:include schemaLocation="serviceTelcoGSMExtension.xsd"/>
+	<xs:include schemaLocation="payinfoExtensions.xsd"/>
+	<xs:include schemaLocation="payinfoCreditCardExtension.xsd"/>
+	<xs:include schemaLocation="payinfoDebitCardExtension.xsd"/>
+	<xs:include schemaLocation="payinfoInvoiceExtension.xsd"/>
+	<xs:include schemaLocation="promotionExtensions.xsd"/>
+	<xs:include schemaLocation="promotionAccountLevelExtension.xsd"/>
+	<xs:include schemaLocation="promotionServiceLevelExtension.xsd"/>
+	<xs:include schemaLocation="deviceExtensions.xsd"/>
+	<xs:include schemaLocation="deviceNUMExtension.xsd"/>
+	<xs:include schemaLocation="deviceSIMExtension.xsd"/>
+	<xs:include schemaLocation="loan.xsd"/>
+	<xs:element name="Sbsc">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ActSbsc" type="Subscriber" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element name="SbscPrms" type="SbscPrmsType" minOccurs="0" maxOccurs="1" nillable="false"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SbscPrmsType">
+		<xs:sequence>
+			<xs:element name="PlObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Subscriber">
+		<xs:sequence>
+			<xs:element name="Act" type="AccountType" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="ActSub" type="Subscriptions" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="PurBun" type="PurchasedBundleType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="PurPrd" type="PurchasedProductType" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="PurDis" type="PurchasedDiscountType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:element name="OffOvr" type="OfferingOverrideType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ActDev" type="AccountDevices" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ABinfo" type="Billinfo" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="APinfo" type="Payinfo" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="AGSDisc" type="GroupSharingDiscount" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AGSCrg" type="GroupSharingCharge" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AMOGSrg" type="MemberOfGroupCharge" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AMOGDist" type="MemberOfGroupDiscount" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ActProm" type="Promotion" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AGSPro" type="GroupSharingProfile" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AMOGPro" type="MemberOfProfileSharing" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ActBal" type="AccountBalances" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AGSProd" type="GroupSharingProduct" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AMOGProd" type="MemberOfGroupProduct" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ActLoan" type="Loan" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SbscContract" type="SubscriberContractType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="parenRef" type="Id" use="optional"/>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="payParenRef" type="Id" use="optional"/>
+		<xs:attribute name="isParent" type="YesOrNo" use="optional"/>
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>
+		<!-- Count of the number of members in the members array of class /group -->
+		<xs:attribute name="bal_grp_name" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="AccountType">
+		<xs:sequence>
+			<xs:element name="ActNo" minOccurs="1" maxOccurs="1" nillable="false">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Curr" type="xs:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="CustSegList" type="xs:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="SubSta" type="SubscriberStatus" default="A" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="BType" type="BusinessType" minOccurs="1" maxOccurs="1"/> 
+			<xs:element name="Eff" type="dateTime-or-zero"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AccCode1" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AccCode2" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="GLSgmt" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="Locale" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ANArr" type="NameinfoArray" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="SrvAACAccess" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACPkg" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACPromo" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACSerial" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACSrc" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACVen" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+			<xs:element name="AEArr" type="ExemptionsArray" minOccurs="0" maxOccurs="unbounded"/>
+
+			<!-- If Subscriber status is not specified a default of 'active' will be chosen -->
+			<!-- If Effective time is not specified it will be defaulted to created time -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NameinfoArray">
+		<xs:sequence>
+			<xs:element name="Add" type="Address" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="City" type="City" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Comp" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CntTyp" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Cnt" type="Country" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EAdd" type="EmailAddr" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FNm" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MNm" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LNm" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Sal" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="75"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Stt" type="State" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Tit" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Zip" type="Zip" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="APhArr" type="PhonesArray" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PhonesArray">
+		<xs:sequence>
+			<xs:element name="Ph" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="75"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PhTyp" type="PhoneType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PurchasedProductType">
+		<xs:sequence>
+			<xs:element name="CDis" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CDisAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CFeeAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="CEndDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CStrt" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CStrDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DlObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="PlObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="PrObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="PuDis" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PuDiscAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PuFAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PuEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="PuEndDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PuStr" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PuStrDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PrSta" type="ProductsStatus" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Qnty" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UsgDis" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UsgEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="UsgEndDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UsgStr" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UsgStrDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StFlags" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Flags" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Descr" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EffctT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PurPrdCycFees" type="PurchasedProductCycleType" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="PrcLstNm" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RetryCnt" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="NxtRetryT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CalendarDom" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GracePeriod" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RenewalMode" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BasePrObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="OverrideRef" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="xs:string" use="optional"/>
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	        <xs:attribute name="bundleRef" type="xs:string" use="optional"/>
+	</xs:complexType>
+        <xs:complexType name="PurchasedProductCycleType">
+                <xs:sequence>
+                        <xs:element name="ChargedFrom" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="ChargedTo" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="CycleFeeStart" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="CycleFeeEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"  />
+                        <xs:element name="Unit" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="Count" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+        </xs:complexType>
+	<xs:complexType name="PurchasedDiscountType">
+		<xs:sequence>
+			<xs:element name="CEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="CEndDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CStrt" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CStrDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="PlObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="DisObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="PurEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="PurEndDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PurStr" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PurStrDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Qnty" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DisStr" type="ProductsStatus" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UsgEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="UsgEndDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UsgStrt" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UsgStrDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StFlags" type="xs:string" minOccurs="0" maxOccurs="1"/>			
+			<xs:element name="Flags" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Descr" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EffctT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OverrideRef" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GracePeriod" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="xs:string" use="optional"/>
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="bundleRef" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<!-- OfferingOverrideValues -->
+	<xs:complexType name="OfferingOverrideType">
+		<xs:sequence>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ModT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OffOvrUmap" type="OfferingOverrideUsagemapType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="offeringRef" type="xs:string" use="required"/>
+		<xs:attribute name="offeringTypeRef" type="xs:string" use="required"/>
+	</xs:complexType>
+	<!-- OfferingOverrideUsagemap -->
+	<xs:complexType name="OfferingOverrideUsagemapType">
+		<xs:sequence>
+			<xs:element name="EndT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EvtType" type="Event" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Date_ranges" type="DateRanges" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateRanges">
+		<xs:sequence>
+			<xs:element name="Start_t" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="End_t" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Price_tags" type="PriceTags" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PriceTags">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Amount" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Percent" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchasedBundleType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1"/> 
+                        <xs:element name="Descr" type="xs:string" minOccurs="0" maxOccurs="1"/> 
+                        <xs:element name="VldFrm" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VldTo" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/> 
+                        <xs:element name="Status" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	 	<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ExemptionsArray">
+		<xs:sequence>
+			<xs:element name="CertNum" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="End" type="dateTime-or-zero" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="Perc" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Str" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Typ" type="ExemptionsType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Promotion">
+		<xs:sequence>
+			<xs:element name="PrmNm" type="PromotionName" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Eff" type="dateTime-or-zero"  minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="PrmExtn" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<!-- type is the type of promotion like /profile/acct_extrating -->
+	</xs:complexType>
+	<xs:complexType name="Subscriptions">
+		<xs:sequence>
+			<xs:element name="ActSrv" type="Service" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Service">
+		<xs:sequence>
+			<xs:element name="CWhn" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Log" minOccurs="1" maxOccurs="1" nillable="false">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Pass" minOccurs="1" maxOccurs="1" nillable="false">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SrvSta" type="ServiceStatus" default="A" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="LastStaT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LifeSta" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Eff" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			       <!-- The service status will be deafulted to 'active' -->
+                        <!-- The subscription object is the reference of the service -->
+                        <xs:element name="ServId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SubObj" type="Id" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SrvALArr" type="AliasListArray" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SrvGSDisc" type="GroupSharingDiscount" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SrvGSChrg" type="GroupSharingCharge" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SMOGrpDis" type="MemberOfGroupDiscount" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SMOGrpShr" type="MemberOfGroupCharge" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SrvAACAccess" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACPkg" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACPromo" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACSerial" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACSrc" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACVen" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+			<xs:element name="StateExpT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DevRefArr" minOccurs="1" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DevRef" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SClsInfo" minOccurs="0" maxOccurs="1">
+		<!-- This element is mandatory for Telco GSM Extensions. Optional for other Service types. -->
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="SrvExtn" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SrvProm" type="Promotion" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SrvGSProf" type="GroupSharingProfile" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SMOGrpPro" type="MemberOfProfileSharing" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SrvGSProd" type="GroupSharingProduct" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SMOGrpProd" type="MemberOfGroupProduct" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="precreate" type="xs:string" use="optional" default="/item/misc"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="bal_grp" type="xs:string" use="optional" default="false"/>
+                <xs:attribute name="skip_bal_grp_crt" type="xs:string" use="optional" default="false"/>
+                <xs:attribute name="bal_grp_name" type="xs:string" use="optional"/>
+	        <xs:attribute name="billInfoElem" type="xs:integer" use="optional"/>
+		<!-- type is the type of service like /service/telco/gsm -->
+		<!-- Service type like /service/telco/gsm -->
+		<!-- precreate used for creating service level item default  values : "/item/misc" -->
+	</xs:complexType>
+	<xs:complexType name="AliasListArray">
+		<xs:sequence>
+			<xs:element name="Nam" type="Name" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+        <xs:complexType name="AccountDevices">
+                <xs:sequence>
+                        <xs:element name="DeviceInfo" type="DeviceInfoType" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+        </xs:complexType>
+	<xs:complexType name="DeviceInfoType">
+		<xs:sequence>
+			<xs:element name="Device" type="DeviceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="DeviceExtension" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeviceType">
+		<xs:sequence>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DevId" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Src" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Mnufr" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Mdl" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<!--<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/> -->
+			<xs:element name="StId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<!-- device type can be /device/sim -->
+	</xs:complexType>
+	<xs:complexType name="Billinfo">
+		<xs:sequence>
+			<xs:element name="ACDom" type="xs:integer" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="ActgCycleLt" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ActgType" type="ActgType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ANxt" type="dateTime-or-zero" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EffecT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BlWn" type="xs:integer" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="BlSgmnt" type="BillingSegment" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PTyp" type="PayType" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="BISta" type="BillinfoStatus" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BillStat" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<!-- 'ActgCycleDOM' is the value from 1 to 28 -->
+			<!-- 'BillWhen' is billing frequency like for quarterly it is 3 , default will be taken 
+			     as 1 same as actg cylce -->
+                        <!-- 'Status' is the status of the billinfo. Valid values are A(Active), I(Inactive) and
+                             C(Closed). Default is Active. -->
+			<xs:element name="ExmtFrmColl" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BIStaFlag" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BillInfoId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="PendingRecv" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BusProObj" type="Poid" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="spnrCnt" type="xs:integer" use="optional"/>
+		<xs:attribute name="spnreeCnt" type="xs:integer" use="optional"/>
+		<xs:attribute name="elem" type="xs:integer" use="optional"/>
+		<xs:attribute name="parentElem" type="xs:integer" use="optional"/>
+		<xs:attribute name="bal_grp" type="xs:string" use="optional" default="false"/>
+		<xs:attribute name="bal_grp_name" type="xs:string" use="optional"/>
+		<xs:attribute name="payInfoRefId" type="Id" use="optional"/>
+		<xs:attribute name="hasNoPayInfoRef" type="xs:string" use="optional" default="false"/>
+		<xs:attribute name="thisActHierarchy" type="xs:string" use="optional" default="false"/>
+		<xs:attribute name="isAccBillinfo" type="YesOrNo" use="optional" default="N"/>
+		<xs:attribute name="payingParentRefId" type="Id" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Payinfo">
+		<xs:sequence>
+			<xs:element name="DDom" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="PaymentTerm" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RelDue" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ach" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="payExtn" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<!-- payinfo type can be /payinfo/inv -->
+	</xs:complexType>
+	<xs:complexType name="GroupSharingDiscount">
+		<xs:sequence>
+			<xs:element name="DiscInfo" type="DiscountInfo" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Eff" type="dateTime-or-zero"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypeStr" type="AutoGSDiscHierarchy"  minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="DiscountInfo">
+		<xs:sequence>
+			<xs:element name="DisObj" type="Poid" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="GroupSharingCharge">
+		<xs:sequence>
+			<xs:element name="SpnsObj" type="Poid" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Eff" type="dateTime-or-zero"  minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+	</xs:complexType>
+	<xs:complexType name="GroupSharingProfile">
+		<xs:sequence>
+			<xs:element name="ProfObj" type="Poid" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Eff" type="dateTime-or-zero"  minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+	</xs:complexType>
+	<xs:complexType name="MemberOfGroupDiscount">
+		<xs:sequence>
+			<xs:element name="DGRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MemberOfGroupCharge">
+		<xs:sequence>
+			<xs:element name="CGRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MemberOfProfileSharing">
+		<xs:sequence>
+			<xs:element name="PGRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+        <xs:complexType name="AccountBalances">
+                <xs:sequence>
+                        <xs:element name="ActBalArr" type="BalancesArray" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+        </xs:complexType>
+	<xs:complexType name="GroupSharingProduct">
+		<xs:sequence>
+			<xs:element name="ProdInfo" type="ProductInfo" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Eff" type="dateTime-or-zero"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypeStr" type="AutoGSProdHierarchy"  minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ProductInfo">
+		<xs:sequence>
+			<xs:element name="ProdObj" type="Poid" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="MemberOfGroupProduct">
+		<xs:sequence>
+			<xs:element name="PRGRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Loan">
+                <xs:sequence>
+			<xs:element name="ProfLoanArr" type="ProfileLoanArray" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="LoanArr" type="LoanArray" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+        </xs:complexType>
+	        <xs:complexType name="SubscriberContractType">
+                <xs:sequence>
+                        <xs:element name="ContractStart" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="ContractEnd" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="SubscriptionTermObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+                        <xs:element name="PlObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+                        <xs:element name="DObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+                        <xs:element name="TotalContractAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="ChargesRecv" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="MinContractAmt" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MinContractEndT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="Id" use="required"/>
+                <xs:attribute name="type" type="xs:string" use="required"/>
+                <xs:attribute name="pkgId" type="xs:string" use="required"/>
+        </xs:complexType>
+</xs:schema>

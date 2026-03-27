@@ -1,0 +1,51 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_CUST_DELETE_PROFILE" visibility="public" transaction="required" component="fm_cust" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>Used to delete the /profile objects. It checks if the /profile object being 
+    deleted is used in any /group/sharing/profiles object. If so, then it will 
+    not allow the deletion of this /profile object.</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The poid of the profile object to be deleted.</Doc>
+        <ClassRef>obj://profile</ClassRef>
+      </Poid>
+      <Timestamp name="PIN_FLD_START_T" use="optional">
+        <Doc>Start time - Effective start timestamp of Deletion of this profile 
+	on an external system (System Time).</Doc>
+      </Timestamp>
+      <Timestamp name="PIN_FLD_END_T" use="optional">
+        <Doc>End time - Effective end timestamp of Deletion of this profile on 
+	an external system (System Time).</Doc>
+      </Timestamp>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The poid of the /profile object deleted.</Doc>
+        <ClassRef>obj://profile</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

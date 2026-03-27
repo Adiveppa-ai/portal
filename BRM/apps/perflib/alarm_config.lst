@@ -1,0 +1,81 @@
+# Copyright (c) 2020, Oracle and/or its affiliates
+#------------------------------------------------------------------------------#
+# FILE: alarm_config.lst
+#
+# DESCRIPTION:
+#
+# File to define an optional list of alarm buckets for particular opcodes.
+# This can be used in cases where we would like to know more about the cases
+# where different opcodes take an unexpectedly long time to execut.
+#
+# The opcodes should be listed one per line and can be either the numeric value
+# or name. They are followed by a list of range delimeters (in seconds). The
+# special value '*' can be used to define a default set of buckets for all
+# opcodes (which allows a global general alarm to be applied as an alternative
+# to the PERFLIB_ALARM parameter - which is mutually exclusive with this one).
+#
+# There is currently a limit of 8 buckets per opcode.
+#
+# In addition to the time, each bucket specifies an additional set of flag
+# attributes, flist size and a 'severity' description. The flags control
+# behaviour of the alarms whilst the 'severity' description is informational
+# to be reported in the alarm (e.g. one my indicate an opcode that took 10
+# seconds to execute as WARNING, whilst one that took more than 20 seconds
+# might be CRITICAL). For logging flists, a maximum size can be configured
+# to avoid logging huge flists in alarms.
+#
+# So a full bucket definition is defined as follows (comma-separated):
+#
+#    <limit>,<flags>[<size>],<severity>
+#
+# The flag values that can be set are:
+#
+#    Flist logging flags
+#    -------------------
+#    - (minus)    : alarm will be logged, but no flists.
+#    + (plus)     : alarm will be logged with top-level opcode input flist
+#    * (asterisk) : alarm will be logged with all opcode input flists
+#
+#    Size
+#    ----
+#    nnn          : number of bytes to limit flist size to (0 or missing will
+#                   cause full flists to be recorded).
+#
+#    Alarm Behaviour
+#    ---------------
+#    r or R       : alarm will fire repeatedly at this interval (this can only
+#                   be defined on the last bucket).
+#
+# There may be up to 8 buckets, each separated by space on the same line for
+# each opcode.
+#
+# E.g. a configuration for an alarm bucket which logged at 10.0 sconds and
+# 20.0 seconds (recurring) might look like:
+#
+#   10.0,+1024,WARNING   20.0,*R2048,CRITICAL
+#
+# INFORMATION:
+#
+# BRM performance tracing library ...
+#
+# REVISION:
+#
+# $Revision: 1.2 $
+# $Author: ihargrea $
+# $Date: 2016/11/04 21:12:07 $
+#------------------------------------------------------------------------------#
+#
+# Example defining two alarms for a custom opcode with no limits on flist size.
+#
+PCM_OP_IAN_POL_SLOW_OPCODE 10.0,+,WARNING 20.0,*,CRITICAL
+#
+# Example defining an alarm with a recurring last bucket ... an alarm will be
+# raised every 20 seconds until the opcode finally finishes. No limit on flist
+# sizes.
+#
+PCM_OP_CUST_COMMIT_CUSTOMER 5.0,+WARNING  10.0,*,SEVERE 20,*R,CRITICAL
+#
+# A catch-all alarm for all other opcodes. This will log only th input flist
+# and a maximum of 1024 characters.
+#
+* 2.0,+1024,INFO

@@ -1,0 +1,2185 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><PRD_LIST>
+   <TL_LIST>
+      <COMP NAME="oracle.help.ohj" VER="12.2.1.4.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.help.ohj/12.2.1.4.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.help.ohj" SOH="T">
+         <EXT_NAME>oracle.help.ohj</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.help.ohj.v12_2_1_4_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/help/ohj/v12_2_1_4_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.help.ohj.v12_2_1_4_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.help.share" VER="12.2.1.4.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.help.share/12.2.1.4.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.help.share" SOH="T">
+         <EXT_NAME>oracle.help.share</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.help.share.v12_2_1_4_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/help/share/v12_2_1_4_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.help.share.v12_2_1_4_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.bali.ice" VER="12.2.1.4.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.bali.ice/12.2.1.4.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.bali.ice" SOH="T">
+         <EXT_NAME>oracle.bali.ice</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.bali.ice.v12_2_1_4_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/bali/ice/v12_2_1_4_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.bali.ice.v12_2_1_4_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.bali.jewt" VER="12.2.1.4.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.bali.jewt/12.2.1.4.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.bali.jewt" SOH="T">
+         <EXT_NAME>oracle.bali.jewt</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.bali.jewt.v12_2_1_4_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/bali/jewt/v12_2_1_4_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.bali.jewt.v12_2_1_4_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.bali.share" VER="12.2.1.4.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.bali.share/12.2.1.4.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.bali.share" SOH="T">
+         <EXT_NAME>oracle.bali.share</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.bali.share.v12_2_1_4_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/bali/share/v12_2_1_4_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.bali.share.v12_2_1_4_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="eet" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/eet/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/eet" SOH="T">
+         <EXT_NAME>eet</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.eet.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/eet/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.eet.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.eet.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="dm_provisioning" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/dm_provisioning/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/dm_provisioning" SOH="T">
+         <EXT_NAME>dm_provisioning</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.dm_provisioning.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/dm_provisioning/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.dm_provisioning.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.dm_provisioning.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="dm_kafka" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/dm_kafka/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/dm_kafka" SOH="T">
+         <EXT_NAME>dm_kafka</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.dm_kafka.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/dm_kafka/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.dm_kafka.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.dm_kafka.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="dm_invoice" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/dm_invoice/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/dm_invoice" SOH="T">
+         <EXT_NAME>dm_invoice</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.dm_invoice.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/dm_invoice/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.dm_invoice.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.dm_invoice.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="dm_email" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/dm_email/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/dm_email" SOH="T">
+         <EXT_NAME>dm_email</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.dm_email.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/dm_email/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.dm_email.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.dm_email.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="cmmp" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/cmmp/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/cmmp" SOH="T">
+         <EXT_NAME>cmmp</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.cmmp.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/cmmp/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.cmmp.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.cmmp.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="cm_proxy" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/cm_proxy/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/cm_proxy" SOH="T">
+         <EXT_NAME>cm_proxy</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.cm_proxy.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/cm_proxy/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.cm_proxy.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.cm_proxy.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="WebServiceMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/WebServiceMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/WebServiceMgr" SOH="T">
+         <EXT_NAME>WebServiceMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.WebServiceMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/WebServiceMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.WebServiceMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Voucher_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Voucher_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Voucher_Reports" SOH="T">
+         <EXT_NAME>Voucher_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Voucher_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Voucher_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Voucher_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="VertexMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/VertexMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/VertexMgr" SOH="T">
+         <EXT_NAME>VertexMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.VertexMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/VertexMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.VertexMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.VertexMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Suspense_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Suspense_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Suspense_Reports" SOH="T">
+         <EXT_NAME>Suspense_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Suspense_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Suspense_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Suspense_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Sample" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Sample/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Sample" SOH="T">
+         <EXT_NAME>Sample</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Sample.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Sample/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.Sample.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.Sample.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="SMS_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/SMS_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/SMS_Reports" SOH="T">
+         <EXT_NAME>SMS_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.SMS_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/SMS_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.SMS_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="SIM_Card_Manager_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/SIM_Card_Manager_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/SIM_Card_Manager_Reports" SOH="T">
+         <EXT_NAME>SIM_Card_Manager_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.SIM_Card_Manager_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/SIM_Card_Manager_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.SIM_Card_Manager_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Roaming_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Roaming_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Roaming_Reports" SOH="T">
+         <EXT_NAME>Roaming_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Roaming_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Roaming_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Roaming_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Revenue_Assurance_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Revenue_Assurance_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Revenue_Assurance_Reports" SOH="T">
+         <EXT_NAME>Revenue_Assurance_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Revenue_Assurance_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Revenue_Assurance_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Revenue_Assurance_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="PerfMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/PerfMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/PerfMgr" SOH="T">
+         <EXT_NAME>PerfMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.PerfMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/PerfMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.PerfMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.PerfMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="PaymentechMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/PaymentechMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/PaymentechMgr" SOH="T">
+         <EXT_NAME>PaymentechMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.PaymentechMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/PaymentechMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.PaymentechMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.PaymentechMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="PartitionUpg" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/PartitionUpg/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/PartitionUpg" SOH="T">
+         <EXT_NAME>PartitionUpg</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.PartitionUpg.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/PartitionUpg/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.PartitionUpg.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.PartitionUpg.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Number_Manager_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Number_Manager_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Number_Manager_Reports" SOH="T">
+         <EXT_NAME>Number_Manager_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Number_Manager_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Number_Manager_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Number_Manager_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="MultiDB_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/MultiDB_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/MultiDB_Reports" SOH="T">
+         <EXT_NAME>MultiDB_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.MultiDB_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/MultiDB_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.MultiDB_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="MultiDBMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/MultiDBMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/MultiDBMgr" SOH="T">
+         <EXT_NAME>MultiDBMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.MultiDBMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/MultiDBMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.MultiDBMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.MultiDBMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="JCA_Adapter" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/JCA_Adapter/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/JCA_Adapter" SOH="T">
+         <EXT_NAME>JCA_Adapter</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.JCA_Adapter.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/JCA_Adapter/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.JCA_Adapter.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.JCA_Adapter.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="GPRS_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/GPRS_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/GPRS_Reports" SOH="T">
+         <EXT_NAME>GPRS_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.GPRS_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/GPRS_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.GPRS_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Content_Manager_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Content_Manager_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Content_Manager_Reports" SOH="T">
+         <EXT_NAME>Content_Manager_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Content_Manager_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Content_Manager_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Content_Manager_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Collections_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Collections_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Collections_Reports" SOH="T">
+         <EXT_NAME>Collections_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Collections_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Collections_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Collections_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="CORE" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/CORE/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/CORE" SOH="T">
+         <EXT_NAME>CORE</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.CORE.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/CORE/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.CORE.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.CORE.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Base_BRM_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Base_BRM_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Base_BRM_Reports" SOH="T">
+         <EXT_NAME>Base_BRM_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Base_BRM_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Base_BRM_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Base_BRM_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRM_SDK" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRM_SDK/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRM_SDK" SOH="T">
+         <EXT_NAME>BRM_SDK</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRM_SDK.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRM_SDK/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.BRM_SDK.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.BRM_SDK.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="AccountMigrationMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/AccountMigrationMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/AccountMigrationMgr" SOH="T">
+         <EXT_NAME>AccountMigrationMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.AccountMigrationMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/AccountMigrationMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.AccountMigrationMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.AccountMigrationMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMInvoices_Corp_Replacement" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMInvoices_Corp_Replacement/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMInvoices_Corp_Replacement" SOH="T">
+         <EXT_NAME>BRMInvoices_Corp_Replacement</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMInvoices_Corp_Replacement.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMInvoices_Corp_Replacement/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.BRMInvoices_Corp_Replacement.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMInvoices_Corp_Correction" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMInvoices_Corp_Correction/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMInvoices_Corp_Correction" SOH="T">
+         <EXT_NAME>BRMInvoices_Corp_Correction</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMInvoices_Corp_Correction.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMInvoices_Corp_Correction/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.BRMInvoices_Corp_Correction.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMInvoices_Corporate" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMInvoices_Corporate/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMInvoices_Corporate" SOH="T">
+         <EXT_NAME>BRMInvoices_Corporate</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMInvoices_Corporate.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMInvoices_Corporate/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.BRMInvoices_Corporate.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMInvoices_Consumer_Replacement" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMInvoices_Consumer_Replacement/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMInvoices_Consumer_Replacement" SOH="T">
+         <EXT_NAME>BRMInvoices_Consumer_Replacement</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMInvoices_Consumer_Replacement.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMInvoices_Consumer_Replacement/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.BRMInvoices_Consumer_Replacement.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMInvoices_Consumer_Correction" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMInvoices_Consumer_Correction/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMInvoices_Consumer_Correction" SOH="T">
+         <EXT_NAME>BRMInvoices_Consumer_Correction</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMInvoices_Consumer_Correction.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMInvoices_Consumer_Correction/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.BRMInvoices_Consumer_Correction.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMInvoices_Consumer" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMInvoices_Consumer/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMInvoices_Consumer" SOH="T">
+         <EXT_NAME>BRMInvoices_Consumer</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMInvoices_Consumer.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMInvoices_Consumer/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.BRMInvoices_Consumer.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.swd.opatch" VER="13.9.4.2.15" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.swd.opatch/13.9.4.2.15/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.swd.opatch" SOH="T">
+         <EXT_NAME>oracle.swd.opatch</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.swd.opatch.v13_9_4_2_15.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/swd/opatch/v13_9_4_2_15/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.swd.opatch.v13_9_4_2_15.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.nginst.core" VER="13.9.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.nginst.core/13.9.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.nginst.core" SOH="T">
+         <EXT_NAME>oracle.nginst.core</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.nginst.core.v13_9_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/nginst/core/v13_9_4_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.oracle.nginst.core.v13_9_4_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.nginst.core.v13_9_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.nginst.common" VER="13.9.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.nginst.common/13.9.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.nginst.common" SOH="T">
+         <EXT_NAME>oracle.nginst.common</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.nginst.common.v13_9_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/nginst/common/v13_9_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.nginst.common.v13_9_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.glcm.opatch.common.api" VER="13.9.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.glcm.opatch.common.api/13.9.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.glcm.opatch.common.api" SOH="T">
+         <EXT_NAME>oracle.glcm.opatch.common.api</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.glcm.opatch.common.api.v13_9_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/glcm/opatch/common/api/v13_9_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.glcm.opatch.common.api.v13_9_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.glcm.wizard" VER="7.8.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.glcm.wizard/7.8.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.glcm.wizard" SOH="T">
+         <EXT_NAME>oracle.glcm.wizard</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.glcm.wizard.v7_8_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/glcm/wizard/v7_8_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.glcm.wizard.v7_8_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.glcm.xmldh" VER="3.4.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.glcm.xmldh/3.4.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.glcm.xmldh" SOH="T">
+         <EXT_NAME>oracle.glcm.xmldh</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.glcm.xmldh.v3_4_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/glcm/xmldh/v3_4_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.glcm.xmldh.v3_4_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.glcm.dependency" VER="1.8.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.glcm.dependency/1.8.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.glcm.dependency" SOH="T">
+         <EXT_NAME>oracle.glcm.dependency</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.glcm.dependency.v1_8_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/glcm/dependency/v1_8_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.glcm.dependency.v1_8_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.glcm.comdev" VER="7.8.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.glcm.comdev/7.8.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.glcm.comdev" SOH="T">
+         <EXT_NAME>oracle.glcm.comdev</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.glcm.comdev.v7_8_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/glcm/comdev/v7_8_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.glcm.comdev.v7_8_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="oracle.glcm.logging" VER="1.6.4.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/oracle.glcm.logging/1.6.4.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/oracle.glcm.logging" SOH="T">
+         <EXT_NAME>oracle.glcm.logging</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.oracle.glcm.logging.v1_6_4_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/oracle/glcm/logging/v1_6_4_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.oracle.glcm.logging.v1_6_4_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="TAPRoaming" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/TAPRoaming/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/TAPRoaming" SOH="T">
+         <EXT_NAME>TAPRoaming</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.TAPRoaming.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/TAPRoaming/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.TAPRoaming.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.TAPRoaming.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="CIBERRoamingMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/CIBERRoamingMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/CIBERRoamingMgr" SOH="T">
+         <EXT_NAME>CIBERRoamingMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.CIBERRoamingMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/CIBERRoamingMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.CIBERRoamingMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Pipeline_PDK" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Pipeline_PDK/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Pipeline_PDK" SOH="T">
+         <EXT_NAME>Pipeline_PDK</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Pipeline_PDK.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Pipeline_PDK/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.Pipeline_PDK.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.Pipeline_PDK.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Pipeline_ConfMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Pipeline_ConfMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Pipeline_ConfMgr" SOH="T">
+         <EXT_NAME>Pipeline_ConfMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Pipeline_ConfMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Pipeline_ConfMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.Pipeline_ConfMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.Pipeline_ConfMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="Interconnect" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/Interconnect/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/Interconnect" SOH="T">
+         <EXT_NAME>Interconnect</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.Interconnect.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/Interconnect/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="contextClass" VAL="Components.Interconnect.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="pipeline" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/pipeline/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/pipeline" SOH="T">
+         <EXT_NAME>pipeline</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.pipeline.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/pipeline/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.pipeline.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.pipeline.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="GSMMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/GSMMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/GSMMgr" SOH="T">
+         <EXT_NAME>GSMMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.GSMMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/GSMMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.GSMMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.GSMMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="GPRSMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/GPRSMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/GPRSMgr" SOH="T">
+         <EXT_NAME>GPRSMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.GPRSMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/GPRSMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.GPRSMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.GPRSMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="cmt" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/cmt/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/cmt" SOH="T">
+         <EXT_NAME>cmt</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.cmt.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/cmt/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.cmt.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.cmt.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="VoucherMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/VoucherMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/VoucherMgr" SOH="T">
+         <EXT_NAME>VoucherMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.VoucherMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/VoucherMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.VoucherMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.VoucherMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="SuspenseMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/SuspenseMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/SuspenseMgr" SOH="T">
+         <EXT_NAME>SuspenseMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.SuspenseMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/SuspenseMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.SuspenseMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.SuspenseMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="SMSSettlement_Reports" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/SMSSettlement_Reports/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/SMSSettlement_Reports" SOH="T">
+         <EXT_NAME>SMSSettlement_Reports</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.SMSSettlement_Reports.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/SMSSettlement_Reports/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.SMSSettlement_Reports.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.SMSSettlement_Reports.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="SIMMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/SIMMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/SIMMgr" SOH="T">
+         <EXT_NAME>SIMMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.SIMMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/SIMMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.SIMMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.SIMMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="RevAssuranceMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/RevAssuranceMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/RevAssuranceMgr" SOH="T">
+         <EXT_NAME>RevAssuranceMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.RevAssuranceMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/RevAssuranceMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.RevAssuranceMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.RevAssuranceMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="RatedEventLoader" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/RatedEventLoader/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/RatedEventLoader" SOH="T">
+         <EXT_NAME>RatedEventLoader</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.RatedEventLoader.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/RatedEventLoader/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.RatedEventLoader.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.RatedEventLoader.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="NumberMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/NumberMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/NumberMgr" SOH="T">
+         <EXT_NAME>NumberMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.NumberMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/NumberMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.NumberMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.NumberMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="LDAPMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/LDAPMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/LDAPMgr" SOH="T">
+         <EXT_NAME>LDAPMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.LDAPMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/LDAPMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.LDAPMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.LDAPMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="InventoryMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/InventoryMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/InventoryMgr" SOH="T">
+         <EXT_NAME>InventoryMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.InventoryMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/InventoryMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.InventoryMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.InventoryMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="IPAddressMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/IPAddressMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/IPAddressMgr" SOH="T">
+         <EXT_NAME>IPAddressMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.IPAddressMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/IPAddressMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.IPAddressMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.IPAddressMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="EAI_FrameworkMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/EAI_FrameworkMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/EAI_FrameworkMgr" SOH="T">
+         <EXT_NAME>EAI_FrameworkMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.EAI_FrameworkMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/EAI_FrameworkMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.EAI_FrameworkMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.EAI_FrameworkMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="ContentMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/ContentMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/ContentMgr" SOH="T">
+         <EXT_NAME>ContentMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.ContentMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/ContentMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.ContentMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.ContentMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="CollectionsMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/CollectionsMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/CollectionsMgr" SOH="T">
+         <EXT_NAME>CollectionsMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.CollectionsMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/CollectionsMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.CollectionsMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.CollectionsMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMServicesFrameworkMgr" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMServicesFrameworkMgr/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMServicesFrameworkMgr" SOH="T">
+         <EXT_NAME>BRMServicesFrameworkMgr</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMServicesFrameworkMgr.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMServicesFrameworkMgr/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.BRMServicesFrameworkMgr.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.BRMServicesFrameworkMgr.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="dm_oracle" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/dm_oracle/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/dm_oracle" SOH="T">
+         <EXT_NAME>dm_oracle</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.dm_oracle.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/dm_oracle/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.dm_oracle.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.dm_oracle.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="CMCommon" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/CMCommon/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/CMCommon" SOH="T">
+         <EXT_NAME>CMCommon</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.CMCommon.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/CMCommon/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.CMCommon.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.CMCommon.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="cm" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/cm/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/cm" SOH="T">
+         <EXT_NAME>cm</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.cm.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/cm/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.cm.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.cm.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="batch_controller" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/batch_controller/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/batch_controller" SOH="T">
+         <EXT_NAME>batch_controller</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.batch_controller.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/batch_controller/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.batch_controller.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.batch_controller.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BillingAndInvoicing" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BillingAndInvoicing/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BillingAndInvoicing" SOH="T">
+         <EXT_NAME>BillingAndInvoicing</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BillingAndInvoicing.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BillingAndInvoicing/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.BillingAndInvoicing.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.BillingAndInvoicing.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+      <COMP NAME="BRMServer" VER="15.0.1.0.0" BUILD_NUMBER="0" REP_VER="0.0.0.0.0" RELEASE="Production" INV_LOC="/home/pin/opt/portal" LANGS="" XML_INV_LOC="Components/BRMServer/15.0.1.0.0/" ACT_INST_VER="13.9.4.0.0" DEINST_VER="11.2.0.0.0" INST_LOC="/home/pin/opt/portal/BRMServer" SOH="T">
+         <EXT_NAME>BRMServer</EXT_NAME>
+         <DESC/>
+         <DESCID>Description</DESCID>
+         <STG_INFO OSP_VER="10.2.0.0.0"/>
+         <CMP_JAR_INFO>
+            <INFO NAME="resourceClass" VAL="Components.BRMServer.v15_0_1_0_0.resources.CompRes"/>
+            <INFO NAME="identifiersXML" VAL="Components/BRMServer/v15_0_1_0_0/identifiers.xml"/>
+            <INFO NAME="actionsClass" VAL="Components.BRMServer.v15_0_1_0_0.CompActions"/>
+            <INFO NAME="contextClass" VAL="Components.BRMServer.v15_0_1_0_0.CompContext"/>
+         </CMP_JAR_INFO>
+         <LOC_INFO INST_DFN_LOC="../Scripts" JAR_NAME="install1.jar"/>
+         <BOOK NAME=""/>
+         <PRE_REQ DEF="T"/>
+         <PROD_HOME DEF="T"/>
+         <LANG_IDX_MAP>
+            <LANG LIST=""/>
+         </LANG_IDX_MAP>
+         <PLAT_IDX_MAP>
+            <PLAT LIST=""/>
+         </PLAT_IDX_MAP>
+         <DST_IDX_MAP>
+            <DST LIST=""/>
+         </DST_IDX_MAP>
+         <DEP_LIST/>
+         <REF_LIST/>
+         <FILESIZEINFO/>
+      </COMP>
+   </TL_LIST>
+   <COMP_LIST/>
+</PRD_LIST>

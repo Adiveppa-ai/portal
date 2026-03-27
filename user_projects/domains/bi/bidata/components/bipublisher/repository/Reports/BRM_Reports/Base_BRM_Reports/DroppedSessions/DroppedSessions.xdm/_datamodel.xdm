@@ -1,0 +1,134 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql>
+            <![CDATA[SELECT
+ "EVENT_SESSION_DIALUP_T"."TERM_CAUSE",
+ "EVENT_SESSION_DIALUP_T"."TERMSERV_ID",
+ "ACCOUNT_T"."ACCOUNT_NO",
+ "ACCOUNT_T"."POID_ID0" "ACCOUNT_POID",
+ "ACCOUNT_NAMEINFO_T"."STATE",
+ "ACCOUNT_NAMEINFO_T"."COUNTRY",
+ "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "EVENT_T"."END_T",
+ "EVENT_T"."START_T",
+ "EVENT_T"."POID_ID0",
+ "ACCOUNT_NAMEINFO_T"."REC_ID",
+ "ACCOUNT_T"."POID_DB"
+ FROM (("ACCOUNT_T" "ACCOUNT_T"
+ 	INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T"
+ 		ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ 	INNER JOIN "EVENT_T" "EVENT_T"
+ 		ON "ACCOUNT_T"."POID_ID0"="EVENT_T"."ACCOUNT_OBJ_ID0")
+ 	INNER JOIN "EVENT_SESSION_DIALUP_T" "EVENT_SESSION_DIALUP_T"
+ 		ON "EVENT_T"."POID_ID0"="EVENT_SESSION_DIALUP_T"."OBJ_ID0"
+ WHERE "ACCOUNT_T"."POID_DB">0 AND
+ "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:PARAM_STATE,"ACCOUNT_NAMEINFO_T"."STATE" ) AND
+ "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:PARAM_COUNTRY, "ACCOUNT_NAMEINFO_T"."COUNTRY") AND
+ "ACCOUNT_NAMEINFO_T"."REC_ID"=1 AND
+ "EVENT_SESSION_DIALUP_T"."TERMSERV_ID" LIKE NVL(:PARAM_TERMINAL_SERVER,"EVENT_SESSION_DIALUP_T"."TERMSERV_ID") AND
+ ("EVENT_T"."END_T"=0 OR "EVENT_T"."END_T" IS NULL) AND
+ 	("EVENT_T"."START_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 	"EVENT_T"."START_T"<=(bipext.infstrtotimet(:PARAM_END_DATE,2)-1)) AND
+ bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ "EVENT_SESSION_DIALUP_T"."TERM_CAUSE"=2 AND
+ "ACCOUNT_T"."POID_ID0">1
+ ORDER BY
+ 	upper("ACCOUNT_NAMEINFO_T"."COUNTRY"),
+ 	upper("ACCOUNT_NAMEINFO_T"."STATE"),
+ 	"ACCOUNT_T"."ACCOUNT_NO",
+ 	"EVENT_T"."POID_ID0",
+ 	"ACCOUNT_T"."POID_ID0",
+ 	"EVENT_T"."START_T"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="DroppedSessions" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="Q1" label="Q1" source="Q1">
+               <element name="TERM_CAUSE" value="TERM_CAUSE" label="TERM_CAUSE" dataType="xsd:integer" breakOrder="" fieldOrder="1"/>
+               <element name="TERMSERV_ID" value="TERMSERV_ID" label="TERMSERV_ID" dataType="xsd:string" breakOrder="" fieldOrder="2"/>
+               <element name="ACCOUNT_NO" value="ACCOUNT_NO" label="ACCOUNT_NO" dataType="xsd:string" breakOrder="" fieldOrder="3"/>
+               <element name="ACCOUNT_POID" value="ACCOUNT_POID" label="ACCOUNT_POID" dataType="xsd:integer" breakOrder="" fieldOrder="4"/>
+               <element name="STATE" value="STATE" label="STATE" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="6"/>
+               <element name="FIRST_NAME" value="FIRST_NAME" label="FIRST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="7"/>
+               <element name="LAST_NAME" value="LAST_NAME" label="LAST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="8"/>
+               <element name="END_T" value="END_T" label="END_T" dataType="xsd:integer" breakOrder="" fieldOrder="9"/>
+               <element name="START_T" value="START_T" label="START_T" dataType="xsd:integer" breakOrder="" fieldOrder="10"/>
+               <element name="POID_ID0" value="POID_ID0" label="POID_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="11"/>
+               <element name="REC_ID" value="REC_ID" label="REC_ID" dataType="xsd:integer" breakOrder="" fieldOrder="12"/>
+               <element name="POID_DB" value="POID_DB" label="POID_DB" dataType="xsd:integer" breakOrder="" fieldOrder="13"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PCountry">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "ACCOUNT_NAMEINFO_T"."COUNTRY"
+FROM ACCOUNT_NAMEINFO_T WHERE "ACCOUNT_NAMEINFO_T"."COUNTRY" is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="PState">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "ACCOUNT_NAMEINFO_T"."STATE"
+FROM ACCOUNT_NAMEINFO_T WHERE "ACCOUNT_NAMEINFO_T"."STATE" is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="State Details">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="PTerminal Server">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "EVENT_SESSION_DIALUP_T"."TERMSERV_ID"
+FROM EVENT_SESSION_DIALUP_T]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_COUNTRY" defaultValue="%" dataType="xsd:string">
+         <select label=" Enter a specific country, or select ALL to include all countries." valueSet="PCountry" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="PState" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE_DETAILS" defaultValue="NO" dataType="xsd:string">
+         <select label="Include state-level details?" valueSet="State Details" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_TERMINAL_SERVER" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a terminal server IP address or hostname, or select ALL to include all terminal servers. " valueSet="PTerminal Server" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY). " size="20" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter End date (MM/DD/YYYY). " size="20" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q1" left="285px" top="28px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

@@ -1,0 +1,112 @@
+######################################################################
+#
+# Copyright (c) 2012, 2017, Oracle and/or its affiliates. All rights reserved.
+#
+#       This material is the confidential property of Oracle Corporation.
+#       or its subsidiaries or licensors and may be used, reproduced, stored
+#       or transmitted only in accordance with a valid Oracle license or
+#       sublicense agreement.
+######################################################################
+
+
+# Password should be AES encrypted for security purposes
+infranet.login.type=1
+infranet.log.level=1
+
+infranet.log.file=_PIN_INV_DOC_GEN.log
+
+# Use HTTPS or HTTP protocol based on BIPublisher setup
+infranet.bip.url=https://__BIP_SERVER__:__BIP_PORT__/xmlpserver
+infranet.bip.username=__BIP_USERNAME__
+#infranet.bip.password=__BIP_PASSWORD__
+
+
+infranet.threadpool.size=3
+infranet.threadpool.maxsize=5
+infranet.threadpool.fetchsize=5
+
+
+# The thread pool configuration for invoice search
+# using in the BIP bursting mechanism
+infranet.burst.threadpool.size=5
+infranet.burst.threadpool.maxsize=10
+infranet.burst.threadpool.chunksize=1000
+
+# Parameter to specify the sleep in milliseconds
+# between polling calls while waiting for the BIP
+# schedule to complete. Default is 5000
+infranet.polling.sleeptime=5000
+
+# Threshold for Search arguments , when accts_list option
+# used for running pin_inv_doc_gen.
+# Not to exceed 14 due to DM limitation of 32 search arguments.
+infranet.dmsearchargs.size=14
+
+# Path for duplicate document generation
+infranet.dupinvdir.path=/__DUPLICATE_DIR__/
+
+# Background Watermark for duplicate invoices
+infranet.dupinvoice.watermark.text=DUPLICATE
+infranet.dupinvoice.watermark.coordx=200f
+infranet.dupinvoice.watermark.coordy=250f
+infranet.dupinvoice.watermark.colorr=0.7f
+infranet.dupinvoice.watermark.colorg=0.7f
+infranet.dupinvoice.watermark.colorb=0.7f
+infranet.dupinvoice.watermark.font=Arial
+infranet.dupinvoice.watermark.fontsize=48
+infranet.dupinvoice.watermark.angle=45
+
+#JDBC connection pool properties to connect to scheduler db 
+#By default jdbcpool.size & jdbcpool.maxsize are set to burst.threadpool.size & burst.threadpool.maxsize
+infranet.schedulerdb.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<__SCHEDULER_DB_HOST__>)(PORT=<__SECURE_DB_PORT__>))(CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=<__SERVICE_NAME__>)))
+infranet.schedulerdb.user=dbuser
+infranet.schedulerdb.credentials=__CREDENTIALS__
+infranet.jdbcpool.size=5
+infranet.jdbcpool.maxsize=10
+#infranet.SECURITY_CREDENTIALS=__KEYSTORE_CREDENTIALS__
+
+# This option determines if a copy of the XML data is saved in the BIP database.
+# By default this is set to false for performance reasons. 
+#
+infranet.saveXMLData=false
+
+########################################################################
+# Configuration parameters for HTTP notifications about jobs scheduled
+# in BIPublisher by 'pin_inv_doc_gen' application
+########################################################################
+
+# The name of the HTTP server (configured in BIPublisher) used for notification
+# (Do not set the below configuration to disable HTTP notifications)
+infranet.http.notification.server=
+
+# The user name for the HTTP server used for notification
+infranet.http.notification.userName=__NOTIFY_USER_NAME__
+
+# The HTTP notification server password when scheduling notification
+# through an HTTP server
+infranet.http.notification.password=__NOTIFY_PASSWORD__
+
+# Configuration parameters for generating HTTP notifications for a
+# BIPublisher job request that succeeds or completes with a warning.
+# Note that a 'true' value indicates to send HTTP notification.
+infranet.notify.http.when.success=true
+infranet.notify.http.when.warning=true
+
+
+########################################################
+#Set additional report parameters,
+# and custom stored  procedure name.
+########################################################
+#infranet.report.parameters=name1:value1;name2:value2;name3:value3
+#infranet.report.parameter.separator=:
+#infranet.report.parameter.delimiter=;
+#infranet.report.parameter.procedure.name=__PROCEDURE_NAME__
+
+
+########################################################
+#SSL configuration
+########################################################
+# To  enable SSL, make sure to provide correct values for below config entries. e.g wallet location and filename etc.
+infranet.pcp.ssl.enabled = true
+infranet.pcp.ssl.wallet.location = /home/pin/opt/portal/BRM/wallet/client
+infranet.pcp.ssl.wallet.filename = cwallet.sso

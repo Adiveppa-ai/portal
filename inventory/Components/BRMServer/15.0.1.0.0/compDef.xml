@@ -1,0 +1,476 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="BRMServer" version="15.0.1.0.0" description="BRM Server" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="362532" dest="BRMScreens.jar"/>
+            <file size="1702" dest="createDBUser.sql" mode="0755"/>
+            <file size="25" dest="diff.lst" mode="0755"/>
+            <file size="2917" dest="ParseFile.pl" mode="0755"/>
+         </directory>
+         <file size="3041" dest="pin_setup" mode="0750"/>
+         <file size="55654" dest="pin_setup.values" mode="0755"/>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="26484" dest="BRMActions.jar"/>
+         </directory>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="131613" dest="helpset.jar"/>
+         </directory>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="653" dest="configurations.yaml" mode="0644"/>
+         <file size="22896" dest="pbkdf2_encode" mode="0755"/>
+         <file size="197400" dest="pin_crypt_rewrite" mode="0750"/>
+         <file size="853" dest="stop_memory_monitor" mode="0755"/>
+         <file size="5179" dest="orapki" mode="0755"/>
+         <file size="1436" dest="start_all" mode="0755"/>
+         <file size="22888" dest="sha1_encode" mode="0755"/>
+         <file size="51440" dest="pin_crypt_upgrade" mode="0750"/>
+         <file size="28432" dest="pin_virtual_time" mode="0755"/>
+         <file size="2647912" dest="pin_crypt_app" mode="0750"/>
+         <file size="841" dest="stop_all" mode="0755"/>
+         <file size="859" dest="stop_service_monitor" mode="0755"/>
+         <file size="929" dest="pin_create_server_cert" mode="0755"/>
+         <file size="9487" dest="pin_ctl.conf" mode="0750"/>
+         <file size="119765" dest="pin_ctl" mode="0750"/>
+         <file size="4970" dest="start_service_monitor" mode="0755"/>
+         <file size="626" dest="pin_config_editor" mode="0750"/>
+         <file size="4904" dest="start_memory_monitor" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_virtual_time"/>
+            <permission mode="0750" wildcard="pin_ctl"/>
+            <permission mode="0750" wildcard="pin_ctl.conf"/>
+            <permission mode="0750" wildcard="pin_crypt_app"/>
+            <permission mode="0750" wildcard="pin_config_editor"/>
+            <permission mode="0750" wildcard="pin_crypt_upgrade"/>
+            <permission mode="0750" wildcard="pin_crypt_rewrite"/>
+            <permission mode="0755" wildcard="start_all"/>
+            <permission mode="0755" wildcard="stop_all"/>
+            <permission mode="0755" wildcard="pin_create_server_cert"/>
+            <permission mode="0755" wildcard="orapki"/>
+            <permission mode="0755" wildcard="pbkdf2_encode"/>
+            <permission mode="0755" wildcard="sha1_encode"/>
+            <permission mode="0755" wildcard="start_service_monitor"/>
+            <permission mode="0755" wildcard="start_memory_monitor"/>
+            <permission mode="0755" wildcard="stop_service_monitor"/>
+            <permission mode="0755" wildcard="stop_memory_monitor"/>
+            <permission mode="0644" wildcard="configurations.yaml"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="2267719" dest="cryptoj.jar" mode="0750"/>
+         <file size="485400" dest="oraclepki.jar" mode="0750"/>
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2149385" dest="pcmext.jar" mode="0664"/>
+            <file size="13262" dest="cet.jar" mode="0750"/>
+            <file size="56137" dest="device-permit-map.jar" mode="0644"/>
+            <file size="64233" dest="js.jar" mode="0644"/>
+            <file size="233195" dest="pcm.jar" mode="0664"/>
+            <file size="12647" dest="svrwallet.jar" mode="0750"/>
+         </directory>
+         <file size="1810926" dest="pcmext.jar" mode="0664"/>
+         <file size="578125" dest="jackson-core-2.16.2.jar" mode="0750"/>
+         <file size="78481" dest="jackson-annotations-2.16.2.jar" mode="0750"/>
+         <file size="4587" dest="cet.jar" mode="0750"/>
+         <file size="44211" dest="device-permit-map.jar" mode="0644"/>
+         <file size="52129" dest="js.jar" mode="0644"/>
+         <file size="23184" dest="ojmisc.jar" mode="0750"/>
+         <file size="213544" dest="pcm.jar" mode="0664"/>
+         <file size="3952" dest="svrwallet.jar" mode="0750"/>
+         <file size="1638583" dest="jackson-databind-2.16.2.jar" mode="0750"/>
+         <file-perms>
+            <permission mode="0664" wildcard="pcm.jar"/>
+            <permission mode="0644" wildcard="js.jar"/>
+            <permission mode="0664" wildcard="pcmext.jar"/>
+            <permission mode="0644" wildcard="device-permit-map.jar"/>
+            <permission mode="0750" wildcard="cryptoj.jar"/>
+            <permission mode="0750" wildcard="ojmisc.jar"/>
+            <permission mode="0750" wildcard="oraclepki.jar"/>
+            <permission mode="0750" wildcard="cet.jar"/>
+            <permission mode="0750" wildcard="svrwallet.jar"/>
+            <permission mode="0750" wildcard="jackson-core-2.16.2.jar"/>
+            <permission mode="0750" wildcard="jackson-annotations-2.16.2.jar"/>
+            <permission mode="0750" wildcard="jackson-databind-2.16.2.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="5091" dest="convert_taxcode.pl" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="convert_taxcode.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7986" dest="pin_cnf_mta.pl" mode="0664"/>
+            <file size="31984" dest="pin_cmp_dm_db.pl" mode="0664"/>
+            <file size="7969" dest="pin_cnf_qm.pl" mode="0664"/>
+            <file size="14491" dest="pin_setup.pl" mode="0750"/>
+            <file size="52719" dest="pin_functions.pl" mode="0750"/>
+            <file size="37245" dest="pin_res.pl" mode="0750"/>
+            <file size="13766" dest="pin_cnf_dm.pl" mode="0750"/>
+            <file size="1454" dest="deInstall.pl" mode="0750"/>
+            <file size="4715" dest="pin_modular_functions.pl" mode="0750"/>
+            <file size="50721" dest="pin_oracle_functions.pl" mode="0664"/>
+            <file size="127267" dest="pin_tables.values" mode="0750"/>
+            <file size="1267" dest="getopts.pl" mode="0750"/>
+            <file size="2503" dest="postInstallUpdatePinSetup.pl" mode="0750"/>
+            <file size="5883" dest="pin_cnf_connect.pl" mode="0664"/>
+            <file size="3016" dest="sslConfig.pl" mode="0750"/>
+            <file size="1939" dest="postInstallUpdatePartition.pl" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="getopts.pl"/>
+            <permission mode="0664" wildcard="pin_cmp_dm_db.pl"/>
+            <permission mode="0750" wildcard="pin_setup.pl"/>
+            <permission mode="0750" wildcard="pin_functions.pl"/>
+            <permission mode="0750" wildcard="pin_res.pl"/>
+            <permission mode="0750" wildcard="pin_tables.values"/>
+            <permission mode="0750" wildcard="pin_modular_functions.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_connect.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_mta.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_qm.pl"/>
+            <permission mode="0664" wildcard="pin_oracle_functions.pl"/>
+            <permission mode="0750" wildcard="encrypt_password.sh"/>
+            <permission mode="0750" wildcard="encryptpassword.pl"/>
+            <permission mode="0750" wildcard="postInstallUpdatePinSetup.pl"/>
+            <permission mode="0750" wildcard="postInstallUpdatePartition.pl"/>
+            <permission mode="0750" wildcard="deInstall.pl"/>
+            <permission mode="0750" wildcard="sslConfig.pl"/>
+            <permission mode="0750" wildcard="pin_cnf_dm.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="" patchable="true">
+         <file size="2588" dest="source.me.csh" mode="0750"/>
+         <file size="2531" dest="source.me.sh" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="source.me.csh"/>
+            <permission mode="0750" wildcard="source.me.sh"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="4565" dest="aes.pm" mode="0750"/>
+         <file size="2651024" dest="libnzsdk.so" mode="0750"/>
+         <file size="4506744" dest="libxercesc.so" mode="0750"/>
+         <file size="1537" dest="pcmdd.pm" mode="0775"/>
+         <file size="62912" dest="libpin_crypt_aes.so" mode="0750"/>
+         <file size="4115568" dest="pcmdd.so" mode="0775"/>
+         <file size="21424" dest="libpin_crypt.so" mode="0750"/>
+         <file size="1340" dest="aes_db.pm" mode="0750"/>
+         <file size="613640" dest="libportal.so" mode="0750"/>
+         <file size="653408" dest="libpcmcpp60.so" mode="0755"/>
+         <file size="4129792" dest="pcmif.so" mode="0775"/>
+         <file size="132448" dest="libloadapp.so" mode="0755"/>
+         <file size="10851" dest="pcmif.pm" mode="0775"/>
+         <file size="8347" dest="Flist.pm" mode="0750"/>
+         <file size="562232" dest="libpin_crypt4qm.so" mode="0755"/>
+         <file size="660936" dest="libpcmcpp67.so" mode="0755"/>
+         <file size="21872" dest="libpin_cc.so" mode="0750"/>
+         <file size="570608" dest="libpin_crypt_aes4qm.so" mode="0755"/>
+         <file size="4115712" dest="aes.so" mode="0750"/>
+         <file size="1082656" dest="libSCR.so" mode="0750"/>
+         <file size="952760" dest="libBAS.so" mode="0750"/>
+         <file size="5352488" dest="libpin_xslt.so" mode="0750"/>
+         <file size="505832" dest="libADT.so" mode="0750"/>
+         <file size="496848" dest="libdmpin.so" mode="0750"/>
+         <file size="62984" dest="libpin_crypt_aes4dm.so" mode="0750"/>
+         <file size="181162" dest="portal_op_flds.dat" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libnzsdk.so"/>
+            <permission mode="0750" wildcard="aes.so"/>
+            <permission mode="0750" wildcard="aes.pm"/>
+            <permission mode="0750" wildcard="Flist.pm"/>
+            <permission mode="0750" wildcard="aes_db.pm"/>
+            <permission mode="0775" wildcard="pcmif.pm"/>
+            <permission mode="0775" wildcard="pcmdd.pm"/>
+            <permission mode="0775" wildcard="pcmif.so"/>
+            <permission mode="0775" wildcard="pcmdd.so"/>
+            <permission mode="0750" wildcard="libportal.so"/>
+            <permission mode="0750" wildcard="libBAS.so"/>
+            <permission mode="0750" wildcard="libSCR.so"/>
+            <permission mode="0750" wildcard="libADT.so"/>
+            <permission mode="0750" wildcard="libxercesc.so"/>
+            <permission mode="0750" wildcard="libpin_xslt.so"/>
+            <permission mode="0750" wildcard="libpin_cc.so"/>
+            <permission mode="0750" wildcard="portal_op_flds.dat"/>
+            <permission mode="0755" wildcard="libloadapp.so"/>
+            <permission mode="0755" wildcard="libpcmcpp60.so"/>
+            <permission mode="0755" wildcard="libpcmcpp67.so"/>
+            <permission mode="0755" wildcard="libpin_crypt4qm.so"/>
+            <permission mode="0755" wildcard="libpin_crypt_aes4qm.so"/>
+            <permission mode="0750" wildcard="libpin_crypt.so"/>
+            <permission mode="0750" wildcard="libpin_crypt_aes.so"/>
+            <permission mode="0750" wildcard="libdmpin.so"/>
+            <permission mode="0750" wildcard="libpin_crypt_aes4dm.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="5214616" dest="legacy.so" mode="0750"/>
+         <file size="8286216" dest="libnnzsrv.so" mode="0750"/>
+         <file size="460688" dest="libons.so" mode="0750"/>
+         <file size="8158120" dest="libnnz.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libons.so"/>
+            <permission mode="0750" wildcard="libnnz.so"/>
+            <permission mode="0750" wildcard="legacy.so"/>
+            <permission mode="0750" wildcard="libnnzsrv.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="2651024" dest="libnzsdk.so" mode="0750"/>
+         <file size="68944" dest="libpcmext.so" mode="0750"/>
+         <file size="613640" dest="libportal.so" mode="0750"/>
+         <file size="653408" dest="libpcmcpp60.so" mode="0750"/>
+         <file size="21464" dest="libpin_crypt4dm.so" mode="0750"/>
+         <file size="952760" dest="libBAS.so" mode="0750"/>
+         <file size="496848" dest="libdmpin.so" mode="0750"/>
+         <file size="62984" dest="libpin_crypt_aes4dm.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libBAS.so"/>
+            <permission mode="0750" wildcard="libnzsdk.so"/>
+            <permission mode="0750" wildcard="libpcmext.so"/>
+            <permission mode="0750" wildcard="libpin_crypt_aes4dm.so"/>
+            <permission mode="0750" wildcard="libdmpin.so"/>
+            <permission mode="0750" wildcard="libpcmcpp60.so"/>
+            <permission mode="0750" wildcard="libpin_crypt4dm.so"/>
+            <permission mode="0750" wildcard="libportal.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="23704" dest="libfunctor23112d.so" mode="0750"/>
+         <file size="810632" dest="libstreams23112d.so" mode="0750"/>
+         <file size="633920" dest="liboci23112d.so" mode="0750"/>
+         <file size="105920" dest="libtrace23112d.so" mode="0750"/>
+         <file size="549736" dest="libthread23112d.so" mode="0750"/>
+         <file size="18696" dest="libpointer23112d.so" mode="0750"/>
+         <file size="301304" dest="libmime23112d.so" mode="0750"/>
+         <file size="282872" dest="libnetwork23112d.so" mode="0750"/>
+         <file size="41760" dest="libitc23112d.so" mode="0750"/>
+         <file size="1764848" dest="libtls23112d.so" mode="0750"/>
+         <file size="42008" dest="libfunctor_list23112d.so" mode="0750"/>
+         <file size="57648" dest="libsync23112d.so" mode="0750"/>
+         <file size="16320" dest="libfunctor_map23112d.so" mode="0750"/>
+         <file size="77976" dest="libthrexcept23112d.so" mode="0750"/>
+         <file size="525640" dest="libmny23112d.so" mode="0750"/>
+         <file size="1967920" dest="libdbt23112d.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="liboci23112d.so"/>
+            <permission mode="0750" wildcard="libdbt23112d.so"/>
+            <permission mode="0750" wildcard="libfunctor23112d.so"/>
+            <permission mode="0750" wildcard="libfunctor_list23112d.so"/>
+            <permission mode="0750" wildcard="libfunctor_map23112d.so"/>
+            <permission mode="0750" wildcard="libitc23112d.so"/>
+            <permission mode="0750" wildcard="libmime23112d.so"/>
+            <permission mode="0750" wildcard="libmny23112d.so"/>
+            <permission mode="0750" wildcard="libnetwork23112d.so"/>
+            <permission mode="0750" wildcard="libpointer23112d.so"/>
+            <permission mode="0750" wildcard="libstreams23112d.so"/>
+            <permission mode="0750" wildcard="libsync23112d.so"/>
+            <permission mode="0750" wildcard="libthread23112d.so"/>
+            <permission mode="0750" wildcard="libthrexcept23112d.so"/>
+            <permission mode="0750" wildcard="libtls23112d.so"/>
+            <permission mode="0750" wildcard="libtrace23112d.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib64" mode="750" patchable="true">
+         <file size="23704" dest="libfunctor23112d.so" mode="0750"/>
+         <file size="810632" dest="libstreams23112d.so" mode="0750"/>
+         <file size="633920" dest="liboci23112d.so" mode="0750"/>
+         <file size="105920" dest="libtrace23112d.so" mode="0750"/>
+         <file size="549736" dest="libthread23112d.so" mode="0750"/>
+         <file size="18696" dest="libpointer23112d.so" mode="0750"/>
+         <file size="301304" dest="libmime23112d.so" mode="0750"/>
+         <file size="282872" dest="libnetwork23112d.so" mode="0750"/>
+         <file size="41760" dest="libitc23112d.so" mode="0750"/>
+         <file size="1764848" dest="libtls23112d.so" mode="0750"/>
+         <file size="42008" dest="libfunctor_list23112d.so" mode="0750"/>
+         <file size="57648" dest="libsync23112d.so" mode="0750"/>
+         <file size="16320" dest="libfunctor_map23112d.so" mode="0750"/>
+         <file size="77976" dest="libthrexcept23112d.so" mode="0750"/>
+         <file size="525640" dest="libmny23112d.so" mode="0750"/>
+         <file size="1967920" dest="libdbt23112d.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="liboci23112d.so"/>
+            <permission mode="0750" wildcard="libdbt23112d.so"/>
+            <permission mode="0750" wildcard="libfunctor23112d.so"/>
+            <permission mode="0750" wildcard="libfunctor_list23112d.so"/>
+            <permission mode="0750" wildcard="libfunctor_map23112d.so"/>
+            <permission mode="0750" wildcard="libitc23112d.so"/>
+            <permission mode="0750" wildcard="libmime23112d.so"/>
+            <permission mode="0750" wildcard="libmny23112d.so"/>
+            <permission mode="0750" wildcard="libnetwork23112d.so"/>
+            <permission mode="0750" wildcard="libpointer23112d.so"/>
+            <permission mode="0750" wildcard="libstreams23112d.so"/>
+            <permission mode="0750" wildcard="libsync23112d.so"/>
+            <permission mode="0750" wildcard="libthread23112d.so"/>
+            <permission mode="0750" wildcard="libthrexcept23112d.so"/>
+            <permission mode="0750" wildcard="libtls23112d.so"/>
+            <permission mode="0750" wildcard="libtrace23112d.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="SupportInformer" mode="0750" preserve-symlinks="false" patchable="true">
+            <file size="11364" dest="PinconfReader.pm" mode="0750"/>
+            <file size="3829" dest="LogCollector.pm" mode="0750"/>
+            <file size="5033" dest="FileSystem.pm" mode="0750"/>
+            <file size="3002" dest="SystemInfo.pm" mode="0750"/>
+            <file size="3649" dest="InfoCompressor.pm" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" regex=".*"/>
+            <permission mode="0750" regex=".*" match-dirs="true"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="254608" dest="fm_perflib.so" mode="0755"/>
+         <file size="183392" dest="libperflibapi.so" mode="0755"/>
+         <file size="48176" dest="libPerflibMonitor.so" mode="0755"/>
+         <file size="16784" dest="libPerflib.so" mode="0755"/>
+         <file size="183456" dest="libperflibdmapi.so" mode="0755"/>
+         <file size="206096" dest="libperflib.so" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="libperflib.so"/>
+            <permission mode="0755" wildcard="libperflibapi.so"/>
+            <permission mode="0755" wildcard="libperflibdmapi.so"/>
+            <permission mode="0755" wildcard="fm_perflib.so"/>
+            <permission mode="0755" wildcard="libPerflib.so"/>
+            <permission mode="0755" wildcard="libPerflibMonitor.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="perflib" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="GG" mode="750" patchable="true">
+               <file size="17743" dest="Sqlplus.pm" mode="0755"/>
+            </directory>
+            <file size="479" dest="start_perfd.sh" mode="0755"/>
+            <file size="16396" dest="compare_perflib_runs" mode="0755"/>
+            <file size="1090" dest="log4j2.xml" mode="0640"/>
+            <file size="5276" dest="split_plog.pl" mode="0755"/>
+            <file size="24035" dest="perf.env" mode="0640"/>
+            <file size="22426" dest="perf.conf" mode="0640"/>
+            <file size="19498" dest="perflib_package.sql" mode="0755"/>
+            <file size="5837" dest="get_snapshots_in_xml.pl" mode="0755"/>
+            <file size="2170" dest="perflib_create_indexes.sql" mode="0755"/>
+            <file size="31459" dest="perflib.jar" mode="0755"/>
+            <file size="10062" dest="perf_status" mode="0755"/>
+            <file size="76356" dest="perfd.pl" mode="0755"/>
+            <file size="13514" dest="parse_call_stack.pl" mode="0755"/>
+            <file size="3488" dest="start_cm_perf" mode="0755"/>
+            <file size="4678" dest="start_it" mode="0755"/>
+            <file size="20098" dest="perf_dm.env" mode="0640"/>
+            <file size="562" dest="perflib_grant_gvsql_to_pin.sql" mode="0755"/>
+            <file size="3084" dest="alarm_config.lst" mode="0640"/>
+            <file size="24805" dest="report_perf_data.pl" mode="0755"/>
+            <file size="217048" dest="perf_parse" mode="0755"/>
+            <file size="2155" dest="stop_perfd.sh" mode="0755"/>
+            <file size="5931" dest="parse_perflib_summary.pl" mode="0755"/>
+            <file size="4332" dest="create_custom_flds" mode="0755"/>
+            <file size="7485" dest="start_monitor" mode="0755"/>
+            <file size="3346" dest="stop_monitor" mode="0755"/>
+            <file size="77852" dest="perf_parse.pl" mode="0755"/>
+            <file size="1623" dest="opcode_buckets.lst" mode="0640"/>
+            <file size="206688" dest="pstatus" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0640" wildcard="opcode_buckets.lst"/>
+            <permission mode="0640" wildcard="alarm_config.lst"/>
+            <permission mode="0640" wildcard="perf.conf"/>
+            <permission mode="0640" wildcard="perf.env"/>
+            <permission mode="0640" wildcard="perf_dm.env"/>
+            <permission mode="0755" wildcard="parse_call_stack.pl"/>
+            <permission mode="0755" wildcard="parse_perflib_summary.pl"/>
+            <permission mode="0755" wildcard="perf_parse.pl"/>
+            <permission mode="0755" wildcard="perfd.pl"/>
+            <permission mode="0755" wildcard="split_plog.pl"/>
+            <permission mode="0755" wildcard="get_snapshots_in_xml.pl"/>
+            <permission mode="0755" wildcard="report_perf_data.pl"/>
+            <permission mode="0755" wildcard="compare_perflib_runs"/>
+            <permission mode="0755" wildcard="create_custom_flds"/>
+            <permission mode="0640" wildcard="log4j2.xml"/>
+            <permission mode="0755" wildcard="perf_parse"/>
+            <permission mode="0755" wildcard="perf_status"/>
+            <permission mode="0755" wildcard="pstatus"/>
+            <permission mode="0755" wildcard="start_it"/>
+            <permission mode="0755" wildcard="start_cm_perf"/>
+            <permission mode="0755" wildcard="start_monitor"/>
+            <permission mode="0755" wildcard="stop_monitor"/>
+            <permission mode="0755" wildcard="start_perfd.sh"/>
+            <permission mode="0755" wildcard="stop_perfd.sh"/>
+            <permission mode="0755" wildcard="perflib.jar"/>
+            <permission mode="0755" wildcard="perflib_create_indexes.sql"/>
+            <permission mode="0755" wildcard="perflib_grant_gvsql_to_pin.sql"/>
+            <permission mode="0755" wildcard="perflib_package.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="183392" dest="libperflibapi.so" mode="0750"/>
+         <file size="48176" dest="libPerflibMonitor.so" mode="0750"/>
+         <file size="16784" dest="libPerflib.so" mode="0750"/>
+         <file size="183456" dest="libperflibdmapi.so" mode="0750"/>
+         <file size="206096" dest="libperflib.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libPerflib.so"/>
+            <permission mode="0750" wildcard="libPerflibMonitor.so"/>
+            <permission mode="0750" wildcard="libperflib.so"/>
+            <permission mode="0750" wildcard="libperflibapi.so"/>
+            <permission mode="0750" wildcard="libperflibdmapi.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="wallet" mode="750" patchable="true">
+         <directory dest="root" mode="750" patchable="true">
+            <file size="6784" dest="ewallet.p12" mode="0600"/>
+         </directory>
+         <directory dest="client" mode="750" patchable="true">
+            <file size="3752" dest="ewallet.p12" mode="0600"/>
+            <file size="3797" dest="cwallet.sso" mode="0600"/>
+         </directory>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" mode="750" patchable="true">
+            <directory dest="data" mode="750" patchable="true">
+               <file size="20237" dest="pin_upg_common.source" mode="0755"/>
+            </directory>
+         </directory>
+      </directory>
+   </file-map>
+   <variables>
+      <product-variable name="CM_PORT" value="11960" type="number" helpid="" publish="true"/>
+      <product-variable name="DMO_PORT" value="12950" type="number" helpid="" publish="true"/>
+      <product-variable name="BRM_VAR" type="string" helpid="" publish="true"/>
+      <product-variable name="NEW_DBUSER_FLAG" value="2" type="number" helpid="" publish="true"/>
+      <product-variable name="DB_USERNAME" type="string" helpid="" publish="true"/>
+      <product-variable name="DB_PASSWORD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="DB_PASSWORD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="DB_PASSWORD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="BRM_ROOT_PW" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="BRM_ROOT_PW_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="BRM_ROOT_PW_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="BRM_ROLE_PW" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="BRM_ROLE_PW_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="BRM_ROLE_PW_ENC" type="string" secure="true" helpid="" publish="false"/>
+      <product-variable name="RUN_PIN_SETUP" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="CM_HOST" type="string" helpid="" publish="true"/>
+      <product-variable name="DATABASE_TYPE" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="DM_HOSTNAME" type="string" helpid="" publish="true"/>
+      <product-variable name="s_ReturnCode" type="string" helpid="" publish="true"/>
+      <product-variable name="CLIENT_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="CLIENT_WALLET_PASSWD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="CLIENT_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ROOT_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ROOT_WALLET_PASSWD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ROOT_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="SERVER_WALLET_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="SERVER_WALLET_PASSWD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="SERVER_WALLET_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ONLY_DM" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="ONLY_CM" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="CONNECT_STRING" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ASM" value="false" type="boolean" helpid="" publish="true"/>
+      <product-variable name="DB_CLIENT_VER" value="19" type="string" helpid="" publish="true"/>
+   </variables>
+</component-def>

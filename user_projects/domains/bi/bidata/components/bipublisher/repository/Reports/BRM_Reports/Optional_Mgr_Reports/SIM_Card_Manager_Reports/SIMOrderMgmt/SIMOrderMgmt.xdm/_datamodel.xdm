@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="Oracle BI EE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 					"ORDER_T"."ORDER_ID",
+ 					"ACCOUNT_T"."POID_ID0",
+ 					"ACCOUNT_NAMEINFO_T"."OBJ_ID0",
+ 					"ORDER_T"."STATUS",
+ 					"ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ 					"ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ 					"ORDER_T"."CREATED_T",
+ 					"ORDER_SIM_ORDERS_T"."QUANTITY",
+ 					"ORDER_SIM_RESULTS_T"."QUANTITY_APPLIED",
+ 					"ACCOUNT_NAMEINFO_T"."REC_ID",
+ 					"STRINGS_T"."STRING"
+ 				FROM
+ 					((("ORDER_SIM_RESULTS_T" "ORDER_SIM_RESULTS_T" RIGHT OUTER JOIN "ORDER_T" "ORDER_T" ON "ORDER_SIM_RESULTS_T"."OBJ_ID0"="ORDER_T"."POID_ID0")
+ 					INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "ORDER_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0")
+ 					INNER JOIN "ORDER_SIM_ORDERS_T" "ORDER_SIM_ORDERS_T" ON "ORDER_T"."POID_ID0"="ORDER_SIM_ORDERS_T"."OBJ_ID0")
+ 					INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ 					INNER JOIN "STRINGS_T" ON ("ORDER_T"."STATUS" = "STRINGS_T"."STRING_ID" AND "STRINGS_T"."DOMAIN" = 'order_sim_status')
+ 				WHERE
+ 					"ORDER_T"."STATUS" = "STRINGS_T"."STRING_ID" AND
+ 					"ORDER_T"."ORDER_ID" LIKE DECODE(UPPER(:PARAM_ORDER_ID) ,'ALL','%',:PARAM_ORDER_ID) AND
+ 					bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 					("ORDER_T"."CREATED_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 					"ORDER_T"."CREATED_T"<bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 					"STRINGS_T"."STRING" LIKE DECODE(:PARAM_ORDER_STATUS ,NULL,'%',:PARAM_ORDER_STATUS)
+ 	
+ 				ORDER BY
+ 					"ORDER_T"."ORDER_ID", "ACCOUNT_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="ORDER_ID" value="ORDER_ID" dataType="xsd:string" label="ORDER_ID" breakOrder="None" fieldOrder="1"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="2"/>
+    <element name="OBJ_ID0" value="OBJ_ID0" dataType="xsd:integer" label="OBJ_ID0" breakOrder="None" fieldOrder="3"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="4"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="6"/>
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="7"/>
+    <element name="QUANTITY" value="QUANTITY" dataType="xsd:integer" label="QUANTITY" breakOrder="None" fieldOrder="8"/>
+    <element name="QUANTITY_APPLIED" value="QUANTITY_APPLIED" dataType="xsd:integer" label="QUANTITY_APPLIED" breakOrder="None" fieldOrder="9"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="10"/>
+    <element name="STRING" value="STRING" dataType="xsd:string" label="STRING" breakOrder="None" fieldOrder="11"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_ORDER_STATUS">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT 	
+	STRING
+FROM 
+	STRINGS_T
+WHERE 
+	DOMAIN LIKE 'order_sim_status']]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_ORDER_ID" dataType="xsd:string">
+         <input label="Enter a specific order number, or select ALL for all order numbers" size="30"/>
+      </parameter>
+      <parameter name="PARAM_ORDER_STATUS" defaultValue="%" dataType="xsd:string">
+         <select label="Select a specific order status, or select ALL to include all orders." valueSet="PARAM_ORDER_STATUS" multiple="false" all="true" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

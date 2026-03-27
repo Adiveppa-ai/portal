@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2006 - 2007 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation 
+			or its icensors and may be used, reproduced, stored or transmitted
+			only in accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:simpleType name="stringtype">
+ 		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="inttype">
+		<xs:restriction base="xs:positiveInteger"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="dectype">
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="booltype">
+ 		<xs:restriction base="xs:string">
+			<xs:pattern value="[01]"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="restype">
+		<xs:sequence>
+			<xs:element name="UpperThreshold" type="businessConfig:dectype"/>
+			<xs:element name="LowerThreshold" type="businessConfig:dectype"/>
+			<xs:element name="ReservedAmt" type="businessConfig:dectype"/>
+		</xs:sequence>
+ 		<xs:attribute name="ResourceId" type="inttype" use="required"/>
+	</xs:complexType>
+
+        <xs:complexType name="servtype">
+                <xs:sequence>
+                        <xs:element name="ServiceType" type="businessConfig:stringtype"/>
+                        <xs:element name="ReauthFlag" type="businessConfig:booltype"/>
+                        <xs:element name="MaxTimeDelay" type="businessConfig:inttype"/>
+                        <xs:element name="AllowQuickReject" type="businessConfig:booltype"/>
+                        <xs:element name="ResourceConfig" minOccurs="1" maxOccurs="unbounded" type="businessConfig:restype"/>
+                </xs:sequence>
+        </xs:complexType>
+
+        <xs:complexType name="authconfigtype">
+          <xs:sequence>
+            <xs:element name="ServiceConfig" minOccurs="1" maxOccurs="unbounded" type="businessConfig:servtype">
+              <xs:unique name="resourceid">
+                <xs:selector xpath="businessConfig:ResourceConfig"/>
+                <xs:field xpath="@ResourceId"/>
+              </xs:unique>
+            </xs:element>
+          </xs:sequence>
+	</xs:complexType>
+
+<xs:element name="AuthReauthInfoConfiguration" type="businessConfig:authconfigtype">
+    <xs:unique name="servicename">
+      <xs:selector xpath="businessConfig:ServiceConfig"/>
+      <xs:field xpath="businessConfig:ServiceType"/>
+    </xs:unique>
+</xs:element>
+
+</xs:schema>

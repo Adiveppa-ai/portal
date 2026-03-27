@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="COLLECTIONS" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_ADD_ACTION.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_ASSIGN_AGENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_EXEMPT_BILLINFO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_CREATE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_DELETE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_MODIFY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_GROUP_SET_PARENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_REPLACE_SCENARIO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_SET_ACTION_STATUS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_COLLECTIONS_ADD_ACTION_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_ADD_ACTION_inputFlist" name="PCM_OP_COLLECTIONS_ADD_ACTION_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_ADD_ACTION_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_ADD_ACTION_outputFlist" name="PCM_OP_COLLECTIONS_ADD_ACTION_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_ASSIGN_AGENT_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_ASSIGN_AGENT_inputFlist" name="PCM_OP_COLLECTIONS_ASSIGN_AGENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_ASSIGN_AGENT_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_ASSIGN_AGENT_outputFlist" name="PCM_OP_COLLECTIONS_ASSIGN_AGENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_inputFlist" name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_outputFlist" name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_inputFlist" name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_outputFlist" name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_CREATE_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_CREATE_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_CREATE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_CREATE_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_CREATE_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_CREATE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_DELETE_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_DELETE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_DELETE_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_DELETE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_MODIFY_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_MODIFY_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_MODIFY_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_MODIFY_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_MODIFY_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_MODIFY_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_SET_PARENT_inputFlist" name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_GROUP_SET_PARENT_outputFlist" name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_inputFlist" name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_outputFlist" name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_REPLACE_SCENARIO_inputFlist" name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_REPLACE_SCENARIO_outputFlist" name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_inputFlist" name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_outputFlist" name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_SET_ACTION_STATUS_inputFlist" name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_SET_ACTION_STATUS_outputFlist" name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_inmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_inputFlist" name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_outmsg">
+        <part element="brm:PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_outputFlist" name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_outputFlist"/>
+    </message>
+    <portType name="BRMCOLLECTIONSService_ptt">
+        <operation name="PCM_OP_COLLECTIONS_ADD_ACTION">
+            <input message="brm:PCM_OP_COLLECTIONS_ADD_ACTION_inmsg" name="PCM_OP_COLLECTIONS_ADD_ACTION_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_ADD_ACTION_outmsg" name="PCM_OP_COLLECTIONS_ADD_ACTION_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_ASSIGN_AGENT">
+            <input message="brm:PCM_OP_COLLECTIONS_ASSIGN_AGENT_inmsg" name="PCM_OP_COLLECTIONS_ASSIGN_AGENT_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_ASSIGN_AGENT_outmsg" name="PCM_OP_COLLECTIONS_ASSIGN_AGENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO">
+            <input message="brm:PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_inmsg" name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_outmsg" name="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL">
+            <input message="brm:PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_inmsg" name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_outmsg" name="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_inmsg" name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_outmsg" name="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_CREATE">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_CREATE_inmsg" name="PCM_OP_COLLECTIONS_GROUP_CREATE_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_CREATE_outmsg" name="PCM_OP_COLLECTIONS_GROUP_CREATE_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_DELETE">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_inmsg" name="PCM_OP_COLLECTIONS_GROUP_DELETE_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_outmsg" name="PCM_OP_COLLECTIONS_GROUP_DELETE_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_inmsg" name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_outmsg" name="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_inmsg" name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_outmsg" name="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_MODIFY">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_MODIFY_inmsg" name="PCM_OP_COLLECTIONS_GROUP_MODIFY_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_MODIFY_outmsg" name="PCM_OP_COLLECTIONS_GROUP_MODIFY_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT">
+            <input message="brm:PCM_OP_COLLECTIONS_GROUP_SET_PARENT_inmsg" name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_GROUP_SET_PARENT_outmsg" name="PCM_OP_COLLECTIONS_GROUP_SET_PARENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY">
+            <input message="brm:PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_inmsg" name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_outmsg" name="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO">
+            <input message="brm:PCM_OP_COLLECTIONS_REPLACE_SCENARIO_inmsg" name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_REPLACE_SCENARIO_outmsg" name="PCM_OP_COLLECTIONS_REPLACE_SCENARIO_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY">
+            <input message="brm:PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_inmsg" name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_outmsg" name="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS">
+            <input message="brm:PCM_OP_COLLECTIONS_SET_ACTION_STATUS_inmsg" name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_SET_ACTION_STATUS_outmsg" name="PCM_OP_COLLECTIONS_SET_ACTION_STATUS_Response"/>
+        </operation>
+        <operation name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS">
+            <input message="brm:PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_inmsg" name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_Request"/>
+            <output message="brm:PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_outmsg" name="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMCOLLECTIONSService_plt">
+        <plt:role name="BRMCOLLECTIONSService_role">
+            <plt:portType name="brm:BRMCOLLECTIONSService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

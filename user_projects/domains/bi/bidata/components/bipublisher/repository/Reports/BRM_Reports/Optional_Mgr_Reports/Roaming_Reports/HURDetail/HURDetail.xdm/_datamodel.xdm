@@ -1,0 +1,365 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel xmlns="http://xmlns.oracle.com/oxp/xmlp" version="2.0" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[HURDetail]]>
+   </description>
+   <defaultPackage>HUR_SEQ_NUM</defaultPackage>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="SUMMARY" type="complex">
+         <sql>
+            <![CDATA[SELECT *
+ 				FROM
+ 				(SELECT
+ 			SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) RECORD_TYPE,
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID" MSID,
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MIN("EVENT_T"."START_T"),'second'),'YYYYMMDD') DFC_DATE,
+
+ 				CASE WHEN SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) != 'P' THEN
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MIN("EVENT_T"."START_T"),'second'),'hh24miss')
+ 				ELSE NULL END as DFC_TIME,
+
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MAX("EVENT_T"."START_T"),'second'),'YYYYMMDD') DLC_DATE,
+
+ 				CASE WHEN SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) != 'P' THEN
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MAX("EVENT_T"."START_T"),'second'),'hh24miss')
+ 				ELSE NULL END as DLC_TIME,
+
+ 				TO_CHAR( COUNT(EVENT_T.POID_ID0),'FM999999') NC,
+
+ 				TO_CHAR( FLOOR(SUM("EVENT_T"."END_T" -
+ 				"EVENT_T"."START_T")/3600),'FM000') ||
+ 				TO_CHAR( FLOOR(MOD(SUM("EVENT_T"."END_T" -
+ 				"EVENT_T"."START_T"),3600)/60),'FM00') ||
+ 				TO_CHAR( MOD(MOD(SUM("EVENT_T"."END_T" -
+ 				"EVENT_T"."START_T"),3600),60),'FM00') DC_HHHMMSS,
+
+ TO_CHAR((SUM ("EVENT_DLAY_SESS_TLCS_T"."BYTES_UPLINK")+
+ 				SUM("EVENT_DLAY_SESS_TLCS_T"."BYTES_DOWNLINK"))
+ ,'FM99999999999999999999') VOLUME,
+
+ 				SUBSTR(TO_CHAR( SUM("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'FM999999999.999'),1, INSTR(TO_CHAR( SUM
+ 				("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'FM999999999.999'),'.',1,1)-1) ||
+ 				SUBSTR(TO_CHAR( SUM("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'999999999.999'), INSTR(TO_CHAR( SUM
+ 				("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'999999999.999'),'.',1,1)+1) SDR
+ 			FROM
+ 				((SERVICE_T "SERVICE_T"
+ 				INNER JOIN
+ 				SERVICE_ALIAS_LIST_T "SERVICE_ALIAS_LIST_T"
+ 				ON "SERVICE_T"."POID_ID0"="SERVICE_ALIAS_LIST_T"."OBJ_ID0")
+ 				INNER JOIN
+ 				(EVENT_DLAY_SESS_TLCS_T "EVENT_DLAY_SESS_TLCS_T"
+ 				INNER JOIN EVENT_T "EVENT_T"
+ 				ON "EVENT_DLAY_SESS_TLCS_T"."OBJ_ID0"="EVENT_T"."POID_ID0")
+ 				ON "SERVICE_T"."POID_ID0"="EVENT_T"."SERVICE_OBJ_ID0")
+ 				INNER JOIN EVENT_BAL_IMPACTS_T "EVENT_BAL_IMPACTS_T"
+ 				ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0"
+
+ 			WHERE
+ 				( ("EVENT_T"."START_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 				"EVENT_T"."START_T"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 				"SERVICE_ALIAS_LIST_T"."NAME" = :PARAM_ROAMING_PART_NAME AND
+ 				"EVENT_T"."SERVICE_OBJ_TYPE" = '/service/settlement/roaming/outcollect' AND
+ 				"EVENT_T"."POID_TYPE" like '/event/delayed/session/telco/%/roaming' AND
+                                ("EVENT_BAL_IMPACTS_T"."RATE_TAG" is NULL OR "EVENT_BAL_IMPACTS_T"."RATE_TAG" != 'Y') AND
+ 				bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 				(( :PARAM_REPORT_TYPE = 'ROAMING' AND
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) IN ('C','P','M') ) OR
+ 				( :PARAM_REPORT_TYPE = 'SMS_INTERWORKING' AND
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) IN ('S') ) OR
+ 				( :PARAM_REPORT_TYPE = 'COMBINED' AND
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) IN ('C','S','P','M') ))
+ 				)
+ 			GROUP BY
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID",
+ 				FLOOR(("EVENT_T"."START_T")/86400),
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1)
+ 			ORDER BY
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID")
+ 			INNER JOIN
+ 			(
+ 			SELECT
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID" MSID_SUMMARY,
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MIN("EVENT_T"."START_T"),'second'),'YYYYMMDD') DFC_ALL
+ 			FROM
+ 				((SERVICE_T "SERVICE_T" INNER JOIN
+ 				SERVICE_ALIAS_LIST_T "SERVICE_ALIAS_LIST_T"
+ 				ON "SERVICE_T"."POID_ID0"="SERVICE_ALIAS_LIST_T"."OBJ_ID0")
+ 				INNER JOIN (EVENT_DLAY_SESS_TLCS_T "EVENT_DLAY_SESS_TLCS_T"
+ 				INNER JOIN EVENT_T "EVENT_T"
+ 				ON "EVENT_DLAY_SESS_TLCS_T"."OBJ_ID0"="EVENT_T"."POID_ID0")
+ 				ON "SERVICE_T"."POID_ID0"="EVENT_T"."SERVICE_OBJ_ID0")
+ 				INNER JOIN EVENT_BAL_IMPACTS_T "EVENT_BAL_IMPACTS_T"
+ 				ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0"
+ 			WHERE
+ 				("EVENT_T"."START_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 				"EVENT_T"."START_T"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 				"SERVICE_ALIAS_LIST_T"."NAME" = :PARAM_ROAMING_PART_NAME AND
+ 				"EVENT_T"."SERVICE_OBJ_TYPE" = '/service/settlement/roaming/outcollect' AND
+ 				"EVENT_T"."POID_TYPE" LIKE '/event/delayed/session/telco/%/roaming' AND
+                                ("EVENT_BAL_IMPACTS_T"."RATE_TAG" is NULL OR "EVENT_BAL_IMPACTS_T"."RATE_TAG" != 'Y')
+ 			GROUP BY
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID",
+ 				FLOOR(("EVENT_T"."START_T")/86400)
+
+ 			HAVING
+ 				SUM("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG") >= :PARAM_THRESHOLD_VALUE
+ 			)
+ 			ON ( MSID_SUMMARY = MSID AND DFC_ALL = DFC_DATE )
+ 			ORDER BY MSID, DFC_DATE]]>
+         </sql>
+      </dataSet>
+      <dataSet name="HEADER" type="complex">
+         <sql>
+            <![CDATA[SELECT *
+FROM
+  (SELECT MAX("PROFILE_ACCT_EXTRATING_DATA_T"."VALUE") PARAM_THRESHOLD_VALUE,
+    MAX("PROFILE_ACCT_EXTRATING_DATA_T"."VALUE") THRESHOLD
+  FROM ((SERVICE_T "SERVICE_T"
+  INNER JOIN PROFILE_T "PROFILE_T"
+  ON "SERVICE_T"."ACCOUNT_OBJ_ID0"="PROFILE_T"."ACCOUNT_OBJ_ID0")
+  INNER JOIN SERVICE_ALIAS_LIST_T "SERVICE_ALIAS_LIST_T"
+  ON "SERVICE_T"."POID_ID0"="SERVICE_ALIAS_LIST_T"."OBJ_ID0")
+  INNER JOIN PROFILE_ACCT_EXTRATING_DATA_T "PROFILE_ACCT_EXTRATING_DATA_T"
+  ON "PROFILE_T"."POID_ID0"          ="PROFILE_ACCT_EXTRATING_DATA_T"."OBJ_ID0"
+  WHERE "SERVICE_ALIAS_LIST_T"."NAME"= :PARAM_ROAMING_PART_NAME
+  AND "SERVICE_T"."POID_TYPE"        ='/service/settlement/roaming/outcollect'
+  AND rownum                        <= 1
+  ORDER BY "PROFILE_ACCT_EXTRATING_DATA_T"."NAME" DESC
+  ),
+  (SELECT (TO_CHAR(SEQUENCE_NUMBER,'FM0000')
+    ||EXTRACT(YEAR FROM :PARAM_START_DATE)) SEQ_NUM
+  FROM REPORT_SEQUENCE
+  WHERE (observation_start_date=:PARAM_START_DATE
+  AND observation_end_date     = :PARAM_END_DATE)
+  AND report_type              = :PARAM_REPORT_TYPE
+  AND hpmno_tap_code           = :PARAM_ROAMING_PART_NAME
+  ),
+  (SELECT 'PORTL' SENDER,
+    :PARAM_ROAMING_PART_NAME RECIPIENT,
+    TO_CHAR(CURRENT_DATE, 'YYYYMMDDhh24miss') ANALYSIS_TIME,
+    TO_CHAR(CURRENT_DATE, 'YYYYMMDDhh24miss') CREATION_TIME
+  FROM dual
+  )]]>
+         </sql>
+      </dataSet>
+      <dataSet name="NOTIFICATION" type="complex">
+         <sql>
+            <![CDATA[SELECT TO_CHAR(:PARAM_START_DATE, 'YYYYMMDD') OBS_START,TO_CHAR(:PARAM_END_DATE, 'YYYYMMDD')  OBS_END	FROM DUAL]]>
+         </sql>
+      </dataSet>
+      <dataSet name="DETAIL" type="complex">
+         <sql>
+            <![CDATA[SELECT *
+ 				FROM
+ 				(SELECT
+ 				CASE WHEN SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) = 'C'
+ 				THEN 'A' ELSE 'B' END as RECORD_TYPE,
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID" MSID,
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MIN("EVENT_T"."START_T"),'second'),'YYYYMMDD') DFC_DATE,
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MAX("EVENT_T"."START_T"),'second'),'YYYYMMDD') DLC_DATE,
+ 				extractcountrycode
+ 				("EVENT_DLYD_SESSION_TLCO_GSM_T"."DIRECTION",
+ 				"EVENT_DLAY_SESS_TLCS_T"."CALLED_TO",
+ 				"EVENT_DLAY_SESS_TLCS_T"."USAGE_CLASS") DEST_CALL,
+ 				TO_CHAR( COUNT(EVENT_T.POID_ID0),'FM999999') NC,
+ 				TO_CHAR( FLOOR(SUM("EVENT_T"."END_T" -
+ 				"EVENT_T"."START_T")/3600),'FM000') ||
+ 				TO_CHAR( FLOOR(MOD(SUM("EVENT_T"."END_T" -
+ 				"EVENT_T"."START_T"),3600)/60),'FM00') ||
+ 				TO_CHAR( MOD(MOD(SUM("EVENT_T"."END_T" -
+ 				"EVENT_T"."START_T"),3600),60),'FM00') DC_HHHMMSS,
+ 				SUBSTR(TO_CHAR( SUM("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'FM999999999.999'),1, INSTR(TO_CHAR( SUM
+ 				("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'FM999999999.999'),'.',1,1)-1) ||
+ 				SUBSTR(TO_CHAR( SUM("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'999999999.999'), INSTR(TO_CHAR( SUM
+ 				("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG"),
+ 				'999999999.999'),'.',1,1)+1) SDR
+ 			FROM
+ 				((((EVENT_DLAY_SESS_TLCS_T "EVENT_DLAY_SESS_TLCS_T"
+ 				INNER JOIN EVENT_T "EVENT_T"
+ 				ON "EVENT_DLAY_SESS_TLCS_T"."OBJ_ID0"="EVENT_T"."POID_ID0")
+ 				INNER JOIN EVENT_DLYD_SESSION_TLCO_GSM_T "EVENT_DLYD_SESSION_TLCO_GSM_T"
+ 				ON "EVENT_T"."POID_ID0"="EVENT_DLYD_SESSION_TLCO_GSM_T"."OBJ_ID0")
+ 				INNER JOIN SERVICE_T "SERVICE_T"
+ 				ON "EVENT_T"."SERVICE_OBJ_ID0"="SERVICE_T"."POID_ID0")
+ 				INNER JOIN EVENT_BAL_IMPACTS_T "EVENT_BAL_IMPACTS_T"
+ 				ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0")
+ 				INNER JOIN SERVICE_ALIAS_LIST_T "SERVICE_ALIAS_LIST_T"
+ 				ON "SERVICE_T"."POID_ID0"="SERVICE_ALIAS_LIST_T"."OBJ_ID0"
+
+ 			WHERE
+ 				( ("EVENT_T"."START_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 				"EVENT_T"."START_T"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 				"SERVICE_ALIAS_LIST_T"."NAME" = :PARAM_ROAMING_PART_NAME AND
+ 				"EVENT_T"."SERVICE_OBJ_TYPE" = '/service/settlement/roaming/outcollect' AND
+ 				"EVENT_T"."POID_TYPE" like '/event/delayed/session/telco/%/roaming' AND
+                                ("EVENT_BAL_IMPACTS_T"."RATE_TAG" is NULL OR "EVENT_BAL_IMPACTS_T"."RATE_TAG" != 'Y') AND
+ 				bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 				(( :PARAM_REPORT_TYPE = 'ROAMING' AND
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) IN ('C','P','M') ) OR
+ 				( :PARAM_REPORT_TYPE = 'SMS_INTERWORKING' AND
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) IN ('S') ) OR
+ 				( :PARAM_REPORT_TYPE = 'COMBINED' AND
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1) IN ('C','S','P','M') ))
+ 				)
+ 			GROUP BY
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID",
+ 				FLOOR(("EVENT_T"."START_T")/86400),
+ 				SUBSTR(SVC_CODE,INSTR(SVC_CODE,' ',1,1)+1),
+ 				extractcountrycode
+ 				("EVENT_DLYD_SESSION_TLCO_GSM_T"."DIRECTION",
+ 				"EVENT_DLAY_SESS_TLCS_T"."CALLED_TO",
+ 				"EVENT_DLAY_SESS_TLCS_T"."USAGE_CLASS")
+ 			ORDER BY
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID")
+ 			INNER JOIN
+ 			(
+ 			SELECT
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID" MSID_SUMMARY,
+ 				to_char((FROM_TZ(CAST(TO_DATE('1970-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+ 				AS TIMESTAMP), 'GMT') AT TIME ZONE sessiontimezone) +
+ 				numtodsinterval(MIN("EVENT_T"."START_T"),'second'),'YYYYMMDD') DFC_ALL
+ 			FROM
+ 				((SERVICE_T "SERVICE_T" INNER JOIN
+ 				SERVICE_ALIAS_LIST_T "SERVICE_ALIAS_LIST_T"
+ 				ON "SERVICE_T"."POID_ID0"="SERVICE_ALIAS_LIST_T"."OBJ_ID0")
+ 				INNER JOIN (EVENT_DLAY_SESS_TLCS_T "EVENT_DLAY_SESS_TLCS_T"
+ 				INNER JOIN EVENT_T "EVENT_T"
+ 				ON "EVENT_DLAY_SESS_TLCS_T"."OBJ_ID0"="EVENT_T"."POID_ID0")
+ 				ON "SERVICE_T"."POID_ID0"="EVENT_T"."SERVICE_OBJ_ID0")
+ 				INNER JOIN EVENT_BAL_IMPACTS_T "EVENT_BAL_IMPACTS_T"
+ 				ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0"
+ 			WHERE
+ 				("EVENT_T"."START_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 				"EVENT_T"."START_T"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 				"SERVICE_ALIAS_LIST_T"."NAME" = :PARAM_ROAMING_PART_NAME AND
+ 				"EVENT_T"."SERVICE_OBJ_TYPE" = '/service/settlement/roaming/outcollect' AND
+ 				"EVENT_T"."POID_TYPE" like '/event/delayed/session/telco/%/roaming' AND
+                                ("EVENT_BAL_IMPACTS_T"."RATE_TAG" is NULL OR "EVENT_BAL_IMPACTS_T"."RATE_TAG" != 'Y')
+ 			GROUP BY
+ 				"EVENT_DLAY_SESS_TLCS_T"."SECONDARY_MSID",
+ 				FLOOR(("EVENT_T"."START_T")/86400)
+
+ 			HAVING
+ 				SUM("EVENT_BAL_IMPACTS_T"."AMOUNT_ORIG") >= :PARAM_THRESHOLD_VALUE
+ 			)
+ 			ON ( MSID_SUMMARY = MSID AND DFC_ALL = DFC_DATE )
+ 			ORDER BY MSID, DFC_DATE]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="DATA_DS" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="HURDETAIL">
+            <group name="SUMMARY" label="SUMMARY" source="SUMMARY">
+               <element name="RECORD_TYPE" value="RECORD_TYPE" label="RECORD_TYPE" dataType="xsd:string" breakOrder="None" fieldOrder="1"/>
+               <element name="MSID" value="MSID" label="MSID" dataType="xsd:string" breakOrder="None" fieldOrder="2"/>
+               <element name="DFC_DATE" value="DFC_DATE" label="DFC_DATE" dataType="xsd:string" breakOrder="None" fieldOrder="3"/>
+               <element name="DFC_TIME" value="DFC_TIME" label="DFC_TIME" dataType="xsd:string" breakOrder="None" fieldOrder="4"/>
+               <element name="DLC_DATE" value="DLC_DATE" label="DLC_DATE" dataType="xsd:string" breakOrder="None" fieldOrder="5"/>
+               <element name="DLC_TIME" value="DLC_TIME" label="DLC_TIME" dataType="xsd:string" breakOrder="None" fieldOrder="6"/>
+               <element name="NC" value="NC" label="NC" dataType="xsd:string" breakOrder="None" fieldOrder="7"/>
+               <element name="DC_HHHMMSS" value="DC_HHHMMSS" label="DC_HHHMMSS" dataType="xsd:string" breakOrder="None" fieldOrder="8"/>
+               <element name="VOLUME" value="VOLUME" label="VOLUME" dataType="xsd:string" breakOrder="None" fieldOrder="9"/>
+               <element name="SDR" value="SDR" label="SDR" dataType="xsd:string" breakOrder="None" fieldOrder="10"/>
+               <element name="MSID_Q2" value="MSID_SUMMARY" label="MSID_SUMMARY" dataType="xsd:string" breakOrder="None" fieldOrder="11"/>
+               <element name="DFC_ALL" value="DFC_ALL" label="DFC_ALL" dataType="xsd:string" breakOrder="None" fieldOrder="12"/>
+            </group>
+            <group name="HEADER" label="HEADER" source="HEADER">
+               <element name="THRESHOLD" value="PARAM_THRESHOLD_VALUE" label="PARAM_THRESHOLD_VALUE" dataType="xsd:string" breakOrder="None" fieldOrder="1"/>
+               <element name="SENDER" value="SENDER" label="SENDER" dataType="xsd:string" breakOrder="None" fieldOrder="4"/>
+               <element name="RECIPIENT" value="RECIPIENT" label="RECIPIENT" dataType="xsd:string" breakOrder="None" fieldOrder="5"/>
+               <element name="SEQ_NUM" value="SEQ_NUM" label="SEQ_NUM" dataType="xsd:string" breakOrder="" fieldOrder="3"/>
+               <element name="THRESHOLD" value="THRESHOLD" label="THRESHOLD" dataType="xsd:string" breakOrder="" fieldOrder="2"/>
+               <element name="ANALYSIS_TIME" value="ANALYSIS_TIME" label="ANALYSIS_TIME" dataType="xsd:string" breakOrder="" fieldOrder="6"/>
+               <element name="CREATION_TIME" value="CREATION_TIME" label="CREATION_TIME" dataType="xsd:string" breakOrder="" fieldOrder="7"/>
+            </group>
+            <group name="NOTIFICATION" label="NOTIFICATION" source="NOTIFICATION">
+               <element name="OBS_START" value="OBS_START" label="OBS_START" dataType="xsd:string" breakOrder="None" fieldOrder="1"/>
+               <element name="OBS_END" value="OBS_END" label="OBS_END" dataType="xsd:string" breakOrder="None" fieldOrder="2"/>
+            </group>
+            <group name="DETAIL" label="DETAIL" source="DETAIL">
+               <element name="RECORD_TYPE" value="RECORD_TYPE" label="RECORD_TYPE" dataType="xsd:string" breakOrder="None" fieldOrder="1"/>
+               <element name="MSID" value="MSID" label="MSID" dataType="xsd:string" breakOrder="None" fieldOrder="2"/>
+               <element name="DFC_DATE" value="DFC_DATE" label="DFC_DATE" dataType="xsd:string" breakOrder="None" fieldOrder="3"/>
+               <element name="DLC_DATE" value="DLC_DATE" label="DLC_DATE" dataType="xsd:string" breakOrder="None" fieldOrder="4"/>
+               <element name="DEST_CALL" value="DEST_CALL" label="DEST_CALL" dataType="xsd:string" breakOrder="None" fieldOrder="5"/>
+               <element name="NC" value="NC" label="NC" dataType="xsd:string" breakOrder="None" fieldOrder="6"/>
+               <element name="DC_HHHMMSS" value="DC_HHHMMSS" label="DC_HHHMMSS" dataType="xsd:string" breakOrder="None" fieldOrder="7"/>
+               <element name="SDR" value="SDR" label="SDR" dataType="xsd:string" breakOrder="None" fieldOrder="8"/>
+               <element name="MSID_SUMMARY_1" value="MSID_SUMMARY" label="MSID_SUMMARY" dataType="xsd:string" breakOrder="None" fieldOrder="9"/>
+               <element name="DFC_ALL_1" value="DFC_ALL" label="DFC_ALL" dataType="xsd:string" breakOrder="None" fieldOrder="10"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers>
+      <eventTrigger name="beforeReport" type="before-data" language="PLSQL">
+         <source>HUR_Seq_NUM.beforeReport(:PARAM_START_DATE,:PARAM_END_DATE,:PARAM_ROAMING_PART_NAME,:PARAM_REPORT_TYPE)</source>
+      </eventTrigger>
+   </eventTriggers>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_REPORT_TYPE">
+         <nvPairs>
+            <nvPair label="COMBINED ROAMING REPORT" value="ROAMING"/>
+            <nvPair label="SMS INTERWORKING" value="SMS_INTERWORKING"/>
+            <nvPair label="COMBINED ROAMING &amp; SMS INTERWORKING HUR" value="COMBINED"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_REPORT_TYPE" defaultValue="%" dataType="xsd:string">
+         <select label="Select Report Type :" valueSet="LOV_REPORT_TYPE" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_ROAMING_PART_NAME" dataType="xsd:string">
+         <input label="Enter Roaming Partner Name :  " size="5"/>
+      </parameter>
+      <parameter name="PARAM_THRESHOLD_VALUE" defaultValue="0" dataType="xsd:float">
+         <input label="PARAM_THRESHOLD_VALUE"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter Observation Start Date (mm/dd/yyyy) : " size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label=" Enter Observation End Date (mm/dd/yyyy) : " size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+      <layouts>
+         <layout name="SUMMARY" left="491px" top="413px"/>
+         <layout name="HEADER" left="242px" top="413px"/>
+         <layout name="NOTIFICATION" left="994px" top="413px"/>
+         <layout name="DETAIL" left="741px" top="413px"/>
+         <layout name="HURDETAIL" left="6px" top="413px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

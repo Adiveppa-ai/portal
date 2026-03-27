@@ -1,0 +1,14 @@
+E Wed 31 Dec 2025 05:53:40 PM EST  Intellious  <no name>:346445  pcpst.c(131):2164 3:Intellious:<no_name>:346445:2061424448:21:1767221620320740:1:::::-1
+	pcp_connect(), connecting to host=192.168.56.101, port=12950 - failed
+E Wed 31 Dec 2025 05:53:40 PM EST  Intellious  <no name>:346445  pcm.c(67):799 3:Intellious:<no_name>:346445:2061424448:21:1767221620320740:1:::::-1
+	Op (PCM_OP_SET_DD) send failed in pcm_op
+	<location=PIN_ERRLOC_PCP:2 class=PIN_ERRCLASS_APPLICATION:4 errno=PIN_ERR_DM_CONNECT_FAILED:26>
+	<field num=0:0,0 recid=0 reserved=3 reserved2=0 time(sec:usec)=0:0>
+	<facility=0 msg_id=0 version=0>
+E Wed 31 Dec 2025 06:10:27 PM EST  Intellious  <no name>:353525  pcpst.c(131):2164 3:Intellious:<no_name>:353525:980494144:21:1767222627688033:1:::::-1
+	pcp_connect(), connecting to host=192.168.56.101, port=12950 - failed
+E Wed 31 Dec 2025 06:10:27 PM EST  Intellious  <no name>:353525  pcm.c(67):799 3:Intellious:<no_name>:353525:980494144:21:1767222627688033:1:::::-1
+	Op (PCM_OP_SET_DD) send failed in pcm_op
+	<location=PIN_ERRLOC_PCP:2 class=PIN_ERRCLASS_APPLICATION:4 errno=PIN_ERR_DM_CONNECT_FAILED:26>
+	<field num=0:0,0 recid=0 reserved=3 reserved2=0 time(sec:usec)=0:0>
+	<facility=0 msg_id=0 version=0>

@@ -1,0 +1,1594 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="Pipeline_PDK" version="15.0.1.0.0" description="Pipeline PDK Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="ifw.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="etc" mode="750" patchable="true">
+         <file size="1036" dest="EXT_InEasyDB_ERROR.msg" mode="0664"/>
+         <file size="5669" dest="DAT_Listener.msg" mode="0664"/>
+         <file size="208" dest="FCT_Reject_Error.msg" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="DAT_Listener.msg"/>
+            <permission mode="0664" wildcard="EXT_InEasyDB_ERROR.msg"/>
+            <permission mode="0664" wildcard="FCT_Reject_Error.msg"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Solution42" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="14438" dest="SOL42_V411.dsc" mode="0664"/>
+               <file size="10288" dest="SOL42_V411_InGrammar.dsc" mode="0664"/>
+               <file size="33234" dest="SOL42_V411_InMap.dsc" mode="0664"/>
+               <file size="8327" dest="SOL42_V411_OutGrammar.dsc" mode="0664"/>
+               <file size="16081" dest="SOL42_V411_OutMap.dsc" mode="0664"/>
+               <file size="23466" dest="SOL42_V650.dsc" mode="0664"/>
+               <file size="17988" dest="SOL42_V650_InGrammar.dsc" mode="0664"/>
+               <file size="12710" dest="SOL42_V650_OutGrammar.dsc" mode="0664"/>
+               <file size="30585" dest="SOL42_V650_OutMap.dsc" mode="0664"/>
+               <file size="27916" dest="SOL42_V650_REL.dsc" mode="0664"/>
+               <file size="30508" dest="SOL42_V650_InMap.dsc" mode="0664"/>
+               <file size="25834" dest="SOL42_V650_REL_FORINPUT.dsc" mode="0664"/>
+               <file size="18474" dest="SOL42_V650_REL_InGrammar.dsc" mode="0664"/>
+               <file size="18575" dest="SOL42_V650_REL_InGrammar_BACKOUT.dsc" mode="0664"/>
+               <file size="16612" dest="SOL42_V650_REL_OutGrammar.dsc" mode="0664"/>
+               <file size="33713" dest="SOL42_V650_REL_OutMap.dsc" mode="0664"/>
+               <file size="30873" dest="SOL42_V650_REL_InMap.dsc" mode="0664"/>
+               <file size="13966" dest="SOL42_V650_REL_OutGrammar_BACKOUT.dsc" mode="0664"/>
+               <file size="20144" dest="SOL42_V670_InGrammar.dsc" mode="0664"/>
+               <file size="40570" dest="SOL42_V670.dsc" mode="0664"/>
+               <file size="49365" dest="SOL42_V670_InMap.dsc" mode="0664"/>
+               <file size="19587" dest="SOL42_V670_OutGrammar.dsc" mode="0664"/>
+               <file size="46545" dest="SOL42_V670_REL.dsc" mode="0664"/>
+               <file size="29004" dest="SOL42_V670_REL_InGrammar_BACKOUT.dsc" mode="0664"/>
+               <file size="52371" dest="SOL42_V670_OutMap.dsc" mode="0664"/>
+               <file size="24729" dest="SOL42_V670_REL_InGrammar.dsc" mode="0664"/>
+               <file size="44886" dest="SOL42_V670_REL_FORINPUT.dsc" mode="0664"/>
+               <file size="55853" dest="SOL42_V670_REL_InMap.dsc" mode="0664"/>
+               <file size="58939" dest="SOL42_V670_REL_OutMap.dsc" mode="0664"/>
+               <file size="18854" dest="SOL42_V670_REL_OutGrammar_BACKOUT.dsc" mode="0664"/>
+               <file size="22894" dest="SOL42_V670_REL_OutGrammar.dsc" mode="0664"/>
+               <file size="19933" dest="V670_EVENT_LOADER_OutGrammar.dsc" mode="0664"/>
+               <file size="34517" dest="V670_EVENT_LOADER_OutMap.dsc" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="SOL42_V411.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V411_InGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V411_InMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V411_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V411_OutMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_InGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_InMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_FORINPUT.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_InGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_InMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_OutGrammar_BACKOUT.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_OutMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_OutMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_InGrammar_BACKOUT.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V650_REL_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_InGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_InMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_OutMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_FORINPUT.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_InGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_InGrammar_BACKOUT.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_InMap.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_OutGrammar_BACKOUT.dsc"/>
+            <permission mode="0664" wildcard="SOL42_V670_REL_OutMap.dsc"/>
+            <permission mode="0664" wildcard="V670_EVENT_LOADER_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="V670_EVENT_LOADER_OutMap.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Portal" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="39524" dest="AliasFieldList.dsc" mode="0664"/>
+            <file size="180310" dest="containerDesc.dsc" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="AliasFieldList.dsc"/>
+            <permission mode="0664" wildcard="containerDesc.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="releaseNotes" mode="750" patchable="true">
+         <file size="5051" dest="RELEASE_NOTES.EXT_AsnTree" mode="0664"/>
+         <file size="971" dest="RELEASE_NOTES.IXT" mode="0664"/>
+         <file size="3298" dest="RELEASE_NOTES.EXT_Converter" mode="0664"/>
+         <file size="6096" dest="RELEASE_NOTES.EXT_InEasyDB" mode="0664"/>
+         <file size="4722" dest="RELEASE_NOTES.EXT_InFileManager" mode="0664"/>
+         <file size="8367" dest="RELEASE_NOTES.EXT_OutFileManager" mode="0664"/>
+         <file size="23497" dest="RELEASE_NOTES.DAT_Listener" mode="0664"/>
+         <file size="4440" dest="RELEASE_NOTES.FCT_EdrDump" mode="0664"/>
+         <file size="7556" dest="RELEASE_NOTES.FCT_IRules" mode="0664"/>
+         <file size="5191" dest="RELEASE_NOTES.FCT_IScript" mode="0664"/>
+         <file size="2220" dest="RELEASE_NOTES.INP_GenericStream" mode="0664"/>
+         <file size="2793" dest="RELEASE_NOTES.OUT_GenericStream" mode="0664"/>
+         <file size="2238" dest="RELEASE_NOTES.IXT_Db" mode="0664"/>
+         <file size="10225" dest="RELEASE_NOTES.DAT_PrefixDesc" mode="0664"/>
+         <file size="5104" dest="RELEASE_NOTES.FCT_PrefixDesc" mode="0664"/>
+         <file size="26750" dest="RELEASE_NOTES.Solution42" mode="0664"/>
+         <file size="29030" dest="RELEASE_NOTES.PortalContainerDesc" mode="0664"/>
+         <file size="11097" dest="RELEASE_NOTES.FCT_Reject" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="RELEASE_NOTES.DAT_Listener"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_PrefixDesc"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_Reject"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.IXT_Db"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.PortalContainerDesc"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.Solution42"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.DAT_PrefixDesc"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.EXT_AsnTree"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.EXT_Converter"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.EXT_InEasyDB"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.EXT_InFileManager"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.EXT_OutFileManager"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_EdrDump"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_IRules"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_IScript"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.INP_GenericStream"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.IXT"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.OUT_GenericStream"/>
+         </file-perms>
+      </directory>
+      <directory dest="samples" mode="750" patchable="true">
+         <directory dest="simple" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3674" dest="prefixdesc.dat" mode="0775"/>
+            <file size="2273" dest="simple.readme" mode="0775"/>
+            <file size="9822" dest="simple.reg" mode="0660"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="prefixdesc.dat"/>
+            <permission mode="0775" wildcard="simple.readme"/>
+            <permission mode="0660" wildcard="simple.reg"/>
+         </file-perms>
+      </directory>
+      <directory dest="samples" mode="750" patchable="true">
+         <directory dest="simple" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="in" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="3036" dest="testpipeline_simple_01.edr" mode="0775"/>
+                  <file size="3344" dest="testpipeline_simple_02.edr" mode="0775"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="testpipeline_simple_01.edr"/>
+            <permission mode="0775" wildcard="testpipeline_simple_02.edr"/>
+         </file-perms>
+      </directory>
+      <directory dest="semaphore" mode="750" patchable="true">
+         <file size="41" dest="stop_pre_recycle.reg" mode="0644"/>
+         <file size="41" dest="stop_pre_process.reg" mode="0644"/>
+         <file size="38" dest="stop_all_rate.reg" mode="0644"/>
+         <file size="204" dest="stop_all_pipeline.reg" mode="0644"/>
+         <file size="50" dest="stop_RealtimePipelineGPRS.reg" mode="0644"/>
+         <file size="50" dest="stop_RealtimePipelineZone.reg" mode="0644"/>
+         <file size="46" dest="stop_DiscountPipeline.reg" mode="0644"/>
+         <file size="49" dest="stop_RealtimePipelineGSM.reg" mode="0644"/>
+         <file size="198" dest="start_rerating_stop_main.reg" mode="0644"/>
+         <file size="89" dest="start_recycle.reg" mode="0644"/>
+         <file size="40" dest="start_pre_recycle.reg" mode="0644"/>
+         <file size="197" dest="start_main_stop_rerating.reg" mode="0644"/>
+         <file size="49" dest="start_RealtimePipelineZone.reg" mode="0644"/>
+         <file size="48" dest="start_RealtimePipelineGSM.reg" mode="0644"/>
+         <file size="195" dest="start_all_pipeline.reg" mode="0644"/>
+         <file size="46" dest="reload_price.reg" mode="0644"/>
+         <file size="45" dest="start_DiscountPipeline.reg" mode="0644"/>
+         <file size="40" dest="start_pre_process.reg" mode="0644"/>
+         <file size="49" dest="start_RealtimePipelineGPRS.reg" mode="0644"/>
+         <file size="48" dest="off_queue_buffer.reg" mode="0644"/>
+         <file size="91" dest="set_call_ass_limit.reg" mode="0644"/>
+         <file size="45" dest="reload_zone.reg" mode="0644"/>
+         <file size="43" dest="reload_Portal_act_data.reg" mode="0644"/>
+         <file size="53" dest="dump_portal_act_data.reg" mode="0644"/>
+         <file size="37" dest="start_all_rate.reg" mode="0664"/>
+         <file-perms>
+            <permission mode="0644" wildcard="dump_portal_act_data.reg"/>
+            <permission mode="0644" wildcard="off_queue_buffer.reg"/>
+            <permission mode="0644" wildcard="reload_Portal_act_data.reg"/>
+            <permission mode="0644" wildcard="reload_price.reg"/>
+            <permission mode="0644" wildcard="reload_zone.reg"/>
+            <permission mode="0644" wildcard="set_call_ass_limit.reg"/>
+            <permission mode="0644" wildcard="start_all_pipeline.reg"/>
+            <permission mode="0644" wildcard="start_DiscountPipeline.reg"/>
+            <permission mode="0644" wildcard="start_main_stop_rerating.reg"/>
+            <permission mode="0644" wildcard="start_pre_process.reg"/>
+            <permission mode="0644" wildcard="start_pre_recycle.reg"/>
+            <permission mode="0644" wildcard="start_RealtimePipelineGPRS.reg"/>
+            <permission mode="0644" wildcard="start_RealtimePipelineGSM.reg"/>
+            <permission mode="0644" wildcard="start_RealtimePipelineZone.reg"/>
+            <permission mode="0644" wildcard="start_recycle.reg"/>
+            <permission mode="0644" wildcard="start_rerating_stop_main.reg"/>
+            <permission mode="0644" wildcard="stop_all_pipeline.reg"/>
+            <permission mode="0644" wildcard="stop_all_rate.reg"/>
+            <permission mode="0644" wildcard="stop_DiscountPipeline.reg"/>
+            <permission mode="0644" wildcard="stop_pre_process.reg"/>
+            <permission mode="0644" wildcard="stop_pre_recycle.reg"/>
+            <permission mode="0644" wildcard="stop_RealtimePipelineGPRS.reg"/>
+            <permission mode="0644" wildcard="stop_RealtimePipelineGSM.reg"/>
+            <permission mode="0644" wildcard="stop_RealtimePipelineZone.reg"/>
+         </file-perms>
+      </directory>
+      <directory dest="conf" mode="750" patchable="true">
+         <directory dest="pricingdata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2288" dest="ifw_alias_map.sql" mode="0664"/>
+               <file size="1579" dest="ifw_apn_map.sql" mode="0664"/>
+               <file size="17207" dest="ifw_currency_all.sql" mode="0664"/>
+               <file size="119" dest="ifw_calendar.sql" mode="0664"/>
+               <file size="654" dest="ifw_daycode.sql" mode="0664"/>
+               <file size="109379" dest="ifw_destinationdesc.sql" mode="0664"/>
+               <file size="148" dest="ifw_apn_group.sql" mode="0664"/>
+               <file size="737" dest="ifw_discarding.sql" mode="0664"/>
+               <file size="1858" dest="ifw_discountbalimpact.sql" mode="0664"/>
+               <file size="768" dest="ifw_discountcondition.sql" mode="0664"/>
+               <file size="1323" dest="ifw_discountdetail.sql" mode="0664"/>
+               <file size="477" dest="ifw_discountmaster.sql" mode="0664"/>
+               <file size="688" dest="ifw_discountmdl_ver.sql" mode="0664"/>
+               <file size="903" dest="ifw_discountrule.sql" mode="0664"/>
+               <file size="1137" dest="ifw_discountmdl_cnf.sql" mode="0664"/>
+               <file size="555" dest="ifw_discountmodel.sql" mode="0664"/>
+               <file size="853" dest="ifw_discountstep.sql" mode="0664"/>
+               <file size="476" dest="ifw_discounttrigger.sql" mode="0664"/>
+               <file size="133" dest="ifw_edrc_desc.sql" mode="0664"/>
+               <file size="84316" dest="ifw_edrc_field.sql" mode="0664"/>
+               <file size="976" dest="ifw_holiday.sql" mode="0664"/>
+               <file size="1903" dest="ifw_glaccount.sql" mode="0664"/>
+               <file size="2007" dest="ifw_impact_category.sql" mode="0664"/>
+               <file size="2940" dest="ifw_pipeline.sql" mode="0664"/>
+               <file size="331" dest="ifw_map_group.sql" mode="0664"/>
+               <file size="24477" dest="ifw_pricemodel_step.sql" mode="0664"/>
+               <file size="1187" dest="ifw_rateplan.sql" mode="0664"/>
+               <file size="285535" dest="ifw_rateplan_cnf.sql" mode="0664"/>
+               <file size="5185" dest="ifw_pricemodel.sql" mode="0664"/>
+               <file size="1166" dest="ifw_rateplan_ver.sql" mode="0664"/>
+               <file size="541" dest="ifw_resource.sql" mode="0664"/>
+               <file size="1448" dest="ifw_ref_map.sql" mode="0664"/>
+               <file size="125" dest="ifw_rsc_group.sql" mode="0664"/>
+               <file size="331" dest="ifw_rumgroup_all.sql" mode="0664"/>
+               <file size="321" dest="ifw_rum_all.sql" mode="0664"/>
+               <file size="537" dest="ifw_rumgroup_lnk_all.sql" mode="0664"/>
+               <file size="1797" dest="ifw_service_all.sql" mode="0664"/>
+               <file size="2064" dest="ifw_service.sql" mode="0664"/>
+               <file size="879" dest="ifw_serviceclass.sql" mode="0664"/>
+               <file size="206" dest="ifw_specialday_lnk.sql" mode="0664"/>
+               <file size="268" dest="ifw_specialdayrate.sql" mode="0664"/>
+               <file size="182151" dest="ifw_standard_zone.sql" mode="0664"/>
+               <file size="236" dest="ifw_taxcode.sql" mode="0664"/>
+               <file size="963" dest="ifw_tax.sql" mode="0664"/>
+               <file size="1510" dest="ifw_timeinterval.sql" mode="0664"/>
+               <file size="427" dest="ifw_timemodel.sql" mode="0664"/>
+               <file size="180" dest="ifw_taxgroup.sql" mode="0664"/>
+               <file size="2880" dest="ifw_timemodel_lnk.sql" mode="0664"/>
+               <file size="183" dest="ifw_usageclass.sql" mode="0664"/>
+               <file size="71" dest="ifw_uom.sql" mode="0664"/>
+               <file size="199" dest="ifw_uom_all.sql" mode="0664"/>
+               <file size="698" dest="ifw_timezone.sql" mode="0664"/>
+               <file size="742" dest="ifw_usageclass_map.sql" mode="0664"/>
+               <file size="478" dest="ifw_zonemodel.sql" mode="0664"/>
+               <file size="3284" dest="ifw_usagescenario_map.sql" mode="0664"/>
+               <file size="181" dest="ifw_usc_group.sql" mode="0664"/>
+               <file size="408" dest="ifw_usagetype.sql" mode="0664"/>
+               <file size="107" dest="insertWIRELESS_SAMPLE.pl" mode="0775"/>
+               <file size="1222" dest="insertWIRELESS_SAMPLE.sql" mode="0664"/>
+            </directory>
+         </directory>
+         <file size="5669" dest="wireless.readme" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="ifw_apn_group.sql"/>
+            <permission mode="0664" wildcard="ifw_apn_map.sql"/>
+            <permission mode="0664" wildcard="ifw_calendar.sql"/>
+            <permission mode="0664" wildcard="ifw_currency_all.sql"/>
+            <permission mode="0664" wildcard="ifw_daycode.sql"/>
+            <permission mode="0664" wildcard="ifw_destinationdesc.sql"/>
+            <permission mode="0664" wildcard="ifw_discarding.sql"/>
+            <permission mode="0664" wildcard="ifw_discountbalimpact.sql"/>
+            <permission mode="0664" wildcard="ifw_discountcondition.sql"/>
+            <permission mode="0664" wildcard="ifw_discountdetail.sql"/>
+            <permission mode="0664" wildcard="ifw_discountmaster.sql"/>
+            <permission mode="0664" wildcard="ifw_discountmdl_ver.sql"/>
+            <permission mode="0664" wildcard="ifw_discountmdl_cnf.sql"/>
+            <permission mode="0664" wildcard="ifw_discountmodel.sql"/>
+            <permission mode="0664" wildcard="ifw_alias_map.sql"/>
+            <permission mode="0664" wildcard="ifw_discountrule.sql"/>
+            <permission mode="0664" wildcard="ifw_discountstep.sql"/>
+            <permission mode="0664" wildcard="ifw_discounttrigger.sql"/>
+            <permission mode="0664" wildcard="ifw_edrc_desc.sql"/>
+            <permission mode="0664" wildcard="ifw_edrc_field.sql"/>
+            <permission mode="0664" wildcard="ifw_glaccount.sql"/>
+            <permission mode="0664" wildcard="ifw_holiday.sql"/>
+            <permission mode="0664" wildcard="ifw_impact_category.sql"/>
+            <permission mode="0664" wildcard="ifw_map_group.sql"/>
+            <permission mode="0664" wildcard="ifw_pipeline.sql"/>
+            <permission mode="0664" wildcard="ifw_pricemodel.sql"/>
+            <permission mode="0664" wildcard="ifw_pricemodel_step.sql"/>
+            <permission mode="0664" wildcard="ifw_rateplan.sql"/>
+            <permission mode="0664" wildcard="ifw_rateplan_ver.sql"/>
+            <permission mode="0664" wildcard="ifw_ref_map.sql"/>
+            <permission mode="0664" wildcard="ifw_resource.sql"/>
+            <permission mode="0664" wildcard="ifw_rsc_group.sql"/>
+            <permission mode="0664" wildcard="ifw_rum_all.sql"/>
+            <permission mode="0664" wildcard="ifw_rumgroup_all.sql"/>
+            <permission mode="0664" wildcard="ifw_rumgroup_lnk_all.sql"/>
+            <permission mode="0664" wildcard="ifw_service.sql"/>
+            <permission mode="0664" wildcard="ifw_service_all.sql"/>
+            <permission mode="0664" wildcard="ifw_serviceclass.sql"/>
+            <permission mode="0664" wildcard="ifw_specialday_lnk.sql"/>
+            <permission mode="0664" wildcard="ifw_specialdayrate.sql"/>
+            <permission mode="0664" wildcard="ifw_standard_zone.sql"/>
+            <permission mode="0664" wildcard="ifw_tax.sql"/>
+            <permission mode="0664" wildcard="ifw_taxcode.sql"/>
+            <permission mode="0664" wildcard="ifw_taxgroup.sql"/>
+            <permission mode="0664" wildcard="ifw_timeinterval.sql"/>
+            <permission mode="0664" wildcard="ifw_timemodel.sql"/>
+            <permission mode="0664" wildcard="ifw_timemodel_lnk.sql"/>
+            <permission mode="0664" wildcard="ifw_timezone.sql"/>
+            <permission mode="0664" wildcard="ifw_uom.sql"/>
+            <permission mode="0664" wildcard="ifw_uom_all.sql"/>
+            <permission mode="0664" wildcard="ifw_usageclass.sql"/>
+            <permission mode="0664" wildcard="ifw_usageclass_map.sql"/>
+            <permission mode="0664" wildcard="ifw_usagescenario_map.sql"/>
+            <permission mode="0664" wildcard="ifw_usagetype.sql"/>
+            <permission mode="0664" wildcard="ifw_usc_group.sql"/>
+            <permission mode="0664" wildcard="ifw_zonemodel.sql"/>
+            <permission mode="0775" wildcard="insertWIRELESS_SAMPLE.pl"/>
+            <permission mode="0664" wildcard="insertWIRELESS_SAMPLE.sql"/>
+            <permission mode="0664" wildcard="ifw_rateplan_cnf.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="etc" mode="750" patchable="true">
+         <file size="56647" dest="Framework.msg" mode="0664"/>
+         <file size="1074" dest="OMF.msg" mode="0664"/>
+         <file size="638" dest="FCT_IScriptPlugIn_Error.msg" mode="0664"/>
+         <file size="586" dest="INP_GenericStream_Error.msg" mode="0664"/>
+         <file size="405" dest="OUT_GenericStream_Error.msg" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="DAT_Sample_ERROR.msg"/>
+            <permission mode="0664" wildcard="FCT_IScriptPlugIn_Error.msg"/>
+            <permission mode="0664" wildcard="Framework.msg"/>
+            <permission mode="0664" wildcard="INP_GenericStream_Error.msg"/>
+            <permission mode="0664" wildcard="OUT_GenericStream_Error.msg"/>
+            <permission mode="0664" wildcard="OMF.msg"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="BAS" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1094" dest="BinStr.hpp" mode="0664"/>
+            <file size="851" dest="Blob.hpp" mode="0664"/>
+            <file size="723" dest="ConcreteType.hpp" mode="0664"/>
+            <file size="776" dest="DataCollection.hpp" mode="0664"/>
+            <file size="736" dest="DataValue.hpp" mode="0664"/>
+            <file size="19489" dest="Date.hpp" mode="0664"/>
+            <file size="31897" dest="DateTime.hpp" mode="0664"/>
+            <file size="22361" dest="DecImpl.hpp" mode="0664"/>
+            <file size="1047" dest="Long.hpp" mode="0664"/>
+            <file size="34879" dest="Decimal.hpp" mode="0664"/>
+            <file size="12922" dest="LongDecimal.hpp" mode="0664"/>
+            <file size="7966" dest="Identifier.hpp" mode="0664"/>
+            <file size="7401" dest="SimpleString.hpp" mode="0664"/>
+            <file size="664" dest="Map.hpp" mode="0664"/>
+            <file size="2066" dest="IdentifierType.hpp" mode="0664"/>
+            <file size="6532" dest="IdentifierIdIterator.hpp" mode="0664"/>
+            <file size="4182" dest="SimpleTPtrPair.hpp" mode="0664"/>
+            <file size="673" dest="TextBuf.hpp" mode="0664"/>
+            <file size="9710" dest="SimpleTPtrVector.hpp" mode="0664"/>
+            <file size="4998" dest="MemoryPool.hpp" mode="0664"/>
+            <file size="5659" dest="ProtectedBool.hpp" mode="0664"/>
+            <file size="4484" dest="MemoryPool.cpp" mode="0664"/>
+            <file size="8399" dest="KeyedContainerLockGuard.hpp" mode="0664"/>
+            <file size="4012" dest="MemoryRangeItem.hpp" mode="0664"/>
+            <file size="5851" dest="MemoryBlockContainer.cpp" mode="0664"/>
+            <file size="3594" dest="NonDeleteableMemoryBlock.hpp" mode="0664"/>
+            <file size="6004" dest="MemoryBlock.hpp" mode="0664"/>
+            <file size="16135" dest="Time.hpp" mode="0664"/>
+            <file size="1743" dest="LRUObject.hpp" mode="0664"/>
+            <file size="3428" dest="DeleteableMemoryBlock.hpp" mode="0664"/>
+            <file size="1385" dest="LRUObjectIf.hpp" mode="0664"/>
+            <file size="4447" dest="DeleteableMemoryPool.hpp" mode="0664"/>
+            <file size="7160" dest="Crypt.hpp" mode="0664"/>
+            <file size="4014" dest="NonDeleteableMemoryPool.hpp" mode="0664"/>
+            <file size="2062" dest="CacheObjectRef.hpp" mode="0664"/>
+            <file size="7294" dest="Collection.cpp" mode="0664"/>
+            <file size="6863" dest="VariableSizeMemoryManager.hpp" mode="0664"/>
+            <file size="5560" dest="HandleTemplate.hpp" mode="0664"/>
+            <file size="2320" dest="CacheObject.hpp" mode="0664"/>
+            <file size="3698" dest="MemoryBlockContainer.hpp" mode="0664"/>
+            <file size="702" dest="Sequence.hpp" mode="0664"/>
+            <file size="4115" dest="Block.hpp" mode="0664"/>
+            <file size="3102" dest="Defs.hpp" mode="0664"/>
+            <file size="41882" dest="String.hpp" mode="0664"/>
+            <file size="3463" dest="FixedGrowingStrategy.hpp" mode="0664"/>
+            <file size="2439" dest="Exception.hpp" mode="0664"/>
+            <file size="2883" dest="Latch.hpp" mode="0664"/>
+            <file size="2607" dest="KeyedLockGuard.hpp" mode="0664"/>
+            <file size="4464" dest="Helpers.hpp" mode="0664"/>
+            <file size="3841" dest="LockableHashMap.hpp" mode="0664"/>
+            <file size="8648" dest="Collection.hpp" mode="0664"/>
+            <file size="5384" dest="Container.hpp" mode="0664"/>
+            <file size="2877" dest="KeyedObjectPoolObject.cpp" mode="0664"/>
+            <file size="3654" dest="KeyedContainerLockGuard.cpp" mode="0664"/>
+            <file size="2581" dest="LockableHashMap.cpp" mode="0664"/>
+            <file size="2400" dest="LockableHashMapBase.hpp" mode="0664"/>
+            <file size="2989" dest="LockPoolLockGuard.hpp" mode="0664"/>
+            <file size="5463" dest="KeyedObjectPool.cpp" mode="0664"/>
+            <file size="1694" dest="LockedIterator.hpp" mode="0664"/>
+            <file size="4099" dest="HashString.hpp" mode="0664"/>
+            <file size="3057" dest="LimitChecker.hpp" mode="0664"/>
+            <file size="2340" dest="LockableMapBase.hpp" mode="0664"/>
+            <file size="1943" dest="LockablePersistedHashMap.cpp" mode="0664"/>
+            <file size="3743" dest="LockablePersistedHashMap.hpp" mode="0664"/>
+            <file size="2880" dest="LRUCache.hpp" mode="0664"/>
+            <file size="2831" dest="LockableTableConstItr.cpp" mode="0664"/>
+            <file size="1491" dest="LockIf.hpp" mode="0664"/>
+            <file size="1493" dest="NanoSecondTimer.hpp" mode="0664"/>
+            <file size="6386" dest="NormNumber.hpp" mode="0664"/>
+            <file size="5739" dest="ObjectPool.hpp" mode="0664"/>
+            <file size="4501" dest="ObjectPool.cpp" mode="0664"/>
+            <file size="1953" dest="KeyedLockGuard.cpp" mode="0664"/>
+            <file size="2182" dest="Handle.hpp" mode="0664"/>
+            <file size="2055" dest="LockableMap.cpp" mode="0664"/>
+            <file size="2191" dest="LockPool.cpp" mode="0664"/>
+            <file size="11590" dest="Directory.hpp" mode="0664"/>
+            <file size="1821" dest="LockedIterator.cpp" mode="0664"/>
+            <file size="2906" dest="LockPool.hpp" mode="0664"/>
+            <file size="2640" dest="Mutex.hpp" mode="0664"/>
+            <file size="1918" dest="LockGuard.hpp" mode="0664"/>
+            <file size="3289" dest="Serialize.hpp" mode="0664"/>
+            <file size="3124" dest="LockableMap.hpp" mode="0664"/>
+            <file size="3067" dest="LockableTableConstItr.hpp" mode="0664"/>
+            <file size="1721" dest="MicroSecondTimer.hpp" mode="0664"/>
+            <file size="11469" dest="Thread.hpp" mode="0664"/>
+            <file size="6552" dest="OnlyPointer.hpp" mode="0664"/>
+            <file size="6155" dest="ProcTimeCounter.hpp" mode="0664"/>
+            <file size="3421" dest="ThreadInfo.hpp" mode="0664"/>
+            <file size="3305" dest="ValOrderedVectorConstItr.hpp" mode="0664"/>
+            <file size="2761" dest="SpinLock.hpp" mode="0664"/>
+            <file size="4958" dest="KeyedObjectPool.hpp" mode="0664"/>
+            <file size="3366" dest="RatioGrowingStrategy.hpp" mode="0664"/>
+            <file size="5074" dest="ProcTime.hpp" mode="0664"/>
+            <file size="1779" dest="LockableMapBase.cpp" mode="0664"/>
+            <file size="6899" dest="LockableTable.cpp" mode="0664"/>
+            <file size="4976" dest="ValOrderedVectorItrBase.hpp" mode="0664"/>
+            <file size="2415" dest="LockPoolLockGuard.cpp" mode="0664"/>
+            <file size="2806" dest="GrowingStrategy.hpp" mode="0664"/>
+            <file size="7739" dest="LockableTable.hpp" mode="0664"/>
+            <file size="21419" dest="Trace.hpp" mode="0664"/>
+            <file size="3151" dest="ValOrderedVectorItr.hpp" mode="0664"/>
+            <file size="2822" dest="ControllerIf.hpp" mode="0664"/>
+            <file size="1823" dest="LockableHashMapBase.cpp" mode="0664"/>
+            <file size="1001" dest="FrameworkVersion.hpp" mode="0664"/>
+            <file size="2409" dest="InstrumentationProbeList.hpp" mode="0664"/>
+            <file size="2662" dest="Object.hpp" mode="0664"/>
+            <file size="19354" dest="RegistryEntry.hpp" mode="0664"/>
+            <file size="10974" dest="Status.hpp" mode="0664"/>
+            <file size="6386" dest="InstrumentationProbeCollection.cpp" mode="0664"/>
+            <file size="9828" dest="InstrumentationProbeCollection.hpp" mode="0664"/>
+            <file size="13964" dest="InstrumentationProbe.hpp" mode="0664"/>
+            <file size="4236" dest="InstrumentationProbeAttribute.hpp" mode="0664"/>
+            <file size="2762" dest="InstrumentationProbeTable.hpp" mode="0664"/>
+            <file size="2623" dest="NoGrowingStrategy.hpp" mode="0664"/>
+            <file size="2690" dest="DBInteger.hpp" mode="0664"/>
+            <file size="4051" dest="InstrumentationProbeValue.hpp" mode="0664"/>
+            <file size="4216" dest="KeyedObjectPoolObject.hpp" mode="0664"/>
+            <file size="1488" dest="TimerIf.hpp" mode="0664"/>
+            <file size="3595" dest="InstrumentationProbeValue.cpp" mode="0664"/>
+            <file size="8545" dest="Message.hpp" mode="0664"/>
+            <file size="3426" dest="InstrumentationProbeGroup.hpp" mode="0664"/>
+            <file size="35895" dest="RegisteredObject.hpp" mode="0664"/>
+            <file size="3311" dest="InstrumentationProbeValueIf.hpp" mode="0664"/>
+            <file size="4750" dest="DBTBuffer.hpp" mode="0664"/>
+            <file size="3444" dest="RefCounter.hpp" mode="0664"/>
+            <file size="6774" dest="LockedValOrderedVector.hpp" mode="0664"/>
+            <file size="8338" dest="HandleTemplate.cpp" mode="0664"/>
+         </directory>
+         <directory dest="DBC" mode="750" patchable="true">
+            <file size="23701" dest="DatabasePlugIn.hpp" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="Collection.cpp"/>
+            <permission mode="0664" wildcard="HandleTemplate.cpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeCollection.cpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeValue.cpp"/>
+            <permission mode="0664" wildcard="KeyedContainerLockGuard.cpp"/>
+            <permission mode="0664" wildcard="KeyedLockGuard.cpp"/>
+            <permission mode="0664" wildcard="KeyedObjectPool.cpp"/>
+            <permission mode="0664" wildcard="KeyedObjectPoolObject.cpp"/>
+            <permission mode="0664" wildcard="LockableHashMapBase.cpp"/>
+            <permission mode="0664" wildcard="LockableHashMap.cpp"/>
+            <permission mode="0664" wildcard="LockableMapBase.cpp"/>
+            <permission mode="0664" wildcard="LockableMap.cpp"/>
+            <permission mode="0664" wildcard="LockablePersistedHashMap.cpp"/>
+            <permission mode="0664" wildcard="LockableTableConstItr.cpp"/>
+            <permission mode="0664" wildcard="LockableTable.cpp"/>
+            <permission mode="0664" wildcard="LockedIterator.cpp"/>
+            <permission mode="0664" wildcard="LockPool.cpp"/>
+            <permission mode="0664" wildcard="LockPoolLockGuard.cpp"/>
+            <permission mode="0664" wildcard="MemoryBlockContainer.cpp"/>
+            <permission mode="0664" wildcard="MemoryPool.cpp"/>
+            <permission mode="0664" wildcard="ObjectPool.cpp"/>
+            <permission mode="0664" wildcard="BinStr.hpp"/>
+            <permission mode="0664" wildcard="Blob.hpp"/>
+            <permission mode="0664" wildcard="Block.hpp"/>
+            <permission mode="0664" wildcard="CacheObject.hpp"/>
+            <permission mode="0664" wildcard="CacheObjectRef.hpp"/>
+            <permission mode="0664" wildcard="Collection.hpp"/>
+            <permission mode="0664" wildcard="ConcreteType.hpp"/>
+            <permission mode="0664" wildcard="Container.hpp"/>
+            <permission mode="0664" wildcard="ControllerIf.hpp"/>
+            <permission mode="0664" wildcard="Crypt.hpp"/>
+            <permission mode="0664" wildcard="DataCollection.hpp"/>
+            <permission mode="0664" wildcard="DataValue.hpp"/>
+            <permission mode="0664" wildcard="Date.hpp"/>
+            <permission mode="0664" wildcard="DateTime.hpp"/>
+            <permission mode="0664" wildcard="DBInteger.hpp"/>
+            <permission mode="0664" wildcard="DBTBuffer.hpp"/>
+            <permission mode="0664" wildcard="Decimal.hpp"/>
+            <permission mode="0664" wildcard="DecImpl.hpp"/>
+            <permission mode="0664" wildcard="Defs.hpp"/>
+            <permission mode="0664" wildcard="DeleteableMemoryBlock.hpp"/>
+            <permission mode="0664" wildcard="DeleteableMemoryPool.hpp"/>
+            <permission mode="0664" wildcard="Directory.hpp"/>
+            <permission mode="0664" wildcard="Exception.hpp"/>
+            <permission mode="0664" wildcard="FixedGrowingStrategy.hpp"/>
+            <permission mode="0664" wildcard="FrameworkVersion.hpp"/>
+            <permission mode="0664" wildcard="GrowingStrategy.hpp"/>
+            <permission mode="0664" wildcard="Handle.hpp"/>
+            <permission mode="0664" wildcard="HandleTemplate.hpp"/>
+            <permission mode="0664" wildcard="HashString.hpp"/>
+            <permission mode="0664" wildcard="Helpers.hpp"/>
+            <permission mode="0664" wildcard="Identifier.hpp"/>
+            <permission mode="0664" wildcard="IdentifierIdIterator.hpp"/>
+            <permission mode="0664" wildcard="IdentifierType.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbe.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeAttribute.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeCollection.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeGroup.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeList.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeTable.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeValue.hpp"/>
+            <permission mode="0664" wildcard="InstrumentationProbeValueIf.hpp"/>
+            <permission mode="0664" wildcard="KeyedContainerLockGuard.hpp"/>
+            <permission mode="0664" wildcard="KeyedLockGuard.hpp"/>
+            <permission mode="0664" wildcard="KeyedObjectPool.hpp"/>
+            <permission mode="0664" wildcard="KeyedObjectPoolObject.hpp"/>
+            <permission mode="0664" wildcard="Latch.hpp"/>
+            <permission mode="0664" wildcard="LimitChecker.hpp"/>
+            <permission mode="0664" wildcard="LockableHashMap.hpp"/>
+            <permission mode="0664" wildcard="LockableHashMapBase.hpp"/>
+            <permission mode="0664" wildcard="LockableMap.hpp"/>
+            <permission mode="0664" wildcard="LockableMapBase.hpp"/>
+            <permission mode="0664" wildcard="LockablePersistedHashMap.hpp"/>
+            <permission mode="0664" wildcard="LockableTable.hpp"/>
+            <permission mode="0664" wildcard="LockableTableConstItr.hpp"/>
+            <permission mode="0664" wildcard="LockedIterator.hpp"/>
+            <permission mode="0664" wildcard="LockedValOrderedVector.hpp"/>
+            <permission mode="0664" wildcard="LockGuard.hpp"/>
+            <permission mode="0664" wildcard="LockIf.hpp"/>
+            <permission mode="0664" wildcard="LockPool.hpp"/>
+            <permission mode="0664" wildcard="LockPoolLockGuard.hpp"/>
+            <permission mode="0664" wildcard="Long.hpp"/>
+            <permission mode="0664" wildcard="LongDecimal.hpp"/>
+            <permission mode="0664" wildcard="LRUCache.hpp"/>
+            <permission mode="0664" wildcard="LRUObject.hpp"/>
+            <permission mode="0664" wildcard="LRUObjectIf.hpp"/>
+            <permission mode="0664" wildcard="Map.hpp"/>
+            <permission mode="0664" wildcard="MemoryBlock.hpp"/>
+            <permission mode="0664" wildcard="MemoryBlockContainer.hpp"/>
+            <permission mode="0664" wildcard="MemoryPool.hpp"/>
+            <permission mode="0664" wildcard="MemoryRangeItem.hpp"/>
+            <permission mode="0664" wildcard="Message.hpp"/>
+            <permission mode="0664" wildcard="MicroSecondTimer.hpp"/>
+            <permission mode="0664" wildcard="Mutex.hpp"/>
+            <permission mode="0664" wildcard="NanoSecondTimer.hpp"/>
+            <permission mode="0664" wildcard="NoGrowingStrategy.hpp"/>
+            <permission mode="0664" wildcard="NonDeleteableMemoryBlock.hpp"/>
+            <permission mode="0664" wildcard="NonDeleteableMemoryPool.hpp"/>
+            <permission mode="0664" wildcard="NormNumber.hpp"/>
+            <permission mode="0664" wildcard="Object.hpp"/>
+            <permission mode="0664" wildcard="ObjectPool.hpp"/>
+            <permission mode="0664" wildcard="OnlyPointer.hpp"/>
+            <permission mode="0664" wildcard="ProcTime.hpp"/>
+            <permission mode="0664" wildcard="ProcTimeCounter.hpp"/>
+            <permission mode="0664" wildcard="ProtectedBool.hpp"/>
+            <permission mode="0664" wildcard="RatioGrowingStrategy.hpp"/>
+            <permission mode="0664" wildcard="RefCounter.hpp"/>
+            <permission mode="0664" wildcard="RegisteredObject.hpp"/>
+            <permission mode="0664" wildcard="RegistryEntry.hpp"/>
+            <permission mode="0664" wildcard="Sequence.hpp"/>
+            <permission mode="0664" wildcard="Serialize.hpp"/>
+            <permission mode="0664" wildcard="SimpleString.hpp"/>
+            <permission mode="0664" wildcard="SimpleTPtrPair.hpp"/>
+            <permission mode="0664" wildcard="SimpleTPtrVector.hpp"/>
+            <permission mode="0664" wildcard="SpinLock.hpp"/>
+            <permission mode="0664" wildcard="Status.hpp"/>
+            <permission mode="0664" wildcard="String.hpp"/>
+            <permission mode="0664" wildcard="TextBuf.hpp"/>
+            <permission mode="0664" wildcard="Thread.hpp"/>
+            <permission mode="0664" wildcard="ThreadInfo.hpp"/>
+            <permission mode="0664" wildcard="Time.hpp"/>
+            <permission mode="0664" wildcard="TimerIf.hpp"/>
+            <permission mode="0664" wildcard="Trace.hpp"/>
+            <permission mode="0664" wildcard="ValOrderedVectorConstItr.hpp"/>
+            <permission mode="0664" wildcard="ValOrderedVectorItr.hpp"/>
+            <permission mode="0664" wildcard="ValOrderedVectorItrBase.hpp"/>
+            <permission mode="0664" wildcard="VariableSizeMemoryManager.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="EDR" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7103" dest="BlockIndex.hpp" mode="0664"/>
+            <file size="59111" dest="Container.hpp" mode="0664"/>
+            <file size="2534" dest="ChangeLog.hpp" mode="0664"/>
+            <file size="4984" dest="ContainerIndex.hpp" mode="0664"/>
+            <file size="3347" dest="ContainerCache.hpp" mode="0664"/>
+            <file size="14351" dest="Datablock.hpp" mode="0664"/>
+            <file size="3403" dest="DatablockCache.hpp" mode="0664"/>
+            <file size="8271" dest="DatablockDescr.hpp" mode="0664"/>
+            <file size="7409" dest="DatablockValue.hpp" mode="0664"/>
+            <file size="5808" dest="DateValue.hpp" mode="0664"/>
+            <file size="5896" dest="DecimalValue.hpp" mode="0664"/>
+            <file size="4508" dest="FieldMapKey.hpp" mode="0664"/>
+            <file size="33268" dest="Factory.hpp" mode="0664"/>
+            <file size="6251" dest="Index.hpp" mode="0664"/>
+            <file size="13575" dest="Iterator.hpp" mode="0664"/>
+            <file size="2793" dest="TokenCache.hpp" mode="0664"/>
+            <file size="5394" dest="SaxHandler.hpp" mode="0664"/>
+            <file size="6730" dest="FieldMapTable.hpp" mode="0664"/>
+            <file size="5942" dest="IntegerValue.hpp" mode="0664"/>
+            <file size="3359" dest="AccessorIf.hpp" mode="0664"/>
+            <file size="5584" dest="MetaData.hpp" mode="0664"/>
+            <file size="6536" dest="StringValue.hpp" mode="0664"/>
+            <file size="5158" dest="AscDateType.hpp" mode="0664"/>
+            <file size="6011" dest="ValueDescr.hpp" mode="0664"/>
+            <file size="1738" dest="FieldNotFoundException.hpp" mode="0664"/>
+            <file size="8126" dest="ValueIterator.hpp" mode="0664"/>
+            <file size="5324" dest="AscIntegerType.hpp" mode="0664"/>
+            <file size="3061" dest="Utils.hpp" mode="0664"/>
+            <file size="5757" dest="AscDecimalType.hpp" mode="0664"/>
+            <file size="4565" dest="PoidValue.hpp" mode="0664"/>
+            <file size="1683" dest="FieldNotCachedException.hpp" mode="0664"/>
+            <file size="1896" dest="FieldException.hpp" mode="0664"/>
+            <file size="13720" dest="FieldDescr.hpp" mode="0664"/>
+            <file size="5938" dest="AsnTagType.hpp" mode="0664"/>
+            <file size="3439" dest="TokenHandle.hpp" mode="0664"/>
+            <file size="5597" dest="AscStringType.hpp" mode="0664"/>
+            <file size="10509" dest="AsnFieldDescr.hpp" mode="0664"/>
+            <file size="7175" dest="AsnIntegerType.hpp" mode="0664"/>
+            <file size="5531" dest="FlistIntegerType.hpp" mode="0664"/>
+            <file size="5176" dest="AscDateUnixType.hpp" mode="0664"/>
+            <file size="7685" dest="AsnHexStringType.hpp" mode="0664"/>
+            <file size="3065" dest="AscRawStringType.hpp" mode="0664"/>
+            <file size="3774" dest="FlistContainerType.hpp" mode="0664"/>
+            <file size="5085" dest="AsnBcdStringType.hpp" mode="0664"/>
+            <file size="3806" dest="FlistIndexType.hpp" mode="0664"/>
+            <file size="3065" dest="TapPercentageRateType.hpp" mode="0664"/>
+            <file size="22649" dest="Value.hpp" mode="0664"/>
+            <file size="3003" dest="TapCurrencyType.hpp" mode="0664"/>
+            <file size="5040" dest="BinIntegerType.hpp" mode="0664"/>
+            <file size="4019" dest="PoidIf.hpp" mode="0664"/>
+            <file size="3830" dest="FlistPoidType.hpp" mode="0664"/>
+            <file size="2218" dest="SDSPoidType.hpp" mode="0664"/>
+            <file size="4971" dest="AsnBlobType.hpp" mode="0664"/>
+            <file size="3651" dest="TlvStringType.hpp" mode="0664"/>
+            <file size="2224" dest="SDSStringType.hpp" mode="0664"/>
+            <file size="2504" dest="CompactPoidSerializer.hpp" mode="0664"/>
+            <file size="4268" dest="AscPoidType.hpp" mode="0664"/>
+            <file size="5949" dest="Parameter.hpp" mode="0664"/>
+            <file size="3326" dest="DiameterGroupedType.hpp" mode="0664"/>
+            <file size="3735" dest="TlvTimestampType.hpp" mode="0664"/>
+            <file size="3879" dest="TlvTagType.hpp" mode="0664"/>
+            <file size="2191" dest="SDSLongType.hpp" mode="0664"/>
+            <file size="3660" dest="DiameterTimeType.hpp" mode="0664"/>
+            <file size="6609" dest="DiameterFieldDescr.hpp" mode="0664"/>
+            <file size="3761" dest="FlistTimestampType.hpp" mode="0664"/>
+            <file size="8591" dest="ByteBuffer.hpp" mode="0664"/>
+            <file size="7550" dest="AsnOctetStringType.hpp" mode="0664"/>
+            <file size="2949" dest="AsnLegacyOctetStringType.hpp" mode="0664"/>
+            <file size="5505" dest="TlvIntegerType.hpp" mode="0664"/>
+            <file size="10117" dest="Token.hpp" mode="0664"/>
+            <file size="9002" dest="CompactPoid.hpp" mode="0664"/>
+            <file size="2233" dest="SDSDecimalType.hpp" mode="0664"/>
+            <file size="5838" dest="FlistFieldDescr.hpp" mode="0664"/>
+            <file size="6159" dest="TlvFieldDescr.hpp" mode="0664"/>
+            <file size="3074" dest="AsnNumberStringType.hpp" mode="0664"/>
+            <file size="5182" dest="DiameterIntegerType.hpp" mode="0664"/>
+            <file size="3389" dest="DiameterStringType.hpp" mode="0664"/>
+            <file size="3753" dest="FlistDecimalType.hpp" mode="0664"/>
+            <file size="3429" dest="DiameterDecimalType.hpp" mode="0664"/>
+            <file size="3039" dest="TapDescriptionType.hpp" mode="0664"/>
+            <file size="3677" dest="FlistStringType.hpp" mode="0664"/>
+            <file size="3677" dest="FlistBinstrType.hpp" mode="0664"/>
+            <file size="3039" dest="TapAsciiStringType.hpp" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="AccessorIf.hpp"/>
+            <permission mode="0664" wildcard="AscDateType.hpp"/>
+            <permission mode="0664" wildcard="AscDateUnixType.hpp"/>
+            <permission mode="0664" wildcard="AscDecimalType.hpp"/>
+            <permission mode="0664" wildcard="AscIntegerType.hpp"/>
+            <permission mode="0664" wildcard="AscPoidType.hpp"/>
+            <permission mode="0664" wildcard="AscRawStringType.hpp"/>
+            <permission mode="0664" wildcard="AscStringType.hpp"/>
+            <permission mode="0664" wildcard="AsnBcdStringType.hpp"/>
+            <permission mode="0664" wildcard="AsnBlobType.hpp"/>
+            <permission mode="0664" wildcard="AsnFieldDescr.hpp"/>
+            <permission mode="0664" wildcard="AsnHexStringType.hpp"/>
+            <permission mode="0664" wildcard="AsnIntegerType.hpp"/>
+            <permission mode="0664" wildcard="AsnLegacyOctetStringType.hpp"/>
+            <permission mode="0664" wildcard="AsnNumberStringType.hpp"/>
+            <permission mode="0664" wildcard="AsnOctetStringType.hpp"/>
+            <permission mode="0664" wildcard="AsnTagType.hpp"/>
+            <permission mode="0664" wildcard="BinIntegerType.hpp"/>
+            <permission mode="0664" wildcard="BlockIndex.hpp"/>
+            <permission mode="0664" wildcard="ByteBuffer.hpp"/>
+            <permission mode="0664" wildcard="CompactPoid.hpp"/>
+            <permission mode="0664" wildcard="CompactPoidSerializer.hpp"/>
+            <permission mode="0664" wildcard="Container.hpp"/>
+            <permission mode="0664" wildcard="ContainerCache.hpp"/>
+            <permission mode="0664" wildcard="ContainerIndex.hpp"/>
+            <permission mode="0664" wildcard="Datablock.hpp"/>
+            <permission mode="0664" wildcard="DatablockCache.hpp"/>
+            <permission mode="0664" wildcard="DatablockDescr.hpp"/>
+            <permission mode="0664" wildcard="DatablockValue.hpp"/>
+            <permission mode="0664" wildcard="DateValue.hpp"/>
+            <permission mode="0664" wildcard="DecimalValue.hpp"/>
+            <permission mode="0664" wildcard="DiameterDecimalType.hpp"/>
+            <permission mode="0664" wildcard="DiameterFieldDescr.hpp"/>
+            <permission mode="0664" wildcard="DiameterGroupedType.hpp"/>
+            <permission mode="0664" wildcard="DiameterIntegerType.hpp"/>
+            <permission mode="0664" wildcard="DiameterStringType.hpp"/>
+            <permission mode="0664" wildcard="DiameterTimeType.hpp"/>
+            <permission mode="0664" wildcard="Factory.hpp"/>
+            <permission mode="0664" wildcard="FieldDescr.hpp"/>
+            <permission mode="0664" wildcard="FieldException.hpp"/>
+            <permission mode="0664" wildcard="FieldMapKey.hpp"/>
+            <permission mode="0664" wildcard="FieldMapTable.hpp"/>
+            <permission mode="0664" wildcard="FieldNotCachedException.hpp"/>
+            <permission mode="0664" wildcard="FieldNotFoundException.hpp"/>
+            <permission mode="0664" wildcard="FlistBinstrType.hpp"/>
+            <permission mode="0664" wildcard="FlistContainerType.hpp"/>
+            <permission mode="0664" wildcard="FlistDecimalType.hpp"/>
+            <permission mode="0664" wildcard="FlistFieldDescr.hpp"/>
+            <permission mode="0664" wildcard="FlistIndexType.hpp"/>
+            <permission mode="0664" wildcard="FlistIntegerType.hpp"/>
+            <permission mode="0664" wildcard="FlistPoidType.hpp"/>
+            <permission mode="0664" wildcard="FlistStringType.hpp"/>
+            <permission mode="0664" wildcard="FlistTimestampType.hpp"/>
+            <permission mode="0664" wildcard="Index.hpp"/>
+            <permission mode="0664" wildcard="IntegerValue.hpp"/>
+            <permission mode="0664" wildcard="Iterator.hpp"/>
+            <permission mode="0664" wildcard="MetaData.hpp"/>
+            <permission mode="0664" wildcard="Parameter.hpp"/>
+            <permission mode="0664" wildcard="PoidIf.hpp"/>
+            <permission mode="0664" wildcard="PoidValue.hpp"/>
+            <permission mode="0664" wildcard="SaxHandler.hpp"/>
+            <permission mode="0664" wildcard="SDSDecimalType.hpp"/>
+            <permission mode="0664" wildcard="SDSLongType.hpp"/>
+            <permission mode="0664" wildcard="SDSPoidType.hpp"/>
+            <permission mode="0664" wildcard="SDSStringType.hpp"/>
+            <permission mode="0664" wildcard="StringValue.hpp"/>
+            <permission mode="0664" wildcard="TapAsciiStringType.hpp"/>
+            <permission mode="0664" wildcard="TapCurrencyType.hpp"/>
+            <permission mode="0664" wildcard="TapDescriptionType.hpp"/>
+            <permission mode="0664" wildcard="TapPercentageRateType.hpp"/>
+            <permission mode="0664" wildcard="TlvFieldDescr.hpp"/>
+            <permission mode="0664" wildcard="TlvIntegerType.hpp"/>
+            <permission mode="0664" wildcard="TlvStringType.hpp"/>
+            <permission mode="0664" wildcard="TlvTagType.hpp"/>
+            <permission mode="0664" wildcard="TlvTimestampType.hpp"/>
+            <permission mode="0664" wildcard="Token.hpp"/>
+            <permission mode="0664" wildcard="TokenCache.hpp"/>
+            <permission mode="0664" wildcard="TokenHandle.hpp"/>
+            <permission mode="0664" wildcard="Utils.hpp"/>
+            <permission mode="0664" wildcard="Value.hpp"/>
+            <permission mode="0664" wildcard="ValueDescr.hpp"/>
+            <permission mode="0664" wildcard="ValueIterator.hpp"/>
+            <permission mode="0664" wildcard="ChangeLog.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="FRM" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="15270" dest="DataDescr.hpp" mode="0664"/>
+            <file size="13957" dest="DescrParser.hpp" mode="0664"/>
+            <file size="4532" dest="InMapASN.hpp" mode="0664"/>
+            <file size="4519" dest="InMapFix.hpp" mode="0664"/>
+            <file size="5305" dest="InMapSeparated.hpp" mode="0664"/>
+            <file size="5059" dest="InputMapping.hpp" mode="0664"/>
+            <file size="6958" dest="Mapping.hpp" mode="0664"/>
+            <file size="11090" dest="MappingConstant.hpp" mode="0664"/>
+            <file size="6211" dest="OutMapEntry.hpp" mode="0664"/>
+            <file size="5473" dest="OutMapFix.hpp" mode="0664"/>
+            <file size="5721" dest="OutMapSeparated.hpp" mode="0664"/>
+            <file size="6952" dest="RecordASN.hpp" mode="0664"/>
+            <file size="5650" dest="OutputMapping.hpp" mode="0664"/>
+            <file size="16824" dest="RecordDescr.hpp" mode="0664"/>
+            <file size="5383" dest="RecordFix.hpp" mode="0664"/>
+            <file size="4481" dest="StateTransition.hpp" mode="0664"/>
+            <file size="5401" dest="RecordSeparated.hpp" mode="0664"/>
+            <file size="9342" dest="StreamDescr.hpp" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="DataDescr.hpp"/>
+            <permission mode="0664" wildcard="DescrParser.hpp"/>
+            <permission mode="0664" wildcard="InMapASN.hpp"/>
+            <permission mode="0664" wildcard="InMapFix.hpp"/>
+            <permission mode="0664" wildcard="InMapSeparated.hpp"/>
+            <permission mode="0664" wildcard="InputMapping.hpp"/>
+            <permission mode="0664" wildcard="Mapping.hpp"/>
+            <permission mode="0664" wildcard="MappingConstant.hpp"/>
+            <permission mode="0664" wildcard="OutMapEntry.hpp"/>
+            <permission mode="0664" wildcard="OutMapFix.hpp"/>
+            <permission mode="0664" wildcard="OutMapSeparated.hpp"/>
+            <permission mode="0664" wildcard="OutputMapping.hpp"/>
+            <permission mode="0664" wildcard="RecordASN.hpp"/>
+            <permission mode="0664" wildcard="RecordDescr.hpp"/>
+            <permission mode="0664" wildcard="RecordFix.hpp"/>
+            <permission mode="0664" wildcard="RecordSeparated.hpp"/>
+            <permission mode="0664" wildcard="StateTransition.hpp"/>
+            <permission mode="0664" wildcard="StreamDescr.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="FSM" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7760" dest="EnginePart.hpp" mode="0664"/>
+            <file size="6855" dest="Engine.hpp" mode="0664"/>
+            <file size="5847" dest="MultiEngine.hpp" mode="0664"/>
+            <file size="23610" dest="State.hpp" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="Engine.hpp"/>
+            <permission mode="0664" wildcard="EnginePart.hpp"/>
+            <permission mode="0664" wildcard="MultiEngine.hpp"/>
+            <permission mode="0664" wildcard="State.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="IXT" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2743" dest="EdrAccess.hpp" mode="0644"/>
+            <file size="4409" dest="EdrAddDatablock.hpp" mode="0644"/>
+            <file size="3018" dest="EdrBlockAccess.hpp" mode="0644"/>
+            <file size="3692" dest="EdrDate.hpp" mode="0644"/>
+            <file size="3780" dest="EdrDecimal.hpp" mode="0644"/>
+            <file size="3234" dest="EdrDelete.hpp" mode="0644"/>
+            <file size="3357" dest="EdrDeleteDatablock.hpp" mode="0644"/>
+            <file size="3271" dest="EdrDeleteField.hpp" mode="0644"/>
+            <file size="3276" dest="EdrFieldConnectInfo.hpp" mode="0644"/>
+            <file size="1871" dest="EdrFieldTokenByteOffset.hpp" mode="0644"/>
+            <file size="3038" dest="EdrFieldTokenBytePos.hpp" mode="0644"/>
+            <file size="25246" dest="EdrFunctions.hpp" mode="0644"/>
+            <file size="3343" dest="EdrGetErrorSeverity.hpp" mode="0644"/>
+            <file size="3371" dest="EdrGetError.hpp" mode="0644"/>
+            <file size="3858" dest="EdrGetErrorParameters.hpp" mode="0644"/>
+            <file size="3195" dest="EdrGetStream.hpp" mode="0644"/>
+            <file size="10602" dest="EdrInputState.hpp" mode="0644"/>
+            <file size="1942" dest="EdrIteratorFcts.hpp" mode="0644"/>
+            <file size="3715" dest="EdrLong.hpp" mode="0644"/>
+            <file size="3810" dest="EdrNumDatablocks.hpp" mode="0644"/>
+            <file size="3373" dest="EdrHasError.hpp" mode="0644"/>
+            <file size="3038" dest="EdrNumTokens.hpp" mode="0644"/>
+            <file size="3198" dest="EdrNumErrors.hpp" mode="0644"/>
+            <file size="3250" dest="EdrTokenBytePos.hpp" mode="0644"/>
+            <file size="15366" dest="IScript.hpp" mode="0644"/>
+            <file size="3315" dest="EdrValueAccess.hpp" mode="0644"/>
+            <file size="6231" dest="Interpreter.hpp" mode="0644"/>
+            <file size="3233" dest="Log.hpp" mode="0644"/>
+            <file size="20330" dest="Integrate.hpp" mode="0644"/>
+            <file size="12547" dest="SysFunctions.hpp" mode="0644"/>
+            <file size="2959" dest="ReqSend.hpp" mode="0644"/>
+            <file size="3317" dest="LogPipeline.hpp" mode="0644"/>
+            <file size="2850" dest="SysExecute.hpp" mode="0644"/>
+            <file size="6674" dest="MsgFunctions.hpp" mode="0644"/>
+            <file size="3417" dest="TamStreamExtension.hpp" mode="0644"/>
+            <file size="3288" dest="TamStreamName.hpp" mode="0644"/>
+            <file size="3448" dest="IScriptArg.hpp" mode="0644"/>
+            <file size="3277" dest="EdrTokenString.hpp" mode="0644"/>
+            <file size="6737" dest="TamFunctions.hpp" mode="0644"/>
+            <file size="3235" dest="TamNumTransItems.hpp" mode="0644"/>
+            <file size="3261" dest="EdrRemoveStream.hpp" mode="0644"/>
+            <file size="3212" dest="TamTransId.hpp" mode="0644"/>
+            <file size="3515" dest="DbBeginTransaction.hpp" mode="0644"/>
+            <file size="3127" dest="DbCloseResult.hpp" mode="0644"/>
+            <file size="3180" dest="EdrAddStream.hpp" mode="0644"/>
+            <file size="2964" dest="DbResultHandle.hpp" mode="0644"/>
+            <file size="3767" dest="EdrString.hpp" mode="0644"/>
+            <file size="2947" dest="DbError.hpp" mode="0644"/>
+            <file size="3093" dest="DbExecute.hpp" mode="0644"/>
+            <file size="3676" dest="DbNextRow.hpp" mode="0644"/>
+            <file size="7037" dest="EraFunctions.hpp" mode="0644"/>
+            <file size="6308" dest="DbExtension.hpp" mode="0644"/>
+            <file size="3068" dest="DbNextResult.hpp" mode="0644"/>
+            <file size="3219" dest="DbCommitTransaction.hpp" mode="0644"/>
+            <file size="4922" dest="EraExtension.hpp" mode="0644"/>
+            <file size="2990" dest="DbConnection.hpp" mode="0644"/>
+            <file size="3259" dest="DbRollbackTransaction.hpp" mode="0644"/>
+            <file size="3328" dest="TamItemType.hpp" mode="0644"/>
+            <file size="3109" dest="DbDataConnection.hpp" mode="0644"/>
+            <file size="3210" dest="DbCloseConnection.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="DbBeginTransaction.hpp"/>
+            <permission mode="0644" wildcard="DbCloseConnection.hpp"/>
+            <permission mode="0644" wildcard="DbCloseResult.hpp"/>
+            <permission mode="0644" wildcard="DbCommitTransaction.hpp"/>
+            <permission mode="0644" wildcard="DbConnection.hpp"/>
+            <permission mode="0644" wildcard="DbDataConnection.hpp"/>
+            <permission mode="0644" wildcard="DbError.hpp"/>
+            <permission mode="0644" wildcard="DbExecute.hpp"/>
+            <permission mode="0644" wildcard="DbExtension.hpp"/>
+            <permission mode="0644" wildcard="DbNextResult.hpp"/>
+            <permission mode="0644" wildcard="DbNextRow.hpp"/>
+            <permission mode="0644" wildcard="DbResultHandle.hpp"/>
+            <permission mode="0644" wildcard="DbRollbackTransaction.hpp"/>
+            <permission mode="0644" wildcard="EdrAccess.hpp"/>
+            <permission mode="0644" wildcard="EdrAddDatablock.hpp"/>
+            <permission mode="0644" wildcard="EdrAddStream.hpp"/>
+            <permission mode="0644" wildcard="EdrBlockAccess.hpp"/>
+            <permission mode="0644" wildcard="EdrDate.hpp"/>
+            <permission mode="0644" wildcard="EdrDecimal.hpp"/>
+            <permission mode="0644" wildcard="EdrDelete.hpp"/>
+            <permission mode="0644" wildcard="EdrDeleteDatablock.hpp"/>
+            <permission mode="0644" wildcard="EdrDeleteField.hpp"/>
+            <permission mode="0644" wildcard="EdrFieldConnectInfo.hpp"/>
+            <permission mode="0644" wildcard="EdrFieldTokenByteOffset.hpp"/>
+            <permission mode="0644" wildcard="EdrFieldTokenBytePos.hpp"/>
+            <permission mode="0644" wildcard="EdrFunctions.hpp"/>
+            <permission mode="0644" wildcard="EdrGetError.hpp"/>
+            <permission mode="0644" wildcard="EdrGetErrorParameters.hpp"/>
+            <permission mode="0644" wildcard="EdrGetErrorSeverity.hpp"/>
+            <permission mode="0644" wildcard="EdrGetStream.hpp"/>
+            <permission mode="0644" wildcard="EdrHasError.hpp"/>
+            <permission mode="0644" wildcard="EdrInputState.hpp"/>
+            <permission mode="0644" wildcard="EdrIteratorFcts.hpp"/>
+            <permission mode="0644" wildcard="EdrLong.hpp"/>
+            <permission mode="0644" wildcard="EdrNumDatablocks.hpp"/>
+            <permission mode="0644" wildcard="EdrNumErrors.hpp"/>
+            <permission mode="0644" wildcard="EdrNumTokens.hpp"/>
+            <permission mode="0644" wildcard="EdrRemoveStream.hpp"/>
+            <permission mode="0644" wildcard="EdrString.hpp"/>
+            <permission mode="0644" wildcard="EdrTokenBytePos.hpp"/>
+            <permission mode="0644" wildcard="EdrTokenString.hpp"/>
+            <permission mode="0644" wildcard="EdrValueAccess.hpp"/>
+            <permission mode="0644" wildcard="EraExtension.hpp"/>
+            <permission mode="0644" wildcard="EraFunctions.hpp"/>
+            <permission mode="0644" wildcard="Integrate.hpp"/>
+            <permission mode="0644" wildcard="Interpreter.hpp"/>
+            <permission mode="0644" wildcard="IScript.hpp"/>
+            <permission mode="0644" wildcard="IScriptArg.hpp"/>
+            <permission mode="0644" wildcard="Log.hpp"/>
+            <permission mode="0644" wildcard="LogPipeline.hpp"/>
+            <permission mode="0644" wildcard="MsgFunctions.hpp"/>
+            <permission mode="0644" wildcard="ReqSend.hpp"/>
+            <permission mode="0644" wildcard="SysExecute.hpp"/>
+            <permission mode="0644" wildcard="SysFunctions.hpp"/>
+            <permission mode="0644" wildcard="TamFunctions.hpp"/>
+            <permission mode="0644" wildcard="TamItemType.hpp"/>
+            <permission mode="0644" wildcard="TamNumTransItems.hpp"/>
+            <permission mode="0644" wildcard="TamStreamExtension.hpp"/>
+            <permission mode="0644" wildcard="TamStreamName.hpp"/>
+            <permission mode="0644" wildcard="TamTransId.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="LOG" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6462" dest="PlugIn.hpp" mode="0644"/>
+            <file size="3561" dest="PlugInITO.hpp" mode="0644"/>
+            <file size="9937" dest="Stream.hpp" mode="0644"/>
+            <file size="4389" dest="StreamDate.hpp" mode="0644"/>
+            <file size="6395" dest="StreamITO.hpp" mode="0644"/>
+            <file size="3169" dest="MessageEntry.hpp" mode="0644"/>
+            <file size="9556" dest="MessageTable.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="MessageEntry.hpp"/>
+            <permission mode="0644" wildcard="MessageTable.hpp"/>
+            <permission mode="0644" wildcard="PlugIn.hpp"/>
+            <permission mode="0644" wildcard="PlugInITO.hpp"/>
+            <permission mode="0644" wildcard="Stream.hpp"/>
+            <permission mode="0644" wildcard="StreamDate.hpp"/>
+            <permission mode="0644" wildcard="StreamITO.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="LRP" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="11119" dest="DescrParser.hpp" mode="0644"/>
+            <file size="2992" dest="EdrAnalyzer.hpp" mode="0644"/>
+            <file size="3764" dest="EdrConnectToken.hpp" mode="0644"/>
+            <file size="3599" dest="EdrInputMap.hpp" mode="0644"/>
+            <file size="3806" dest="EdrNew.hpp" mode="0644"/>
+            <file size="2740" dest="EdrNewXml.hpp" mode="0644"/>
+            <file size="7124" dest="EdrOutputMap.hpp" mode="0644"/>
+            <file size="3095" dest="EdrReject.hpp" mode="0644"/>
+            <file size="4002" dest="EndOfSymbolInfo.hpp" mode="0644"/>
+            <file size="6610" dest="FileBuffer.hpp" mode="0644"/>
+            <file size="2203" dest="FileBlock.hpp" mode="0644"/>
+            <file size="14056" dest="Grammar.hpp" mode="0644"/>
+            <file size="8511" dest="IScriptInExt.hpp" mode="0644"/>
+            <file size="3935" dest="IScriptFunctions.hpp" mode="0644"/>
+            <file size="8937" dest="IScriptOutExt.hpp" mode="0644"/>
+            <file size="4926" dest="InputParser.hpp" mode="0644"/>
+            <file size="4291" dest="LexerState.hpp" mode="0644"/>
+            <file size="4698" dest="State.hpp" mode="0644"/>
+            <file size="3242" dest="ParserFunctions.hpp" mode="0644"/>
+            <file size="3852" dest="InputGrammar.hpp" mode="0644"/>
+            <file size="3320" dest="OutputWrite.hpp" mode="0644"/>
+            <file size="7633" dest="LexicalAnalyser.hpp" mode="0644"/>
+            <file size="5561" dest="Production.hpp" mode="0644"/>
+            <file size="9006" dest="TokenFunctions.hpp" mode="0644"/>
+            <file size="2400" dest="TokenAccess.hpp" mode="0644"/>
+            <file size="9172" dest="Item.hpp" mode="0644"/>
+            <file size="15791" dest="Parser.hpp" mode="0644"/>
+            <file size="4111" dest="OutputGrammar.hpp" mode="0644"/>
+            <file size="5202" dest="Transition.hpp" mode="0644"/>
+            <file size="5115" dest="Symbol.hpp" mode="0644"/>
+            <file size="5466" dest="OutputParser.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="DescrParser.hpp"/>
+            <permission mode="0644" wildcard="EdrAnalyzer.hpp"/>
+            <permission mode="0644" wildcard="EdrConnectToken.hpp"/>
+            <permission mode="0644" wildcard="EdrInputMap.hpp"/>
+            <permission mode="0644" wildcard="EdrNew.hpp"/>
+            <permission mode="0644" wildcard="EdrNewXml.hpp"/>
+            <permission mode="0644" wildcard="EdrOutputMap.hpp"/>
+            <permission mode="0644" wildcard="EdrReject.hpp"/>
+            <permission mode="0644" wildcard="EndOfSymbolInfo.hpp"/>
+            <permission mode="0644" wildcard="FileBlock.hpp"/>
+            <permission mode="0644" wildcard="FileBuffer.hpp"/>
+            <permission mode="0644" wildcard="Grammar.hpp"/>
+            <permission mode="0644" wildcard="InputGrammar.hpp"/>
+            <permission mode="0644" wildcard="InputParser.hpp"/>
+            <permission mode="0644" wildcard="IScriptFunctions.hpp"/>
+            <permission mode="0644" wildcard="IScriptInExt.hpp"/>
+            <permission mode="0644" wildcard="IScriptOutExt.hpp"/>
+            <permission mode="0644" wildcard="Item.hpp"/>
+            <permission mode="0644" wildcard="LexerState.hpp"/>
+            <permission mode="0644" wildcard="LexicalAnalyser.hpp"/>
+            <permission mode="0644" wildcard="OutputGrammar.hpp"/>
+            <permission mode="0644" wildcard="OutputParser.hpp"/>
+            <permission mode="0644" wildcard="OutputWrite.hpp"/>
+            <permission mode="0644" wildcard="Parser.hpp"/>
+            <permission mode="0644" wildcard="ParserFunctions.hpp"/>
+            <permission mode="0644" wildcard="Production.hpp"/>
+            <permission mode="0644" wildcard="State.hpp"/>
+            <permission mode="0644" wildcard="Symbol.hpp"/>
+            <permission mode="0644" wildcard="TokenAccess.hpp"/>
+            <permission mode="0644" wildcard="TokenFunctions.hpp"/>
+            <permission mode="0644" wildcard="Transition.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="PBC" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="4109" dest="Defs.hpp" mode="0644"/>
+            <file size="3761" dest="EdrErr.hpp" mode="0644"/>
+            <file size="3802" dest="EdrSegmentLink.hpp" mode="0644"/>
+            <file size="4124" dest="ErrMsg.hpp" mode="0644"/>
+            <file size="2857" dest="MemMgr.hpp" mode="0644"/>
+            <file size="4695" dest="ModelHist.hpp" mode="0644"/>
+            <file size="2226" dest="ModuleReference.hpp" mode="0644"/>
+            <file size="8868" dest="PtrTree.hpp" mode="0644"/>
+            <file size="7619" dest="PtrTreeNode.hpp" mode="0644"/>
+            <file size="4035" dest="Usable.hpp" mode="0644"/>
+            <file size="5053" dest="TimeFrame.hpp" mode="0644"/>
+            <file size="2112" dest="WriteToPipelineLog.hpp" mode="0644"/>
+            <file size="7284" dest="ValTree.hpp" mode="0644"/>
+            <file size="7388" dest="ValTreeNode.hpp" mode="0644"/>
+            <file size="15059" dest="ValTree.cpp" mode="0644"/>
+            <file size="19638" dest="PtrTree.cpp" mode="0644"/>
+            <file size="6020" dest="ValTreeNode.cpp" mode="0644"/>
+            <file size="5273" dest="PtrTreeNode.cpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="Defs.hpp"/>
+            <permission mode="0644" wildcard="EdrErr.hpp"/>
+            <permission mode="0644" wildcard="EdrSegmentLink.hpp"/>
+            <permission mode="0644" wildcard="ErrMsg.hpp"/>
+            <permission mode="0644" wildcard="MemMgr.hpp"/>
+            <permission mode="0644" wildcard="ModelHist.hpp"/>
+            <permission mode="0644" wildcard="ModuleReference.hpp"/>
+            <permission mode="0644" wildcard="PtrTree.cpp"/>
+            <permission mode="0644" wildcard="PtrTree.hpp"/>
+            <permission mode="0644" wildcard="PtrTreeNode.cpp"/>
+            <permission mode="0644" wildcard="PtrTreeNode.hpp"/>
+            <permission mode="0644" wildcard="TimeFrame.hpp"/>
+            <permission mode="0644" wildcard="Usable.hpp"/>
+            <permission mode="0644" wildcard="ValTree.cpp"/>
+            <permission mode="0644" wildcard="ValTree.hpp"/>
+            <permission mode="0644" wildcard="ValTreeNode.cpp"/>
+            <permission mode="0644" wildcard="ValTreeNode.hpp"/>
+            <permission mode="0644" wildcard="WriteToPipelineLog.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="PLI" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3603" dest="InputManagerInterface.hpp" mode="0644"/>
+            <file size="3472" dest="InputInterface.hpp" mode="0644"/>
+            <file size="3622" dest="OutputManagerInterface.hpp" mode="0644"/>
+            <file size="3491" dest="OutputInterface.hpp" mode="0644"/>
+            <file size="2063" dest="CommonLoadInterface.hpp" mode="0644"/>
+            <file size="14116" dest="ParallelLoadManager.hpp" mode="0644"/>
+            <file size="3053" dest="StdInterfaceGuard.hpp" mode="0644"/>
+            <file size="5157" dest="DataCollection.hpp" mode="0644"/>
+            <file size="4019" dest="DataInterface.hpp" mode="0644"/>
+            <file size="17569" dest="StdInterface.cpp" mode="0644"/>
+            <file size="4746" dest="FunctionCollection.hpp" mode="0644"/>
+            <file size="4327" dest="FunctionInterface.hpp" mode="0644"/>
+            <file size="6896" dest="StdInterface.hpp" mode="0644"/>
+            <file size="10005" dest="StdThreadInterface.cpp" mode="0644"/>
+            <file size="4020" dest="ThreadInterface.hpp" mode="0644"/>
+            <file size="6566" dest="StdThreadInterface.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="DataCollection.hpp"/>
+            <permission mode="0644" wildcard="DataInterface.hpp"/>
+            <permission mode="0644" wildcard="FunctionCollection.hpp"/>
+            <permission mode="0644" wildcard="FunctionInterface.hpp"/>
+            <permission mode="0644" wildcard="InputInterface.hpp"/>
+            <permission mode="0644" wildcard="InputManagerInterface.hpp"/>
+            <permission mode="0644" wildcard="OutputInterface.hpp"/>
+            <permission mode="0644" wildcard="OutputManagerInterface.hpp"/>
+            <permission mode="0644" wildcard="StdInterface.cpp"/>
+            <permission mode="0644" wildcard="StdInterface.hpp"/>
+            <permission mode="0644" wildcard="StdThreadInterface.cpp"/>
+            <permission mode="0644" wildcard="StdThreadInterface.hpp"/>
+            <permission mode="0644" wildcard="ThreadInterface.hpp"/>
+            <permission mode="0644" wildcard="CommonLoadInterface.hpp"/>
+            <permission mode="0644" wildcard="ParallelLoadManager.hpp"/>
+            <permission mode="0644" wildcard="StdInterfaceGuard.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="PLG" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3960" dest="DataPlugIn.hpp" mode="0644"/>
+            <file size="5224" dest="FunctionPlugIn.hpp" mode="0644"/>
+            <file size="5000" dest="StdPlugIn.hpp" mode="0644"/>
+            <file size="4489" dest="ThreadPlugIn.hpp" mode="0644"/>
+            <file size="4807" dest="TransactionPlugIn.hpp" mode="0644"/>
+            <file size="10216" dest="InputDevice.hpp" mode="0644"/>
+            <file size="8616" dest="InputStreamDevice.hpp" mode="0644"/>
+            <file size="14190" dest="OutputDevice.hpp" mode="0644"/>
+            <file size="12305" dest="OutputStreamDevice.hpp" mode="0644"/>
+            <file size="6218" dest="StatInfo.hpp" mode="0644"/>
+            <file size="10425" dest="TrailerInfo.hpp" mode="0644"/>
+            <file size="12798" dest="Statistic.hpp" mode="0644"/>
+            <file size="5638" dest="SequenceDatabaseControl.hpp" mode="0644"/>
+            <file size="26271" dest="SequenceControl.hpp" mode="0644"/>
+            <file size="6729" dest="SequenceFileControl.hpp" mode="0644"/>
+            <file size="4186" dest="SequencerCollection.hpp" mode="0644"/>
+            <file size="10507" dest="Sequencer.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="DataPlugIn.hpp"/>
+            <permission mode="0644" wildcard="FunctionPlugIn.hpp"/>
+            <permission mode="0644" wildcard="InputDevice.hpp"/>
+            <permission mode="0644" wildcard="InputStreamDevice.hpp"/>
+            <permission mode="0644" wildcard="OutputDevice.hpp"/>
+            <permission mode="0644" wildcard="OutputStreamDevice.hpp"/>
+            <permission mode="0644" wildcard="SequenceControl.hpp"/>
+            <permission mode="0644" wildcard="SequenceDatabaseControl.hpp"/>
+            <permission mode="0644" wildcard="SequenceFileControl.hpp"/>
+            <permission mode="0644" wildcard="Sequencer.hpp"/>
+            <permission mode="0644" wildcard="SequencerCollection.hpp"/>
+            <permission mode="0644" wildcard="StatInfo.hpp"/>
+            <permission mode="0644" wildcard="Statistic.hpp"/>
+            <permission mode="0644" wildcard="StdPlugIn.hpp"/>
+            <permission mode="0644" wildcard="ThreadPlugIn.hpp"/>
+            <permission mode="0644" wildcard="TrailerInfo.hpp"/>
+            <permission mode="0644" wildcard="TransactionPlugIn.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="PPL" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="8054" dest="FuncControlCollection.hpp" mode="0644"/>
+            <file size="5454" dest="FunctionController.hpp" mode="0644"/>
+            <file size="18856" dest="InputController.hpp" mode="0644"/>
+            <file size="15679" dest="OutputCollection.hpp" mode="0644"/>
+            <file size="25008" dest="OutputController.hpp" mode="0644"/>
+            <file size="14677" dest="Pipeline.hpp" mode="0644"/>
+            <file size="10418" dest="PipelineCollection.hpp" mode="0644"/>
+            <file size="11276" dest="ThreadBase.hpp" mode="0644"/>
+            <file size="2368" dest="IPCQueues.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="FuncControlCollection.hpp"/>
+            <permission mode="0644" wildcard="FunctionController.hpp"/>
+            <permission mode="0644" wildcard="InputController.hpp"/>
+            <permission mode="0644" wildcard="IPCQueues.hpp"/>
+            <permission mode="0644" wildcard="OutputCollection.hpp"/>
+            <permission mode="0644" wildcard="OutputController.hpp"/>
+            <permission mode="0644" wildcard="Pipeline.hpp"/>
+            <permission mode="0644" wildcard="PipelineCollection.hpp"/>
+            <permission mode="0644" wildcard="ThreadBase.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="SCR" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="19857" dest="Arithmetic.hpp" mode="0644"/>
+            <file size="15534" dest="ArrayAccess.hpp" mode="0644"/>
+            <file size="3534" dest="Array.hpp" mode="0644"/>
+            <file size="4851" dest="ArrayFunctions.hpp" mode="0644"/>
+            <file size="2339" dest="CompareInterface.hpp" mode="0644"/>
+            <file size="4802" dest="BoolFunctions.hpp" mode="0644"/>
+            <file size="12785" dest="Assignment.hpp" mode="0644"/>
+            <file size="6081" dest="Comparison.hpp" mode="0644"/>
+            <file size="22441" dest="Data.hpp" mode="0644"/>
+            <file size="2928" dest="Crypt.hpp" mode="0644"/>
+            <file size="3152" dest="DecimalToLong.hpp" mode="0644"/>
+            <file size="3106" dest="Extension.hpp" mode="0644"/>
+            <file size="3678" dest="DateAdd.hpp" mode="0644"/>
+            <file size="15307" dest="HashAccess.hpp" mode="0644"/>
+            <file size="4128" dest="DecimalToHexStr.hpp" mode="0644"/>
+            <file size="7699" dest="FctDescr.hpp" mode="0644"/>
+            <file size="6834" dest="HashFunctions.hpp" mode="0644"/>
+            <file size="8715" dest="DecimalFunctions.hpp" mode="0644"/>
+            <file size="10748" dest="FunctionCall.hpp" mode="0644"/>
+            <file size="2114" dest="Log.hpp" mode="0644"/>
+            <file size="9507" dest="DateFunctions.hpp" mode="0644"/>
+            <file size="12915" dest="Interpreter.hpp" mode="0644"/>
+            <file size="5473" dest="Function.hpp" mode="0644"/>
+            <file size="3649" dest="StrPad.hpp" mode="0644"/>
+            <file size="2847" dest="Sqrt.hpp" mode="0644"/>
+            <file size="2477" dest="MutexDestroy.hpp" mode="0644"/>
+            <file size="4033" dest="MainExtension.hpp" mode="0644"/>
+            <file size="2839" dest="FctCallNode.hpp" mode="0644"/>
+            <file size="24240" dest="FileFunctions.hpp" mode="0644"/>
+            <file size="3150" dest="HexStrToStr.hpp" mode="0644"/>
+            <file size="2477" dest="MutexAcquire.hpp" mode="0644"/>
+            <file size="4125" dest="HexStrToDecimal.hpp" mode="0644"/>
+            <file size="14918" dest="Node.hpp" mode="0644"/>
+            <file size="3681" dest="StrSplit.hpp" mode="0644"/>
+            <file size="18636" dest="Variable.hpp" mode="0644"/>
+            <file size="4735" dest="Hash.hpp" mode="0644"/>
+            <file size="5637" dest="Preprocessor.hpp" mode="0644"/>
+            <file size="10735" dest="Statement.hpp" mode="0644"/>
+            <file size="2947" dest="StrToHexStr.hpp" mode="0644"/>
+            <file size="5631" dest="ParserFunctions.hpp" mode="0644"/>
+            <file size="5824" dest="VoidFunctions.hpp" mode="0644"/>
+            <file size="3046" dest="SysGetEnv.hpp" mode="0644"/>
+            <file size="27853" dest="StringFunctions.hpp" mode="0644"/>
+            <file size="2477" dest="MutexRelease.hpp" mode="0644"/>
+            <file size="5902" dest="ParserStack.hpp" mode="0644"/>
+            <file size="1630" dest="Message.hpp" mode="0644"/>
+            <file size="2455" dest="MutexCreate.hpp" mode="0644"/>
+            <file size="9392" dest="SwitchCase.hpp" mode="0644"/>
+            <file size="1787" dest="Sleep.hpp" mode="0644"/>
+            <file size="3387" dest="LongToHexStr.hpp" mode="0644"/>
+            <file size="2469" dest="System.hpp" mode="0644"/>
+            <file size="9147" dest="LongFunctions.hpp" mode="0644"/>
+            <file size="3165" dest="HashRemove.hpp" mode="0644"/>
+            <file size="2576" dest="ReturnStatement.hpp" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="Arithmetic.hpp"/>
+            <permission mode="0644" wildcard="Array.hpp"/>
+            <permission mode="0644" wildcard="ArrayAccess.hpp"/>
+            <permission mode="0644" wildcard="ArrayFunctions.hpp"/>
+            <permission mode="0644" wildcard="Assignment.hpp"/>
+            <permission mode="0644" wildcard="BoolFunctions.hpp"/>
+            <permission mode="0644" wildcard="CompareInterface.hpp"/>
+            <permission mode="0644" wildcard="Comparison.hpp"/>
+            <permission mode="0644" wildcard="Crypt.hpp"/>
+            <permission mode="0644" wildcard="Data.hpp"/>
+            <permission mode="0644" wildcard="DateAdd.hpp"/>
+            <permission mode="0644" wildcard="DateFunctions.hpp"/>
+            <permission mode="0644" wildcard="DecimalFunctions.hpp"/>
+            <permission mode="0644" wildcard="DecimalToHexStr.hpp"/>
+            <permission mode="0644" wildcard="DecimalToLong.hpp"/>
+            <permission mode="0644" wildcard="Extension.hpp"/>
+            <permission mode="0644" wildcard="FctCallNode.hpp"/>
+            <permission mode="0644" wildcard="FctDescr.hpp"/>
+            <permission mode="0644" wildcard="FileFunctions.hpp"/>
+            <permission mode="0644" wildcard="Function.hpp"/>
+            <permission mode="0644" wildcard="FunctionCall.hpp"/>
+            <permission mode="0644" wildcard="Hash.hpp"/>
+            <permission mode="0644" wildcard="HashAccess.hpp"/>
+            <permission mode="0644" wildcard="HashFunctions.hpp"/>
+            <permission mode="0644" wildcard="HashRemove.hpp"/>
+            <permission mode="0644" wildcard="HexStrToDecimal.hpp"/>
+            <permission mode="0644" wildcard="HexStrToStr.hpp"/>
+            <permission mode="0644" wildcard="Interpreter.hpp"/>
+            <permission mode="0644" wildcard="Log.hpp"/>
+            <permission mode="0644" wildcard="LongFunctions.hpp"/>
+            <permission mode="0644" wildcard="LongToHexStr.hpp"/>
+            <permission mode="0644" wildcard="MainExtension.hpp"/>
+            <permission mode="0644" wildcard="Message.hpp"/>
+            <permission mode="0644" wildcard="MutexAcquire.hpp"/>
+            <permission mode="0644" wildcard="MutexCreate.hpp"/>
+            <permission mode="0644" wildcard="MutexDestroy.hpp"/>
+            <permission mode="0644" wildcard="MutexRelease.hpp"/>
+            <permission mode="0644" wildcard="Node.hpp"/>
+            <permission mode="0644" wildcard="ParserFunctions.hpp"/>
+            <permission mode="0644" wildcard="ParserStack.hpp"/>
+            <permission mode="0644" wildcard="Preprocessor.hpp"/>
+            <permission mode="0644" wildcard="ReturnStatement.hpp"/>
+            <permission mode="0644" wildcard="Sleep.hpp"/>
+            <permission mode="0644" wildcard="Sqrt.hpp"/>
+            <permission mode="0644" wildcard="Statement.hpp"/>
+            <permission mode="0644" wildcard="StringFunctions.hpp"/>
+            <permission mode="0644" wildcard="StrPad.hpp"/>
+            <permission mode="0644" wildcard="StrSplit.hpp"/>
+            <permission mode="0644" wildcard="StrToHexStr.hpp"/>
+            <permission mode="0644" wildcard="SwitchCase.hpp"/>
+            <permission mode="0644" wildcard="SysGetEnv.hpp"/>
+            <permission mode="0644" wildcard="System.hpp"/>
+            <permission mode="0644" wildcard="Variable.hpp"/>
+            <permission mode="0644" wildcard="VoidFunctions.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="STR" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2992" dest="PortableDefns.hpp" mode="0664"/>
+            <file size="29219" dest="Queue.cpp" mode="0664"/>
+            <file size="10247" dest="Queue.hpp" mode="0664"/>
+            <file size="2262" dest="Constants.hpp" mode="0664"/>
+            <file size="9601" dest="FileIoTurbo.hpp" mode="0664"/>
+            <file size="8698" dest="FileIo.hpp" mode="0664"/>
+            <file size="3484" dest="ObjectStream.hpp" mode="0664"/>
+            <file size="6967" dest="BasicStream.hpp" mode="0664"/>
+            <file size="8624" dest="InStreamManager.hpp" mode="0664"/>
+            <file size="9533" dest="OutStreamManager.hpp" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="BasicStream.hpp"/>
+            <permission mode="0664" wildcard="Constants.hpp"/>
+            <permission mode="0664" wildcard="FileIo.hpp"/>
+            <permission mode="0664" wildcard="FileIoTurbo.hpp"/>
+            <permission mode="0664" wildcard="InStreamManager.hpp"/>
+            <permission mode="0664" wildcard="ObjectStream.hpp"/>
+            <permission mode="0664" wildcard="OutStreamManager.hpp"/>
+            <permission mode="0664" wildcard="PortableDefns.hpp"/>
+            <permission mode="0664" wildcard="Queue.cpp"/>
+            <permission mode="0664" wildcard="Queue.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <directory dest="TAM" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="4134" dest="ManagerIf.hpp" mode="0664"/>
+            <file size="6787" dest="ManagerRestrictedIf.hpp" mode="0664"/>
+            <file size="3738" dest="ModuleIf.hpp" mode="0664"/>
+            <file size="15453" dest="Transaction.hpp" mode="0664"/>
+            <file size="8795" dest="TransItem.hpp" mode="0664"/>
+            <file size="12872" dest="Manager.hpp" mode="0664"/>
+            <file size="11031" dest="TransMap.hpp" mode="0664"/>
+            <file size="20715" dest="TransId.hpp" mode="0664"/>
+            <file size="4619" dest="TransIdFileGenerator.hpp" mode="0664"/>
+            <file size="5097" dest="TransIdDbGenerator.hpp" mode="0664"/>
+            <file size="3586" dest="TransIdGenerator.hpp" mode="0664"/>
+            <file size="4728" dest="TransIdController.hpp" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="Manager.hpp"/>
+            <permission mode="0664" wildcard="ManagerIf.hpp"/>
+            <permission mode="0664" wildcard="ManagerRestrictedIf.hpp"/>
+            <permission mode="0664" wildcard="ModuleIf.hpp"/>
+            <permission mode="0664" wildcard="Transaction.hpp"/>
+            <permission mode="0664" wildcard="TransId.hpp"/>
+            <permission mode="0664" wildcard="TransIdController.hpp"/>
+            <permission mode="0664" wildcard="TransIdDbGenerator.hpp"/>
+            <permission mode="0664" wildcard="TransIdFileGenerator.hpp"/>
+            <permission mode="0664" wildcard="TransIdGenerator.hpp"/>
+            <permission mode="0664" wildcard="TransItem.hpp"/>
+            <permission mode="0664" wildcard="TransMap.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Plugins" mode="750" patchable="true">
+         <directory dest="DAT" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="PrefixDesc" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="DAT" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="6322" dest="PrefixDescPlugIn.hpp" mode="0664"/>
+                  <file size="3284" dest="PrefixError.hpp" mode="0664"/>
+                  <file size="3463" dest="PrefixDataModule.hpp" mode="0664"/>
+                  <file size="4202" dest="PrefixIScriptExt.hpp" mode="0664"/>
+                  <file size="3616" dest="PrefixSearch.hpp" mode="0664"/>
+               </directory>
+            </directory>
+            <directory dest="Sample" mode="750" patchable="true">
+               <file size="30146" dest="SamplePlugIn.cpp" mode="0664"/>
+               <file size="8753" dest="SamplePlugIn.hpp" mode="0664"/>
+               <file size="2551" dest="Makefile" mode="0664"/>
+            </directory>
+         </directory>
+         <directory dest="FCT" mode="750" patchable="true">
+            <directory dest="PrefixDesc" mode="750" patchable="true">
+               <directory dest="FCT" mode="750" patchable="true">
+                  <file size="5342" dest="PrefixDescPlugIn.hpp" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="PrefixDataModule.hpp"/>
+            <permission mode="0664" wildcard="PrefixDescPlugIn.hpp"/>
+            <permission mode="0664" wildcard="PrefixError.hpp"/>
+            <permission mode="0664" wildcard="PrefixIScriptExt.hpp"/>
+            <permission mode="0664" wildcard="PrefixSearch.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Plugins" mode="750" patchable="true">
+         <directory dest="DAT" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="PrefixDesc" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="24111" dest="PrefixDescPlugIn.cpp" mode="0664"/>
+               <file size="4395" dest="PrefixDataModule.cpp" mode="0664"/>
+               <file size="3690" dest="PrefixError.cpp" mode="0664"/>
+               <file size="5351" dest="PrefixDescPlugInCheck.cpp" mode="0664"/>
+               <file size="5533" dest="PrefixSearch.cpp" mode="0664"/>
+               <file size="8867" dest="PrefixIScriptExt.cpp" mode="0664"/>
+               <file size="3674" dest="forgn_names.dat" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="forgn_names.dat"/>
+            <permission mode="0664" wildcard="Makefile"/>
+            <permission mode="0664" wildcard="PrefixDataModule.cpp"/>
+            <permission mode="0664" wildcard="PrefixDescPlugIn.cpp"/>
+            <permission mode="0664" wildcard="PrefixDescPlugInCheck.cpp"/>
+            <permission mode="0664" wildcard="PrefixError.cpp"/>
+            <permission mode="0664" wildcard="PrefixIScriptExt.cpp"/>
+            <permission mode="0664" wildcard="PrefixSearch.cpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="Plugins" mode="750" patchable="true">
+         <directory dest="EXT" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="EXT_Currency" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3661" dest="Makefile" mode="0664"/>
+               <file size="3130" dest="EXT_Currency.hpp" mode="0664"/>
+               <file size="6637" dest="EXT_Currency.cpp" mode="0664"/>
+               <file size="3685" dest="EXT_CurrencyConvert.hpp" mode="0664"/>
+               <file size="4741" dest="EXT_CurrencyConvert.cpp" mode="0664"/>
+               <file size="3739" dest="EXT_SetExchangeRates.hpp" mode="0664"/>
+               <file size="5559" dest="EXT_SetExchangeRates.cpp" mode="0664"/>
+               <file size="1651" dest="UseExtCurrency.isc" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="EXT_Currency.cpp"/>
+            <permission mode="0664" wildcard="EXT_Currency.hpp"/>
+            <permission mode="0664" wildcard="EXT_CurrencyConvert.cpp"/>
+            <permission mode="0664" wildcard="EXT_CurrencyConvert.hpp"/>
+            <permission mode="0664" wildcard="EXT_SetExchangeRates.cpp"/>
+            <permission mode="0664" wildcard="EXT_SetExchangeRates.hpp"/>
+            <permission mode="0664" wildcard="Makefile"/>
+            <permission mode="0664" wildcard="UseExtCurrency.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="Plugins" mode="750" patchable="true">
+         <directory dest="FCT" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="PrefixDesc" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="12699" dest="PrefixDescPlugIn.cpp" mode="0644"/>
+               <file size="5722" dest="PrefixDescCheck.cpp" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="PrefixDescCheck.cpp"/>
+            <permission mode="0644" wildcard="PrefixDescPlugIn.cpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="settings" mode="750" patchable="true">
+         <file size="2181" dest="all.inc" mode="0644"/>
+         <file size="2352" dest="config.inc" mode="0644"/>
+         <file size="3162" dest="comp.inc" mode="0644"/>
+         <file size="1037" dest="linux_gcc_v2952.inc" mode="0644"/>
+         <file size="569" dest="pkg.inc" mode="0644"/>
+         <file size="1636" dest="incs.inc" mode="0644"/>
+         <file size="5548" dest="libs.inc" mode="0644"/>
+         <file size="1011" dest="linux_egcs_v112.inc" mode="0644"/>
+         <file size="3466" dest="rules.inc" mode="0644"/>
+         <file size="699" dest="smacc.inc" mode="0644"/>
+         <file size="1051" dest="rw_macros.hpp" mode="0644"/>
+         <file-perms>
+            <permission mode="0644" wildcard="all.inc"/>
+            <permission mode="0644" wildcard="comp.inc"/>
+            <permission mode="0644" wildcard="config.inc"/>
+            <permission mode="0644" wildcard="incs.inc"/>
+            <permission mode="0644" wildcard="libs.inc"/>
+            <permission mode="0644" wildcard="linux_egcs_v112.inc"/>
+            <permission mode="0644" wildcard="linux_gcc_v2952.inc"/>
+            <permission mode="0644" wildcard="pkg.inc"/>
+            <permission mode="0644" wildcard="rules.inc"/>
+            <permission mode="0644" wildcard="smacc.inc"/>
+            <permission mode="0644" wildcard="rw_macros.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1323" dest="stop_pre_recycle.pl" mode="0775"/>
+         <file size="1323" dest="stop_pre_process.pl" mode="0775"/>
+         <file size="1308" dest="stop_all_rate.pl" mode="0775"/>
+         <file size="1321" dest="stop_all_pipeline.pl" mode="0775"/>
+         <file size="1368" dest="stop_RealtimePipelineZone.pl" mode="0775"/>
+         <file size="1363" dest="stop_RealtimePipelineGSM.pl" mode="0775"/>
+         <file size="1368" dest="stop_RealtimePipelineGPRS.pl" mode="0775"/>
+         <file size="1348" dest="stop_DiscountPipeline.pl" mode="0775"/>
+         <file size="1354" dest="start_rerating_stop_main.pl" mode="0775"/>
+         <file size="1328" dest="start_pre_recycle.pl" mode="0775"/>
+         <file size="1354" dest="start_main_stop_rerating.pl" mode="0775"/>
+         <file size="1328" dest="start_pre_process.pl" mode="0775"/>
+         <file size="1324" dest="start_all_pipeline.pl" mode="0775"/>
+         <file size="1373" dest="start_RealtimePipelineZone.pl" mode="0775"/>
+         <file size="1299" dest="reload_zone.pl" mode="0775"/>
+         <file size="1347" dest="set_call_ass_limit.pl" mode="0775"/>
+         <file size="4356" dest="set_dup_check_limit.pl" mode="0775"/>
+         <file size="1375" dest="start_RealtimePipelineGPRS.pl" mode="0775"/>
+         <file size="1306" dest="start_recycle.pl" mode="0775"/>
+         <file size="1369" dest="start_RealtimePipelineGSM.pl" mode="0775"/>
+         <file size="1353" dest="start_DiscountPipeline.pl" mode="0775"/>
+         <file size="1313" dest="start_all_rate.pl" mode="0775"/>
+         <file size="1304" dest="reload_price.pl" mode="0775"/>
+         <file size="1367" dest="dump_portal_act_data.pl" mode="0775"/>
+         <file size="1373" dest="reload_portal_act_data.pl" mode="0775"/>
+         <file size="1369" dest="off_queue_buffer.pl" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="dump_portal_act_data.pl"/>
+            <permission mode="0775" wildcard="off_queue_buffer.pl"/>
+            <permission mode="0775" wildcard="reload_portal_act_data.pl"/>
+            <permission mode="0775" wildcard="reload_price.pl"/>
+            <permission mode="0775" wildcard="reload_zone.pl"/>
+            <permission mode="0775" wildcard="set_call_ass_limit.pl"/>
+            <permission mode="0775" wildcard="set_dup_check_limit.pl"/>
+            <permission mode="0775" wildcard="start_all_pipeline.pl"/>
+            <permission mode="0775" wildcard="start_all_rate.pl"/>
+            <permission mode="0775" wildcard="start_DiscountPipeline.pl"/>
+            <permission mode="0775" wildcard="start_main_stop_rerating.pl"/>
+            <permission mode="0775" wildcard="start_pre_process.pl"/>
+            <permission mode="0775" wildcard="start_pre_recycle.pl"/>
+            <permission mode="0775" wildcard="start_RealtimePipelineGPRS.pl"/>
+            <permission mode="0775" wildcard="start_RealtimePipelineGSM.pl"/>
+            <permission mode="0775" wildcard="start_RealtimePipelineZone.pl"/>
+            <permission mode="0775" wildcard="start_recycle.pl"/>
+            <permission mode="0775" wildcard="start_rerating_stop_main.pl"/>
+            <permission mode="0775" wildcard="stop_all_pipeline.pl"/>
+            <permission mode="0775" wildcard="stop_all_rate.pl"/>
+            <permission mode="0775" wildcard="stop_DiscountPipeline.pl"/>
+            <permission mode="0775" wildcard="stop_pre_process.pl"/>
+            <permission mode="0775" wildcard="stop_pre_recycle.pl"/>
+            <permission mode="0775" wildcard="stop_RealtimePipelineGPRS.pl"/>
+            <permission mode="0775" wildcard="stop_RealtimePipelineGSM.pl"/>
+            <permission mode="0775" wildcard="stop_RealtimePipelineZone.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="Framework" mode="750" patchable="true">
+         <file size="6266" dest="EdrDumpParser.hpp" mode="0664"/>
+         <file size="3317" dest="EdrDumpCompare.hpp" mode="0664"/>
+         <file size="1494" dest="pin_partition_mode.h" mode="0664"/>
+         <file size="3296" dest="ResponseIf.hpp" mode="0664"/>
+         <file size="5225" dest="OperationBase.hpp" mode="0664"/>
+         <file size="2607" dest="OutputIf.hpp" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="OperationBase.hpp"/>
+            <permission mode="0664" wildcard="OutputIf.hpp"/>
+            <permission mode="0664" wildcard="ResponseIf.hpp"/>
+            <permission mode="0664" wildcard="pin_partition_mode.h"/>
+            <permission mode="0664" wildcard="EdrDumpCompare.hpp"/>
+            <permission mode="0664" wildcard="EdrDumpParser.hpp"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="309360" dest="libDAT_Listener.so" mode="0664"/>
+         <file size="160688" dest="libDAT_PrefixDesc.so" mode="0664"/>
+         <file size="96792" dest="libFCT_PrefixDesc.so" mode="0664"/>
+         <file size="117752" dest="libFCT_Reject.so" mode="0664"/>
+         <file size="106464" dest="libFCT_EdrDump.so" mode="0664"/>
+         <file size="279008" dest="libFCT_IRules.so" mode="0664"/>
+         <file size="122384" dest="libFCT_IScript.so" mode="0664"/>
+         <file size="97624" dest="libINP_GenericStream.so" mode="0664"/>
+         <file size="156824" dest="libIXT_Db.so" mode="0664"/>
+         <file size="103216" dest="libOUT_GenericStream.so" mode="0664"/>
+      </directory>
+      <directory dest="data" mode="750" patchable="true">
+         <directory dest="in" mode="750" patchable="true">
+            <file size="867" dest="test_cdr.orig" mode="0664"/>
+         </directory>
+      </directory>
+      <directory dest="MAK" mode="750" patchable="true">
+         <directory dest="config" mode="750" patchable="true">
+            <file size="2202" dest="frameApiSource.src" mode="0664"/>
+            <file size="1944" dest="unknown.src" mode="0664"/>
+         </directory>
+         <file size="30135" dest="initset" mode="0664"/>
+         <file size="1928" dest="README" mode="0664"/>
+      </directory>
+      <file size="543" dest="README.PDK" mode="0664"/>
+   </file-map>
+</component-def>

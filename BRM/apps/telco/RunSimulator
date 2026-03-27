@@ -1,0 +1,2 @@
+#!/bin/sh
+    $PIN_HOME/jre/bin/java -cp "$PIN_HOME/jars/pcm.jar:$PIN_HOME/jars/pcmext.jar:$PIN_HOME/jars/oraclepki.jar:$PIN_HOME/jars/osdt_cert.jar:$PIN_HOME/jars/osdt_core.jar:$PIN_HOME/jars/agentsimulator.jar:." com.portal.tcf.AgentSimulator $1 $2 $3 $4 $5 $6 $7 $8 $9

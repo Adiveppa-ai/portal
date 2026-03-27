@@ -1,0 +1,158 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="Oracle BI EE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "BILLINFO_T"."PAY_TYPE",
+ "ITEM_T"."CURRENCY",
+ "ACCOUNT_NAMEINFO_T"."COUNTRY",
+ "ACCOUNT_NAMEINFO_T"."STATE",
+ "ACCOUNT_T"."ACCOUNT_NO",
+ "ITEM_T"."POID_ID0" ITEM_POID_ID0,
+ "ACCOUNT_T"."POID_ID0" ACCOUNT_POID_ID0,
+ "ITEM_T"."EFFECTIVE_T",
+ "ITEM_T"."DUE",
+ "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "ITEM_T"."ITEM_NO",
+ "ITEM_T"."NAME",
+ "BILLINFO_T"."BILL_INFO_ID",
+ "ITEM_T"."AR_BILLINFO_OBJ_ID0",
+ "CONFIG_BEID_BALANCES_T"."NAME" "RESOURCE_NAME",
+ floor((bipext.infStrToTimeT(:PARAM_CURRENT_DATE, 3) - "ITEM_T"."EFFECTIVE_T")/86400) OVERDUE_DAYS
+ FROM (("ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" INNER JOIN "ACCOUNT_T" "ACCOUNT_T"
+ ON "ACCOUNT_NAMEINFO_T"."OBJ_ID0"="ACCOUNT_T"."POID_ID0")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "ACCOUNT_T"."POID_ID0"="BILLINFO_T"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "ITEM_T" "ITEM_T" ON "BILLINFO_T"."POID_ID0"="ITEM_T"."BILLINFO_OBJ_ID0",
+ "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T"
+ WHERE "ITEM_T"."CURRENCY"="CONFIG_BEID_BALANCES_T"."REC_ID"
+ AND "ACCOUNT_T"."POID_DB">0 AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:PARAM_STATE,"ACCOUNT_NAMEINFO_T"."STATE")
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:PARAM_COUNTRY,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+ AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(:PARAM_BILLING_TYPE,"BILLINFO_T"."PAY_TYPE")
+ AND ("ACCOUNT_T"."STATUS">=NVL(:PARAM_ACCOUNT_STATUS,10100)
+ AND "ACCOUNT_T"."STATUS"<= NVL(:PARAM_ACCOUNT_STATUS,10103))
+ AND "ACCOUNT_T"."POID_ID0">1
+ AND "ITEM_T"."EFFECTIVE_T">0
+ AND "ITEM_T"."DUE"<>0
+ AND NVL(:PARAM_AGE_PERIOD_ONE,0) >=1 AND NVL(:PARAM_AGE_PERIOD_ONE,367) <= 366
+ AND NVL(:PARAM_AGE_PERIOD_TWO,0) >=1 AND NVL(:PARAM_AGE_PERIOD_TWO,367) <= 366
+ AND NVL(:PARAM_AGE_PERIOD_THREE,0) >=1 AND NVL(:PARAM_AGE_PERIOD_THREE,367) <= 366
+ ORDER BY "ITEM_T"."CURRENCY", "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE",
+ "ITEM_T"."AR_BILLINFO_OBJ_ID0", "ACCOUNT_T"."POID_ID0", "ITEM_T"."CREATED_T"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="PAY_TYPE" value="PAY_TYPE" dataType="xsd:integer" label="PAY_TYPE" breakOrder="None" fieldOrder="1"/>
+    <element name="CURRENCY" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="2"/>
+    <element name="COUNTRY" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="3"/>
+    <element name="STATE" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="4"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="5"/>
+    <element name="ITEM_POID_ID0" value="ITEM_POID_ID0" dataType="xsd:integer" label="ITEM_POID_ID0" breakOrder="None" fieldOrder="6"/>
+    <element name="ACCOUNT_POID_ID0" value="ACCOUNT_POID_ID0" dataType="xsd:integer" label="ACCOUNT_POID_ID0" breakOrder="None" fieldOrder="7"/>
+    <element name="EFFECTIVE_T" value="EFFECTIVE_T" dataType="xsd:integer" label="EFFECTIVE_T" breakOrder="None" fieldOrder="8"/>
+    <element name="DUE" value="DUE" dataType="xsd:integer" label="DUE" breakOrder="None" fieldOrder="9"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="10"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="11"/>
+    <element name="ITEM_NO" value="ITEM_NO" dataType="xsd:string" label="ITEM_NO" breakOrder="None" fieldOrder="12"/>
+    <element name="NAME" value="NAME" dataType="xsd:string" label="NAME" breakOrder="None" fieldOrder="13"/>
+    <element name="BILL_INFO_ID" value="BILL_INFO_ID" dataType="xsd:string" label="BILL_INFO_ID" breakOrder="None" fieldOrder="14"/>
+    <element name="AR_BILLINFO_OBJ_ID0" value="AR_BILLINFO_OBJ_ID0" dataType="xsd:integer" label="AR_BILLINFO_OBJ_ID0" breakOrder="None" fieldOrder="15"/>
+    <element name="RESOURCE_NAME" value="RESOURCE_NAME" dataType="xsd:string" label="RESOURCE_NAME" breakOrder="None" fieldOrder="16"/>
+    <element name="OVERDUE_DAYS" value="OVERDUE_DAYS" dataType="xsd:integer" label="OVERDUE_DAYS" breakOrder="None" fieldOrder="17"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_STATELEVELDETAILS">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_ACCOUNT_STATUS">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_BILLING_TYPE">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="SUBORDINATE" value="10007"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_STATELEVEL" dataType="string">
+         <select label="Include state-level details?" valueSet="LOV_STATELEVELDETAILS" multiple="false" all="false" allValue="lov"/>
+      </parameter>
+      <parameter name="PARAM_AGE_PERIOD_ONE" dataType="xsd:integer">
+         <input label="Enter the length, in days, for aging period 1. Please specify a Number value between 1 and 366." size="10"/>
+      </parameter>
+      <parameter name="PARAM_AGE_PERIOD_TWO" dataType="xsd:integer">
+         <input label="Enter the length, in days, for aging period 2. Please specify a Number value between 1 and 366." size="10"/>
+      </parameter>
+      <parameter name="PARAM_AGE_PERIOD_THREE" dataType="xsd:integer">
+         <input label="Enter the length, in days, for aging period 3. Please specify a Number value between 1 and 366." size="10"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" dataType="string">
+         <select label=" Enter a specific country, or select ALL to include all countries." valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" dataType="string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_BILLING_TYPE" dataType="string">
+         <select label="Select a type of billing, or select ALL to include all types of billing." valueSet="LOV_BILLING_TYPE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_ACCOUNT_STATUS" dataType="string">
+         <select label="Select a specific account status, or select ALL to include all accounts." valueSet="LOV_ACCOUNT_STATUS" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_CURRENT_DATE" dataType="xsd:date">
+         <date label="Current Date [To be masked latter]." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

@@ -1,0 +1,182 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE template SYSTEM "template61.dtd">
+<template>
+<version>6.1</version>
+<name>ic_daily0</name>
+<start_line>1</start_line>
+<loading_controls group_by="none"></loading_controls>
+<file_type>Text</file_type>
+<file_format>Delimited</file_format>
+<global_record_info>
+<record_delimiter>newline</record_delimiter>
+<ignore_record_types></ignore_record_types>
+</global_record_info>
+<global_field_info>
+<trim_white_space>true</trim_white_space>
+<field_delimiter>,</field_delimiter>
+<consecutive_delimiters_is_one>true</consecutive_delimiters_is_one>
+<literal_indicator>&quot;</literal_indicator>
+</global_field_info>
+<records>
+<record name="header">
+<field_definitions>
+<field name="A" position="0"></field>
+<field name="B" position="1"></field>
+<field name="C" position="2"></field>
+<field name="D" position="3"></field>
+<field name="E" position="4"></field>
+<field name="F" position="5"></field>
+<field name="G" position="6"></field>
+<field name="H" position="7"></field>
+<field name="I" position="8"></field>
+<field name="J" position="9"></field>
+<field name="K" position="10"></field>
+<field name="L" position="11"></field>
+<field name="M" position="12"></field>
+<field name="N" position="13"></field>
+<field name="O" position="14"></field>
+<field name="P" position="15"></field>
+<field name="Q" position="16"></field>
+<field name="R" position="17"></field>
+<field name="S" position="18"></field>
+<field name="T" position="19"></field>
+<field name="U" position="20"></field>
+<field name="V" position="21"></field>
+<field name="W" position="22"></field>
+<field name="X" position="23"></field>
+<field name="Y" position="24"></field>
+<field name="Z" position="25"></field>
+<field name="AA" position="26"></field>
+<field name="AB" position="27"></field>
+<field name="AC" position="28"></field>
+<field name="AD" position="29"></field>
+<field name="AE" position="30"></field>
+<field name="AF" position="31"></field>
+<field name="AG" position="32"></field>
+<field name="AH" position="33"></field>
+<field name="AI" position="34"></field>
+<field name="AJ" position="35"></field>
+<field name="AK" position="36"></field>
+<field name="AL" position="37"></field>
+<field name="AM" position="38"></field>
+</field_definitions>
+</record>
+<record name="data record" event_class="/event/activity/settlement" service_class="/service/settlement" event_opcode_name="PCM_OP_IC_DAILY_LOADER" event_opcode_num="3651" user_info_opcode_name="PCM_OP_ACT_FIND" user_info_opcode_num="159">
+<field_definitions>
+<field name="A" position="0"></field>
+<field name="B" position="1"></field>
+<field name="C" position="2"></field>
+<field name="D" position="3"></field>
+<field name="E" position="4"></field>
+<field name="F" position="5"></field>
+<field name="G" position="6"></field>
+<field name="H" position="7"></field>
+<field name="I" position="8"></field>
+<field name="J" position="9"></field>
+<field name="K" position="10"></field>
+<field name="L" position="11"></field>
+<field name="M" position="12"></field>
+<field name="N" position="13"></field>
+<field name="O" position="14"></field>
+<field name="P" position="15"></field>
+<field name="Q" position="16"></field>
+<field name="R" position="17"></field>
+<field name="S" position="18"></field>
+<field name="T" position="19"></field>
+<field name="U" position="20"></field>
+<field name="V" position="21"></field>
+<field name="W" position="22"></field>
+<field name="X" position="23"></field>
+<field name="Y" position="24"></field>
+<field name="Z" position="25"></field>
+<field name="AA" position="26"></field>
+<field name="AB" position="27"></field>
+<field name="AC" position="28"></field>
+<field name="AD" position="29"></field>
+<field name="AE" position="30"></field>
+<field name="AF" position="31"></field>
+<field name="AG" position="32"></field>
+<field name="AH" position="33"></field>
+<field name="AI" position="34"></field>
+<field name="AJ" position="35"></field>
+<field name="AK" position="36"></field>
+<field name="AL" position="37"></field>
+<field name="AM" position="38"></field>
+</field_definitions><user_mapping_info>
+<field position="0" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldLogin" inf_field_num="92">
+</field>
+</user_mapping_info>
+<event_mapping_info>
+<field position="1" inf_data_type="TStampField" inf_data_type_num="8" inf_field_name="FldStartT" inf_field_num="61" data_type="ascii_str">
+</field>
+<field inf_data_type="SubStructField" inf_data_type_num="10" inf_field_name="FldInheritedInfo" inf_field_num="66">
+<field inf_data_type="SubStructField" inf_data_type_num="10" inf_field_name="FldSettlementInfo" inf_field_num="6500">
+<field position="2" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldIcproduct" inf_field_num="6505" data_type="ascii_str">
+</field>
+<field position="3" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldBillRun" inf_field_num="6501" data_type="ascii_str">
+</field>
+<field position="8" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldBillDirection" inf_field_num="6508" data_type="ascii_str">
+</field>
+<field position="11" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldTimemodel" inf_field_num="6509" data_type="ascii_str">
+</field>
+<field position="13" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldRatePlan" inf_field_num="2201" data_type="ascii_str">
+</field>
+<field position="15" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldSvcCode" inf_field_num="6424" data_type="ascii_str">
+</field>
+<field position="16" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldServiceClass" inf_field_num="2362" data_type="ascii_str">
+</field>
+<field position="20" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldNetwork" inf_field_num="74" data_type="ascii_str">
+</field>
+<field position="21" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldSwitch" inf_field_num="6502" data_type="ascii_str">
+</field>
+<field position="22" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldPoi" inf_field_num="6503" data_type="ascii_str">
+</field>
+<field position="23" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldTrunk" inf_field_num="6504" data_type="ascii_str">
+</field>
+<field position="25" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldMsid" inf_field_num="7453" data_type="ascii_str">
+</field>
+<field position="26" inf_data_type="IntField" inf_data_type_num="1" inf_field_name="FldSequenceNum" inf_field_num="954" data_type="ascii_str">
+</field>
+<field position="27" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldEntryType" inf_field_num="1258" data_type="ascii_str">
+</field>
+<field position="28" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldEntryTypeSeq" inf_field_num="6506" data_type="ascii_str">
+</field>
+<field position="29" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldNumItems" inf_field_num="6507" data_type="ascii_str">
+</field>
+</field>
+</field>
+<field position="4" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldInvoiceData" inf_field_num="448" data_type="ascii_str">
+</field>
+<field inf_data_type="ArrayField" inf_data_type_num="9" inf_field_name="FldBalImpacts" inf_field_num="256" elem_position="0">
+<field position="10" inf_data_type="IntField" inf_data_type_num="1" inf_field_name="FldGlId" inf_field_num="840" data_type="ascii_str" default_value="0">
+</field>
+<field position="14" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldRateTag" inf_field_num="1206" data_type="ascii_str">
+</field>
+<field position="17" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldImpactCategory" inf_field_num="1452" data_type="ascii_str">
+</field>
+<field position="19" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldLineage" inf_field_num="1900" data_type="ascii_str">
+</field><field position="24" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldNodeLocation" inf_field_num="1825" data_type="ascii_str">
+</field>
+<field position="30" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldQuantity" inf_field_num="58" data_type="ascii_str">
+</field>
+<field position="38" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldAmount" inf_field_num="57" data_type="ascii_str">
+</field>
+</field>
+<field position="9" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldProdName" inf_field_num="253" data_type="ascii_str">
+</field>
+<field position="12" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldTimezoneId" inf_field_num="2250" data_type="ascii_str">
+</field>
+<field position="18" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldRumName" inf_field_num="2211" data_type="ascii_str">
+</field>
+<field position="38" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldTaxLocales" inf_field_num="541" override_value="0">
+</field>
+<field position="38" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldTaxCode" inf_field_num="536" override_value="0">
+</field>
+<field position="5" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldBeidStrCode" inf_field_num="1600" data_type="ascii_str">
+</field>
+</event_mapping_info>
+<filters>
+</filters>
+</record>
+</records>
+</template>

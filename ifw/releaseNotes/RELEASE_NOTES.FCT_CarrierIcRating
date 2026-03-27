@@ -1,0 +1,374 @@
+========================================================================================
+FCT_CarrierIcRating
+----------------------------------------------------------------------------------------
+Module Release Notes 
+----------------------------------------------------------------------------------------
+=======================================================================================
+Module Version: 10013  15.0.0.0.1 09-Jan-2024
+BUG36163863 : Remove compiler warnings
+========================================================================================
+Module Version: 10012  7.4 08-Feb-2010
+BUG9355249 : spb: pipeline produces core in service provider test prod environment
+Passing failure as an extra argument in calls to DAT_Interconnect instead of using it as
+member variable in the DAT module
+========================================================================================
+Module Version: 10011  7.4 28-May-2009
+BUG8530423 : Stopped init method from being called in registry update of UseRateplan 
+             as it is not required.
+
+========================================================================================
+Module Version: 10010  7.4 13-Jan-2009
+bug7700376: DESCRIPTIVE ERROR MESSAGE IS NOT SHOWN FOR SOME SUSPENSE SCENARIOS
+Added a new error message and rejecting the EDR in case no ASS_CBD block is added due to 
+missing TRUNK information
+=======================================================================================
+Module Version: 10009  DaVinci 20-Jul-2006
+PRSF00213711: Fixed memory leaks and uninitialized variable access.
+========================================================================================
+Module Version: 10008  DaVinci  18-July-2006
+PRSF00219262: Da Vincii Code Clean Up: set isValidDetail false when you set error. 
+================================================================================
+Module Version: 10007  7.2_PATCH 12-Sep-2005
+PRSF00182363:change atol to atoi64 to avoid long truncation
+================================================================================
+
+Module Version: 10006  6.7_FP2  05-May-2004
+PRSF00108146:   NT build problem: Modify build spec and LIBNAME to MAKE_STR2(LIBNAME)
+		
+================================================================================
+
+Module Version: 10006  6.7_FP2  04-Apr-2004
+PRSF00102782:   Propagation of PRSF00059402. Changed message definition 
+                ERR_NETWORKMODEL_NOT_FOUND to remove duplicate definitions
+
+========================================================================================
+
+Module Version: 10005  6.5_SP2  05-May-2003
+PRSF00039864:   More changes to implement name space 
+
+========================================================================================
+
+Module Version: 10004  6.5_SP2  01-May-2003
+PRSF00039598:   Changes due to BAS::RegisteredObject::registryUpdate
+                interface change
+
+==============================================================================
+
+Actual Version : v10004 / Date : 3-May-2003
+----------------
+
+Solved PRs/CRs :
+----------------
+
+PRSF00039781 Implement Name Space 
+
+========================================================================================
+Actual Version : v10003 / Date : 11-Apr-2003
+----------------
+
+Solved PRs/CRs :
+----------------
+
+PRSF00037516 Fixing FCT linking error on AIX
+
+========================================================================================
+Actual Version : v10002 / Date : 03-Apr-2003
+----------------
+
+Solved PRs/CRs :
+----------------
+
+PRSF00025950 Make search field Record Type configurable through registry and make it 
+	     possible to have different rateplan per ciber record type.
+
+========================================================================================
+
+Actual Version : v10001 / Date : 27-Feb-2003
+----------------
+
+Solved PRs/CRs :
+----------------
+
+PRSF00032968 Implement Thread Trace.
+
+========================================================================================
+
+Actual Version : v4-30-04 / Date : 07-Jan-2001
+----------------
+
+Solved PRs/CRs :
+----------------
+
+PETS #42678 Write IFW_ICPRODUCT_RATE.NETWORK_OPERATOR into internal EDR-C.
+
+========================================================================================
+
+Actual Version : v4-30-03 / Date : 13-Dec-2001
+----------------
+
+Solved PRs/CRs :
+----------------
+
+PETS #42517 Write NetworkModel.Code into DETAIL.INTERN_NETWORK_MODEL.
+
+========================================================================================
+
+Actual Version : v4-30-02 / Date : 28-Aug-2001
+----------------
+
+Notes          :
+----------------
+
+PETS #38645 Fixed erroneous error messages.
+
+========================================================================================
+
+Actual Version : v4-30-01 / Date : 05-Jul-2001
+----------------
+
+Notes          :
+----------------
+
+PETS #36559 SourcePro Port.
+
+========================================================================================
+
+Actual Version : v4-30-00 / Date : 13-Jun-2001
+----------------
+
+New Features   :
+----------------
+
+- Modified for new EDR-C v4-30
+- Retrieve EDR-C field indices via IFW_ALIAS_MAP. Use hard-coded and documented 
+  defaults only if mapping fails.
+- Implementation changed to work with DAT_InterConnect v4-30-xx.
+- Enhanced error messages.
+
+Solved PRs/CRs :
+----------------
+
+Integrated PETS PT0000000035670 problem solutions reported for v4-10-03.
+
+========================================================================================
+
+Actual Version : v4-10-03 / Date : 16-Feb-2001
+----------------
+
+Notes          :
+----------------
+
+Reinit pointer to NetworkModel after a reload may have happened.
+
+========================================================================================
+
+Actual Version : v4-10-02 / Date : 12-Feb-2001
+----------------
+
+Notes          :
+----------------
+
+Added and fixed error messages in Message file.
+Init _all_ EDR-C indices during startup.
+
+========================================================================================
+
+Actual Version : v4-10-01 / Date : 08-Feb-2001
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+#3025# Fix error message if Reg.-Param IcProductGroup is missing.
+       
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v4-02-02 / Date : 26-Jul-2000
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+#2257# Set ASSOCIATED_CHARGE.INTERN_CALC_MODE with character.
+       
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v4-02-01 / Date : 19-Jul-2000
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+#2245# Update "DETAIL.NUMBER_ASSOCIATED_RECORDS" and
+       "ASSOCIATED_CHARGE.NUMBER_OF_CHARGE_PACKETS".
+       
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v4-01-00 / Date : 17-Jun-2000
+----------------
+
+Notes          :
+----------------
+
+Port to AIX.
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v4-00-05 / Date : 18-Apr-2000
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Recognize new zoneDirection value 'S' for standard a-/b-zoning.
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v4-00-03 / Date : 14-Mar-2000
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+#1683# CoreDump in FCT_MainRating if invalid value in UseTariffModel
+registry parameter and altTariffModel <NULL>.
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v4-00-00 / Date : 29-Feb-2000
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Support new EDR-C v4.
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v2-01-00 / Date : 27-Jan-2000
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Changes for new DAT_InterConnect PlugIn version v2-01-00.
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v2-00-00 / Date : 23-DEC-1999
+----------------
+
+Notes          :
+----------------
+
+New Features   :
+----------------
+
+Initial version.
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================

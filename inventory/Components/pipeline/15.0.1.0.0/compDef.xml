@@ -1,0 +1,1767 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="pipeline" version="15.0.1.0.0" description="Pipeline Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="ifw.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="11" dest="piperev" mode="0755"/>
+         <file size="10217" dest="supportInformer.pl" mode="0755"/>
+         <file size="22041" dest="pin_mib_generator" mode="0744"/>
+         <file size="104648" dest="ifw_eventhandler" mode="0744"/>
+         <file size="109552" dest="ifw" mode="0755"/>
+         <file size="83360" dest="dbLoader" mode="0755"/>
+         <file size="71136" dest="idecrypt" mode="0755"/>
+         <file size="71416" dest="iencrypt" mode="0755"/>
+         <file size="122088" dest="pin_container_to_stream_format" mode="0755"/>
+         <file size="2647936" dest="pin_crypt_app" mode="0755"/>
+         <file size="71096" dest="showBinaryLog" mode="0755"/>
+         <file size="142864" dest="PriceValidationTool" mode="0755"/>
+         <file size="5179" dest="orapki" mode="0750"/>
+         <file-perms>
+            <permission mode="0755" wildcard="supportInformer.pl"/>
+            <permission mode="0755" wildcard="piperev"/>
+            <permission mode="0744" wildcard="ifw_eventhandler"/>
+            <permission mode="0755" wildcard="pin_ctl"/>
+            <permission mode="0755" wildcard="pin_ctl.conf"/>
+            <permission mode="0744" wildcard="pin_mib_generator"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1323" dest="stop_pre_recycle.pl" mode="0744"/>
+         <file size="1323" dest="stop_pre_process.pl" mode="0755"/>
+         <file size="1308" dest="stop_all_rate.pl" mode="0755"/>
+         <file size="1321" dest="stop_all_pipeline.pl" mode="0755"/>
+         <file size="1368" dest="stop_RealtimePipelineZone.pl" mode="0755"/>
+         <file size="1363" dest="stop_RealtimePipelineGSM.pl" mode="0755"/>
+         <file size="1368" dest="stop_RealtimePipelineGPRS.pl" mode="0755"/>
+         <file size="1348" dest="stop_DiscountPipeline.pl" mode="0755"/>
+         <file size="1354" dest="start_rerating_stop_main.pl" mode="0755"/>
+         <file size="1328" dest="start_pre_recycle.pl" mode="0755"/>
+         <file size="1354" dest="start_main_stop_rerating.pl" mode="0755"/>
+         <file size="1328" dest="start_pre_process.pl" mode="0744"/>
+         <file size="1324" dest="start_all_pipeline.pl" mode="0744"/>
+         <file size="1373" dest="start_RealtimePipelineZone.pl" mode="0755"/>
+         <file size="1299" dest="reload_zone.pl" mode="0755"/>
+         <file size="1347" dest="set_call_ass_limit.pl" mode="0755"/>
+         <file size="4356" dest="set_dup_check_limit.pl" mode="0755"/>
+         <file size="1375" dest="start_RealtimePipelineGPRS.pl" mode="0755"/>
+         <file size="1306" dest="start_recycle.pl" mode="0755"/>
+         <file size="1369" dest="start_RealtimePipelineGSM.pl" mode="0744"/>
+         <file size="1353" dest="start_DiscountPipeline.pl" mode="0755"/>
+         <file size="1313" dest="start_all_rate.pl" mode="0755"/>
+         <file size="1304" dest="reload_price.pl" mode="0755"/>
+         <file size="5132" dest="purge_np_data.pl" mode="0744"/>
+         <file size="1367" dest="dump_portal_act_data.pl" mode="0755"/>
+         <file size="1373" dest="reload_portal_act_data.pl" mode="0755"/>
+         <file size="1369" dest="off_queue_buffer.pl" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="dump_portal_act_data.pl"/>
+            <permission mode="0755" wildcard="off_queue_buffer.pl"/>
+            <permission mode="0755" wildcard="reload_portal_act_data.pl"/>
+            <permission mode="0755" wildcard="reload_price.pl"/>
+            <permission mode="0755" wildcard="reload_zone.pl"/>
+            <permission mode="0755" wildcard="set_call_ass_limit.pl"/>
+            <permission mode="0755" wildcard="set_dup_check_limit.pl"/>
+            <permission mode="0744" wildcard="start_all_pipeline.pl"/>
+            <permission mode="0755" wildcard="start_all_rate.pl"/>
+            <permission mode="0755" wildcard="start_DiscountPipeline.pl"/>
+            <permission mode="0755" wildcard="start_main_stop_rerating.pl"/>
+            <permission mode="0744" wildcard="start_pre_process.pl"/>
+            <permission mode="0755" wildcard="start_pre_recycle.pl"/>
+            <permission mode="0755" wildcard="start_RealtimePipelineGPRS.pl"/>
+            <permission mode="0744" wildcard="start_RealtimePipelineGSM.pl"/>
+            <permission mode="0755" wildcard="start_RealtimePipelineZone.pl"/>
+            <permission mode="0755" wildcard="start_recycle.pl"/>
+            <permission mode="0755" wildcard="start_rerating_stop_main.pl"/>
+            <permission mode="0755" wildcard="stop_all_pipeline.pl"/>
+            <permission mode="0755" wildcard="stop_all_rate.pl"/>
+            <permission mode="0755" wildcard="stop_DiscountPipeline.pl"/>
+            <permission mode="0755" wildcard="stop_pre_process.pl"/>
+            <permission mode="0744" wildcard="stop_pre_recycle.pl"/>
+            <permission mode="0755" wildcard="stop_RealtimePipelineGPRS.pl"/>
+            <permission mode="0755" wildcard="stop_RealtimePipelineGSM.pl"/>
+            <permission mode="0755" wildcard="stop_RealtimePipelineZone.pl"/>
+            <permission mode="0744" wildcard="purge_np_data.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="etc" mode="750" patchable="true">
+         <file size="56647" dest="Framework.msg" mode="0664"/>
+         <file size="1074" dest="OMF.msg" mode="0664"/>
+         <file size="1036" dest="EXT_InEasyDB_ERROR.msg" mode="0664"/>
+         <file size="668" dest="PipelineDispatcher.msg" mode="0664"/>
+         <file size="1181" dest="DAT_PortalConfig.msg" mode="0664"/>
+         <file size="5669" dest="DAT_Listener.msg" mode="0664"/>
+         <file size="79" dest="DAT_Currency.msg" mode="0664"/>
+         <file size="1562" dest="FCT_IRules_Error.msg" mode="0664"/>
+         <file size="4346" dest="INP_Realtime.msg" mode="0664"/>
+         <file size="638" dest="FCT_IScriptPlugIn_Error.msg" mode="0664"/>
+         <file size="882" dest="OUT_DB.msg" mode="0664"/>
+         <file size="586" dest="INP_GenericStream_Error.msg" mode="0664"/>
+         <file size="405" dest="OUT_GenericStream_Error.msg" mode="0664"/>
+         <file size="567" dest="OUT_Realtime.msg" mode="0664"/>
+         <file size="1090" dest="NET_EM.msg" mode="0664"/>
+         <file size="21743" dest="DAT_AccountBatch.msg" mode="0664"/>
+         <file size="300" dest="INP_EdrDump_Error.msg" mode="0664"/>
+         <file size="407" dest="FCT_AccountRouter.msg" mode="0664"/>
+         <file size="459" dest="DAT_AccountRealtime.msg" mode="0664"/>
+         <file size="824" dest="DAT_ItemAssign_Error.msg" mode="0664"/>
+         <file size="82" dest="FCT_ItemAssign_Error.msg" mode="0664"/>
+         <file size="106" dest="DAT_NOSP.msg" mode="0664"/>
+         <file size="256" dest="FCT_Account.msg" mode="0664"/>
+         <file size="306" dest="FCT_AccountLPRouter.msg" mode="0664"/>
+         <file size="1344" dest="DAT_Zone_Error.msg" mode="0664"/>
+         <file size="100" dest="FCT_TriggerBill.msg" mode="0664"/>
+         <file size="1103" dest="DAT_NumberPortability_error.msg" mode="0664"/>
+         <file size="687" dest="FCT_UsageClassMap_Error.msg" mode="0664"/>
+         <file size="985" dest="FCT_CliMapping_Error.msg" mode="0664"/>
+         <file size="1313" dest="FCT_ApplyBalance_Error.msg" mode="0664"/>
+         <file size="1618" dest="DAT_USC_Map.msg" mode="0664"/>
+         <file size="386" dest="DAT_BalanceRealtime.msg" mode="0664"/>
+         <file size="3799" dest="DAT_Discount_Error.msg" mode="0664"/>
+         <file size="4954" dest="FCT_Discount_Error.msg" mode="0664"/>
+         <file size="472" dest="FCT_CustomerRating_Error.msg" mode="0664"/>
+         <file size="781" dest="DAT_Rateplan_Error.msg" mode="0664"/>
+         <file size="633" dest="DAT_Recycle.msg" mode="0664"/>
+         <file size="312" dest="FCT_SegZoneNoCust_Error.msg" mode="0664"/>
+         <file size="1811" dest="FCT_MainRating_Error.msg" mode="0664"/>
+         <file size="2691" dest="INP_Recycle_Error.msg" mode="0664"/>
+         <file size="6781" dest="DAT_BalanceBatch.msg" mode="0664"/>
+         <file size="811" dest="FCT_BatchSuspense_Error.msg" mode="0664"/>
+         <file size="397" dest="FCT_CreditLimitCheck_Error.msg" mode="0664"/>
+         <file size="1285" dest="DAT_ResubmitBatch.msg" mode="0664"/>
+         <file size="6541" dest="FCT_CallAssembling_Error.msg" mode="0664"/>
+         <file size="124" dest="FCT_Filter_Set_Error.msg" mode="0664"/>
+         <file size="605" dest="FCT_ServiceCodeMap_Error.msg" mode="0664"/>
+         <file size="527" dest="FCT_CarrierIcRating_Error.msg" mode="0664"/>
+         <file size="0" dest="FCT_DiscountAnalysis_Error.msg" mode="0664"/>
+         <file size="228" dest="FCT_CiberOcc_Error.msg" mode="0664"/>
+         <file size="735" dest="FCT_PreSuspense_Error.msg" mode="0664"/>
+         <file size="1040" dest="FCT_USC_Map_Error.msg" mode="0664"/>
+         <file size="1047" dest="FCT_Suspense_Error.msg" mode="0664"/>
+         <file size="1183" dest="FCT_AggreGate_Error.msg" mode="0664"/>
+         <file size="2694" dest="DAT_InterConnect_Error.msg" mode="0664"/>
+         <file size="3792" dest="DBL_error.msg" mode="0664"/>
+         <file size="593" dest="FCT_EventOrder_Error.msg" mode="0664"/>
+         <file size="524" dest="FCT_RateAdjust_Error.msg" mode="0664"/>
+         <file size="626" dest="FCT_PreRating_Error.msg" mode="0664"/>
+         <file size="238" dest="FCT_FirstUsageNotify_Error.msg" mode="0664"/>
+         <file size="208" dest="FCT_Reject_Error.msg" mode="0664"/>
+         <file size="1354" dest="FCT_APN_Map_Error.msg" mode="0664"/>
+         <file size="372" dest="FCT_BillingRecord_Error.msg" mode="0664"/>
+         <file size="480" dest="FCT_Discard_Error.msg" mode="0664"/>
+         <file size="768" dest="DAT_ScenarioReader_Error.msg" mode="0664"/>
+         <file size="1284" dest="FCT_EnhancedSplitting_Error.msg" mode="0664"/>
+         <file size="162" dest="DAT_Tadig2Plmn_Error.msg" mode="0664"/>
+         <file size="115" dest="FCT_Rounding_Error.msg" mode="0664"/>
+         <file size="664" dest="FCT_Splitting_Error.msg" mode="0664"/>
+         <file size="1589" dest="DAT_Price_Error.msg" mode="0664"/>
+         <file size="1612" dest="FCT_DroppedCall.msg" mode="0664"/>
+         <file size="78" dest="FCT_Tadig2PlmnPlugIn_Error.msg" mode="0664"/>
+         <file size="317" dest="FCT_ExchangeRate_ERROR.msg" mode="0664"/>
+         <file size="964" dest="FCT_UoM_Map_Error.msg" mode="0664"/>
+         <file size="1363" dest="FCT_DuplicateCheck.msg" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="DAT_NumberPortability_error.msg"/>
+            <permission mode="0664" wildcard="FCT_IRules_Error.msg"/>
+            <permission mode="0664" wildcard="NET_EM.msg"/>
+            <permission mode="0664" wildcard="OUT_GenericStream_Error.msg"/>
+            <permission mode="0664" wildcard="OUT_Realtime.msg"/>
+            <permission mode="0664" wildcard="OMF.msg"/>
+            <permission mode="0664" wildcard="PipelineDispatcher.msg"/>
+            <permission mode="0664" wildcard="FCT_IScriptPlugIn_Error.msg"/>
+            <permission mode="0664" wildcard="Framework.msg"/>
+            <permission mode="0664" wildcard="INP_GenericStream_Error.msg"/>
+            <permission mode="0664" wildcard="INP_Realtime.msg"/>
+            <permission mode="0664" wildcard="DAT_Listener.msg"/>
+            <permission mode="0664" wildcard="EXT_InEasyDB_ERROR.msg"/>
+            <permission mode="0664" wildcard="FCT_Reject_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_AccountBatch.msg"/>
+            <permission mode="0664" wildcard="DAT_AccountRealtime.msg"/>
+            <permission mode="0664" wildcard="DAT_BalanceBatch.msg"/>
+            <permission mode="0664" wildcard="DAT_BalanceRealtime.msg"/>
+            <permission mode="0664" wildcard="DAT_Currency.msg"/>
+            <permission mode="0664" wildcard="DAT_Discount_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_InterConnect_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_ItemAssign_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_PortalConfig.msg"/>
+            <permission mode="0664" wildcard="DAT_Price_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_NOSP.msg"/>
+            <permission mode="0664" wildcard="DAT_Rateplan_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_Recycle.msg"/>
+            <permission mode="0664" wildcard="DAT_ResubmitBatch.msg"/>
+            <permission mode="0664" wildcard="DAT_ScenarioReader_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_Tadig2Plmn_Error.msg"/>
+            <permission mode="0664" wildcard="DAT_USC_Map.msg"/>
+            <permission mode="0664" wildcard="DAT_Zone_Error.msg"/>
+            <permission mode="0664" wildcard="DBL_error.msg"/>
+            <permission mode="0664" wildcard="FCT_Account.msg"/>
+            <permission mode="0664" wildcard="FCT_AccountRouter.msg"/>
+            <permission mode="0664" wildcard="FCT_AggreGate_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_APN_Map_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_ApplyBalance_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_BatchSuspense_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_BillingRecord_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_CallAssembling_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_CarrierIcRating_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_CiberOcc_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_CliMapping_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_CreditLimitCheck_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_CustomerRating_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_DiscountAnalysis_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_Discard_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_Discount_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_DroppedCall.msg"/>
+            <permission mode="0664" wildcard="FCT_DuplicateCheck.msg"/>
+            <permission mode="0664" wildcard="FCT_EnhancedSplitting_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_EventOrder_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_ExchangeRate_ERROR.msg"/>
+            <permission mode="0664" wildcard="FCT_Filter_Set_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_FirstUsageNotify_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_ItemAssign_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_MainRating_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_PreRating_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_PreSuspense_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_RateAdjust_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_Rounding_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_SegZoneNoCust_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_ServiceCodeMap_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_Splitting_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_Suspense_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_Tadig2PlmnPlugIn_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_TriggerBill.msg"/>
+            <permission mode="0664" wildcard="FCT_UoM_Map_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_UsageClassMap_Error.msg"/>
+            <permission mode="0664" wildcard="FCT_USC_Map_Error.msg"/>
+            <permission mode="0664" wildcard="INP_EdrDump_Error.msg"/>
+            <permission mode="0664" wildcard="INP_Recycle_Error.msg"/>
+            <permission mode="0664" wildcard="OUT_DB.msg"/>
+            <permission mode="0664" wildcard="FCT_AccountLPRouter.msg"/>
+         </file-perms>
+      </directory>
+      <directory dest="instrumentation" mode="750" patchable="true">
+         <file size="756" dest="portal_omf.gif" mode="0664"/>
+         <file size="564" dest="OMF_Http.probe" mode="0664"/>
+         <file size="5808" dest="portal_omf.xsl" mode="0664"/>
+         <file size="922" dest="PPL_InputController.probe" mode="0664"/>
+         <file size="405" dest="OMF_DiagnosticDataHandler.probe" mode="0664"/>
+         <file size="1041" dest="PLG_Statistic.probe" mode="0664"/>
+         <file size="393" dest="DAT_ConnectionPool.probe" mode="0664"/>
+         <file size="511" dest="LOG_StreamITO.probe" mode="0664"/>
+         <file size="400" dest="DAT_ConnectionMonitor.probe" mode="0664"/>
+         <file size="822" dest="FCT_Opcode.probe" mode="0664"/>
+         <file size="543" dest="DAT_NumberPortability.probe" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="ComponentInfo.txt"/>
+            <permission mode="0664" wildcard="ModuleInfo.txt"/>
+            <permission mode="0664" wildcard="OMF_Http.probe"/>
+            <permission mode="0664" wildcard="OMF_Snmp.probe"/>
+            <permission mode="0664" wildcard="portal_omf.xsl"/>
+            <permission mode="0664" wildcard="portal_omf.gif"/>
+            <permission mode="0664" wildcard="OMF_DiagnosticDataHandler.probe"/>
+            <permission mode="0664" wildcard="PLG_Statistic.probe"/>
+            <permission mode="0664" wildcard="LOG_StreamITO.probe"/>
+            <permission mode="0664" wildcard="FCT_Opcode.probe"/>
+            <permission mode="0664" wildcard="PPL_InputController.probe"/>
+            <permission mode="0664" wildcard="DAT_ConnectionPool.probe"/>
+            <permission mode="0664" wildcard="DAT_NumberPortability.probe"/>
+            <permission mode="0664" wildcard="DAT_ConnectionMonitor.probe"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="948240" dest="libBAS.so" mode="0775"/>
+         <file size="1082648" dest="libSCR.so" mode="0775"/>
+         <file size="69344" dest="libEventMsg.so" mode="0775"/>
+         <file size="88000" dest="libSTR_Base.so" mode="0775"/>
+         <file size="346848" dest="libOMF.so" mode="0775"/>
+         <file size="118480" dest="libPBC.so" mode="0775"/>
+         <file size="183496" dest="libGDD.so" mode="0775"/>
+         <file size="268056" dest="libLOG.so" mode="0775"/>
+         <file size="943048" dest="libEDR.so" mode="0775"/>
+         <file size="118208" dest="libPLG_Base.so" mode="0775"/>
+         <file size="143984" dest="libDBC.so" mode="0775"/>
+         <file size="292912" dest="libTAM.so" mode="0775"/>
+         <file size="76872" dest="libSTR.so" mode="0775"/>
+         <file size="186104" dest="libEVT.so" mode="0775"/>
+         <file size="1321720" dest="libPLG.so" mode="0775"/>
+         <file size="568016" dest="libFRM.so" mode="0775"/>
+         <file size="124032" dest="libCSH.so" mode="0775"/>
+         <file size="210040" dest="libWEB.so" mode="0775"/>
+         <file size="101656" dest="libOBS.so" mode="0775"/>
+         <file size="85472" dest="libNetworkHelper.so" mode="0775"/>
+         <file size="298360" dest="libCTL.so" mode="0775"/>
+         <file size="150384" dest="libEXT_AsnTree.so" mode="0775"/>
+         <file size="106000" dest="libEXT_Converter.so" mode="0775"/>
+         <file size="215032" dest="libEXT_FList.so" mode="0775"/>
+         <file size="237280" dest="libEXT_InEasyDB.so" mode="0775"/>
+         <file size="153736" dest="libEXT_InFileManager.so" mode="0775"/>
+         <file size="854432" dest="libIFW.so" mode="0775"/>
+         <file size="106808" dest="libEXT_PipelineDispatcher.so" mode="0775"/>
+         <file size="175784" dest="libEXT_OutFileManager.so" mode="0775"/>
+         <file size="158808" dest="libEdrDumpParser.so" mode="0775"/>
+         <file size="149944" dest="libOracleQueue.so" mode="0775"/>
+         <file size="309360" dest="libDAT_Listener.so" mode="0775"/>
+         <file size="129192" dest="libDAT_Currency.so" mode="0775"/>
+         <file size="268944" dest="libDAT_ModelSelector.so" mode="0775"/>
+         <file size="319048" dest="libDAT_PortalConfig.so" mode="0775"/>
+         <file size="229840" dest="libDAT_ConnectionPool.so" mode="0775"/>
+         <file size="98576" dest="libEXT_Opcode.so" mode="0775"/>
+         <file size="106464" dest="libFCT_EdrDump.so" mode="0775"/>
+         <file size="122384" dest="libFCT_IScript.so" mode="0775"/>
+         <file size="279008" dest="libFCT_IRules.so" mode="0775"/>
+         <file size="155968" dest="libFCT_Opcode.so" mode="0775"/>
+         <file size="97624" dest="libINP_GenericStream.so" mode="0775"/>
+         <file size="182384" dest="libINP_Realtime.so" mode="0775"/>
+         <file size="83032" dest="libINP_EdrDump.so" mode="0775"/>
+         <file size="82584" dest="libIXT_PCM.so" mode="0775"/>
+         <file size="156824" dest="libIXT_Db.so" mode="0775"/>
+         <file size="98704" dest="libIXT_PortalConfig.so" mode="0775"/>
+         <file size="242624" dest="libOUT_DB.so" mode="0775"/>
+         <file size="77088" dest="libOUT_DevNull.so" mode="0775"/>
+         <file size="103216" dest="libOUT_GenericStream.so" mode="0775"/>
+         <file size="77920" dest="libOUT_Reject.so" mode="0775"/>
+         <file size="218832" dest="libOUT_Realtime.so" mode="0775"/>
+         <file size="275264" dest="libNET_EM.so" mode="0775"/>
+         <file size="3522896" dest="libDAT_AccountBatch.so" mode="0775"/>
+         <file size="152424" dest="libDAT_AccountRealtime.so" mode="0775"/>
+         <file size="258504" dest="libDAT_ItemAssign.so" mode="0775"/>
+         <file size="326280" dest="libFCT_Account.so" mode="0775"/>
+         <file size="175072" dest="libFCT_AccountRouter.so" mode="0775"/>
+         <file size="160712" dest="libexpat.so" mode="0775"/>
+         <file size="2236224" dest="libace.so" mode="0775"/>
+         <file size="4506744" dest="libxercesc.so" mode="0775"/>
+         <file size="162424" dest="libFCT_ItemAssign.so" mode="0775"/>
+         <file size="102240" dest="libFCT_TriggerBill.so" mode="0775"/>
+         <file size="135416" dest="libFCT_AccountLPRouter.so" mode="0775"/>
+         <file size="131984" dest="libIXT_Era.so" mode="0775"/>
+         <file size="132224" dest="libIXT_ProfileLabel.so" mode="0775"/>
+         <file size="130352" dest="libDAT_NOSP.so" mode="0775"/>
+         <file size="190400" dest="libDAT_NumberPortability.so" mode="0775"/>
+         <file size="160688" dest="libDAT_PrefixDesc.so" mode="0775"/>
+         <file size="208240" dest="libDAT_USC_Map.so" mode="0775"/>
+         <file size="335352" dest="libDAT_Zone.so" mode="0775"/>
+         <file size="222176" dest="libFCT_APN_Map.so" mode="0775"/>
+         <file size="119496" dest="libFCT_CliMapping.so" mode="0775"/>
+         <file size="112720" dest="libFCT_MainZoning.so" mode="0775"/>
+         <file size="101704" dest="libFCT_NOSP.so" mode="0775"/>
+         <file size="107112" dest="libFCT_NumberPortability.so" mode="0775"/>
+         <file size="96792" dest="libFCT_PrefixDesc.so" mode="0775"/>
+         <file size="151648" dest="libFCT_RSC_Map.so" mode="0775"/>
+         <file size="138688" dest="libFCT_SegZoneNoCust.so" mode="0775"/>
+         <file size="152528" dest="libFCT_ServiceCodeMap.so" mode="0775"/>
+         <file size="133464" dest="libFCT_SocialNo.so" mode="0775"/>
+         <file size="144896" dest="libFCT_USC_Map.so" mode="0775"/>
+         <file size="216944" dest="libFCT_UoM_Map.so" mode="0775"/>
+         <file size="151960" dest="libFCT_UsageClassMap.so" mode="0775"/>
+         <file size="121016" dest="libFCT_Zone.so" mode="0775"/>
+         <file size="97784" dest="libDAT_DiscountExt.so" mode="0775"/>
+         <file size="489840" dest="libDAT_Discount.so" mode="0775"/>
+         <file size="986704" dest="libDAT_BalanceBatch.so" mode="0775"/>
+         <file size="187680" dest="libDAT_BalanceRealtime.so" mode="0775"/>
+         <file size="678248" dest="libFCT_Discount.so" mode="0775"/>
+         <file size="64824" dest="libpcmext.so" mode="0775"/>
+         <file size="653400" dest="libpcmcpp60.so" mode="0775"/>
+         <file size="660928" dest="libpcmcpp67.so" mode="0775"/>
+         <file size="62776" dest="libpin_crypt_aes.so" mode="0775"/>
+         <file size="2651024" dest="libnzsdk.so" mode="0775"/>
+         <file size="242416" dest="libFCT_ApplyBalance.so" mode="0775"/>
+         <file size="209208" dest="libFCT_DiscountAnalysis.so" mode="0775"/>
+         <file size="93992" dest="libIXT_PipelineBal.so" mode="0775"/>
+         <file size="141912" dest="libDAT_Dayrate.so" mode="0775"/>
+         <file size="122112" dest="libDAT_ExchangeRate.so" mode="0775"/>
+         <file size="118520" dest="libDAT_Calendar.so" mode="0775"/>
+         <file size="295920" dest="libDAT_PriceModel.so" mode="0775"/>
+         <file size="287408" dest="libDAT_Rateplan.so" mode="0775"/>
+         <file size="183728" dest="libDAT_TimeModel.so" mode="0775"/>
+         <file size="199648" dest="libFCT_CustomerRating.so" mode="0775"/>
+         <file size="148328" dest="libFCT_Dayrate.so" mode="0775"/>
+         <file size="200112" dest="libFCT_ExchangeRate.so" mode="0775"/>
+         <file size="227192" dest="libFCT_Filter_Set.so" mode="0775"/>
+         <file size="111280" dest="libFCT_GlobalRating.so" mode="0775"/>
+         <file size="363184" dest="libFCT_MainRating.so" mode="0775"/>
+         <file size="136912" dest="libFCT_PreRating.so" mode="0775"/>
+         <file size="220952" dest="libFCT_RateAdjust.so" mode="0775"/>
+         <file size="147672" dest="libFCT_SegRateNoCust.so" mode="0775"/>
+         <file size="148592" dest="libDAT_Recycle.so" mode="0775"/>
+         <file size="185896" dest="libDAT_ResubmitBatch.so" mode="0775"/>
+         <file size="173376" dest="libFCT_EnhancedSplitting.so" mode="0775"/>
+         <file size="199808" dest="libFCT_PreRecycle.so" mode="0775"/>
+         <file size="125872" dest="libFCT_PreSuspense.so" mode="0775"/>
+         <file size="116600" dest="libFCT_Recycle.so" mode="0775"/>
+         <file size="117752" dest="libFCT_Reject.so" mode="0775"/>
+         <file size="102440" dest="libFCT_Splitting.so" mode="0775"/>
+         <file size="197408" dest="libFCT_Suspense.so" mode="0775"/>
+         <file size="187464" dest="libFCT_BatchSuspense.so" mode="0775"/>
+         <file size="241696" dest="libINP_Recycle.so" mode="0775"/>
+         <file size="343664" dest="libFCT_BillingRecord.so" mode="0775"/>
+         <file size="388824" dest="libFCT_CreditLimitCheck.so" mode="0775"/>
+         <file size="191096" dest="libFCT_FirstUsageNotify.so" mode="0775"/>
+         <file size="141104" dest="libFCT_Rounding.so" mode="0775"/>
+         <file size="247144" dest="libFCT_DataDump.so" mode="0775"/>
+         <file size="103160" dest="libIXT_OpFlag.so" mode="0775"/>
+         <file size="299400" dest="libDAT_ScenarioReader.so" mode="0775"/>
+         <file size="292624" dest="libFCT_AggreGate.so" mode="0775"/>
+         <file size="620488" dest="libFCT_CallAssembling.so" mode="0775"/>
+         <file size="140480" dest="libFCT_Discard.so" mode="0775"/>
+         <file size="308560" dest="libFCT_DuplicateCheck.so" mode="0775"/>
+         <file size="260464" dest="libFCT_EventOrder.so" mode="0775"/>
+         <file size="174048" dest="libFCT_DroppedCall.so" mode="0775"/>
+         <file size="363568" dest="libDBL.so" mode="0775"/>
+         <file size="96128" dest="libRatePlanValidation.so" mode="0775"/>
+         <file size="82304" dest="libGLIDPriceValidation.so" mode="0775"/>
+         <file size="86984" dest="libResourcePriceValidation.so" mode="0775"/>
+         <file size="86472" dest="libFilterSetPriceValidation.so" mode="0775"/>
+         <file size="86736" dest="libDiscountAndSponsorValidation.so" mode="0775"/>
+         <file size="118424" dest="libRTPXmlValidation.so" mode="0775"/>
+         <file size="181162" dest="portal_op_flds.dat" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="libDAT_NumberPortability.so"/>
+            <permission mode="0775" wildcard="libDAT_Zone.so"/>
+            <permission mode="0775" wildcard="libFCT_EdrDump.so"/>
+            <permission mode="0775" wildcard="libFCT_IRules.so"/>
+            <permission mode="0775" wildcard="libFCT_IScript.so"/>
+            <permission mode="0775" wildcard="libFCT_NumberPortability.so"/>
+            <permission mode="0775" wildcard="libFCT_Zone.so"/>
+            <permission mode="0775" wildcard="libace.so"/>
+            <permission mode="0775" wildcard="libEXT_Converter.so"/>
+            <permission mode="0775" wildcard="libEXT_FList.so"/>
+            <permission mode="0775" wildcard="libEXT_InFileManager.so"/>
+            <permission mode="0775" wildcard="libEXT_OutFileManager.so"/>
+            <permission mode="0775" wildcard="libexpat.so"/>
+            <permission mode="0775" wildcard="libFRM.so"/>
+            <permission mode="0775" wildcard="libGDD.so"/>
+            <permission mode="0775" wildcard="libIFW.so"/>
+            <permission mode="0775" wildcard="libIXT_Era.so"/>
+            <permission mode="0775" wildcard="libIXT_PCM.so"/>
+            <permission mode="0775" wildcard="libOMF.so"/>
+            <permission mode="0775" wildcard="libOUT_DB.so"/>
+            <permission mode="0775" wildcard="libOUT_DevNull.so"/>
+            <permission mode="0775" wildcard="libOUT_GenericStream.so"/>
+            <permission mode="0775" wildcard="libPBC.so"/>
+            <permission mode="0775" wildcard="libpcmcpp60.so"/>
+            <permission mode="0775" wildcard="libpcmcpp67.so"/>
+            <permission mode="0775" wildcard="libpcmext.so"/>
+            <permission mode="0775" wildcard="libPLG.so"/>
+            <permission mode="0775" wildcard="libPLG_Base.so"/>
+            <permission mode="0775" wildcard="libSCR.so"/>
+            <permission mode="0775" wildcard="libSTR.so"/>
+            <permission mode="0775" wildcard="libSTR_Base.so"/>
+            <permission mode="0775" wildcard="libsnmp_pp.so"/>
+            <permission mode="0775" wildcard="libTAM.so"/>
+            <permission mode="0775" wildcard="libWEB.so"/>
+            <permission mode="0775" wildcard="libxercesc.so"/>
+            <permission mode="0775" wildcard="libNetworkHelper.so"/>
+            <permission mode="0775" wildcard="libOBS.so"/>
+            <permission mode="0775" wildcard="libagent_pp.so"/>
+            <permission mode="0775" wildcard="libagentx_pp.so"/>
+            <permission mode="0775" wildcard="libBAS.so"/>
+            <permission mode="0775" wildcard="libCSH.so"/>
+            <permission mode="0775" wildcard="libCTL.so"/>
+            <permission mode="0775" wildcard="libDBC.so"/>
+            <permission mode="0775" wildcard="libEDR.so"/>
+            <permission mode="0775" wildcard="libEVT.so"/>
+            <permission mode="0775" wildcard="libEXT_AsnTree.so"/>
+            <permission mode="0775" wildcard="libIXT_Db.so"/>
+            <permission mode="0775" wildcard="libLOG.so"/>
+            <permission mode="0775" wildcard="libDAT_ConnectionPool.so"/>
+            <permission mode="0775" wildcard="libFCT_Opcode.so"/>
+            <permission mode="0775" wildcard="libINP_GenericStream.so"/>
+            <permission mode="0775" wildcard="libDAT_Listener.so"/>
+            <permission mode="0775" wildcard="libDAT_PrefixDesc.so"/>
+            <permission mode="0775" wildcard="libFCT_PrefixDesc.so"/>
+            <permission mode="0775" wildcard="libFCT_Reject.so"/>
+            <permission mode="0775" wildcard="libDAT_AccountBatch.so"/>
+            <permission mode="0775" wildcard="libDAT_AccountRealtime.so"/>
+            <permission mode="0775" wildcard="libDAT_BalanceBatch.so"/>
+            <permission mode="0775" wildcard="libIXT_PipelineBal.so"/>
+            <permission mode="0775" wildcard="libDAT_BalanceRealtime.so"/>
+            <permission mode="0775" wildcard="libDAT_Calendar.so"/>
+            <permission mode="0775" wildcard="libDAT_Currency.so"/>
+            <permission mode="0775" wildcard="libDAT_Dayrate.so"/>
+            <permission mode="0775" wildcard="libDAT_Discount.so"/>
+            <permission mode="0775" wildcard="libDAT_DiscountExt.so"/>
+            <permission mode="0775" wildcard="libDAT_ExchangeRate.so"/>
+            <permission mode="0775" wildcard="libDAT_ItemAssign.so"/>
+            <permission mode="0775" wildcard="libDAT_ModelSelector.so"/>
+            <permission mode="0775" wildcard="libDAT_NOSP.so"/>
+            <permission mode="0775" wildcard="libDAT_PortalConfig.so"/>
+            <permission mode="0775" wildcard="libDAT_PriceModel.so"/>
+            <permission mode="0775" wildcard="libDAT_Rateplan.so"/>
+            <permission mode="0775" wildcard="libDAT_ResubmitBatch.so"/>
+            <permission mode="0775" wildcard="libDAT_Recycle.so"/>
+            <permission mode="0775" wildcard="libDAT_ScenarioReader.so"/>
+            <permission mode="0775" wildcard="libDAT_TimeModel.so"/>
+            <permission mode="0775" wildcard="libDAT_USC_Map.so"/>
+            <permission mode="0775" wildcard="libEdrDumpParser.so"/>
+            <permission mode="0775" wildcard="libFCT_Account.so"/>
+            <permission mode="0775" wildcard="libFCT_AccountRouter.so"/>
+            <permission mode="0775" wildcard="libFCT_AggreGate.so"/>
+            <permission mode="0775" wildcard="libFCT_APN_Map.so"/>
+            <permission mode="0775" wildcard="libFCT_ApplyBalance.so"/>
+            <permission mode="0775" wildcard="libFCT_BatchSuspense.so"/>
+            <permission mode="0775" wildcard="libFCT_BillingRecord.so"/>
+            <permission mode="0775" wildcard="libFCT_CallAssembling.so"/>
+            <permission mode="0775" wildcard="libFCT_CliMapping.so"/>
+            <permission mode="0775" wildcard="libFCT_CreditLimitCheck.so"/>
+            <permission mode="0775" wildcard="libFCT_CustomerRating.so"/>
+            <permission mode="0775" wildcard="libFCT_Dayrate.so"/>
+            <permission mode="0775" wildcard="libFCT_Discard.so"/>
+            <permission mode="0775" wildcard="libFCT_Discount.so"/>
+            <permission mode="0775" wildcard="libFCT_DiscountAnalysis.so"/>
+            <permission mode="0775" wildcard="libFCT_DroppedCall.so"/>
+            <permission mode="0775" wildcard="libFCT_DuplicateCheck.so"/>
+            <permission mode="0775" wildcard="libFCT_DataDump.so"/>
+            <permission mode="0775" wildcard="libFCT_EnhancedSplitting.so"/>
+            <permission mode="0775" wildcard="libFCT_EventOrder.so"/>
+            <permission mode="0775" wildcard="libFCT_ExchangeRate.so"/>
+            <permission mode="0775" wildcard="libFCT_Filter_Set.so"/>
+            <permission mode="0775" wildcard="libFCT_FirstUsageNotify.so"/>
+            <permission mode="0775" wildcard="libFCT_GlobalRating.so"/>
+            <permission mode="0775" wildcard="libFCT_ItemAssign.so"/>
+            <permission mode="0775" wildcard="libFCT_MainRating.so"/>
+            <permission mode="0775" wildcard="libFCT_MainZoning.so"/>
+            <permission mode="0775" wildcard="libFCT_NOSP.so"/>
+            <permission mode="0775" wildcard="libFCT_PreRating.so"/>
+            <permission mode="0775" wildcard="libFCT_PreRecycle.so"/>
+            <permission mode="0775" wildcard="libFCT_PreSuspense.so"/>
+            <permission mode="0775" wildcard="libFCT_RateAdjust.so"/>
+            <permission mode="0775" wildcard="libFCT_Recycle.so"/>
+            <permission mode="0775" wildcard="libFCT_Rounding.so"/>
+            <permission mode="0775" wildcard="libFCT_RSC_Map.so"/>
+            <permission mode="0775" wildcard="libFCT_SegRateNoCust.so"/>
+            <permission mode="0775" wildcard="libFCT_SegZoneNoCust.so"/>
+            <permission mode="0775" wildcard="libFCT_ServiceCodeMap.so"/>
+            <permission mode="0775" wildcard="libFCT_SocialNo.so"/>
+            <permission mode="0775" wildcard="libFCT_Splitting.so"/>
+            <permission mode="0775" wildcard="libFCT_Suspense.so"/>
+            <permission mode="0775" wildcard="libFCT_TriggerBill.so"/>
+            <permission mode="0775" wildcard="libFCT_UoM_Map.so"/>
+            <permission mode="0775" wildcard="libFCT_UsageClassMap.so"/>
+            <permission mode="0775" wildcard="libFCT_USC_Map.so"/>
+            <permission mode="0775" wildcard="libINP_EdrDump.so"/>
+            <permission mode="0775" wildcard="libINP_Realtime.so"/>
+            <permission mode="0775" wildcard="libINP_Recycle.so"/>
+            <permission mode="0775" wildcard="libIXT_OpFlag.so"/>
+            <permission mode="0775" wildcard="libIXT_PortalConfig.so"/>
+            <permission mode="0775" wildcard="libNET_EM.so"/>
+            <permission mode="0775" wildcard="libOUT_Realtime.so"/>
+            <permission mode="0775" wildcard="libOUT_Reject.so"/>
+            <permission mode="0775" wildcard="libFCT_AccountLPRouter.so"/>
+            <permission mode="0775" wildcard="libpin_crypt_aes.so"/>
+            <permission mode="0775" wildcard="libDBL.so"/>
+            <permission mode="0775" wildcard="libEventMsg.so"/>
+            <permission mode="0775" wildcard="libEXT_InEasyDB.so"/>
+            <permission mode="0775" wildcard="libEXT_PipelineDispatcher.so"/>
+            <permission mode="0775" wildcard="libIXT_ProfileLabel.so"/>
+            <permission mode="0775" wildcard="libOracleQueue.so"/>
+            <permission mode="0775" wildcard="libnzsdk.so"/>
+            <permission mode="0775" wildcard="libEXT_Opcode.so"/>
+            <permission mode="0775" wildcard="libNetworkHelper.so"/>
+            <permission mode="0775" wildcard="libDiscountAndSponsorValidation.so"/>
+            <permission mode="0775" wildcard="libFilterSetPriceValidation.so"/>
+            <permission mode="0775" wildcard="libGLIDPriceValidation.so"/>
+            <permission mode="0775" wildcard="libRatePlanValidation.so"/>
+            <permission mode="0775" wildcard="libResourcePriceValidation.so"/>
+            <permission mode="0775" wildcard="libRTPXmlValidation.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="1967920" dest="libdbt23112d.so" mode="0775"/>
+         <file size="23704" dest="libfunctor23112d.so" mode="0775"/>
+         <file size="42008" dest="libfunctor_list23112d.so" mode="0775"/>
+         <file size="16320" dest="libfunctor_map23112d.so" mode="0775"/>
+         <file size="41760" dest="libitc23112d.so" mode="0775"/>
+         <file size="301304" dest="libmime23112d.so" mode="0775"/>
+         <file size="525640" dest="libmny23112d.so" mode="0775"/>
+         <file size="282872" dest="libnetwork23112d.so" mode="0775"/>
+         <file size="810632" dest="libstreams23112d.so" mode="0775"/>
+         <file size="18696" dest="libpointer23112d.so" mode="0775"/>
+         <file size="57648" dest="libsync23112d.so" mode="0775"/>
+         <file size="549736" dest="libthread23112d.so" mode="0775"/>
+         <file size="77976" dest="libthrexcept23112d.so" mode="0775"/>
+         <file size="1764848" dest="libtls23112d.so" mode="0775"/>
+         <file size="105920" dest="libtrace23112d.so" mode="0775"/>
+         <file size="633920" dest="liboci23112d.so" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="libpointer23112d.so"/>
+            <permission mode="0775" wildcard="libtrace23112d.so"/>
+            <permission mode="0775" wildcard="libfunctor23112d.so"/>
+            <permission mode="0775" wildcard="libfunctor_list23112d.so"/>
+            <permission mode="0775" wildcard="libthrexcept23112d.so"/>
+            <permission mode="0775" wildcard="libdbt23112d.so"/>
+            <permission mode="0775" wildcard="libmime23112d.so"/>
+            <permission mode="0775" wildcard="liboci23112d.so"/>
+            <permission mode="0775" wildcard="libnetwork23112d.so"/>
+            <permission mode="0775" wildcard="libitc23112d.so"/>
+            <permission mode="0775" wildcard="libthread23112d.so"/>
+            <permission mode="0775" wildcard="libstreams23112d.so"/>
+            <permission mode="0775" wildcard="libfunctor_map23112d.so"/>
+            <permission mode="0775" wildcard="libtls23112d.so"/>
+            <permission mode="0775" wildcard="libsync23112d.so"/>
+            <permission mode="0775" wildcard="libmny23112d.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file-perms>
+            <permission mode="0755" wildcard="pcmif.pm"/>
+            <permission mode="0755" wildcard="pcmif"/>
+            <permission mode="0755" wildcard="pcmdd.pm"/>
+            <permission mode="0755" wildcard="pcmdd"/>
+            <permission mode="0755" wildcard="libportal.so"/>
+            <permission mode="0755" wildcard="libpcmext.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="releaseNotes" mode="750" patchable="true">
+         <file size="5051" dest="RELEASE_NOTES.EXT_AsnTree" mode="0755"/>
+         <file size="3298" dest="RELEASE_NOTES.EXT_Converter" mode="0755"/>
+         <file size="6096" dest="RELEASE_NOTES.EXT_InEasyDB" mode="0755"/>
+         <file size="4722" dest="RELEASE_NOTES.EXT_InFileManager" mode="0755"/>
+         <file size="532" dest="RELEASE_NOTES.EXT_InSocketMgrDiameter" mode="0755"/>
+         <file size="718" dest="RELEASE_NOTES.EXT_InSocketMgrMbi" mode="0755"/>
+         <file size="8367" dest="RELEASE_NOTES.EXT_OutFileManager" mode="0755"/>
+         <file size="513" dest="RELEASE_NOTES.EXT_PipelineDispatcher" mode="0755"/>
+         <file size="3999" dest="RELEASE_NOTES.DAT_ConnectionPool" mode="0755"/>
+         <file size="2494" dest="RELEASE_NOTES.TST_EdrDumpParser" mode="0755"/>
+         <file size="28708" dest="RELEASE_NOTES.Database" mode="0755"/>
+         <file size="23497" dest="RELEASE_NOTES.DAT_Listener" mode="0755"/>
+         <file size="2180" dest="RELEASE_NOTES.DAT_Currency" mode="0755"/>
+         <file size="6430" dest="RELEASE_NOTES.DAT_PortalConfig" mode="0755"/>
+         <file size="4440" dest="RELEASE_NOTES.FCT_EdrDump" mode="0755"/>
+         <file size="7556" dest="RELEASE_NOTES.FCT_IRules" mode="0755"/>
+         <file size="5191" dest="RELEASE_NOTES.FCT_IScript" mode="0755"/>
+         <file size="5498" dest="RELEASE_NOTES.DAT_ModelSelector" mode="0755"/>
+         <file size="10174" dest="RELEASE_NOTES.INP_Realtime" mode="0755"/>
+         <file size="2220" dest="RELEASE_NOTES.INP_GenericStream" mode="0755"/>
+         <file size="741" dest="RELEASE_NOTES.INP_zonemap_event_xml" mode="0755"/>
+         <file size="816" dest="RELEASE_NOTES.INP_EdrDump" mode="0755"/>
+         <file size="3173" dest="RELEASE_NOTES.INP_discount_event_xml" mode="0755"/>
+         <file size="34172" dest="RELEASE_NOTES.ifw" mode="0755"/>
+         <file size="3385" dest="RELEASE_NOTES.OUT_DB" mode="0755"/>
+         <file size="1320" dest="RELEASE_NOTES.INP_rate_event_xml" mode="0755"/>
+         <file size="1171" dest="RELEASE_NOTES.OUT_DevNull" mode="0755"/>
+         <file size="2793" dest="RELEASE_NOTES.OUT_GenericStream" mode="0755"/>
+         <file size="1190" dest="RELEASE_NOTES.OUT_Reject" mode="0755"/>
+         <file size="439" dest="RELEASE_NOTES.IXT_PCM" mode="0755"/>
+         <file size="14719" dest="RELEASE_NOTES.OUT_Realtime" mode="0755"/>
+         <file size="150403" dest="RELEASE_NOTES.DAT_AccountBatch" mode="0755"/>
+         <file size="6203" dest="RELEASE_NOTES.FCT_ItemAssign" mode="0755"/>
+         <file size="2238" dest="RELEASE_NOTES.IXT_Db" mode="0755"/>
+         <file size="5635" dest="RELEASE_NOTES.NET_EM" mode="0755"/>
+         <file size="9004" dest="RELEASE_NOTES.DAT_ItemAssign" mode="0755"/>
+         <file size="6417" dest="RELEASE_NOTES.DAT_AccountRealtime" mode="0755"/>
+         <file size="20295" dest="RELEASE_NOTES.FCT_Account" mode="0755"/>
+         <file size="10046" dest="RELEASE_NOTES.FCT_AccountRouter" mode="0755"/>
+         <file size="2780" dest="RELEASE_NOTES.FCT_TriggerBill" mode="0755"/>
+         <file size="10225" dest="RELEASE_NOTES.DAT_PrefixDesc" mode="0755"/>
+         <file size="4489" dest="RELEASE_NOTES.IXT_Era" mode="0755"/>
+         <file size="4392" dest="RELEASE_NOTES.FCT_APN_Map" mode="0755"/>
+         <file size="5631" dest="RELEASE_NOTES.FCT_MainZoning" mode="0755"/>
+         <file size="13187" dest="RELEASE_NOTES.DAT_Zone" mode="0755"/>
+         <file size="5104" dest="RELEASE_NOTES.FCT_PrefixDesc" mode="0755"/>
+         <file size="5455" dest="RELEASE_NOTES.FCT_NumberPortability" mode="0755"/>
+         <file size="3316" dest="RELEASE_NOTES.FCT_RSC_Map" mode="0755"/>
+         <file size="6007" dest="RELEASE_NOTES.DAT_USC_Map" mode="0755"/>
+         <file size="4839" dest="RELEASE_NOTES.FCT_SegZoneNoCust" mode="0755"/>
+         <file size="8883" dest="RELEASE_NOTES.FCT_SocialNo" mode="0755"/>
+         <file size="7243" dest="RELEASE_NOTES.DAT_NumberPortability" mode="0755"/>
+         <file size="4289" dest="RELEASE_NOTES.FCT_CliMapping" mode="0755"/>
+         <file size="4531" dest="RELEASE_NOTES.DAT_BalanceRealtime" mode="0755"/>
+         <file size="49814" dest="RELEASE_NOTES.DAT_BalanceBatch" mode="0755"/>
+         <file size="3688" dest="RELEASE_NOTES.FCT_UoM_Map" mode="0755"/>
+         <file size="5382" dest="RELEASE_NOTES.FCT_USC_Map" mode="0755"/>
+         <file size="7215" dest="RELEASE_NOTES.FCT_ServiceCodeMap" mode="0755"/>
+         <file size="5897" dest="RELEASE_NOTES.FCT_Zone" mode="0755"/>
+         <file size="89482" dest="RELEASE_NOTES.FCT_Discount" mode="0755"/>
+         <file size="4859" dest="RELEASE_NOTES.FCT_UsageClassMap" mode="0755"/>
+         <file size="8355" dest="RELEASE_NOTES.ISL_Standard" mode="0755"/>
+         <file size="44290" dest="RELEASE_NOTES.DAT_Discount" mode="0755"/>
+         <file size="11647" dest="RELEASE_NOTES.FCT_ApplyBalance" mode="0755"/>
+         <file size="865" dest="RELEASE_NOTES.FCT_DiscountExt" mode="0755"/>
+         <file size="11753" dest="RELEASE_NOTES.FCT_DiscountAnalysis" mode="0755"/>
+         <file size="967" dest="RELEASE_NOTES.DAT_DiscountExt" mode="0755"/>
+         <file size="1200" dest="RELEASE_NOTES.DiscountBalance" mode="0755"/>
+         <file size="1478" dest="RELEASE_NOTES.FirstUsageNotify" mode="0755"/>
+         <file size="1689" dest="RELEASE_NOTES.IXT_PipelineBal" mode="0755"/>
+         <file size="26750" dest="RELEASE_NOTES.Solution42" mode="0755"/>
+         <file size="3879" dest="RELEASE_NOTES.SuspenseHandling" mode="0755"/>
+         <file size="1482" dest="RELEASE_NOTES.TriggerBill" mode="0755"/>
+         <file size="29030" dest="RELEASE_NOTES.PortalContainerDesc" mode="0755"/>
+         <file size="3422" dest="RELEASE_NOTES.DAT_ExchangeRate" mode="0755"/>
+         <file size="4717" dest="RELEASE_NOTES.DAT_Calendar" mode="0755"/>
+         <file size="14330" dest="RELEASE_NOTES.DAT_Price" mode="0755"/>
+         <file size="5773" dest="RELEASE_NOTES.DAT_Time" mode="0755"/>
+         <file size="17157" dest="RELEASE_NOTES.DAT_Rateplan" mode="0755"/>
+         <file size="13094" dest="RELEASE_NOTES.FCT_CustomerRating" mode="0755"/>
+         <file size="5832" dest="RELEASE_NOTES.FCT_Dayrate" mode="0755"/>
+         <file size="6945" dest="RELEASE_NOTES.FCT_ExchangeRate" mode="0755"/>
+         <file size="11269" dest="RELEASE_NOTES.FCT_Filter_Set" mode="0755"/>
+         <file size="4976" dest="RELEASE_NOTES.FCT_GlobalRating" mode="0755"/>
+         <file size="33498" dest="RELEASE_NOTES.FCT_MainRating" mode="0755"/>
+         <file size="10992" dest="RELEASE_NOTES.FCT_PreRating" mode="0755"/>
+         <file size="3696" dest="RELEASE_NOTES.FCT_RateAdjust" mode="0755"/>
+         <file size="6351" dest="RELEASE_NOTES.FCT_SegRateNoCust" mode="0755"/>
+         <file size="4906" dest="RELEASE_NOTES.DAT_Recycle" mode="0755"/>
+         <file size="4900" dest="RELEASE_NOTES.FCT_EnhancedSplitting" mode="0755"/>
+         <file size="1905" dest="RELEASE_NOTES.DAT_ResubmitBatch" mode="0755"/>
+         <file size="5224" dest="RELEASE_NOTES.FCT_PreRecycle" mode="0755"/>
+         <file size="2825" dest="RELEASE_NOTES.FCT_PreSuspense" mode="0755"/>
+         <file size="11097" dest="RELEASE_NOTES.FCT_Reject" mode="0755"/>
+         <file size="8477" dest="RELEASE_NOTES.FCT_Recycle" mode="0755"/>
+         <file size="6440" dest="RELEASE_NOTES.INP_Recycle" mode="0755"/>
+         <file size="5340" dest="RELEASE_NOTES.FCT_Splitting" mode="0755"/>
+         <file size="5265" dest="RELEASE_NOTES.FCT_Suspense" mode="0755"/>
+         <file size="3214" dest="RELEASE_NOTES.FCT_FirstUsageNotify" mode="0755"/>
+         <file size="3095" dest="RELEASE_NOTES.FCT_Rounding" mode="0755"/>
+         <file size="1382" dest="RELEASE_NOTES.ISL_Suspense" mode="0755"/>
+         <file size="10219" dest="RELEASE_NOTES.FCT_CreditLimitCheck" mode="0755"/>
+         <file size="1236" dest="RELEASE_NOTES.FCT_BatchSuspense" mode="0755"/>
+         <file size="2117" dest="RELEASE_NOTES.ISL_Tax" mode="0755"/>
+         <file size="3586" dest="RELEASE_NOTES.DAT_Tadig2Plmn" mode="0755"/>
+         <file size="24078" dest="RELEASE_NOTES.FCT_BillingRecord" mode="0755"/>
+         <file size="7200" dest="RELEASE_NOTES.DAT_ScenarioReader" mode="0755"/>
+         <file size="14040" dest="RELEASE_NOTES.FCT_AggreGate" mode="0755"/>
+         <file size="1976" dest="RELEASE_NOTES.ISL_RevenueAssurance" mode="0755"/>
+         <file size="19826" dest="RELEASE_NOTES.FCT_CallAssembling" mode="0755"/>
+         <file size="5950" dest="RELEASE_NOTES.FCT_Discard" mode="0755"/>
+         <file size="7754" dest="RELEASE_NOTES.FCT_EventOrder" mode="0755"/>
+         <file size="12848" dest="RELEASE_NOTES.FCT_DuplicateCheck" mode="0755"/>
+         <file size="12643" dest="RELEASE_NOTES.DBL" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_NumberPortability"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Zone"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_GenericStream"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.IXT_PCM"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.OUT_DevNull"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.OUT_GenericStream"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Zone"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_EdrDump"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_IRules"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_IScript"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_NumberPortability"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_ConnectionPool"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Listener"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_PrefixDesc"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Reject"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.ifw"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.IXT_Db"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.PortalContainerDesc"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.Solution42"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_AccountBatch"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_AccountRealtime"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_BalanceBatch"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.IXT_PipelineBal"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_BalanceRealtime"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Calendar"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Currency"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Discount"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_DiscountExt"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_ExchangeRate"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_ItemAssign"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_ModelSelector"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_PrefixDesc"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_PortalConfig"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Price"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Rateplan"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Recycle"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_ResubmitBatch"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_ScenarioReader"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Tadig2Plmn"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_Time"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DAT_USC_Map"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.Database"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DBL"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.DiscountBalance"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_AsnTree"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_Converter"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_InEasyDB"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_InFileManager"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_InSocketMgrDiameter"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_InSocketMgrMbi"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_OutFileManager"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.EXT_PipelineDispatcher"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Account"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_AccountRouter"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_AggreGate"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_APN_Map"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_ApplyBalance"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_BatchSuspense"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_BillingRecord"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_CallAssembling"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_CliMapping"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_CreditLimitCheck"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_CustomerRating"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Dayrate"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Discard"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Discount"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_DiscountAnalysis"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_DiscountExt"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_DuplicateCheck"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_EnhancedSplitting"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_EventOrder"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_ExchangeRate"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Filter_Set"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_FirstUsageNotify"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_GlobalRating"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_ItemAssign"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_MainRating"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_MainZoning"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_PreRating"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_PreRecycle"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_PreSuspense"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_RateAdjust"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Recycle"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Rounding"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_RSC_Map"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_SegRateNoCust"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_SegZoneNoCust"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_ServiceCodeMap"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_SocialNo"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Splitting"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_Suspense"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_TriggerBill"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_UoM_Map"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_UsageClassMap"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_USC_Map"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FirstUsageNotify"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_EdrDump"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_discount_event_xml"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_rate_event_xml"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_zonemap_event_xml"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_Realtime"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.INP_Recycle"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.ISL_RevenueAssurance"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.ISL_Standard"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.ISL_Suspense"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.ISL_Tax"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.IXT_Era"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.NET_EM"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.OUT_DB"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.OUT_Realtime"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.OUT_Reject"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.SuspenseHandling"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.TriggerBill"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.TST_EdrDumpParser"/>
+            <permission mode="0755" wildcard="RELEASE_NOTES.FCT_ExchangeRate"/>
+         </file-perms>
+      </directory>
+      <directory dest="samples" mode="750" patchable="true">
+         <directory dest="simple" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3674" dest="prefixdesc.dat" mode="0775"/>
+            <file size="2273" dest="simple.readme" mode="0775"/>
+            <file size="9822" dest="simple.reg" mode="0660"/>
+         </directory>
+         <file size="921" dest="readme.all" mode="0775"/>
+         <directory dest="wireless" mode="750" patchable="true">
+            <directory dest="semaphore" mode="750" patchable="true">
+               <file size="56" dest="reload_discount_config_data.reg" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="prefixdesc.dat"/>
+            <permission mode="0775" wildcard="simple.readme"/>
+            <permission mode="0660" wildcard="simple.reg"/>
+         </file-perms>
+      </directory>
+      <directory dest="samples" mode="750" patchable="true">
+         <directory dest="simple" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="in" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="3036" dest="testpipeline_simple_01.edr" mode="0775"/>
+                  <file size="3344" dest="testpipeline_simple_02.edr" mode="0775"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="testpipeline_simple_01.edr"/>
+            <permission mode="0775" wildcard="testpipeline_simple_02.edr"/>
+         </file-perms>
+      </directory>
+      <directory dest="conf" mode="750" patchable="true">
+         <file size="133069" dest="rerating.reg" mode="0660"/>
+         <file size="5669" dest="wireless.readme" mode="0775"/>
+         <file size="81697" dest="wireless.reg" mode="0660"/>
+         <file size="13552" dest="batch_suspense_sample.reg" mode="0660"/>
+         <file size="49712" dest="wirelessRealtime.reg" mode="0660"/>
+         <file size="74324" dest="acc_post_router_schema1.reg" mode="0660"/>
+         <file size="1021" dest="router.readme" mode="0775"/>
+         <file size="739" dest="rerating.readme" mode="0775"/>
+         <file size="15708" dest="acc_router_.reg" mode="0660"/>
+         <file-perms>
+            <permission mode="0660" wildcard="rerating.reg"/>
+            <permission mode="0775" wildcard="rerating.readme"/>
+            <permission mode="0775" wildcard="wireless.readme"/>
+            <permission mode="0660" wildcard="wireless.reg"/>
+            <permission mode="0660" wildcard="wirelessRealtime.reg"/>
+            <permission mode="0660" wildcard="acc_router_.reg"/>
+            <permission mode="0660" wildcard="acc_post_router_schema1.reg"/>
+            <permission mode="0775" wildcard="router.readme"/>
+            <permission mode="0660" wildcard="batch_suspense_sample.reg"/>
+         </file-perms>
+      </directory>
+      <directory dest="conf" mode="750" patchable="true">
+         <directory dest="pricingdata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2288" dest="ifw_alias_map.sql" mode="0755"/>
+               <file size="1579" dest="ifw_apn_map.sql" mode="0755"/>
+               <file size="119" dest="ifw_calendar.sql" mode="0755"/>
+               <file size="654" dest="ifw_daycode.sql" mode="0755"/>
+               <file size="109379" dest="ifw_destinationdesc.sql" mode="0755"/>
+               <file size="148" dest="ifw_apn_group.sql" mode="0755"/>
+               <file size="737" dest="ifw_discarding.sql" mode="0755"/>
+               <file size="1858" dest="ifw_discountbalimpact.sql" mode="0755"/>
+               <file size="768" dest="ifw_discountcondition.sql" mode="0755"/>
+               <file size="1323" dest="ifw_discountdetail.sql" mode="0755"/>
+               <file size="477" dest="ifw_discountmaster.sql" mode="0755"/>
+               <file size="688" dest="ifw_discountmdl_ver.sql" mode="0755"/>
+               <file size="903" dest="ifw_discountrule.sql" mode="0755"/>
+               <file size="1137" dest="ifw_discountmdl_cnf.sql" mode="0755"/>
+               <file size="555" dest="ifw_discountmodel.sql" mode="0755"/>
+               <file size="853" dest="ifw_discountstep.sql" mode="0755"/>
+               <file size="476" dest="ifw_discounttrigger.sql" mode="0755"/>
+               <file size="133" dest="ifw_edrc_desc.sql" mode="0755"/>
+               <file size="84316" dest="ifw_edrc_field.sql" mode="0755"/>
+               <file size="2031" dest="ifw_mostcalled.sql" mode="0755"/>
+               <file size="976" dest="ifw_holiday.sql" mode="0755"/>
+               <file size="1903" dest="ifw_glaccount.sql" mode="0755"/>
+               <file size="2007" dest="ifw_impact_category.sql" mode="0755"/>
+               <file size="2940" dest="ifw_pipeline.sql" mode="0755"/>
+               <file size="331" dest="ifw_map_group.sql" mode="0755"/>
+               <file size="24477" dest="ifw_pricemodel_step.sql" mode="0755"/>
+               <file size="1187" dest="ifw_rateplan.sql" mode="0755"/>
+               <file size="285535" dest="ifw_rateplan_cnf.sql" mode="0755"/>
+               <file size="5185" dest="ifw_pricemodel.sql" mode="0755"/>
+               <file size="1166" dest="ifw_rateplan_ver.sql" mode="0755"/>
+               <file size="541" dest="ifw_resource.sql" mode="0755"/>
+               <file size="1448" dest="ifw_ref_map.sql" mode="0755"/>
+               <file size="369" dest="ifw_exchange_rate.sql" mode="0755"/>
+               <file size="125" dest="ifw_rsc_group.sql" mode="0755"/>
+               <file size="2064" dest="ifw_service.sql" mode="0755"/>
+               <file size="879" dest="ifw_serviceclass.sql" mode="0755"/>
+               <file size="206" dest="ifw_specialday_lnk.sql" mode="0755"/>
+               <file size="268" dest="ifw_specialdayrate.sql" mode="0755"/>
+               <file size="182151" dest="ifw_standard_zone.sql" mode="0755"/>
+               <file size="3489" dest="ifw_servicecode_map.sql" mode="0755"/>
+               <file size="236" dest="ifw_taxcode.sql" mode="0755"/>
+               <file size="963" dest="ifw_tax.sql" mode="0755"/>
+               <file size="1510" dest="ifw_timeinterval.sql" mode="0755"/>
+               <file size="427" dest="ifw_timemodel.sql" mode="0755"/>
+               <file size="180" dest="ifw_taxgroup.sql" mode="0755"/>
+               <file size="2880" dest="ifw_timemodel_lnk.sql" mode="0755"/>
+               <file size="183" dest="ifw_usageclass.sql" mode="0755"/>
+               <file size="71" dest="ifw_uom.sql" mode="0755"/>
+               <file size="698" dest="ifw_timezone.sql" mode="0755"/>
+               <file size="742" dest="ifw_usageclass_map.sql" mode="0755"/>
+               <file size="1858" dest="ifw_icproduct_all.sql" mode="0755"/>
+               <file size="478" dest="ifw_zonemodel.sql" mode="0755"/>
+               <file size="3284" dest="ifw_usagescenario_map.sql" mode="0755"/>
+               <file size="181" dest="ifw_usc_group.sql" mode="0755"/>
+               <file size="786" dest="ifw_networkoper.sql" mode="0755"/>
+               <file size="221" dest="ifw_networkmodel.sql" mode="0755"/>
+               <file size="408" dest="ifw_usagetype.sql" mode="0755"/>
+               <file size="7353" dest="ifw_splittingtype_all.sql" mode="0755"/>
+               <file size="1992" dest="ifw_seqcheck.sql" mode="0755"/>
+               <file size="107" dest="insertWIRELESS_SAMPLE.pl" mode="0755"/>
+               <file size="1222" dest="insertWIRELESS_SAMPLE.sql" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="ifw_apn_group.sql"/>
+            <permission mode="0755" wildcard="ifw_apn_map.sql"/>
+            <permission mode="0755" wildcard="ifw_calendar.sql"/>
+            <permission mode="0755" wildcard="ifw_daycode.sql"/>
+            <permission mode="0755" wildcard="ifw_destinationdesc.sql"/>
+            <permission mode="0755" wildcard="ifw_discarding.sql"/>
+            <permission mode="0755" wildcard="ifw_discountbalimpact.sql"/>
+            <permission mode="0755" wildcard="ifw_discountcondition.sql"/>
+            <permission mode="0755" wildcard="ifw_discountdetail.sql"/>
+            <permission mode="0755" wildcard="ifw_discountmaster.sql"/>
+            <permission mode="0755" wildcard="ifw_discountmdl_cnf.sql"/>
+            <permission mode="0755" wildcard="ifw_discountmdl_ver.sql"/>
+            <permission mode="0755" wildcard="ifw_discountmodel.sql"/>
+            <permission mode="0755" wildcard="ifw_alias_map.sql"/>
+            <permission mode="0755" wildcard="ifw_discountrule.sql"/>
+            <permission mode="0755" wildcard="ifw_discountstep.sql"/>
+            <permission mode="0755" wildcard="ifw_discounttrigger.sql"/>
+            <permission mode="0755" wildcard="ifw_edrc_desc.sql"/>
+            <permission mode="0755" wildcard="ifw_edrc_field.sql"/>
+            <permission mode="0755" wildcard="ifw_glaccount.sql"/>
+            <permission mode="0755" wildcard="ifw_holiday.sql"/>
+            <permission mode="0755" wildcard="ifw_impact_category.sql"/>
+            <permission mode="0755" wildcard="ifw_map_group.sql"/>
+            <permission mode="0755" wildcard="ifw_pipeline.sql"/>
+            <permission mode="0755" wildcard="ifw_pricemodel.sql"/>
+            <permission mode="0755" wildcard="ifw_pricemodel_step.sql"/>
+            <permission mode="0755" wildcard="ifw_rateplan.sql"/>
+            <permission mode="0755" wildcard="ifw_rateplan_cnf.sql"/>
+            <permission mode="0755" wildcard="ifw_rateplan_ver.sql"/>
+            <permission mode="0755" wildcard="ifw_ref_map.sql"/>
+            <permission mode="0755" wildcard="ifw_resource.sql"/>
+            <permission mode="0755" wildcard="ifw_rsc_group.sql"/>
+            <permission mode="0755" wildcard="ifw_service.sql"/>
+            <permission mode="0755" wildcard="ifw_serviceclass.sql"/>
+            <permission mode="0755" wildcard="ifw_specialday_lnk.sql"/>
+            <permission mode="0755" wildcard="ifw_specialdayrate.sql"/>
+            <permission mode="0755" wildcard="ifw_standard_zone.sql"/>
+            <permission mode="0755" wildcard="ifw_tax.sql"/>
+            <permission mode="0755" wildcard="ifw_taxcode.sql"/>
+            <permission mode="0755" wildcard="ifw_taxgroup.sql"/>
+            <permission mode="0755" wildcard="ifw_timeinterval.sql"/>
+            <permission mode="0755" wildcard="ifw_timemodel.sql"/>
+            <permission mode="0755" wildcard="ifw_timemodel_lnk.sql"/>
+            <permission mode="0755" wildcard="ifw_timezone.sql"/>
+            <permission mode="0755" wildcard="ifw_uom.sql"/>
+            <permission mode="0755" wildcard="ifw_usageclass.sql"/>
+            <permission mode="0755" wildcard="ifw_usageclass_map.sql"/>
+            <permission mode="0755" wildcard="ifw_usagescenario_map.sql"/>
+            <permission mode="0755" wildcard="ifw_usagetype.sql"/>
+            <permission mode="0755" wildcard="ifw_usc_group.sql"/>
+            <permission mode="0755" wildcard="ifw_zonemodel.sql"/>
+            <permission mode="0755" wildcard="insertWIRELESS_SAMPLE.pl"/>
+            <permission mode="0755" wildcard="insertWIRELESS_SAMPLE.sql"/>
+            <permission mode="0755" wildcard="ifw_exchange_rate.sql"/>
+            <permission mode="0755" wildcard="ifw_icproduct_all.sql"/>
+            <permission mode="0755" wildcard="ifw_mostcalled.sql"/>
+            <permission mode="0755" wildcard="ifw_networkoper.sql"/>
+            <permission mode="0755" wildcard="ifw_networkmodel.sql"/>
+            <permission mode="0755" wildcard="ifw_seqcheck.sql"/>
+            <permission mode="0755" wildcard="ifw_servicecode_map.sql"/>
+            <permission mode="0755" wildcard="ifw_splittingtype_all.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="DiscountBalance" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2083" dest="DiscountBalanceGrammar.dsc" mode="0755"/>
+               <file size="4432" dest="DiscountBalance.dsc" mode="0755"/>
+               <file size="3670" dest="DiscountBalanceMapping.dsc" mode="0755"/>
+            </directory>
+            <directory dest="CallAssembly" mode="750" patchable="true">
+               <file size="9379" dest="call_assembly.xsd" mode="0755"/>
+            </directory>
+         </directory>
+         <directory dest="Portal" mode="750" patchable="true">
+            <file size="39524" dest="AliasFieldList.dsc" mode="0755"/>
+            <file size="180310" dest="containerDesc.dsc" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="DiscountBalance.dsc"/>
+            <permission mode="0755" wildcard="DiscountBalanceGrammar.dsc"/>
+            <permission mode="0755" wildcard="DiscountBalanceMapping.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="FirstUsageNotify" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2415" dest="FirstUsageNotify.dsc" mode="0755"/>
+               <file size="2906" dest="FirstUsageNotify_OutGrammar.dsc" mode="0755"/>
+               <file size="1828" dest="FirstUsageNotify_OutMap.dsc" mode="0755"/>
+               <file size="2050" dest="FirstUsageProductsDiscounts.xml" mode="0755"/>
+               <file size="4397" dest="FirstUsageResource.dsc" mode="0755"/>
+               <file size="6111" dest="FirstUsageResource_OutGrammar.dsc" mode="0755"/>
+               <file size="3804" dest="FirstUsageResource_OutMap.dsc" mode="0755"/>
+               <file size="1670" dest="FirstUsageResources.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="FirstUsageNotify.dsc"/>
+            <permission mode="0755" wildcard="FirstUsageNotify_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="FirstUsageNotify_OutMap.dsc"/>
+            <permission mode="0755" wildcard="FirstUsageProductsDiscounts.xml"/>
+            <permission mode="0755" wildcard="FirstUsageResource_OutMap.dsc"/>
+            <permission mode="0755" wildcard="FirstUsageResource_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="FirstUsageResource.dsc"/>
+            <permission mode="0755" wildcard="FirstUsageResources.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Solution42" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="14438" dest="SOL42_V411.dsc" mode="0755"/>
+               <file size="10288" dest="SOL42_V411_InGrammar.dsc" mode="0755"/>
+               <file size="33234" dest="SOL42_V411_InMap.dsc" mode="0755"/>
+               <file size="8327" dest="SOL42_V411_OutGrammar.dsc" mode="0755"/>
+               <file size="16081" dest="SOL42_V411_OutMap.dsc" mode="0755"/>
+               <file size="12113" dest="SOL42_V411_V430_InGrammar.dsc" mode="0755"/>
+               <file size="21510" dest="SOL42_V430.dsc" mode="0755"/>
+               <file size="17856" dest="SOL42_V430_InGrammar.dsc" mode="0755"/>
+               <file size="10557" dest="SOL42_V430_OutGrammar.dsc" mode="0755"/>
+               <file size="24422" dest="SOL42_V430_InMap.dsc" mode="0755"/>
+               <file size="21045" dest="SOL42_V430_REL.dsc" mode="0755"/>
+               <file size="24776" dest="SOL42_V430_OutMap.dsc" mode="0755"/>
+               <file size="23910" dest="SOL42_V430_REL_InMap.dsc" mode="0755"/>
+               <file size="10615" dest="SOL42_V430_REL_OutGrammar.dsc" mode="0755"/>
+               <file size="14560" dest="SOL42_V430_REL_InGrammar.dsc" mode="0755"/>
+               <file size="24199" dest="SOL42_V430_REL_OutMap.dsc" mode="0755"/>
+               <file size="23466" dest="SOL42_V650.dsc" mode="0755"/>
+               <file size="17988" dest="SOL42_V650_InGrammar.dsc" mode="0755"/>
+               <file size="12710" dest="SOL42_V650_OutGrammar.dsc" mode="0755"/>
+               <file size="30585" dest="SOL42_V650_OutMap.dsc" mode="0755"/>
+               <file size="27916" dest="SOL42_V650_REL.dsc" mode="0755"/>
+               <file size="30508" dest="SOL42_V650_InMap.dsc" mode="0755"/>
+               <file size="25834" dest="SOL42_V650_REL_FORINPUT.dsc" mode="0755"/>
+               <file size="18474" dest="SOL42_V650_REL_InGrammar.dsc" mode="0755"/>
+               <file size="18575" dest="SOL42_V650_REL_InGrammar_BACKOUT.dsc" mode="0755"/>
+               <file size="16612" dest="SOL42_V650_REL_OutGrammar.dsc" mode="0755"/>
+               <file size="33713" dest="SOL42_V650_REL_OutMap.dsc" mode="0755"/>
+               <file size="30873" dest="SOL42_V650_REL_InMap.dsc" mode="0755"/>
+               <file size="13966" dest="SOL42_V650_REL_OutGrammar_BACKOUT.dsc" mode="0755"/>
+               <file size="20144" dest="SOL42_V670_InGrammar.dsc" mode="0755"/>
+               <file size="40570" dest="SOL42_V670.dsc" mode="0755"/>
+               <file size="49365" dest="SOL42_V670_InMap.dsc" mode="0755"/>
+               <file size="19587" dest="SOL42_V670_OutGrammar.dsc" mode="0755"/>
+               <file size="46545" dest="SOL42_V670_REL.dsc" mode="0755"/>
+               <file size="29004" dest="SOL42_V670_REL_InGrammar_BACKOUT.dsc" mode="0755"/>
+               <file size="52371" dest="SOL42_V670_OutMap.dsc" mode="0755"/>
+               <file size="24729" dest="SOL42_V670_REL_InGrammar.dsc" mode="0755"/>
+               <file size="44886" dest="SOL42_V670_REL_FORINPUT.dsc" mode="0755"/>
+               <file size="55853" dest="SOL42_V670_REL_InMap.dsc" mode="0755"/>
+               <file size="58939" dest="SOL42_V670_REL_OutMap.dsc" mode="0755"/>
+               <file size="18854" dest="SOL42_V670_REL_OutGrammar_BACKOUT.dsc" mode="0755"/>
+               <file size="22894" dest="SOL42_V670_REL_OutGrammar.dsc" mode="0755"/>
+               <file size="39759" dest="V670_EVENT_LOADER.dsc" mode="0755"/>
+               <file size="19933" dest="V670_EVENT_LOADER_OutGrammar.dsc" mode="0755"/>
+               <file size="43681" dest="SOL42_V670_REL_FORINPUT_TT.dsc" mode="0755"/>
+               <file size="34517" dest="V670_EVENT_LOADER_OutMap.dsc" mode="0755"/>
+               <file size="57398" dest="SOL42_V670_REL_OutMap_TT.dsc" mode="0755"/>
+               <file size="54287" dest="SOL42_V670_REL_InMap_TT.dsc" mode="0755"/>
+               <file size="45339" dest="SOL42_V670_REL_TT.dsc" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="SOL42_V411_V430_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_OutMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_REL.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_REL_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_REL_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_REL_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V430_REL_OutMap.dsc"/>
+            <permission mode="0755" wildcard="V670_EVENT_LOADER.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V411.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V411_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V411_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V411_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V411_OutMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_FORINPUT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_InGrammar_BACKOUT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_OutGrammar_BACKOUT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_OutMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_OutMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V650_REL_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_OutMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_FORINPUT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_InGrammar_BACKOUT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_InMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_OutGrammar_BACKOUT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_OutMap.dsc"/>
+            <permission mode="0755" wildcard="V670_EVENT_LOADER_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="V670_EVENT_LOADER_OutMap.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_TT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_FORINPUT_TT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_InMap_TT.dsc"/>
+            <permission mode="0755" wildcard="SOL42_V670_REL_OutMap_TT.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Sample" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4649" dest="SIMPLESAMPLE_v1.dsc" mode="0755"/>
+               <file size="8824" dest="SIMPLESAMPLE_v1_InGrammar.dsc" mode="0755"/>
+               <file size="6020" dest="SIMPLESAMPLE_v1_InMap.dsc" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="SIMPLESAMPLE_v1.dsc"/>
+            <permission mode="0755" wildcard="SIMPLESAMPLE_v1_InGrammar.dsc"/>
+            <permission mode="0755" wildcard="SIMPLESAMPLE_v1_InMap.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="SuspenseHandling" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4584" dest="SuspendedUsageCreation.dsc" mode="0755"/>
+               <file size="3824" dest="SuspendedUsageCreationGrammar.dsc" mode="0755"/>
+               <file size="4523" dest="SuspendedUsageCreationMapping.dsc" mode="0755"/>
+               <file size="3206" dest="SuspendedUsageUpdate.dsc" mode="0755"/>
+               <file size="3215" dest="SuspendedUsageUpdateGrammar.dsc" mode="0755"/>
+               <file size="3134" dest="SuspendedUsageUpdateMapping.dsc" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="SuspendedUsageCreation.dsc"/>
+            <permission mode="0755" wildcard="SuspendedUsageCreationGrammar.dsc"/>
+            <permission mode="0755" wildcard="SuspendedUsageCreationMapping.dsc"/>
+            <permission mode="0755" wildcard="SuspendedUsageUpdate.dsc"/>
+            <permission mode="0755" wildcard="SuspendedUsageUpdateGrammar.dsc"/>
+            <permission mode="0755" wildcard="SuspendedUsageUpdateMapping.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="TriggerBill" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1693" dest="TriggerBilling.dsc" mode="0755"/>
+               <file size="1799" dest="TriggerBilling_OutMap.dsc" mode="0755"/>
+               <file size="3681" dest="TriggerBilling_OutGrammar.dsc" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="TriggerBilling.dsc"/>
+            <permission mode="0755" wildcard="TriggerBilling_OutGrammar.dsc"/>
+            <permission mode="0755" wildcard="TriggerBilling_OutMap.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Realtime" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="20371" dest="rate_event.xml" mode="0755"/>
+               <file size="3644" dest="opcode_ifw_mapping.xsd" mode="0755"/>
+               <file size="1519" dest="zonemap_event.xml" mode="0755"/>
+               <file size="21723" dest="discount_event.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="opcode_ifw_mapping.xsd"/>
+            <permission mode="0755" wildcard="rate_event.xml"/>
+            <permission mode="0755" wildcard="discount_event.xml"/>
+            <permission mode="0755" wildcard="zonemap_event.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="semaphore" mode="750" patchable="true">
+         <file size="41" dest="stop_pre_recycle.reg" mode="0755"/>
+         <file size="41" dest="stop_pre_process.reg" mode="0755"/>
+         <file size="38" dest="stop_all_rate.reg" mode="0755"/>
+         <file size="204" dest="stop_all_pipeline.reg" mode="0755"/>
+         <file size="50" dest="stop_RealtimePipelineGPRS.reg" mode="0755"/>
+         <file size="50" dest="stop_RealtimePipelineZone.reg" mode="0755"/>
+         <file size="46" dest="stop_DiscountPipeline.reg" mode="0755"/>
+         <file size="49" dest="stop_RealtimePipelineGSM.reg" mode="0755"/>
+         <file size="198" dest="start_rerating_stop_main.reg" mode="0755"/>
+         <file size="89" dest="start_recycle.reg" mode="0755"/>
+         <file size="40" dest="start_pre_recycle.reg" mode="0755"/>
+         <file size="197" dest="start_main_stop_rerating.reg" mode="0755"/>
+         <file size="49" dest="start_RealtimePipelineZone.reg" mode="0755"/>
+         <file size="48" dest="start_RealtimePipelineGSM.reg" mode="0755"/>
+         <file size="195" dest="start_all_pipeline.reg" mode="0755"/>
+         <file size="46" dest="reload_price.reg" mode="0755"/>
+         <file size="45" dest="start_DiscountPipeline.reg" mode="0755"/>
+         <file size="40" dest="start_pre_process.reg" mode="0755"/>
+         <file size="49" dest="start_RealtimePipelineGPRS.reg" mode="0755"/>
+         <file size="48" dest="off_queue_buffer.reg" mode="0755"/>
+         <file size="91" dest="set_call_ass_limit.reg" mode="0755"/>
+         <file size="45" dest="reload_zone.reg" mode="0755"/>
+         <file size="43" dest="reload_Portal_act_data.reg" mode="0755"/>
+         <file size="53" dest="dump_portal_act_data.reg" mode="0755"/>
+         <file size="37" dest="start_all_rate.reg" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="dump_portal_act_data.reg"/>
+            <permission mode="0755" wildcard="off_queue_buffer.reg"/>
+            <permission mode="0755" wildcard="reload_Portal_act_data.reg"/>
+            <permission mode="0755" wildcard="reload_price.reg"/>
+            <permission mode="0755" wildcard="reload_zone.reg"/>
+            <permission mode="0755" wildcard="set_call_ass_limit.reg"/>
+            <permission mode="0755" wildcard="start_all_pipeline.reg"/>
+            <permission mode="0755" wildcard="start_DiscountPipeline.reg"/>
+            <permission mode="0755" wildcard="start_main_stop_rerating.reg"/>
+            <permission mode="0755" wildcard="start_pre_process.reg"/>
+            <permission mode="0755" wildcard="start_pre_recycle.reg"/>
+            <permission mode="0755" wildcard="start_RealtimePipelineGPRS.reg"/>
+            <permission mode="0755" wildcard="start_RealtimePipelineGSM.reg"/>
+            <permission mode="0755" wildcard="start_RealtimePipelineZone.reg"/>
+            <permission mode="0755" wildcard="start_recycle.reg"/>
+            <permission mode="0755" wildcard="start_rerating_stop_main.reg"/>
+            <permission mode="0755" wildcard="start_all_rate.reg"/>
+            <permission mode="0755" wildcard="stop_all_pipeline.reg"/>
+            <permission mode="0755" wildcard="stop_all_rate.reg"/>
+            <permission mode="0755" wildcard="stop_DiscountPipeline.reg"/>
+            <permission mode="0755" wildcard="stop_pre_process.reg"/>
+            <permission mode="0755" wildcard="stop_pre_recycle.reg"/>
+            <permission mode="0755" wildcard="stop_RealtimePipelineGPRS.reg"/>
+            <permission mode="0755" wildcard="stop_RealtimePipelineGSM.reg"/>
+            <permission mode="0755" wildcard="stop_RealtimePipelineZone.reg"/>
+         </file-perms>
+      </directory>
+      <directory dest="database" mode="750" patchable="true">
+         <directory dest="Oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="DuplicateCheck" mode="750" patchable="true">
+                  <file size="1884" dest="DuplicateCheck_Oracle.plb" mode="0755"/>
+               </directory>
+               <file size="870" dest="JSA_Prepare.sql" mode="0755"/>
+               <file size="1752" dest="JSA_Roles.sql" mode="0755"/>
+               <file size="2130" dest="JSA_Synonyms.sql" mode="0755"/>
+               <file size="11637" dest="Interconnect_Scenario_IC_DAILY.sql" mode="0755"/>
+               <file size="3953" dest="ifw_Tablespaces.sql" mode="0755"/>
+               <file size="386273" dest="ifw_Create.sql" mode="0755"/>
+               <file size="3996" dest="ifw_Roles.sql" mode="0755"/>
+               <file size="16387" dest="JSA_Create.sql" mode="0755"/>
+               <file size="44167" dest="RevenueAssurance_Scenarios_IFW_AGGREGATION.sql" mode="0755"/>
+               <file size="1098" dest="JSA_Tablespaces.sql" mode="0755"/>
+               <file size="5349" dest="RevenueAssurance_Scenarios_IFW_EDRC_FIELD.sql" mode="0755"/>
+               <file size="685" dest="RevenueAssurance_Scenarios_IFW_EDRC_DESC.sql" mode="0755"/>
+               <file size="6167" dest="RevenueAssurance_Scenarios_IFW_SCENARIO.sql" mode="0755"/>
+               <file size="698" dest="RevenueAssurance_Scenarios.sql" mode="0755"/>
+               <file size="15548" dest="create_pricing_tailormadeplan_procedures.plb" mode="0755"/>
+               <file size="20151" dest="create_pricing_discountmodel_procedures.plb" mode="0755"/>
+               <file size="23861" dest="RevenueAssurance_Scenarios_IFW_GROUPING.sql" mode="0755"/>
+               <file size="1588" dest="update_v4-03-01_v4-03-02.sql" mode="0755"/>
+               <file size="9295" dest="update_v4-03-04_v4-04-00.sql" mode="0755"/>
+               <file size="1792" dest="update_v4-03-00_v4-03-01.sql" mode="0755"/>
+               <file size="1778" dest="update_v4-03-02_v4-03-03.sql" mode="0755"/>
+               <file size="1852" dest="update_v4-05-01_v4-10-01.sql" mode="0755"/>
+               <file size="2176" dest="update_v4-03-03_v4-03-04.sql" mode="0755"/>
+               <file size="1855" dest="update_v4-05-00_v4-05-01.sql" mode="0755"/>
+               <file size="9660" dest="update_v4-01-00_v4-03-00.sql" mode="0755"/>
+               <file size="2179" dest="update_v4-04-01_v4-04-02.sql" mode="0755"/>
+               <file size="2514" dest="update_v4-05-01_v4-10-01_Constraints.sql" mode="0755"/>
+               <file size="40237" dest="update_v3-08-00_v4-01-00.sql" mode="0755"/>
+               <file size="1778" dest="update_v4-04-00_v4-04-01.sql" mode="0755"/>
+               <file size="60291" dest="update_v4-05-01_v4-10-01_Copy.sql" mode="0755"/>
+               <file size="381150" dest="update_v4-05-01_v4-10-01_Create.sql" mode="0755"/>
+               <file size="4866" dest="update_v4-05-01_v4-10-01_Drop_tmp.sql" mode="0755"/>
+               <file size="71283" dest="update_v4-05-01_v4-10-01_Prepare.sql" mode="0755"/>
+               <file size="8900" dest="update_v4-05-01_v4-10-01_Synonyms.sql" mode="0755"/>
+               <file size="11521" dest="update_v4-10-01_v4-10-02.sql" mode="0755"/>
+               <file size="7690" dest="update_v4-10-04_v4-30-01_AggreGate.sql" mode="0755"/>
+               <file size="25596" dest="update_v4-10-04_v4-30-01_CreateCopy.sql" mode="0755"/>
+               <file size="1435" dest="update_v4-04-02_v4-05-00.sql" mode="0755"/>
+               <file size="8483" dest="update_v4-10-04_v4-30-01_Drop.sql" mode="0755"/>
+               <file size="8018" dest="update_v4-10-04_v4-30-01_DropSynonyms.sql" mode="0755"/>
+               <file size="3072" dest="update_v4-30-03_v4-30-04.sql" mode="0755"/>
+               <file size="1842" dest="update_v4-30-02_v4-30-03.sql" mode="0755"/>
+               <file size="2342" dest="update_v4-30-04_v4-30-05.sql" mode="0755"/>
+               <file size="2797" dest="update_v4-30-06_v4-30-07.sql" mode="0755"/>
+               <file size="1598" dest="update_v4-30-01_v4-30-02.sql" mode="0755"/>
+               <file size="12968" dest="update_v4-30-09_v4-30-10.sql" mode="0755"/>
+               <file size="3113" dest="update_v4-30-05_v4-30-06.sql" mode="0755"/>
+               <file size="123887" dest="update_v6.3.4_v6.5.1.sql" mode="0755"/>
+               <file size="2715" dest="update_v4-30-11_v4-30-12.sql" mode="0755"/>
+               <file size="1695" dest="update_v6.3.2_v6.3.3.sql" mode="0755"/>
+               <file size="1682" dest="update_v4-30-07_v4-30-08.sql" mode="0755"/>
+               <file size="1721" dest="update_v6.3.3_v6.3.4.sql" mode="0755"/>
+               <file size="1930" dest="update_v4-30-12_v6.3.2.readme" mode="0755"/>
+               <file size="2635" dest="update_v6.5.1_v6.5.2.sql" mode="0755"/>
+               <file size="3470" dest="update_v4-30-10_v4-30-11.sql" mode="0755"/>
+               <file size="4485" dest="SMS_Interworking_Scenario.sql" mode="0755"/>
+               <file size="1567" dest="update_v6.7.3_v6.7.4.sql" mode="0755"/>
+               <file size="3746" dest="update_v6.5.2_v6.5.3.sql" mode="0755"/>
+               <file size="1848" dest="update_v6.7.5_v6.7.6.sql" mode="0755"/>
+               <file size="1293" dest="update_v6.5.3_v6.5.4.sql" mode="0755"/>
+               <file size="6209" dest="update_v6.7.4_v6.7.5.sql" mode="0755"/>
+               <file size="20182" dest="update_v4-30-12_v6.3.2.sql" mode="0755"/>
+               <file size="1429" dest="update_v6.7.2_v6.7.3.sql" mode="0755"/>
+               <file size="1977" dest="update_v7.0.8_v7.0.9.sql" mode="0755"/>
+               <file size="2023" dest="update_v4-30-00_v4-30-01.sql" mode="0755"/>
+               <file size="1734" dest="update_v4-30-08_v4-30-09.sql" mode="0755"/>
+               <file size="1303" dest="update_v6.7.7_v6.7.8.sql" mode="0755"/>
+               <file size="1484" dest="update_v7.0.1_v7.0.2.sql" mode="0755"/>
+               <file size="4597" dest="update_v7.0.3_v7.0.4.sql" mode="0755"/>
+               <file size="1571" dest="update_v6.7.6_v6.7.7.sql" mode="0755"/>
+               <file size="819" dest="createRoles.sql" mode="0755"/>
+               <file size="1702" dest="createDBUser.sql" mode="0755"/>
+               <file size="12475" dest="ifw_Synonyms.sql" mode="0755"/>
+            </directory>
+         </directory>
+         <directory dest="Documentation" mode="750" patchable="true">
+            <file size="77607605" dest="ifw.rtf" mode="0755"/>
+            <file size="1958520" dest="jsa.rtf" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="RevenueAssurance_Scenarios.sql"/>
+            <permission mode="0755" wildcard="RevenueAssurance_Scenarios_IFW_AGGREGATION.sql"/>
+            <permission mode="0755" wildcard="RevenueAssurance_Scenarios_IFW_EDRC_DESC.sql"/>
+            <permission mode="0755" wildcard="RevenueAssurance_Scenarios_IFW_EDRC_FIELD.sql"/>
+            <permission mode="0755" wildcard="RevenueAssurance_Scenarios_IFW_GROUPING.sql"/>
+            <permission mode="0755" wildcard="RevenueAssurance_Scenarios_IFW_SCENARIO.sql"/>
+            <permission mode="0755" wildcard="SMS_Interworking_Scenario.sql"/>
+            <permission mode="0755" wildcard="update_v3-08-00_v4-01-00.sql"/>
+            <permission mode="0755" wildcard="update_v4-01-00_v4-03-00.sql"/>
+            <permission mode="0755" wildcard="update_v4-03-00_v4-03-01.sql"/>
+            <permission mode="0755" wildcard="update_v4-03-01_v4-03-02.sql"/>
+            <permission mode="0755" wildcard="update_v4-03-02_v4-03-03.sql"/>
+            <permission mode="0755" wildcard="update_v4-03-03_v4-03-04.sql"/>
+            <permission mode="0755" wildcard="update_v4-03-04_v4-04-00.sql"/>
+            <permission mode="0755" wildcard="update_v4-04-00_v4-04-01.sql"/>
+            <permission mode="0755" wildcard="update_v4-04-01_v4-04-02.sql"/>
+            <permission mode="0755" wildcard="update_v4-04-02_v4-05-00.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-00_v4-05-01.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01_Constraints.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01_Copy.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01_Create.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01_Drop_tmp.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01_Prepare.sql"/>
+            <permission mode="0755" wildcard="update_v4-05-01_v4-10-01_Synonyms.sql"/>
+            <permission mode="0755" wildcard="update_v4-10-01_v4-10-02.sql"/>
+            <permission mode="0755" wildcard="update_v4-10-04_v4-30-01_AggreGate.sql"/>
+            <permission mode="0755" wildcard="update_v4-10-04_v4-30-01_CreateCopy.sql"/>
+            <permission mode="0755" wildcard="update_v4-10-04_v4-30-01_Drop.sql"/>
+            <permission mode="0755" wildcard="update_v4-10-04_v4-30-01_DropSynonyms.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-00_v4-30-01.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-01_v4-30-02.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-02_v4-30-03.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-03_v4-30-04.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-04_v4-30-05.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-05_v4-30-06.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-06_v4-30-07.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-07_v4-30-08.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-08_v4-30-09.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-09_v4-30-10.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-10_v4-30-11.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-11_v4-30-12.sql"/>
+            <permission mode="0755" wildcard="update_v4-30-12_v6.3.2.readme"/>
+            <permission mode="0755" wildcard="update_v4-30-12_v6.3.2.sql"/>
+            <permission mode="0755" wildcard="update_v6.3.2_v6.3.3.sql"/>
+            <permission mode="0755" wildcard="update_v6.3.3_v6.3.4.sql"/>
+            <permission mode="0755" wildcard="update_v6.3.4_v6.5.1.sql"/>
+            <permission mode="0755" wildcard="update_v6.5.1_v6.5.2.sql"/>
+            <permission mode="0755" wildcard="update_v6.5.2_v6.5.3.sql"/>
+            <permission mode="0755" wildcard="update_v6.5.3_v6.5.4.sql"/>
+            <permission mode="0755" wildcard="update_v6.7.2_v6.7.3.sql"/>
+            <permission mode="0755" wildcard="update_v6.7.3_v6.7.4.sql"/>
+            <permission mode="0755" wildcard="update_v6.7.4_v6.7.5.sql"/>
+            <permission mode="0755" wildcard="update_v6.7.5_v6.7.6.sql"/>
+            <permission mode="0755" wildcard="update_v6.7.6_v6.7.7.sql"/>
+            <permission mode="0755" wildcard="update_v6.7.7_v6.7.8.sql"/>
+            <permission mode="0755" wildcard="update_v7.0.1_v7.0.2.sql"/>
+            <permission mode="0755" wildcard="update_v7.0.3_v7.0.4.sql"/>
+            <permission mode="0755" wildcard="update_v7.0.8_v7.0.9.sql"/>
+            <permission mode="0755" wildcard="create_pricing_tailormadeplan_procedures.plb"/>
+            <permission mode="0755" wildcard="create_pricing_discountmodel_procedures.plb"/>
+            <permission mode="0755" wildcard="ifw_Create.sql"/>
+            <permission mode="0755" wildcard="ifw_Roles.sql"/>
+            <permission mode="0755" wildcard="ifw_Synonyms.sql"/>
+            <permission mode="0755" wildcard="ifw_Tablespaces.sql"/>
+            <permission mode="0755" wildcard="Interconnect_Scenario_IC_DAILY.sql"/>
+            <permission mode="0755" wildcard="JSA_Create.sql"/>
+            <permission mode="0755" wildcard="JSA_Prepare.sql"/>
+            <permission mode="0755" wildcard="JSA_Roles.sql"/>
+            <permission mode="0755" wildcard="JSA_Synonyms.sql"/>
+            <permission mode="0755" wildcard="JSA_Tablespaces.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="database" mode="750" patchable="true">
+         <directory dest="Oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="Suspense" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="2402" dest="RecycleDetail.sql" mode="0755"/>
+                  <file size="182" dest="RecycleHeader.sql" mode="0755"/>
+                  <file size="375" dest="StdRecycleDetail.sql" mode="0755"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="RecycleDetail.sql"/>
+            <permission mode="0755" wildcard="RecycleHeader.sql"/>
+            <permission mode="0755" wildcard="StdRecycleDetail.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_Roaming" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="4092" dest="ISC_ApplyTax.isc" mode="0755"/>
+            <file size="2157" dest="ISC_RemoveASSCBD.isc" mode="0755"/>
+            <file size="1065" dest="IRL_SettlementSplitting.irl" mode="0755"/>
+            <file size="3927" dest="ISC_RemoveCP.isc" mode="0755"/>
+            <file size="28" dest="IRL_SettlementSplitting.data" mode="0755"/>
+            <file size="1314" dest="ISC_UsageClassSetting.isc" mode="0755"/>
+            <file size="2086" dest="ISC_RollbackSettlement.isc" mode="0755"/>
+         </directory>
+         <directory dest="iScriptLib_Tax" mode="750" patchable="true">
+            <file size="15370" dest="ISC_TaxCalc.isc" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="ISC_ApplyTax.isc"/>
+            <permission mode="0755" wildcard="ISC_RemoveASSCBD.isc"/>
+            <permission mode="0755" wildcard="ISC_RemoveCP.isc"/>
+            <permission mode="0755" wildcard="ISC_RollbackSettlement.isc"/>
+            <permission mode="0755" wildcard="IRL_SettlementSplitting.data"/>
+            <permission mode="0755" wildcard="IRL_SettlementSplitting.irl"/>
+            <permission mode="0755" wildcard="ISC_UsageClassSetting.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_Standard" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6029" dest="ISC_InMapRealtimeDiscount.isc" mode="0755"/>
+            <file size="2422" dest="ISC_SampleOutRealtime.isc" mode="0755"/>
+            <file size="4497" dest="ISC_ObjectCacheTypeOutputSplitter.isc" mode="0755"/>
+            <file size="128" dest="IRL_EventTypeSplitting.data" mode="0755"/>
+            <file size="1805" dest="IRL_EventTypeSplitting.irl" mode="0755"/>
+            <file size="304" dest="IRL_EventTypeSplitting_tt.data" mode="0755"/>
+            <file size="13690" dest="ISC_AddCBD.isc" mode="0755"/>
+            <file size="1861" dest="IRL_EventTypeSplitting_tt.irl" mode="0755"/>
+            <file size="10965" dest="ISC_PostRating.isc" mode="0755"/>
+            <file size="91" dest="IRL_UsageType.data" mode="0755"/>
+            <file size="2457" dest="IRL_UsageType.irl" mode="0755"/>
+            <file size="19033" dest="ISC_UsageTypeFunctions.isc" mode="0755"/>
+            <file size="8452" dest="ISC_TwinTalkEnabler.isc" mode="0755"/>
+            <file size="1373" dest="ISC_GetMostCalledInfo.isc" mode="0755"/>
+            <file size="4021" dest="ISC_GetResourceBalance.isc" mode="0755"/>
+            <file size="7541" dest="ISC_USC_Map_functions.isc" mode="0755"/>
+            <file size="45" dest="IRL_LeastCostPerEDR.data" mode="0755"/>
+            <file size="4973" dest="ISC_FirstProductRealtime.isc" mode="0755"/>
+            <file size="25761" dest="ISC_LeastCost.isc" mode="0755"/>
+            <file size="1437" dest="IRL_UsageType_USC.irl" mode="0755"/>
+            <file size="1963" dest="IRL_PromotionalSavingPerEDR.irl" mode="0755"/>
+            <file size="2302" dest="ISC_LeastCostPerEDR.isc" mode="0755"/>
+            <file size="434" dest="IRL_PromotionalSavingPerEDR.data" mode="0755"/>
+            <file size="9037" dest="ISC_PromotionalSavingPerEDR.isc" mode="0755"/>
+            <file size="1989" dest="IRL_LeastCostPerEDR.irl" mode="0755"/>
+            <file size="8602" dest="ISC_UsageType.isc" mode="0755"/>
+            <file size="1811" dest="ISC_SetSvcCodeRTZoning.isc" mode="0755"/>
+            <file size="10049" dest="ISC_ProfileAnalyzer.isc" mode="0755"/>
+            <file size="3641" dest="ISC_BACKOUTTypeSplitting.isc" mode="0755"/>
+            <file size="5238" dest="ISC_ProfileLabel.isc" mode="0755"/>
+            <file size="3367" dest="ISC_GetLastSixMonthsCharge.isc" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="IRL_EventTypeSplitting.data"/>
+            <permission mode="0755" wildcard="IRL_EventTypeSplitting.irl"/>
+            <permission mode="0755" wildcard="IRL_LeastCostPerEDR.irl"/>
+            <permission mode="0755" wildcard="IRL_PromotionalSavingPerEDR.data"/>
+            <permission mode="0755" wildcard="IRL_PromotionalSavingPerEDR.irl"/>
+            <permission mode="0755" wildcard="IRL_UsageType.data"/>
+            <permission mode="0755" wildcard="IRL_UsageType.irl"/>
+            <permission mode="0755" wildcard="IRL_UsageType_USC.irl"/>
+            <permission mode="0755" wildcard="ISC_USC_Map_functions.isc"/>
+            <permission mode="0755" wildcard="ISC_AddCBD.isc"/>
+            <permission mode="0755" wildcard="ISC_BACKOUTTypeSplitting.isc"/>
+            <permission mode="0755" wildcard="ISC_FirstProductRealtime.isc"/>
+            <permission mode="0755" wildcard="ISC_GetLastSixMonthsCharge.isc"/>
+            <permission mode="0755" wildcard="ISC_GetResourceBalance.isc"/>
+            <permission mode="0755" wildcard="ISC_GetMostCalledInfo.isc"/>
+            <permission mode="0755" wildcard="ISC_InMap.isc"/>
+            <permission mode="0755" wildcard="ISC_InMapRealtimeDiscount.isc"/>
+            <permission mode="0755" wildcard="ISC_LeastCost.isc"/>
+            <permission mode="0755" wildcard="IRL_LeastCostPerEDR.data"/>
+            <permission mode="0755" wildcard="ISC_LeastCostPerEDR.isc"/>
+            <permission mode="0755" wildcard="ISC_ObjectCacheTypeOutputSplitter.isc"/>
+            <permission mode="0755" wildcard="ISC_ProfileAnalyzer.isc"/>
+            <permission mode="0755" wildcard="ISC_ProfileLabel.isc"/>
+            <permission mode="0755" wildcard="ISC_PromotionalSavingPerEDR.isc"/>
+            <permission mode="0755" wildcard="ISC_PostRating.isc"/>
+            <permission mode="0755" wildcard="ISC_SetSvcCodeRTZoning.isc"/>
+            <permission mode="0755" wildcard="ISC_SampleOutRealtime.isc"/>
+            <permission mode="0755" wildcard="ISC_TwinTalkEnabler.isc"/>
+            <permission mode="0755" wildcard="ISC_UsageType.isc"/>
+            <permission mode="0755" wildcard="ISC_UsageTypeFunctions.isc"/>
+            <permission mode="0755" wildcard="IRL_EventTypeSplitting_tt.data"/>
+            <permission mode="0755" wildcard="IRL_EventTypeSplitting_tt.irl"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_RevenueAssurance" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="4289" dest="ISC_SetRevenueFigures.isc" mode="0755"/>
+            <file size="7199" dest="ISC_SetAndValidateBatchInfo.isc" mode="0755"/>
+            <file size="2059" dest="ISC_SetEDRStatus.isc" mode="0755"/>
+            <file size="1379" dest="ISC_SetOutputStream.isc" mode="0755"/>
+            <file size="2291" dest="ISC_SetRevenueStream.isc" mode="0755"/>
+            <file size="1111" dest="ISC_ResetInternProcessStatus.isc" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="ISC_ResetInternProcessStatus.isc"/>
+            <permission mode="0755" wildcard="ISC_SetAndValidateBatchInfo.isc"/>
+            <permission mode="0755" wildcard="ISC_SetEDRStatus.isc"/>
+            <permission mode="0755" wildcard="ISC_SetOutputStream.isc"/>
+            <permission mode="0755" wildcard="ISC_SetRevenueFigures.isc"/>
+            <permission mode="0755" wildcard="ISC_SetRevenueStream.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_Suspense" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1183" dest="IRL_PipelineSplitting.irl" mode="0755"/>
+            <file size="74" dest="IRL_PipelineSplitting.data" mode="0755"/>
+            <file size="1933" dest="ISC_Migration.isc" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="IRL_PipelineSplitting.data"/>
+            <permission mode="0755" wildcard="IRL_PipelineSplitting.irl"/>
+            <permission mode="0755" wildcard="ISC_Migration.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="ContainerDesc" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="23664" dest="containerDescLoader.pl" mode="0775"/>
+            <file size="1082" dest="containerDescLoader.dat" mode="0775"/>
+         </directory>
+         <directory dest="PriceValidation" mode="750" patchable="true">
+            <file size="860" dest="sample.reg" mode="0660"/>
+         </directory>
+         <directory dest="XmlLoader" mode="750" patchable="true">
+            <file size="511" dest="LOG_StreamITO.probe" mode="0664"/>
+         </directory>
+         <directory dest="StateConfigTool" mode="750" patchable="true">
+            <file size="15602" dest="stateconfigtool.jar" mode="0775"/>
+            <file size="1564620" dest="classes12_01.zip" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="containerDescLoader.dat"/>
+            <permission mode="0775" wildcard="containerDescLoader.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="IRules2Db" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="35914" dest="db2irules.pl" mode="0775"/>
+            <file size="27444" dest="irules2db.pl" mode="0775"/>
+            <file size="52219" dest="PerlParser.pm" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="db2irules.pl"/>
+            <permission mode="0775" wildcard="irules2db.pl"/>
+            <permission mode="0775" wildcard="PerlParser.pm"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="ServiceTypeReport" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2221" dest="serviceTypeReport.pl" mode="0775"/>
+            <file size="459" dest="serviceTypeReport.sql" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="serviceTypeReport.pl"/>
+            <permission mode="0775" wildcard="serviceTypeReport.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="XmlLoader" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="159609" dest="LoadIfwConfig.xsd" mode="0775"/>
+            <file size="588" dest="LoadIfwConfig.reg" mode="0775"/>
+            <file size="12083" dest="CustomConfig.xsd" mode="0775"/>
+            <file size="15522" dest="CustomConfig.xml" mode="0775"/>
+            <file size="15730" dest="CustomConfigRP.xml" mode="0775"/>
+            <file size="16105" dest="CustomConfigDM.xml" mode="0775"/>
+            <file size="1925" dest="LoadIfwConfig.msg" mode="0775"/>
+            <file size="266" dest="samples.xml" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="LoadIfwConfig.reg"/>
+            <permission mode="0775" wildcard="LoadIfwConfig.xsd"/>
+            <permission mode="0775" wildcard="CustomConfig.xsd"/>
+            <permission mode="0775" wildcard="CustomConfig.xml"/>
+            <permission mode="0775" wildcard="CustomConfigRP.xml"/>
+            <permission mode="0775" wildcard="CustomConfigDM.xml"/>
+            <permission mode="0775" wildcard="samples.xml"/>
+            <permission mode="0775" wildcard="LoadIfwConfig.msg"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="ZoneDbImport" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="520" dest="zoneLoader.ctl" mode="0775"/>
+            <file size="209" dest="zoneLoader.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="zoneLoader.ctl"/>
+            <permission mode="0775" wildcard="zoneLoader.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="StateConfigTool" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="216" dest="state.config" mode="0775"/>
+            <file size="753" dest="stateconfigtool" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="stateconfigtool"/>
+            <permission mode="0775" wildcard="state.config"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="2407" dest="stop_ifw" mode="0755"/>
+         <file size="4868" dest="start_ifw" mode="0755"/>
+         <file size="358" dest="stop_ifw_realtime" mode="0755"/>
+         <file size="290" dest="start_ifw_realtime" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_ifw"/>
+            <permission mode="0755" wildcard="stop_ifw"/>
+            <permission mode="0755" wildcard="start_ifw_realtime"/>
+            <permission mode="0755" wildcard="stop_ifw_realtime"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="5214616" dest="legacy.so" mode="0750"/>
+         <file size="8286216" dest="libnnzsrv.so" mode="0750"/>
+         <file size="460688" dest="libons.so" mode="0750"/>
+         <file size="8158120" dest="libnnz.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libons.so"/>
+            <permission mode="0750" wildcard="libnnz.so"/>
+            <permission mode="0750" wildcard="legacy.so"/>
+            <permission mode="0750" wildcard="libnnzsrv.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="2267719" dest="cryptoj.jar" mode="0750"/>
+         <file size="485400" dest="oraclepki.jar" mode="0750"/>
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="13262" dest="cet.jar" mode="0750"/>
+         </directory>
+         <file size="4587" dest="cet.jar" mode="0750"/>
+         <file size="23184" dest="ojmisc.jar" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="cryptoj.jar"/>
+            <permission mode="0750" wildcard="ojmisc.jar"/>
+            <permission mode="0750" wildcard="oraclepki.jar"/>
+            <permission mode="0750" wildcard="cet.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="data" mode="750" patchable="true">
+         <directory dest="in" mode="750" patchable="true">
+            <file size="867" dest="test_cdr.orig" mode="0755"/>
+         </directory>
+         <file size="301" dest="primary_np.data" mode="0755"/>
+      </directory>
+      <directory dest="wallet" mode="750" patchable="true">
+         <directory dest="client" mode="750" patchable="true">
+            <file size="3752" dest="ewallet.p12" mode="0600"/>
+            <file size="3797" dest="cwallet.sso" mode="0600"/>
+         </directory>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" mode="750" patchable="true">
+            <file size="25" dest="diff.lst" mode="0755"/>
+            <file size="2917" dest="ParseFile.pl" mode="0755"/>
+            <file size="1454" dest="deInstall.pl" mode="0755"/>
+         </directory>
+      </directory>
+      <file size="752" dest="source.me.csh" mode="0664"/>
+      <file size="798" dest="source.me.sh" mode="0664"/>
+      <file size="6881" dest="pin.conf" mode="0755"/>
+      <file size="384215" dest="ifw_Create.sql" mode="0755"/>
+      <file size="3368" dest="insertWIRELESS_SAMPLE.sql" mode="0755"/>
+   </file-map>
+   <variables>
+      <product-variable name="SYS_HOSTNAME_PIPELINE" type="string" helpid="" publish="true"/>
+      <product-variable name="SYS_PORT_PIPELINE" value="1521" type="number" helpid="" publish="true"/>
+      <product-variable name="SYS_DBALIAS_PIPELINE" type="string" helpid="" publish="true"/>
+      <product-variable name="SYS_USERNAME_PIPELINE" type="string" helpid="" publish="true"/>
+      <product-variable name="SYS_PASSWD_PIPELINE" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="SYS_PASSWD_PIPELINE_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="INFRANET_DB_USERNAME" type="string" helpid="" publish="true"/>
+      <product-variable name="INFRANET_DB_PASSWORD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="INFRANET_DB_PASSWORD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="INFRANET_TABLESPACE_TABLE" type="string" helpid="" publish="true"/>
+      <product-variable name="INFRANET_TABLESPACE_INDEX" type="string" helpid="" publish="true"/>
+      <product-variable name="IFW_DB_USERNAME" type="string" helpid="" publish="true"/>
+      <product-variable name="IFW_DB_PASSWORD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="IFW_DB_PASSWORD_CONFIRM" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="IFW_DB_PASSWORD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="IFW_TABLESPACE_TABLE" type="string" helpid="" publish="true"/>
+      <product-variable name="IFW_TABLESPACE_INDEX" type="string" helpid="" publish="true"/>
+      <product-variable name="IFW_USER_FLAG" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="CLIENT_WALLET_PASSWD_PIPE" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="CLIENT_WALLET_PASSWD_PIPE_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ONLY_PIPELINE" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="CONNECT_STRING_PIPE" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="ASM_PIPELINE" value="false" type="boolean" helpid="" publish="true"/>
+   </variables>
+</component-def>

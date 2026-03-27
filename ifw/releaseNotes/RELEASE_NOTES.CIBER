@@ -1,0 +1,139 @@
+========================================================================================
+CIBER
+----------------------------------------------------------------------------------------
+Module Release Notes 
+----------------------------------------------------------------------------------------
+$RCSfile: RELEASE_NOTES.CIBER,v $
+$Revision: 1.0 $
+$Author: cdiab $
+$Date: 2002/07/15 08:20:47 $ 
+
+=======================================================================================
+
+Actual Version : v6.5 SP1 / Date :27-March-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00021241  Setting DETAIL.INTERN_A_NUMBER_ZONE and DETAIL.INTERN_B_NUMBER_ZONE in InGrammar
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+=======================================================================================
+
+Actual Version : v6.5 SP1 / Date :20-March-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00035310  Changed HOME_CARRIER_ID to RECV_CARRIER_ID for type 42
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+=======================================================================================
+
+Actual Version : v6.5 SP1 / Date :12-March-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF000345380 Changed the SETTLEMENT PERIOD from date to string;
+		 CIBER batch edit changes;
+		 Grammar file updates
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+=======================================================================================
+
+Actual Version : v6.4.0 / Date :30-August-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+
+New Features   :
+----------------
+- batch validation is implemented
+- storage of wholesale charges is implemented
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+=======================================================================================
+
+Actual Version : v6.3.1 / Date :19-July-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+
+New Features   :
+----------------
+- renamed some fields and set the final types for the CIBER fields
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+=======================================================================================
+
+Actual Version : v6.3.0 / Date :15-July-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+- creation
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+=======================================================================================

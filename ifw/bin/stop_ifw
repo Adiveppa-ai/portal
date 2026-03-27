@@ -1,0 +1,101 @@
+#!/bin/sh
+
+INT_HOME=$IFW_HOME
+for aa in \
+        conf/wireless.reg  \
+        ; do
+  if [ -r "$INT_HOME/$aa" ] ; then
+    regfile="$aa"
+    break
+  fi
+done
+
+retrymax=30
+if [ "a$IFW_RETRY_MAX" != a ] ; then
+  retrymax="0$IFW_RETRY_MAX"
+fi
+
+retrysleep=5
+if [ "a$IFW_RETRY_SLEEP" != a ] ; then
+  retrysleep="0$IFW_RETRY_SLEEP"
+fi
+
+
+extlog=""
+if [ "a$IFW_REGFILE" != a ] ; then
+  regfile="$IFW_REGFILE"
+  extlog=__`echo $regfile | /bin/sed 's|//*|__|g'`
+fi
+#easier than snagging it from the registry file
+sema="$INT_HOME/semaphore/semaphore.reg"
+if [ "a$IFW_SEMFILE" != a ] ; then
+  sema="$IFW_SEMFILE"
+fi
+
+if [ "a$regfile" = "a" ] ; then
+  echo "** ERROR: no regfile found; aborting"
+  exit 42
+fi
+if [ ! -r "$INT_HOME/$regfile" -a ! -r "$regfile" ] ; then
+  echo "** ERROR: regfile \"$regfile\" does not exist; aborting"
+  exit 41
+fi
+
+logfname=$INT_HOME/IFW$extlog.LOG
+pidfname=$INT_HOME/IFW$extlog.PID
+
+if [ ! -s "$pidfname" ] ; then
+  echo "either no ifw is running or you removed the tracking file: $pidfname"
+  exit 22
+fi
+
+if [ "a$PIN_TOPDIR" = "a" ] ; then
+        PIN_TOPDIR=$HOME
+fi
+
+if [ "a$INT_HOME" = "a" ] ; then
+        INT_HOME=$IFW_HOME
+fi
+
+echo "** $0: IFW OUTPUT LOGFILE IS $logfname"
+echo "setting semaphore (ifw.Active = False)"
+echo "ifw.Active = False" >$sema
+
+a="$NO_SYNCED_TIMEOUT"
+#subshell for convenience + hide file not found errors
+/bin/cat $pidfname | while read pid ; do
+  if echo "$pid" | /bin/grep '^[0-9]' >/dev/null ; then
+    if /bin/ps -eaf | /bin/grep "^ *$LOGNAME  *$pid .*ifw" | /bin/grep -v grep ; then
+      echo "** stopping ifw with pid $pid"
+    else
+      echo "** ignoring invalid pid $pid in $pidfname"
+      continue
+    fi
+  else
+    continue
+  fi
+
+  k=0
+  ec=0
+  while /bin/ps -eaf | /bin/grep "^ *$LOGNAME  *$pid .*ifw" | /bin/grep -v grep ; do
+    k=`/usr/bin/expr 1 + $k`
+    if [ "a$NO_SYNCED_TIMEOUT" = "a" -a $k -gt $retrymax ]  ; then
+      echo "** IFW DID NOT STOP FAST ENOUGH; giving up."
+      ec=99
+      break
+    fi
+    echo "ifw not stopped yet on try $k; waiting $retrysleep seconds...  (normal if process cpu time doesn't change; THIS MAY TAKE ~20 TRIES)"
+    /bin/sleep $retrysleep
+  done
+
+  if [ "$ec" = 0 ] ; then
+    echo "** IFW $pid HAS STOPPED."
+  fi
+
+  echo "current outputlog contents:"
+  /bin/cat $logfname
+  echo "** $0: ((end log for ifw $pid))"
+done
+#if we got here, no other processes- flush the list
+/bin/rm -f $pidfname
+exit 0

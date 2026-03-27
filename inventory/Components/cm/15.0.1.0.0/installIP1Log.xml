@@ -1,0 +1,618 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ACTION_LIST>
+   <ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'alias'} = &quot;pindb$HOSTNAME&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'alias'} = &quot;%SYS_DBALIAS%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'system_password'} = &quot;&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%EXPRESSION_CONTAINING_SECURE_VARIABLE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'tables_group'} = &quot;pin00&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'tables_group'} = &quot;%TABLE_GROUP%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'indexes_group'} = &quot;pinx00&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'indexes_group'} = &quot;%INDEX_GROUP%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$EAI{'em_port'} = &quot;11930&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$EAI{'em_port'} = &quot;11970&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values load_config " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values storable_class_to_xml " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values pin_bill" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values cm " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values pin_export_price " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values config_export " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values pin_rerate " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values pin_cfg_bpdump " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values testnap " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values adu " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values uei " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values sox_unlock_service " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values credit_control " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_billd" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_job_executor/archive" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_job_executor" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_generate_analytics" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/cm" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/sys/infmgr_cli" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/sys/test" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/load_notification_event" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/supportInformer" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/adu" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_unlock_service" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_unlock_service" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_export_price" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_export_price" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_rerate" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_rerate" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_balance_transfer" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_balance_transfer" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_ar_taxes" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_ar_taxes" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/load_config" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/load_config" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/pin_state_change" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_state_change" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/load_price_list" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/device_management" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="setenv" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="generalActions" VER="10.2.0.9.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="name" VAL="PATH" TYPE="String" SECURE="F"/>
+         <INPUT NAME="value" VAL="%SYMBOL_BRM_SERVER_HOME%/bin" TYPE="String" SECURE="F"/>
+         <INPUT NAME="append" VAL="true" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="replace" VAL="false" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="doNotPersistEnv" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="setenv" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="generalActions" VER="10.2.0.9.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="name" VAL="LD_LIBRARY_PATH" TYPE="String" SECURE="F"/>
+         <INPUT NAME="value" VAL="%SYMBOL_BRM_SERVER_HOME%/lib" TYPE="String" SECURE="F"/>
+         <INPUT NAME="append" VAL="true" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="replace" VAL="false" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="doNotPersistEnv" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$DM_ORACLE{'hostname'} = $HOSTNAME;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$DM_ORACLE{'hostname'} = &quot;%DM_HOSTNAME%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$DM_ORACLE{'port'} = &quot;12950&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$DM_ORACLE{'port'} = &quot;12950&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/storable_class_to_xml" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="755" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_sepa/sepa_dd" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_sepa/sepa_ct" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_sepa/sepa_rev" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_sepa/sepa_resp/done" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_sepa/sepa_resp/error" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_BRM_SERVER_HOME%/apps/pin_sepa/sepa_resp/input" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/apps/uel/uel" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__JAVA_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$JAVA_HOME" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/scripts/pin_cmp_pin_bill.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__JAVA_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%ORACLE_HOME%/Thirdparty/jdk1.8.0_401" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/scripts/pin_cmp_storable_class_to_xml.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__JAVA_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%ORACLE_HOME%/Thirdparty/jdk1.8.0_401" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/bin/pin_bus_params" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__JAVA_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%ORACLE_HOME%/Thirdparty/jdk1.8.0_401" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+</ACTION_LIST>

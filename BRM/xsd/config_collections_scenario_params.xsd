@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+================================================================================
+ Copyright (c) 2012, 2013, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+
+<xs:schema id="ObjectList" targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="qualified"
+  elementFormDefault="qualified">
+
+<xs:include schemaLocation="PinTypes.xsd" />
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ConfigObject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID" type="PinPoid" minOccurs="0"/>
+              <xs:element name="ACCOUNT_OBJ" type="PinPoid" minOccurs="0"/>
+              <xs:element name="DESCR" type="xs:string" minOccurs="0"/>
+              <xs:element name="HOSTNAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="VALUE" type="xs:string" minOccurs="0"/>
+              <xs:element name="VERSION" type="xs:string" minOccurs="0"/>
+              <xs:element name="PARAMS" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PARAM_NAME" type="xs:string" minOccurs="1"/>
+                    <xs:element name="STRING_ID" type="xs:string" minOccurs="1"/>
+                    <xs:element name="STR_VERSION" type="xs:string" minOccurs="1"/>
+                    <xs:element name="TYPE" type="xs:string" minOccurs="1"/>
+                    <xs:element name="CLASS_NAME" type="xs:string" minOccurs="1"/>
+                    <xs:element name="FIELD_NAME" type="xs:string" minOccurs="1"/>
+                    <xs:element name="VALUES" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+                          <xs:element name="VALUE" type="xs:string" minOccurs="1"/>
+                          <xs:element name="STRING_ID" type="xs:string" minOccurs="1"/>
+                          <xs:element name="STR_VERSION" type="xs:string" minOccurs="1"/>
+                        </xs:all>
+                        <xs:attribute name="elem" form="unqualified" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="elem" form="unqualified" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:attribute name="configName" type="xs:string" default="/config/collections/scenario_params" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

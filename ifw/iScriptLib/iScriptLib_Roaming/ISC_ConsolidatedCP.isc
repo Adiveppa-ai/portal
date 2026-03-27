@@ -1,0 +1,81 @@
+//==============================================================================
+//  @(#)% %
+//      Copyright (c) 2006 Oracle. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//------------------------------------------------------------------------------
+// Block: ISC_ConsolidatedCP.isc
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module keeps the only consolidated charge packet with impact_category 00 
+//    to make the balance coming properly later.
+//
+//------------------------------------------------------------------------------
+// Responsible: Archan Misra
+//
+//------------------------------------------------------------------------------
+//==============================================================================
+const Long   LOG_MAJOR    = 3;
+String glid;
+//==============================================================================
+function BEGIN
+{
+  glid = regString(registryNodeName() + ".GL_CODE");
+  if (glid == "")
+  {
+    logPipeline( "ERROR: Could not get GL_CODE from the registry\n",4);
+    scriptUsable( false );
+  }
+}
+function onDetailEdr
+{
+  Long tpEntries; 
+  Long cpEntries;
+  Long cpIndex;
+  Long tpIndex;
+  Long blockIndex;  
+  String Msg;
+  Long cpcount = 0;
+
+  //----------------------------------------------------------------------------
+  // check whether any incoming TAP charge has come or not
+  //----------------------------------------------------------------------------
+  Long blockEntries = edrNumDatablocks( DETAIL.ASS_CBD);
+
+  for(blockIndex = 0; blockIndex < blockEntries; blockIndex = blockIndex + 1)
+  {
+    cpEntries = edrNumDatablocks( DETAIL.ASS_CBD.CP,blockIndex);
+
+    for(cpIndex = 0; cpIndex < cpEntries; cpIndex = cpIndex + 1)
+    {
+      if(edrString(DETAIL.ASS_CBD.CP.IMPACT_CATEGORY,blockIndex,cpcount) != "00")
+      {
+        if (edrDeleteDatablock( DETAIL.ASS_CBD.CP, blockIndex,cpcount) == false )
+        {
+          Msg = "ERROR:Failed to delete the CP block";
+          edrAddError("ERR_DELETION_CP_FAILURE", LOG_MAJOR, Msg);
+          edrSetIsValidDetail( false ); 
+          return;
+        }        
+      }
+      else
+      {
+        // Assigning GL_ID mentioned in the registry and also assign rum_id
+        edrString(DETAIL.ASS_CBD.CP.USAGE_GL_ACCOUNT_CODE,blockIndex,cpcount) = glid;
+        edrLong(DETAIL.ASS_CBD.CP.RUM_ID,blockIndex,cpcount) = cpcount;
+        cpcount = cpcount + 1;
+      }
+    }
+    // In the below loop we are adjusting TP index so that it points to the consolidated CP
+
+    tpEntries = edrNumDatablocks( DETAIL.ASS_CBD.TP,blockIndex); 
+
+    for (tpIndex = 0; tpIndex < tpEntries; tpIndex = tpIndex + 1)
+    {
+      edrLong(DETAIL.ASS_CBD.TP.RELATED_CHARGE_INFO_ID,blockIndex,tpIndex) = 0;
+    } 
+
+  }
+} // end onDetailEdr + end iScript

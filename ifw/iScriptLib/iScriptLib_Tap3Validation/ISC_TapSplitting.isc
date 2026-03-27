@@ -1,0 +1,348 @@
+//==============================================================================
+//
+//      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_TapSplitting
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module is designed to split the EDR into multiple EDRs -- one EDR for
+//   each basic service block.
+//
+//------------------------------------------------------------------------------
+//
+// Revision 1.1  2003/06/26 njalel
+// Initial import of TapSplitting script.
+//
+//==============================================================================
+
+// Constants
+const Long   LOG_NORMAL   = 0;
+const Long   LOG_WARNING  = 1;
+const Long   LOG_MINOR    = 2;
+const Long   LOG_MAJOR    = 3;
+const Long   LOG_CRITICAL = 4;
+const String type_MOC     = "021";
+const String type_MTC     = "031";
+
+// Globals
+Bool debug;
+Decimal sumChargedAmount;
+Decimal sumTaxedAmount;
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;	// true;
+
+  if (debug)
+  {
+    logStdout("Begin\n");
+  }
+}
+
+//==============================================================================
+// Functions
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// init()
+//------------------------------------------------------------------------------
+function init
+{
+  if (debug)
+  {
+    logStdout("init()\n");
+  }
+
+  sumChargedAmount = 0.0;
+  sumTaxedAmount = 0.0;
+}
+
+
+//------------------------------------------------------------------------------
+// updateDetailData()
+// This function is used to map field from the Baisc Service Block into the
+// new detail container fields
+//------------------------------------------------------------------------------
+function updateDetailData(Bool isLastEdr)
+{
+  if (debug)
+  {
+    if (isLastEdr) {
+      logStdout("updateDetailData(true)\n");
+    } else {
+      logStdout("updateDetailData(false)\n");
+    }
+  }
+
+  edrString(DETAIL.LONG_DURATION_INDICATOR) =
+		edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.LONG_DURATION_INDICATOR, 0, 0);
+  edrString(DETAIL.CHAIN_REFERENCE) = edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHAIN_REFERENCE, 0, 0);
+  edrString(DETAIL.BASIC_SERVICE) = edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.BASIC_SERVICE, 0, 0);
+  edrString(DETAIL.QOS_REQUESTED) = edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.QOS_REQUESTED, 0, 0);
+  edrString(DETAIL.QOS_USED) = edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.QOS_USED, 0, 0);
+  edrDecimal(DETAIL.QOS_USED) = edrDecimal(DETAIL.ASS_GSMW_EXT.BS_PACKET.QOS_USED, 0, 0);
+  edrLong(DETAIL.ASS_GSMW_EXT.NUMBER_OF_BS_PACKETS, 0) = 1;
+
+  if (isLastEdr == false)
+  {
+    // set count of SS packets to 0
+    edrLong(DETAIL.ASS_GSMW_EXT.NUMBER_OF_SS_PACKETS, 0) = 0;
+  }
+
+  if (dateToStr(edrDate(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHARGING_START_TIMESTAMP, 0, 0)) != "")
+  {
+    edrDate(DETAIL.CHARGING_START_TIMESTAMP) =
+		edrDate(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHARGING_START_TIMESTAMP, 0, 0);
+    edrDate(DETAIL.CHARGING_END_TIMESTAMP) =
+		edrDate(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHARGING_END_TIMESTAMP, 0, 0);
+  }
+
+  // set wholesale charged value and tax amount
+  if (isLastEdr == false)
+  {
+    // fudge values for all edrs except the last
+    edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE) =
+		edrDecimal(DETAIL.ASS_GSMW_EXT.BS_PACKET.WHOLESALE_CHARGED_AMOUNT_VALUE, 0, 0);
+    edrDecimal(DETAIL.WHOLESALE_CHARGED_TAX_VALUE) =
+		edrDecimal(DETAIL.ASS_GSMW_EXT.BS_PACKET.WHOLESALE_CHARGED_TAX_VALUE, 0, 0);
+
+    // aggregate these for use with the last edr
+    sumChargedAmount = sumChargedAmount +
+		edrDecimal(DETAIL.ASS_GSMW_EXT.BS_PACKET.WHOLESALE_CHARGED_AMOUNT_VALUE, 0, 0);
+    sumTaxedAmount = sumTaxedAmount +
+		edrDecimal(DETAIL.ASS_GSMW_EXT.BS_PACKET.WHOLESALE_CHARGED_TAX_VALUE, 0, 0);
+  } else {
+    // use the aggregates to populate the last record
+    edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE) =
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE) - sumChargedAmount;
+    edrDecimal(DETAIL.WHOLESALE_CHARGED_TAX_VALUE) =
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_TAX_VALUE) - sumTaxedAmount;
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// splitTapRecord()
+// This function is used to split the EDR into a number of EDR details, one
+// for each basic service. All the offline supplementary services, VAS will be
+// related to the last EDR.
+//------------------------------------------------------------------------------
+function splitTapRecord
+{
+  if (debug)
+  {
+    logStdout("splitTapRecord()\n");
+  }
+
+  Long i               = 0;
+  Long blockIndex      = 0;
+  Long bsblockIndex    = 0;
+  Long ssblockIndex    = 0;
+  Long vasblockIndex   = 0;
+  Long camblockIndex   = 0;
+  Long theLastEdrCopy  = 0;
+  Long blockEntries    = edrNumDatablocks(DETAIL.ASS_GSMW_EXT.BS_PACKET, 0);
+  Long ssblockEntries  = edrNumDatablocks(DETAIL.ASS_GSMW_EXT.SS_PACKET, 0);
+  Long vasblockEntries = edrNumDatablocks(DETAIL.ASS_VAS_EXT);
+  Long camblockEntries = edrNumDatablocks(DETAIL.ASS_CAMEL_EXT);
+
+  for (blockIndex = 0;blockIndex < blockEntries;blockIndex = (blockIndex + 1))
+  {
+    if (blockIndex != 0)
+    {
+      if (edrSetCurrent(theLastEdrCopy) != true)
+      {
+	String Msg = "edrSetCurrent(theLastEdrCopy) FAILED.";
+	edrAddError("ERR_TAP3_INPUT_ERROR", 4, Msg);
+	return;
+      }
+    }
+
+    if (debug)
+    {
+      logStdout(edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.RECORD_NUMBER, 0, blockIndex) + "\n");
+    }
+
+    // use edrDuplicate() to get a template for every BasicServiceUsed
+    theLastEdrCopy = edrDuplicate();
+
+    Long j = 0;
+    for (i = 0;i < blockEntries;i = (i + 1))
+    {
+      if (i > blockIndex)
+      {
+	j = 1;
+      }
+
+      if (i != blockIndex)
+      {
+	// delete the block with index i
+	if (edrDeleteDatablock(DETAIL.ASS_GSMW_EXT.BS_PACKET, 0, j) == false)
+	{
+	  edrAddError("ERR: failed to delete BS_PACKET datablock.", LOG_MAJOR);
+	}
+	if (edrDeleteDatablock(DETAIL.ASS_CBD, j) == false)
+	{
+	  edrAddError("ERR: failed to delete ASS_CBD datablock.", LOG_MAJOR);
+	}
+      }
+    }
+
+    if (blockIndex < (blockEntries - 1))
+    {
+      if (ssblockEntries > 0)
+      {
+	// Delete the supplementary services
+	for (ssblockIndex = 0;ssblockIndex < ssblockEntries;ssblockIndex = (ssblockIndex + 1))
+	{
+	  if (edrDeleteDatablock(DETAIL.ASS_GSMW_EXT.SS_PACKET, 0, 0) == false)
+	  {
+	    edrAddError("ERR: failed to delete BS_PACKET datablock.", LOG_MAJOR);
+	  }
+	  else
+	  {
+	    if (debug)
+	    {
+	      logStdout ("Deleting BS_PACKET datablock.\n");
+	    }
+	  }
+	}
+      }
+
+      if (vasblockEntries > 0)
+      {
+	// Delete the value added services
+	for (vasblockIndex = 0;vasblockIndex < vasblockEntries;vasblockIndex = (vasblockIndex + 1))
+	{
+	  if (edrDeleteDatablock(DETAIL.ASS_VAS_EXT, 0) == false)
+	  {
+	    edrAddError("ERR: failed to delete ASS_VAS_EXT datablock.", LOG_MAJOR);
+	  }
+	  else
+	  {
+	    if (debug)
+	    {
+	      logStdout ("Deleting ASS_VAS_EXT datablock.\n");
+	    }
+  	  }
+	}
+      }
+
+      if (camblockEntries > 0)
+      {
+	// Delete the camel services
+	for (camblockIndex = 0;camblockIndex < camblockEntries;camblockIndex = (camblockIndex + 1))
+	{
+	  if (edrDeleteDatablock(DETAIL.ASS_CAMEL_EXT, 0) == false)
+	  {
+	    edrAddError("ERR: failed to delete ASS_CAMEL_EXT datablock.", LOG_MAJOR);
+	  }
+	  else
+	  {
+	    if (debug)
+	    {
+	      logStdout ("Deleting ASS_CAMEL_EXT datablock.\n");
+	    }
+	  }
+	}
+      }
+    }
+
+    // Update the detail data block with data from the basic service block
+    updateDetailData(blockIndex == (blockEntries - 1));
+  }
+
+  //  Deleting an original EDR using edrDelete method is not possible. However
+  //  you can use this method if you are deleting a copy of the
+  //  original EDR. In this Iscript we are deleting a copy of the EDR .
+  //  This issue was resolved in Integrate Release 6.5 SP2.
+
+   if (edrSetCurrent(theLastEdrCopy) == true)
+   {
+     edrDelete();
+   }
+   else
+   {
+     String Msg = "edrSetCurrent(theLastEdrCopy) FAILED.";
+     edrAddError("ERR_TAP3_INPUT_ERROR", 4, Msg);
+     return;
+   }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// processTapRecord()
+//
+// This function will split the EDR into multi records
+//------------------------------------------------------------------------------
+function processTapRecord
+{
+  if (debug)
+  {
+    logStdout("processTapRecord()\n");
+  }
+
+  String recordType = edrString(DETAIL.RECORD_TYPE);
+
+  // make sure the edr is valid
+  if (edrIsValidDetail() == false or edrNumErrors() > 0)
+  {
+     if (debug)
+     {
+       logStdout("Invalid EDR or EDR with Errors\n");
+     }
+     return;
+  }
+
+  // If the record type is not MOC or MTC then just return no
+  // need to split
+
+  if ((recordType == type_MOC) or (recordType == type_MTC))
+  {
+    Long basicServicePacket = edrLong(DETAIL.ASS_GSMW_EXT.NUMBER_OF_BS_PACKETS, 0);
+
+    if (basicServicePacket > 1)
+    {
+      // More than one basic service packet
+      splitTapRecord();
+    }
+    else
+    {
+      if (debug)
+      {
+	logStdout("One Basic Service Packet\n");
+      }
+    }
+  }
+
+  return;
+}
+
+
+//==============================================================================
+// Process EDR record
+//==============================================================================
+function onDetailEdr
+{
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+  init();
+
+  //----------------------------------------------------------------------------
+  // Split the EDR into multi EDRs one per basic service
+  //----------------------------------------------------------------------------
+  processTapRecord();
+
+
+} // end onDetailEdr + end iScript

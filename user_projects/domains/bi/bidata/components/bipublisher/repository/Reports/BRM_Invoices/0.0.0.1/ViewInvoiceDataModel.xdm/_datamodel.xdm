@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="ViewInvoiceDataSource">
+   <description>
+      <![CDATA[ViewInvoiceDataModel]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="false"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="BRM_View_Invoice_Report_Data_Set" type="complex">
+         <sql>
+            <![CDATA[select	 inv.to_clob("INVOICE_FORMATS_BUF_T"."BUFFER_BUF") as "BUFFER_BUF" 
+ from	"INVOICE_FORMATS_BUF_T" "INVOICE_FORMATS_BUF_T" 
+ where 	 "INVOICE_FORMATS_BUF_T"."OBJ_ID0" =:p_Inv_POID]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="ROW_SET" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="ROW_SET">
+            <group name="ROW" label="ROW" source="BRM_View_Invoice_Report_Data_Set">
+               <element name="BUFFER_BUF" value="BUFFER_BUF" label="BUFFER_BUF" dataType="xdo:xml" breakOrder="ascending" fieldOrder="1"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets/>
+   <parameters>
+      <parameter name="p_Inv_POID" defaultValue="999999999" dataType="xsd:integer" rowPlacement="1">
+         <input label="Invoice POID ID" size="20"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+      <layouts>
+         <layout name="BRM_View_Invoice_Report_Data_Set" left="285px" top="28px"/>
+         <layout name="ROW_SET" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

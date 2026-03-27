@@ -1,0 +1,477 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+require "../db_conf.pm";
+######################################################################
+## Configuration stuff
+######################################################################
+# NOTE that we have hard code item type /item/misc
+# and currency 840 - "US Dollars"
+$CONF_BEG_ID0=1000000;   # starting number for login 
+$CONF_NUM_THREADS=4;      # how many parallel processes we are going to use
+$NUM_ACCOUNTS=25;    # num accounts to process per thread
+$NUM_EVENTS= 10;		# num events per account
+$CONF_OPTION=0;        #0- just populate events, 1- update item/balance as well
+$EVENT_OPTION = 2;     #0 - don't create sub-balance, 1 create sub-balance events
+                       #2 - create essential without BLOB
+                       #3 - create essential with BLOB
+$INV_DATA_OPTION=2;    #0- no invoice data, 1- standard flist as invoice data
+                       #2- compact version of invoice data (6.5+)
+
+$CONF_DEBUG="false";
+$CONF_COMMIT_FREQ=1000;
+#---------------------------------------------------------------------
+# pinaft outputs create_t (today), actg_next_t, actg_future_t and 
+# actg_dom. Note that if today is 29-31 then actg_dom, actg_next_t and 
+# actg_future_t will be auto adjusted to 1st.
+#---------------------------------------------------------------------
+$PINAFT_OUTPUT=`./pinaft`;
+($CONF_CREATE_T,$CONF_ACTG_DOM,$CONF_ACTG_NEXT_T,$CONF_ACTG_FUTURE_T,
+   $CONF_DATE_STRG ) = split (' ',$PINAFT_OUTPUT,99);
+
+$CONF_DATE_STR="'$CONF_DATE_STRG'";
+$ENCRYPT=encrypt_poid ($CONF_CREATE_T);
+#--------------------------------------------
+# end of configuration section
+#--------------------------------------------
+#=============================================================================
+
+$sqlout="";
+#--------------------------------------
+#--------------------------------------
+$sqlcommand =<<ENDSQL
+set serveroutput on
+CREATE OR REPLACE PACKAGE sess_load_db AS
+	TYPE SessInfoTyp IS RECORD (
+		num_acnt	NUMBER,		-- number of accounts
+		db_id		NUMBER,		-- database id
+		beg_id0		NUMBER,		-- starting POID_ID0
+		login_num	NUMBER,		-- starting login number
+		num_events	PLS_INTEGER,	-- number of events to create
+		create_t	NUMBER,		-- create_time
+		commit_freq	PLS_INTEGER,	-- Commit every n accounts
+		debug		BOOLEAN
+	);
+	-- This procedure inserts a given number of accounts
+	PROCEDURE insert_sessions(l_info IN SessInfoTyp) ;
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY sess_load_db AS
+	TYPE CurrAccountInfoTyp IS RECORD (
+		cur_acnt	NUMBER,
+		cur_event	NUMBER
+		);
+
+	PROCEDURE insert_sessions(l_info IN SessInfoTyp) IS
+
+        cl_info         CurrAccountInfoTyp;
+
+	commit_cnt	NUMBER;
+	amount          NUMBER;
+	login0          NUMBER;
+	login1      	VARCHAR2(80);
+	invoice_descr  	VARCHAR2(500);
+	balance_string 	VARCHAR2(500);
+	event_id0	NUMBER;
+	item_id0	NUMBER;
+	balance_poid	NUMBER;
+	service_id0	NUMBER;
+	account_id0	NUMBER;
+
+       cursor service is
+        	select poid_id0 , account_obj_id0 from service_t
+        	   where login = login1 and rownum < 2;
+      cursor item is
+                select i.poid_id0, i.bal_grp_obj_id0  from item_t i, billinfo_t b
+                   where b.account_obj_id0 = account_id0 and i.bill_obj_id0 =
+                   b.bill_obj_id0 and i.poid_type = '/item/misc' and
+                   rownum < 2;
+
+	BEGIN
+			
+		commit_cnt := 1;
+		login0 := l_info.login_num;
+		event_id0 := l_info.beg_id0;
+
+	   FOR cur_acnt IN 1..l_info.num_acnt LOOP
+
+	--
+	-- read account information
+	--
+		login1 := '${USER_PREFIX}' || TO_CHAR(login0);
+		open service;
+		fetch service into service_id0, account_id0;
+		close service;
+
+		open item;
+		fetch item into item_id0, balance_poid;
+		close item;
+
+                amount := ( 1 + l_info.num_events) * l_info.num_events * 0.05;
+
+		if ( $CONF_OPTION = 1 ) THEN
+
+		  UPDATE item_t SET
+		  due = due + amount,
+		  item_total = item_total + amount
+		  WHERE
+		  poid_id0 = item_id0;
+
+                  -- balance updating is primitive just update something close
+		  UPDATE BAL_GRP_SUB_BALS_T SET
+		  current_bal = current_bal + amount
+		  WHERE
+		  obj_id0 = balance_poid AND
+		  rec_id2 = 840;
+		end IF;
+
+	       FOR cur_event IN 1..l_info.num_events LOOP
+
+                amount := cur_event * 0.1;
+
+	        if ( $INV_DATA_OPTION = 0 ) THEN
+		   invoice_descr := '';
+		end IF;
+	        if ( $INV_DATA_OPTION = 1 ) THEN
+		   invoice_descr := '0 256 9 0' || chr(10) || '1 834 1 0 840' ||
+			chr(10) || '1 58 14 0 19740.0' || chr(10)
+			|| '1 1206 5 0 "IP Async Dialup Session"'|| chr(10) ||
+			'1 107 7 0 0.0.0.' || TO_CHAR(l_info.db_id)
+			 || ' /item/misc ' ||
+			 TO_CHAR(item_id0) || ' 0' || chr(10) ||
+			'1 57 14 0 ' || TO_CHAR(amount);
+		end IF;
+	        if ( $INV_DATA_OPTION = 2 ) THEN
+		   invoice_descr := '\@TEST,{|9,840,19741.0,IP\\ Async\\ Dialup\\ Session,0.0.0.' || TO_CHAR(l_info.db_id) ||
+		   '\\ \\/item\\/misc\\ ' || TO_CHAR(item_id0) || '\\ 0,' ||
+		   TO_CHAR(amount) || '}';
+		end IF;
+
+		INSERT INTO event_t (
+		poid_db, poid_id0, poid_type, poid_rev,
+		name, created_t, mod_t, 
+		--
+		account_obj_db, account_obj_id0, account_obj_type, 
+		descr, end_t, event_no, flags,
+		--
+		group_obj_db, group_obj_id0, group_obj_type, 
+		item_obj_db, item_obj_id0, item_obj_type, 
+		program_name,
+		provider_id_db, provider_id_id0, provider_id_type, 
+		service_obj_db, service_obj_id0, service_obj_type, 
+		session_obj_db, session_obj_id0, session_obj_type, 
+		--
+		invoice_data,
+		--
+		currency, tax_locales, provider_ipaddr,
+		start_t, sys_descr, 
+		userid_db, userid_id0, userid_type
+		) VALUES (
+		l_info.db_id, event_id0+${ENCRYPT}, '/event/session/dialup', 1, 
+		'Dialup Event', l_info.create_t, l_info.create_t, 
+		--
+		l_info.db_id, account_id0, '/account',
+		'usage', l_info.create_t, '', 0,
+		--
+		0, 0, '',
+		l_info.db_id, item_id0, '/item/misc',
+		'Automatic Session Creation', 
+		0, 0, '',
+		l_info.db_id, service_id0, '/service/ip',
+		0, 0, '',
+		--
+		invoice_descr,
+		--
+		840,'','0',
+		l_info.create_t, 'Session - Dialup',
+		l_info.db_id, 1, '/service/pcm_client'
+		);
+
+		INSERT INTO event_session_dialup_t (
+		obj_id0, bytes_in,bytes_out,
+		trans_id,ipaddr,login,
+		--
+		PACKETS_IN,PACKETS_OUT,
+		SPEED,status,TERMSERV_ID,TERMSERV_PORT,
+		timezone,type
+		) VALUES (
+		event_id0+${ENCRYPT},1200, 1500,
+		login1, '00', login1,
+		--
+		140,150,
+		0,1,'0.0.0.1','',
+		0,0
+		);
+
+		INSERT INTO event_bal_impacts_t (
+		obj_id0, rec_id,
+		--
+		account_obj_db,account_obj_id0,account_obj_type,
+		--
+		amount,amount_deferred,discount,
+		gl_id,impact_type,
+		--
+		item_obj_db,item_obj_id0,item_obj_type,
+		bal_grp_obj_db,bal_grp_obj_id0,bal_grp_obj_type,
+		--
+		percent, quantity,
+		rate_obj_db,rate_obj_id0,rate_obj_type,
+		--
+		rate_tag,resource_id,
+		tax_code,impact_category,node_location
+		) VALUES (
+		event_id0+${ENCRYPT},0, 
+		--
+		l_info.db_id, account_id0, '/account',
+		--
+		amount,amount,amount,
+		104,1,
+		--
+		l_info.db_id, item_id0, '/item/misc',
+		l_info.db_id, balance_poid, '/balance_group',
+		--
+		0,0,
+		0,0,'',
+		--
+		'IP Async Dialup Session',840,
+		'','default','0:0'
+		);
+
+	        IF ( $EVENT_OPTION = 1 ) THEN
+		  INSERT INTO event_sub_bal_imp_t (
+		   obj_id0, rec_id,
+		   --
+		   bal_grp_obj_db,bal_grp_obj_id0,bal_grp_obj_type,
+		   resource_id
+                  ) VALUES (
+		   event_id0+${ENCRYPT},0, 
+		   --
+		   l_info.db_id, balance_poid, '/balance_group',
+                   840
+                  );
+
+		  INSERT INTO event_sub_bals_t (
+		   obj_id0, rec_id,rec_id2,
+		   --
+                   amount,valid_from, valid_to,
+                   contributor, rollover_data
+                  ) VALUES (
+		   event_id0+${ENCRYPT},0, 0,
+		   --
+                   amount,l_info.create_t-864000,l_info.create_t+864000,
+                   'cupertino', 0
+                  );
+
+		END IF;
+	        IF ( $EVENT_OPTION = 2 ) THEN
+                  -- version of event reduction project
+                  balance_string := 'C1,1.0' || chr(10) || 
+                  -- first array 7754 bal_grp
+                                     '1:7754:0:' || to_char(l_info.db_id) ||
+                                      ';' || to_char(balance_poid) ||  ',840' || chr(10) ||
+                  -- second array 7753 rec_id rec_id2
+                                     '2:7753:0:0:' || to_char(amount) || ',"cupertino",0,' ||
+                  -- data_from, data_to
+                                      to_char(l_info.create_t-864000) || ',' ||
+                                      to_char(l_info.create_t+864000) || chr(10);
+		  INSERT INTO event_essentials_t (
+		   obj_id0, account_obj_id0,
+		   --
+		   balances_small, balances_large
+                  ) VALUES (
+		   event_id0+${ENCRYPT},account_id0, 
+		   --
+                   balance_string,empty_clob()
+                  );
+		END IF;
+
+	        IF ( $EVENT_OPTION = 3 ) THEN
+                  -- version of event reduction project
+                  balance_string := 'C1,1.0' || chr(10) || 
+                  -- first array 7754 bal_grp
+                                     '1:7754:0:' || to_char(l_info.db_id) ||
+                                      ';' || to_char(balance_poid) ||  ',840' || chr(10) ||
+                  -- second array 7753 rec_id rec_id2
+                                     '2:7753:0:0:' || to_char(amount) || ',"cupertino",0,' ||
+                  -- data_from, data_to
+                                      to_char(l_info.create_t-864000) || ',' ||
+                                      to_char(l_info.create_t+864000) || chr(10);
+		  INSERT INTO event_essentials_t (
+		   obj_id0, account_obj_id0,
+		   --
+		   balances_small, balances_large
+                  ) VALUES (
+		   event_id0+${ENCRYPT},account_id0, 
+		   --
+                   '',balance_string
+                  );
+		END IF;
+
+		IF (commit_cnt = l_info.commit_freq) THEN
+			commit_cnt := 0;
+			commit;
+		END IF;
+		
+			commit_cnt := commit_cnt + 1;
+			event_id0 := event_id0 + 1;
+	      END LOOP;
+		login0 := login0 + 1;
+	END LOOP;
+
+		commit;
+	END insert_sessions;
+END sess_load_db;
+/
+
+ENDSQL
+;
+
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+$sqlcommand =<<SQLPLUSENDPROC
+set pagesize 0
+select to_char(pin_sequence.get_nextval() + 10000) from dual;
+SQLPLUSENDPROC
+;
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+
+($start_seq_no)=split (' ',$sqlout,99);
+${start_log_no} = $CONF_BEG_ID0;
+
+$currtime1 = time();
+
+$current_thread=$CONF_NUM_THREADS;
+
+while ( $current_thread > 0 ) {
+#--------------------------------------
+$sqlcmnd_array[$current_thread] =<<SQLPLUSEND 
+DECLARE
+mysessinfo	sess_load_db.SessInfoTyp;
+service_type VARCHAR2(255);
+deal INTEGER;
+counts INTEGER;
+product INTEGER;
+num_products INTEGER;
+permitted VARCHAR2(255);
+
+-- 
+-- set up cursors to fetch some of the configuration stuff from the database.
+--
+-- Get the DB no
+cursor db_id is 
+	select poid_db from account_t 
+		where poid_id0 = 1;
+
+BEGIN
+	-- (CONFIGURE) -- number of accounts
+	mysessinfo.num_acnt 	:= ${NUM_ACCOUNTS};
+	-- (CONFIGURE) -- number of events
+	mysessinfo.num_events 	:= ${NUM_EVENTS};
+
+	-- db no
+	open db_id;
+	fetch db_id into mysessinfo.db_id;
+	close db_id;
+
+	mysessinfo.beg_id0	:= ${start_seq_no};
+	mysessinfo.login_num	:= ${start_log_no};
+
+	-- (CONFIGURE) commit frequency
+	mysessinfo.commit_freq 	:= ${CONF_COMMIT_FREQ};
+
+	-- (CONFIGURE) print debug info
+	mysessinfo.debug	:= ${CONF_DEBUG};
+
+	-- (CONFIGURE) current time in unix time format
+	mysessinfo.create_t	:= ${CONF_CREATE_T};
+
+	-- Call insert_sessions to actually populate events
+	--
+	sess_load_db.insert_sessions(mysessinfo);
+
+
+END;
+/
+
+SQLPLUSEND
+;
+$current_thread=$current_thread - 1;
+$start_seq_no=$start_seq_no + $NUM_ACCOUNTS * $NUM_EVENTS;  
+$start_log_no=$start_log_no + $NUM_ACCOUNTS;
+# end of while
+}
+
+#  end of while
+##################################################
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+{
+if ( $^O =~ /win/i )
+{
+# special code for Windows 
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+	print $sqlout;
+}
+else
+{
+$procid[$current_thread] = fork();
+#--------------------------------------
+#  child process
+#--------------------------------------
+if ( $procid[$current_thread] == 0 ) {
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+
+print $sqlout;
+exit;    # this terminates child process
+}
+# this is a parent process
+}
+
+$current_thread=$current_thread + 1;
+}
+if (!( $^O =~ /win/i ))
+{
+#
+# waiting while all processes were completed
+#
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+ {
+  waitpid ($procid[$current_thread], 0 );
+  $current_thread=$current_thread + 1;
+ }
+}
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$accounts = $NUM_ACCOUNTS * $CONF_NUM_THREADS;
+$events = $NUM_EVENTS;
+print "***************************************************************\n";
+printf " $accounts accounts  were populated with $events events  in %d h %d min %d sec.\n",
+	   $ehours,$emin,$esec;
+print "***************************************************************\n";
+
+# update sequence to point beyond max used
+$INCREMENT=$accounts *$events + 10000;
+$sqlcommand =<<SQLPLUSEND2
+update data_t set inc_by=${INCREMENT} where name='STANDARD_POIDS';
+commit;
+select pin_sequence.get_nextval() from dual;
+update data_t set inc_by=1 where name='STANDARD_POIDS';
+commit;
+SQLPLUSEND2
+;
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+#print $sqlout;
+
+1;
+
+
+

@@ -1,0 +1,140 @@
+#=======================================
+# Field Definitions
+#=======================================
+ 
+POID PIN_FLD_POID {
+        ID = 16;
+}
+ 
+POID PIN_FLD_ACCOUNT_OBJ {
+        ID = 40;
+}
+ 
+STRING PIN_FLD_FIRST_NAME {
+        ID = 159;
+}
+ 
+STRING PIN_FLD_LAST_NAME {
+        ID = 161;
+}
+ 
+TIMESTAMP PIN_FLD_CREATED_T {
+        ID = 19;
+}
+ 
+TIMESTAMP PIN_FLD_MOD_T {
+        ID = 20;
+}
+ 
+STRING PIN_FLD_READ_ACCESS {
+        ID = 1903;
+}
+ 
+STRING PIN_FLD_WRITE_ACCESS {
+        ID = 1904;
+}
+ 
+#=======================================
+# Storable Class /aadhar
+#=======================================
+ 
+STORABLE CLASS /aadhar {
+        SEQ_START = "1";
+        READ_ACCESS = "BrandLineage";
+        WRITE_ACCESS = "BrandLineage";
+        DESCR = "Custom table to store Aadhar test data";
+        IS_PARTITIONED = "0";
+        EVENT_TYPE = "NONE";
+ 
+    POID PIN_FLD_POID {
+                DESCR = "POID of this object";
+                CREATE = Required;
+                MODIFY = Writeable;
+        }
+ 
+    POID PIN_FLD_ACCOUNT_OBJ {
+                DESCR = "Reference to account object";
+                CREATE = Required;
+                MODIFY = Writeable;
+        }
+ 
+    STRING PIN_FLD_FIRST_NAME { 
+		DESCR = "First Name"; 
+		LENGTH = 100; 
+		CREATE = Required; 
+		MODIFY = Writeable; 
+	}
+ 
+    STRING PIN_FLD_LAST_NAME {
+        	DESCR = "Last Name";
+        	LENGTH = 100;
+        	CREATE = Required;
+        	MODIFY = Writeable;
+	}
+ 
+	TIMESTAMP PIN_FLD_CREATED_T {
+        	DESCR = "Created time";
+        	CREATE = Optional;
+        	MODIFY = Writeable;
+	}
+ 
+	TIMESTAMP PIN_FLD_MOD_T {
+        	DESCR = "Modified time";
+        	CREATE = Optional;
+        	MODIFY = Writeable;
+	}
+ 
+	STRING PIN_FLD_READ_ACCESS {
+        	DESCR = "Read access control";
+        	LENGTH = 60;
+        	CREATE = Optional;
+        	MODIFY = Writeable;
+	}
+ 
+	STRING PIN_FLD_WRITE_ACCESS {
+        	DESCR = "Write access control";
+        	LENGTH = 60;
+        	CREATE = Optional;
+        	MODIFY = Writeable;
+	}
+}
+ 
+#=======================================
+# Oracle Implementation
+#=======================================
+ 
+STORABLE CLASS /aadhar IMPLEMENTATION ORACLE7 {
+        SQL_TABLE = "aadhar_t";
+ 
+	POID PIN_FLD_POID {
+        	SQL_COLUMN = "poid";
+	}
+ 
+	POID PIN_FLD_ACCOUNT_OBJ {
+        	SQL_COLUMN = "account_obj";
+	}
+ 
+	STRING PIN_FLD_FIRST_NAME {
+        	SQL_COLUMN = "first_name";
+	}
+ 
+    STRING PIN_FLD_LAST_NAME {
+        	SQL_COLUMN = "last_name";
+	}
+ 
+	TIMESTAMP PIN_FLD_CREATED_T {
+        	SQL_COLUMN = "created_t";
+	}
+ 
+	TIMESTAMP PIN_FLD_MOD_T {
+        	SQL_COLUMN = "mod_t";
+	}
+ 
+	STRING PIN_FLD_READ_ACCESS {
+        	SQL_COLUMN = "read_access";
+	}
+ 
+	STRING PIN_FLD_WRITE_ACCESS {
+        	SQL_COLUMN = "write_access";
+	}
+}

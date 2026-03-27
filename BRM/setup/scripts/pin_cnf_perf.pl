@@ -1,0 +1,193 @@
+#=============================================================
+#  @(#) % %
+#    
+# Copyright (c) 2005, 2011, Oracle and/or its affiliates. All rights reserved. 
+#       This material is the confidential property of Oracle Corporation 
+#       or its licensors and may be used, reproduced, stored
+#       or transmitted only in accordance with a valid Oracle license or 
+#       sublicense agreement.
+#
+#==============================================================
+
+$PERF_PINCONF_HEADER  =  <<END
+#************************************************************************
+# Configuration File for Cleanup
+#
+#
+# This configuration file is automatically installed and configured with
+# default values during Infranet installation. You can edit this file to:
+#   -- change the default values of the entries.
+#   -- disable an entry by inserting a crosshatch (#) at the start of
+#        the line.
+#   -- enable a commented entry by removing the crosshatch (#).
+# 
+# Before you make any changes to this file, save a backup copy.
+#
+# When editing this file, follow the instructions in each section.
+# For more information on the general syntax of configuration entries,
+# see "Reference Guide to Infranet Configuration Files" in the Infranet
+# online documentation.
+#************************************************************************
+END
+;
+
+%PERF_PINCONF_ENTRIES = (
+  "perf_entries_description", <<END
+#============================================================================
+#
+#  This file should contain possible pin.conf entries that would
+#  normally be used for Performance Manager     +
+#  NAP section from radius pin.conf +
+#  pin_billd section for running billing programs
+#============================================================================
+END
+  ,"perf_entries", <<END
+- perfmgr host localhost
+- perfmgr remote_host localhost guest Perf/Drivers
+- perfmgr remote_host localhost guest CM/Radius
+- perfmgr remote_host localhost guest DM
+- perfmgr remote_host localhost oracle UE/4000/Oracle
+- perfmgr iterations 1
+- perfmgr users 60000
+- perfmgr offset 40001
+- perfmgr user_pattern user%d
+- perfmgr password_pattern password
+- perfmgr use_all_accounts 0
+- perfmgr time_run 2m
+# perfmgr simrad 1
+# perfmgr connect_load 2
+- perfmgr admin_load 1
+# perfmgr opcode_load 1
+# perfmgr sessload 1
+# perfmgr pin_loader 1
+# perfmgr bill_accts 1
+# perfmgr pin_collect    1
+- bill_accts1 cm_name localhost
+- bill_accts1 batch 100
+- bill_accts1 date 04301200
+- bill_accts1 target 0.5
+- bill_accts1 threads 3    
+- pin_collect1 cm_name localhost
+- pin_collect1 batch 50
+- pin_collect1 target 0.6
+- pin_collect1 date 04301200
+- pin_collect1 threads 5    
+- simrad1 target 15
+- simrad1 radius_name localhost
+- simrad1 cm_name localhost
+- simrad1 modems 400
+- simrad1 bad_response 2.0
+- simrad2 target 15
+- simrad2 radius_name localhost
+- simrad2 cm_name localhost
+- simrad2 modems 500
+- simrad2 bad_response 2.0
+- pin_loader1 target 0.5
+- pin_loader1 threads 5
+- pin_loader1 cm_name localhost
+- pin_loader1 plan Power   
+# pin_loader1 credit_card enabled
+# pin_loader1 datafile source_file
+- connect_load1 target 10
+- connect_load1 threads 5
+- connect_load1 cm_name localhost
+- connect_load2 target 10
+- connect_load2 threads 5
+- connect_load2 cm_name localhost
+- admin_load1 target 200
+# admin_load1 caching enabled
+- admin_load1 verification_type PCM_OP_ACT_LOGIN
+- admin_load1 threads 16
+- admin_load1 product "Default System Product"
+- admin_load1 cm_name localhost
+- admin_load2 target 60
+- admin_load2 caching enabled
+# admin_load2 datafile /space/test/myfile
+- admin_load2 threads 11
+- admin_load2 cm_name localhost
+- sessload1 target 45
+- sessload1 verification_type PCM_OP_ACT_LOGIN
+- sessload1 threads 10
+# sessload1 caching enabled
+- sessload1 date 0121120098
+- sessload1 cm_connection localhost:11960:root.0.0.0.1
+- sessload2 target 45
+- sessload2 date 0121120098
+# sessload2 caching enabled
+- sessload2 threads 10
+- sessload2 cm_connection localhost:11960:root.0.0.0.1
+- opcode_load1 target 0
+- opcode_load1 cm_connection localhost:11960:root.0.0.0.1
+- opcode_load1 service_type /service/telco/gsm/telephony
+- opcode_load1 threads 10
+- opcode_load1 config_file opcode_load.control
+END
+
+  ,"perf_application_description", <<END
+#============================================================================
+#
+#  application
+#
+#============================================================================
+END
+  ,"perf_application", <<END
+- nap   cm_ptr			ip localhost 11960
+- -     userid          0.0.0.0  /service/pcm_client 0
+- nap   login_type      1
+- nap   login_name      root.0.0.0.1
+- nap   login_pw        &aes|08|0D5E11BFDD97D2769D9B0DBFBD1BBF7E5D40C305EDF3D77DF111AAB8F781E92122
+END
+
+  ,"perf_load_description", <<END
+#============================================================================
+# 
+# The following can be used with `opcode_load -B` to bypass the cm and
+# connect directly to the dm.
+#
+#============================================================================
+END
+  ,"perf_load", <<END
+- opcode_load dm_pointer	ip localhost 12950
+- -     pin_beid_file  ./pin_beid
+END
+
+  ,"perf_radius_description", <<END
+#============================================================================
+#
+# for radius
+#
+#============================================================================
+END
+  ,"perf_radius", <<END
+- nap   timezone       +28800   #secons +west/-east of GMT
+- radius  file_logging   1
+- pin_radiusd  n_threads 8
+# pin_radiusd  n_threads 24
+- pin_radiusd  req_queue 11600
+- pin_radiusd  qm_port   1812   0  # radius
+- pin_radiusd  qm_port   1813   1  # radacct
+- pin_radiusd  qm_logfile   /var/portal/6.0/radius/pin_radiusd.log
+END
+
+  ,"perf_billd_description", <<END
+#============================================================================
+#
+# for pin_billd
+#
+#============================================================================
+END
+  ,"pin_billd", <<END
+- pin_billd     logfile         ./pin_billd.pinlog
+- pin_billd     loglevel        1
+
+- pin_billd     merchant        test
+
+- pin_billd     children   8
+- pin_billd     per_batch   500
+- pin_billd     fetch_size  2000
+
+- pin_billd     minimum         2.00
+END
+
+);
+

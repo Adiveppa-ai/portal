@@ -1,0 +1,324 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="TAPRoaming" version="15.0.1.0.0" description="TAP Roaming Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="ifw.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1732" dest="move_TapSent.pl" mode="0774"/>
+         <file size="2878" dest="splitSol42.sh" mode="0774"/>
+         <file size="1383" dest="move_incollect_roam.pl" mode="0774"/>
+         <file size="1391" dest="move_outcollectTap.pl" mode="0774"/>
+         <file-perms>
+            <permission mode="0774" wildcard="move_TapSent.pl"/>
+            <permission mode="0774" wildcard="move_incollect_roam.pl"/>
+            <permission mode="0774" wildcard="move_outcollectTap.pl"/>
+            <permission mode="0774" wildcard="splitSol42.sh"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="119944" dest="NRTRDEReportGen" mode="0774"/>
+         <file size="98096" dest="StopRapGen" mode="0774"/>
+         <file size="106848" dest="RoamingConfigGen" mode="0774"/>
+         <file-perms>
+            <permission mode="0774" wildcard="NRTRDEReportGen"/>
+            <permission mode="0774" wildcard="StopRapGen"/>
+            <permission mode="0774" wildcard="RoamingConfigGen"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="TAP3-NG" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="66738" dest="containerDesc.dsc" mode="0750"/>
+               <file size="757" dest="GenericBlocks.dsc" mode="0750"/>
+               <file size="91895" dest="TAP_0311_Blocks.dsc" mode="0750"/>
+               <file size="97774" dest="TAP_0312_Blocks.dsc" mode="0750"/>
+               <file size="14496" dest="RAP_0103_Blocks.dsc" mode="0750"/>
+               <file size="13264" dest="RAP_0104_Blocks.dsc" mode="0750"/>
+               <file size="725181" dest="TAP_0311_InGrammar.dsc" mode="0750"/>
+               <file size="788554" dest="TAP_0312_InGrammar.dsc" mode="0750"/>
+               <file size="131041" dest="TAP_0311_OutGrammar.dsc" mode="0750"/>
+               <file size="144395" dest="TAP_0312_OutGrammar.dsc" mode="0750"/>
+               <file size="824009" dest="RAP_0103_InGrammar.dsc" mode="0750"/>
+               <file size="29574" dest="RAP_0103_OutGrammar.dsc" mode="0750"/>
+               <file size="8573" dest="RAP_0103_FatalReturn.dsc" mode="0750"/>
+               <file size="4248" dest="RAP_0103_MissingReturn.dsc" mode="0750"/>
+               <file size="820793" dest="RAP_0104_InGrammar.dsc" mode="0750"/>
+               <file size="5280" dest="RAP_0103_AckOutGrammar.dsc" mode="0750"/>
+               <file size="30038" dest="RAP_0104_OutGrammar.dsc" mode="0750"/>
+               <file size="9429" dest="RAP_0104_FatalReturn.dsc" mode="0750"/>
+               <file size="3646" dest="RAP_0104_MissingReturn.dsc" mode="0750"/>
+               <file size="5470" dest="RAP_0104_AckOutGrammar.dsc" mode="0750"/>
+               <file size="5302" dest="RAP_0105_AckOutGrammar.dsc" mode="0750"/>
+               <file size="880411" dest="RAP_0105_InGrammar.dsc" mode="0750"/>
+               <file size="13880" dest="RAP_0105_Blocks.dsc" mode="0750"/>
+               <file size="9429" dest="RAP_0105_FatalReturn.dsc" mode="0750"/>
+               <file size="3636" dest="RAP_0105_MissingReturn.dsc" mode="0750"/>
+               <file size="32801" dest="RAP_0105_OutGrammar.dsc" mode="0750"/>
+               <file size="5149" dest="RAP_0105_StopReturn.dsc" mode="0750"/>
+               <file size="1403" dest="StopRapInfo.dsc" mode="0750"/>
+               <file size="1074" dest="StopRapInfo_InGrammar.dsc" mode="0750"/>
+            </directory>
+            <directory dest="TAP" mode="750" patchable="true">
+               <file size="22390" dest="TAP.reg_v3" mode="0664"/>
+               <file size="13441" dest="TAP.reg_v4" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="containerDesc.dsc"/>
+            <permission mode="0750" wildcard="GenericBlocks.dsc"/>
+            <permission mode="0750" wildcard="RAP_0103_Blocks.dsc"/>
+            <permission mode="0750" wildcard="RAP_0103_MissingReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0103_FatalReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0103_AckOutGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_0103_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_0103_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP_0311_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP_0311_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP_0311_Blocks.dsc"/>
+            <permission mode="0750" wildcard="TAP_0312_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP_0312_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP_0312_Blocks.dsc"/>
+            <permission mode="0750" wildcard="RAP_0104_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_0104_MissingReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0104_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_0104_FatalReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0104_Blocks.dsc"/>
+            <permission mode="0750" wildcard="RAP_0104_AckOutGrammar.dsc"/>
+            <permission mode="0750" wildcard="StopRapInfo_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="StopRapInfo.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_Blocks.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_AckOutGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_FatalReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_MissingReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_StopReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_0105_OutGrammar.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="EET" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1407" dest="EET.dsc" mode="0664"/>
+               <file size="3895" dest="EET_OutGrammar.dsc" mode="0664"/>
+               <file size="1322" dest="EET_OutMap.dsc" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="EET.dsc"/>
+            <permission mode="0664" wildcard="EET_OutGrammar.dsc"/>
+            <permission mode="0664" wildcard="EET_OutMap.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="SBL" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2136" dest="SuspenseBatchRecord_OutMap.dsc" mode="0664"/>
+               <file size="2294" dest="SuspenseBatchRecord.dsc" mode="0664"/>
+               <file size="2126" dest="SuspenseBatchRecord_OutGrammar.dsc" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="SuspenseBatchRecord.dsc"/>
+            <permission mode="0664" wildcard="SuspenseBatchRecord_OutMap.dsc"/>
+            <permission mode="0664" wildcard="SuspenseBatchRecord_OutGrammar.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="TAP3" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="5319" dest="RAP_v01_AckOutGrammar.dsc" mode="0750"/>
+               <file size="15491" dest="RAP_v01_Blocks.dsc" mode="0750"/>
+               <file size="8806" dest="RAP_v01_FatalReturn.dsc" mode="0750"/>
+               <file size="21407" dest="RAP_v01_InGrammar.dsc" mode="0750"/>
+               <file size="19623" dest="RAP_v01_OutGrammar.dsc" mode="0750"/>
+               <file size="59012" dest="TAP3_v01_Blocks.dsc" mode="0750"/>
+               <file size="137937" dest="TAP3_v01_InGrammar.dsc" mode="0750"/>
+               <file size="96240" dest="TAP3_v01_OutGrammar.dsc" mode="0750"/>
+               <file size="138546" dest="TAP3_v03_InGrammar.dsc" mode="0750"/>
+               <file size="58649" dest="TAP3_v03_Blocks.dsc" mode="0750"/>
+               <file size="79625" dest="TAP3_v04_Blocks.dsc" mode="0750"/>
+               <file size="189539" dest="TAP3_v04_InGrammar.dsc" mode="0750"/>
+               <file size="103917" dest="TAP3_v04_OutGrammar.dsc" mode="0750"/>
+               <file size="3062" dest="TAP3_v04_RejOutGrammar.dsc" mode="0750"/>
+               <file size="84552" dest="TAP3_v10_Blocks.dsc" mode="0750"/>
+               <file size="328983" dest="TAP3_v10_InGrammar.dsc" mode="0750"/>
+               <file size="162402" dest="TAP3_v10_OutGrammar.dsc" mode="0750"/>
+               <file size="2732" dest="TAP3_v10_RejOutGrammar.dsc" mode="0750"/>
+               <file size="11298" dest="NRTRDE2_v01_Blocks.dsc" mode="0750"/>
+               <file size="136150" dest="NRTRDE2_v01_InGrammar.dsc" mode="0750"/>
+               <file size="13937" dest="NRTRDE2_v01_OutGrammar.dsc" mode="0750"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="RAP_v01_AckOutGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_v01_Blocks.dsc"/>
+            <permission mode="0750" wildcard="RAP_v01_FatalReturn.dsc"/>
+            <permission mode="0750" wildcard="RAP_v01_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="RAP_v01_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="NRTRDE2_v01_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="NRTRDE2_v01_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="NRTRDE2_v01_Blocks.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v01_Blocks.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v01_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v01_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v03_Blocks.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v03_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v04_Blocks.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v04_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v04_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v04_RejOutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v10_Blocks.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v10_InGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v10_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TAP3_v10_RejOutGrammar.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="TapHeaderInfo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1871" dest="TapHeaderInfo_OutGrammar.dsc" mode="0750"/>
+               <file size="1153" dest="TapHeaderInfo.dsc" mode="0750"/>
+               <file size="1117" dest="TapHeaderInfo_OutMap.dsc" mode="0750"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="TapHeaderInfo.dsc"/>
+            <permission mode="0750" wildcard="TapHeaderInfo_OutGrammar.dsc"/>
+            <permission mode="0750" wildcard="TapHeaderInfo_OutMap.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_Roaming" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="676849" dest="ISC_TAP_0311_Include.isc" mode="0750"/>
+            <file size="729265" dest="ISC_TAP_0312_Include.isc" mode="0750"/>
+            <file size="9320" dest="ISC_TAP_0311_InMap.isc" mode="0750"/>
+            <file size="12683" dest="ISC_TAP_0312_InMap.isc" mode="0750"/>
+            <file size="103782" dest="ISC_RAP_0103_InMap.isc" mode="0750"/>
+            <file size="105626" dest="ISC_RAP_0104_InMap.isc" mode="0750"/>
+            <file size="108047" dest="ISC_RAP_0105_InMap.isc" mode="0750"/>
+            <file size="1111" dest="StopRapInfo_InMap.dsc" mode="0750"/>
+            <file size="652154" dest="ISC_TAP_0311_Validations.isc" mode="0750"/>
+            <file size="726524" dest="ISC_TAP_0312_Validations.isc" mode="0750"/>
+            <file size="4119" dest="ISC_OverrideSuspenseParams.isc" mode="0750"/>
+            <file size="3790" dest="ISC_DupRAPRecords.isc" mode="0750"/>
+            <file size="3023" dest="ISC_ConsolidatedCP.isc" mode="0750"/>
+            <file size="2301" dest="ISC_NRTRDE_EventSplit.isc" mode="0750"/>
+            <file size="1688" dest="IRL_HUR_ServiceSetting.irl" mode="0750"/>
+            <file size="6431" dest="ISC_MiscOutCollect.isc" mode="0750"/>
+            <file size="1338" dest="ISC_SwapChargingIdAndChainReference.isc" mode="0750"/>
+            <file size="3203" dest="ISC_OverrideRateTag.isc" mode="0750"/>
+            <file size="2556" dest="ISC_GetCamelFlag.isc" mode="0750"/>
+            <file size="36" dest="IRL_HUR_ServiceSetting.data" mode="0750"/>
+            <file size="6247" dest="ISC_UpdateTapInfo_Tapin.isc" mode="0750"/>
+            <file size="9553" dest="ISC_NRTRDE_ErrorReport.isc" mode="0750"/>
+            <file size="5427" dest="ISC_UpdateTapInfo_StopRapout.isc" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="ISC_ConsolidatedCP.isc"/>
+            <permission mode="0750" wildcard="ISC_DupRAPRecords.isc"/>
+            <permission mode="0750" wildcard="ISC_MiscOutCollect.isc"/>
+            <permission mode="0750" wildcard="ISC_OverrideSuspenseParams.isc"/>
+            <permission mode="0750" wildcard="ISC_TAP_0311_Include.isc"/>
+            <permission mode="0750" wildcard="ISC_TAP_0311_InMap.isc"/>
+            <permission mode="0750" wildcard="ISC_TAP_0311_Validations.isc"/>
+            <permission mode="0750" wildcard="ISC_TAP_0312_Include.isc"/>
+            <permission mode="0750" wildcard="ISC_TAP_0312_InMap.isc"/>
+            <permission mode="0750" wildcard="ISC_TAP_0312_Validations.isc"/>
+            <permission mode="0750" wildcard="ISC_RAP_0103_InMap.isc"/>
+            <permission mode="0750" wildcard="ISC_RAP_0104_InMap.isc"/>
+            <permission mode="0750" wildcard="ISC_RAP_0105_InMap.isc"/>
+            <permission mode="0750" wildcard="StopRapInfo_InMap.dsc"/>
+            <permission mode="0750" wildcard="ISC_SwapChargingIdAndChainReference.isc"/>
+            <permission mode="0750" wildcard="ISC_NRTRDE_ErrorReport.isc"/>
+            <permission mode="0750" wildcard="ISC_NRTRDE_EventSplit.isc"/>
+            <permission mode="0750" wildcard="IRL_HUR_ServiceSetting.irl"/>
+            <permission mode="0750" wildcard="IRL_HUR_ServiceSetting.data"/>
+            <permission mode="0750" wildcard="ISC_UpdateTapInfo_Tapin.isc"/>
+            <permission mode="0750" wildcard="ISC_UpdateTapInfo_StopRapout.isc"/>
+            <permission mode="0750" wildcard="ISC_GetCamelFlag.isc"/>
+            <permission mode="0750" wildcard="ISC_OverrideRateTag.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_Tap3Validation" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="141182" dest="TAP3_VAL.xml" mode="0750"/>
+            <file size="228182" dest="ISC_TapDetailValidation.isc" mode="0750"/>
+            <file size="85036" dest="ISC_TapHeaderTrailerValidation.isc" mode="0750"/>
+            <file size="10310" dest="ISC_TapSplitting.isc" mode="0750"/>
+            <file size="64442" dest="ISC_TapAddEdrErrorBlock.isc" mode="0750"/>
+            <file size="61269" dest="Tap3.msg" mode="0750"/>
+            <file size="7637" dest="ISC_EDRToTAPOUTMap.isc" mode="0750"/>
+            <file size="4823" dest="ISC_NrtrdeHeaderValidation_v2_01.isc" mode="0750"/>
+            <file size="6571" dest="PLMNOList.dat" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="ISC_EDRToTAPOUTMap.isc"/>
+            <permission mode="0750" wildcard="ISC_TapAddEdrErrorBlock.isc"/>
+            <permission mode="0750" wildcard="ISC_TapDetailValidation.isc"/>
+            <permission mode="0750" wildcard="ISC_TapHeaderTrailerValidation.isc"/>
+            <permission mode="0750" wildcard="ISC_TapSplitting.isc"/>
+            <permission mode="0750" wildcard="PLMNOList.dat"/>
+            <permission mode="0750" wildcard="Tap3.msg"/>
+            <permission mode="0750" wildcard="TAP3_VAL.xml"/>
+            <permission mode="0750" wildcard="ISC_NrtrdeHeaderValidation_v2_01.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="releaseNotes" mode="750" patchable="true">
+         <file size="38406" dest="RELEASE_NOTES.TAP3" mode="0664"/>
+         <file size="6869" dest="RELEASE_NOTES_v3_11.TAP3" mode="0664"/>
+         <file size="1429" dest="RELEASE_NOTES.EET" mode="0664"/>
+         <file size="766" dest="RELEASE_NOTES.SBL" mode="0664"/>
+         <file size="3926" dest="RELEASE_NOTES_v3_11.ISL_Tap3Validation" mode="0664"/>
+         <file size="5408" dest="RELEASE_NOTES.ISL_Roaming" mode="0664"/>
+         <file size="9871" dest="RELEASE_NOTES.ISL_Tap3Validation" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="RELEASE_NOTES.EET"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.ISL_Roaming"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.ISL_Tap3Validation"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.SBL"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.TAP3"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES_v3_11.TAP3"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES_v3_11.ISL_Tap3Validation"/>
+         </file-perms>
+      </directory>
+      <directory dest="data" mode="750" patchable="true">
+         <directory dest="in" mode="750" patchable="true">
+            <file size="2230" dest="test_roam.orig" mode="0664"/>
+         </directory>
+         <directory dest="incollect" mode="750" patchable="true">
+            <directory dest="nrtrdein" mode="750" patchable="true">
+               <directory dest="in" mode="750" patchable="true">
+                  <file size="588" dest="README.txt" mode="0664"/>
+               </directory>
+               <directory dest="done" mode="750" patchable="true">
+                  <file size="583" dest="README.txt" mode="0664"/>
+               </directory>
+               <directory dest="error" mode="750" patchable="true">
+                  <file size="581" dest="README.txt" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+         <directory dest="outcollect" mode="750" patchable="true">
+            <directory dest="nrtrdeout" mode="750" patchable="true">
+               <directory dest="oprt1" mode="750" patchable="true">
+                  <file size="601" dest="README.txt" mode="0664"/>
+               </directory>
+               <directory dest="oprt2" mode="750" patchable="true">
+                  <file size="602" dest="README.txt" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+      </directory>
+      <directory dest="database" mode="750" patchable="true">
+         <directory dest="Oracle" mode="750" patchable="true">
+            <directory dest="Scripts" mode="750" patchable="true">
+               <file size="1973" dest="NRTRDE_Tables.sql" mode="0664"/>
+               <file size="1048" dest="StopRap_Table.sql" mode="0664"/>
+            </directory>
+         </directory>
+      </directory>
+      <directory dest="conf" mode="750" patchable="true">
+         <file size="1272" dest="RoamingPartnerConf.dat" mode="0664"/>
+         <file size="8078" dest="roaming.readme" mode="0664"/>
+         <file size="205459" dest="roaming.reg" mode="0660"/>
+      </directory>
+   </file-map>
+</component-def>

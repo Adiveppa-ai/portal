@@ -1,0 +1,15 @@
+================================ LOADIFWCONFIG STARTED ================================
+05.01.2026 06:24:29 Intellious                          NORMAL   [T:433646912] 00025 - ACTUAL_LOGLEVEL | The actual log level is NORMAL. All messages with this or higher severity will be logged.
+05.01.2026 06:24:29 Intellious                          NORMAL   [T:433646912] 00026 - LIC_STARTED | LOADIFWCONFIG START TIME.
+05.01.2026 06:24:31 Intellious                          NORMAL   [T:433646912] 00027 - LIC_STOPPED | LOADIFWCONFIG END TIME.
+================================ LOADIFWCONFIG STOPPED ================================
+================================ LOADIFWCONFIG STARTED ================================
+05.01.2026 06:28:20 Intellious                          NORMAL   [T:2677681472] 00025 - ACTUAL_LOGLEVEL | The actual log level is NORMAL. All messages with this or higher severity will be logged.
+05.01.2026 06:28:20 Intellious                          NORMAL   [T:2677681472] 00026 - LIC_STARTED | LOADIFWCONFIG START TIME.
+05.01.2026 06:28:21 Intellious                          NORMAL   [T:2677681472] 00027 - LIC_STOPPED | LOADIFWCONFIG END TIME.
+================================ LOADIFWCONFIG STOPPED ================================
+================================ LOADIFWCONFIG STARTED ================================
+07.01.2026 07:49:13 Intellious                          NORMAL   [T:4241456448] 00025 - ACTUAL_LOGLEVEL | The actual log level is NORMAL. All messages with this or higher severity will be logged.
+07.01.2026 07:49:13 Intellious                          NORMAL   [T:4241456448] 00026 - LIC_STARTED | LOADIFWCONFIG START TIME.
+07.01.2026 07:49:20 Intellious                          NORMAL   [T:4241456448] 00027 - LIC_STOPPED | LOADIFWCONFIG END TIME.
+================================ LOADIFWCONFIG STOPPED ================================

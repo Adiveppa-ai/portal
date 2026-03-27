@@ -1,0 +1,120 @@
+//==============================================================================
+//
+// Copyright (c) 2005, 2012, Oracle and/or its affiliates. 
+// All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//-------------------------------------------------------------------------------
+// Block: ISC_OverrideSuspenseParams.isc
+//-------------------------------------------------------------------------------
+//
+
+Long   rapFileSeqNo;  // this RAP file sequence number
+String sender;        // sender of this RAP file
+String receiver;      // receiver of this RAP file
+
+function onHeaderEdr
+{
+  rapFileSeqNo = edrLong  ( HEADER.SEQUENCE_NUMBER );
+  sender       = edrString( HEADER.SENDER );
+  receiver     = edrString( HEADER.RECIPIENT );
+}
+
+function onInvalidDetailEdr
+{
+  Long   tapFileSeqNo;
+  String rapRecordType;
+  String tapBatchId;
+  String tapFileName;
+
+  String SEVERE  = "SEVERE";
+  String FATAL   = "FATAL";
+  String MISSING = "MISSING";
+  String STOP = "STOP";
+
+  // override the suspense parameters only if it has been explicitly
+  // suspended by ISC_DupRAPRecords
+  if ( edrHasError ( "ERR_SEVERE_RETURN" ) != true and
+       edrHasError ( "ERR_FATAL_RETURN" ) != true )
+  {
+    // edrDemandRollback ( "ERR_INVALID_RAP_RECORD" );
+    edrDemandRollback ();
+
+    return;
+  }
+
+  // presence of Roaming_Ext and Suspense_Ext blocks are crucial to RAP IN Processing
+  // therefore if these are not present we rollback the transaction
+	if ( edrNumDatablocks( DETAIL.ASS_ROAMING_EXT )  == 0 or
+       edrNumDatablocks( DETAIL.ASS_SUSPENSE_EXT ) == 0 )
+  {
+		edrAddError ("ERR_MISSING_NEEDED_BLOCKS", 3);
+
+    // edrDemandRollback ( "ERR_MISSING_NEEDED_BLOCKS" );
+    edrDemandRollback ();
+    return;
+  }
+
+  // the following field will give us the TAP file sequence number
+  // containing the error
+  tapFileSeqNo  = edrLong( DETAIL.ASS_ROAMING_EXT.TAP_FILE_SEQ_NO, 0 );
+
+  // construct the batch id for the tap file we sent
+  tapBatchId = "TAPOUT_" + receiver + "_" + sender + "_" + longToStr( tapFileSeqNo );
+
+  // construct the tap file name
+  tapFileName = reg.TAPFilePrefix + receiver + sender + strPad(longToStr( tapFileSeqNo ), "0", 5, false);
+
+  // type of RAP: SEVERE, FATAL, MISSING, STOP
+  rapRecordType = edrString( DETAIL.ASS_ROAMING_EXT.RAP_RECORD_TYPE, 0 );
+
+  if ( rapRecordType == MISSING )
+  {
+    logPipeline( "Reject Type (MISSING) Not Supported, Ignoring EDR", 1 );
+    logPipeline( "Missing Sequence Start: " + longToStr( edrLong( DETAIL.ASS_ROAMING_EXT.START_MISSING_SEQ_NUM, 0 )) +
+      " End: " + longToStr( edrLong( DETAIL.ASS_ROAMING_EXT.END_MISSING_SEQ_NUM, 0 )) );
+
+    return;
+  }
+  
+  if ( rapRecordType == STOP )
+  {
+    logPipeline( "Reject Type (STOP) Not Supported, Ignoring EDR", 1 );
+    logPipeline( "Last Sequence : " + longToStr( edrLong( DETAIL.ASS_ROAMING_EXT.START_MISSING_SEQ_NUM, 0 )) );
+    return;
+  }
+  
+  if ( rapRecordType != SEVERE and
+       rapRecordType != FATAL )
+  {
+    edrAddError ("ERR_UNSUPPORTED_REJECT_TYPE", 3);
+
+    // edrDemandRollback ( "ERR_UNSUPPORTED_REJECT_TYPE" );
+    edrDemandRollback ();
+    return;
+  }
+
+  edrString ( DETAIL.BATCH_ID ) = tapBatchId;
+  edrString ( DETAIL.ORIGINAL_BATCH_ID ) = tapBatchId;
+  edrString ( DETAIL.ASS_SUSPENSE_EXT.SUSPENDED_FROM_BATCH_ID, 0 ) = tapBatchId;
+
+  edrString ( DETAIL.ASS_SUSPENSE_EXT.SOURCE_FILENAME, 0 ) = tapFileName;
+  edrString ( DETAIL.ASS_SUSPENSE_EXT.RECYCLE_KEY, 0 ) = longToStr( rapFileSeqNo );
+
+  if ( rapRecordType == SEVERE )
+  {
+    edrString ( DETAIL.ASS_SUSPENSE_EXT.PIPELINE_NAME, 0 ) = reg.TAPOutCollectPipeline;
+  }
+  else
+  {
+    edrString ( DETAIL.ASS_SUSPENSE_EXT.PIPELINE_NAME, 0 ) = reg.TAPCorrectionPipeline;
+    edrString ( DETAIL.ASS_ROAMING_EXT.TAP_FILE_PATH, 0 ) = reg.TAPSentArchivePath;
+    edrDate ( DETAIL.ASS_ROAMING_EXT.SUSPENSION_TIME, 0 ) = sysdate();
+
+    // override the output stream so that it goes to SBRStream
+    edrSetStream ( reg.SBRStream );
+  }
+}

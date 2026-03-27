@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="as_are"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql>
+            <![CDATA[SELECT DISTINCT "ACCOUNT_T"."POID_ID0" "ACCOUNT_POID_ID0",
+  "ACCOUNT_T"."CURRENCY" "ACCOUNT_CURRENCY",
+  "CONFIG_BEID_BALANCES_T"."NAME" "CURRENCY_NAME",
+  "ACCOUNT_T"."ACCOUNT_NO" "ACCOUNT_ACCOUNT_NO",
+  "ACCOUNT_NAMEINFO_T"."FIRST_NAME" "ACCOUNT_NAMEINFO_FIRST_NAME",
+  "ACCOUNT_NAMEINFO_T"."ADDRESS" "ACCOUNT_NAMEINFO_ADDRESS",
+  "ACCOUNT_EXEMPTIONS_T"."TYPE" "ACCOUNT_EXEMPTIONS_TYPE",
+  "ACCOUNT_EXEMPTIONS_T"."PERCENT" "ACCOUNT_EXEMPTIONS_PERCENT",
+  "ACCOUNT_NAMEINFO_T"."REC_ID" "ACCOUNT_NAMEINFO_REC_ID",
+  "ACCOUNT_NAMEINFO_T"."LAST_NAME" "ACCOUNT_NAMEINFO_LAST_NAME",
+  "ACCOUNT_NAMEINFO_T"."CITY" "ACCOUNT_NAMEINFO_CITY",
+  "ACCOUNT_NAMEINFO_T"."ZIP" "ACCOUNT_NAMEINFO_ZIP",
+  "ACCOUNT_EXEMPTIONS_T"."CERTIFICATE_NUM" "EXEMPTIONS_CERTIFICATE_NUM",
+  "ACCOUNT_EXEMPTIONS_T"."EXEMPT_END_T" "EXEMPTIONS_EXEMPT_END_T",
+  "ACCOUNT_EXEMPTIONS_T"."EXEMPT_START_T" "EXEMPTIONS_EXEMPT_START_T",
+  bipext.INFSTRTOTIMET(:PARAM_CURRENT_TIME, 2) "CURRENT_DATE",
+  DECODE("ACCOUNT_EXEMPTIONS_T"."TYPE",0,0,1,1,7,2,2,3,4,4,3,5,5,6,9) SPL_TYPE
+FROM (("ACCOUNT_T" "ACCOUNT_T"
+INNER JOIN "ACCOUNT_EXEMPTIONS_T" "ACCOUNT_EXEMPTIONS_T"
+ON "ACCOUNT_T"."POID_ID0" = "ACCOUNT_EXEMPTIONS_T"."OBJ_ID0")
+INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T"
+ON "ACCOUNT_T"."POID_ID0" = "ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+INNER JOIN "CONFIG_BEID_BALANCES_T"
+ON "ACCOUNT_T"."CURRENCY"                                  = "CONFIG_BEID_BALANCES_T"."REC_ID"
+WHERE "ACCOUNT_T"."POID_DB"                                > 0
+AND "ACCOUNT_NAMEINFO_T"."REC_ID"                          = 1
+AND "ACCOUNT_T"."POID_ID0"                                 > 1
+AND BIPEXT.infCheckDates(:PARAM_STARTDATE, :PARAM_ENDDATE) = 1
+AND "ACCOUNT_EXEMPTIONS_T"."EXEMPT_END_T"                 >= BIPEXT.infStrToTimet(:PARAM_STARTDATE,2)
+AND "ACCOUNT_EXEMPTIONS_T"."EXEMPT_START_T"               <= (BIPEXT.infStrToTimet(:PARAM_ENDDATE,2)-1)
+ORDER BY "ACCOUNT_T"."CURRENCY",
+  "ACCOUNT_T"."POID_ID0",
+  SPL_TYPE,
+  "ACCOUNT_T"."ACCOUNT_NO"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="TaxExempt" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="Q1" label="Q1" source="Q1">
+               <element name="ACCOUNT_POID_ID0" value="ACCOUNT_POID_ID0" label="ACCOUNT_POID_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="1"/>
+               <element name="ACCOUNT_CURRENCY" value="ACCOUNT_CURRENCY" label="ACCOUNT_CURRENCY" dataType="xsd:integer" breakOrder="" fieldOrder="2"/>
+               <element name="CURRENCY_NAME" value="CURRENCY_NAME" label="CURRENCY_NAME" dataType="xsd:string" breakOrder="" fieldOrder="3"/>
+               <element name="ACCOUNT_ACCOUNT_NO" value="ACCOUNT_ACCOUNT_NO" label="ACCOUNT_ACCOUNT_NO" dataType="xsd:string" breakOrder="" fieldOrder="4"/>
+               <element name="ACCOUNT_NAMEINFO_FIRST_NAME" value="ACCOUNT_NAMEINFO_FIRST_NAME" label="ACCOUNT_NAMEINFO_FIRST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="ACCOUNT_NAMEINFO_ADDRESS" value="ACCOUNT_NAMEINFO_ADDRESS" label="ACCOUNT_NAMEINFO_ADDRESS" dataType="xsd:string" breakOrder="" fieldOrder="6"/>
+               <element name="ACCOUNT_EXEMPTIONS_TYPE" value="ACCOUNT_EXEMPTIONS_TYPE" label="ACCOUNT_EXEMPTIONS_TYPE" dataType="xsd:integer" breakOrder="" fieldOrder="7"/>
+               <element name="ACCOUNT_EXEMPTIONS_PERCENT" value="ACCOUNT_EXEMPTIONS_PERCENT" label="ACCOUNT_EXEMPTIONS_PERCENT" dataType="xsd:integer" breakOrder="" fieldOrder="8"/>
+               <element name="ACCOUNT_NAMEINFO_REC_ID" value="ACCOUNT_NAMEINFO_REC_ID" label="ACCOUNT_NAMEINFO_REC_ID" dataType="xsd:integer" breakOrder="" fieldOrder="9"/>
+               <element name="ACCOUNT_NAMEINFO_LAST_NAME" value="ACCOUNT_NAMEINFO_LAST_NAME" label="ACCOUNT_NAMEINFO_LAST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="10"/>
+               <element name="ACCOUNT_NAMEINFO_CITY" value="ACCOUNT_NAMEINFO_CITY" label="ACCOUNT_NAMEINFO_CITY" dataType="xsd:string" breakOrder="" fieldOrder="11"/>
+               <element name="ACCOUNT_NAMEINFO_ZIP" value="ACCOUNT_NAMEINFO_ZIP" label="ACCOUNT_NAMEINFO_ZIP" dataType="xsd:string" breakOrder="" fieldOrder="12"/>
+               <element name="EXEMPTIONS_CERTIFICATE_NUM" value="EXEMPTIONS_CERTIFICATE_NUM" label="EXEMPTIONS_CERTIFICATE_NUM" dataType="xsd:string" breakOrder="" fieldOrder="13"/>
+               <element name="EXEMPTIONS_EXEMPT_END_T" value="EXEMPTIONS_EXEMPT_END_T" label="EXEMPTIONS_EXEMPT_END_T" dataType="xsd:integer" breakOrder="" fieldOrder="14"/>
+               <element name="EXEMPTIONS_EXEMPT_START_T" value="EXEMPTIONS_EXEMPT_START_T" label="EXEMPTIONS_EXEMPT_START_T" dataType="xsd:integer" breakOrder="" fieldOrder="15"/>
+               <element name="CURRENT_DATE" value="CURRENT_DATE" label="CURRENT_DATE" dataType="xsd:double" breakOrder="" fieldOrder="16"/>
+               <element name="SPL_TYPE" value="SPL_TYPE" label="SPL_TYPE" dataType="xsd:double" breakOrder="" fieldOrder="17"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets/>
+   <parameters>
+      <parameter name="PARAM_STARTDATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_ENDDATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_CURRENT_TIME" defaultValue="{$SYSDATE()$}" dataType="xsd:date">
+         <date label="Current Date" size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+      <layouts>
+         <layout name="Q1" left="285px" top="28px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

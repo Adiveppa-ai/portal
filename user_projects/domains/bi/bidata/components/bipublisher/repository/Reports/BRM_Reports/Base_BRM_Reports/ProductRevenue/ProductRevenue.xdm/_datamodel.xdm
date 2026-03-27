@@ -1,0 +1,157 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="as_are"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ "PRODUCT_T"."NAME" PROD_NAME,
+ "EVENT_BAL_IMPACTS_T"."RESOURCE_ID" "RESOURCE_ID",
+ "EVENT_T"."ACCOUNT_OBJ_ID0" ACT_OBJ,
+ "CONFIG_BEID_BALANCES_T"."NAME" "CURRENCY_NAME",
+ "PURCHASED_PRODUCT_T"."SERVICE_OBJ_ID0" SERVICE_OBJ_ID,
+ "EVENT_T"."SYS_DESCR" SYS_DESCR,
+ SUM(DECODE("EVENT_BAL_IMPACTS_T"."IMPACT_TYPE",
+ 1, "EVENT_BAL_IMPACTS_T"."AMOUNT",
+ 2, "EVENT_BAL_IMPACTS_T"."AMOUNT", 0) ) AS AMOUNT
+ FROM
+ (((("EVENT_T" "EVENT_T"
+ INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T" ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0")
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON
+ "EVENT_BAL_IMPACTS_T"."RESOURCE_ID" = "CONFIG_BEID_BALANCES_T"."REC_ID" )
+ INNER JOIN "PRODUCT_T" "PRODUCT_T" ON "EVENT_BAL_IMPACTS_T"."PRODUCT_OBJ_ID0"="PRODUCT_T"."POID_ID0")
+ INNER JOIN "PURCHASED_PRODUCT_T" "PURCHASED_PRODUCT_T"
+ ON "EVENT_BAL_IMPACTS_T"."OFFERING_OBJ_ID0" = "PURCHASED_PRODUCT_T"."POID_ID0"
+ WHERE
+ bipext.infCheckDates(:StartDate, :EndDate) = 1
+ AND "EVENT_T"."POID_DB">0
+ AND "EVENT_T"."ACCOUNT_OBJ_ID0">1
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE DECODE(:param_Country,null,'%',:param_Country)
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE DECODE(:param_State,null,'%',:param_State)
+ AND ("EVENT_T"."CREATED_T">=bipext.infstrtotimet(:StartDate,2)
+ AND "EVENT_T"."CREATED_T"<=bipext.infstrtotimet(:EndDate,2)-1)
+ AND "EVENT_T"."POID_TYPE" NOT LIKE '/event/billing/payment/%'
+ AND "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"<=10000
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND "PRODUCT_T"."NAME" LIKE DECODE(:param_ProductName,null,'%',:param_ProductName)
+ GROUP BY "PRODUCT_T"."NAME",
+ "EVENT_BAL_IMPACTS_T"."RESOURCE_ID",
+ "EVENT_T"."ACCOUNT_OBJ_ID0",
+ "CONFIG_BEID_BALANCES_T"."NAME",
+ "PURCHASED_PRODUCT_T"."SERVICE_OBJ_ID0",
+ "EVENT_T"."SYS_DESCR"]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q2" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ NVL( SUM(NVL(DECODE("EVENT_BAL_IMPACTS_T"."IMPACT_TYPE",
+ 128, "EVENT_BAL_IMPACTS_T"."AMOUNT",
+ 256, "EVENT_BAL_IMPACTS_T"."AMOUNT",
+ 0), 0)), 0) AS DISCOUNT
+ FROM
+ (((("EVENT_T" "EVENT_T"
+ INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T" ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0")
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON
+ "EVENT_BAL_IMPACTS_T"."RESOURCE_ID" = "CONFIG_BEID_BALANCES_T"."REC_ID" )
+ INNER JOIN "DISCOUNT_T" "DISCOUNT_T" ON "EVENT_BAL_IMPACTS_T"."PRODUCT_OBJ_ID0"="DISCOUNT_T"."POID_ID0")
+ INNER JOIN "PURCHASED_DISCOUNT_T" "PURCHASED_DISCOUNT_T"
+ ON "EVENT_BAL_IMPACTS_T"."OFFERING_OBJ_ID0" = "PURCHASED_DISCOUNT_T"."POID_ID0"
+
+ WHERE
+ bipext.infCheckDates(:StartDate, :EndDate) = 1
+ AND "EVENT_T"."POID_DB">0
+ AND "EVENT_T"."ACCOUNT_OBJ_ID0">1
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE DECODE(:param_Country,'ALL','%',:param_Country)
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE DECODE(:param_State,'ALL','%',:param_State)
+ AND ("EVENT_T"."CREATED_T">=bipext.infstrtotimet(:StartDate,2)
+ AND "EVENT_T"."CREATED_T"<=bipext.infstrtotimet(:EndDate,2)-1)
+ AND "EVENT_T"."POID_TYPE" NOT LIKE '/event/billing/payment/%'
+ AND "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"<=10000
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND "EVENT_T"."ACCOUNT_OBJ_ID0" = :ACT_OBJ
+ AND "PURCHASED_DISCOUNT_T"."SERVICE_OBJ_ID0" = :SERVICE_OBJ_ID
+ AND "EVENT_T"."SYS_DESCR" = :SYS_DESCR]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="PROD_NAME" value="PROD_NAME" dataType="xsd:string" label="PROD_NAME" breakOrder="None" fieldOrder="1"/>
+    <element name="RESOURCE_ID" value="RESOURCE_ID" dataType="xsd:integer" label="RESOURCE_ID" breakOrder="None" fieldOrder="2"/>
+    <element name="ACT_OBJ" value="ACT_OBJ" dataType="xsd:integer" label="ACT_OBJ" breakOrder="None" fieldOrder="3"/>
+    <element name="CURRENCY_NAME" value="CURRENCY_NAME" dataType="xsd:string" label="CURRENCY_NAME" breakOrder="None" fieldOrder="4"/>
+    <element name="SERVICE_OBJ_ID" value="SERVICE_OBJ_ID" dataType="xsd:integer" label="SERVICE_OBJ_ID" breakOrder="None" fieldOrder="5"/>
+    <element name="SYS_DESCR" value="SYS_DESCR" dataType="xsd:string" label="SYS_DESCR" breakOrder="None" fieldOrder="6"/>
+    <element name="AMOUNT" value="AMOUNT" dataType="xsd:integer" label="AMOUNT" breakOrder="None" fieldOrder="7"/>
+    <group name="Q2" source="Q2" label="Q2">
+      <element name="DISCOUNT" value="DISCOUNT" dataType="xsd:integer" label="DISCOUNT" breakOrder="None" fieldOrder="1"/>
+    </group>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="Product Name">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select name from product_t]]>
+         </sql>
+      </valueSet>
+      <valueSet id="YESNO">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_State">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_Country">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="param_ProductName" defaultValue="%" dataType="xsd:string">
+         <select label=" Enter or select a specific product name, or select ALL to include all products " valueSet="Product Name" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_State" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states. " valueSet="LOV_State" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_Country" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries. " valueSet="LOV_Country" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_Charts" defaultValue="ALL" dataType="xsd:string">
+         <select label="Include charts?" valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="StartDate" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY) " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="EndDate" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)" size="30" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="DATA_DS" left="28px" top="14px"/><layout name="Q2" left="565px" top="164px"/><layout name="Q1" left="177px" top="112px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+<groupLink name="link" parentGroup="Q1" childGroup="Q2"/>
+</groupLinks>
+</display>
+</dataModel>

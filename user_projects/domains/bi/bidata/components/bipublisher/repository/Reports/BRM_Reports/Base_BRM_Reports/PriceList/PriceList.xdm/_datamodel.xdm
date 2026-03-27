@@ -1,0 +1,168 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "DEAL_T"."POID_ID0" "DEAL_T_POID_ID0",
+ 				"PRODUCT_T"."POID_ID0" "PRODUCT_T_POID_ID0",
+ 				"RATE_T"."POID_ID0" "RATE_T_POID_ID0",
+ 				"DEAL_T"."NAME" "DEAL_T_NAME",
+ 				"PRODUCT_T"."NAME" "PRODUCT_T_NAME",
+ 				"RATE_T"."DESCR" "RATE_T_DESCR",
+ 				"PRODUCT_T"."END_T" "PRODUCT_T_END_T",
+ 				"PRODUCT_T"."START_T" "PRODUCT_T_START_T",
+ "PRODUCT_T"."PROVISIONING_TAG" PROVISIONING_TAG,
+ 				"RATE_BAL_IMPACTS_T"."SCALED_AMOUNT",
+ 				"RATE_BAL_IMPACTS_T"."ELEMENT_ID",
+ 				"CONFIG_BEID_BALANCES_T"."NAME" "CURRENCY_NAME",
+ 				"DEAL_T"."DESCR" "DEAL_T_DESCR",
+ 			 	"PRODUCT_T"."DESCR" "PRODUCT_T_DESCR",
+ 			 	"PRODUCT_T"."PERMITTED",
+ 			 	"PLAN_T"."NAME" "PLAN_T_NAME",
+ bipext.INFSTRTOTIMET(:PARAM_CURRENT_TIME, 1) "CURRENT_DATE",
+ 			 	"RATE_TIERS_T"."DATE_RANGE_TYPE",
+ 			 	"DATE_RANGES_T"."START_T" "DATE_RANGES_T_START_T",
+ 			 	"DATE_RANGES_T"."END_T" "DATE_RANGES_T_END_T",
+ 			 	"DATE_RANGES_T"."START_OFFSET" "DATE_RANGES_T_START_OFFSET",
+ 			 	"DATE_RANGES_T"."END_OFFSET" "DATE_RANGES_T_END_OFFSET",
+ 			 	"DATE_RANGES_T"."NAME" "DATE_RANGES_T_NAME",
+ 			 	"DATE_RANGES_T"."REL_START_UNIT" "DATE_RANGES_REL_START_UNIT",
+ 			 	"DATE_RANGES_T"."REL_END_UNIT" "DATE_RANGES_REL_END_UNIT",
+ 			 	"DAY_RANGES_T"."NAME" "DAY_RANGES_T_NAME",
+ 			 	"DAY_RANGES_T"."VALID_DOW" "DAY_RANGES_VALID_DOW",
+ 			 	"DAY_RANGES_T"."VALID_MOY" "DAY_RANGES_VALID_MOY",
+ 			 	"TOD_RANGES_T"."NAME" "TOD_RANGES_T_NAME",
+ 			 	"TOD_RANGES_T"."START_OFFSET" "TOD_RANGES_T_START_OFFSET",
+ 			 	"TOD_RANGES_T"."END_OFFSET" "TOD_RANGES_T_END_OFFSET",
+ 			 	"RATE_PLAN_T"."POID_ID0" "RATE_PLAN_T_POID_ID0",
+ 			 	"RATE_PLAN_T"."NAME" "RATE_PLAN_T_NAME",
+ 			 	"RATE_PLAN_T"."TAX_CODE" "RATE_PLAN_TAX_CODE",
+ 			 	"RATE_PLAN_T"."TAX_WHEN" "RATE_PLAN_TAX_WHEN",
+ 			 	"RATE_PLAN_T"."OFFSET_UNIT" "RATE_PLAN_OFFSET_UNIT",
+ 			 	"RATE_PLAN_T"."BILL_OFFSET" "RATE_PLAN_BILL_OFFSET",
+ 			 	"DAY_RANGES_T"."OBJ_ID0" "DAY_RANGES_T_OBJ_ID0",
+ 			 	"DATE_RANGES_T"."OBJ_ID0" "DATE_RANGES_T_OBJ_ID0",
+ 			 	"TOD_RANGES_T"."OBJ_ID0" "TOD_RANGES_T_OBJ_ID0",
+ 			 	"DAY_RANGES_T"."VALID_DOM" "DAY_RANGES_VALID_DOM",
+ 			 	"PRODUCT_T"."PARTIAL" "PRODUCT_PARTIAL",
+ 			 	"PRODUCT_T"."PURCHASE_MIN" "PRODUCT_PURCHASE_MIN",
+ 			 	"PRODUCT_T"."PURCHASE_MAX" "PRODUCT_PURCHASE_MAX",
+ 			 	"PRODUCT_T"."TYPE" "PRODUCT_TYPE",
+ 			 	"RATE_QUANTITY_TIERS_T"."STEP_MIN",
+ 			 	"RATE_BAL_IMPACTS_T"."REC_ID2",
+ 			 	"RATE_QUANTITY_TIERS_T"."STEP_MAX",
+ 			 	"RATE_BAL_IMPACTS_T"."REC_ID",
+ 			 	"RATE_BAL_IMPACTS_T"."IMPACT_CATEGORY",
+ 			 	"RATE_BAL_IMPACTS_T"."GL_ID",
+ 			 	"RATE_BAL_IMPACTS_T"."FLAGS",
+ 			 	"RATE_BAL_IMPACTS_T"."FIX_AMOUNT",
+ 			 	"RATE_BAL_IMPACTS_T"."SCALED_UNIT"
+ 			FROM ((((((((((("PLAN_T" "PLAN_T" INNER JOIN "PLAN_SERVICES_T" "PLAN_SERVICES_T" ON "PLAN_T"."POID_ID0" = "PLAN_SERVICES_T"."OBJ_ID0")
+ 				INNER JOIN "DEAL_T" "DEAL_T" ON "PLAN_SERVICES_T"."DEAL_OBJ_ID0" = "DEAL_T"."POID_ID0")
+ 				INNER JOIN "DEAL_PRODUCTS_T" "DEAL_PRODUCTS_T" ON "DEAL_T"."POID_ID0" = "DEAL_PRODUCTS_T"."OBJ_ID0")
+ 				INNER JOIN "PRODUCT_T" "PRODUCT_T" ON "DEAL_PRODUCTS_T"."PRODUCT_OBJ_ID0" = "PRODUCT_T"."POID_ID0")
+ 				LEFT OUTER JOIN "RATE_PLAN_T" "RATE_PLAN_T" ON "PRODUCT_T"."POID_ID0" = "RATE_PLAN_T"."PRODUCT_OBJ_ID0")
+ 				INNER JOIN "RATE_T" "RATE_T" ON "RATE_PLAN_T"."POID_ID0" = "RATE_T"."RATE_PLAN_OBJ_ID0")
+ 				INNER JOIN "RATE_QUANTITY_TIERS_T" "RATE_QUANTITY_TIERS_T" ON "RATE_T"."POID_ID0" = "RATE_QUANTITY_TIERS_T"."OBJ_ID0")
+ 				LEFT OUTER JOIN "RATE_TIERS_T" "RATE_TIERS_T" ON "RATE_QUANTITY_TIERS_T"."OBJ_ID0" = "RATE_TIERS_T"."RATE_OBJ_ID0")
+ 				LEFT OUTER JOIN "DATE_RANGES_T" "DATE_RANGES_T" ON "RATE_QUANTITY_TIERS_T"."OBJ_ID0" = "DATE_RANGES_T"."RATE_OBJ_ID0")
+ 				LEFT OUTER JOIN "DAY_RANGES_T" "DAY_RANGES_T" ON "RATE_QUANTITY_TIERS_T"."OBJ_ID0" = "DAY_RANGES_T"."RATE_OBJ_ID0")
+ 				LEFT OUTER JOIN "TOD_RANGES_T" "TOD_RANGES_T" ON "RATE_QUANTITY_TIERS_T"."OBJ_ID0" = "TOD_RANGES_T"."RATE_OBJ_ID0")
+ 				INNER JOIN "RATE_BAL_IMPACTS_T" "RATE_BAL_IMPACTS_T" ON ("RATE_QUANTITY_TIERS_T"."OBJ_ID0" = "RATE_BAL_IMPACTS_T"."OBJ_ID0")
+ 					AND ("RATE_QUANTITY_TIERS_T"."REC_ID" = "RATE_BAL_IMPACTS_T"."REC_ID2")
+ 				INNER JOIN "CONFIG_BEID_BALANCES_T" ON "RATE_BAL_IMPACTS_T"."ELEMENT_ID" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+ 			ORDER BY upper("PLAN_T"."NAME") asc,
+ 				 "DEAL_T"."POID_ID0",
+ 				 "PRODUCT_T"."POID_ID0",
+ 				 "RATE_PLAN_T"."POID_ID0",
+ 				 "RATE_T"."POID_ID0",
+ 				 "RATE_BAL_IMPACTS_T"."REC_ID2",
+ 				 "RATE_BAL_IMPACTS_T"."REC_ID"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="DEAL_T_POID_ID0" value="DEAL_T_POID_ID0" dataType="xsd:integer" label="DEAL_T_POID_ID0" breakOrder="None" fieldOrder="1"/>
+    <element name="PRODUCT_T_POID_ID0" value="PRODUCT_T_POID_ID0" dataType="xsd:integer" label="PRODUCT_T_POID_ID0" breakOrder="None" fieldOrder="2"/>
+    <element name="RATE_T_POID_ID0" value="RATE_T_POID_ID0" dataType="xsd:integer" label="RATE_T_POID_ID0" breakOrder="None" fieldOrder="3"/>
+    <element name="DEAL_T_NAME" value="DEAL_T_NAME" dataType="xsd:string" label="DEAL_T_NAME" breakOrder="None" fieldOrder="4"/>
+    <element name="PRODUCT_T_NAME" value="PRODUCT_T_NAME" dataType="xsd:string" label="PRODUCT_T_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="RATE_T_DESCR" value="RATE_T_DESCR" dataType="xsd:string" label="RATE_T_DESCR" breakOrder="None" fieldOrder="6"/>
+    <element name="PRODUCT_T_END_T" value="PRODUCT_T_END_T" dataType="xsd:integer" label="PRODUCT_T_END_T" breakOrder="None" fieldOrder="7"/>
+    <element name="PRODUCT_T_START_T" value="PRODUCT_T_START_T" dataType="xsd:integer" label="PRODUCT_T_START_T" breakOrder="None" fieldOrder="8"/>
+    <element name="PROVISIONING_TAG" value="PROVISIONING_TAG" dataType="xsd:string" label="PROVISIONING_TAG" breakOrder="None" fieldOrder="9"/>
+    <element name="SCALED_AMOUNT" value="SCALED_AMOUNT" dataType="xsd:integer" label="SCALED_AMOUNT" breakOrder="None" fieldOrder="10"/>
+    <element name="ELEMENT_ID" value="ELEMENT_ID" dataType="xsd:integer" label="ELEMENT_ID" breakOrder="None" fieldOrder="11"/>
+    <element name="CURRENCY_NAME" value="CURRENCY_NAME" dataType="xsd:string" label="CURRENCY_NAME" breakOrder="None" fieldOrder="12"/>
+    <element name="DEAL_T_DESCR" value="DEAL_T_DESCR" dataType="xsd:string" label="DEAL_T_DESCR" breakOrder="None" fieldOrder="13"/>
+    <element name="PRODUCT_T_DESCR" value="PRODUCT_T_DESCR" dataType="xsd:string" label="PRODUCT_T_DESCR" breakOrder="None" fieldOrder="14"/>
+    <element name="PERMITTED" value="PERMITTED" dataType="xsd:string" label="PERMITTED" breakOrder="None" fieldOrder="15"/>
+    <element name="PLAN_T_NAME" value="PLAN_T_NAME" dataType="xsd:string" label="PLAN_T_NAME" breakOrder="None" fieldOrder="16"/>
+    <element name="CURRENT_DATE" value="CURRENT_DATE" dataType="xsd:integer" label="CURRENT_DATE" breakOrder="None" fieldOrder="17"/>
+    <element name="DATE_RANGE_TYPE" value="DATE_RANGE_TYPE" dataType="xsd:integer" label="DATE_RANGE_TYPE" breakOrder="None" fieldOrder="18"/>
+    <element name="DATE_RANGES_T_START_T" value="DATE_RANGES_T_START_T" dataType="xsd:integer" label="DATE_RANGES_T_START_T" breakOrder="None" fieldOrder="19"/>
+    <element name="DATE_RANGES_T_END_T" value="DATE_RANGES_T_END_T" dataType="xsd:integer" label="DATE_RANGES_T_END_T" breakOrder="None" fieldOrder="20"/>
+    <element name="DATE_RANGES_T_START_OFFSET" value="DATE_RANGES_T_START_OFFSET" dataType="xsd:integer" label="DATE_RANGES_T_START_OFFSET" breakOrder="None" fieldOrder="21"/>
+    <element name="DATE_RANGES_T_END_OFFSET" value="DATE_RANGES_T_END_OFFSET" dataType="xsd:integer" label="DATE_RANGES_T_END_OFFSET" breakOrder="None" fieldOrder="22"/>
+    <element name="DATE_RANGES_T_NAME" value="DATE_RANGES_T_NAME" dataType="xsd:string" label="DATE_RANGES_T_NAME" breakOrder="None" fieldOrder="23"/>
+    <element name="DATE_RANGES_REL_START_UNIT" value="DATE_RANGES_REL_START_UNIT" dataType="xsd:integer" label="DATE_RANGES_REL_START_UNIT" breakOrder="None" fieldOrder="24"/>
+    <element name="DATE_RANGES_REL_END_UNIT" value="DATE_RANGES_REL_END_UNIT" dataType="xsd:integer" label="DATE_RANGES_REL_END_UNIT" breakOrder="None" fieldOrder="25"/>
+    <element name="DAY_RANGES_T_NAME" value="DAY_RANGES_T_NAME" dataType="xsd:string" label="DAY_RANGES_T_NAME" breakOrder="None" fieldOrder="26"/>
+    <element name="DAY_RANGES_VALID_DOW" value="DAY_RANGES_VALID_DOW" dataType="xsd:integer" label="DAY_RANGES_VALID_DOW" breakOrder="None" fieldOrder="27"/>
+    <element name="DAY_RANGES_VALID_MOY" value="DAY_RANGES_VALID_MOY" dataType="xsd:integer" label="DAY_RANGES_VALID_MOY" breakOrder="None" fieldOrder="28"/>
+    <element name="TOD_RANGES_T_NAME" value="TOD_RANGES_T_NAME" dataType="xsd:string" label="TOD_RANGES_T_NAME" breakOrder="None" fieldOrder="29"/>
+    <element name="TOD_RANGES_T_START_OFFSET" value="TOD_RANGES_T_START_OFFSET" dataType="xsd:integer" label="TOD_RANGES_T_START_OFFSET" breakOrder="None" fieldOrder="30"/>
+    <element name="TOD_RANGES_T_END_OFFSET" value="TOD_RANGES_T_END_OFFSET" dataType="xsd:integer" label="TOD_RANGES_T_END_OFFSET" breakOrder="None" fieldOrder="31"/>
+    <element name="RATE_PLAN_T_POID_ID0" value="RATE_PLAN_T_POID_ID0" dataType="xsd:integer" label="RATE_PLAN_T_POID_ID0" breakOrder="None" fieldOrder="32"/>
+    <element name="RATE_PLAN_T_NAME" value="RATE_PLAN_T_NAME" dataType="xsd:string" label="RATE_PLAN_T_NAME" breakOrder="None" fieldOrder="33"/>
+    <element name="RATE_PLAN_TAX_CODE" value="RATE_PLAN_TAX_CODE" dataType="xsd:string" label="RATE_PLAN_TAX_CODE" breakOrder="None" fieldOrder="34"/>
+    <element name="RATE_PLAN_TAX_WHEN" value="RATE_PLAN_TAX_WHEN" dataType="xsd:integer" label="RATE_PLAN_TAX_WHEN" breakOrder="None" fieldOrder="35"/>
+    <element name="RATE_PLAN_OFFSET_UNIT" value="RATE_PLAN_OFFSET_UNIT" dataType="xsd:integer" label="RATE_PLAN_OFFSET_UNIT" breakOrder="None" fieldOrder="36"/>
+    <element name="RATE_PLAN_BILL_OFFSET" value="RATE_PLAN_BILL_OFFSET" dataType="xsd:integer" label="RATE_PLAN_BILL_OFFSET" breakOrder="None" fieldOrder="37"/>
+    <element name="DAY_RANGES_T_OBJ_ID0" value="DAY_RANGES_T_OBJ_ID0" dataType="xsd:integer" label="DAY_RANGES_T_OBJ_ID0" breakOrder="None" fieldOrder="38"/>
+    <element name="DATE_RANGES_T_OBJ_ID0" value="DATE_RANGES_T_OBJ_ID0" dataType="xsd:integer" label="DATE_RANGES_T_OBJ_ID0" breakOrder="None" fieldOrder="39"/>
+    <element name="TOD_RANGES_T_OBJ_ID0" value="TOD_RANGES_T_OBJ_ID0" dataType="xsd:integer" label="TOD_RANGES_T_OBJ_ID0" breakOrder="None" fieldOrder="40"/>
+    <element name="DAY_RANGES_VALID_DOM" value="DAY_RANGES_VALID_DOM" dataType="xsd:integer" label="DAY_RANGES_VALID_DOM" breakOrder="None" fieldOrder="41"/>
+    <element name="PRODUCT_PARTIAL" value="PRODUCT_PARTIAL" dataType="xsd:integer" label="PRODUCT_PARTIAL" breakOrder="None" fieldOrder="42"/>
+    <element name="PRODUCT_PURCHASE_MIN" value="PRODUCT_PURCHASE_MIN" dataType="xsd:integer" label="PRODUCT_PURCHASE_MIN" breakOrder="None" fieldOrder="43"/>
+    <element name="PRODUCT_PURCHASE_MAX" value="PRODUCT_PURCHASE_MAX" dataType="xsd:integer" label="PRODUCT_PURCHASE_MAX" breakOrder="None" fieldOrder="44"/>
+    <element name="PRODUCT_TYPE" value="PRODUCT_TYPE" dataType="xsd:integer" label="PRODUCT_TYPE" breakOrder="None" fieldOrder="45"/>
+    <element name="STEP_MIN" value="STEP_MIN" dataType="xsd:integer" label="STEP_MIN" breakOrder="None" fieldOrder="46"/>
+    <element name="REC_ID2" value="REC_ID2" dataType="xsd:integer" label="REC_ID2" breakOrder="None" fieldOrder="47"/>
+    <element name="STEP_MAX" value="STEP_MAX" dataType="xsd:integer" label="STEP_MAX" breakOrder="None" fieldOrder="48"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="49"/>
+    <element name="IMPACT_CATEGORY" value="IMPACT_CATEGORY" dataType="xsd:string" label="IMPACT_CATEGORY" breakOrder="None" fieldOrder="50"/>
+    <element name="GL_ID" value="GL_ID" dataType="xsd:integer" label="GL_ID" breakOrder="None" fieldOrder="51"/>
+    <element name="FLAGS" value="FLAGS" dataType="xsd:integer" label="FLAGS" breakOrder="None" fieldOrder="52"/>
+    <element name="FIX_AMOUNT" value="FIX_AMOUNT" dataType="xsd:integer" label="FIX_AMOUNT" breakOrder="None" fieldOrder="53"/>
+    <element name="SCALED_UNIT" value="SCALED_UNIT" dataType="xsd:integer" label="SCALED_UNIT" breakOrder="None" fieldOrder="54"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets/>
+   <parameters>
+      <parameter name="PARAM_CURRENT_TIME" dataType="xsd:date">
+         <date label="Current Date [To be masked latter]." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

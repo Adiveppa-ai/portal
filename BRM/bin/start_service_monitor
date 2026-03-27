@@ -1,0 +1,137 @@
+#! /bin/python
+##########################################################################
+# Copyright (c) 2021, Oracle and/or its affiliates. All rights reserved. #
+# This material is the confidential property of Oracle Corporation       #
+# or its licensors and may be used, reproduced, stored or transmitted    #
+# only in accordance with a valid Oracle license or sublicense agreement.#
+##########################################################################
+import os, subprocess
+from subprocess import Popen
+import http.client
+import yaml
+import time
+import sys 
+import logging
+
+try:
+  pin_home = os.getenv("PIN_HOME")
+except:
+  raise Exception("Please Set PIN_HOME Environment Variable")
+
+os.chdir(pin_home)
+
+try:
+  pin_logs = os.getenv("PIN_LOG_DIR")
+except:
+  raise Exception("Please Set PIN_LOG_DIR Environment Variable")
+
+logging.basicConfig(filename=pin_logs+'/brm_service_monitor/service.log', level=logging.DEBUG, format='%(asctime)s %(message)s')
+logging.info("    STARTED    ".center(150,'#')+"\n")
+
+proc_id = os.getpid()
+
+try:
+  size = os.path.getsize(pin_logs+"/brm_service_monitor/service.pid")
+  if size > 0:
+    try:
+        sys.exit()
+
+    except SystemExit:
+        logging.error('Service Monitor is already running!')
+        sys.exit("Service Monitor is already running!")
+
+except FileNotFoundError:
+  pass
+
+#Log the PID onto service.pid file so that stop_service_monitoring.py can stop the current status monitor
+try:
+  f = open(pin_logs+"/brm_service_monitor/service.pid","w")
+except Exception as e:
+  logging.error(e+'\n')
+
+try:
+  f.write(str(proc_id))
+except Exception as e:
+  logging.error(e+'\n')
+
+try:
+  f.close()
+except Exception as e:
+  logging.error(e+'\n')
+
+
+#Load Configurations from the configurations.yaml
+try:
+  with open(pin_home+"/bin/configurations.yaml", 'r') as stream:
+    configuration_data_loaded = yaml.safe_load(stream)
+except Exception as e:
+  logging.error(e+'\n')
+
+#Load the metric_host, metric_port, protocol, metric_name and metric_scrape_interval details 
+metric_host = configuration_data_loaded['pushgateway']['host']
+metric_port = str(configuration_data_loaded['pushgateway']['port'])
+protocol = configuration_data_loaded['pushgateway']['protocol']
+metric_name = configuration_data_loaded['prometheus']['service_monitoring']['brm_status_metric_name']
+metric_scrape_interval =  configuration_data_loaded['prometheus']['service_monitoring']['scrape_interval']
+job = "pin_ctl"
+instance = os.uname()[1]
+
+address = metric_host+":"+metric_port
+pin_ctl = pin_home + "/bin/pin_ctl"
+#This defines the type of data being pushed
+headers = {'Content-type': 'text/plain'}
+
+while(True):
+  #This sleep is how we configure the scrape interval
+  time.sleep(metric_scrape_interval)
+  
+  #Extract the status of all the BRM service using pin_ctl 
+
+  child1 = subprocess.Popen([pin_ctl,"status","all"], shell=False, stdout=subprocess.PIPE)
+  child2 = subprocess.Popen(["awk",r'{print $3 $4}'], stdin=child1.stdout, stdout=subprocess.PIPE, shell=False)
+  child3 = subprocess.Popen(["sed",r's/<//'], stdin=child2.stdout, stdout=subprocess.PIPE, shell=False)
+  child4 = subprocess.Popen(["sed",r's/>/=/'], stdin=child3.stdout, stdout=subprocess.PIPE, shell=False)
+  child5 = subprocess.Popen(["sed",r's/\[/=/'], stdin=child4.stdout, stdout=subprocess.PIPE, shell=False)
+  child6 = subprocess.Popen(["sed",r's/\]//'], stdin=child5.stdout, stdout=subprocess.PIPE, shell=False)
+  child7 = subprocess.Popen(["sed",r's/is/not running/'], stdin=child6.stdout, stdout=subprocess.PIPE, shell=False)
+  try:
+    out = child7.communicate()
+  except Exception as e:
+    logging.error(e+'\n')
+
+  services = [i for i in out[0].decode("utf-8").split("\n")]
+  #Separate out data for each service
+  result = []
+  for i in services:
+    #Create the metric of the form metric_name{process={}, pid={}, user={}} metric_value (metric_value here can be 0 - Process is not active or 1 - Process is active)
+    if "==" in i:
+      i=i.split("==")
+      result_str = metric_name+"{process=" + '"{}"'.format(i[0]) + ", " + "pid=" + '"{}"'.format(i[1]) +"} 1\n"
+      result.append(result_str)
+    elif "=" in i and "==" not in i:
+      i=i.split("=")
+      result_str = metric_name+"{process=" + '"{}"'.format(i[0]) + ", " + "pid=" + '"{}"'.format(i[1]) +"} 0\n"
+      result.append(result_str)
+
+  #Depending on the protocol choosed for pushgateway in the YAML file data is pushed accordingly using POST request
+  if(protocol == 'https'):
+    try:
+      connection = http.client.HTTPSConnection("https://"+address)
+    except Exception as e:
+      logging.error(e+'\n')
+
+  else:
+    try:
+      connection = http.client.HTTPConnection(address)
+    except Exception as e:
+      logging.error(e+'\n')
+  
+  try:
+    connection.request('POST', '/metrics/job/'+job+'/instance/'+instance ,' '.join(result),headers)
+    response = connection.getresponse()
+    result.append(response.status)
+    logging.info(result)
+
+  except Exception as e:
+    logging.error(e+'\n')
+

@@ -1,0 +1,156 @@
+-- ********************************************************************
+-- NAME:       hur_seq_num_sp.source
+-- PURPOSE:    Generate sequence number for High Usage Report
+--
+-- SQL procedures
+--
+-- @(#)$Id: hur_seq_num_sp.source /cgbubrm_7.5.0.clients/3 2013/06/07 03:08:50 vinodrao Exp $
+--
+-- Copyright (c) 2010, 2013, Oracle and/or its affiliates. All rights reserved.
+--
+-- This material is the confidential property of Oracle Corporation or its
+-- licensors and may be used, reproduced, stored or transmitted only in
+-- accordance with a valid Oracle license or sublicense agreement.
+--
+--
+-- ********************************************************************
+
+create or replace
+PACKAGE HUR_Seq_NUM AS
+
+PARAM_REPORT_TYPE  VARCHAR2(30);
+PARAM_START_DATE  timestamp with time zone;
+PARAM_END_DATE timestamp with time zone;
+PARAM_ROAMING_PART_NAME VARCHAR2(30);
+PARAM_THRESHOLD_VALUE NUMBER;
+
+FUNCTION beforeReport(
+ObservationStartDate   IN			timestamp with time zone,
+   ObservationEndDate     IN			timestamp with time zone,
+   RoamingPartner         IN			VARCHAR2,
+   ReportType   		  IN			VARCHAR2
+) RETURN BOOLEAN;
+
+PROCEDURE SeqNumGenSp (
+   ObservationStartDate   IN			timestamp with time zone,
+   ObservationEndDate     IN			timestamp with time zone,
+   RoamingPartner         IN			VARCHAR2,
+   ReportType   		  IN			VARCHAR2
+);
+
+END HUR_Seq_NUM;
+
+/
+
+create or replace
+PACKAGE BODY  HUR_Seq_NUM AS
+
+FUNCTION beforeReport(
+    ObservationStartDate IN TIMESTAMP WITH TIME zone,
+    ObservationEndDate IN TIMESTAMP WITH TIME zone,
+    RoamingPartner IN VARCHAR2, ReportType IN VARCHAR2 )
+  RETURN BOOLEAN
+AS
+  v_query VARCHAR2(40);
+BEGIN
+  hur_seq_num.seqnumgensp( ObservationStartDate, ObservationEndDate ,RoamingPartner , ReportType);
+  RETURN TRUE;
+END beforeReport;
+
+PROCEDURE SeqNumGenSp (
+   ObservationStartDate   IN			timestamp with time zone,
+   ObservationEndDate     IN			timestamp with time zone,
+   RoamingPartner         IN			VARCHAR2,
+   ReportType   		  IN			VARCHAR2
+)
+IS
+   v_seq_no   INTEGER := 1;
+   v_is_valid_roaming_partner   INTEGER := 1;
+
+NULL_EXCEPTION EXCEPTION;
+ERROR_NULL_VALUE            CONSTANT INT := -20000;
+
+BEGIN
+
+IF    ((ObservationStartDate IS NULL) OR
+	   (ObservationEndDate IS NULL) OR
+	   (RoamingPartner IS NULL) OR
+	   (ReportType IS NULL) OR
+	   (ObservationStartDate = '') OR
+	   (ObservationEndDate = '') OR
+	   (RoamingPartner = '') OR
+	   (ReportType = '')) THEN
+	  RAISE NULL_EXCEPTION;
+END IF;
+   
+  BEGIN
+  
+   SELECT NVL(obj_id0, 0)
+		INTO v_is_valid_roaming_partner
+   FROM SERVICE_ALIAS_LIST_T
+   WHERE
+   SERVICE_ALIAS_LIST_T.NAME = RoamingPartner
+   AND rownum <= 1;
+   EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+  	  RAISE_APPLICATION_ERROR(
+            ERROR_NULL_VALUE,
+           'The given roaming partner is not configured ',
+           TRUE);
+   END;
+
+   SELECT NVL (sequence_number, 0)
+     INTO v_seq_no
+     FROM REPORT_SEQUENCE
+    WHERE (     (EXTRACT(YEAR FROM ObservationStartDate) = EXTRACT(YEAR FROM observation_start_date) AND
+                EXTRACT(MONTH FROM ObservationStartDate) = EXTRACT(MONTH FROM observation_start_date) AND
+                EXTRACT(DAY FROM ObservationStartDate) = EXTRACT(DAY FROM observation_start_date)) 
+                AND
+                (EXTRACT(YEAR FROM ObservationEndDate) = EXTRACT(YEAR FROM observation_end_date) AND
+                EXTRACT(MONTH FROM ObservationEndDate) = EXTRACT(MONTH FROM observation_end_date) AND
+                EXTRACT(DAY FROM ObservationEndDate) = EXTRACT(DAY FROM observation_end_date))
+          )
+      AND report_type = ReportType
+      AND hpmno_tap_code = RoamingPartner;
+
+EXCEPTION
+   WHEN NULL_EXCEPTION THEN
+  	  RAISE_APPLICATION_ERROR(
+            ERROR_NULL_VALUE,
+            'One or more parameter has NULL Values',
+            TRUE);
+   WHEN NO_DATA_FOUND THEN
+      v_seq_no := 0;
+
+     IF v_seq_no = 0
+      THEN
+         BEGIN
+            SELECT NVL (MAX (sequence_number), 0)
+              INTO v_seq_no
+              FROM REPORT_SEQUENCE
+             WHERE EXTRACT(YEAR FROM ObservationStartDate) = EXTRACT(YEAR FROM observation_start_date) 
+	      		AND report_type = ReportType
+      	  		AND hpmno_tap_code = RoamingPartner;
+         EXCEPTION
+            WHEN NO_DATA_FOUND
+            THEN
+               v_seq_no := 0;
+         END;
+
+         v_seq_no := v_seq_no + 1;
+
+         INSERT INTO REPORT_SEQUENCE
+                     (sequence_number, hpmno_tap_code,
+                      observation_start_date, observation_end_date,
+                      report_type
+                     )
+              VALUES (v_seq_no, RoamingPartner,
+                      ObservationStartDate, ObservationEndDate,
+                      ReportType
+                     );
+      END IF;
+
+END SeqNumGenSp;
+
+END HUR_Seq_NUM;
+/

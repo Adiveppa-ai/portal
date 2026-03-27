@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<ns4:feature-set-def name="CORE" version="15.0.1.0.0" display-name="CORE" xmlns="http://xmlns.oracle.com/cie/gdr/dei" xmlns:ns2="http://xmlns.oracle.com/cie/gdr/nfo" xmlns:ns3="http://xmlns.oracle.com/cie/gdr/rgy" xmlns:ns4="http://xmlns.oracle.com/cie/gdr/ftr">
+   <ns4:components>
+      <ns4:component name="CORE" version="15.0.1.0.0"/>
+   </ns4:components>
+</ns4:feature-set-def>

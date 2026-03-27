@@ -1,0 +1,679 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ACTION_LIST>
+   <ACTION NAME="executeSQLScript" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="execToUse" VAL="/u01/app/oracle/product/19c/db_home/bin/sqlplus" TYPE="String" SECURE="F"/>
+         <INPUT NAME="connectString" VAL="%CONNECT_STRING_PIPE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="sqlScript" VAL="%ORACLE_HOME%/setup/scripts/createPackages.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="undoSqlScript" VAL="rm -rf /home/pin/opt/portal/setup/scripts/createPackages.log" TYPE="String" SECURE="F"/>
+         <INPUT NAME="logFile" VAL="%ORACLE_HOME%/setup/scripts/createPackages.log" TYPE="String" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="setenv" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="generalActions" VER="10.2.0.9.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="name" VAL="PATH" TYPE="String" SECURE="F"/>
+         <INPUT NAME="value" VAL="%SYMBOL_IFW_SERVER_HOME%/bin:%SYMBOL_IFW_SERVER_HOME%/lib" TYPE="String" SECURE="F"/>
+         <INPUT NAME="append" VAL="false" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="replace" VAL="false" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="doNotPersistEnv" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="setenv" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="generalActions" VER="10.2.0.9.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="name" VAL="LD_LIBRARY_PATH" TYPE="String" SECURE="F"/>
+         <INPUT NAME="value" VAL="%SYMBOL_IFW_SERVER_HOME%/lib" TYPE="String" SECURE="F"/>
+         <INPUT NAME="append" VAL="true" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="replace" VAL="false" TYPE="Boolean" SECURE="F"/>
+         <INPUT NAME="doNotPersistEnv" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/setup/scripts/postInstallReplace.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__IFW_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_IFW_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/setup/scripts/postInstallReplace.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__SYS_USERNAME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/setup/scripts/postInstallReplace.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__SYS_DBALIAS__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYS_DBALIAS%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="executeSQLScript" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="execToUse" VAL="/u01/app/oracle/product/19c/db_home/bin/sqlplus" TYPE="String" SECURE="F"/>
+         <INPUT NAME="connectString" VAL="%CONNECT_STRING_PIPE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="sqlScript" VAL="%SYMBOL_IFW_SERVER_HOME%/database/Oracle/Scripts/createRoles.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="undoSqlScript" VAL="rm -rf /home/pin/opt/portal/ifw/database/Oracle/Scripts/createRoles.log" TYPE="String" SECURE="F"/>
+         <INPUT NAME="logFile" VAL="%SYMBOL_IFW_SERVER_HOME%/database/Oracle/Scripts/createRoles.log" TYPE="String" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/database/Oracle/Scripts/createDBUser.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__TBLS_T__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_TABLESPACE_TABLE%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/database/Oracle/Scripts/createDBUser.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__TBLS_I__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_TABLESPACE_INDEX%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/database/Oracle/Scripts/createDBUser.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__USER__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/database/Oracle/Scripts/createDBUser.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__PASS__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_DB_PASSWORD%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="executeSQLScript" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="execToUse" VAL="/u01/app/oracle/product/19c/db_home/bin/sqlplus" TYPE="String" SECURE="F"/>
+         <INPUT NAME="connectString" VAL="%CONNECT_STRING_PIPE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="sqlScript" VAL="%SYMBOL_IFW_SERVER_HOME%/database/Oracle/Scripts/createDBUser.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="undoSqlScript" VAL="rm -rf /home/pin/opt/portal/ifw/database/Oracle/Scripts/createDBUser.log" TYPE="String" SECURE="F"/>
+         <INPUT NAME="logFile" VAL="%SYMBOL_IFW_SERVER_HOME%/database/Oracle/Scripts/createDBUser.log" TYPE="String" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/source.me.csh" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__PKG_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_IFW_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/source.me.csh" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__IFW_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_IFW_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/source.me.sh" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__PKG_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_IFW_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/source.me.sh" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__IFW_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_IFW_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wireless.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;IntegRate db-user>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Pipeline db-user>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/tools/XmlLoader/LoadIfwConfig.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;User Name>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/tools/XmlLoader/LoadIfwConfig.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Database Name>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYS_DBALIAS_PIPELINE%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wireless.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Infranet db-user>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%INFRANET_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wireless.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Infranet db-sid>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYS_DBALIAS%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wireless.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;IntegRate db-sid>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYS_DBALIAS_PIPELINE%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;&lt; Realtime pipeline port >>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="24000" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;&lt; Number of Threads >>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="8" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Pipeline db-user>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Pipeline db-user>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%INFRANET_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Pipeline db-sid>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYS_DBALIAS_PIPELINE%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Infranet db-user>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%INFRANET_DB_USERNAME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/conf/wirelessRealtime.reg" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="&lt;Infranet db-sid>" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYS_DBALIAS%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/log/process" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/log/pipeline" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/info" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/balance" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/tam" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/reject" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/edr" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/discountError" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/log/stream" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/gsm/telephony" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/done" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/gprs" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/gprs1" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/gprs2" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/notifybalancebreach" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/firstusage/prod_disc" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/firstusage/resources" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/error" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/gsm/fax" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/gsm/sms" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/wap" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/wap1" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/out/wap2" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/dup" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/log" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/log/statistic" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/insertWIRELESS_SAMPLE.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__IFW_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_IFW_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/ifw_Create.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__TBLS_T__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_TABLESPACE_TABLE%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/ifw_Create.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__TBLS_I__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%IFW_TABLESPACE_INDEX%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="executeSQLScript" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="execToUse" VAL="/u01/app/oracle/product/19c/db_home/bin/sqlplus" TYPE="String" SECURE="F"/>
+         <INPUT NAME="connectString" VAL="%CONNECT_STRING_PIPE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="sqlScript" VAL="%SYMBOL_IFW_SERVER_HOME%/ifw_Create.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="undoSqlScript" VAL="rm -rf /home/pin/opt/portal/ifw/ifw_Create.log" TYPE="String" SECURE="F"/>
+         <INPUT NAME="logFile" VAL="%SYMBOL_IFW_SERVER_HOME%/ifw_Create.log" TYPE="String" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="executeSQLScript" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="execToUse" VAL="/u01/app/oracle/product/19c/db_home/bin/sqlplus" TYPE="String" SECURE="F"/>
+         <INPUT NAME="connectString" VAL="%CONNECT_STRING_PIPE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="sqlScript" VAL="%SYMBOL_IFW_SERVER_HOME%/database/Oracle/Scripts/ifw_Synonyms.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="undoSqlScript" VAL="rm -rf /home/pin/opt/portal/ifw/database/Oracle/Scripts/ifw_Synonyms.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="logFile" VAL="%SYMBOL_IFW_SERVER_HOME%/database/Oracle/Scripts/ifw_Synonyms.log" TYPE="String" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="executeSQLScript" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="dbActions" VER="10.1.0.2.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="execToUse" VAL="/u01/app/oracle/product/19c/db_home/bin/sqlplus" TYPE="String" SECURE="F"/>
+         <INPUT NAME="connectString" VAL="%CONNECT_STRING_PIPE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="sqlScript" VAL="%SYMBOL_IFW_SERVER_HOME%/insertWIRELESS_SAMPLE.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="undoSqlScript" VAL="rm -rf /home/pin/opt/portal/ifw/insertWIRELESS_SAMPLE.log" TYPE="String" SECURE="F"/>
+         <INPUT NAME="logFile" VAL="%SYMBOL_IFW_SERVER_HOME%/insertWIRELESS_SAMPLE.log" TYPE="String" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%EXPRESSION_CONTAINING_SECURE_VARIABLE%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="F">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/ifw/database/Oracle/Scripts/createDBUser.sql" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="%IFW_DB_PASSWORD%" TYPE="String" SECURE="T"/>
+         <INPUT NAME="replaceString" VAL="&amp;1" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+</ACTION_LIST>

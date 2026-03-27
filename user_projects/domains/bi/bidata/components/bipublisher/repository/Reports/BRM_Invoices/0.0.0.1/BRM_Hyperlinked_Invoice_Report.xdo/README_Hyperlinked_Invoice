@@ -1,0 +1,21 @@
+#
+# Copyright (c) 2014, Oracle and/or its affiliates. All rights reserved.
+#
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+
+Instructions:
+
+- Edit Datamodels in BIP server to specify correct data sources
+- Edit Datamodels in BIP server to specify FTP server and FTP destination dir.
+- Edit the Index template .rtf to specify the ftp directory in the hyperlink
+- Load Hyperlinked_invoice_bursting.plb to BRM DB
+- Other regular configuration for templates/reports mentioned in the docs
+
+- and while running invoicing please run
+	- pin_inv_accts -pay_type 10007
+	- pin_inv_accts -pay_type 10001
+	Note: Please do not run -hierarchy option which will do the stitching 
+	and not the hyperlinking.

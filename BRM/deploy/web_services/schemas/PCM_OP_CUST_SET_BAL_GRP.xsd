@@ -1,0 +1,268 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" elementFormDefault="qualified" xmlns="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:op="http://www.portal.com/schemas/BusinessOpcodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <!--Copyright (c) 2007, 2018, Oracle and/or its affiliates. All rights reserved.
+
+        This material is the confidential property of Oracle Corporation or
+        its licensors and may be used, reproduced, stored or transmitted only
+        in accordance with a valid Oracle license or sublicense agreement.-->
+   <xsd:element name="PCM_OP_CUST_SET_BAL_GRP_inputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="BAL_INFO" minOccurs="1" maxOccurs="1">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="BAL_INFO_ARRAY_PCM_OP_CUST_SET_BAL_GRP_1215">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_CUST_SET_BAL_GRP_1216" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="END_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)([a-zA-Z_]*)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="PROGRAM_NAME" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:maxLength value="60"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="START_T" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="TEMP_LIMIT" minOccurs="0" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="TEMP_LIMIT_ARRAY_PCM_OP_CUST_SET_BAL_GRP_1217">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="BAL_INFO_ARRAY_PCM_OP_CUST_SET_BAL_GRP_1215">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="ACCOUNT_OBJ" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(account)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BILLINFO_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(billinfo)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="LIMIT" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="LIMIT_ARRAY_PCM_OP_CUST_SET_BAL_GRP_121527">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="NAME" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[\-]*[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="RULES" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="RULES_ARRAY_PCM_OP_CUST_SET_BAL_GRP_121528">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="SERVICE_OBJ" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(service)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                  <xsd:pattern value=""/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="TYPE_STR" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="LIMIT_ARRAY_PCM_OP_CUST_SET_BAL_GRP_121527">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CREDIT_FLOOR" type="UNION_PCM_OP_CUST_SET_BAL_GRP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="CREDIT_LIMIT" type="UNION_PCM_OP_CUST_SET_BAL_GRP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="CREDIT_THRESHOLDS" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="DYNAMIC_CREDIT_FLOOR" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="OVERRIDE_CREDIT_LIMIT" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="THRESHOLDS" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="THRESHOLDS_ARRAY_PCM_OP_CUST_SET_BAL_GRP_12152726">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="THRESHOLDS_ARRAY_PCM_OP_CUST_SET_BAL_GRP_12152726">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="AMOUNT" type="UNION_PCM_OP_CUST_SET_BAL_GRP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="THRESHOLD" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="RULES_ARRAY_PCM_OP_CUST_SET_BAL_GRP_121528">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CONSUMPTION_RULE" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_UNDEFINED(0)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_EST(1)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_LST(2)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_EET(3)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_LET(4)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_ESTLET(5)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_ESTEET(6)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_LSTEET(7)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_LSTLET(8)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_EETEST(9)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_EETLST(10)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_LETEST(11)"/>
+                  <xsd:enumeration value="PIN_CONSUMPTION_RULE_LETLST(12)"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="TEMP_LIMIT_ARRAY_PCM_OP_CUST_SET_BAL_GRP_1217">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CREDIT_LIMIT" type="UNION_PCM_OP_CUST_SET_BAL_GRP" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="REC_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="RESOURCE_ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_FROM" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_FROM_OFFSET" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_FROM_UNIT" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="1"/>
+                  <xsd:enumeration value="2"/>
+                  <xsd:enumeration value="3"/>
+                  <xsd:enumeration value="4"/>
+                  <xsd:enumeration value="5"/>
+                  <xsd:enumeration value="8"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="VALID_TO" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_TO_OFFSET" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_TO_UNIT" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="1"/>
+                  <xsd:enumeration value="2"/>
+                  <xsd:enumeration value="3"/>
+                  <xsd:enumeration value="4"/>
+                  <xsd:enumeration value="5"/>
+                  <xsd:enumeration value="8"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_CUST_SET_BAL_GRP_1216">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:element name="PCM_OP_CUST_SET_BAL_GRP_outputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_CUST_SET_BAL_GRP_1312" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(balance_group)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_CUST_SET_BAL_GRP_1312">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="BUFFER_PCM_OP_CUST_SET_BAL_GRP">
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:hexBinary">
+            <xsd:attribute name="flags" type="xsd:string" use="optional"/>
+            <xsd:attribute name="size" type="xsd:string" use="optional"/>
+            <xsd:attribute name="offset" type="xsd:string" use="optional"/>
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   <xsd:simpleType name="EMPTY_PCM_OP_CUST_SET_BAL_GRP">
+      <xsd:restriction base="xsd:string">
+         <xsd:length value="0"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UNION_PCM_OP_CUST_SET_BAL_GRP">
+      <xsd:union memberTypes="xsd:decimal EMPTY_PCM_OP_CUST_SET_BAL_GRP"/>
+   </xsd:simpleType>
+</xsd:schema>

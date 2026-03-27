@@ -1,0 +1,4 @@
+#Oracle Installer Location File Location
+#Wed Dec 31 17:41:31 EST 2025
+inst_group=oinstall
+inventory_loc=/u01/app/oraInventory

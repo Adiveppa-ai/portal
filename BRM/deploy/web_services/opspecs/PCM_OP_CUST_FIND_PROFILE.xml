@@ -1,0 +1,72 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_CUST_FIND_PROFILE" visibility="public" transaction="required" component="fm_cust" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>Used to locate profile objects linked to a particular account object.
+    NOTE: If the PCM_OPFLG_READ_RESULT is passed in with this OP, the entire
+    profile object is read (any collateral data hanging off of
+    PIN_FLD_RESULTS array below is ignored).
+  </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="dbonly">
+        <Doc>Routing POID. Only the 'database' sub-field is used.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+        <Doc>The poid of the account to which this profile is attached.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_SERVICE_OBJ" use="optional" mode="complete">
+        <Doc>The poid of the service to which this profile is attached. If this is  
+	specified, the search will be restricted further.</Doc>
+        <ClassRef>obj://service</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_TYPE_STR" use="optional" maxlen="255">
+        <Doc>Type string of the profile to match. Some examples might be 
+	'/profile/foo' (match all of sub-types foo) or '/profile/f%'(match all 
+	profile objects that have sub-types beginning  with the letter 'f'. If this 
+	field is left off, all profiles matching the above account object will 
+	be returned.</Doc>
+      </String>
+      <String name="PIN_FLD_PARAMETERS" use="optional" maxlen="255">
+        <Doc>The optional field for use when subclassed information is being returned. 
+	Use this only if you specify subclassed information to be returned via. 
+	PIN_FLD_RESULTS parameter.</Doc>
+      </String>
+      <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+        <Doc>Results array. Can specify fields to read comming back.</Doc>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The partial poid - passed in the input flist.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false" allowedElemIds="0">
+        <Doc>Array of results information.</Doc>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

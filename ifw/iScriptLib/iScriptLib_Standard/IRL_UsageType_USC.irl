@@ -1,0 +1,33 @@
+//===============================================================================
+//
+// Copyright (c) 1998, 2015, Oracle and/or its affiliates. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//===============================================================================
+SOURCE: Database 
+RULE: IMPACT_CAT_MAP 
+TABLE: IFW_USC_MAP 
+ORDERBY: RANK 
+
+INIT_SCRIPT:
+include "./iScriptLib/iScriptLib_Standard/ISC_USC_Map_functions.isc";
+
+CONDITION:
+
+edrString( DETAIL.INTERN_SLA_USC_GROUP ) =~ "${USC_GROUP}";
+edrString( DETAIL.INTERN_USAGE_CLASS ) =~ "${USAGECLASS}";
+isPatternPresent(edrString( DETAIL.USAGE_TYPE ),"${USAGETYPE}",0);
+edrString( DETAIL.INTERN_SERVICE_CODE ) =~ "${SERVICECODE}";
+edrString( DETAIL.INTERN_SERVICE_CLASS ) =~ "${SERVICECLASS}";
+edrString( DETAIL.WHOLESALE_IMPACT_CATEGORY ) =~ "${ZONE_WS}";
+edrString( DETAIL.RETAIL_IMPACT_CATEGORY ) =~ "${ZONE_RT}";
+//isPatternPresent(edrString( DETAIL.RETAIL_IMPACT_CATEGORY ),"${ZONE_RT}",0);
+isValidTimeStamp(edrDate(DETAIL.CHARGING_START_TIMESTAMP), "${VALID_FROM}","${VALID_TO}","${TIME_FROM}","${TIME_TO}");
+isValidQuantity(edrString( DETAIL.DURATION ),"${QUANTITY_VALUE}");
+
+RESULT:
+
+edrString( DETAIL.ASS_CBD.CP.IMPACT_CATEGORY ) = "${IMPACT_CATEGORY_RT}"; 

@@ -1,0 +1,221 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+# Copyright (c) 1997, 2017, Oracle and/or its affiliates. All rights reserved.
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+
+####################################################################
+#  this script is a template example 
+#  it could be used after modifications to insert or update data in Infranet DB
+#  script use option -i for inserting data and -u ( default) for updating data
+#  All warnings and errors go into TMPDIR/data.lst
+########################################################################
+
+use Getopt::Std;
+######################################################################
+## Configuration stuff
+######################################################################
+
+$CONF_DBNAME="defiant";
+$ORACLE_VERSION="Oracle8";
+
+#--------------------------------------------
+# end of configuration section
+#--------------------------------------------
+#=============================================================================
+# check what operation system we are running on
+# $^O will return name of OS
+if ( $^O =~ /win/i )
+{
+# NT computer ( actually any windows operation system )
+# Command to run sqlplus
+$SQL_COMMAND     = "plus80 -s";
+# For Windows NT Oracle 8 has a different batch sql processor
+if ( $ORACLE_VERSION =~ /^Oracle8i$/i ) {
+$SQL_COMMAND     = "sqlplus -s";
+}
+
+# Temporary directory to create files
+$PIN_CONF_TEMPDIR     = "C:/temp";
+}
+else
+{
+# UNIX assignment
+# Command to run sqlplus
+$SQL_COMMAND       = "sqlplus -s";
+
+# Temporary directory to create files
+$PIN_CONF_TEMPDIR       = "/tmp";
+}
+
+($ME = $0) =~ s,.*/,,;
+
+#
+# Parse command line flags.
+# i -  use insert section                          
+# u -  use update section ( default )      
+
+getopts('iu') || &usage("");
+
+if ( defined $opt_i )  {
+#####################################
+#   INSERT section
+# we insert records in service_broadband_ipaddrs_t
+# with predefined 5 specific IP addresses
+# The follwing parameters most likely should be changed in the script below:
+#  - pattern for users login ( used 'netaccount%' )
+#  - maximum number of created records ( used 1000 )
+#  - values and number of different IP addresses
+######################################
+
+$sql_cmnd =<<SQLPLUSEND 
+spool $PIN_CONF_TEMPDIR/data.lst;
+set serveroutput on SIZE 1000000
+DECLARE
+-- set up cursors to fetch data from service_t
+--
+poidvalue NUMBER;
+count INTEGER;
+idx INTEGER;
+
+cursor db_id is 
+	select poid_id0 from service_t where login like 'netaccount%'; 
+
+BEGIN
+
+	-- db no
+	count := 0;
+	idx := 0;
+	open db_id;
+ FOR count IN 1..1000 LOOP
+	fetch db_id into poidvalue;
+	EXIT WHEN db_id%NOTFOUND;
+        if ( idx > 4 ) THEN
+          idx := 0;
+        END IF;
+        if ( idx = 0 ) THEN
+	insert into service_broadband_ipaddrs_t values (poidvalue,1,'ip|156.151.0.0');
+        END IF;
+        if ( idx = 1 ) THEN
+	insert into service_broadband_ipaddrs_t values (poidvalue,1,'ip|1.2.3.4');
+        END IF;
+        if ( idx = 2 ) THEN
+	insert into service_broadband_ipaddrs_t values (poidvalue,1,'ip|127.123.2.3');
+        END IF;
+        if ( idx = 3 ) THEN
+	insert into service_broadband_ipaddrs_t values (poidvalue,1,'ip|157.123.12.12');
+        END IF;
+        if ( idx = 4 ) THEN
+	insert into service_broadband_ipaddrs_t values (poidvalue,1,'ip|206.245.190.166');
+        END IF;
+	idx := idx + 1;
+
+ END LOOP;
+        commit;
+	close db_id;
+
+END;
+/
+
+SQLPLUSEND
+;
+}  else {
+
+#####################################
+#   UPDATE section
+# we update records in event_session_dialup_t
+# by changing network column 
+# ( by default simrad will put there 'my-network'
+# and sessload will not put anything , and both of them created 
+# termserv_id like 0.0.0.x )
+# The follwing parameters most likely should be changed in the script below:
+#  - pattern for users termserv_id ( used '0.0.0.%' )
+#  - frequency for commiting   ( used 100 )
+#  - values and number of different networks
+######################################
+
+$sql_cmnd =<<SQLPLUSEND 
+spool $PIN_CONF_TEMPDIR/data.lst;
+set serveroutput on SIZE 1000000
+DECLARE
+-- set up cursors to fetch data from event_session_dialup_t
+--
+poidvalue NUMBER;
+ipaddress VARCHAR2(20);
+network_value VARCHAR2(20);
+upd_count INTEGER;
+
+cursor db_id is 
+	select obj_id0, termserv_id  from event_session_dialup_t where termserv_id like '0.0.0.%';
+
+BEGIN
+	upd_count := 0;
+	open db_id;
+	LOOP
+		fetch db_id into poidvalue, ipaddress;
+		EXIT  WHEN db_id%NOTFOUND;
+		network_value := 'network'|| TO_CHAR(upd_count);
+		-- change ipaddress so next time we will know it was already updated
+		ipaddress := '1'|| ipaddress;
+		update event_session_dialup_t set network = network_value,
+		termserv_id = ipaddress where obj_id0 = poidvalue;
+		upd_count := upd_count + 1;
+		IF (upd_count >= 100 ) THEN
+			commit;
+			close db_id;
+			open db_id;
+			upd_count := 0;
+		END IF;
+	END LOOP;
+        commit;
+	close db_id;
+
+END;
+/
+
+SQLPLUSEND
+;
+}
+
+exec_sqlcommand($sql_cmnd);
+
+###############################################################################
+# exec_sqlcommand()
+#       input:
+#               sql command(s)
+###############################################################################
+sub exec_sqlcommand {
+	local ($cmd) = @_;
+	local ($status) = 0;
+	local ($exitcode) = 0;
+	local ($tmpfile) = "$PIN_CONF_TEMPDIR/pintmp$$.sql";
+	# Create a temporary file with the sqlplus input.
+	#
+	open(TMPFILE, ">$tmpfile") || die "$ME: cannot create $tmpfile\n";
+	print TMPFILE "$cmd";
+	print TMPFILE "\nexit;\n";
+	close(TMPFILE);
+
+	$sqlout = `$SQL_COMMAND /\@$CONF_DBNAME < $tmpfile`;
+	$exitcode = $?;
+	$status = ($? >> 8);
+
+        unlink "$tmpfile";
+
+       if ($sqlout =~ m/ERROR: /) {
+       print("$sqlout");
+       print("$ME: SQLPLUS failed (exitcode = $exitcode)\n");
+       exit(1);
+       }
+
+       #
+       if ($status || $exitcode) {
+       print("$ME: SQLPLUS failed with status $status\n");
+       exit (1);
+       }
+}
+
+1;
+
+

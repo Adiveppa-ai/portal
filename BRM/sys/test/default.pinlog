@@ -1,0 +1,42 @@
+W Tue Jan  6 23:51:37 2026  Intellious  testnap:4271  pcpst.c(131):610 3:Intellious:testnap:4271:-871610560:0:1767761497595853:0::::-1
+	connect to host=192.168.56.101, port=11960 FAILED, err=111
+W Tue Jan  6 23:51:37 2026  Intellious  testnap:4271  pcpst.c(131):2155 3:Intellious:testnap:4271:-871610560:0:1767761497595853:0::::-1
+	connect to host=192.168.56.101, port=11960 FAILED,  returned ebufp->pin_err=27
+E Tue Jan  6 23:51:37 2026  Intellious  testnap:4271  pcpst.c(131):2164 3:Intellious:testnap:4271:-871610560:0:1767761497595853:0::::-1
+	pcp_connect(), connecting to host=192.168.56.101, port=11960 - failed
+E Tue Jan  6 23:51:38 2026  Intellious  testnap:4271  pcm.c(67):135 3:Intellious:testnap:4271:-871610560:0:1767761497595853:0::::-1
+	Connect open failed in pcm_context_open
+	<location=PIN_ERRLOC_PCP:2 class=PIN_ERRCLASS_SYSTEM_DETERMINATE:1 errno=PIN_ERR_NAP_CONNECT_FAILED:27>
+	<field num=0:0,0 recid=0 reserved=111 reserved2=0 time(sec:usec)=0:0>
+	<facility=0 msg_id=0 version=0>
+E Tue Jan  6 23:51:38 2026  Intellious  testnap:4271  pcm_conn.c(10):305 3:Intellious:testnap:4271:-871610560:0:1767761497595853:0::::-1
+	pcm_connect: bad pcm_context_open, err 27
+W Tue Jan  6 23:51:44 2026  Intellious  testnap:4279  pcpst.c(131):610 3:Intellious:testnap:4279:-1227335872:0:1767761504474984:0::::-1
+	connect to host=192.168.56.101, port=11960 FAILED, err=111
+W Tue Jan  6 23:51:44 2026  Intellious  testnap:4279  pcpst.c(131):2155 3:Intellious:testnap:4279:-1227335872:0:1767761504474984:0::::-1
+	connect to host=192.168.56.101, port=11960 FAILED,  returned ebufp->pin_err=27
+E Tue Jan  6 23:51:44 2026  Intellious  testnap:4279  pcpst.c(131):2164 3:Intellious:testnap:4279:-1227335872:0:1767761504474984:0::::-1
+	pcp_connect(), connecting to host=192.168.56.101, port=11960 - failed
+E Tue Jan  6 23:51:44 2026  Intellious  testnap:4279  pcm.c(67):135 3:Intellious:testnap:4279:-1227335872:0:1767761504474984:0::::-1
+	Connect open failed in pcm_context_open
+	<location=PIN_ERRLOC_PCP:2 class=PIN_ERRCLASS_SYSTEM_DETERMINATE:1 errno=PIN_ERR_NAP_CONNECT_FAILED:27>
+	<field num=0:0,0 recid=0 reserved=111 reserved2=0 time(sec:usec)=0:0>
+	<facility=0 msg_id=0 version=0>
+E Tue Jan  6 23:51:44 2026  Intellious  testnap:4279  pcm_conn.c(10):305 3:Intellious:testnap:4279:-1227335872:0:1767761504474984:0::::-1
+	pcm_connect: bad pcm_context_open, err 27
+E Wed Jan  7 15:25:08 2026  Intellious  testnap:32789  pcm.c(67):921 3:Intellious:testnap:32789:571070272:63:1767817499919670:1:root.0.0.0.1::::-1
+	Op (PCM_OP_CUST_COMMIT_CUSTOMER) receive failed in pcm_op
+	<location=PIN_ERRLOC_PCP:2 class=PIN_ERRCLASS_APPLICATION:4 errno=PIN_ERR_EM_CONNECT_FAILED:114>
+	<field num=0:0,0 recid=0 reserved=3 reserved2=0 time(sec:usec)=0:0>
+	<facility=0 msg_id=0 version=0>
+E Fri Mar 13 13:01:34 2026  Intellious  <no name>:4806  pin_deploy.c:149 2:<machine>:<program>:0:0:0:0:0::::-1
+	Invalid command line args
+E Fri Mar 13 16:29:11 2026  Intellious  testnap:7192  pcm.c(67):921 3:Intellious:testnap:7192:1922946880:63:1773433751678443:1:root.0.0.0.1::::-1
+	Op (PCM_OP_CUST_COMMIT_CUSTOMER) receive failed in pcm_op
+	<location=PIN_ERRLOC_PCP:2 class=PIN_ERRCLASS_APPLICATION:4 errno=PIN_ERR_EM_CONNECT_FAILED:114>
+	<field num=0:0,0 recid=0 reserved=3 reserved2=0 time(sec:usec)=0:0>
+	<facility=0 msg_id=0 version=0>
+W Wed Mar 18 04:30:01 2026  Intellious  testnap:3578  pcpst.c(131):4270 3:Intellious:testnap:3578:1021974336:7:1773822601571430:2:root.0.0.0.1::::-1
+	Server connection(ip 192.168.56.101 11960) pending failover when transaction ends
+W Wed Mar 18 04:30:01 2026  Intellious  testnap:3578  pcpst.c(131):3235 3:Intellious:testnap:3578:1021974336:7:1773822601571430:2:root.0.0.0.1::::-1
+	pcp_send: retrying PCM_OP_SEARCH, flags 0x0 - retries=0 of 3

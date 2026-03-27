@@ -1,0 +1,29 @@
+ 
+   The directory examples contains some scripts and templates to run performance and stress tests against Infranet. 
+   The following files included in this directory :
+
+   1. BenchNotes.txt - some notices and hints to run benchmarks.
+   2. Netflow_Readme.txt - instruction how to run Netflow test.
+   3. t1.crt - configuration file for generating simulated data from Netflow.
+   4. callrecord.pl - perl script which generates Netflow data using configuration file t1.crt.
+   5. gen_collect.pl - crReates environment to run Netflow test.
+   6. setup_netflow - script to load netflow price list into DB.
+   7. netflow_price_list.flist - price list for Netflow.
+   8. start_collector - script wgich start netflow collector.
+   9. attach_netflow_ipaddrs.pl - perl script which create the table in DB with matching IP addresses.
+   10. msdb_attach_netflow_ipaddrs.pl - same as above , but for SS7.
+   11. admin_load.control - template for all possible entries for admin_load.
+   12. initdemo.ora - example of Oracle 9i initialization file for Infranet benchmarking.
+   13. createdemo.sql - script which create "demo" Oracle DB with loading all necessary for benchmarking scripts.
+   14. createdemoSS7.sql - same as above but for SS7.
+   15. db_update_template.pl - template for updating DB with including some specific information.
+   16. msdb_update_template.pl - same as above but for SS7.
+   17. createrolls.sql - sql script to create rollback segments for Oracle.
+   18. Benchmark.xml - price list for running benchmarks. Has a Bench_Basic and Bench_Basic4 plans.
+   19. BenchmarkExtended.xml - price list for running TELCO benchmarks. Has a BenchTelcoGSM and BenchTelcoGSM4 plans.
+   20. ipttest.dat - test file for rad_tester for testing IPT CISCO GAL.
+   21. simradIPT.config - simrad configuration file for testing IPT CISCO GAL. This file should be copied into simrad directory and name should be changed to simrad.conf.
+   22. sql_check.pl - Perl script which could be used to find what SQL statements generates from application, what kind of operations on Oracle DB they execute.It could be used to find offensive SQL statements.
+   23. sqlpurchase.pl - sql based Perl script which can quickly craete multiproduct accounts by adding given number of products to existed accounts, craeted by sql_loader.
+   24. pin_rel_test.pl - Perl script which simulate output from Integrate rating engine. It creates a few TELCO type of cdrs( GSM,GPRS, WAP), so it should be adjusted for each type of needed cdrs. Script contains instruction how to use it.
+   25. pin_integrate_cdr.pl - Perl script which simulate input cdrs from TELCO mediation devices. Creates a few TELCO type of cdrs( GSM,GPRS, WAP), so it should be adjusted for each type of needed cdrs. Script contains instruction how to use it.

@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="Pipeline_ConfMgr" version="15.0.1.0.0" description="Pipeline Configuration Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="ifw.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <file size="8874" dest="pin_setup" mode="0664"/>
+         <file size="12059" dest="functions.pm" mode="0664"/>
+         <file size="6837" dest="pin_setup.values" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="functions.pm"/>
+            <permission mode="0664" wildcard="pin_setup"/>
+            <permission mode="0664" wildcard="pin_setup.values"/>
+         </file-perms>
+      </directory>
+      <directory dest="tools" mode="750" patchable="true">
+         <directory dest="XmlLoader" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="159609" dest="LoadIfwConfig.xsd" mode="0775"/>
+            <file size="588" dest="LoadIfwConfig.reg" mode="0660"/>
+            <file size="12083" dest="CustomConfig.xsd" mode="0775"/>
+            <file size="15522" dest="CustomConfig.xml" mode="0775"/>
+            <file size="15730" dest="CustomConfigRP.xml" mode="0775"/>
+            <file size="16105" dest="CustomConfigDM.xml" mode="0775"/>
+            <file size="1925" dest="LoadIfwConfig.msg" mode="0775"/>
+            <file size="266" dest="samples.xml" mode="0775"/>
+            <file size="511" dest="LOG_StreamITO.probe" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0660" wildcard="LoadIfwConfig.reg"/>
+            <permission mode="0775" wildcard="LoadIfwConfig.xsd"/>
+            <permission mode="0775" wildcard="CustomConfig.xsd"/>
+            <permission mode="0775" wildcard="CustomConfig.xml"/>
+            <permission mode="0775" wildcard="CustomConfigDM.xml"/>
+            <permission mode="0775" wildcard="CustomConfigRP.xml"/>
+            <permission mode="0775" wildcard="samples.xml"/>
+            <permission mode="0775" wildcard="LoadIfwConfig.msg"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="Steps" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Setup" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1101" dest="01copypipelinefiles" mode="0644"/>
+               <file size="2926" dest="02source.pl" mode="0644"/>
+               <file size="5727" dest="04regsetup" mode="0644"/>
+               <file size="5642" dest="06regsetupRerating" mode="0644"/>
+               <file size="8067" dest="07realtimeRegSetup" mode="0644"/>
+               <file size="2982" dest="08genTestReg.pl" mode="0644"/>
+               <file size="1228" dest="40xmlconfig" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="01copypipelinefiles"/>
+            <permission mode="0644" wildcard="02source.pl"/>
+            <permission mode="0644" wildcard="04regsetup"/>
+            <permission mode="0644" wildcard="06regsetupRerating"/>
+            <permission mode="0644" wildcard="07realtimeRegSetup"/>
+            <permission mode="0644" wildcard="08genTestReg.pl"/>
+            <permission mode="0644" wildcard="40xmlconfig"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="Steps" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="Oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1042" dest="12insertpasswd" mode="0644"/>
+               <file size="1208" dest="28pipelinecreate" mode="0644"/>
+               <file size="1396" dest="32DBLoad" mode="0644"/>
+               <file size="1451" dest="20dbcreate" mode="0644"/>
+               <file size="1266" dest="24jsacreate" mode="0644"/>
+               <file size="4761" dest="16dbinit" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="12insertpasswd"/>
+            <permission mode="0644" wildcard="16dbinit"/>
+            <permission mode="0644" wildcard="20dbcreate"/>
+            <permission mode="0644" wildcard="24jsacreate"/>
+            <permission mode="0644" wildcard="28pipelinecreate"/>
+            <permission mode="0644" wildcard="32DBLoad"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="650184" dest="LoadIfwConfig" mode="0775"/>
+      </directory>
+      <directory dest="releaseNotes" mode="750" patchable="true">
+         <file size="18270" dest="RELEASE_NOTES.XMLLOADER" mode="0775"/>
+      </directory>
+   </file-map>
+</component-def>

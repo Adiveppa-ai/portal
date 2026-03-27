@@ -1,0 +1,135 @@
+//==============================================================================
+//
+//      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_CiberRejectReason
+//------------------------------------------------------------------------------
+// Module Description: 
+//   This module can be used to populate the CIBER reject fields if the 
+//      EDR contains a roaming agreement or duplicate check error codes. 
+//
+//------------------------------------------------------------------------------
+// $Log: ISC_CiberRejectReasonCode.isc,v $
+// Revision 1.1  2003/03/12 njalel
+// Initial import of CiberRejectReasonCode script.
+//
+//==============================================================================
+
+//==============================================================================
+// Global variables
+//==============================================================================
+
+Bool    debug;
+String  DUPLICATE_FLAG = "INF_DUPLICATE_EDR";
+String  ROAMING_FLAG = "ERR_ICPRODUCT_NOT_FOUND";
+Bool    roam_flag ;
+Bool    dup_flag ;
+
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;
+}
+
+//==============================================================================
+// Function declarations 
+//==============================================================================
+//==============================================================================
+// init() 
+//==============================================================================
+function init
+{
+  if (debug)
+    logStdout("init()\n");
+
+  dup_flag = false;
+  roam_flag = false;
+
+  return;
+}
+
+
+//==============================================================================
+// Set the Ciber error code 
+//==============================================================================
+
+function setCiberError
+{
+  if (debug)
+    logStdout("setCiberError()\n");
+
+  if(dup_flag ==  true) {
+    // It is Duplicate check error, set the error code
+    if (edrString(DETAIL.ERROR_REJECT_TYPE) != "ERR_CIBER_RET") {
+	  edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+          //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+          edrAddError("ERR_CIBER_RET",3,"4","11","042",
+                "CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+  }
+
+  if(roam_flag == true) {
+    // It is roaming agreement error, set the error code.
+    if (edrString(DETAIL.ERROR_REJECT_TYPE) != "ERR_CIBER_RET") {
+	  edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+          //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+          edrAddError("ERR_CIBER_RET",3,"4","15","211",
+                "CIBER25.ASS_CIBER_EXT.HOME_CARRIER_SID");
+    }
+  }
+
+return;
+}
+
+//==============================================================================
+// Check if the Duplicate or Roaming agreament error is set
+//==============================================================================
+
+function checkForEdrErrs
+{
+  if (debug)
+    logStdout("checkForEdrErrs()\n");
+
+  Long i;
+  Long longCountOfErrors = edrNumErrors();
+   
+  if (edrString(DETAIL.ERROR_REJECT_TYPE) == DUPLICATE_FLAG)
+  {
+     dup_flag = true;
+     // Set the CIBER error code if not set.
+     setCiberError();
+  }
+
+  for(i = 0; (i < longCountOfErrors ); i = i + 1)
+  {
+     if(edrGetError(i) == ROAMING_FLAG)
+     {
+        roam_flag = true;
+	// Set the CIBER error code if not set.
+	setCiberError();
+     }
+  }
+
+  return;
+} // checkForEdrErrs()
+
+//==============================================================================
+// DETAIL container
+//==============================================================================
+function onDetailEdr
+{
+  if (debug)
+    logStdout("onDetailEdr\n");
+
+   init();
+
+   checkForEdrErrs(); 
+}

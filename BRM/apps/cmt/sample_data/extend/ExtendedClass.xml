@@ -1,0 +1,129 @@
+<Sbsc xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.portal.com/InfranetXMLSchema CMT_Subscribers.xsd">
+	<ActSbsc id="1005009">
+		<Act>
+			<ActNo>1005009</ActNo>
+			<Curr>392</Curr>
+			<SubSta>A</SubSta>
+			<BType>C</BType>
+			<Eff>2004-11-01T00:00:00+09:00</Eff>
+			<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+			<ANArr elem="1">
+				<Add>address</Add>
+				<City>City</City>
+				<CntTyp>AccountHolder</CntTyp>
+				<FNm>aa</FNm>
+				<MNm>xx</MNm>
+				<LNm>ff</LNm>
+				<Tit>kk</Tit>
+				<Zip>1000013</Zip>
+				<APhArr elem="0">
+					<Ph>0355013800</Ph>
+					<PhTyp>H</PhTyp>
+				</APhArr>
+			</ANArr>
+		</Act>
+		<ActSub>
+			<ActSrv id="1005009" type="/service/telco/imt" bal_grp="true" precreate="/item/misc" global="true">
+				<CWhn>1970-01-01T09:00:00+09:00</CWhn>
+				<SrvSta>A</SrvSta>
+				<Log>0081964008001</Log>
+				<Pass>0081964008001</Pass>
+				<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+				<Eff>2004-11-01T00:00:00+09:00</Eff>
+				<SrvALArr elem="1">
+					<Nam>0081964008001</Nam>
+				</SrvALArr>				  				
+			</ActSrv>
+
+			<ActSrv id="10050093" type="/service/sampleExtension" precreate="/item/misc" global="true">
+				<CWhn>1970-01-01T09:00:00+09:00</CWhn>
+				<SrvSta>A</SrvSta>
+				<Log>0081964008002</Log>
+				<Pass>0081964008002</Pass>
+				<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+				<Eff>2004-11-01T00:00:00+09:00</Eff>
+                                <SClsInfo>
+					<myExtension>
+						<mySubstruct table="sampleExtension_substr1_t" elem="1">
+							<FldCustName type="string">abc</FldCustName>
+							<FldCustType type="integer">99</FldCustType>
+						</mySubstruct>
+						<myArray table="sampleExtension_cust1_t" elem="1">
+							<FldAmt type="integer">190</FldAmt>
+							<FldDate type="date">2004-02-02T01:22:15-7:00</FldDate>
+							<myArray table="sampleExtension_cycle_t" elem="1">
+								<Fldtype type="integer">190</Fldtype>
+							</myArray>
+						</myArray>
+					</myExtension>
+				</SClsInfo>
+			</ActSrv>
+		</ActSub>
+		<PurPrd serviceRef="10050093" pkgId="54243>
+			<CDis>0</CDis>
+			<CDisAmt>0</CDisAmt>
+			<CFeeAmt>0</CFeeAmt>
+			<CEnd xsi:nil="true"/>
+			<CStrt>2004-11-01T00:00:00+09:00</CStrt>
+			<DlObj>0.0.0.1 /deal 20008 0</DlObj>
+			<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+			<PlObj>0.0.0.1 /plan 19032 0</PlObj>
+			<PrObj>0.0.0.1 /product 15771 0</PrObj>
+			<PuDis>0</PuDis>
+			<PuDiscAmt>0</PuDiscAmt>
+			<PuFAmt>0</PuFAmt>
+			<PuEnd xsi:nil="true"/>
+			<PuStr>2004-11-01T00:00:00+09:00</PuStr>
+			<PrSta>A</PrSta>
+			<UsgDis>0</UsgDis>
+			<UsgEnd xsi:nil="true"/>
+			<UsgStr>2004-11-01T00:00:00+09:00</UsgStr>
+		</PurPrd>
+		<PurPrd pkgId="42413">
+			<CDis>0</CDis>
+			<CDisAmt>0</CDisAmt>
+			<CFeeAmt>0</CFeeAmt>
+			<CEnd xsi:nil="true"/>
+			<CStrt>2004-11-01T00:00:00+09:00</CStrt>
+			<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+			<DlObj>0.0.0.1 /deal 19656 0</DlObj>
+			<PlObj>0.0.0.1 /plan 19032 0</PlObj>
+			<PrObj>0.0.0.1 /product 16043 0</PrObj>
+			<PuDis>0</PuDis>
+			<PuDiscAmt>0</PuDiscAmt>
+			<PuFAmt>0</PuFAmt>
+			<PuEnd xsi:nil="true"/>
+			<PuStr>2004-11-01T00:00:00+09:00</PuStr>
+			<PrSta>A</PrSta>
+			<UsgDis>0</UsgDis>
+			<UsgEnd xsi:nil="true"/>
+			<UsgStr>2004-11-01T00:00:00+09:00</UsgStr>
+		</PurPrd>
+		<ABinfo global="true">
+			<ACDom>1</ACDom>
+			<ActgType>B</ActgType>
+			<ANxt>2004-12-01T00:00:00+09:00</ANxt>
+			<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+			<BlWn>1</BlWn>
+			<BlSgmnt>RC</BlSgmnt>
+                        <BISta>A</BISta>
+		</ABinfo>
+		<APinfo id="1005009" type="/payinfo/invoice">
+			<DDom>1</DDom>
+			<RelDue>2004-12-15T00:00:00+09:00</RelDue>
+			<CrtT>2004-05-26T01:22:15-07:00</CrtT>
+			<Ach>0</Ach>
+			<payInvExtn>
+				<Add>???????????????</Add>
+				<Cty></Cty>
+				<Cntr>??</Cntr>
+				<DelDsc>paymentslip</DelDsc>
+				<DelPrf>E</DelPrf>
+				<InvInstr>bill to be paid</InvInstr>
+				<Nm>???????</Nm>
+				<Stt>????</Stt>
+				<Zip>1000013</Zip>
+			</payInvExtn>
+		</APinfo>
+	</ActSbsc>
+</Sbsc>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/PortalXMLSchema" xmlns="http://www.portal.com/PortalXMLSchema"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Name" type="xs:string"/>
+	<xs:element name="value" type="xs:string"/>
+	<xs:complexType name="PinRerateType">
+		<xs:all>
+			<xs:element ref="Name"/>
+			<xs:element ref="value"/>
+		</xs:all>
+	</xs:complexType>
+        <xs:element name="PinRerate_flds">
+                <xs:complexType>
+                        <xs:sequence>
+                                <xs:element name="PinRerate" type="PinRerateType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                </xs:complexType>
+        </xs:element>
+	<xs:complexType name="RerateCompareBalImpactsType">
+		<xs:all>
+			<xs:element ref="Name"/>
+		</xs:all>
+	</xs:complexType>
+        <xs:element name="RerateCompareBalImpacts_flds">
+                <xs:complexType>
+                        <xs:sequence>
+                                <xs:element name="RerateCompareBalImpacts" type="RerateCompareBalImpactsType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                </xs:complexType>
+        </xs:element>
+</xs:schema>

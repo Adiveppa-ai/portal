@@ -1,0 +1,84 @@
+//==============================================================================
+//  @(#)% %
+// Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//------------------------------------------------------------------------------
+// Block: ISC_ConsolidatedCP.isc
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module sets the Rate_Tag field in BP with the value of NRTRDE flag
+//   of the network operator in the outcollect settlement flow so that HUR 
+//   report can use this field later in the select condition.
+//------------------------------------------------------------------------------
+// Responsible: Archan Misra
+//
+//------------------------------------------------------------------------------
+//==============================================================================
+// include the OpFlag Extension interface
+use IXT_OpFlag;
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  //----------------------------------------------------------------------------
+  // Connect the extension with the DAT_InterConnect plugin
+  //----------------------------------------------------------------------------
+  if (setDAT_InterConnectModule("ifw.DataPool.ICDataModule.Module") == true )
+  {
+    logPipeline( "INFO: Roaming Ic Module set \n",0);
+  }
+  else
+  {
+    logPipeline( "ERROR: Could not set Ic Module \n",4);
+    scriptUsable( false );
+  }
+
+}
+
+function onDetailEdr
+{
+  Long bpEntries;
+  Long bpIndex;
+  Long blockIndex;
+  Long bpcount = 0;
+  String visitorPLMN;
+  String nrtrdeflag;
+  String msg;
+
+  //----------------------------------------------------------------------------
+  // check the value of NRTDE flag for the incoming PLMN
+  //----------------------------------------------------------------------------
+  visitorPLMN = edrString(DETAIL.ASS_ROAMING_EXT.RECIPIENT,0); 
+  nrtrdeflag = getNRTRDEFlag(visitorPLMN);
+
+  if(nrtrdeflag == "")
+  {
+    msg = "ERROR: nrtrdeflag value not found for this visitor PLMN " + visitorPLMN;
+    logPipeline(msg);
+    edrAddError("ERR_PLMN_NOT_FOUND", 3, msg);
+    edrSetIsValidDetail( false );
+    return;
+  }
+  else 
+  {
+    //----------------------------------------------------------------------------
+    // Set the NRTRDE Flag in Rate_tag field for HUR report
+    //----------------------------------------------------------------------------
+    Long blockEntries = edrNumDatablocks( DETAIL.ASS_PIN);
+
+    for(blockIndex = 0; blockIndex < blockEntries; blockIndex = blockIndex + 1)
+    {
+      bpEntries = edrNumDatablocks( DETAIL.ASS_PIN.BP,blockIndex);
+
+      for(bpIndex = 0; bpIndex < bpEntries; bpIndex = bpIndex + 1)
+      {
+        edrString(DETAIL.ASS_PIN.BP.PIN_RATE_TAG,blockIndex,bpIndex) = nrtrdeflag;
+      }
+    }
+  }
+} // end onDetailEdr + end iScript

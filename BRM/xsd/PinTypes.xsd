@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2007, 2021, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema 
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    This file contains definitions and validations for varios PIN_FLDs.
+    It needs to be included in all config XSD schemas. 
+    Please add new ones in alphabetical order.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:simpleType name="PinActgDOMStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="closed" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="open" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="restricted" />
+      <xs:enumeration value="2" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinBeidApplyMode">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="1" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinBeidConsRule">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="12" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinBeidProcStage">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="rating" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="discounting" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="taxation" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="ar" />
+      <xs:enumeration value="3" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinBeidRoundMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="nearest" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="up" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="down" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="even" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="floor" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="floor_alt" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="down_alt" />
+      <xs:enumeration value="6" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinBeidStatus">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="3" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinCycleFreqUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="month" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="day" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="week" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="year" />
+      <xs:enumeration value="3" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinDay">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="01" />
+      <xs:maxInclusive value="31" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinDescr">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinEventObjType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+      <xs:pattern value="/event.*" />
+      <xs:pattern value="\*" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinEventTimeMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="start_t" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="end_t" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="timed" />
+      <xs:enumeration value="2" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinFieldName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+      <xs:pattern value="PIN_FLD_.+" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinGLAcctStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="inactive" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="active" />
+      <xs:enumeration value="1" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinGLAcctType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="expense" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="liability" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="equity" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="revenue" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="asset" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="undefined" />
+      <xs:enumeration value="32" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinGLAttribute">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="net" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="disc" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="tax" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="gross" />
+      <xs:enumeration value="8" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinGLBillCycleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="unbilled" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="billed" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="unbilled_earned" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="billed_earned" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="unbilled_unearned" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="billed_unearned" />
+      <xs:enumeration value="32" />
+      <xs:enumeration value="prev_billed_earned" />
+      <xs:enumeration value="64" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinGLId">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="2147483647" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinHostname">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinItemType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="individual" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="cumulative" />
+      <xs:enumeration value="2" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinItemObjType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+      <xs:pattern value="/item/.+" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinJurisdictionTypeStr">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Fed" />
+      <xs:enumeration value="Sta" />
+      <xs:enumeration value="Cou" />
+      <xs:enumeration value="Cit" />
+      <xs:enumeration value="Loc" />
+      <xs:enumeration value="Dis" />
+      <xs:enumeration value="Ter" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinMonth">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="01" />
+      <xs:maxInclusive value="12" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinName">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="255"/>
+      <xs:pattern value="[\S\s]*\S+[\S\s]*" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinPoid">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+      <xs:pattern value="[0-9]\.[0-9]\.[0-9]\.[0-9] /.+ -?[0-9]+ [0-9]+" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinProgramName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="60"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinRateUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="second" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="minute" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="hour" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="day" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="month" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="evt_cycle" />
+      <xs:enumeration value="7" />
+      <xs:enumeration value="act_cycle" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="bill_cycle" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="byte" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="kilobyte" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="megabyte" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="gigabyte" />
+      <xs:enumeration value="14" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinRumExpression">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+      <xs:pattern value="[0-9]+\.*[0-9]*" />
+      <xs:pattern value="\(*PIN_FLD.+\.*PIN_FLD.*\)*.*" />
+      <xs:pattern value="PIN_FLD_.+" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinSalesIndicator">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="S" />
+      <xs:enumeration value="R" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinServiceObjType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+      <xs:pattern value="/service/.+" />
+      <xs:pattern value="/account" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinTaxPKGCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Q" />
+      <xs:enumeration value="C" />
+      <xs:enumeration value="U" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinTaxRuleTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Std" />
+      <xs:enumeration value="Tax" />
+      <xs:enumeration value="Inc" />
+      <xs:enumeration value="NCS" />
+      <xs:enumeration value="NCT" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinTimeZoneMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="event" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="server" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="account" />
+      <xs:enumeration value="2" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinImpactType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Charge" />
+      <xs:enumeration value="Discount" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinValidityMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="immediate" />
+      <xs:enumeration value="relative" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinValidityUnit">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="day" />
+      <xs:enumeration value="month" />
+      <xs:enumeration value="event_cycle" />
+      <xs:enumeration value="accounting_cycle" />
+      <xs:enumeration value="billing_cycle" />
+      <xs:enumeration value="year" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+	
+  <xs:simpleType name="PinValue">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1023"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinVersion">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="30"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinYear">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0000" />
+      <xs:maxInclusive value="9999" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceStatus">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="10100" />
+      <xs:enumeration value="10102" />
+      <xs:enumeration value="10103" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LifecycleState">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="101" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

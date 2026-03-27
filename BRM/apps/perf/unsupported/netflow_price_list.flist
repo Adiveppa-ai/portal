@@ -1,0 +1,1239 @@
+# number of field entries allocated 32, used 32
+0 PIN_FLD_POID           POID [0] 0.0.0.1 /service/admin_client 1 0
+0 PIN_FLD_PROGRAM_NAME    STR [0] "Pricing Tool"
+0 PIN_FLD_PLAN_LISTS    ARRAY [0] allocated 20, used 8
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /group/plan_list 9134 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881155) Wed Feb 24 10:32:35 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881155) Wed Feb 24 10:32:35 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_NAME            STR [0] "default"
+1     PIN_FLD_STATUS         ENUM [0] 10100
+1     PIN_FLD_TYPE_STR        STR [0] "addon"
+1     PIN_FLD_PLAN          ARRAY [0] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 8622 0
+2         PIN_FLD_NAME            STR [0] "Email"
+0 PIN_FLD_PLAN_LISTS    ARRAY [1] allocated 20, used 11
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /group/plan_list 11182 2
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881155) Wed Feb 24 10:32:35 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881286) Wed Feb 24 10:34:46 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_NAME            STR [0] "default"
+1     PIN_FLD_STATUS         ENUM [0] 10100
+1     PIN_FLD_TYPE_STR        STR [0] "new"
+1     PIN_FLD_PLAN          ARRAY [0] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 9902 0
+2         PIN_FLD_NAME            STR [0] "Basic"
+1     PIN_FLD_PLAN          ARRAY [1] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 10670 0
+2         PIN_FLD_NAME            STR [0] "Power"
+1     PIN_FLD_PLAN          ARRAY [2] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 9646 0
+2         PIN_FLD_NAME            STR [0] "Standard"
+1     PIN_FLD_PLAN          ARRAY [3] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 10094 0
+2         PIN_FLD_NAME            STR [0] "IPT and IP Dial-up"
+0 PIN_FLD_PLAN_LISTS    ARRAY [2] allocated 20, used 13
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /group/plan_list 11694 2
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881155) Wed Feb 24 10:32:35 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881286) Wed Feb 24 10:34:46 1999
+1     PIN_FLD_DESCR           STR [0] "The plans can be purchased in the Admin Manager"
+1     PIN_FLD_NAME            STR [0] "admintool"
+1     PIN_FLD_STATUS         ENUM [0] 10100
+1     PIN_FLD_TYPE_STR        STR [0] "new"
+1     PIN_FLD_PLAN          ARRAY [0] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 9902 0
+2         PIN_FLD_NAME            STR [0] "Basic"
+1     PIN_FLD_PLAN          ARRAY [1] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 11950 0
+2         PIN_FLD_NAME            STR [0] "CSR"
+1     PIN_FLD_PLAN          ARRAY [2] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 10670 0
+2         PIN_FLD_NAME            STR [0] "Power"
+1     PIN_FLD_PLAN          ARRAY [3] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 9646 0
+2         PIN_FLD_NAME            STR [0] "Standard"
+1     PIN_FLD_PLAN          ARRAY [4] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 10094 0
+2         PIN_FLD_NAME            STR [0] "IPT and IP Dial-up"
+1     PIN_FLD_PLAN          ARRAY [5] allocated 20, used 2
+2         PIN_FLD_PLAN_OBJ       POID [0] 0.0.0.1 /plan 8318 0
+2         PIN_FLD_NAME            STR [0] "Netflow Plan"
+0 PIN_FLD_PLAN          ARRAY [0] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 8622 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "Add Email to Basic Plan"
+1     PIN_FLD_NAME            STR [0] "Email"
+1     PIN_FLD_LIMIT         ARRAY [840] allocated 20, used 3
+2         PIN_FLD_CREDIT_FLOOR    NUM [0] 0.000000
+2         PIN_FLD_CREDIT_LIMIT    NUM [0] 150.000000
+2         PIN_FLD_CREDIT_THRESHOLDS   UINT [0] 0
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 9006 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/email -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "Email Promotion"
+0 PIN_FLD_PLAN          ARRAY [1] allocated 20, used 10
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 9646 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "IP and Email with 10 Free hrs per month"
+1     PIN_FLD_NAME            STR [0] "Standard"
+1     PIN_FLD_LIMIT         ARRAY [840] allocated 20, used 3
+2         PIN_FLD_CREDIT_FLOOR    NUM [0] 0.000000
+2         PIN_FLD_CREDIT_LIMIT    NUM [0] 150.000000
+2         PIN_FLD_CREDIT_THRESHOLDS   UINT [0] 0
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 9006 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/email -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "Email Promotion"
+1     PIN_FLD_SERVICES      ARRAY [1] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 10030 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/ip -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "IP Basic"
+0 PIN_FLD_PLAN          ARRAY [2] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 9902 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "IP with 10 Free hrs per month"
+1     PIN_FLD_NAME            STR [0] "Basic"
+1     PIN_FLD_LIMIT         ARRAY [840] allocated 20, used 3
+2         PIN_FLD_CREDIT_FLOOR    NUM [0] 0.000000
+2         PIN_FLD_CREDIT_LIMIT    NUM [0] 100.000000
+2         PIN_FLD_CREDIT_THRESHOLDS   UINT [0] 0
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 10030 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/ip -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "IP Basic"
+0 PIN_FLD_PLAN          ARRAY [3] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 10094 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "Invoiced IP and IPT usage.  Get 6 minutes free of IP usage for each minute of IPT usage"
+1     PIN_FLD_NAME            STR [0] "IPT and IP Dial-up"
+1     PIN_FLD_LIMIT         ARRAY [1000001] allocated 20, used 3
+2         PIN_FLD_CREDIT_FLOOR    NUM [0] 0.000000
+2         PIN_FLD_CREDIT_LIMIT    NUM [0] 25.000000
+2         PIN_FLD_CREDIT_THRESHOLDS   UINT [0] 0
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 9070 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/telephony -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "IP/IPT Cross-Product"
+0 PIN_FLD_PLAN          ARRAY [4] allocated 20, used 10
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 10670 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "IP and Email with Unlimited IP Usage"
+1     PIN_FLD_NAME            STR [0] "Power"
+1     PIN_FLD_LIMIT         ARRAY [840] allocated 20, used 3
+2         PIN_FLD_CREDIT_FLOOR    NUM [0] 10.000000
+2         PIN_FLD_CREDIT_LIMIT    NUM [0] 200.000000
+2         PIN_FLD_CREDIT_THRESHOLDS   UINT [0] 0
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 9006 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/email -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "Email Promotion"
+1     PIN_FLD_SERVICES      ARRAY [1] allocated 20, used 3
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 9390 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/ip -1 0
+2         PIN_FLD_DEAL_NAME       STR [0] "IP Power"
+0 PIN_FLD_PLAN          ARRAY [5] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 11950 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "Customer Service Representative"
+1     PIN_FLD_NAME            STR [0] "CSR"
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 2
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/admin_client -1 0
+1     PIN_FLD_SERVICES      ARRAY [1] allocated 20, used 2
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/email -1 0
+0 PIN_FLD_PLAN          ARRAY [6] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /plan 8318 2
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773468) Mon May 03 16:17:48 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773575) Mon May 03 16:19:35 1999
+1     PIN_FLD_ACCOUNT_OBJ    POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.0  0 0
+1     PIN_FLD_DESCR           STR [0] "Netflow"
+1     PIN_FLD_NAME            STR [0] "Netflow Plan"
+1     PIN_FLD_LIMIT         ARRAY [840] allocated 20, used 3
+2         PIN_FLD_CREDIT_FLOOR    NUM [0] 0.000000
+2         PIN_FLD_CREDIT_LIMIT    NUM [0] 1000.000000
+2         PIN_FLD_CREDIT_THRESHOLDS   UINT [0] 0
+1     PIN_FLD_SERVICES      ARRAY [0] allocated 20, used 2
+2         PIN_FLD_DEAL_OBJ       POID [0] 0.0.0.1 /deal 10174 0
+2         PIN_FLD_SERVICE_OBJ    POID [0] 0.0.0.1 /service/broadband -1 0
+0 PIN_FLD_DEALS         ARRAY [0] allocated 20, used 10
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 8366 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP Extended"
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9422 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async bulk 30"
+1     PIN_FLD_PRODUCTS      ARRAY [1] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (2592000) Fri Jan 30 16:00:00 1970
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async measured"
+0 PIN_FLD_DEALS         ARRAY [1] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 8878 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP Starter"
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (864000) Sat Jan 10 16:00:00 1970
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async measured"
+0 PIN_FLD_DEALS         ARRAY [2] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 9006 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_DESCR           STR [0] "Email Service w/ 90 days free"
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Email Promotion"
+1     PIN_FLD_PERMITTED       STR [0] "/service/email"
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (7776000) Tue Mar 31 16:00:00 1970
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9550 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "Email service"
+0 PIN_FLD_DEALS         ARRAY [3] allocated 20, used 10
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 9070 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+1     PIN_FLD_DESCR           STR [0] "Get 6 minutes of IP use for each IPT minute"
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP/IPT Cross-Product"
+1     PIN_FLD_PERMITTED       STR [0] ""
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8302 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP Cross-Product"
+1     PIN_FLD_PRODUCTS      ARRAY [1] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8814 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IPT Cross-Product"
+0 PIN_FLD_DEALS         ARRAY [4] allocated 20, used 9
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 9390 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP Power"
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9774 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async unlimited"
+0 PIN_FLD_DEALS         ARRAY [5] allocated 20, used 11
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 10030 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881154) Wed Feb 24 10:32:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP Basic"
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 10062 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async bulk 10"
+1     PIN_FLD_PRODUCTS      ARRAY [1] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8654 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 2.500000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async bulk hour unit"
+1     PIN_FLD_PRODUCTS      ARRAY [2] allocated 20, used 20
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (1728000) Tue Jan 20 16:00:00 1970
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "IP async measured"
+0 PIN_FLD_DEALS         ARRAY [6] allocated 20, used 12
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /deal 10174 2
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773467) Mon May 03 16:17:47 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773575) Mon May 03 16:19:35 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_FLAGS          UINT [0] 0
+1     PIN_FLD_NAME            STR [0] "Deal 1 - Measured Usage"
+1     PIN_FLD_PERMITTED       STR [0] ""
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 19
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9790 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "Product 1a - Setup Fee"
+1     PIN_FLD_PRODUCTS      ARRAY [1] allocated 20, used 19
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9534 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "Product 1b - Monthly Fee"
+1     PIN_FLD_PRODUCTS      ARRAY [2] allocated 20, used 19
+2         PIN_FLD_CYCLE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_CYCLE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_CYCLE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8638 0
+2         PIN_FLD_PURCHASE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PURCHASE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_PURCHASE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_QUANTITY        NUM [0] 1.000000
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_STATUS_FLAGS   UINT [0] 0
+2         PIN_FLD_USAGE_DISCOUNT    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_END_T  TSTAMP [0] (0) <null>
+2         PIN_FLD_USAGE_START_CYCLE    NUM [0] 0.000000
+2         PIN_FLD_USAGE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_PROD_NAME       STR [0] "Product 1e - NetFlow Rating, Measured Usage"
+0 PIN_FLD_PRODUCTS      ARRAY [0] allocated 20, used 18
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 8302 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881284) Wed Feb 24 10:34:44 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881284) Wed Feb 24 10:34:44 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP Cross-Product"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9326 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881284) Wed Feb 24 10:34:44 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881284) Wed Feb 24 10:34:44 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "IP async Dialup Session - charge for hourly usage"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "ip/dialup/async/hourly"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8302 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 1000000000000000000000.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 1
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 104
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] ""
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 2.000000
+0 PIN_FLD_PRODUCTS      ARRAY [1] allocated 20, used 18
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 8654 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP async bulk hour unit"
+1     PIN_FLD_OWN_MAX         NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 1
+1     PIN_FLD_PERMITTED       STR [0] ""
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 601
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9678 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 0
+2         PIN_FLD_DESCR           STR [0] "Promotional Credit for IP Async Connect Time"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "purchase"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8654 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 1
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -1.000000
+0 PIN_FLD_PRODUCTS      ARRAY [2] allocated 20, used 20
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 8814 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881284) Wed Feb 24 10:34:44 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881284) Wed Feb 24 10:34:44 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IPT Cross-Product"
+1     PIN_FLD_OWN_MAX         NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/telephony"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 26, used 26
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9838 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Minute of telephony"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "ip/telephony/minute"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8814 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] -10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 0
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 0
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -0.100000
+2         PIN_FLD_BAL_IMPACTS   ARRAY [1] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 0
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "US_to_Asia"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 0.250000
+2         PIN_FLD_BAL_IMPACTS   ARRAY [2] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 0
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "Asia_to_US"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 0.500000
+1     PIN_FLD_FOLDS         ARRAY [0] allocated 20, used 18
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /fold 8558 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Credit US$ to amount owed for IP usage"
+2         PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_FLAGS          UINT [0] 0
+2         PIN_FLD_NAME            STR [0] ""
+2         PIN_FLD_OWN_MAX         NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_OWN_MIN         NUM [0] -10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PRIORITY        NUM [0] 100.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8814 0
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 6
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 0
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -2.000000
+1     PIN_FLD_FOLDS         ARRAY [1] allocated 20, used 18
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /fold 9582 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881285) Wed Feb 24 10:34:45 1999
+2         PIN_FLD_CURRENCY       UINT [0] 0
+2         PIN_FLD_DESCR           STR [0] "Reset unused async bulk hours"
+2         PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_FLAGS          UINT [0] 0
+2         PIN_FLD_NAME            STR [0] "async bulk hours"
+2         PIN_FLD_OWN_MAX         NUM [0] 1000000000000000000000.000000
+2         PIN_FLD_OWN_MIN         NUM [0] -1000000000000000000000.000000
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 8814 0
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 6
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 0
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -1.000000
+0 PIN_FLD_PRODUCTS      ARRAY [3] allocated 21, used 21
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 9166 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP async measured"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 8238 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 0
+2         PIN_FLD_DESCR           STR [0] "IP Async Dialup Session"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "ip/dialup/async/hourly"
+2         PIN_FLD_PRIORITY        NUM [0] 100.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 0
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 1
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 104
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 1.000000
+1     PIN_FLD_RATES         ARRAY [1] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9262 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "IP async Dialup Session"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "ip/dialup/async/hourly"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 1
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 104
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 2.000000
+1     PIN_FLD_RATES         ARRAY [2] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 10190 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Monthly Fee For IP Async Measured Service"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "cycle_forward"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 702
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 702
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 4.950000
+1     PIN_FLD_FOLDS         ARRAY [0] allocated 20, used 18
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /fold 8750 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 0
+2         PIN_FLD_DESCR           STR [0] "Unused async bulk hours deleted"
+2         PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_FLAGS          UINT [0] 0
+2         PIN_FLD_NAME            STR [0] "async bulk hours"
+2         PIN_FLD_OWN_MAX         NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_OWN_MIN         NUM [0] -10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9166 0
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 6
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 0
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 0
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -1.000000
+0 PIN_FLD_PRODUCTS      ARRAY [4] allocated 20, used 19
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 9422 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP async bulk 30"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 8910 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "IP Async Dialup Session"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "ip/dialup/async/hourly"
+2         PIN_FLD_PRIORITY        NUM [0] 50.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9422 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 1
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 104
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 1.500000
+1     PIN_FLD_RATES         ARRAY [1] allocated 25, used 25
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9934 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Monthly Fee for IP Async 30 hours Package"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "cycle_forward"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9422 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 702
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 701
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 30.000000
+2         PIN_FLD_BAL_IMPACTS   ARRAY [1] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -30.000000
+0 PIN_FLD_PRODUCTS      ARRAY [5] allocated 20, used 18
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 9550 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881152) Wed Feb 24 10:32:32 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881152) Wed Feb 24 10:32:32 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Email service"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/email"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9038 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881152) Wed Feb 24 10:32:32 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881152) Wed Feb 24 10:32:32 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Monthly Fee for Basic Email Service"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "cycle_forward"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9550 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 702
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 702
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 2.500000
+0 PIN_FLD_PRODUCTS      ARRAY [6] allocated 20, used 19
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 9774 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP async unlimited"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 8494 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Monthly Fee for IP Async Unlimited Service"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "cycle_forward"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9774 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 702
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 702
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 19.950000
+1     PIN_FLD_RATES         ARRAY [1] allocated 24, used 24
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 9518 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Purchase fee for IP Async Unlimited Service"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "purchase"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 9774 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 0
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 0
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 5.000000
+3             PIN_FLD_FLAGS          UINT [0] 1
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 101
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 0.000000
+0 PIN_FLD_PRODUCTS      ARRAY [7] allocated 20, used 18
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 10062 0
+1     PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "IP async bulk 10"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/ip"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+1     PIN_FLD_RATES         ARRAY [0] allocated 25, used 25
+2         PIN_FLD_POID           POID [0] 0.0.0.1 /rate 8398 0
+2         PIN_FLD_CREATED_T    TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_MOD_T        TSTAMP [0] (919881153) Wed Feb 24 10:32:33 1999
+2         PIN_FLD_CURRENCY       UINT [0] 840
+2         PIN_FLD_DESCR           STR [0] "Monthly Fee for IP Async 10-Hour Package"
+2         PIN_FLD_END_T        TSTAMP [0] (0) <null>
+2         PIN_FLD_NAME            STR [0] "cycle_forward"
+2         PIN_FLD_PRIORITY        NUM [0] 0.000000
+2         PIN_FLD_PRODUCT_OBJ    POID [0] 0.0.0.1 /product 10062 0
+2         PIN_FLD_PRORATE_FIRST   ENUM [0] 702
+2         PIN_FLD_PRORATE_LAST   ENUM [0] 701
+2         PIN_FLD_PURCHASE_MAX    NUM [0] 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000
+2         PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+2         PIN_FLD_RELATIVE_END_T TSTAMP [0] (0) <null>
+2         PIN_FLD_RELATIVE_START_T TSTAMP [0] (0) <null>
+2         PIN_FLD_START_T      TSTAMP [0] (0) <null>
+2         PIN_FLD_TAX_CODE        STR [0] ""
+2         PIN_FLD_TAX_WHEN       ENUM [0] 0
+2         PIN_FLD_TYPE           ENUM [0] 740
+2         PIN_FLD_VALID_DOM      UINT [0] 0
+2         PIN_FLD_VALID_DOW      UINT [0] 0
+2         PIN_FLD_VALID_MOY      UINT [0] 0
+2         PIN_FLD_ZONE           ENUM [0] 0
+2         PIN_FLD_BAL_IMPACTS   ARRAY [0] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 840
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] 15.000000
+2         PIN_FLD_BAL_IMPACTS   ARRAY [1] allocated 20, used 7
+3             PIN_FLD_ELEMENT_ID     UINT [0] 1000001
+3             PIN_FLD_FIXED_OPERAND    NUM [0] 0.000000
+3             PIN_FLD_FLAGS          UINT [0] 3
+3             PIN_FLD_FREE_QUANTITY    NUM [0] 0.000000
+3             PIN_FLD_GL_ID          UINT [0] 102
+3             PIN_FLD_IMPACT_CATEGORY    STR [0] "default"
+3             PIN_FLD_SCALED_OPERAND    NUM [0] -10.000000
+0 PIN_FLD_PRODUCTS      ARRAY [8] allocated 20, used 17
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 8382 1
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773467) Mon May 03 16:17:47 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773574) Mon May 03 16:19:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Product 1c - NetFlow Identification, Measured Usage"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 1.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/broadband"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 1.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+0 PIN_FLD_PRODUCTS      ARRAY [9] allocated 20, used 17
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 8638 1
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773467) Mon May 03 16:17:47 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773575) Mon May 03 16:19:35 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Product 1e - NetFlow Rating, Measured Usage"
+1     PIN_FLD_OWN_MAX         NUM [0] 9999999999999998216360018871870109548898901740426374747374488505608317520357971321909184780648316928.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/broadband"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 9999999999999998216360018871870109548898901740426374747374488505608317520357971321909184780648316928.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+0 PIN_FLD_PRODUCTS      ARRAY [10] allocated 20, used 17
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 8894 1
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773467) Mon May 03 16:17:47 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773574) Mon May 03 16:19:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Product 1d - NetFlow Categorization, Measured Usage"
+1     PIN_FLD_OWN_MAX         NUM [0] 1.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 1.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] "/service/broadband"
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 1.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 1.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+0 PIN_FLD_PRODUCTS      ARRAY [11] allocated 20, used 17
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 9534 1
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773466) Mon May 03 16:17:46 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773574) Mon May 03 16:19:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Product 1b - Monthly Fee"
+1     PIN_FLD_OWN_MAX         NUM [0] 9999999999999998216360018871870109548898901740426374747374488505608317520357971321909184780648316928.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] ""
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 9999999999999998216360018871870109548898901740426374747374488505608317520357971321909184780648316928.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 602
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr
+0 PIN_FLD_PRODUCTS      ARRAY [12] allocated 20, used 17
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /product 9790 1
+1     PIN_FLD_CREATED_T    TSTAMP [0] (925773466) Mon May 03 16:17:46 1999
+1     PIN_FLD_MOD_T        TSTAMP [0] (925773574) Mon May 03 16:19:34 1999
+1     PIN_FLD_DESCR           STR [0] ""
+1     PIN_FLD_END_T        TSTAMP [0] (0) <null>
+1     PIN_FLD_NAME            STR [0] "Product 1a - Setup Fee"
+1     PIN_FLD_OWN_MAX         NUM [0] 9999999999999998216360018871870109548898901740426374747374488505608317520357971321909184780648316928.000000
+1     PIN_FLD_OWN_MIN         NUM [0] 0.000000
+1     PIN_FLD_PARTIAL        ENUM [0] 0
+1     PIN_FLD_PERMITTED       STR [0] ""
+1     PIN_FLD_PROVISIONING_TAG    STR [0] ""
+1     PIN_FLD_PURCHASE_MAX    NUM [0] 9999999999999998216360018871870109548898901740426374747374488505608317520357971321909184780648316928.000000
+1     PIN_FLD_PURCHASE_MIN    NUM [0] 0.000000
+1     PIN_FLD_START_T      TSTAMP [0] (0) <null>
+1     PIN_FLD_TAX_SUPPLIER_ID   POID [0] 0.0.0.0  0 0
+1     PIN_FLD_TYPE           ENUM [0] 601
+1     PIN_FLD_SUPPLIER_NAME    STR [0] NULL str ptr

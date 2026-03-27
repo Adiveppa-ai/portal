@@ -1,0 +1,17 @@
+#!/bin/sh
+
+INT_HOME=$IFW_HOME
+IFW_EVENTHANDLER_PORT=$IFWRT_EVENTHANDLER_PORT
+export IFW_EVENTHANDLER_PORT
+for aa in \
+        conf/wirelessRealtime.reg  \
+        ; do
+  if [ -r "$INT_HOME/$aa" ] ; then
+    IFW_REGFILE="$aa"
+    break
+  fi
+done
+export IFW_REGFILE
+
+$INT_HOME/bin/start_ifw
+

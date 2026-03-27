@@ -1,0 +1,145 @@
+#! /bin/python
+##########################################################################
+# Copyright (c) 2021, Oracle and/or its affiliates. All rights reserved. #
+# This material is the confidential property of Oracle Corporation       #
+# or its licensors and may be used, reproduced, stored or transmitted    #
+# only in accordance with a valid Oracle license or sublicense agreement.#
+##########################################################################
+import http.client
+import subprocess
+import yaml
+import os
+import time
+import sys
+import logging
+
+try:
+  pin_home = os.getenv("PIN_HOME")
+except:
+  raise Exception("Please Set PIN_HOME Environment Variable")
+
+os.chdir(pin_home)
+try:
+  pin_logs = os.getenv("PIN_LOG_DIR")
+except:
+  raise Exception("Please Set PIN_LOG_DIR Environment Variable")
+
+logging.basicConfig(filename=pin_logs+'/brm_service_monitor/memory.log', level=logging.DEBUG, format='%(asctime)s %(message)s' )
+logging.info("    STARTED    ".center(150,'#')+"\n")
+
+proc_id = os.getpid()
+
+try:
+  size = os.path.getsize(pin_logs+"/brm_service_monitor/memory.pid")
+  
+  if size > 0:
+    try:
+        sys.exit()
+
+    except SystemExit:
+        logging.error('Memory Monitor is already running!')
+        sys.exit("Memory Monitor is already running!")
+        
+
+except FileNotFoundError:
+  pass
+
+#Log the PID onto memory.pid file so that stop_memory_monitoring.py can stop the current memory monitor
+try:
+  f = open(pin_logs+"/brm_service_monitor/memory.pid","w")
+except Exception as e:
+  logging.error(e+'\n')
+
+try:
+  f.write(str(proc_id))
+except Exception as e:
+  logging.error(e+'\n')
+
+try:
+  f.close()
+except Exception as e:
+  logging.error(e+'\n')
+
+#Load Configurations from the configurations.yaml
+try:
+  with open(pin_home+"/bin/configurations.yaml", 'r') as stream:
+    configuration_data_loaded = yaml.safe_load(stream)
+except Exception as e:
+  logging.error(e+'\n')
+
+
+#Load the metric_host, metric_port, protocol, metric_name and metric_scrape_interval details 
+metric_host = configuration_data_loaded['pushgateway']['host']
+metric_port = str(configuration_data_loaded['pushgateway']['port'])
+protocol = configuration_data_loaded['pushgateway']['protocol']
+metric_name = configuration_data_loaded['prometheus']['memory_monitoring']['brm_status_metric_name']
+metric_scrape_interval =  configuration_data_loaded['prometheus']['memory_monitoring']['scrape_interval']
+brm_services = configuration_data_loaded['brm-services']
+job = "ps"
+instance = os.uname()[1]
+
+address = metric_host+":"+metric_port
+all_brm_services = ''
+for service in brm_services:
+  all_brm_services +=  service + '\|'
+all_brm_services = all_brm_services[:-2]
+
+#This defines the type of data being pushed
+headers = {'Content-type': 'text/plain'}
+
+while(True):
+  #This sleep is how we configure the scrape interval
+  time.sleep(metric_scrape_interval)
+
+  #Four child processes are created and piped so that we can extract the memory usage details for the BRM proceesses
+  child1 = subprocess.Popen(["ps","-aux"], shell=False,
+  stdout=subprocess.PIPE)
+  child2 = subprocess.Popen(["grep","-v","grep"], stdin=child1.stdout,
+  stdout=subprocess.PIPE, shell=False)
+  child3 = subprocess.Popen(["grep","-v","curl"], stdin=child2.stdout,
+  stdout=subprocess.PIPE, shell=False)
+  child4 = subprocess.Popen(["grep","-w",all_brm_services], stdin=child3.stdout,
+  stdout=subprocess.PIPE, shell=False)
+
+  #Finally after all the data is loaded onto the child process 4 we use communicate function to push the data out
+  try:
+    out = child4.communicate()
+  except Exception as e:
+    logging.error(e+'\n')
+
+  result = []
+  
+  #Parsing the output and seperating each service details
+  services = [i for i in out[0].decode("utf-8").split("\n")]
+  
+  #Removing one blank entry from the above "services" list
+  services.pop(-1)
+
+
+  for service in services:
+      service = service.split()
+      #Create the metric of the form metric_name{process={}, pid={}, user={}} metric_value (The service[3] value, this gives us the actual CPU usage)
+      result_str = metric_name+"{process=" + '"{}"'.format(service[10]) + ", " + "pid=" + '"{}"'.format(service[1]) + ", " + "user=" + '"{}"'.format(service[0]) + "} " + service[3] + "\n"
+      result.append(result_str)
+
+ #Depending on the protocol choosed for pushgateway in the YAML file data is pushed accordingly using POST request
+  if(protocol == 'https'):
+    try:
+      connection = http.client.HTTPSConnection("https://"+address)
+    except Exception as e:
+      logging.error(e+'\n')
+
+  else:
+    try:
+      connection = http.client.HTTPConnection(address)
+    except Exception as e:
+      logging.error(e+'\n')
+  try:
+    connection.request('POST','/metrics/job/'+job+'/instance/'+instance ,' '.join(result),headers)
+    response = connection.getresponse()
+    result.append(response.status)
+    logging.info(result)
+
+  except Exception as e:
+    logging.error(e+'\n')
+

@@ -1,0 +1,34 @@
+######################################################################
+#
+# Copyright (c) 2000, 2009, Oracle and/or its affiliates. All rights reserved. 
+#
+#       This material is the confidential property of Oracle Corporation.
+#       or its subsidiaries or licensors and may be used, reproduced, stored
+#       or transmitted only in accordance with a valid Oracle license or
+#       sublicense agreement.
+#
+######################################################################
+
+# This file defines macros used by nmake to build Infranet
+# source samples on NT. This file should be included by all
+# NT makefiles. 
+# 
+# IMPORTANT: Make sure env.nt file is included in NT makefiles 
+# before this file!!!
+
+JAVAC=$(JDK_HOME)\bin\javac.exe
+
+CLASSPATH=$(PCM_JAR);$(PCMEXT_JAR);
+
+CPPFLAGS=/nologo /MD /W3 /GX /O2 /D "WINDOWS" /D "WIN32" /D "i386" /D "MSDOS" \
+ /D "_MICROSOFT_C_" /D "PIN_USE_ANSI_HDRS" /D "_DEBUG" /I $(INCLDIR) /D "_windows"
+
+CFLAGS=$(CPPFLAGS)
+
+LINK_FLAGS= /nologo /incremental:no \
+ /machine:I386 /subsystem:console /libpath:$(LIBDIR) portal.lib pcmcpp60.lib
+
+CC=cl
+MAKE=nmake
+LINK=link
+

@@ -1,0 +1,30 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="PartitionUpg" version="15.0.1.0.0" description="PartitionUpg" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="upgrade" mode="750" patchable="true">
+         <directory dest="partition" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1307" dest="crt_pinlog.sql" mode="0644"/>
+            <file size="4697" dest="event_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="3616" dest="invoice_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="3596" dest="item_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="1714" dest="crt_upg_indexes.sql" mode="0644"/>
+            <file size="3641" dest="tmpAR_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="33321" dest="optional_partition.sql" mode="0644"/>
+            <file size="3510" dest="schedule_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="3603" dest="topup_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="3595" dest="bill_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="6930" dest="make_indexes_partition_ready.sql" mode="0644"/>
+            <file size="26367" dest="pin_upg_common.sql" mode="0644"/>
+            <file size="6428" dest="upg_oracle_functions.pl" mode="0755"/>
+            <file size="3617" dest="journal_tables_tobe_partitioned.sql" mode="0644"/>
+            <file size="5605" dest="partitioning.pl" mode="0755"/>
+            <file size="9174" dest="partition.cfg" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="*.sql"/>
+            <permission mode="0644" wildcard="partition.cfg"/>
+            <permission mode="0755" wildcard="*.pl"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

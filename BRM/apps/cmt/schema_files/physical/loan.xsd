@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<!-- Loan data is processed during the initial load accounts to create loan items, events and journals -->
+	<xs:include schemaLocation="CMT_Types.xsd"/>
+	<xs:element name="ActLoan">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProfLoanArr" type="ProfileLoanArray" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element name="LoanArr" type="LoanArray" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ProfileLoanArray">
+		<xs:sequence>
+			<xs:element name="CrtT" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CfgObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="CrdAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ExtElig" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MaxActLoans" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NoOfActLoans" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NoOfLoans" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Pullback" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RepaymentDays" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OptLoan" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="ProfLoanLmtArr" type="ProfileLoanLimitArray" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="Id" use="optional"/>
+                <xs:attribute name="elem" type="xs:integer" use="required"/>
+		<!-- serviceRef is the account global reference to which these loan belong -->
+	</xs:complexType>
+	<xs:complexType name="ProfileLoanLimitArray">
+		<xs:sequence>
+			<xs:element name="CrdLmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="VldFrm" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="ValTo" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+                <xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="LoanArray">
+		<xs:sequence>
+                        <xs:element name="CrtT" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="LoanAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="LoanTax" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LoanGlid" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LoanFeeAmt" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LoanFeeTax" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LoanFeeGlid" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LoanAmtRecovered" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LoanFeeRecovered" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="Id" use="optional"/>
+                <xs:attribute name="elem" type="xs:integer" use="required"/>
+		<!-- serviceRef is the account global reference to which these loan belong -->
+	</xs:complexType>
+</xs:schema>

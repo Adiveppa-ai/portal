@@ -1,0 +1,19 @@
+The following steps needs to be followed before starting to work with PDK.
+
+1. Enter the PDK directory
+2. Enter MAK/config
+3. Copy unknown.src to <hostname>.src
+4. Open <hostname>.src and give the correct values for the parameters.
+5. Come back to PDK directory  (cd ../..)
+6. Run MAK/initset
+7. To files source.me.csh and source.me.sh are generated.
+8. Based on the shell you are using source one of these files.
+
+All set to compile PDK.
+
+tips:
+1. Always use gmake to do make
+2. To avoid building of dependencies files use
+gmake nodep=true
+
+

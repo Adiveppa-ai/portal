@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------------
+--
+--      Copyright (c) 1998 - 2006 Oracle. All rights reserved.
+--
+--      This material is the confidential property of Oracle Corporation
+--      or its licensors and may be used, reproduced, stored or transmitted
+--      only in accordance with a valid Oracle license or sublicense agreement.
+--
+--------------------------------------------------------------------------------
+-- Block: Database
+--------------------------------------------------------------------------------
+-- Module Description:
+--   Update script from DB version v4-30-12 to v6.3.2.
+--------------------------------------------------------------------------------
+-- Responsible: Peter Engelbrecht
+--------------------------------------------------------------------------------
+
+The former table ifw_edrseqlog has been reengineered. There are now three
+tables ifw_seqcheck, ifw_seqlog_in and ifw_seqlog_out.
+If files had been processed multiple times the statement to migrate entries
+into ifw_seqlog_in may fail because of the pk-index.
+
+During movement of GL/Account and Revenuegroup from IFW_RATEPLAN_CNF
+to IFW_PRICEMODEL_STEP the update may find more than one GL/Account
+or Revenuegroup per Pricemodel. The first one returned will be picked
+and put into IFW_PRICEMODEL_STEP.
+
+You can check for occurence of this condition with the following
+SQL-statements:
+
+  select pricemodel, glaccount
+  from ifw_rateplan_cnf
+  group by pricemodel, glaccount;
+
+  select pricemodel, revenuegroup
+  from ifw_rateplan_cnf
+  group by pricemodel, revenuegroup;
+
+If you find one pricemodel multiple times with different gl/accounts
+or revenuegroups in the result-set you have to manually cross-check
+your configuration.
+
+For Pricemodels not referenced by any rateplan a GL/Account 'DUMMY' 
+referencing a TaxCode 'DUMMY' are introduced which will be assigned 
+to those pricemodel-steps.

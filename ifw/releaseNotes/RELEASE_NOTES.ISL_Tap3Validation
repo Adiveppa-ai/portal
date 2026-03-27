@@ -1,0 +1,278 @@
+========================================================================================
+ISL_Tap3Validation
+----------------------------------------------------------------------------------------
+Module Release Notes
+----------------------------------------------------------------------------------------
+$RCSfile: ISL_Tap3Validation,v $
+$Revision: 1.0 $
+$Author: cdiab $
+$Date: 2002/06/13 15:15:35 $
+========================================================================================
+
+========================================================================================
+
+Release        : 7.3.1
+Date           : 13-Sep-2007
+ChangeOrder    : bug6401060
+Title          : PROPAGATION OF VF GREECE FOUND ISSUES
+Description    : Propagation of all VF Greece found issues.
+=======================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 18-Aug-2006
+ChangeOrder    : PRSF00143840
+Title          : QF-TAP3.10-validation of TD57 -specifications( TAP input grammar)
+Description    : Charge Detail group is validated as per TD57
+========================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 26-jul-2006
+ChangeOrder    : PRSF00225702
+Title          : SCM TAP3: iScript ISC_TapDetailValidation_v3_11.isc has errors
+Description    : To fix this CO, the 7.2.1 code changes are propagated to
+                 the Pipeline Velocity.
+========================================================================================
+
+Release        : Pipeline_Velocity
+Date           : 18-April-2006
+ChangeOrder    : PRSF00203304
+Title          : Failed Conversion in LongToDecimal() 
+Description    : To fix this CO, the 6.5 SP1 EBF code changes have been propagated to
+                 the Pipeline Velocity stream.
+========================================================================================
+
+Release        : New Pipeline_Velocity
+Date           : 26-May-2005
+ChangeOrder    : PRSF00169224
+Title          : QF::TAP3.10-validation of TD57 -specifications( TAP input grammar)
+Description    : Scenarios#1, 2 & 3 has been fixed.
+                  Scenario#1 File Type Indicator not present & the batch is test data
+                  Scenario#2 Call Event Details Count - Out of Range
+                  Scenario#3 UTC Time Offset Code missing.
+========================================================================================
+Release        : New Pipeline_Velocity
+Date           : 25-May-2005
+ChangeOrder    : PRSF00169216
+Title          : TD57( TAP3.10)Data Dictionary Elements  validation Input grammar
+Description    : Validation of TapDecimalPlaces, ChargeInformation, Local Currency,
+                 Currency Conversion fields
+========================================================================================
+Release        : Pipeline_Velocity
+Date           : 18-Mar-2005
+ChangeOrder    : PRSF00159270
+Title          : TAP3:Pipeline is throwing same error codes for different 
+                 Call Level Types(1 and 2).
+Description    : Have modified validateCallTypeLevel function in TAP3 Detail Validation 
+                 file to handle the missing condition of Call Type Level 1, 2 and 3 
+                 fields correctly.
+========================================================================================
+
+Release        : Pipeline_Velocity
+Date           : 16-Mar-2005
+ChangeOrder    : PRSF00143358
+Title          : QF::TAP3.10-validation of TD57 -specifications( TAP input grammar)
+Description    : Added value out of range check for the Message Type field in the 
+                 TAP3 Detail Validation file.
+========================================================================================
+
+Release        : Pipeline_Velocity
+Date           : 15-Mar-2005
+ChangeOrder    : PRSF00142544
+Title          : QF::TAP3.10-validation of TD57 -specifications( TAP input grammar)
+Description    : Added value out of range check for the Transfer Cutoff Timestamp 
+                 field in the TAP3 Header Trailer Validation file.
+========================================================================================
+
+Release        : Pipeline_Velocity
+Date           : 09-Mar-2005
+ChangeOrder    : PRSF00142908
+Title          : QF::TAP3.10-validation of TD60 -specifications( TAP OUT grammar)
+                 error code 35
+Description    : To fix this CO, the 6.5 SP1 EBF code changes have been propagated to
+                 the Pipeline Velocity stream.
+========================================================================================
+
+Release        : Pipeline Velocity
+Date           : 13-Jan-2005
+ChangeOrder    : PRSF00149734
+Title          : No error was generated for missing Recording Entity Code.
+Description    : Done with proper changes in ISC_TapDetailValidation.isc to generate 
+			     proper error message for both MOC and MTC type of calls.
+Notes          :       
+----------------
+
+========================================================================================
+
+========================================================================================
+
+Release        : Pipeline Velocity
+Date           : 17-Dec-2004
+ChangeOrder    : PRSF00140639
+Title          : Validation check and Out of Range value check  for UTC Time offset, 
+                 File Sequence number and Release Version Number in 
+                 ISC_TapHeaderTrailerValidation.isc file was missing.
+        
+Description    : Fixed the above mentioned checks. 
+Notes          :       
+----------------
+
+Module Release Notes 
+----------------------------------------------------------------------------------------
+
+========================================================================================
+
+
+Release        : 6.7_FP2
+Date           : 29-Apr-2004
+ChangeOrder    : PRSF00107203
+Title          : TAX_VALUE and TAXABLE_AMOUNT changes for taxation plugin
+Description    : TAX_CODE is of type String instead of Integer. Making appropriate
+                 changes. Also change for TAX_VALUE is of type Decimal now.
+========================================================================================
+
+Release        : 6.7_FP2
+Date           : 15-Apr-2003
+ChangeOrder    : PRSF00103520
+Title          : Propagate changes done for TIM in 6.5_SP1_EBF to 6.7_FP1_EBF
+Description    : Propagate changes done for TIM for the following COs.
+			PRSF00083135
+			PRSF00084541
+			PRSF00087233
+			PRSF00087521
+			PRSF00089720
+			PRSF00091357
+			PRSF00092035
+			PRSF00092902
+			PRSF00092960
+			PRSF00093185
+			PRSF00093823
+			PRSF00096655
+			PRSF00096736
+			PRSF00097471
+			PRSF00097832
+			PRSF00099998
+			PRSF00100012
+			PRSF00097316
+			PRSF00097317 
+			PRSF00103268
+========================================================================================
+
+Release        : 6.7_FP1
+Date           : 26-Jan-2004
+ChangeOrder    : PRSF00089156 
+Title          : Popagation of CO 88108 for fixing the validation
+Description    :
+	Fixing the country code validation. Add fatal error checking.
+========================================================================================
+
+Release        : 6.7_FP1
+Date           : 09-Jan-2004
+ChangeOrder    : PRSF00085036
+Title          : Add a new ISctipt for mapping TAP3 fields for Standard values
+Description    :
+  Added new iScript ISL_EDRToTAPOUTMap.isc
+    - to perform Mapping for TAP3 Standard values from EDR Internal values.
+
+========================================================================================
+
+
+Release        : 6.7
+Date           : 27-Nov-2003
+ChangeOrder    : PRSF00077887
+Title          : Add TAP3 changes.
+Description    : Propagated from 6.5_SP1_EBF.
+  Added new iRules to raise EDR errors if:
+    - Mandatory fields have been flagged as MISSING by the inGrammar.
+    - Values of fields are outside ranges specified in the TAP standard.
+  Added three new iScripts to:
+    - Perform field and cross-field validations on header and trailer records.
+    - Perform field and cross-field validations on detail records.
+    - Split the "big" EDR created by the InGrammer into one EDR per basic service.
+
+========================================================================================
+
+Actual Version : v6.4.0 / 21-August-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+- minor corrections to some rules
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v6.3.3 / 02-Aug-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+- updated some tests
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v6.3.2 / 18-Jun-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+
+New Features   :
+----------------
+- updated the depth value of TAP3 objects
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v6.3.1 / 13-Jun-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+- use the TLS/TLS_IRules2Db/irules2db.pl script to load these rules to the database.
+- NB: the irules2db.pl must be run from his location directory.
+
+New Features   :
+----------------
+- Validates TAP0304/TAP0309
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================

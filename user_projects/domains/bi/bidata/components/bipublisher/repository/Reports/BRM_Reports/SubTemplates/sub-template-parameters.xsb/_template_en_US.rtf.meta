@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<metadata>
+  <entries>
+    <entry>
+      <key><![CDATA[bip:DefaultLocale]]></key>
+      <value><![CDATA[en_US]]></value>
+    </entry>
+    <entry>
+      <key><![CDATA[bip:BaseTemplateLocale]]></key>
+      <value><![CDATA[en_US]]></value>
+    </entry>
+    <entry>
+      <key><![CDATA[bip:StartDateTime]]></key>
+      <value><![CDATA[0]]></value>
+    </entry>
+    <entry>
+      <key><![CDATA[bip:EndDateTime]]></key>
+      <value><![CDATA[0]]></value>
+    </entry>
+    <entry>
+      <key><![CDATA[bip:UploadName]]></key>
+      <value><![CDATA[sub-template-parameters.rtf]]></value>
+    </entry>
+  </entries>
+</metadata>

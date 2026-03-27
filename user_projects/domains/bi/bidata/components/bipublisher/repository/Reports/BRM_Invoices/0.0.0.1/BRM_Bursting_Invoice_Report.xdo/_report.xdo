@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<report xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" version="2.0" dataModel="true" useBipParameters="true" producerName="fin-financialCommon" parameterVOName="" parameterTaskFlow="" customDataControl="" cachePerUser="true" cacheSmartRefresh="false" cacheUserRefresh="false">
+   <dataModel url="/BRM_Invoices/0.0.0.1/0.0.0.1.xdm"/>
+   <description>
+      <![CDATA[BRM_Bursting_Invoice_Report]]>
+   </description>
+   <property name="showControls" value="true"/>
+   <property name="online" value="true"/>
+   <property name="openLinkInNewWindow" value="true"/>
+   <property name="autoRun" value="true"/>
+   <property name="cacheDocument" value="true"/>
+   <property name="showReportLinks" value="true"/>
+   <property name="asynchronousRun" value="false"/>
+   <property name="useExcelProcessor" value="false"/>
+   <property name="cacheDuration" value="30"/>
+   <property name="controledByExtApp" value="false"/>
+   <parameters paramPerLine="3" style="parameterLocation:in-horizontal;promptLocation:side;">
+      <parameter id="p_Inv_Status" label="Invoice Status (0=Pending, 1=Generated, etc,)" defaultValue="0" visible="true" rowPlacement="1"/>
+      <parameter id="p_Inv_Type" label="Invoice Type (0=Consumer,1=Corp,2=both)" defaultValue="2" visible="true" rowPlacement="1"/>
+      <parameter id="p_Inv_End_t" label="Invoices generated before this time (1/19/2038)" defaultValue="2147483647" visible="true" rowPlacement="2"/>
+      <parameter id="p_Inv_Start_t" label="Invoices generated after this time (1/1/1970)" defaultValue="0" visible="true" rowPlacement="2"/>
+      <parameter id="p_Inv_MIN_POID" label="Minimum Invoice POID ID" defaultValue="1" visible="true" rowPlacement="3"/>
+      <parameter id="p_Inv_MAX_POID" label="Maximum Invoice POID ID" defaultValue="9999999" visible="true" rowPlacement="3"/>
+   </parameters>
+   <templates default="BRM_Consumer_Invoice">
+      <template label="BRM_Consumer_Invoice" url="BRM_Consumer_Invoice.rtf" type="rtf" outputFormat="html,pdf,rtf,xlsx,pptx" defaultFormat="pdf" locale="en_US" disableMasterTemplate="true" active="true" viewOnline="true"/>
+      <template label="BRM_Corporate_Invoice" url="BRM_Corporate_Invoice.rtf" type="rtf" outputFormat="html,pdf,rtf,xlsx,pptx" defaultFormat="pdf" locale="en_US" disableMasterTemplate="true" active="true" viewOnline="true"/>
+      <template label="BRM_Consumer_Correction_Invoice" url="BRM_Consumer_Correction_Invoice.rtf" type="rtf" outputFormat="html,pdf,rtf,xlsx,pptx" defaultFormat="pdf" locale="en_US" disableMasterTemplate="true" active="true" viewOnline="true"/>
+      <template label="BRM_Corporate_Correction_Invoice" url="BRM_Corporate_Correction_Invoice.rtf" type="rtf" outputFormat="html,pdf,rtf,xlsx,pptx" defaultFormat="pdf" locale="en_US" disableMasterTemplate="true" active="true" viewOnline="true"/>
+      <template label="BRM_Consumer_Replacement_Invoice" url="BRM_Consumer_Replacement_Invoice.rtf" type="rtf" outputFormat="html,pdf,rtf,xlsx,pptx" defaultFormat="pdf" locale="en_US" disableMasterTemplate="true" active="true" viewOnline="true"/>
+      <template label="BRM_Corporate_Replacement_Invoice" url="BRM_Corporate_Replacement_Invoice.rtf" type="rtf" outputFormat="html,pdf,rtf,xlsx,pptx" defaultFormat="pdf" locale="en_US" disableMasterTemplate="true" active="true" viewOnline="true"/>
+   </templates>
+   <bursting active="BRM_Bursting_Invoice_Report_Bursting_Query"/>
+</report>

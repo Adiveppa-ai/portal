@@ -1,0 +1,151 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql>
+            <![CDATA[SELECT "ACCOUNT_T"."CURRENCY", upper("ACCOUNT_NAMEINFO_T"."COUNTRY") "Country", upper("ACCOUNT_NAMEINFO_T"."STATE") "State", "EVENT_ACT_CONTENT_T"."CONTPROVIDER",
+                                                 "EVENT_ACT_CONTENT_T"."CONTCATEGORY", "EVENT_ACT_CONTENT_T"."QTY", "ACCOUNT_T"."POID_ID0", "ACCOUNT_T"."ACCOUNT_NO",
+                                                  "ACCOUNT_NAMEINFO_T"."LAST_NAME", "ACCOUNT_NAMEINFO_T"."FIRST_NAME", "ACCOUNT_NAMEINFO_T"."REC_ID", "EVENT_T"."END_T",
+                                                  "REMIT_CALC_T"."REMIT_TYPE", "REMIT_INFO_T"."CREATED_T", "ITEM_T"."CLOSED_T", "ITEM_T"."EFFECTIVE_T",
+                                                  "REMIT_CALC_T"."START_T", "REMIT_CALC_T"."END_T" "END_TE", "EVENT_ACT_CONTENT_T"."OBJ_ID0", "REMIT_CALC_DETAIL_T"."OBJ_ID0" "OBJ_ID0_REMITDETAIL",
+                                                  "REMIT_CALC_T"."AMOUNT", "EVENT_T1"."CURRENCY" CURRENCY1, "ACCOUNT_T1"."ACCOUNT_NO" "ACCOUNT_NO1", "EVENT_BAL_IMPACTS_T"."AMOUNT" "AMOUNT01",
+                                                  "ACCOUNT_T"."POID_DB", "CONFIG_BEID_BALANCES_T"."NAME" "CURR_NAME", "CONFIG_BEID_BALANCES_T1"."NAME" "CURR_NAME1"
+               FROM (((((((((("REMIT_CALC_T" "REMIT_CALC_T" 
+                                  INNER JOIN "REMIT_INFO_DETAIL_T" "REMIT_INFO_DETAIL_T" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" = "REMIT_INFO_DETAIL_T"."PROVIDER_ID_ID0")
+                                                  INNER JOIN "REMIT_CALC_DETAIL_T" "REMIT_CALC_DETAIL_T" ON ("REMIT_CALC_T"."POID_ID0" = "REMIT_CALC_DETAIL_T"."OBJ_ID0") AND ("REMIT_INFO_DETAIL_T"."PRODUCT_OBJ_ID0" = "REMIT_CALC_DETAIL_T"."PRODUCT_OBJ_ID0"))
+                          INNER JOIN "ACCOUNT_T" "ACCOUNT_T1" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" ="ACCOUNT_T1"."POID_ID0")
+                                                 INNER JOIN "EVENT_T" "EVENT_T1" ON "REMIT_CALC_DETAIL_T"."EVENT_OBJ_ID0" = "EVENT_T1"."POID_ID0")
+                                                  INNER JOIN "REMIT_INFO_T" "REMIT_INFO_T" ON "REMIT_INFO_DETAIL_T"."OBJ_ID0" ="REMIT_INFO_T"."POID_ID0")
+                                                  INNER JOIN "EVENT_T" "EVENT_T" ON "REMIT_INFO_T"."EVENT_OBJ_ID0" ="EVENT_T"."POID_ID0")
+                                                  INNER JOIN "ITEM_T" "ITEM_T" ON "REMIT_INFO_T"."ITEM_OBJ_ID0" = "ITEM_T"."POID_ID0")
+                                                  INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0" = "ACCOUNT_T"."POID_ID0")
+                                                  INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T" ON ("EVENT_T"."POID_ID0" = "EVENT_BAL_IMPACTS_T"."OBJ_ID0") AND ("EVENT_T"."CURRENCY" = "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"))
+                                                  INNER JOIN "EVENT_ACT_CONTENT_T" "EVENT_ACT_CONTENT_T" ON "EVENT_BAL_IMPACTS_T"."OBJ_ID0" = "EVENT_ACT_CONTENT_T"."OBJ_ID0")
+                                                  INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0"  = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+                                                  INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON "EVENT_T1"."CURRENCY"  = "CONFIG_BEID_BALANCES_T"."REC_ID"
+                                                  INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T1" ON "EVENT_T"."CURRENCY"  = "CONFIG_BEID_BALANCES_T1"."REC_ID"
+              WHERE "ACCOUNT_T"."POID_DB" > 0
+                                  AND "ACCOUNT_T"."POID_ID0" > 1
+                                                  AND "ACCOUNT_T"."ACCOUNT_NO" LIKE DECODE(:PARAM_ACCOUNT_NUMBER,'ALL','%',:PARAM_ACCOUNT_NUMBER) 
+                                                  AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:PARAM_COUNTRY,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+                                                  AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:PARAM_STATE, "ACCOUNT_NAMEINFO_T"."STATE")
+                                                  AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+                                                  AND "EVENT_ACT_CONTENT_T"."CONTPROVIDER" LIKE NVL(:PARAM_CONTENT_PROVIDER, "EVENT_ACT_CONTENT_T"."CONTPROVIDER")
+                                                  AND (BIPEXT.INFCHECKDATES(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND ("EVENT_T"."END_T" >= BIPEXT.INFSTRTOTIMET(:PARAM_START_DATE,2) AND  "EVENT_T"."END_T" <= BIPEXT.INFSTRTOTIMET(:PARAM_END_DATE,2)-1))
+                                                  AND DECODE("REMIT_CALC_T"."REMIT_TYPE", 'U', "REMIT_INFO_T"."CREATED_T", 'P', "ITEM_T"."CLOSED_T", 'B', "ITEM_T"."EFFECTIVE_T") > "REMIT_CALC_T"."START_T"
+                                                  AND DECODE("REMIT_CALC_T"."REMIT_TYPE", 'U', "REMIT_INFO_T"."CREATED_T", 'P', "ITEM_T"."CLOSED_T", 'B', "ITEM_T"."EFFECTIVE_T") < "REMIT_CALC_T"."END_T"
+                      ORDER BY "REMIT_CALC_DETAIL_T"."OBJ_ID0", "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE", "EVENT_ACT_CONTENT_T"."CONTCATEGORY",
+                                                     "EVENT_T"."END_T", "EVENT_ACT_CONTENT_T"."OBJ_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="BillingProvider" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="Q1" label="Q1" source="Q1">
+               <element name="CURRENCY" value="CURRENCY" label="CURRENCY" dataType="xsd:integer" breakOrder="" fieldOrder="1"/>
+               <element name="Country" value="Country" label="Country" dataType="xsd:string" breakOrder="" fieldOrder="2"/>
+               <element name="State" value="State" label="State" dataType="xsd:string" breakOrder="" fieldOrder="3"/>
+               <element name="CONTPROVIDER" value="CONTPROVIDER" label="CONTPROVIDER" dataType="xsd:string" breakOrder="" fieldOrder="4"/>
+               <element name="CONTCATEGORY" value="CONTCATEGORY" label="CONTCATEGORY" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="QTY" value="QTY" label="QTY" dataType="xsd:integer" breakOrder="" fieldOrder="6"/>
+               <element name="POID_ID0" value="POID_ID0" label="POID_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="7"/>
+               <element name="ACCOUNT_NO" value="ACCOUNT_NO" label="ACCOUNT_NO" dataType="xsd:string" breakOrder="" fieldOrder="8"/>
+               <element name="LAST_NAME" value="LAST_NAME" label="LAST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="9"/>
+               <element name="FIRST_NAME" value="FIRST_NAME" label="FIRST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="10"/>
+               <element name="REC_ID" value="REC_ID" label="REC_ID" dataType="xsd:integer" breakOrder="" fieldOrder="11"/>
+               <element name="END_T" value="END_T" label="END_T" dataType="xsd:integer" breakOrder="" fieldOrder="12"/>
+               <element name="REMIT_TYPE" value="REMIT_TYPE" label="REMIT_TYPE" dataType="xsd:string" breakOrder="" fieldOrder="13"/>
+               <element name="CREATED_T" value="CREATED_T" label="CREATED_T" dataType="xsd:integer" breakOrder="" fieldOrder="14"/>
+               <element name="CLOSED_T" value="CLOSED_T" label="CLOSED_T" dataType="xsd:integer" breakOrder="" fieldOrder="15"/>
+               <element name="EFFECTIVE_T" value="EFFECTIVE_T" label="EFFECTIVE_T" dataType="xsd:integer" breakOrder="" fieldOrder="16"/>
+               <element name="START_T" value="START_T" label="START_T" dataType="xsd:integer" breakOrder="" fieldOrder="17"/>
+               <element name="END_TE" value="END_TE" label="END_TE" dataType="xsd:integer" breakOrder="" fieldOrder="18"/>
+               <element name="OBJ_ID0" value="OBJ_ID0" label="OBJ_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="19"/>
+               <element name="OBJ_ID0_REMITDETAIL" value="OBJ_ID0_REMITDETAIL" label="OBJ_ID0_REMITDETAIL" dataType="xsd:integer" breakOrder="" fieldOrder="20"/>
+               <element name="AMOUNT" value="AMOUNT" label="AMOUNT" dataType="xsd:integer" breakOrder="" fieldOrder="21"/>
+               <element name="CURRENCY1" value="CURRENCY1" label="CURRENCY1" dataType="xsd:integer" breakOrder="" fieldOrder="22"/>
+               <element name="ACCOUNT_NO1" value="ACCOUNT_NO1" label="ACCOUNT_NO1" dataType="xsd:string" breakOrder="" fieldOrder="23"/>
+               <element name="AMOUNT01" value="AMOUNT01" label="AMOUNT01" dataType="xsd:integer" breakOrder="" fieldOrder="24"/>
+               <element name="POID_DB" value="POID_DB" label="POID_DB" dataType="xsd:integer" breakOrder="" fieldOrder="25"/>
+               <element name="CURR_NAME" value="CURR_NAME" label="CURR_NAME" dataType="xsd:string" breakOrder="" fieldOrder="26"/>
+               <element name="CURR_NAME1" value="CURR_NAME1" label="CURR_NAME1" dataType="xsd:string" breakOrder="" fieldOrder="27"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="LOV_STATE_DETAILS">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_ACCOUNT_DETAILS">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_CONTENT_PROVIDER">
+         <nvPairs>
+            <nvPair label="All" value="*"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_ACCOUNT_NUMBER" dataType="xsd:string">
+         <input label="Enter a specific provider account number, or select ALL to include all provider accounts." size="60"/>
+      </parameter>
+      <parameter name="PARAM_CONTENT_PROVIDER" dataType="xsd:string">
+         <select label="Enter a specific content provider, or select ALL to include all content providers." valueSet="LOV_CONTENT_PROVIDER" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries." valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_STATE_DETAILS" defaultValue="0" dataType="xsd:integer">
+         <select label="Include state-level details?" valueSet="LOV_STATE_DETAILS" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_ACCOUNT_DETAILS" defaultValue="0" dataType="xsd:integer">
+         <select label="Include account-level details?" valueSet="LOV_ACCOUNT_DETAILS" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q1" left="285px" top="28px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

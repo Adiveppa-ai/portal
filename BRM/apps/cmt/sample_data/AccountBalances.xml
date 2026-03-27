@@ -1,0 +1,56 @@
+<ActBal xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.portal.com/InfranetXMLSchema ../schema_files/physical/CMT_Balances.xsd">
+	<!-- Account level currency resource information -->
+	<ActBalArr parentRef="0.0.0.1 /account 33229 0" elem="1" Resource="840">
+		<BSBArr elem="1" grtObjRef="/purchased_product">
+			<CurBal>30</CurBal>
+			<VldFrm>2001-05-21T01:22:15-07:00</VldFrm>
+			<ValTo>0</ValTo>
+			<GrtObj>100001</GrtObj>
+			<Cont></Cont>
+		</BSBArr>
+		<RsvAmt>3</RsvAmt>
+		<ConRule>ESTLET</ConRule>
+	</ActBalArr>
+	<!-- Account level non-currency resource information -->
+	<ActBalArr parentRef="0.0.0.1 /account 452291 0" elem="1" Resource="1030399">
+		<BSBArr elem="1" grtObjRef="/purchased_discount">
+			<CurBal>-1200</CurBal>
+			<VldFrm>2001-05-21T01:22:15-07:00</VldFrm>
+			<ValTo>2003-05-21T01:22:15-07:00</ValTo>
+			<GrtObj>100002</GrtObj>
+			<Cont></Cont>
+			<UOR>M</UOR>
+			<Frq>1</Frq>
+			<NetQnty>1</NetQnty>
+		</BSBArr>
+		<RsvAmt>3</RsvAmt>
+		<ConRule>ESTLET</ConRule>
+	</ActBalArr>
+	<!-- Service level currency resource information -->
+	<ActBalArr parentRef="0.0.0.1 /account 22195 0" serviceRef="9000001" elem="1" Resource="968">
+		<BSBArr elem="1" grtObjRef="/purchased_product">
+			<CurBal>30</CurBal>
+			<VldFrm>2001-05-21T01:22:15-07:00</VldFrm>
+			<ValTo>0</ValTo>
+			<GrtObj>10003</GrtObj>
+			<Cont></Cont>
+		</BSBArr>
+		<RsvAmt>3</RsvAmt>
+		<ConRule>ESTLET</ConRule>
+	</ActBalArr>
+	<!-- Service level non-currency resource information -->
+	<ActBalArr parentRef="0.0.0.1 /account 17313873 0" serviceRef="19287319000005" elem="1" Resource="1030399">
+		<BSBArr elem="1" grtObjRef="/purchased_discount">
+			<CurBal>-1200</CurBal>
+			<VldFrm>2001-05-21T01:22:15-07:00</VldFrm>
+			<ValTo>2003-05-21T01:22:15-07:00</ValTo>
+			<GrtObj>10004</GrtObj>
+			<Cont></Cont>
+			<UOR>M</UOR>
+			<Frq>1</Frq>
+			<NetQnty>1</NetQnty>
+		</BSBArr>
+		<RsvAmt>3</RsvAmt>
+		<ConRule>ESTLET</ConRule>
+	</ActBalArr>
+</ActBal>

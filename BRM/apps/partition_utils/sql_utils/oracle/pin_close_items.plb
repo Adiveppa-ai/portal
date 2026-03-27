@@ -1,0 +1,34 @@
+CREATE OR REPLACE PROCEDURE auto_close_open_items wrapped 
+a000000
+367
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+3ec 2bd
+Ky62zr47zLP5sx5NJAshQ1nGmx0wg3kJLiAFfHRVPTqUNDGvRRVin+zu+8IusIN2ochdMtq9
+uvZ0OZt/FCk4hKrkFjHct8qpzTZd7zocOomnbCs7YM46wLRFsD2fmr7NT0iGkoTEGUmCqeOY
+CdGcaEVA6x9TDsYG4YF2dQipwj1gJxYw67jMDMbVgGtpq5v3rzkMmfIJQOo+d6PRmo9vHCzI
+BI477uHwUvLZ7Hh9kQhs3d7gZWF15muEPunXH0r8SmwPCAf41Oxv0EyUhoMHx+OIoVbWFVEP
+O0UXxu3UBHVNDvfQTbemy4HHhYadVSJBFxrK43afaZen2x7eRKU+rgBm4DuN4n4aNcZi0fCE
+O95JorNUG4q9HCJosN4jnNeecbju9gqspcIN5Q3E0iVBRBsIPdbd65/tuSilHgFONPxwmrUe
+Dpod9xAQAJ1eyhw9sL8I+CijZoN9jfYqCcWSgamZDduSZpscucLzBeUYkzaWE2FIyIfZfvbK
+B9B4aQ1aqiUIq8ZHELSS99v1seRuzc2RWN5vZLeZZk/HUy/LM/vp3fgY1QnUSEkxJgDTSYcH
+1zh8AsMxBQgHzv7TjUMJX2waDKka94Nuyxzx7FJlNl7l7mxO6dZi8R5Ivq0mpCmVUwV5v49M
+BSA/1hTv3Y+Dx7iOky7o18lBM6G/Jml078K/tfvpo0SA
+
+/
+show errors;
+/

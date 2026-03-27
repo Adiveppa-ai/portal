@@ -1,0 +1,73 @@
+
+#############################################################################
+# @(#)% %
+# Copyright (c) 2001 - 2006 Oracle. All rights reserved.This material is the 
+# confidential property of Oracle Corporation or its licensors and may be used
+# reproduced, stored or transmionly in accordance with a valid Oracle license
+# or sublicense agreement.
+#
+#############################################################################
+# Utility to turn the Auditable flag ON for the fields specified.
+#
+# The file will be in simple text format, as described below :
+#
+# The file contains two types of information in the text file :
+#      -> Object name
+#      -> Field name list
+#
+# Object name related info starts with the keyword 'object' and the
+# field related info is specified in the following lines.
+# The field name should follow the dot convention whenever the field is part
+# of an arry or substruct, to any level. Then, the syntax will be :
+#	<SubstructOrArrayName>.<FieldName>
+#	<SubstructOrArrayName>.<SubstructOrArrayName>.<FieldName>
+# and so on with a dot(.) separation. (See example and sample specs below.)
+# When a field name is not part of any array or substruct, just the field name
+# is specified as <FieldName>.
+#
+# The format of file is :
+#
+# object       <ClassName>
+# <OneOrMoreFieldNames>
+# <OneOrMoreFieldNames>
+# .....
+#
+# Example 1 :
+#
+# object       /service
+# PIN_FLD_LOGIN  PIN_FLD_PASSWD
+#
+# Example 2 :
+#
+# object       /account
+# PIN_FLD_NAME_INFO.PIN_FLD_ADDRESS  PIN_FLD_NAME
+# PIN_FLD_STATUS
+#
+#
+# The input text file can contain zero or more occurences of objects.
+#
+#############################################################################
+
+
+# Mandatory list of auditable fields to be turned ON by default
+
+object	 	/account
+PIN_FLD_BRAND_OBJ  PIN_FLD_ACCOUNT_NO  PIN_FLD_CURRENCY PIN_FLD_RESIDENCE_FLAG  
+
+object          /purchased_product
+PIN_FLD_USAGE_END_T PIN_FLD_USAGE_START_T
+
+object	 	/service
+PIN_FLD_AAC_PROMO_CODE PIN_FLD_AAC_VENDOR PIN_FLD_ALIAS_LIST PIN_FLD_ALIAS_LIST.PIN_FLD_NAME PIN_FLD_LOGIN PIN_FLD_STATUS 
+PIN_FLD_AAC_SOURCE
+
+object		/uniqueness
+PIN_FLD_LOGIN  PIN_FLD_ALIAS_LIST.PIN_FLD_NAME PIN_FLD_SERVICE_OBJ
+
+object		/profile/acct_extrating
+PIN_FLD_DATA_ARRAY.PIN_FLD_NAME PIN_FLD_DATA_ARRAY.PIN_FLD_VALUE PIN_FLD_DATA_ARRAY.PIN_FLD_VALID_FROM PIN_FLD_DATA_ARRAY.PIN_FLD_VALID_TO
+
+object		/profile/serv_extrating
+PIN_FLD_DATA_ARRAY.PIN_FLD_NAME PIN_FLD_DATA_ARRAY.PIN_FLD_VALUE PIN_FLD_DATA_ARRAY.PIN_FLD_VALID_FROM PIN_FLD_DATA_ARRAY.PIN_FLD_VALID_TO
+
+

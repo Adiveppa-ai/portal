@@ -1,0 +1,170 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="RatedEventLoader" version="15.0.1.0.0" description="Rated Event Loader" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3422" dest="pin_cnf_rel.pl" mode="0755"/>
+            <file size="20842" dest="pin_cmp_rel.pl" mode="0755"/>
+            <file size="3113" dest="pin_gen_classid_values.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="*.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_rel" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="81884" dest="pin_rel_updater_sp_oracle.plb" mode="0755"/>
+            <file size="5545" dest="event_t.ctl" mode="0644"/>
+            <file size="2856" dest="event_bal_impacts_t.ctl" mode="0644"/>
+            <file size="19818" dest="suspense_preprocess.pl" mode="0755"/>
+            <file size="888" dest="event_rum_map_t.ctl" mode="0644"/>
+            <file size="3917" dest="ConfigurableValidityHandler_config.values" mode="0755"/>
+            <file size="20086" dest="Infranet.properties" mode="0600"/>
+            <file size="9789" dest="SampleBatchControllerInfranet.properties" mode="0600"/>
+            <file size="3803" dest="suspense_updater_sp_oracle.plb" mode="0755"/>
+            <file size="4710" dest="event_delayed_session_gprs_t.ctl" mode="0644"/>
+            <file size="1085" dest="event_essentials_t.ctl" mode="0644"/>
+            <file size="850" dest="event_dlay_sess_tlcs_svc_cds_t.ctl" mode="0644"/>
+            <file size="4634" dest="event_dlyd_session_tlco_gprs_t.ctl" mode="0644"/>
+            <file size="2849" dest="event_dlyd_session_tlco_gsm_t.ctl" mode="0644"/>
+            <file size="22985" dest="pin_rel_transform_cdr.pl" mode="0755"/>
+            <file size="6193" dest="tmp_suspense_preprocess.pl" mode="0755"/>
+            <file size="3543" dest="event_delayed_act_wap_inter_t.ctl" mode="0644"/>
+            <file size="2475" dest="pin_rel_enum_blk.pl" mode="0755"/>
+            <file size="1719" dest="rollback_suspended_usage_t.ctl" mode="0644"/>
+            <file size="12892" dest="pin_rel_auto_preprocess.pl" mode="0755"/>
+            <file size="5501" dest="pin_rel_handle_interim_files.pl" mode="0755"/>
+            <file size="3651" dest="event_dlay_sess_tlcs_t.ctl" mode="0644"/>
+            <file size="1440" dest="tmp_profile_event_ordering_t.ctl" mode="0644"/>
+            <file size="1355" dest="tmp_suspended_usage_t.ctl" mode="0644"/>
+            <file size="1494" dest="pin_rel" mode="0755"/>
+            <file size="69533" dest="pin_rel_preprocess_cdr.pl" mode="0755"/>
+            <file size="1263" dest="event_tax_jurisdictions_t.ctl" mode="0644"/>
+            <file size="2147" dest="SampleRelHandler_config.values" mode="0755"/>
+            <file size="985" dest="purge_profile_event_ordering" mode="0755"/>
+            <file size="25482" dest="SampleRelHandler.pl" mode="0755"/>
+            <file size="2445" dest="suspended_usage_t.ctl" mode="0644"/>
+            <file size="797" dest="susp_usage_edr_buf.ctl" mode="0644"/>
+            <file size="6546" dest="rollback_suspense_preprocess.pl" mode="0755"/>
+            <file size="5477" dest="gprs_event_dlay_sess_tlcs_t.ctl" mode="0644"/>
+            <file size="2020" dest="CustomErrorCodes.properties" mode="0644"/>
+            <file size="5087" dest="suspense_Infranet.properties" mode="0755"/>
+            <file size="37656" dest="ConfigurableValidityHandler.pl" mode="0755"/>
+            <file size="9810" dest="create_rel_tables_oracle.sql" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_rel"/>
+            <permission mode="0600" wildcard="Infranet.properties"/>
+            <permission mode="0644" wildcard="CustomErrorCodes.properties"/>
+            <permission mode="0600" wildcard="SampleBatchControllerInfranet.properties"/>
+            <permission mode="0755" wildcard="suspense_Infranet.properties"/>
+            <permission mode="0755" wildcard="ConfigurableValidityHandler_config.values"/>
+            <permission mode="0755" wildcard="SampleRelHandler_config.values"/>
+            <permission mode="0755" wildcard="purge_profile_event_ordering"/>
+            <permission mode="0644" wildcard="*.ctl"/>
+            <permission mode="0755" wildcard="*.pl"/>
+            <permission mode="0755" wildcard="pin_rel_updater_sp_oracle.plb"/>
+            <permission mode="0755" wildcard="suspense_updater_sp_oracle.plb"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="250659" dest="brm-rated-event-manager.jar" mode="0644"/>
+         <file size="95751" dest="rel.jar" mode="0644"/>
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="271359" dest="brm-rated-event-manager.jar" mode="0644"/>
+            <file size="107471" dest="rel.jar" mode="0644"/>
+            <file size="87879" dest="brm-rel-manager.jar" mode="0644"/>
+         </directory>
+         <file size="1064477" dest="jline-3.23.0.jar" mode="0644"/>
+         <file size="75801" dest="brm-rel-manager.jar" mode="0644"/>
+         <file-perms>
+            <permission mode="0644" wildcard="rel.jar"/>
+            <permission mode="0644" wildcard="brm-rated-event-manager.jar"/>
+            <permission mode="0644" wildcard="brm-rel-manager.jar"/>
+            <permission mode="0644" wildcard="jline-3.23.0.jar"/>
+            <permission mode="0644" wildcard="jansi-2.4.1.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="6277" dest="7.2_7.3_dd_objects_rel.source" mode="0644"/>
+               <file size="32273" dest="dd_objects_rel.source" mode="0644"/>
+               <file size="14564" dest="dd_objects_rel_65sp1RTW_70.source" mode="0644"/>
+               <file size="779" dest="init_objects_rel.source" mode="0644"/>
+               <file size="16807" dest="dd_objects_rel_65_70.source" mode="0644"/>
+               <file size="771" dest="drop_tables_rel_oracle.source" mode="0644"/>
+               <file size="573" dest="drop_indexes_rel_oracle.source" mode="0644"/>
+               <file size="3689" dest="create_indexes_rel_oracle.source" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="*.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="2291" dest="start_rel_daemon" mode="0755"/>
+         <file size="928" dest="stop_rel_daemon" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_rel_daemon"/>
+            <permission mode="0755" wildcard="stop_rel_daemon"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="rated_event_manager" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3485" dest="create_rem_indexes.sql" mode="0755"/>
+            <file size="1554" dest="log4j2.xml" mode="0640"/>
+            <file size="638" dest="component_specification" mode="0640"/>
+            <file size="8325" dest="start_rated_event_manager" mode="0755"/>
+            <file size="37390" dest="REM.properties" mode="0644"/>
+            <file size="3491" dest="stop_rated_event_manager" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="start_rated_event_manager"/>
+            <permission mode="0755" wildcard="stop_rated_event_manager"/>
+            <permission mode="0640" wildcard="log4j2.xml"/>
+            <permission mode="0640" wildcard="component_specification"/>
+            <permission mode="0644" wildcard="REM.properties"/>
+            <permission mode="0755" wildcard="create_rem_indexes.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="rel_manager" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1231" dest="log4j2.xml" mode="0640"/>
+            <file size="7937" dest="rel_manager" mode="0755"/>
+            <file size="605" dest="component_specification" mode="0640"/>
+            <file size="7414" dest="TableFormat.properties" mode="0644"/>
+            <file size="4562" dest="RELM.properties" mode="0644"/>
+            <file size="6487" dest="rel_manager.plb" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="rel_manager"/>
+            <permission mode="0640" wildcard="log4j2.xml"/>
+            <permission mode="0640" wildcard="component_specification"/>
+            <permission mode="0644" wildcard="RELM.properties"/>
+            <permission mode="0644" wildcard="TableFormat.properties"/>
+            <permission mode="0755" wildcard="rel_manager.plb"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="rel_monitor" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="549" dest="purge_monitor_data.plb" mode="0755"/>
+            <file size="122" dest="clean_monitor_data.plb" mode="0755"/>
+            <file size="6993" dest="install_rel_monitor.plb" mode="0755"/>
+            <file size="3149" dest="show_rel_monitor.plb" mode="0755"/>
+            <file size="1745" dest="show_rel_summary.plb" mode="0755"/>
+            <file size="3071" dest="rel_monitor_instructions.txt" mode="0640"/>
+            <file size="6806" dest="rel_monitor_proc.plb" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0640" wildcard="rel_monitor_instructions.txt"/>
+            <permission mode="0755" wildcard="clean_monitor_data.plb"/>
+            <permission mode="0755" wildcard="install_rel_monitor.plb"/>
+            <permission mode="0755" wildcard="rel_monitor_proc.plb"/>
+            <permission mode="0755" wildcard="purge_monitor_data.plb"/>
+            <permission mode="0755" wildcard="show_rel_summary.plb"/>
+            <permission mode="0755" wildcard="show_rel_monitor.plb"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

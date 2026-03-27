@@ -1,0 +1,212 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ACTION_LIST>
+   <ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/bin/start_dm_oracle" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="dm_oracle64" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="dm_oracle" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/bin/stop_dm_oracle" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="dm_oracle64" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="dm_oracle" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'Host'} = &quot;$HOSTNAME&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'Host'} = &quot;%SYS_HOSTNAME%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'alias'} = &quot;pindb$HOSTNAME&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'alias'} = &quot;%SYS_DBALIAS%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$DM_ORACLE{'port'} = &quot;12950&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$DM_ORACLE{'port'} = &quot;12950&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePartition.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__PERL_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%ORACLE_HOME%/Thirdparty/perl-5.38.2" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePartition.pl" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__BRM_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="%SYMBOL_BRM_SERVER_HOME%" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePartition.pl journal,journal_master,user_activity,newsfeed,sepa " TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$SETUP_CREATE_PARTITIONS = &quot;Yes&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$SETUP_CREATE_PARTITIONS = &quot;No&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$SETUP_DROP_ALL_TABLES = &quot;No&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$SETUP_DROP_ALL_TABLES = &quot;Yes&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$DM_ORACLE{'sm_charset'} = &quot;AL32UTF8&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$DM_ORACLE{'sm_charset'} = &quot;%CHAR_SET%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$DM_ORACLE{'db_num'} = &quot;0.0.0.1&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$DM_ORACLE{'db_num'} = &quot;%DB_NUMBER%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'tables_group'} = &quot;pin00&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'tables_group'} = &quot;%TABLE_GROUP%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'indexes_group'} = &quot;pinx00&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'indexes_group'} = &quot;%INDEX_GROUP%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/setup/pin_setup.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'storage_model'} = &quot;Small&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'storage_model'} = &quot;Large&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%BRM_VAR%/dm_oracle" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values dm_oracle" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="%ORACLE_HOME%/BRM/setup/scripts/postInstallUpdatePinSetup.pl /home/pin/opt/portal/BRM/setup/pin_setup.values archiving" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/apps/partition_utils/partition_utils.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'alias'} = &quot;pindb&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'alias'} = &quot;%SYS_DBALIAS%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/apps/partition_utils/partition_utils.values" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="$MAIN_DB{'user'} = &quot;pin&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$MAIN_DB{'user'} = &quot;%DB_USERNAME%&quot;;" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="stringReplace" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="replaceFileName" VAL="%ORACLE_HOME%/BRM/apps/pin_virtual_columns/pin_virtual_gen" TYPE="String" SECURE="F"/>
+         <INPUT NAME="searchString" VAL="__JAVA_HOME__" TYPE="String" SECURE="F"/>
+         <INPUT NAME="replaceString" VAL="$JAVA_HOME" TYPE="String" SECURE="F"/>
+         <INPUT NAME="ignoreCase" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+</ACTION_LIST>

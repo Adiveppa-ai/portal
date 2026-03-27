@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 					"SMS_SETTLE_RPT_T"."SMSC_ID",
+ 					"SMS_SETTLE_RPT_T"."SMS_DAY",
+ 					"SMS_SETTLE_RPT_T"."SMS_RECORDS",
+ 					"SMS_SETTLE_RPT_T"."SMS_ORIGIN_ID",
+ 					"SMS_SETTLE_RPT_T"."SMS_DESTINATION_ID"
+ 				FROM
+ 					"SMS_SETTLE_RPT_T" "SMS_SETTLE_RPT_T"
+ 				WHERE
+ 					bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 					("SMS_SETTLE_RPT_T"."SMS_DAY">=bipext.infstrtotimet(:PARAM_START_DATE,2)AND
+ 					"SMS_SETTLE_RPT_T"."SMS_DAY"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 					"SMS_SETTLE_RPT_T"."SMS_ORIGIN_ID" LIKE DECODE(:PARAM_ORIGIN_ID, null, '%',:PARAM_ORIGIN_ID) AND
+ 					"SMS_SETTLE_RPT_T"."SMS_DESTINATION_ID" LIKE DECODE(:PARAM_DESTINATION_ID, null, '%',:PARAM_DESTINATION_ID)	
+ 			 ORDER BY
+ 					"SMS_SETTLE_RPT_T"."SMS_ORIGIN_ID"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="SMSC_ID" value="SMSC_ID" dataType="xsd:string" label="SMSC_ID" breakOrder="None" fieldOrder="1"/>
+    <element name="SMS_DAY" value="SMS_DAY" dataType="xsd:integer" label="SMS_DAY" breakOrder="None" fieldOrder="2"/>
+    <element name="SMS_RECORDS" value="SMS_RECORDS" dataType="xsd:integer" label="SMS_RECORDS" breakOrder="None" fieldOrder="3"/>
+    <element name="SMS_ORIGIN_ID" value="SMS_ORIGIN_ID" dataType="xsd:string" label="SMS_ORIGIN_ID" breakOrder="None" fieldOrder="4"/>
+    <element name="SMS_DESTINATION_ID" value="SMS_DESTINATION_ID" dataType="xsd:string" label="SMS_DESTINATION_ID" breakOrder="None" fieldOrder="5"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_DESTINATION_ID">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT 
+	SMS_DESTINATION_ID
+FROM 
+	SMS_SETTLE_RPT_T
+	WHERE 	
+		SMS_DESTINATION_ID IS NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="PARAM_ORIGIN_ID">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT 
+	SMS_ORIGIN_ID
+FROM 
+	SMS_SETTLE_RPT_T
+	WHERE 	
+		SMS_ORIGIN_ID IS NOT NULL]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter End date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_ORIGIN_ID" defaultValue="%" dataType="xsd:string">
+         <select label=" Enter the origin ID" valueSet="PARAM_ORIGIN_ID" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_DESTINATION_ID" defaultValue="%" dataType="xsd:string">
+         <select label=" Enter the Destination ID  " valueSet="PARAM_DESTINATION_ID" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_RATE_PER_SMS" defaultValue="50" dataType="xsd:string">
+         <input label="Enter Rate per SMS  "/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

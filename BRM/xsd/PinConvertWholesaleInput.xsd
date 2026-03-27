@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2022,  Oracle and/or its affiliates.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="ConvertWholesaleConfigurationType">
+                <xs:choice>
+			<xs:element name="Billinfo" type="businessConfig:BillinfoType" maxOccurs="unbounded"/>
+			<xs:element name="BusinessTypeArray" type="businessConfig:BusinessProfileType" maxOccurs="unbounded"/>
+                  </xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="BillinfoType">
+		<xs:sequence>
+                	<xs:element name="BillinfoId" type="xs:nonNegativeInteger" maxOccurs="1"/>
+			<xs:element name="Account" type="xs:nonNegativeInteger" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="BusinessProfileType">
+		<xs:sequence>
+                	<xs:element name="BusinessProfile" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BusinessProfileName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

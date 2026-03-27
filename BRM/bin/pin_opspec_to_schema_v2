@@ -1,0 +1,168 @@
+#!/bin/python
+
+"""
+* @(#)% %
+*
+* Copyright (c) 2023 Oracle and/or its affiliates.
+*
+* This material is the confidential property of Oracle Corporation
+* or its licensors and may be used, reproduced, stored or transmitted
+* only in accordance with a valid Oracle license or sublicense agreement.
+*
+*
+*
+"""
+
+# This is a python script to create xsd for version 2 webServices; it takes input file as XML, and output will  be redirected to an outputfile(name of outputfile will be based on the opcode name).
+
+import os
+import subprocess
+import sys
+from xml.etree import ElementTree as ET
+import datetime
+import xml.dom.minidom
+from io import StringIO
+
+
+# Usage: python pin_opspec_to_schema_v2.py inputfileName
+# Update PIN_HOME before running
+
+# Extracting BRM home variables
+PINDIR = os.environ["PIN_HOME"]
+JAVA_HOME = os.environ["JAVA_HOME"]
+
+XSLFILE = os.path.join(PINDIR, 'apps/brm_integrations/stylesheets/pin_opspec_to_schema.xsl')
+XMLPARSER = os.path.join(PINDIR, 'jars/xmlparserv2.jar')
+JAVA_CMD = os.path.join(JAVA_HOME, 'bin/java')
+SCHEMA_URL = "http://www.w3.org/2001/XMLSchema"
+currYear = datetime.date.today().year
+
+fileName = sys.argv[1] 
+assert len(fileName) > 0, "Usage: python pin_opspec_to_schema_v2.py <opcode_specs.xml>"
+inputFile = ET.parse(fileName)
+out = "tmp.xsd"
+
+command = f"{JAVA_CMD} -XX:+UseCompilerSafepoints -classpath {XMLPARSER} -mx256m -Duser.language=en -Duser.region=US oracle.xml.parser.v2.oraxsl {fileName} {XSLFILE} {out}"
+subprocess.run(command, shell=True)
+
+
+with open(out, "r") as file:
+    text = file.read()
+
+rootNode = ET.fromstring(text)
+
+def create_ws_version2_xsd(rootNode):
+    rootNode.set("xmlns", "http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes")
+    rootNode.set("xmlns:op", "http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes")
+
+    # Find input opcode name and derive operation name
+    inputFlistRecord = rootNode.find("xsd:element",namespaces={'xsd': SCHEMA_URL})
+    name = inputFlistRecord.get("name")
+    opcodeIndex = name.rfind('inputFlist') - 1
+    opcode = name[:opcodeIndex]
+    op = opcode.split("_")
+    op2 = [it[0].upper() + it[1:].lower() for it in op[1:]]
+    newName = op[0].lower() + "".join(op2)
+    newReq = f"{newName}Request"
+    newResp = f"{newName}Response"
+    outfile = open(f"{opcode}.xsd", "w")
+    new_first_child = ET.fromstring(
+        f"""<xsd:schema xmlns:xsd="{SCHEMA_URL}">
+            <xsd:element name="{newReq}">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="{opcode}_Request" type="{opcode}_RequestType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>"""
+    )
+
+    new_second_child = ET.fromstring(
+        f"""<xsd:schema xmlns:xsd="{SCHEMA_URL}">
+        <xsd:complexType name="{opcode}_RequestType">
+           <xsd:sequence>
+                       <xsd:element name="flags" type="xsd:int"/>
+                       <xsd:element name="{opcode}_inputFlist">
+                       </xsd:element>
+           </xsd:sequence>
+        </xsd:complexType>
+        </xsd:schema>"""
+    )
+    
+    schema_current = rootNode.findall(".//*[@schemaLocation]")
+    schema_unique = list({elem.get("schemaLocation"): elem for elem in schema_current}.values())
+
+    for element in rootNode.findall('.//*[@schemaLocation]'):
+        rootNode.remove(element)
+    
+    input_flist_node = None
+    for elem in new_second_child.iter():
+        if 'name' in elem.attrib and elem.attrib['name'] == f"{opcode}_inputFlist":
+            input_flist_node = elem
+            break
+
+# Append children of inputFlistRecord to inputFlistNode
+    for child in inputFlistRecord:
+        input_flist_node.append(child)
+    
+    if len(rootNode) > 0:
+        rootNode.remove(rootNode[0])
+
+# Removing the child with a name attribute equal to "${opcode}_inputFlist"
+    input_flist_child = None
+    for child in rootNode.findall(".//*[@name='${opcode}_inputFlist']"):
+        input_flist_child = child
+        break
+
+    if input_flist_child is not None:
+        rootNode.remove(input_flist_child)
+
+
+    # Create Element objects for newSecondChild and newFirstChild
+    new_second_child_element = ET.Element('xsd:schema')
+    new_second_child_element.append(new_second_child)
+
+    new_first_child_element = ET.Element('xsd:schema')
+    new_first_child_element.append(new_first_child)
+
+    # Insert newSecondChild as the first child of rootNode
+    rootNode.insert(0, new_first_child_element)
+
+    # Insert newFirstChild as the second child of rootNode
+    rootNode.insert(1, new_second_child_element)
+
+    # To avoid duplicate includes, append a local uniqueList to the rootNode
+    for elem in schema_unique:
+        rootNode.insert(0, elem)
+
+    # Add new complexType:context_info and add an element of context_type to input and output Flist
+    # Rename Element
+    rootNode.find(f'.//xsd:element[@name="{opcode}_outputFlist"]', namespaces={"xsd": SCHEMA_URL}).set("name", f"{newResp}")
+
+    # Find the XML element with a specific name attribute
+    output_flist_element = rootNode.find(".//*[@name='{}_outputFlist']".format(opcode))
+
+    # Update the name attribute value
+    if output_flist_element is not None:
+        output_flist_element.set("name", newResp)
+
+    # ##print to a file opcode.xsd
+    with open(f"{opcode}.xsd", "a") as outfile:
+        outfile.write(f'<?xml version="1.0" encoding="UTF-8"?>')
+        outfile.write(f'<!--Copyright (c) {currYear} Oracle.')
+        outfile.write(f'\nThis material is the confidential property of Oracle Corporation or its licensors '
+                      f'and may be used, reproduced, stored or transmitted only in accordance with a valid '
+                      f'Oracle license or sublicense agreement.-->')
+        outfile.write(ET.tostring(rootNode,encoding='unicode'))              
+        
+    subprocess.run(f"sed -i 's/<\/xs:schema><\/xsd:schema>//g' {opcode}.xsd", shell=True)
+    subprocess.run(f"sed -i '/<xsd:schema><xs:schema>/g' {opcode}.xsd", shell=True)
+    subprocess.run(f"sed -i 's#xs:#xsd:#g' {opcode}.xsd", shell=True)
+    subprocess.run(f"sed -i 's/xmlns:xs=/xmlns:xsd=/g' {opcode}.xsd", shell=True)
+   
+# calling the function with rootNode input
+create_ws_version2_xsd(rootNode)
+
+# Removing the temporary file
+os.remove(out)

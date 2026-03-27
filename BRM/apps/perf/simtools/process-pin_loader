@@ -1,0 +1,56 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#
+#  This material is the confidential property of Oracle Corporation
+#  or its subsidiaries or licensors and may be used, reproduced, stored
+#  or transmitted only in accordance with a valid Oracle license or
+#  sublicense agreement.
+
+
+#
+#       This script is used to do parsing and printing of
+#       results of pin_loader simulation
+#       There is one optional parameter < name of event file >,
+#       by default script uses pin_loader.event
+
+
+if ( $ARGV[0] ) {
+$sfile=$ARGV[0];
+} else {
+$sfile="pin_loader.event";
+}
+
+if ( open ( INFILE,$sfile ) ) {
+
+$xx = 0.0;
+$X = 0.0;
+$maxx = 0.0;
+$last_time = 0;
+
+while (<INFILE>) {
+    @Fld = split(' ', $_, 99);
+    if (/^Event: CREATE_CUST/) {
+	$value = $Fld[4];
+	$xx += $value * $value;
+	$X += $value;
+	$n++;
+
+	if ($value > $maxx) {	
+	    $maxx = $value;
+	}
+	$last_time = $Fld[4] + $Fld[5];
+    }
+}
+
+printf "Created accounts: %d\n", $n;
+printf "Running time: %.0fs\n", $last_time / 1000.0;
+printf "Mean time to create account: %dms\n", $X / $n;
+printf "Sdev time to create account: %dms\n",
+
+  sqrt($xx / $n - ($X * $X) / ($n * $n));
+printf "Max  time to create account: %dms\n", $maxx;
+printf "Accounts per second created: %.1f\n", $n / $last_time * 1000;
+
+}
+

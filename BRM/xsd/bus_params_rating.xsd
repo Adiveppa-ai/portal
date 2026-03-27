@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+		Copyright (c) 2005, 2022, Oracle and/or its affiliates.
+		This material is the confidential property of Oracle Corporation or its
+		licensors and may be used, reproduced, stored or transmitted only in
+		accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsRatingType">
+		<xs:sequence>
+			<xs:element name="OverrideCreditLimit" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter decides if the 
+						system-wide credit limit override
+						feature is enabled. When enabled by setting 
+						to 1, credit limit check is avoided 
+						irrespective of the credit limit 
+						override value set in the product. 
+						Default value is 0 which disables this feature.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="EnableEras">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This configuration can be used to control the selection of ERAs from profile
+					objects.
+						The values supported for this configuration parameter are:
+						0 - disabled (no profiles)
+						1 - service (select ERAs from service profiles only)
+						2 - account (select ERAs from account profiles only)
+						3 - service and account  (select ERAs from service and account profiles)
+						The default value for this configuration parameter is 3.
+						Also, if this parameter is not specified the implicit behavior is the default behaviour.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="serviceAndAccount"/>
+						<xs:enumeration value="account"/>
+						<xs:enumeration value="service"/>
+						<xs:enumeration value="disabled"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="EnableTailormadeCache" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter decides if the 
+						tailormade products need to be stored
+						in the cache of C Rating Engine. 
+						When enabled by setting to 1, 
+						tailormade products are stored in the cache.
+						Default value is 0 which disables this feature.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="EnableGlobalChargeSharing" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter enables or disables
+						Global charge sharing.This is enabled by setting to 1.
+				 		Default value is 0 which disables this feature.	
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="ProductsDiscountsThreshold">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This paramater indicates the maximum number of products or discounts that
+						will be cached in C Rating Engine cache. Once the specified value is reached
+						for either products/discounts then 10% of the products or discounts that are
+						least used will be flushed from the cache. This is applicable only if this
+						parameter is non-zero. Default value is 0 which disables this feature.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="TimeStampRoundingForPurchaseGrant" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter enables or disables rounding of
+						purchase grant valid from validity to midnight.This works along with timestamp_rounding pin.conf 
+						configuration.This is enabled by setting to 1.
+						Default value is 1 which enables this feature.	
+						If this flag is disabled and timestamp rounding is enabled , then the
+						purchase grant will not be midnight rounded.Higher precedence of flag is
+						given to the new business param.If the new flag is enabled and  midnight
+						rounding is enabled , the purchase fee grant will be midnight rounded.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="OverrideInProductCurrency" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter enables or disables override amount in product currency.
+						Default value is 0 which disables this feature.	
+						If this flag is disabled, then the override amount for a product will be
+						in account currency.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="RatePreCacheProductAndDisc">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter enables or disables caching of system/user products/discounts during cm startup. Bit fields of the integer value are used to specify the configuration options. Bit 0: precaches system products. Bit 1: precaches user products. Bit 2: precaches system discounts. Bit 3: precaches user discounts. Default value is 0. Any combination of bits can be set based on the precache requirement.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="ApplyDiscountOnZeroCharge" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					Default value is enable. If disabled then rating will skip pipeline call so that discounts are not processed if the product scale is 0.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="ResetMemberCreditLimit" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter decides if the 
+						credit limit of member account to be
+						set zero or not in case of roll up. 
+						When enabled, credit limit of member 
+						account will be zero.
+						Default value is enabled.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+                        <xs:element name="SharingGroupsEnabled" type="businessConfig:switch">
+                        <xs:annotation>
+                                <xs:documentation xml:lang="en">
+					Parameter to control whether the sharing groups feature is enabled. The default value is enabled (1). If disabled (0), the sharing groups feature will not be allowed.
+                                </xs:documentation>
+                        </xs:annotation>
+                        </xs:element>
+			<xs:element name="ExtraRateFlags">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Parameter to set extra_rate_flags. Default value of extra_rate_flags is configured as 0x00.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			  <xs:element name="TaxReturnJuris">
+                        <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                       Parameter to control whether the taxes should be summarized by jurisdiction level. The default value is 'summarize' i.e. Summarize taxes by jurisdiction level. If set to 'itemize' it will not summarize taxes by jurisdiction level. 
+                                </xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:enumeration value="summarize"/>
+                                                <xs:enumeration value="itemize"/>
+                                      </xs:restriction>
+                        </xs:simpleType>
+                        </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

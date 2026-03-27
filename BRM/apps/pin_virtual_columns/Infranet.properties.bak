@@ -1,0 +1,36 @@
+################################################################################
+#
+# Copyright (c) 2012, 2017, Oracle and/or its affiliates. All rights reserved.
+#       This material is the confidential property of Oracle Corporation
+#       or its licensors and may be used, reproduced, stored
+#       or transmitted only in accordance with a valid Oracle license
+#       or sublicense agreement.
+#
+################################################################################
+################################################################################
+
+##
+# Beginning of VCOL general processing configuration
+#
+
+
+# Logging configuration
+infranet.log.file = vcol.pinlog
+infranet.log.level = 1
+infranet.log.name = VCOL
+
+# JDBC connection configuration
+infranet.vcol.userid = pin15
+infranet.vcol.dbname = BRM
+
+infranet.vcol.worker_threads = 10
+
+infranet.pcp.ssl.enabled = false
+infranet.pcp.ssl.wallet.location = /home/pin/opt/portal/BRM/wallet/client
+infranet.pcp.ssl.wallet.filename = cwallet.sso
+infranet.vcol.ssl.db.ssl.enabled = false
+infranet.vcol.ssl.db.ssl.client_auth = false
+infranet.vcol.ssl.db.ssl.truststore.filename = cwallet.sso
+infranet.vcol.ssl.db.ssl.truststore.location = __DB_SSL_TRUSTSTORE_LOC__
+infranet.vcol.ssl.db.ssl.keyStore.filename = cwallet.sso
+infranet.vcol.ssl.db.ssl.keyStore.location = __DB_SSL_KEYSTORE_LOC__

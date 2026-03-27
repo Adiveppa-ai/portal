@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 				"DEVICE_T"."STATE_ID",
+ 				"DEVICE_T"."DEVICE_ID",
+ 				"DEVICE_T"."POID_TYPE",
+ 				"DEVICE_T"."CREATED_T",	
+ 				"DEVICE_VOUCHER_T"."EXPIRATION",
+ 				"DEVICE_VOUCHER_T"."VOUCHER_PIN",
+ 				"DEVICE_VOUCHER_T"."DEALER_NAME",
+ 				"STRINGS_T"."STRING"
+ 			FROM
+ 				"DEVICE_T" "DEVICE_T" INNER JOIN "DEVICE_VOUCHER_T" "DEVICE_VOUCHER_T" ON
+ 				"DEVICE_T"."POID_ID0"="DEVICE_VOUCHER_T"."OBJ_ID0"
+ 				INNER JOIN "STRINGS_T" ON ("DEVICE_T"."STATE_ID" = "STRINGS_T"."STRING_ID" AND "STRINGS_T"."DOMAIN" = 'config_device_state_voucher')
+ 			WHERE
+ 				"DEVICE_T"."POID_TYPE"='/device/voucher' AND
+ 				"DEVICE_T"."DEVICE_ID" LIKE DECODE(UPPER(:PARAM_DEVICE_ID), 'ALL', '%',UPPER(:PARAM_DEVICE_ID)) AND
+ 				bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 				("DEVICE_T"."CREATED_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ "DEVICE_T"."CREATED_T"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1)
+ 			ORDER BY
+ 				"DEVICE_VOUCHER_T"."DEALER_NAME"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="STATE_ID" value="STATE_ID" dataType="xsd:integer" label="STATE_ID" breakOrder="None" fieldOrder="1"/>
+    <element name="DEVICE_ID" value="DEVICE_ID" dataType="xsd:string" label="DEVICE_ID" breakOrder="None" fieldOrder="2"/>
+    <element name="POID_TYPE" value="POID_TYPE" dataType="xsd:string" label="POID_TYPE" breakOrder="None" fieldOrder="3"/>
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="4"/>
+    <element name="EXPIRATION" value="EXPIRATION" dataType="xsd:integer" label="EXPIRATION" breakOrder="None" fieldOrder="5"/>
+    <element name="VOUCHER_PIN" value="VOUCHER_PIN" dataType="xsd:string" label="VOUCHER_PIN" breakOrder="None" fieldOrder="6"/>
+    <element name="DEALER_NAME" value="DEALER_NAME" dataType="xsd:string" label="DEALER_NAME" breakOrder="None" fieldOrder="7"/>
+    <element name="STRING" value="STRING" dataType="xsd:string" label="STRING" breakOrder="None" fieldOrder="8"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_MASK_PIN">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_DEVICE_ID" dataType="xsd:string">
+         <input label="Enter a specific Device number, or select ALL for all Device numbers." size="30"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_MASK_PIN" dataType="xsd:string">
+         <select label="Select YES to mask PIN numbers, select NO to display entire number." valueSet="PARAM_MASK_PIN" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

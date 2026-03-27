@@ -1,0 +1,132 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql>
+            <![CDATA[SELECT "EVENT_BAL_IMPACTS_T"."RESOURCE_ID", "CONFIG_BEID_BALANCES_T"."NAME" "RESOURCE_NAME",
+	"ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE", 
+	"PRODUCT_T"."NAME", "EVENT_BAL_IMPACTS_T"."IMPACT_TYPE", 
+	"EVENT_T"."ACCOUNT_OBJ_ID0", "PRODUCT_T"."POID_ID0" PRODUCT_POID_ID, 
+	"EVENT_SESSION_TLCS_T"."BYTES_DOWNLINK", "EVENT_T"."END_T", 
+	"EVENT_T"."START_T", "EVENT_BAL_IMPACTS_T"."RUM_ID", 
+	"EVENT_BAL_IMPACTS_T"."AMOUNT", "EVENT_T"."POID_ID0" EVENT_POID_ID0,
+	DECODE("EVENT_BAL_IMPACTS_T"."RUM_ID", 0,("EVENT_T"."END_T"-"EVENT_T"."START_T")/(60*60),0) CALCULATED_DURATION,
+	DECODE("EVENT_BAL_IMPACTS_T"."RUM_ID", 0,"EVENT_SESSION_TLCS_T"."BYTES_DOWNLINK"/1048576,0) CALCULATED_MEGABYTES
+ FROM   (((("EVENT_T" "EVENT_T" 
+	INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T" ON "EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0") 
+	INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0") 
+	INNER JOIN "PRODUCT_T" "PRODUCT_T" ON "EVENT_BAL_IMPACTS_T"."PRODUCT_OBJ_ID0"="PRODUCT_T"."POID_ID0") 
+	INNER JOIN "EVENT_SESSION_TLCS_T" "EVENT_SESSION_TLCS_T" ON "EVENT_BAL_IMPACTS_T"."OBJ_ID0"="EVENT_SESSION_TLCS_T"."OBJ_ID0")
+	INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"="CONFIG_BEID_BALANCES_T"."REC_ID"
+ WHERE  "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:PARAM_STATE,"ACCOUNT_NAMEINFO_T"."STATE" ) 
+	AND "PRODUCT_T"."NAME" LIKE NVL(:PARAM_PRODUCT_NAME, "PRODUCT_T"."NAME") 
+	AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:PARAM_COUNTRY, "ACCOUNT_NAMEINFO_T"."COUNTRY") 
+	AND "EVENT_T"."POID_DB">0 AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1 
+	AND "EVENT_T"."ACCOUNT_OBJ_ID0">1 
+	AND ("EVENT_T"."END_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) 
+	AND "EVENT_T"."END_T"<=(bipext.infstrtotimet(:PARAM_END_DATE,2)-1)) 
+	AND bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 
+ ORDER BY "EVENT_BAL_IMPACTS_T"."RESOURCE_ID", "ACCOUNT_NAMEINFO_T"."COUNTRY", 
+	"ACCOUNT_NAMEINFO_T"."STATE", "PRODUCT_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="GPRSProductUsage" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="Q1" label="Q1" source="Q1">
+               <element name="RESOURCE_ID" value="RESOURCE_ID" label="RESOURCE_ID" dataType="xsd:integer" breakOrder="" fieldOrder="1"/>
+               <element name="RESOURCE_NAME" value="RESOURCE_NAME" label="RESOURCE_NAME" dataType="xsd:string" breakOrder="" fieldOrder="2"/>
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="3"/>
+               <element name="STATE" value="STATE" label="STATE" dataType="xsd:string" breakOrder="" fieldOrder="4"/>
+               <element name="NAME" value="NAME" label="NAME" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="IMPACT_TYPE" value="IMPACT_TYPE" label="IMPACT_TYPE" dataType="xsd:integer" breakOrder="" fieldOrder="6"/>
+               <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" label="ACCOUNT_OBJ_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="7"/>
+               <element name="PRODUCT_POID_ID" value="PRODUCT_POID_ID" label="PRODUCT_POID_ID" dataType="xsd:integer" breakOrder="" fieldOrder="8"/>
+               <element name="BYTES_DOWNLINK" value="BYTES_DOWNLINK" label="BYTES_DOWNLINK" dataType="xsd:integer" breakOrder="" fieldOrder="9"/>
+               <element name="END_T" value="END_T" label="END_T" dataType="xsd:integer" breakOrder="" fieldOrder="10"/>
+               <element name="START_T" value="START_T" label="START_T" dataType="xsd:integer" breakOrder="" fieldOrder="11"/>
+               <element name="RUM_ID" value="RUM_ID" label="RUM_ID" dataType="xsd:integer" breakOrder="" fieldOrder="12"/>
+               <element name="AMOUNT" value="AMOUNT" label="AMOUNT" dataType="xsd:integer" breakOrder="" fieldOrder="13"/>
+               <element name="EVENT_POID_ID0" value="EVENT_POID_ID0" label="EVENT_POID_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="14"/>
+               <element name="CALCULATED_DURATION" value="CALCULATED_DURATION" label="CALCULATED_DURATION" dataType="xsd:integer" breakOrder="" fieldOrder="15"/>
+               <element name="CALCULATED_MEGABYTES" value="CALCULATED_MEGABYTES" label="CALCULATED_MEGABYTES" dataType="xsd:integer" breakOrder="" fieldOrder="16"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "ACCOUNT_NAMEINFO_T"."COUNTRY"
+FROM ACCOUNT_NAMEINFO_T WHERE "ACCOUNT_NAMEINFO_T"."COUNTRY" is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "ACCOUNT_NAMEINFO_T"."STATE"
+FROM ACCOUNT_NAMEINFO_T WHERE "ACCOUNT_NAMEINFO_T"."STATE" is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE_DETAILS">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_INCLUDE_CHART">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_PRODUCT_NAME">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT	"PRODUCT_T"."NAME" 
+ FROM PRODUCT_T WHERE "PRODUCT_T"."NAME" is NOT NULL and "PRODUCT_T"."PERMITTED" like '/service/telco/gprs%']]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_COUNTRY" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries." valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE_DETAILS" defaultValue="NO" dataType="String">
+         <select label="Include state-level details?" valueSet="LOV_STATE_DETAILS" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_INCLUDE_CHART" defaultValue="NO" dataType="String">
+         <select label=" Include charts?" valueSet="LOV_INCLUDE_CHART" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_PRODUCT_NAME" defaultValue="%" dataType="xsd:string">
+         <select label="Enter or select a specific product name, or select ALL to include all products." valueSet="LOV_PRODUCT_NAME" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="20" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY). " size="20" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+      <layouts>
+         <layout name="Q1" left="285px" top="28px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

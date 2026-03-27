@@ -1,0 +1,468 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="oracle.nginst.common" version="13.9.4.0.0" description="Next Generation Installation Common" description-key="component.description" gdr-version="1.8.4.0" singleton="true" pom-gen="false" groupId="com.oracle.oui" patch-level="18" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="modules" mode="750" patchable="true">
+         <directory dest="private" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="263865" checksum="af3be3f74d25fc5163b54f56a0d394b462dafafd" dest="commons-codec-1.8.jar" mode="640"/>
+            <file size="60686" checksum="5043bfebc3db072ed80fbd362e7caf00e885d8ae" dest="commons-logging-1.1.1.jar" mode="640"/>
+            <file size="782868" checksum="2a6e91b4934a79ca1e841eff7fdb60ca7a01af9e" dest="httpclient-4.5.13.jar" mode="640"/>
+            <file size="328677" checksum="c2083503561edcdd5c47afa9acdc07d435c9a05f" dest="httpcore-4.4.14.jar" mode="640"/>
+            <file size="89968" checksum="3dfb7788ced5ff83c1bddeed664a4c9acd06b213" dest="orai18n-mapping.jar" mode="640"/>
+            <file size="131269" checksum="0ec38c57a78940bf5f8f5971307ca89406849647" dest="jersey-client-1.13.jar" mode="640"/>
+            <file size="465649" checksum="4326a56dc6b2d67b7313905c353e1af225bb164f" dest="jersey-core-1.13.jar" mode="640"/>
+            <file size="75565" checksum="9334d7c6ae914ed1985926506343a88e9da5b6ba" dest="jackson-annotations-2.15.3.jar" mode="640"/>
+            <file size="549233" checksum="9dcc4d6485c152ce25e944a18979a3b894baa520" dest="jackson-core-2.15.3.jar" mode="640"/>
+            <file size="1620120" checksum="8187d3e12c34044da071c5ae9c75b358c268a79d" dest="jackson-databind-2.15.3.jar" mode="640"/>
+            <file size="36668" checksum="74e8ef60b65b42051258465f06c06195e61e92f2" dest="jackson-module-jaxb-annotations-2.15.3.jar" mode="640"/>
+            <file size="1919476" checksum="6f47b124b356a218ebbd5ecbf6bb959d8c37525f" dest="jaxb-xjc-2.3.5.jar" mode="640"/>
+            <file size="117007" checksum="fd51fe887dc6d7b3ce5d1e80d7fd72b0209c2b2a" dest="jaxb-jxc-2.3.5.jar" mode="640"/>
+            <file size="1117530" checksum="d32308bad0b8b259a3de55641c365e1ae9372505" dest="jaxb-impl-2.3.5.jar" mode="640"/>
+            <file size="115643" checksum="255e8e3e0a2e18c09462314c50ba47c5b6ee4f86" dest="jakarta.xml.bind-api-2.3.3.jar" mode="640"/>
+            <file size="46613" checksum="758da99b288ae08655f8b6be22e206ae77d7e7bf" dest="jakarta.activation-api-1.2.2.jar" mode="640"/>
+            <file size="72008" checksum="ec8930fa62e7b1758b1664d135f50c7abe86a4a3" dest="txw2-2.3.5.jar" mode="640"/>
+            <file size="38099" checksum="78011e483a21102fb4858f3e8f269a677e50aa23" dest="stax-ex-1.8.1.jar" mode="640"/>
+            <file size="317195" checksum="4eb6a0adad553bf759ffe86927df6f3b848c8bea" dest="FastInfoset-1.2.16.jar" mode="640"/>
+            <file size="27156" checksum="d6a97364045aa6b99bf2d3c566a3f98599c2d296" dest="istack-commons-runtime-3.0.8.jar" mode="640"/>
+            <file size="29288" checksum="a9bb4e2d83d50623bb2dd26cde8d7dd88e6b7104" dest="istack-commons-tools-3.0.8.jar" mode="640"/>
+            <file size="152436" checksum="cde4647fcebedb3663bccc79e21789e8e6755a19" dest="codemodel-2.6.jar" mode="640"/>
+         </directory>
+         <file size="614712" checksum="f6b406b3ebdc68c405fa1cbddf8fcb7253534f63" dest="com.oracle.cie.rest_1.8.4.0.jar" mode="640"/>
+         <file size="584685" checksum="187d7a3727219079dd85348360aadd54f7b610e3" dest="com.oracle.cie.oui-common_12.8.4.0.jar" mode="640"/>
+         <file size="65527" checksum="cb2ef883b06cbaa153b924c5ccca989c87d6b51a" dest="com.oracle.cie.repo-common_1.8.4.0.jar" mode="640"/>
+         <file size="1795242" checksum="7da6825ce31539c807cafb5229935a9bf205de19" dest="com.oracle.cie.gdr_1.8.4.0.jar" mode="640"/>
+         <file size="588509" checksum="81e69c51dc7346058f5dd01d336a16c1550895e9" dest="com.oracle.cie.gdr-schema_1.8.4.0.jar" mode="640"/>
+         <file size="11189" checksum="19a1ccace1103dc2f5362ee5f40e56813874adc5" dest="com.oracle.cie.ora-installer-interfaces_12.8.4.0.jar" mode="640"/>
+         <file size="350860" checksum="768d9770902a80639a1b6c087e3226d38ea2d6b1" dest="com.oracle.cie.ora-launcher_12.8.4.0.jar" mode="640"/>
+         <file size="135508" checksum="da18bdde2013912f38e7b8e74deb8c9da3dcf13b" dest="com.oracle.glcm.install-common_1.0.4.0.jar" mode="640"/>
+         <file size="1001" checksum="18f93adbabff8e79e76e179d27082bc4a01f0438" dest="gdr-external.jar" mode="640"/>
+         <file size="893" checksum="54cc8c418df7650506134360ea2ad0edb28a19bc" dest="ora-launcher.jar" mode="640"/>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+      <modifier type="text" regex=".*\.sh"/>
+      <modifier type="text" regex=".*\.cmd"/>
+      <modifier type="text" regex="oraparam.ini"/>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="4190" checksum="57cbefde113850869173e195ca1189004a61df2b" dest="launch.sh" mode="750"/>
+         <file size="501" checksum="411fdca6f9b45d0e8c6d590972c5caa5276679af" dest="deinstall.sh" mode="750"/>
+         <file size="3647" checksum="1a5008ddf842eaef9ac7ba818847cdc9cea5734f" dest="viewInventory.sh" mode="750"/>
+         <file size="3770" checksum="3de71746af64bef280e5efbd6a20cb6b37e1df58" dest="compareInventory.sh" mode="750"/>
+         <file size="699" checksum="811809b8fa98d8096b888ecca2f65a2d48b0835f" dest="getVariable.sh" mode="750"/>
+         <file size="1436" checksum="08234d70b4e5581422946507f10a482730117751" dest="getProperty.sh" mode="750"/>
+         <file size="3893" checksum="951d7eecf7ef00555d13dba31f76409dc398ee78" dest="setProperty.sh" mode="750"/>
+      </directory>
+      <file size="2531" checksum="ceeb5bee66477dbf7bff70185cd8dc2ee2e33a1e" dest="oraparam.ini"/>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup2.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="NT_X86"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="win32" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="126976" checksum="58ab2b87a536947492726d983a7578438dd7d6d3" dest="NtEnv221.dll" mode="750"/>
+            <file size="49152" checksum="cb3ac0376bf84fa3e0f373a8af17215d8c2818c5" dest="Win32EnvQ221.dll" mode="750"/>
+            <file size="57344" checksum="5d3765d9220f3e2bf1fd8d665c08716a4ded973b" dest="Win32FileAction221.dll" mode="750"/>
+            <file size="65536" checksum="161a2b0680d6e8c4ed24bf0f87050dea03a8cfbc" dest="Win32RgsQueries.dll" mode="750"/>
+            <file size="77824" checksum="a069b71e211b1d831e1d9d85907339c6e99eeba1" dest="WindowsFolders21041.dll" mode="750"/>
+            <file size="57344" checksum="6cdaf098c2dca94a794b5b27ea95ac8c2bbce7ec" dest="WindowsGeneralQ.dll" mode="750"/>
+            <file size="348160" checksum="d5502a1d00787d68f548ddeebbde1eca5e2b38ca" dest="msvcr71.dll" mode="750"/>
+            <file size="53248" checksum="964aa05accac466c4fdfefc1fff9f3fb53b0695b" dest="ntServicesActions17013.dll" mode="750"/>
+            <file size="53248" checksum="493a8da6dff6320d4ba2c4b932aab956540a0642" dest="ntServicesQueries.dll" mode="750"/>
+            <file size="49152" checksum="9b776fd041f26b13c816f9b67ca467cbf0a2f3a1" dest="ocxReg.dll" mode="750"/>
+            <file size="147456" checksum="5f6b1901888b4d08952e1d77f8a798665232d539" dest="oraInstaller.dll" mode="750"/>
+            <file size="69632" checksum="cb7354affe38b10df8f30e7ae7ffdb7479dfa046" dest="w32RegActions170.dll" mode="750"/>
+            <file size="57344" checksum="0b61ed2a9eaa9220d96c799fe1f26099f562601a" dest="w32RegQueries152.dll" mode="750"/>
+         </directory>
+         <file-perms>
+            <permission mode="750" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="197632" checksum="d7b21441906503adf0834a96c7403117a8bd9eec" dest="jni.dll" mode="750"/>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup3.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="NT_AMD64"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="win64" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="162304" checksum="925847004c9c14499f3e37cf4ef6e00430c04b5c" dest="Win64Env221.dll" mode="750"/>
+            <file size="49152" checksum="0b64b5636ce1abfd81649eef4fc07d46fb127c45" dest="Win64EnvQ221.dll" mode="750"/>
+            <file size="65024" checksum="2eeaa1b3b4ad031b1df9d2602e70b697d769b7a9" dest="Win64FileAction221.dll" mode="750"/>
+            <file size="79872" checksum="2e3da591f3edc5d6740b99148e1e23784f9a3d67" dest="Win64Folders21041.dll" mode="750"/>
+            <file size="65024" checksum="e0f470168123ff0ddaa2025cfe2e7880a7b32286" dest="Win64GeneralQ.dll" mode="750"/>
+            <file size="362496" checksum="a2dd6fb2349c62ffda4f4b6e7a1f85ba5ae95132" dest="msvcrt.dll" mode="750"/>
+            <file size="177664" checksum="262165fa1411b5a91eefccf60e6be0d3c8c300e2" dest="oraInstaller.dll" mode="750"/>
+            <file size="78848" checksum="6fdb74a0c187342b8b2e736f01acf88a985bd8bd" dest="w32RegActions170.dll" mode="750"/>
+            <file size="61440" checksum="1c01f1952ae1608fd5acb5da7eb0e141e35f7c46" dest="w32RegQueries152.dll" mode="750"/>
+            <file size="54272" checksum="f13dcc210be35e26b677eff58a24afdb6aaf5549" dest="win64ServicesActions17013.dll" mode="750"/>
+            <file size="52736" checksum="b1d7359617a34defa621ffef9514654f21039d11" dest="win64ServicesQueries.dll" mode="750"/>
+            <file size="52224" checksum="4cf0c60f48ad97a6b29a3fbaca81efe52cc9d5e8" dest="win64ocxReg.dll" mode="750"/>
+         </directory>
+         <file-perms>
+            <permission mode="750" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="206336" checksum="bef001f840f3a5200273822ea459586d2b2061f7" dest="jni.dll" mode="750"/>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup4.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="Linux"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="linux" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7429" checksum="d52290259673b6db58016347e269fb952e234538" dest="libactionDB221.so" mode="640"/>
+            <file size="72495" checksum="cb9abfc9bb173df37d8668d461d8344afe2f4da1" dest="liboraInstaller.so" mode="640"/>
+            <file size="4832" checksum="0e3e36adddac307c723e768cf8c10c940a32f239" dest="libqueryDB.so" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="83790" checksum="0e78b65cda9e0be0432c876e0fafc11952bb50f7" dest="libjni.so" mode="640"/>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup5.jar" expanded="true" compacted="true" bootstrap="true">
+      <platform name="Linux_AMD64"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="linux64" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="9997" checksum="56d88129e54ea612e0dc52a18e8d336643966a66" dest="libactionDB221.so" mode="640"/>
+            <file size="38219" checksum="1e0602d2c36015e9cf302d2e9cf82aa69701ad60" dest="liboraInstaller.so" mode="640"/>
+            <file size="6867" checksum="27235c4e71f64236ef58355d6eff238cf2684383" dest="libqueryDB.so" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="93200" checksum="3dd3138d1ee15bfbe8fc7e079c69a4ebc12a7aa5" dest="libjni.so" mode="640"/>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup6.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="Linux_S390"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="linuxS390" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="8820" checksum="96c609ec6e34e0106188a721b3419c52c04df6f6" dest="libactionDB221.so" mode="640"/>
+            <file size="37526" checksum="bf7f0e38595ce5b8f8349088b2fdf00bc3922230" dest="liboraInstaller.so" mode="640"/>
+            <file size="6166" checksum="e187b5381387a67451af976eaba8b196fc99c16e" dest="libqueryDB.so" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup7.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="Solaris_SPARC64"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="solaris_sparc64" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="14952" checksum="ffdf25fd5c7981391e04d417616d67899dd286c9" dest="libactionDB221.so" mode="640"/>
+            <file size="85632" checksum="2763a59f554c9e93a99745b2a8a898498c802930" dest="liboraInstaller.so" mode="640"/>
+            <file size="6616" checksum="e5907bb921b797cd4e5e968b2fc93763704c262c" dest="libqueryDB.so" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup8.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="Intel_Solaris"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="intelsolaris" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="16280" checksum="70416168153151186537414165a3172da1bb5172" dest="libactionDB221.so" mode="640"/>
+            <file size="94672" checksum="b21b14b3451d1ad8bcb145684c43a1adc72ff2ba" dest="liboraInstaller.so" mode="640"/>
+            <file size="7536" checksum="2924a86a46f5a19316a2b17a757bb0305d04f57b" dest="libqueryDB.so" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup9.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="IBM_AIXPPC64"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="aix_ppc64" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2180" checksum="178d5cd606952ba322661f997bcd3abc38fc8905" dest="libactionDB221.so" mode="640"/>
+            <file size="63064" checksum="2d58511761530398036c626a195f61bad673c40a" dest="liboraInstaller.so" mode="640"/>
+            <file size="512" checksum="d6098e0b2303e7b89b6146842447652859e6b4de" dest="libqueryDB.so" mode="640"/>
+         </directory>
+         <file-perms>
+            <permission mode="640" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup10.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="HP_IA64"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="hpia64" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="68248" checksum="7ce76db142dd135de8f491ad57e53f41cb4380ad" dest="libactionDB221.sl" mode="750"/>
+            <file size="70168" checksum="715120718f47917c11a9a97076e7aad79a2bede5" dest="liboraInstaller.sl" mode="750"/>
+            <file size="67592" checksum="88ed58a0d64230bb53067fe4719d3b6708a737bc" dest="libqueryDB.sl" mode="750"/>
+         </directory>
+         <file-perms>
+            <permission mode="750" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+   </file-map>
+   <file-map symbol="oracle.nginst.common.symbol" source="filegroup11.jar" expanded="true" packaged="false" bootstrap="true">
+      <platform name="Linux_ARM64"/>
+      <directory dest="lib" mode="750" patchable="true">
+         <directory dest="linux_arm64" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="71128" checksum="53b6e85bd380f467b1ebda19469d9aee249904dc" dest="libactionDB221.so" mode="750"/>
+            <file size="78112" checksum="f82d2983dfff175b98ee2a5976eb1739aebc707f" dest="liboraInstaller.so" mode="750"/>
+            <file size="70296" checksum="2f322f9060e56ec9b9c98d1374f097ecee6c64df" dest="libqueryDB.so" mode="750"/>
+         </directory>
+         <file-perms>
+            <permission mode="750" regex=".*"/>
+         </file-perms>
+      </directory>
+      <modifier type="delayed-deinstall" regex=".*" match-dirs="true"/>
+   </file-map>
+   <variables>
+      <variable name="EXT_CLASSPATH" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="EXT_CLASSPATH"/>
+         </value-query>
+      </variable>
+      <variable name="BOOT_CLASSPATH" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="BOOT_CLASSPATH"/>
+         </value-query>
+      </variable>
+      <variable name="VM_TYPES" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="VM_TYPES"/>
+         </value-query>
+      </variable>
+      <variable name="JAVA_OPTIONS" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="JAVA_OPTIONS"/>
+         </value-query>
+      </variable>
+      <variable name="HOTSPOT_JAVA_OPTIONS" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="HOTSPOT_JAVA_OPTIONS"/>
+         </value-query>
+      </variable>
+      <variable name="IBM_JAVA_OPTIONS" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="IBM_JAVA_OPTIONS"/>
+         </value-query>
+      </variable>
+      <variable name="JAVA_USE_64BIT" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Generic Prereqs"/>
+            <param value="JAVA_USE_64BIT"/>
+         </value-query>
+      </variable>
+      <variable name="PLATFORM_NAME" type="string" computeAtClone="true">
+         <value-query name="getPlatformInfo">
+            <param value="getOSName"/>
+         </value-query>
+      </variable>
+      <variable name="InstallClassVal" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="INSTALL_CLASS"/>
+         </value-query>
+      </variable>
+      <variable name="PrereqConfigLocationVal" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="PREREQ_CONFIG_LOCATION"/>
+         </value-query>
+      </variable>
+      <variable name="JAVA_HOME_LOCATION" type="string" computeAtClone="true">
+         <value-query name="getJavaProperty">
+            <param value="java.home"/>
+         </value-query>
+      </variable>
+      <variable name="LOG_LOCATION" type="string" computeAtClone="true">
+         <value-query name="getOraparamIniValue">
+            <param value="Oracle"/>
+            <param value="LOG_LOCATION"/>
+         </value-query>
+      </variable>
+   </variables>
+   <stringsubs>
+      <ns2:group id="test">
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/oraparam.ini"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/launch.sh"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/compareInventory.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/compareInventory.sh"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/viewInventory.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/viewInventory.sh"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/deinstall.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/deinstall.sh"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/internal/ilaunch.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/setProperty.cmd"/>
+         <ns2:file-entry name="$oracle.nginst.common.symbol.path$/bin/setProperty.sh"/>
+         <ns2:change-pair-ref name="JAVA_HOME_LOCATION"/>
+         <ns2:change-pair-ref name="JAVA_OPTIONS"/>
+         <ns2:change-pair-ref name="HOTSPOT_JAVA_OPTIONS"/>
+         <ns2:change-pair-ref name="IBM_JAVA_OPTIONS"/>
+         <ns2:change-pair-ref name="JROCKIT_JAVA_OPTIONS"/>
+         <ns2:change-pair-ref name="VM_TYPES"/>
+         <ns2:change-pair-ref name="JAVA_VERSION"/>
+         <ns2:change-pair-ref name="EXT_CLASSPATH"/>
+         <ns2:change-pair-ref name="BOOT_CLASSPATH"/>
+         <ns2:change-pair-ref name="JAVA_USE_64BIT"/>
+         <ns2:change-pair-ref name="PLATFORM_NAME"/>
+         <ns2:change-pair-ref name="INSTALL_CLASS"/>
+         <ns2:change-pair-ref name="PREREQ_CONFIG_LOCATION"/>
+         <ns2:change-pair-ref name="ORACLE_HOME"/>
+         <ns2:change-pair-ref name="ORACLE_HOME_NAME"/>
+         <ns2:change-pair-ref name="LOG_LOCATION"/>
+      </ns2:group>
+      <ns2:change-pair id="JAVA_HOME_LOCATION" before="@JAVA_HOME_LOCATION@" after="$JAVA_HOME_LOCATION$"/>
+      <ns2:change-pair id="JAVA_OPTIONS" before="@JAVA_OPTIONS@" after="$JAVA_OPTIONS$"/>
+      <ns2:change-pair id="HOTSPOT_JAVA_OPTIONS" before="@HOTSPOT_JAVA_OPTIONS@" after="$HOTSPOT_JAVA_OPTIONS$"/>
+      <ns2:change-pair id="IBM_JAVA_OPTIONS" before="@IBM_JAVA_OPTIONS@" after="$IBM_JAVA_OPTIONS$"/>
+      <ns2:change-pair id="JROCKIT_JAVA_OPTIONS" before="@JROCKIT_JAVA_OPTIONS@" after="$JROCKIT_JAVA_OPTIONS$"/>
+      <ns2:change-pair id="VM_TYPES" before="@VM_TYPES@" after="$VM_TYPES$"/>
+      <ns2:change-pair id="JAVA_VERSION" before="@JAVA_VERSION@" after="$JAVA_VERSION$"/>
+      <ns2:change-pair id="EXT_CLASSPATH" before="@EXT_CLASSPATH@" after="$EXT_CLASSPATH$"/>
+      <ns2:change-pair id="BOOT_CLASSPATH" before="@BOOT_CLASSPATH@" after="$BOOT_CLASSPATH$"/>
+      <ns2:change-pair id="JAVA_USE_64BIT" before="@JAVA_USE_64BIT@" after="$JAVA_USE_64BIT$"/>
+      <ns2:change-pair id="PLATFORM_NAME" before="@PLATFORM_NAME@" after="$PLATFORM_NAME$"/>
+      <ns2:change-pair id="INSTALL_CLASS" before="@INSTALL_CLASS@" after="$InstallClassVal$"/>
+      <ns2:change-pair id="PREREQ_CONFIG_LOCATION" before="@PREREQ_CONFIG_LOCATION@" after="$PrereqConfigLocationVal$"/>
+      <ns2:change-pair id="ORACLE_HOME" before="@ORACLE_HOME@" after="$ORACLE_HOME$"/>
+      <ns2:change-pair id="ORACLE_HOME_NAME" before="@ORACLE_HOME_NAME@" after="$ORACLE_HOME_NAME$"/>
+      <ns2:change-pair id="LOG_LOCATION" before="@LOG_LOCATION@" after="$LogLocationVal$"/>
+   </stringsubs>
+   <bug-info>
+      <bug number="28218773" description=""/>
+      <bug number="29292673" description=""/>
+      <bug number="29396325" description=""/>
+      <bug number="29253949" description=""/>
+      <bug number="29410238" description=""/>
+      <bug number="29655515" description=""/>
+      <bug number="29334003" description=""/>
+      <bug number="29902141" description=""/>
+      <bug number="29909359" description=""/>
+      <bug number="30317205" description=""/>
+      <bug number="30317648" description=""/>
+      <bug number="29206542" description=""/>
+      <bug number="30368770" description=""/>
+      <bug number="30639894" description=""/>
+      <bug number="30312757" description=""/>
+      <bug number="30600358" description=""/>
+      <bug number="30240291" description=""/>
+      <bug number="30650032" description=""/>
+      <bug number="30614758" description=""/>
+      <bug number="30240291" description=""/>
+      <bug number="30753555" description=""/>
+      <bug number="30409930" description=""/>
+      <bug number="30749684" description=""/>
+      <bug number="30435930" description=""/>
+      <bug number="30473772" description=""/>
+      <bug number="30877765" description=""/>
+      <bug number="30839943" description=""/>
+      <bug number="30809875" description=""/>
+      <bug number="30822364" description=""/>
+      <bug number="30687963" description=""/>
+      <bug number="30880919" description=""/>
+      <bug number="30874310" description=""/>
+      <bug number="30922561" description=""/>
+      <bug number="30984608" description=""/>
+      <bug number="31011778" description=""/>
+      <bug number="31060664" description=""/>
+      <bug number="31070601" description=""/>
+      <bug number="30984674" description=""/>
+      <bug number="30740897" description=""/>
+      <bug number="31085467" description=""/>
+      <bug number="31222597" description=""/>
+      <bug number="31159294" description=""/>
+      <bug number="31254271" description=""/>
+      <bug number="31311599" description=""/>
+      <bug number="30610728" description=""/>
+      <bug number="30853484" description=""/>
+      <bug number="31369453" description=""/>
+      <bug number="31319799" description=""/>
+      <bug number="31428504" description=""/>
+      <bug number="31512132" description=""/>
+      <bug number="31603376" description=""/>
+      <bug number="32288557" description=""/>
+      <bug number="32378264" description=""/>
+      <bug number="32313635" description=""/>
+      <bug number="32482751" description=""/>
+      <bug number="32497672" description=""/>
+      <bug number="32408912" description=""/>
+      <bug number="32502607" description=""/>
+      <bug number="32646653" description=""/>
+      <bug number="32700066" description=""/>
+      <bug number="31179277" description=""/>
+      <bug number="32648357" description=""/>
+      <bug number="32859451" description=""/>
+      <bug number="31254271" description=""/>
+      <bug number="1737" description=""/>
+      <bug number="32593759" description=""/>
+      <bug number="32891084" description=""/>
+      <bug number="32882423" description=""/>
+      <bug number="32922497" description=""/>
+      <bug number="33053103" description=""/>
+      <bug number="32873521" description=""/>
+      <bug number="33073691" description=""/>
+      <bug number="32947565" description=""/>
+      <bug number="33236608" description=""/>
+      <bug number="33315745" description=""/>
+      <bug number="33574346" description=""/>
+      <bug number="33607547" description=""/>
+      <bug number="33620637" description=""/>
+      <bug number="33587953" description=""/>
+      <bug number="33922565" description=""/>
+      <bug number="33952942" description=""/>
+      <bug number="33936643" description=""/>
+      <bug number="33743451" description=""/>
+      <bug number="28419295" description=""/>
+      <bug number="34029130" description=""/>
+      <bug number="34067104" description=""/>
+      <bug number="32920864" description=""/>
+      <bug number="34337739" description=""/>
+      <bug number="34492784" description=""/>
+      <bug number="34575535" description=""/>
+      <bug number="34678476" description=""/>
+      <bug number="34616719" description=""/>
+      <bug number="34820519" description=""/>
+      <bug number="34873831" description=""/>
+      <bug number="34916897" description=""/>
+      <bug number="34696818" description=""/>
+      <bug number="33997851" description=""/>
+      <bug number="34593549" description=""/>
+      <bug number="35143216" description=""/>
+      <bug number="35291810" description=""/>
+      <bug number="35304320" description=""/>
+      <bug number="35383056" description=""/>
+      <bug number="35509483" description=""/>
+      <bug number="35472513" description=""/>
+      <bug number="35027739" description=""/>
+      <bug number="35619659" description=""/>
+      <bug number="34685482" description=""/>
+      <bug number="23335292" description=""/>
+      <bug number="34129741" description=""/>
+      <bug number="35780473" description=""/>
+      <bug number="35795296" description=""/>
+      <bug number="35901359" description=""/>
+      <bug number="35995785" description=""/>
+      <bug number="35697888" description=""/>
+      <bug number="36047016" description=""/>
+      <bug number="36194419" description=""/>
+      <bug number="36223827" description=""/>
+      <bug number="36001660" description=""/>
+   </bug-info>
+</component-def>

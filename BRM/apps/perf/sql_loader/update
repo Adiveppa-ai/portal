@@ -1,0 +1,181 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+require "../db_conf.pm";
+#---------------------------------------------------------------------
+# pinaft outputs create_t (today), actg_next_t, actg_future_t and 
+# actg_dom. Note that if today is 29-31 then actg_dom, actg_next_t and 
+# actg_future_t will be auto adjusted to 1st.
+#---------------------------------------------------------------------
+$PINAFT_OUTPUT=`./pinaft`;
+($CONF_CREATE_T,$CONF_ACTG_DOM,$CONF_ACTG_NEXT_T,$CONF_ACTG_FUTURE_T,
+   $CONF_DATE_STRG ) = split (' ',$PINAFT_OUTPUT,99);
+
+$CONF_NUM_ACNT=500;   # number accounts to update per thread
+$CONF_BEG_ID0=1000000;   # starting id for login 
+$CONF_NUM_THREADS=2;      # how many parallel processes we are going to use
+$CONF_PERIODS=10;	# size of step for next account
+
+$CONF_TABLESPACE = "pinx00";  # tablespace for index i_billinfo_acctgnext
+$CONF_DEBUG=false;
+$CONF_COMMIT_FREQ=10;
+
+#--------------------------------------------
+$CONF_DATE_STR="'$CONF_DATE_STRG'";
+#--------------------------------------------
+# end of configuration section
+#--------------------------------------------
+#=============================================================================
+
+$sqlout="";
+#--------------------------------------
+#--------------------------------------
+$sqlcommand =<<END
+set serveroutput on
+\@debug.sql
+\@updcnts.sql
+drop index i_billinfo_next__id;
+END
+;
+
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+
+$current_thread=$CONF_NUM_THREADS;
+$start_seq_no=$CONF_BEG_ID0;
+$currtime1 = time();
+
+while ( $current_thread > 0 ) {
+#--------------------------------------
+$sqlcmnd_array[$current_thread] =<<SQLPLUSEND 
+DECLARE
+myloadinfo	pin_updt_db.LoadInfoTyp;
+myinsinfo	pin_updt_db.InsertInfoTyp;
+-- 
+-- set up cursors to fetch some of the configuration stuff from the database.
+--
+-- Get the DB no
+cursor db_id is 
+	select poid_db from account_t 
+		where poid_id0 = 1;
+
+BEGIN
+	-- (CONFIGURE) -- number of accounts
+	myloadinfo.num_acnt 	:= ${CONF_NUM_ACNT} ;		
+	myloadinfo.update_interval 	:= ${CONF_PERIODS};		
+	myloadinfo.user_prefix 	:= '${USER_PREFIX}';		
+
+	-- db no
+	open db_id;
+	fetch db_id into myloadinfo.db_id;
+	close db_id;
+
+	myloadinfo.beg_id0	:= ${start_seq_no};
+
+	-- (CONFIGURE) commit frequency
+	myloadinfo.commit_freq 	:= ${CONF_COMMIT_FREQ};
+
+	-- (CONFIGURE) print debug info
+	myloadinfo.debug	:= ${CONF_DEBUG};
+
+	-- (CONFIGURE) current time in unix time format
+	myinsinfo.create_t	:= ${CONF_CREATE_T};
+
+	-- (CONFIGURE) next time accouting should run (usually a month from now)
+	-- Again, unix time format, rounded to midnight. So, for example if 
+	-- today is July 5, actg_next_t would be August 5 midnight
+	myinsinfo.actg_next_t	:= ${CONF_ACTG_NEXT_T};
+
+	-- (CONFIGURE) a month from actg_next_t (for example Sept 5 midnight)
+	myinsinfo.actg_future_t	:= ${CONF_ACTG_FUTURE_T};
+
+	-- (CONFIGURE) day on which accounting is done (For example, 5)
+	myinsinfo.actg_cycle	:= ${CONF_ACTG_DOM};
+
+	-- (CONFIGURE) AUTH date used for the cc payment event
+	myinsinfo.date_str	:=  ${CONF_DATE_STR};
+
+	--
+	-- Call insert_accounts to actually create the accounts
+	--
+	pin_updt_db.update_accounts(myloadinfo, myinsinfo);
+
+
+END;
+/
+
+SQLPLUSEND
+;
+$current_thread=$current_thread - 1;
+$start_seq_no=$start_seq_no + $CONF_NUM_ACNT;
+# end of while
+}
+
+#  end of while
+##################################################
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+{
+if ( $^O =~ /win/i )
+{
+# special code for Windows 
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+	print $sqlout;
+}
+else
+{
+$procid[$current_thread] = fork();
+#--------------------------------------
+#  child process
+#--------------------------------------
+if ( $procid[$current_thread] == 0 ) {
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+
+print $sqlout;
+exit;    # this terminates child process
+}
+# this is a parent process
+}
+
+$current_thread=$current_thread + 1;
+}
+if (!( $^O =~ /win/i ))
+{
+#
+# waiting while all processes were completed
+#
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+ {
+ waitpid ($procid[$current_thread], 0 );
+ $current_thread=$current_thread + 1;
+ }
+}
+
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$accounts = ( $CONF_NUM_ACNT * $CONF_NUM_THREADS ) /$CONF_PERIODS;
+print "***************************************************************\n";
+printf " %d accounts were updated in %d h %d min %d sec.\n",
+	   $accounts, $ehours,$emin,$esec;
+print "***************************************************************\n";
+
+# update index by actg_next_t
+$sqlcommand =<<SQLPLUSEND2
+create index i_billinfo_next__id on billinfo_t ( actg_next_t ) tablespace
+ $CONF_TABLESPACE storage ( initial 5M next 5M ) unrecoverable;
+SQLPLUSEND2
+;
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+print $sqlout;
+
+
+1;
+

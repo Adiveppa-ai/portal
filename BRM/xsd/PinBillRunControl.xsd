@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2004 - 2006 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BillRunConfigurationType">
+		<xs:sequence>
+			
+			<xs:element name="DOMList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DOM" type="xs:gDay" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:unique name="uniqueDOM">
+					<xs:selector xpath=".//businessConfig:DOM"/>
+					<xs:field xpath="."/>
+				</xs:unique>
+			</xs:element>
+
+			<xs:element name="BillSegmentList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BillSegment" type="xs:nonNegativeInteger" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:unique name="uniqueBillSegment">
+					<xs:selector xpath=".//businessConfig:BillSegment"/>
+					<xs:field xpath="."/>
+				</xs:unique>
+			</xs:element>
+			
+			<xs:element name="DueDateAdjustment" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PaymentTerm" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute name="Length" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:positiveInteger">
+								<xs:maxInclusive value="31"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+				<xs:unique name="uniquePaymentTerm">
+					<xs:selector xpath=".//businessConfig:PaymentTerm"/>
+					<xs:field xpath="."/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="BillingList" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                        <xs:sequence>
+                                                <xs:element name="Account" type="xs:nonNegativeInteger" maxOccurs="1"/>
+                                                <xs:element name="Billinfo" type="xs:nonNegativeInteger" maxOccurs="1"/>
+                                        </xs:sequence>
+                                </xs:complexType>
+                        </xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

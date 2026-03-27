@@ -1,0 +1,113 @@
+//==============================================================================
+//
+// Copyright (c) 2005, 2012, Oracle and/or its affiliates. 
+// All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//-------------------------------------------------------------------------------
+// Block: ISC_DupRAPRecords.isc
+//-------------------------------------------------------------------------------
+//
+
+function onDetailEdr
+{
+  String rapRecordType;
+
+  String SEVERE  = "SEVERE";
+  String FATAL   = "FATAL";
+  String MISSING = "MISSING";
+  String STOP    = "STOP";
+
+  // presence of Roaming_Ext and Suspense_Ext blocks are crucial to RAP IN Processing
+  // therefore if these are not present we rollback the transaction
+	if ( edrNumDatablocks( DETAIL.ASS_ROAMING_EXT )  == 0 or
+       edrNumDatablocks( DETAIL.ASS_SUSPENSE_EXT ) == 0 )
+  {
+		edrSetIsValidDetail (false);
+		edrString (DETAIL.ERROR_REJECT_TYPE ) = "ERR_MISSING_NEEDED_BLOCKS";
+		edrAddError ("ERR_MISSING_NEEDED_BLOCKS", 3);
+
+    // edrDemandRollback ( "ERR_MISSING_NEEDED_BLOCKS" );
+    edrDemandRollback ();
+    return;
+  }
+
+  // type of RAP: SEVERE, FATAL, MISSING, STOP
+  rapRecordType = edrString( DETAIL.ASS_ROAMING_EXT.RAP_RECORD_TYPE, 0 );
+
+  if ( rapRecordType == MISSING )
+  {
+    logPipeline( "Reject Type (MISSING) Not Supported, Ignoring EDR", 1 );
+    logPipeline( "Missing Sequence Start: " + longToStr( edrLong( DETAIL.ASS_ROAMING_EXT.START_MISSING_SEQ_NUM, 0 )) +
+      " End: " + longToStr( edrLong( DETAIL.ASS_ROAMING_EXT.END_MISSING_SEQ_NUM, 0 )) );
+
+    edrSetStream ( reg.NULLStream );
+    return;
+  }
+
+  if ( rapRecordType == STOP )
+  {
+    logPipeline( "Reject Type (STOP) Not Supported, Ignoring EDR", 1 );
+    logPipeline( "Last Sequence Number: " + longToStr( edrLong( DETAIL.ASS_ROAMING_EXT.LAST_SEQ_NUM, 0 )) );
+    edrSetStream ( reg.NULLStream );
+    return;
+  }
+  
+  if ( rapRecordType != SEVERE and
+       rapRecordType != FATAL )
+  {
+    edrSetIsValidDetail (false);
+    edrString (DETAIL.ERROR_REJECT_TYPE ) = "ERR_UNSUPPORTED_REJECT_TYPE";
+    edrAddError ("ERR_UNSUPPORTED_REJECT_TYPE", 3);
+
+    // edrDemandRollback ( "ERR_UNSUPPORTED_REJECT_TYPE" );
+    edrDemandRollback ();
+    return;
+  }
+
+  Long index = edrDuplicate();
+  if ( index < 0 )
+  {
+    edrSetIsValidDetail (false);
+    edrString (DETAIL.ERROR_REJECT_TYPE ) = "ERR_EDR_DUPLICATION_FAILED";
+    edrAddError ("ERR_EDR_DUPLICATION_FAILED", 3);
+
+    // edrDemandRollback ( "ERR_EDR_DUPLICATION_FAILED" );
+    edrDemandRollback ();
+    return;
+  }
+
+  // Though we normally set the index to the duplicated EDR by using
+  // the index returned from the edrDuplicate function above, but
+  // here we want to set the original EDR (the one that was duplicated)
+  // to be the current one, so that we reject the original EDR.
+  // The duplicated EDR is same in allmost all respects as the original
+  // EDR except that the "field and the block marking" flags are not 
+  // copied to the duplicated EDR. These flags are important for EDR 
+  // subblocks to be serialized. Therefore the original EDR is rejected, 
+  // as it has all the marking flags set.
+  if ( edrSetCurrent( 0 ) == true )
+  {
+    edrSetIsValidDetail (false);
+
+    if ( rapRecordType == SEVERE )
+    {
+      edrString (DETAIL.ERROR_REJECT_TYPE ) = "ERR_SEVERE_RETURN";
+      edrAddError ("ERR_SEVERE_RETURN", 3);
+    }
+    else
+    {
+      edrString (DETAIL.ERROR_REJECT_TYPE ) = "ERR_FATAL_RETURN";
+      edrAddError ("ERR_FATAL_RETURN", 3);
+    }
+  }
+}
+
+function onInvalidDetailEdr
+{
+  // edrDemandRollback ( "ERR_INVALID_RAP_RECORD" );
+  edrDemandRollback ();
+}

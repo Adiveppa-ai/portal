@@ -1,0 +1,317 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_CUST_SET_BAL_GRP" visibility="limited" transaction="required" component="fm_cust" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>This is a wrapper opcode for the PCM_OP_CUST_CREATE_BAL_GRP and 
+       PCM_OP_CUST_MODIFY_BAL_GRP opcodes. If balance monitoring is enabled,
+       it will create or update the /balance_group/monitor object. This 
+       opcode can also set the credit limits and consumption rule.</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="dbonly">
+        <Doc>Routing poid. Only DB is significant. Could be any poid,
+             but it is usually an account poid.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_PROGRAM_NAME" use="required" maxlen="60">
+        <Doc>Program name. Identifies the calling program.</Doc>
+      </String>
+      <Timestamp name="PIN_FLD_START_T" use="optional">
+        <Doc>Start time. Timestamp of when event started (system time).</Doc>
+      </Timestamp>
+      <Timestamp name="PIN_FLD_END_T" use="optional">
+        <Doc>End time. Timestamp of when event ended (system time). 
+             This field is used to determine which billing cycle 
+             the event is part of.</Doc>
+      </Timestamp>
+      <Array name="PIN_FLD_BAL_INFO" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="1" maxElements="1" isElemIdAssignAllowed="false" isElemIdAnyAllowed="true" isRecursive="false">
+        <Doc>Array of balance group fields. There can only be one element. 
+             Element-id is not significant.</Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="typeonly">
+            <Doc>Balance group poid. Type-only poid if the object is being
+                 created, otherwise complete poid is needed if the object
+                 is being modified (and BILLINFO_OBJ needs to be passed in).
+            </Doc>
+            <ClassRef>obj://balance_group</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+            <Doc>Account poid this balane group belongs to.</Doc>
+            <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_SERVICE_OBJ" use="optional" mode="complete">
+            <Doc>Service object for this new balane group. A NULL poid means 
+                 this balance group will be mapped to the account level, 
+                 otherwise, this balance group will be mapped to this 
+                 service instance.</Doc>
+            <ClassRef>obj://service</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_BILLINFO_OBJ" use="optional" mode="complete">
+            <Doc>Billinfo object for this balance group. Optional if the 
+                 balance group is being created, else mandatory if the
+                 balance group is being modified. </Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_NAME" use="optional" maxlen="255">
+            <Doc>Balance group name. Optional if the balance group is being
+                 created, else mandatory if the balance group is being
+                 modified. </Doc>
+          </String>
+          <String name="PIN_FLD_TYPE_STR" use="optional" maxlen="255">
+            <Doc>Group sharing monitor type. Payment Responsible Real-Time 
+		 Credit Enforcement group will be created automatically 
+		 if the monitor type is PR_RTCE. </Doc>
+          </String>
+          <Array name="PIN_FLD_LIMIT" use="optional" elemIdMode="index" iterationOrder="undefined" minElements="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false">
+            <Doc>Array of credit limits for each resource in the balance
+                 group. More than one element can appear in this array.
+                 The element-id matches the balance element whose limit 
+                 is to be set.</Doc>
+            <Fields>
+              <Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+                <Doc>Limit for this resource. Current balance cannot exceed this
+                     limit unless affected by a limit override rate, or manually
+                     adjusted by a CSR. By default, the limit is set to 0.
+                </Doc>
+              </Decimal>
+              <Decimal name="PIN_FLD_CREDIT_FLOOR" use="optional">
+                <Doc>Baseline for calculating percentage for threshold triggers.
+                     Credit limit minus credit floor is 100% of measured range.
+                     Credit floor does NOT enforce any limit on current balance.
+                </Doc>
+              </Decimal>
+              <Int name="PIN_FLD_DYNAMIC_CREDIT_FLOOR" use="optional">
+                   <Doc>Flags to indicate dynamic credit floor setting, whether to use
+		   credit_floor or sum of original balances for credit thresholds check</Doc>
+              </Int>
+              <Int name="PIN_FLD_OVERRIDE_CREDIT_LIMIT" use="optional">
+                  <Doc> Flag to determine to either consider or not consider the credit
+                     limit. If flag is 0,(which is default), then credit limit will be decided
+                     based on rating modes. If the flag is 0x01, then credit limit will be
+                     overriden.</Doc>
+              </Int>
+              <Int name="PIN_FLD_CREDIT_THRESHOLDS" use="optional">
+                <Doc>Bit flags for triggering when resource balance crosses a
+                     boundary when increasing in value.
+                </Doc>
+              </Int>
+              <Array name="PIN_FLD_THRESHOLDS" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+                <Doc> Array of fixed threshold values. </Doc>
+                <Fields>
+                  <Int name="PIN_FLD_THRESHOLD" use="required">
+                    <Doc>Fixed threshold value.</Doc>
+                  </Int>
+                  <Decimal name="PIN_FLD_AMOUNT" use="optional">
+                    <Doc>Fixed threshold value in Decimal data type</Doc>
+                  </Decimal>
+                </Fields>
+              </Array>
+            </Fields>
+          </Array>
+          <Array name="PIN_FLD_RULES" use="optional" elemIdMode="index" iterationOrder="undefined" minElements="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false">
+            <Doc>Consumption Rule array. Array of consumption rules for each
+                 currency resource in the balance group. The element-id is
+                 the resource Id for which this consumption rule applies.</Doc>
+            <Fields>
+              <Enum name="PIN_FLD_CONSUMPTION_RULE" use="optional">
+                <Doc>Consumption rule to be applied on the resource. Possible
+                     values are: (1) EST, (2) LST, (3) EET, (4) LET, 
+                     (5) ESTLET, (6) ESTEET, (7) LSTEET, (8) LSTLET, 
+                     (9) EETEST, (10) EETLST, (11) LETEST, and (12) LETLST.
+                </Doc>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_UNDEFINED(0)</Value>
+                  <Doc>The consumption rule is not defined.</Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_EST(1)</Value>
+                  <Doc>Earliest start time. Consume the sub-balance with the
+                    earliest validity start time (earliest valid_from) first.
+                  </Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_LST(2)</Value>
+                  <Doc>Latest start time. Consume the sub-balance with the
+                    latest validity start time (latest valid_from) first.</Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_EET(3)</Value>
+                  <Doc>Earliest expiration time. Consume the sub-balance that
+                    expires first (earliest valid_to.)</Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_LET(4)</Value>
+                  <Doc>Latest expiration time. Consume the sub-balance that
+                    expires last (latest valid_to.)</Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_ESTLET(5)</Value>
+                  <Doc>Earliest start time and latest expiration time. Consume
+                    the sub-balance with the earliest valid_from first. If more
+                    than one sub-balances has the same valid_from, consume the
+                    one with the latest valid_to first. </Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_ESTEET(6)</Value>
+                  <Doc>Earliest start time and earliest expiration time. Consume
+                    the sub-balance with the earliest valid_from first. If more
+                    than one sub-balances has the same valid_from, consume the
+                    one with the earliest valid_to first.</Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_LSTEET(7)</Value>
+                  <Doc>Latest start time and earliest expiration time. Consume
+                    the sub-balance with the latest sub-balance first. If more
+                    than one sub-balances has the same valid_from, consume the
+                    one with the earliest expired sub-balance first. </Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_LSTLET(8)</Value>
+                  <Doc>Latest start time and latest expiration time. Consume the
+                    sub-balance with the latest valid_from first. If more than 
+                    one sub-balances has the same valid_from, consume the one 
+                    with the latest valid_to first. </Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_EETEST(9)</Value>
+                  <Doc>Earliest expiration time and earliest start time. Consume
+                    the sub-balance with the earliest valid_to first. If more 
+                    than one sub-balances has the same valid_to, consume the 
+                    one with the earliest valid_from first.</Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_EETLST(10)</Value>
+                  <Doc>Earliest expiration time and latest start time. Consume
+                    the sub-balance with the earliest valid_to first. If more 
+                    than one sub-balances has the same valid_to, consume the 
+                    one with the latest valid_from first. </Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_LETEST(11)</Value>
+                  <Doc>Latest expiration time and earliest start time. Consume
+                    the sub-balance with the latest valid_to first. If more than
+                    one sub-balances has the same valid_to, use the one with the
+                    earliest valid_from first. </Doc>
+                </Values>
+                <Values>
+                  <Value>PIN_CONSUMPTION_RULE_LETLST(12)</Value>
+                  <Doc>Latest expiration time and latest start time. Consume the
+                    sub-balance with the latest valid_to first. If more than one
+                    sub-balances has the same valid_to, use the one with the
+                    latest valid_from first. </Doc>
+                </Values>
+              </Enum>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+	  <Array name="PIN_FLD_TEMP_LIMIT" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+		<Doc>  Temporary Limit array. </Doc>
+		<Fields>
+			<Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+				<Doc>Limit for this resource. </Doc>
+			</Decimal>
+			<Int name="PIN_FLD_RESOURCE_ID" use="optional">
+				<Doc> Resource id</Doc>
+			</Int>
+			<Timestamp name="PIN_FLD_VALID_FROM" use="optional">
+				<Doc> Start date of this validity. If unit and offset are also passed PIN_FLD_VALID_FROM takes precedence </Doc>
+			</Timestamp>
+			<Enum name="PIN_FLD_VALID_FROM_UNIT" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_FROM is not passed. Relative Unit for validity start date can be <h:ul><h:li>Seconds(1)</h:li><h:li>Minutes(2)</h:li><h:li>Hours(3)</h:li><h:li>Days(4)</h:li><h:li>Months(5)</h:li><h:li>Act Cycles(8)</h:li></h:ul> </Doc>
+				<Values>
+					<Value>1</Value>
+					<Doc>Seconds</Doc>
+				</Values>
+				<Values>
+					<Value>2</Value>
+					<Doc>Minutes</Doc>
+				</Values>
+				<Values>
+					<Value>3</Value>
+					<Doc>Hours</Doc>
+				</Values>
+				<Values>
+					<Value>4</Value>
+					<Doc>Days</Doc>
+				</Values>
+				<Values>
+					<Value>5</Value>
+					<Doc>Months</Doc>
+				</Values>
+				<Values>
+					<Value>8</Value>
+					<Doc>Act Cycles</Doc>
+				</Values>
+			</Enum>
+			<Int name="PIN_FLD_VALID_FROM_OFFSET" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_FROM is not passed. Relative offset for validity to be used in conjunction with unit to calculate start time</Doc>
+			</Int>
+			<Timestamp name="PIN_FLD_VALID_TO" use="optional">
+				<Doc> End date of this validity. If unit and offset are also passed PIN_FLD_VALID_TO takes precedence </Doc>
+			</Timestamp>
+			<Enum name="PIN_FLD_VALID_TO_UNIT" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_TO is not passed. Relative Unit for validity end date can be <h:ul><h:li>Seconds(1)</h:li><h:li>Minutes(2)</h:li><h:li>Hours(3)</h:li><h:li>Days(4)</h:li><h:li>Months(5)</h:li><h:li>Act Cycles(8)</h:li></h:ul> </Doc>
+				<Values>
+					<Value>1</Value>
+					<Doc>Seconds</Doc>
+				</Values>
+				<Values>
+					<Value>2</Value>
+					<Doc>Minutes</Doc>
+				</Values>
+				<Values>
+					<Value>3</Value>
+					<Doc>Hours</Doc>
+				</Values>
+				<Values>
+					<Value>4</Value>
+					<Doc>Days</Doc>
+				</Values>
+				<Values>
+					<Value>5</Value>
+					<Doc>Months</Doc>
+				</Values>
+				<Values>
+					<Value>8</Value>
+					<Doc>Act Cycles</Doc>
+				</Values>
+			</Enum>
+			<Int name="PIN_FLD_VALID_TO_OFFSET" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_TO is not passed. Relative offset for validity to be used in conjunction with unit to calculate end time</Doc>
+			</Int>
+			<Int name="PIN_FLD_REC_ID" use="optional">
+			        <Doc>RecId for the sub-balance to be updated</Doc>
+      			</Int>
+		</Fields>
+	  </Array>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Newly created/modified balance group poid.</Doc>
+        <ClassRef>obj://balance_group</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

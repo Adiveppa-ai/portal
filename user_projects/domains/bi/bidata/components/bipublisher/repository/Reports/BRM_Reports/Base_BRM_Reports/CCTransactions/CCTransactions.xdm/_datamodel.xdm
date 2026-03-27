@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "EVENT_BILLING_CHARGE_T"."TRANS_ID",
+ "EVENT_BILLING_CHARGE_T"."RESULT",
+ 	 "EVENT_BILLING_CHARGE_T"."COMMAND",
+ 	 "EVENT_BILLING_CHARGE_T"."AMOUNT",
+ 	 "EVENT_T"."END_T",
+ 	 "EVENT_T"."POID_ID0",
+ 	 "EVENT_BILLING_CHARGE_T"."CURRENCY",
+ 	 "CONFIG_BEID_BALANCES_T"."NAME",
+ 	 "EVENT_T"."ACCOUNT_OBJ_ID0",
+ 	 "EVENT_T"."POID_DB"
+ 	FROM (("EVENT_T" "EVENT_T"
+ 	INNER JOIN "EVENT_BILLING_CHARGE_T" "EVENT_BILLING_CHARGE_T" ON
+ 	 "EVENT_T"."POID_ID0"="EVENT_BILLING_CHARGE_T"."OBJ_ID0")
+ 	INNER JOIN "CONFIG_BEID_BALANCES_T" ON
+ 	 "EVENT_BILLING_CHARGE_T"."CURRENCY" = "CONFIG_BEID_BALANCES_T"."REC_ID")
+ 	LEFT OUTER JOIN "EVENT_BILLING_CHARGE_CC_T" "EVENT_BILLING_CHARGE_CC_T" ON
+ 	 "EVENT_BILLING_CHARGE_T"."OBJ_ID0"="EVENT_BILLING_CHARGE_CC_T"."OBJ_ID0"
+ 	WHERE "EVENT_T"."POID_DB">0
+ AND (BIPEXT.INFCHECKDATES(:PARAM_STARTDATE, :PARAM_ENDDATE) = 1
+ AND ("EVENT_T"."END_T">=BIPEXT.INFSTRTOTIMET(:PARAM_STARTDATE,2)
+ AND "EVENT_T"."END_T"<=BIPEXT.INFSTRTOTIMET(:PARAM_ENDDATE,2)-1))
+ 	 AND "EVENT_T"."ACCOUNT_OBJ_ID0">1
+ AND "EVENT_BILLING_CHARGE_T"."PAY_TYPE" = '10003'
+ 	ORDER BY "EVENT_T"."END_T","EVENT_BILLING_CHARGE_T"."CURRENCY","EVENT_BILLING_CHARGE_T"."TRANS_ID"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="TRANS_ID" value="TRANS_ID" dataType="xsd:string" label="TRANS_ID" breakOrder="None" fieldOrder="1"/>
+    <element name="RESULT" value="RESULT" dataType="xsd:integer" label="RESULT" breakOrder="None" fieldOrder="3"/>
+    <element name="COMMAND" value="COMMAND" dataType="xsd:integer" label="COMMAND" breakOrder="None" fieldOrder="4"/>
+    <element name="AMOUNT" value="AMOUNT" dataType="xsd:integer" label="AMOUNT" breakOrder="None" fieldOrder="5"/>
+    <element name="END_T" value="END_T" dataType="xsd:integer" label="END_T" breakOrder="None" fieldOrder="6"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="7"/>
+    <element name="CURRENCY" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="8"/>
+    <element name="NAME" value="NAME" dataType="xsd:string" label="NAME" breakOrder="None" fieldOrder="9"/>
+    <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="10"/>
+    <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="11"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_TRANSDETAILS">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_TRANSDETAILS" dataType="xsd:float">
+         <select label="Display transaction details?" valueSet="PARAM_TRANSDETAILS" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STARTDATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_ENDDATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

@@ -1,0 +1,147 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------#
+# SCRIPT: stop_monitor
+#
+# DESCRIPTION:
+#
+# Script to stop the PerflibMonitorDaemon ...
+#
+# INFORMATION:
+#
+# BRM Performance Tracing ...
+#
+# REVISION:
+#
+# $Revision: 1.1 $
+# $Author: ri-user-1 $
+# $Date: 2016/06/08 10:06:53 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# usage - usage message
+#------------------------------------------------------------------------------#
+usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-h] [-f<pidfile>]
+
+where :  -h               This help message
+
+         -f<pidfile>      Alternative PID file. The default is '$DEF_PIDFILE'.
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Function     : is_running
+#
+# Description  : Function to check whether a particular process is running. It
+#                uses the PID and (optionally) a name to check.
+#
+# Input        : pid    Process ID
+#                name   Optional name to check
+#
+# Output       : None
+#
+# Return       : 0 if running, 1 if not
+#------------------------------------------------------------------------------#
+is_running()
+{
+typeset pid=$1
+typeset name=$2
+typeset rv=
+
+   if [ -z "$pid" ]
+   then
+      return 1
+   fi
+
+   if [ -n "$name" ]
+   then
+      rv=$(ps -fp $pid | head -2 | tail -1 | grep "$name")
+   else
+      rv=$(ps -fp $pid | head -2 | tail -1)
+   fi
+
+   case "$rv" in
+   *${pid}*) return 0;;  # Running OK
+   *)        return 1;;  # Not running
+   esac
+}
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+#
+# Defaults ...
+#
+CMD=stop_monitor
+DEF_PIDFILE=monitor.pid
+DEF_KILL_TIME=5
+
+#
+# Globals ...
+#
+PIDFILE=$DEF_PIDFILE
+KILL_TIME=$DEF_KILL_TIME
+
+#
+# Parse command-line options ...
+#
+while getopts "hf:" OPTION
+do
+   case "$OPTION" in
+   h)    usage;;
+   f)    PIDFILE=$OPTARG;;
+   \?)   echo "Unknown option ..." >&2
+         usage;;
+   :)    echo "Option '$OPTARG' requires an argument" >&2
+         usage;;
+   *)    break;;
+   esac
+done
+shift $((OPTIND - 1))
+
+[ $# -eq 0 ] || usage
+
+#
+# Terminate application ... We get the PID from the file. Send a terminate
+# and wait for 10 seconds or so... if the application doesn't seem to want
+# to die, let's do -9 and wait a little longer... hopefully that will be
+# sufficient.
+#
+if [ -e "$PIDFILE" ]
+then
+   PID=$(cat $PIDFILE)
+   if is_running $PID
+   then
+      kill $PID
+      SLEPT=0
+      TRIED_MINUS_NINE=
+      while is_running $PID
+      do
+         if [ $SLEPT -ge $KILL_TIME ]
+         then
+            if [ -n "$TRIED_MINUS_NINE" ]
+            then
+               printf "ERROR: cannot kill PID '$PID' even with -9\n"
+               exit 1
+            fi
+            printf "WARNING: cannot kill PID '$PID' - try -9\n";
+            kill -9 $PID
+            TRIED_MINUS_NINE=Y
+            SLEPT=0
+         else
+            sleep 1
+            SLEPT=$((SLEPT+1))
+         fi
+      done
+      rm -f $PIDFILE
+   else
+      printf "WARNING: monitor '$PID' looks as though it died already.\n"
+      rm -f $PIDFILE
+   fi
+else
+   printf "WARNING: PID file '$PIDFILE' does not exist!\n"
+fi
+exit 0

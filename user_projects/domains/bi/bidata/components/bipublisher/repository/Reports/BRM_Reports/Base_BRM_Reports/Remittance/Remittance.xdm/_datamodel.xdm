@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "ACCOUNT_T"."CURRENCY",
+  "CONFIG_BEID_BALANCES_T"."NAME" "CURRENCY_NAME",
+  "ACCOUNT_NAMEINFO_T"."COUNTRY",
+  "ACCOUNT_NAMEINFO_T"."STATE",
+  "REMIT_CALC_T"."ACCOUNT_OBJ_ID0",
+  "REMIT_CALC_T"."POID_ID0" POID_ID1,
+  "ACCOUNT_T"."ACCOUNT_NO",
+  "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+  "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+  "REMIT_CALC_DETAIL_T"."AMOUNT",
+  "REMIT_CALC_T"."END_T",
+  "ACCOUNT_NAMEINFO_T"."REC_ID",
+  "ACCOUNT_T"."POID_ID0",
+  "ACCOUNT_T"."POID_DB"
+FROM "REMIT_CALC_DETAIL_T" "REMIT_CALC_DETAIL_T",
+  "REMIT_CALC_T" "REMIT_CALC_T",
+  "ACCOUNT_T" "ACCOUNT_T",
+  "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T",
+  "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T"
+WHERE "REMIT_CALC_DETAIL_T"."OBJ_ID0" = "REMIT_CALC_T"."POID_ID0"
+ AND "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" = "ACCOUNT_T"."POID_ID0"
+ AND "ACCOUNT_T"."POID_ID0" = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ AND "ACCOUNT_T"."CURRENCY" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+ AND "ACCOUNT_T"."POID_DB" > 0
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+ AND "ACCOUNT_T"."POID_ID0" > 1
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE nvl(:param_state,   "ACCOUNT_NAMEINFO_T"."STATE")
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE nvl(:param_country,   "ACCOUNT_NAMEINFO_T"."COUNTRY")
+ AND "ACCOUNT_T"."ACCOUNT_NO" LIKE decode(:param_account_no,   '%',   '%',   :param_account_no)
+ AND("REMIT_CALC_T"."END_T" >= bipext.infstrtotimet(:param_startdate,   2)
+ AND "REMIT_CALC_T"."END_T" <=(bipext.infstrtotimet(:param_enddate,   2) -1))
+ AND bipext.infcheckdates(:param_startdate,:param_enddate) = 1
+ORDER BY "ACCOUNT_T"."CURRENCY",
+  "ACCOUNT_NAMEINFO_T"."COUNTRY",
+  "ACCOUNT_NAMEINFO_T"."STATE",
+  "REMIT_CALC_T"."ACCOUNT_OBJ_ID0",
+  "REMIT_CALC_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="CURRENCY" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="1"/>
+    <element name="CURRENCY_NAME" value="CURRENCY_NAME" dataType="xsd:string" label="CURRENCY_NAME" breakOrder="None" fieldOrder="2"/>
+    <element name="COUNTRY" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="3"/>
+    <element name="STATE" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="4"/>
+    <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="5"/>
+    <element name="POID_ID1" value="POID_ID1" dataType="xsd:integer" label="POID_ID1" breakOrder="None" fieldOrder="6"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="7"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="8"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="9"/>
+    <element name="AMOUNT" value="AMOUNT" dataType="xsd:integer" label="AMOUNT" breakOrder="None" fieldOrder="10"/>
+    <element name="END_T" value="END_T" dataType="xsd:integer" label="END_T" breakOrder="None" fieldOrder="11"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="12"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="13"/>
+    <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="14"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT STATE
+FROM account_nameinfo_t
+where state is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT COUNTRY
+FROM account_nameinfo_t
+where COUNTRY is NOT NULL]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_ACCOUNT_NO" dataType="xsd:string">
+         <input label="Enter a specific remittance account number." size="20"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries." valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" defaultValue="%" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STARTDATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="20" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_ENDDATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="20" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="DATA_DS" left="28px" top="14px"/><layout name="Q1" left="274px" top="17px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

@@ -1,0 +1,457 @@
+###########################################################################
+# @(#)pin_multidb_utils.pl 
+#
+# Copyright (c) 1999, 2017, Oracle and/or its affiliates. All rights reserved.
+#	This material is the confidential property of Oracle Corporation
+#	or its licensors and may be used, reproduced, stored or transmitted
+#	only in accordance with a valid Oracle license or sublicense agreement.
+#
+###########################################################################
+
+  #--------------------------------------------------------------------#
+  #  Please note that, this file is derived from pin_init_utils.pl.    #
+  #  Will be obsoleted or replaced substantially, when integrated      #
+  #  with the new installer (I think)				       #
+  #--------------------------------------------------------------------#
+
+#
+# output variable to capture the output of sqlplus
+#
+$sqlout = "";
+
+$curtime = time();
+
+###############################################################################
+# save_pinconf_file()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries      
+###############################################################################
+sub save_pinconf_file { 
+	local ($FILE) = @_;
+
+	#
+	# Move pin.conf to pin.conf.xxxx
+	#
+	if (! -e "$FILE.$curtime") {
+		printout("$ME: Saving $FILE as $FILE.$curtime\n");
+		open (OUTFILE, ">$FILE.$curtime") || 
+	    		die "$ME: Unable to create file '$FILE.$curtime': $!\n";
+		open (FILE, "<$FILE") || 
+	    		die "$ME: Unable to open file '$FILE': $!\n";
+		while (<FILE>) {
+			print OUTFILE $_;
+		}
+		close(OUTFILE); 
+		close(FILE); 
+	}
+}
+
+###############################################################################
+# fix_pinconf()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries      
+###############################################################################
+sub fix_pinconf { 
+	local ($file, $prefix, %PINCONF) = @_;
+	local ($tmpoutfile) = "$file.xxx";
+	local %MATCHES = ();
+
+	if ($DEBUG) {
+		printout("$ME: $prefix\n");
+	}
+
+	save_pinconf_file($file);	
+
+        #
+        # Open pin.conf for output
+        # Open pin.conf.xxx for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+        open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+ 
+	
+	# Read entries from pin.conf
+	# If line matches key to be substituted, transform
+	# Write line to pin.conf.xxx
+	# 
+	while (<FILE>) {
+		$line = $_;
+		$matched = 0;
+
+		foreach $pinkey (keys(%PINCONF)) {
+			if ($line =~ m/^\s*-\s+$prefix\s+$pinkey\s+/) {
+				$matched = 1;
+				$MATCHES{$pinkey} = 1;
+				if ($DEBUG) {
+					printout("$ME:    Replacing key $pinkey\n");
+				}
+				print OUTFILE "- $prefix $pinkey $PINCONF{$pinkey}\n";
+			}
+		} # end foreach
+
+		if ($matched == 0) {
+			print OUTFILE "$line";
+		}
+
+	} # end while
+
+	#
+	# Walk through all the non-matched pinconf entries in PINCONF
+	# and output them.
+	#
+	foreach $pinkey (keys(%PINCONF)) {
+		if (! exists $MATCHES{$pinkey}) {
+			if ($DEBUG) {
+				printout("$ME:    Adding key $pinkey\n");
+			}
+			print OUTFILE "- $prefix $pinkey $PINCONF{$pinkey}\n";
+		}
+	}
+
+	#
+	# Close filehandles
+	# 
+	close(FILE); 
+	close(OUTFILE); 
+
+	if ($DEBUG) {
+		printout("$ME:    Renaming $tmpoutfile to $file\n");
+	}
+	
+	#
+	# Moving pin.conf.xxx to pin.conf
+	#
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+
+}
+
+###############################################################################
+# add_pinconf()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries  to remove
+###############################################################################
+sub add_pinconf { 
+	local ($file, $prefix, %PINCONF) = @_;
+
+	if ($DEBUG) {
+		printout("$ME: $prefix\n");
+	}
+	
+	save_pinconf_file($file);	
+	
+        #
+        # Open pin.conf for output
+        # Open pin.conf.yyy for input
+        #
+        open (OUTFILE, ">>$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+ 
+	# Walk through all the pinconf entries in PINCONF
+	# and output them.
+	#
+	foreach $pinkey (keys(%PINCONF)) {
+		if ($DEBUG) {
+			printout("$ME:    Adding key $pinkey\n");
+		}
+		print OUTFILE "- $prefix $pinkey $PINCONF{$pinkey}\n";
+	}
+
+	#
+	# Close filehandles
+	# 
+	close(OUTFILE); 
+}
+
+###############################################################################
+# del_pinconf()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries  to remove
+###############################################################################
+sub del_pinconf { 
+	local ($file, $prefix, %PINCONF) = @_;
+	local ($tmpoutfile) = "$file.yyy";
+
+	if ($DEBUG) {
+		printout("$ME: $prefix\n");
+	}
+	
+	save_pinconf_file($file);	
+	
+        #
+        # Open pin.conf for output
+        # Open pin.conf.yyy for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+        open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+ 
+	# Read entries from pin.conf
+	# If line matches key to be substituted, delete
+	# Write line to pin.conf.yyy
+	# 
+	while (<FILE>) {
+		$line = $_;
+		$matched = 0;
+
+		foreach $pinkey (keys(%PINCONF)) {
+			if ($line =~ m/^\s*-\s+$prefix\s+$pinkey\s+/) {
+				$matched = 1;
+				if ($DEBUG) {
+					printout("$ME:    Removing key $pinkey\n");
+				}
+			}
+		} # end foreach
+
+		if ($matched == 0) {
+			print OUTFILE "$line";
+		}
+
+	} # end while
+
+	#
+	# Close filehandles
+	# 
+	close(FILE); 
+	close(OUTFILE); 
+
+	if ($DEBUG) {
+		printout("$ME:    Renaming $tmpoutfile to $file\n");
+	}
+	
+	#
+	# Moving pin.conf.yyy to pin.conf
+	#
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+}
+
+
+###############################################################################
+# Execute_SQL_Command
+#	input:
+#		sql command(s)
+###############################################################################
+sub Execute_SQL_Command {
+	local ($cmd, $username, $passwd, $dbname, $sqlhost) = @_;
+	local ($status) = 0;
+	local ($exitcode) = 0;
+	local ($tmpfile) = "pintmp.sql";
+	local ($sqlshell) = "";
+	local ($sqlshell_print) = "";
+
+	if ($DEBUG) {
+		printout("$ME: sql shell is $PIN_MD_SQLPLUS\n");
+		printout("$ME: username=$username; passwd=$passwd; \n");
+		printout("$ME: dbname=$dbname; sqlhost=$sqlhost; \n");
+		printout("$ME: SQLCOMMAND\n----------\n");
+		printout($cmd);
+		printout("\n$ME: -----------\n");
+	}
+
+
+	#=================================================================
+	# Handle Oracle
+	#=================================================================
+
+	if ($PIN_MD_SQL_PLATFORM =~ m/^Oracle$/i || 
+		$PIN_MD_SQL_PLATFORM =~ m/^Oracle8$/i ) {
+
+		if(defined($ENV{DOCKER}) && $ENV{DOCKER} eq '1') {
+			$sqlshell = "$PIN_MD_SQLPLUS $username/$passwd"."@"."$dbname";
+		} else {
+			$sqlshell = "$PIN_MD_SQLPLUS "."/@"."$dbname";
+		}
+		$sqlshell_print = "$PIN_MD_SQLPLUS "."@"."$dbname";
+		&printout("sqlshell=$sqlshell_print\n");
+
+		#=======================================================
+		# Create a temporary file with the sql input.
+		#========================================================
+
+		open(TMPFILE, ">$tmpfile") || 
+			die "$ME: cannot create $tmpfile\n";
+		print TMPFILE "$cmd";
+		print TMPFILE "\nexit;\n";
+		close(TMPFILE);
+
+		#===========================================================
+		# Cheese 1: SQLPLUS gives a zero status back if the 
+		# user/passwd is wrong. So, instead of using system(), 
+		# we need to capture the output
+		# of SQLPLUS and parse it to see if there was an error.
+		#===========================================================	
+
+		$sqlout = `$sqlshell < $tmpfile`;
+		$exitcode = $?;
+		$status = ($? >> 8);
+
+		&printout("$sqlout");
+		unlink "$tmpfile";
+
+		if ($sqlout =~ m/ERROR: /) {	
+			printout("$ME: $PIN_MD_SQLPLUS failed (exitcode = $exitcode)\n");
+			exit(1);
+		}
+	
+		#========================================================
+		# Cheese 2: on NT, we are getting the exit status as is in $?..
+		# so, $status after right shifting becomes 0! So, check for 
+		# non-zero $? even though it is not "absolutely" right on unix.
+		#========================================================
+
+		if ($status || $exitcode) {
+			print("$ME: $PIN_MD_SQLPLUS failed with status $status\n");
+			exit (1);
+		}
+
+	} elsif ($PIN_MD_SQL_PLATFORM =~ /MSSQL/i ) {
+
+		#=========================================================
+		# Handle SQL Server
+		#=========================================================
+
+		#=======================================================
+		# Create a temporary file with the sql input.
+		#========================================================
+
+		open(TMPFILE, ">$tmpfile") || 
+			die "$ME: cannot create $tmpfile\n";
+		print TMPFILE "$cmd";
+		close(TMPFILE);
+
+		$sqlshell = "$PIN_MD_SQLPLUS -U $username ";
+		$sqlshell = $sqlshell . "-P $passwd ";
+		$sqlshell = $sqlshell . "-d $dbname ";
+		$sqlshell = $sqlshell . "-S $sqlhost";
+
+		$sqlout = `$sqlshell < $tmpfile`;
+		$exitcode = $?;
+		$status = ($? >> 8);
+		printout("$sqlout");
+
+		unlink "$tmpfile";
+
+		if ($status || $exitcode) {
+			print("$ME: $PIN_MD_SQLPLUS failed with status $status\n");
+			exit (1);
+		}
+	} elsif ($PIN_MD_SQL_PLATFORM =~ m/^DB2$/i ) {
+		#=========================================================
+		# Handle DB2 Server
+		#=========================================================
+
+		#=======================================================
+		# Create a temporary file with the sql input.
+		#========================================================
+
+		open(TMPFILE, ">$tmpfile") || 
+			die "$ME: cannot create $tmpfile\n";
+		print TMPFILE "$cmd";
+		close(TMPFILE);
+
+		$sqlshell = "$PIN_MD_SQLPLUS"."$ARGS ";
+
+		$sqlout = `$sqlshell $tmpfile`;
+		$exitcode = $?;
+		$status = ($? >> 8);
+		printout("$sqlout");
+
+		unlink "$tmpfile";
+
+	}
+
+}
+
+###############################################################################
+# Parse_and_Execute
+#	input:
+#		filename to be read
+###############################################################################
+sub Parse_and_Execute {
+	local ($file, $evaluate, $username, $passwd, $dbname, $sqlhost) = @_;
+	local @cmd;
+	local $cmdstring;
+	local $evalcmd;
+
+	open(FILE, "$file") || die "$ME: Unable to open file '$file': $!\n";
+	@cmd = <FILE>;
+	close (FILE);
+	
+	$cmdstring = join('', @cmd);
+
+					# some times, the sql source file
+					# will contain perl replacement
+					# variables.  So, substitute them
+					# now..
+        if ($evaluate) {
+	  $evalcmd = eval "qq~$cmdstring~";
+	} else {
+	  $evalcmd = $cmdstring;
+	}
+ 
+	
+	&Execute_SQL_Command ($evalcmd, $username, $passwd, $dbname, $sqlhost);
+}
+
+###############################################################################
+# Execute_TestNAP_Command
+#	input:
+#		a testnap script file
+###############################################################################
+sub Execute_TestNAP_Command {
+	local ($tscript) = @_;
+
+	my ($testout);
+
+					# just in case add a quit command
+					# in the end
+	$tscript .= "\nq\n";
+
+ 	if ($DEBUG) {
+	  &printout ("$ME: Executing following testnap command\n");
+	  &printout ("$ME: -------------------------------\n");
+	  &printout ("$ME: $tscript");
+	  &printout ("$ME: -------------------------------\n");
+	} 
+	
+					# write testnap commands to a file
+ 	open (TFILE, ">t.script") || die "$ME: Could not open t.script\n";	
+	print TFILE $tscript;
+	close (TFILE);
+
+	$testout = `$PIN_MD_TESTNAP_LOCATION/testnap < t.script`;
+
+	unlink "t.script";
+	
+	&printout ("$ME : $testout\n");
+	die "$ME:  testnap failed with return code=$?\n" if $?;
+
+	return ($testout);
+}
+
+###############################################################################
+# printout
+#	input:
+#		string to be printed out
+###############################################################################
+sub printout {
+	local ($outstr) = @_;
+
+	print LOGFILE $outstr;
+}
+
+1;

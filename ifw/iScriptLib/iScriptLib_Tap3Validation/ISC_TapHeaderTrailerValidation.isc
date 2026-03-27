@@ -1,0 +1,2321 @@
+//==============================================================================
+//
+//      Copyright (c) 2003 - 2007 Oracle. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_TapHeaderTrailerValidation
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module can be used to validate TAP3 header and trailer records.
+//   The validations will be based on the TAP3.10 standard.
+//
+//------------------------------------------------------------------------------
+//
+// Revision 1.0  2003/07/07 njalel
+// Initial rev.
+//
+//==============================================================================
+
+//==============================================================================
+// Constant Variables
+//==============================================================================
+
+
+// Constants
+const Long   LOG_NORMAL		= 0;
+const Long   LOG_WARNING	= 1;
+const Long   LOG_MINOR		= 2;
+const Long   LOG_MAJOR		= 3;
+const Long   LOG_CRITICAL	= 4;
+const Long   MISSING		= EDR_INPUT_MISSING;
+const Long   EMPTY		= EDR_INPUT_EMPTY;
+const Long   OTHER		= EDR_INPUT_OTHER;
+
+const String type_HEADER        ="010";
+const String type_TRAILER       ="090";
+const String type_MOC           ="021";
+const String type_MSS           ="029";
+const String type_MTC           ="031";
+const String type_GPRS_SG       ="040";
+const String type_GPRS_GG       ="042";
+const String type_GPRS_assembled="042"; //default for mixed ticket
+const String type_GPRS          ="042"; //default is mixed ticket
+const String type_SCU           ="050";
+const String type_VAS           ="060";
+const String type_CONT          ="070";
+const String type_LOCN          ="080";
+
+// Globals
+Bool    hasChargeRefund;
+Long    AdvCurrencyEntries;
+Long    AdvCurrencyEntriesRefund;
+Long    chargeTypeEntries;
+Long    chargeTypeEntriesRefund;
+String  AdvChargeCurrency_Arr[];
+String  AdvChargeCurrencyRefund_Arr[];
+String  chargeType_Arr[];
+String  chargeTypeRefund_Arr[];
+Decimal totalCalcAdvisdchrg_Arr[];
+Decimal totalCalcAdvisdchrgRefund_Arr[];
+Decimal totalCalcCommission_Arr[];
+Decimal totalCalcCommissionRefund_Arr[];
+Decimal totalCalcCharge_Arr[];
+Decimal totalCalcChargeRefund_Arr[];
+Decimal theAbsoluteAmountDivider;
+Bool	debug;
+Date	minDate;
+Date	maxDate;
+String	tapFileName;
+
+String  notFlag;
+
+Long    record_length;
+Long    adviseChargeEntries;
+Long    numOfCurrencyCode;
+Long	numOfCountryCode;
+Long	numOfPlmno;
+
+String  currencyCode[];
+String	countryCodeArray[];
+String  plmnoList[];
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;		// true;
+  hasChargeRefund = false;
+  AdvCurrencyEntries = 0;
+  AdvCurrencyEntriesRefund = 0;
+  chargeTypeEntries = 0;
+  chargeTypeEntriesRefund = 0;
+
+  String currencyCodeString = "AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUP|CVE|CYP|CZK|DJF|DKK|DOP|DZD|EEK|EGP|ERN|ETB|EUR|FJD|FKP|GBP|GEL|GHC|GIP|GMD|GNF|GTQ|GWP|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MTL|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|ROL|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SIT|SKK|SLL|SOS|SRD|STD|SVC|SYP|SZL|THB|TJS|TMM|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYI|UYU|UZS|VEB|VND|VUV|WST|YER|ZAR|ZMK|ZWD|SDR";
+  numOfCurrencyCode = strSplit( currencyCode, currencyCodeString, "|" );
+
+  String countryCodeString = "1|7|20|27|30|31|32|33|34|36|39|40|41|43|44|45|46|47|48|49|51|52|53|54|55|56|57|58|60|61|62|63|64|65|66|81|82|84|86|90|91|92|93|94|95|98|210|211|212|213|214|215|216|217|218|219|220|221|222|223|224|225|226|227|228|229|230|231|232|233|234|235|236|237|238|239|240|241|242|243|244|245|246|247|248|249|250|251|252|253|254|255|256|257|258|259|260|261|262|263|264|265|266|267|268|269|280|281|282|283|284|285|286|287|288|289|290|291|292|293|294|295|296|297|298|299|350|351|352|353|354|355|356|357|358|359|370|371|372|373|374|375|376|377|378|379|380|381|382|383|384|385|386|387|388|389|420|421|422|423|424|425|426|427|428|429|500|501|502|503|504|505|506|507|508|509|590|591|592|593|594|595|596|597|598|599|670|671|672|673|674|675|676|677|678|679|680|681|682|683|684|685|686|687|688|689|690|691|692|693|694|695|696|697|698|699|800|801|802|803|804|805|806|807|808|809|830|831|832|833|834|835|836|837|838|839|850|851|852|853|854|855|856|857|858|859|870|871|872|873|874|875|876|877|878|879|880|881|882|883|884|885|886|887|888|889|890|891|892|893|894|895|896|897|898|899|960|961|962|963|964|965|966|967|968|969|970|971|972|973|974|975|976|977|978|979|990|991|992|993|994|995|996|997|998|999";
+  numOfCountryCode = strSplit( countryCodeArray, countryCodeString, "|" );
+
+  File   in;  
+  Long   i = 0;
+  String line;
+  if ( fileOpen( in, "./iScriptLib/iScriptLib_Tap3Validation/PLMNOList.dat", "r" ) == true )
+  {
+    while( fileEof( in ) == false )
+    {
+      fileReadLine( in, line, 5 );
+      plmnoList[i] = line;
+      i = i + 1;
+    }
+    numOfPlmno = i;
+  }
+  else
+  {
+    logPipeline( "ERROR: fileOpen() failed" );
+  }
+
+  if (debug)
+  {
+    logStdout("Begin \n");
+  }
+
+}
+
+//==============================================================================
+// Function declarations
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// init()
+//------------------------------------------------------------------------------
+function init
+{
+  if ( debug )
+  {
+    logStdout("init()\n");
+  }
+}
+
+//------------------------------------------------------------------------------
+// initBegin()
+//------------------------------------------------------------------------------
+function initBegin
+{
+  if ( debug )
+  {
+    logStdout("initBegin()\n");
+  }
+
+  minDate = MAX_DATE;
+  maxDate = MIN_DATE;
+  tapFileName = "";
+
+  notFlag = "";
+  record_length = 0;
+  adviseChargeEntries = 0;
+}
+
+
+function setAssociatedTapErr (String errorName , Long errorSeverity , 
+				String tapErrorCode , String tapErrorAppTag , String tapErrorDepth )
+                                
+{
+  Long blockIndex;
+  if( debug )
+  {
+    logStdout("setAssociatedTapErr()\n");
+  }  
+  
+  blockIndex = edrNumDatablocks(DETAIL.ASS_TAP3_ERR);
+  if(edrAddDatablock(DETAIL.ASS_TAP3_ERR) == true){
+    edrString(DETAIL.ASS_TAP3_ERR.RECORD_TYPE ,blockIndex) =  "670";
+    edrLong(DETAIL.ASS_TAP3_ERR.RECORD_NUMBER ,blockIndex) = edrLong(DETAIL.RECORD_NUMBER);
+    edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME ,blockIndex) = errorName;
+    edrLong(DETAIL.ASS_TAP3_ERR.ERROR_SEVERITY ,blockIndex) = errorSeverity;
+    edrString(DETAIL.ASS_TAP3_ERR.TAP3_ERROR_CODE ,blockIndex) = tapErrorCode;
+    edrString(DETAIL.ASS_TAP3_ERR.TAP3_ERROR_APPLICATION_TAG ,blockIndex) = tapErrorAppTag;
+    edrString(DETAIL.ASS_TAP3_ERR.TAP3_ERROR_DEPTH ,blockIndex) = tapErrorDepth;
+  }
+  
+  blockIndex = edrNumDatablocks(HEADER.ASS_TAP3_ERR);
+  if(edrAddDatablock(HEADER.ASS_TAP3_ERR) == true){
+    edrString(HEADER.ASS_TAP3_ERR.RECORD_TYPE ,blockIndex) =  "670";
+    edrLong(HEADER.ASS_TAP3_ERR.RECORD_NUMBER ,blockIndex) = edrLong(HEADER.RECORD_NUMBER);
+    edrString(HEADER.ASS_TAP3_ERR.ERROR_NAME ,blockIndex) = errorName;
+    edrLong(HEADER.ASS_TAP3_ERR.ERROR_SEVERITY ,blockIndex) = errorSeverity;
+    edrString(HEADER.ASS_TAP3_ERR.TAP3_ERROR_CODE ,blockIndex) = tapErrorCode;
+    edrString(HEADER.ASS_TAP3_ERR.TAP3_ERROR_APPLICATION_TAG ,blockIndex) = tapErrorAppTag;
+    edrString(HEADER.ASS_TAP3_ERR.TAP3_ERROR_DEPTH ,blockIndex) = tapErrorDepth;
+  }
+  
+  blockIndex = edrNumDatablocks(TRAILER.ASS_TAP3_ERR);
+  if(edrAddDatablock(TRAILER.ASS_TAP3_ERR) == true){
+    edrString(TRAILER.ASS_TAP3_ERR.RECORD_TYPE ,blockIndex) =  "670";
+    edrLong(TRAILER.ASS_TAP3_ERR.RECORD_NUMBER ,blockIndex) = edrLong(TRAILER.RECORD_NUMBER);
+    edrString(TRAILER.ASS_TAP3_ERR.ERROR_NAME ,blockIndex) = errorName;
+    edrLong(TRAILER.ASS_TAP3_ERR.ERROR_SEVERITY ,blockIndex) = errorSeverity;
+    edrString(TRAILER.ASS_TAP3_ERR.TAP3_ERROR_CODE ,blockIndex) = tapErrorCode;
+    edrString(TRAILER.ASS_TAP3_ERR.TAP3_ERROR_APPLICATION_TAG ,blockIndex) = tapErrorAppTag;
+    edrString(TRAILER.ASS_TAP3_ERR.TAP3_ERROR_DEPTH ,blockIndex) = tapErrorDepth;
+  }  
+}
+
+
+//------------------------------------------------------------------------------
+// validateSender()
+//
+// This function will be used to validate the sender
+//------------------------------------------------------------------------------
+function validateSender
+{
+  if (debug)
+  {
+    logStdout("validateSender()\n");
+  }
+
+  Long   headerState = edrInputState(HEADER.SENDER);
+  Long   headerStateI = edrInternalState(HEADER.SENDER);
+  String senderName = edrString(HEADER.SENDER);
+  String senderFileName = strSubstr(tapFileName, 2, 5);
+  String offset = "-1";
+  String depth;
+  Long   i;
+  Bool	 senderPresent = false;
+
+  if(edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+  {
+    depth = "2";
+  }
+  else
+  {
+    depth = "3";
+  }
+
+  if (headerState == MISSING)
+  {
+    // Set Fata Error
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.SENDER));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","30","2","1",offset,"-1","Missing sender field ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_SENDER_FIELD", LOG_CRITICAL , "30","2", "1");
+                               
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","30","4","2",offset,"-1","Missing sender field ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_SENDER_FIELD", LOG_CRITICAL , "30","4", "2");
+    }
+    edrDemandRollback();
+  }
+  else
+  { 
+    if ( (strLength(senderName) != 5) or (strSearchRegExpr(senderName, "[^A-Z0-9]") >= 0) )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","196",depth,offset,"-1",
+          "Sender field syntax Error ");
+      setAssociatedTapErr ("ERR_TAP3_SENDER_SE", LOG_CRITICAL , "10","196", depth);
+      edrDemandRollback();
+    }
+
+    for( i = 0; i < numOfPlmno and senderPresent == false; i = i + 1 )
+    {
+      if( plmnoList[i] == senderName )
+      {
+        senderPresent = true;
+      }
+    }
+
+    if ( senderPresent == false )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","196",depth,offset,"-1",
+          "Sender field Value Out of Range ");
+      setAssociatedTapErr ("ERR_TAP3_SENDER_OOR", LOG_CRITICAL , "20","196", depth);
+      edrDemandRollback();
+    }
+  
+    if (senderName != senderFileName)
+    {
+      // Set Fata Error
+      // offset = longToStr( edrFieldTokenBytePos( HEADER.SENDER));
+      if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+      {
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","196","2",offset,"-1",
+          "Sender field does not match the file name ");
+        setAssociatedTapErr ("ERR_TAP3_SENDER_FIELD_MISMATCH", LOG_CRITICAL , "100","196", "2");
+      }
+      else
+      {
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","196","3",offset,"-1",
+          "Sender field does not match the file name ");
+        setAssociatedTapErr ("ERR_TAP3_SENDER_FIELD_MISMATCH", LOG_CRITICAL , "100","196", "3");
+      }
+      edrDemandRollback();
+    }
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateRecipient()
+//
+// This function will be used to validate the recipient
+//------------------------------------------------------------------------------
+function validateRecipient
+{
+  if (debug)
+  {
+    logStdout("validateRecipient()\n");
+  }
+
+  Long headerState = edrInputState(HEADER.RECIPIENT);
+  Long headerStateI = edrInternalState(HEADER.RECIPIENT);
+
+  String recipientName = edrString(HEADER.RECIPIENT);
+  String recipientFileName = strSubstr(tapFileName, 7, 5);
+  String offset = "-1";
+  String depth;
+  Long   i;
+  Bool	 recipientPresent = false;
+
+  if(edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+  {
+    depth = "2";
+  }
+  else
+  {
+    depth = "3";
+  }
+
+  if (headerState == MISSING)
+  {
+    // Set Fata Error
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.RECIPIENT));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","31","2","1",offset,"-1","Missing recipient field ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_RECIPIENT_FIELD", LOG_CRITICAL , "31","2", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","31","4","2",offset,"-1","Missing recipient field ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_RECIPIENT_FIELD", LOG_CRITICAL , "31","4", "2");
+    }
+    edrDemandRollback();
+  }
+  else
+  {
+    if ( (strLength(recipientName) != 5) or (strSearchRegExpr(recipientName, "[^A-Z0-9]") >= 0) )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","182",depth,offset,"-1",
+            "Recipient field syntax Error ");
+      setAssociatedTapErr ("ERR_TAP3_RECIPIENT_FIELD_SE", LOG_CRITICAL , "10","182", depth);
+      edrDemandRollback();
+    }
+
+    for( i = 0; i < numOfPlmno and recipientPresent == false; i = i + 1 )
+    {
+      if( plmnoList[i] == recipientName )
+      {
+        recipientPresent = true;
+      }
+    }
+
+    if ( recipientPresent == false )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","182",depth,offset,"-1",
+          "Recipient field Value Out Of Range ");
+      setAssociatedTapErr ("ERR_TAP3_RECIPIENT_FIELD_OOR", LOG_CRITICAL , "20","182", depth);
+
+      edrDemandRollback();
+    }
+
+    if (recipientName != recipientFileName)
+    {
+      // Set Fata Error
+      // offset = longToStr( edrFieldTokenBytePos( HEADER.RECIPIENT));
+      if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+      {
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","182","2",offset,"-1",
+       	  "Recipient field does not match the file name ");
+        setAssociatedTapErr ("ERR_TAP3_RECIPIENT_FIELD_MISMATCH", LOG_CRITICAL , "100","182", "2");
+      }
+      else
+      {
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","182","3",offset,"-1",
+  	  "Recipient field does not match the file name ");
+        setAssociatedTapErr ("ERR_TAP3_RECIPIENT_FIELD_MISMATCH", LOG_CRITICAL , "100","182", "3");
+      }
+      edrDemandRollback();
+    }
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateFileSequenceNumber()
+//
+// This function will be used to validate the file sequence number
+//------------------------------------------------------------------------------
+function validateFileSequenceNumber
+{
+  if (debug)
+  {
+    logStdout("validateFileSequenceNumber()\n");
+  }
+
+  Long headerState = edrInputState(HEADER.SEQUENCE_NUMBER);
+  Long headerStateI = edrInternalState(HEADER.SEQUENCE_NUMBER);
+  Long headerSequence = edrLong(HEADER.SEQUENCE_NUMBER);
+  Long fileSequence = strToLong(strSubstr(tapFileName, 12, 5));
+  String offset = "-1";
+
+  if (headerState == MISSING)
+  {
+    // Set Fatal Error
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.SEQUENCE_NUMBER));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","32","2","1",offset,"-1",
+		"Missing file sequence number");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_SEQ_NUM", LOG_CRITICAL , "32","2", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","32","4","2",offset,"-1",
+		"Missing file sequence number");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_SEQ_NUM", LOG_CRITICAL , "32","4", "2");
+    }
+    edrDemandRollback();
+  }
+  else
+  {
+    if(( headerSequence < 1)  or ( headerSequence > 99999))   
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","109","2","0","-1",
+              "Out of Range File Sequence Number");
+      setAssociatedTapErr ("ERR_TAP3_FILE_SEQUENCE_NUMBER_OOR", LOG_CRITICAL , "20","109", "2");
+      edrDemandRollback();
+    }
+    else if (headerSequence != fileSequence)
+    {
+      // Set Fatal Error
+      // offset = longToStr( edrFieldTokenBytePos( HEADER.SEQUENCE_NUMBER));
+      if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+      {
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","109","2",offset,"-1",
+  	  "File sequence does not match sequence number in the file name");
+        setAssociatedTapErr ("ERR_TAP3_FILE_SEQ_NUM_MISMATCH", LOG_CRITICAL , "100","109", "2");
+      }
+      else
+      {
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","109","3",offset,"-1",
+  	  "File sequence does not match sequence number in the file name");
+        setAssociatedTapErr ("ERR_TAP3_FILE_SEQ_NUM_MISMATCH", LOG_CRITICAL , "100","109", "3");
+      }
+      edrDemandRollback();
+    }
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateFileCreationTimeStamp()
+//
+// This function will be used to validate the file creation timestamp
+//------------------------------------------------------------------------------
+function validateFileCreationTimeStamp
+{
+  if (debug)
+  {
+    logStdout("validateFileCreationTimeStamp()\n");
+  }
+
+  if ( edrInputState(HEADER.CREATION_TIMESTAMP) == MISSING)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.CREATION_TIMESTAMP));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","34","2","1",offset,"-1",
+		"Missing file creation timestamp ");
+      setAssociatedTapErr ("ERR_TAP3_FILE_TIMESTAMP_CREAT_MISSING", LOG_WARNING , "34","2", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","35","4","2",offset,"-1",
+		"Missing file creation timestamp ");
+      setAssociatedTapErr ("ERR_TAP3_FILE_TIMESTAMP_CREAT_MISSING", LOG_WARNING , "34","4", "2");
+    }
+  }
+
+}
+
+//------------------------------------------------------------------------------
+// validateFileCreationTimeStampCrossValidation()
+//
+// This function will be used to validate the file creation timestamp cross
+// validation
+//------------------------------------------------------------------------------
+function validateFileCreationTimeStampCrossValidation
+{
+  if (debug)
+  {
+    logStdout("validateFileCreationTimeStampCrossValidation()\n");
+  }
+
+  Date cutOffDate = edrDate(HEADER.TRANSFER_CUTOFF_TIMESTAMP);
+  Date creationDate = edrDate(HEADER.CREATION_TIMESTAMP);
+
+  if (dateDiff(creationDate,cutOffDate) < 0)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.CREATION_TIMESTAMP));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","100","108","2",offset,"-1",
+	 	"File available time  earlier than icut off timestamp");
+      setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_WARNING , "100","108", "2");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","100","108","3",offset,"-1",
+		"File available time  earlier than cut off timestamp");
+      setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_WARNING , "100","108", "3");
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateTransferCutOffTimeStamp()
+//
+// This function will be used to validate the file transfer cut off timestamp
+//------------------------------------------------------------------------------
+function validateTransferCutOffTimeStamp
+{
+  if (debug)
+  {
+    logStdout("validateTransferCutOffTimeStamp()\n");
+  }
+
+  String offset = "-1";
+
+  if (edrInputState(HEADER.TRANSFER_CUTOFF_TIMESTAMP) == MISSING)
+  {
+    // Set Fatal Error
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.TRANSFER_CUTOFF_TIMESTAMP));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","36","2","1",offset,"-1",
+		"Missing file transfer cutoff timestamp ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_TRANSFER_ICUT_OFF_TIMESTAMP", LOG_WARNING , "36","2", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","36","4","2",offset,"-1",
+		"Missing file transfer cutoff timestamp ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_TRANSFER_ICUT_OFF_TIMESTAMP", LOG_WARNING , "36","4", "2");
+    }
+  }
+  else if ( dateIsValid(edrDate(HEADER.TRANSFER_CUTOFF_TIMESTAMP)) == false )
+  {
+    // Set Fatal Error
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","227","3",offset,"-1",
+                "Syntax Error Transfer Cutoff TimeStamp");
+      setAssociatedTapErr ("ERR_TAP3_TRANSFER_CUTOFF_TIMESTAMP_SYNTAX", LOG_CRITICAL , "10", "227", "3"); 
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","227","5",offset,"-1",
+                "Syntax Error Transfer Cutoff TimeStamp");
+      setAssociatedTapErr ("ERR_TAP3_TRANSFER_CUTOFF_TIMESTAMP_SYNTAX", LOG_CRITICAL , "10", "227", "5"); 
+    }
+    edrDemandRollback();
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateFileAvailableTimeStamp()
+//
+// This function will be used to validate the file available timestamp
+//------------------------------------------------------------------------------
+function validateFileAvailableTimeStamp
+{
+  if (debug)
+  {
+    logStdout("validateFileAvailableTimeStamp()\n");
+  }
+  
+  if (edrInputState(HEADER.TRANSMISSION_DATE) == MISSING)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.TRANSMISSION_DATE));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","35","2","1",offset,"-1",
+		"Missing file available timestamp ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_AVAILABLE_TIMESTAMP", LOG_WARNING , "35","2", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","33","4","2",offset,"-1",
+		"Missing file available timestamp ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_AVAILABLE_TIMESTAMP", LOG_CRITICAL , "33","4", "2");
+      edrDemandRollback();
+    }
+  }
+  else 
+  {
+    if (dateIsValid(edrDate(HEADER.TRANSMISSION_DATE)) == false)
+    {
+      // Set Fatal Error
+      String offset = "-1";
+      if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+      {
+          edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","11","107","4",offset,"-1",
+                      "Syntax Error for file available timestamp ");
+          setAssociatedTapErr ("ERR_TAP3_FILE_AVAILABLE_TIMESTAMP_SYNTAX", LOG_WARNING , "11","84", "4");
+      }
+      else
+      {
+          edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","107","4",offset,"-1",
+                      "Syntax Error for file available timestamp ");
+          setAssociatedTapErr ("ERR_TAP3_FILE_AVAILABLE_TIMESTAMP_SYNTAX", LOG_CRITICAL , "10","84", "4");
+          edrDemandRollback();
+      }
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateFileAvailableTimeStampCrossValidation()
+//
+// This function will be used to validate the file available timestamp cross
+// validation
+//------------------------------------------------------------------------------
+function validateFileAvailableTimeStampCrossValidation
+{
+  if (debug)
+  {
+    logStdout("validateFileAvailableTimeStampCrossValidation()\n");
+  }
+
+  Date availableDate = edrDate(HEADER.TRANSMISSION_DATE);
+  Date cutOffDate = edrDate(HEADER.TRANSFER_CUTOFF_TIMESTAMP);
+  Date creationDate = edrDate(HEADER.CREATION_TIMESTAMP);
+  Date CurrentProcessingTime = sysdate();
+  String offset = "-1";
+
+  if (dateDiff(availableDate,cutOffDate) < 0)
+  {
+    // Set Fatal Error
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.TRANSMISSION_DATE));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","102","107","2",offset,"-1",
+		"File available time  earlier than transfer cut off timestamp");
+      setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_WARNING , "100","107", "2");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","100","107","3",offset,"-1",
+		"File available time  earlier than transfer cut off timestamp");
+      setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_WARNING , "102","107", "3");
+    }
+  }
+
+  if (dateDiff(availableDate,creationDate) < 0)
+  {
+    // Set Fatal Error
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.TRANSMISSION_DATE));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","103","107","2",offset,"-1",
+		"File available time  earlier than file creation timestamp");
+      setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_WARNING , "103","107", "2");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","101","107","3",offset,"-1",
+		"File available time  earlier than file creation timestamp");
+      setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_WARNING , "101","107", "3");
+    }
+  }
+  if (dateDiff(availableDate,CurrentProcessingTime) > 0 AND dateIsValid(availableDate) == true)
+  {
+     // Set Fatal Error
+     edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","104","107","4",offset,"-1",
+                "File available time  is after the file received time at the HPMN");
+     setAssociatedTapErr ("ERR_TAP3_ICUT_OFF_TIMESTAMP_MISMATCH", LOG_CRITICAL , "104","107", "4");
+     edrDemandRollback();
+  } 
+}
+
+
+//------------------------------------------------------------------------------
+// validateSpecificationVersionNumber()
+//
+// This function will be used to validate the Specification Version Number
+//------------------------------------------------------------------------------
+function validateSpecificationVersionNumber
+{
+  if (debug)
+  {
+    logStdout("validateSpecificationVersionNumber()\n");
+  }
+  String depth;
+  if(edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+  {
+    depth = "2";
+  }
+  else
+  {
+    depth = "3";
+  }
+
+  if (edrInputState(HEADER.SPECIFICATION_VERSION_NUMBER) == MISSING)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+
+    // offset = longToStr( edrFieldTokenBytePos( HEADER.SPECIFICATION_VERSION_NUMBER));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","33","2","1",offset,"-1",
+		"Missing file specification version number ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_SPEC_VER", LOG_CRITICAL , "33","2", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","34","4","2",offset,"-1",
+		"Missing file specification version number ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_FILE_SPEC_VER", LOG_CRITICAL , "34","4", "2");
+    }
+
+    edrDemandRollback();
+  }
+  else if (edrLong(HEADER.SPECIFICATION_VERSION_NUMBER) != 3)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","201",depth,offset,"-1",
+        "Specification Version Number Out of Range Error ");
+    setAssociatedTapErr ("ERR_TAP3_SPECIFICATION_VERSION_NUMBER_OOR", LOG_CRITICAL , "20","201", depth);
+    edrDemandRollback();
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateReleaseVersionNumber()
+//
+// This function will be used to validate the Release Version Number
+//------------------------------------------------------------------------------
+function validateReleaseVersionNumber
+{
+  if (debug)
+  {
+    logStdout("validateReleaseVersionNumber()\n");
+  }
+  String depth;
+  if(edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+  {
+    depth = "2";
+  }
+  else
+  {
+    depth = "3";
+  }
+
+  if (edrInputState(HEADER.RELEASE_VERSION) == MISSING)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+
+    // offset = longToStr( edrFieldTokenBytePos(HEADER.RELEASE_VERSION));
+    if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","30","201","1",offset,"-1",
+		"Missing release version number ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_RELEASE_VER", LOG_CRITICAL , "30","201", "1");
+    }
+    else
+    {
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","30","201","2",offset,"-1",
+		"Missing release version number ");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_RELEASE_VER", LOG_CRITICAL , "30","201", "1");
+    }
+    edrDemandRollback();
+  }
+  else
+  {
+     Long tmpReleaseVersionNumber;
+     tmpReleaseVersionNumber = edrLong(HEADER.RELEASE_VERSION);
+     if(tmpReleaseVersionNumber != 10)
+     {
+       edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","189",depth,"0","-1",
+               "Out of Range release version number ");
+       setAssociatedTapErr ("ERR_TAP3_RELEASE_VER_OOR", LOG_CRITICAL , "20","189", depth);
+       edrDemandRollback();
+     } 
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateTapCurrency()
+//
+// This function will be used to validate the Tap Currency
+//------------------------------------------------------------------------------
+function validateTapCurrency
+{
+  if (debug)
+  {
+    logStdout("validateTapCurrency()\n");
+  }
+  String TapCurrency = edrString(HEADER.ASS_ROAMING_EXT.TAP_CURRENCY, 0);
+  String ruleID1          = "Tap Currency Syntax Error";
+  String ruleID2          = "Tap Currency Value Out of Range";
+  const String tag        = "210";
+  const String arrayIndex = "-1";
+  const String depth      = "3";
+  const String offset     = "-1";
+  Bool currencyPresent    = false;
+  Long i;
+
+  if( edrString(HEADER.SENDER_COUNTRY_CODE) != "NOTIFICATION" )
+  {
+
+    if(strLength(TapCurrency) != 3)
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET", LOG_CRITICAL, "fatal", "10", tag, depth,
+      offset, arrayIndex, ruleID1);
+      setAssociatedTapErr("ERR_TAP3_TAP_CURRENCY_SE", LOG_CRITICAL ,"10" ,tag ,depth);
+      edrDemandRollback();
+    }
+
+  
+    for( i = 0 ; i < numOfCurrencyCode and currencyPresent == false ; i = i + 1 )
+    {
+      if( TapCurrency == currencyCode[i])
+      {
+        currencyPresent = true;
+      }
+    }
+    if(currencyPresent == false)
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET", LOG_CRITICAL, "fatal", "20", tag, depth,
+	  offset, arrayIndex, ruleID2);
+      setAssociatedTapErr("ERR_TAP3_TAP_CURRENCY_OOR", LOG_CRITICAL ,"20" ,tag ,depth);
+      edrDemandRollback(); 
+    }
+
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateTapDecimalPlaces()
+//
+// This function will be used to validate the Tap Decimal Places
+//------------------------------------------------------------------------------
+function validateTapDecimalPlaces
+{
+  if (debug)
+  {
+    logStdout("validateTapDecimalPlaces()\n");
+  }
+
+  if (edrInputState(HEADER.TAP_DECIMAL_PLACES) == MISSING)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+
+    // offset = longToStr( edrFieldTokenBytePos(HEADER.TAP_DECIMAL_PLACES));
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","35","5","2",offset,"-1",
+		"Missing Tap Decimal Places");
+    setAssociatedTapErr ("ERR_TAP3_MISSING_TAP_DEC_PLACES", LOG_CRITICAL , "35","5", "2");
+    edrDemandRollback();
+  }
+  else 
+  {
+    Long TapDecimalPlaces = edrLong(HEADER.TAP_DECIMAL_PLACES);
+    if ( (TapDecimalPlaces < 0) or (TapDecimalPlaces > 6))
+    {
+       // Set Fatal Error
+       String offset = "-1";
+
+       edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","244","2",offset,"-1",
+                "Out of Range TapDecimalPlaces");
+       setAssociatedTapErr ("ERR_TAP3_TAP_DEC_PLACES_OOR", LOG_CRITICAL , "20","244", "2");
+       edrDemandRollback();
+    }
+  }
+
+}
+
+//------------------------------------------------------------------------------
+// validateRapFileSequenceNumber()
+//
+// This function will be used to validate the Rap File Sequence number in header
+//------------------------------------------------------------------------------
+function validateRapFileSequenceNumber
+{
+  if (debug)
+  {
+    logStdout("validateRapFileSequenceNumber()\n");
+  }
+
+  if (edrInternalState(HEADER.RAP_FILE_SEQ_NO) != STATE_CLEARED and edrInputState(HEADER.RAP_FILE_SEQ_NO) != MISSING)
+  {
+      if( (edrLong(HEADER.RAP_FILE_SEQ_NO) < 1 ) or
+          (edrLong(HEADER.RAP_FILE_SEQ_NO) > 99999) )
+      {
+        // set warning
+        String offset = "-1";
+        edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","20","181","3",offset,"-1",
+                "Rap file sequence number out of range in BatchCtrlInfo/Notification");
+        setAssociatedTapErr ("ERR_TAP3_HEADER_RAP_FILE_SEQ_NO", LOG_WARNING , "20","181", "3");
+     }
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateInternationalAccessCode()      
+//
+// This function will be used to validate the International Access Code
+//------------------------------------------------------------------------------
+function validateInternationalAccessCode
+{
+  if (debug)
+  {
+    logStdout("validateInternationalAccessCode()\n");
+  }
+  String ListArray[];
+  Long i;
+  String internationalAccessCodes = edrString(HEADER.IAC_LIST);
+  Long nbElem = strSplit(ListArray, internationalAccessCodes, ",");
+  for ( i = 0; i < nbElem; i=(i+1) )
+  {
+    String intAccessCode = strStrip( ListArray[i], STRIP_LEADING);
+    Long ret = strSearchRegExpr(intAccessCode, "[^0-9]");
+    if ( ret >= 0 )
+    {
+       // Set Fatal Error
+       String offset = "-1";
+
+       edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","126","6",offset,"-1",
+                "International Access Code Syntax Error");
+       setAssociatedTapErr ("ERR_TAP3_IAC_SYNTAX", LOG_CRITICAL , "10","126", "6");
+       edrDemandRollback();
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateCountryCodeList()
+//
+// This function will be used to validate country code
+//------------------------------------------------------------------------------
+function validateCountryCodeList
+{
+  if (debug)
+  {
+    logStdout("validateCountryCodeList()\n");
+  }
+  String ListArray[];
+  Long i;
+  String countryCodes = edrString(HEADER.CC_LIST);
+
+  Long nbElem = strSplit(ListArray, countryCodes, ",");
+
+  String offset = "-1";
+
+ for ( i = 0; i < nbElem; i=(i+1) )
+ {
+    String countryCode = strStrip( ListArray[i], STRIP_LEADING);
+    Long countryCodeFound = 1;
+    Bool countryCodePresent = false;
+    Long j;
+
+    // Validation for Syntax Error
+    countryCodeFound = strSearchRegExpr(countryCode, "[^0-9]");
+    if ( countryCodeFound >= 0 )
+    {
+        edrAddError("ERR_TAP3_RET",LOG_MAJOR,"fatal","10","77","3",offset,"-1",
+                "country code syntax error");
+        setAssociatedTapErr ("ERR_TAP3_COUNTRY_CODE_SYNTAX", LOG_CRITICAL , "10","77", "3");
+        edrDemandRollback();
+        return;
+    }
+
+    // Validation for Out of Range
+    for( j = 0 ; j < numOfCountryCode and countryCodePresent == false ; j = j + 1 )
+    {
+      if( strToLong(countryCode) == strToLong(countryCodeArray[j]) )
+      {
+        countryCodePresent = true;
+      }
+    }
+    if(countryCodePresent == false)
+    {
+        edrAddError("ERR_TAP3_RET",LOG_MAJOR,"fatal","20","77","3",offset,"-1",
+                "Out of range country code");
+        setAssociatedTapErr ("ERR_TAP3_COUNTRY_CODE_OOR", LOG_CRITICAL , "20","77", "3");
+        edrDemandRollback();
+        return;
+    }
+ }
+}
+
+
+//------------------------------------------------------------------------------
+// validateFileTypeIndicator()
+//
+// This function will be used to validate file type indicator
+//------------------------------------------------------------------------------
+function validateFileTypeIndicator
+{
+  if (debug)
+  {
+    logStdout("validateFileTypeIndicator()\n");
+  }
+
+  String fileTypeIndicator = edrString(HEADER.DATA_TYPE_INDICATOR);
+
+  String offset = "-1";
+  if ( (fileTypeIndicator != "") and
+       (strLength(fileTypeIndicator) != 1) )
+  {
+        // Setting the fatal Error.
+        if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+        {
+            edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","110","1",offset,"-1",
+                    "Syntax Error File Type Indicator");
+            setAssociatedTapErr ("ERR_TAP3_FILE_TYPE_IND_SYNTAX", LOG_CRITICAL , "10","110", "1");
+            edrDemandRollback();
+            return;
+        }
+        else
+        {
+            edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","10","110","2",offset,"-1",
+                    "Syntax Error File Type Indicator");
+            setAssociatedTapErr ("ERR_TAP3_FILE_TYPE_IND_SYNTAX", LOG_CRITICAL , "10","110", "2");
+            edrDemandRollback();
+            return;
+        }
+  }
+
+  // If File Type Indicator is present, then it should be only "T".
+  if ( (fileTypeIndicator != "") and 
+       (fileTypeIndicator != "T") )
+  {
+        if (edrString(HEADER.SENDER_COUNTRY_CODE) == "NOTIFICATION")
+        {
+            // So, if File Type Indicator is present, i.e. Not Missing and Not Empty,
+            // but not equal to "T", then raise the appropriate error.
+            edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","110","1",offset,"-1",
+                        "Out of range File Type Indicator");
+            setAssociatedTapErr ("ERR_TAP3_FILE_TYPE_IND_OOR", LOG_CRITICAL , "20","110", "1");
+            edrDemandRollback();
+        }
+        else
+        {
+           // So, if File Type Indicator is present, i.e. Not Missing and Not Empty,
+           // but not equal to "T", then raise the appropriate error.
+           edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","110","2",offset,"-1",
+                       "Out of range File Type Indicator");
+           setAssociatedTapErr ("ERR_TAP3_FILE_TYPE_IND_OOR", LOG_CRITICAL , "20","110", "2");
+           edrDemandRollback();
+        }
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateTotalChargeValueList()
+//
+// This function will be used to validate the total charge value list
+//------------------------------------------------------------------------------
+function validateTotalChargeValueList
+{
+  if (debug)
+  {
+    logStdout("validateTotalChargeValueList()\n");
+  }
+
+  Long blockIndex;
+  Long nextblockIndex;
+  String correctChargeType; 
+  String nextChargeType = "";    
+  String offset = "-1";
+
+  Long blockEntries = edrNumDatablocks(TRAILER.TOTAL_CHARGE_VALUE_LIST);
+  for (blockIndex = 0 ; blockIndex < blockEntries ; blockIndex = (blockIndex + 1) )
+  {
+    if (edrInputState(TRAILER.TOTAL_CHARGE_VALUE_LIST.CHARGE_TYPE,
+		blockIndex) == MISSING)
+    {
+      // Set Fatal Error
+      // offset = longToStr( edrFieldTokenBytePos(TRAILER.TOTAL_CHARGE_VALUE_LIST.
+      //		CHARGE_TYPE,blockIndex, 0));
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","30","222","3",offset,"-1",
+			"Missing Charge Type");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_CHARGE_TYPE", LOG_CRITICAL , "30","222", "3");
+      edrDemandRollback();
+    }
+
+    if (edrInputState(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_VALUE,
+		blockIndex) == MISSING)
+    {
+      // Set Fatal Error
+      // offset = longToStr( edrFieldTokenBytePos(TRAILER.TOTAL_CHARGE_VALUE_LIST.
+      //		TOTAL_CHARGE_VALUE,blockIndex, 0));
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","31","222","3",offset,"-1",
+			"Missing Charge Value");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_CHARGE_VALUE", LOG_CRITICAL , "31","222", "3");
+      edrDemandRollback();
+    }
+    if ((edrInputState(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_REFUND,
+		blockIndex) == MISSING) and (hasChargeRefund == true))
+    {
+      // Set Fatal Error
+      // offset = longToStr( edrFieldTokenBytePos(TRAILER.TOTAL_CHARGE_VALUE_LIST.
+      //		TOTAL_CHARGE_REFUND,blockIndex, 0));
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","32","222","3",offset,"-1",
+			"Missing Total Charge Refund");
+      setAssociatedTapErr ("ERR_TAP3_MISSING_TOTAL_CHARGE_REFUND", LOG_CRITICAL , "32","222", "3");
+      edrDemandRollback();
+    }
+    correctChargeType = edrString(TRAILER.TOTAL_CHARGE_VALUE_LIST.CHARGE_TYPE, blockIndex); 
+    for (nextblockIndex = (blockIndex + 1); (nextblockIndex < blockEntries) and (correctChargeType != nextChargeType); 
+                           nextblockIndex = (nextblockIndex + 1) )
+    {
+       nextChargeType = edrString(TRAILER.TOTAL_CHARGE_VALUE_LIST.CHARGE_TYPE, nextblockIndex);
+       if ( correctChargeType == nextChargeType )
+       {
+          // Set Fatal Error
+          edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","35","15","2",offset,"-1",
+                "Duplicate Entries of Charge Type"); 
+          setAssociatedTapErr ("ERR_TAP3_DUPLICATE_CHARGE_TYPE", LOG_CRITICAL , "35","15", "2");
+          edrDemandRollback();
+       }
+     }
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateTotalTaxValue()
+//
+// This function will be used to validate the total tax value
+//------------------------------------------------------------------------------
+function validateTotalTaxValue
+{
+  if (debug)
+  {
+    logStdout("validateTotalTaxValue()\n");
+  }
+
+  String offset = "-1";
+  // offset = longToStr( edrFieldTokenBytePos(TRAILER.TAP_TOTAL_TAX_VALUE));
+
+  if (edrInputState(TRAILER.TAP_TOTAL_TAX_VALUE) == MISSING)
+  {
+    // Set Fatal Error
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","31","15","2",offset,"-1",
+		"Missing Total Tax Value");
+    setAssociatedTapErr ("ERR_TAP3_MISSING_TOTAL_TAX_VALUE", LOG_CRITICAL , "31","15", "2");
+    edrDemandRollback();
+  }
+  // Total Tax Value should not be a negative value.
+  else if (edrDecimal(TRAILER.TAP_TOTAL_TAX_VALUE) < 0.0)
+  {
+    // Total Tax Value is negative, Set Fatal Error
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","226","3",offset,"-1",
+                "Out of Range Total Tax Value");
+    setAssociatedTapErr ("ERR_TAP3_TOTAL_TAX_VALUE_OOR", LOG_CRITICAL , "20","226", "3");
+    edrDemandRollback();
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateTotalDiscountValue()
+//
+// This function will be used to validate the total discount value
+//------------------------------------------------------------------------------
+function validateTotalDiscountValue
+{
+  if (debug)
+  {
+    logStdout("validateTotalDiscountValue()\n");
+  }
+
+  String offset = "-1";
+  // offset = longToStr( edrFieldTokenBytePos(TRAILER.TAP_TOTAL_DISCOUNT_VALUE));
+
+  if (edrInputState(TRAILER.TAP_TOTAL_DISCOUNT_VALUE) == MISSING)
+  {
+    // Set Fatal Error
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","32","15","2",offset,"-1",
+		"Missing Total TAP Discount Value");
+    setAssociatedTapErr ("ERR_TAP3_MISSING_TOTAL_TAP_DIS_VALUE", LOG_CRITICAL , "32","15", "2");
+    edrDemandRollback();
+  }
+  // Total Discount Value should not be a negative value.
+  else if (edrDecimal(TRAILER.TAP_TOTAL_DISCOUNT_VALUE) < 0.0)
+  {
+    // Total Discount Value is negative, Set Fatal Error
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","225","3",offset,"-1",
+                "Out of Range Total Discount Value");
+    setAssociatedTapErr ("ERR_TAP3_TOTAL_DISCOUNT_VALUE_OOR", LOG_CRITICAL , "20","225", "3");
+  }
+}
+
+
+//------------------------------------------------------------------------------
+// validateCallEventDetailsCount()
+//
+// This function will be used to validate the total number of call event details
+//------------------------------------------------------------------------------
+function validateCallEventDetailsCount
+{
+  if (debug)
+  {
+    logStdout("validateCallEventDetailsCount()\n");
+  }
+
+  if ((edrInputState(TRAILER.TAP_TOTAL_NUMBER_OF_RECORDS)) == MISSING)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+
+    // offset = longToStr( edrFieldTokenBytePos(TRAILER.TAP_TOTAL_NUMBER_OF_RECORDS)));
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","33","15","2",offset,"-1",
+		"Missing Total Call Event Details");
+    setAssociatedTapErr ("ERR_TAP3_MISSING_TOTAL_CALL_EVENT_DELTAILS", LOG_CRITICAL , "33","15", "2");
+    edrDemandRollback();
+  }
+  else
+  {
+    if ((edrLong(TRAILER.TAP_TOTAL_NUMBER_OF_RECORDS)) <= 0)
+    {
+      // Set Fatal Error
+      String offset = "-1";
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","43","2",offset,"-1",
+                  "Call Event Details count value out of range");
+      setAssociatedTapErr ("ERR_TAP3_CALL_EVENT_DETAILS_COUNT_OOR", LOG_CRITICAL , "20","43", "2");
+      edrDemandRollback();
+      return;
+    }
+    else if ((edrLong(TRAILER.TAP_TOTAL_NUMBER_OF_RECORDS)) != record_length)
+    {
+      // Set Fatal Error
+      String offset = "-1";
+
+      // offset = longToStr( edrFieldTokenBytePos(TRAILER.TAP_TOTAL_NUMBER_OF_RECORDS)));
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","43","2",offset,"-1",
+ 		  "Call Event Details does not match the total in the trailer record");
+      setAssociatedTapErr ("ERR_TAP3_TOTAL_CALL_EVENT_DETAILS_MISMATCH", LOG_CRITICAL , "100","43", "2");
+      edrDemandRollback();
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// getMinMaxCallDate()
+//
+// This function will be used to find the min and max call event detail timestamp
+//------------------------------------------------------------------------------
+function getMinMaxCallDate
+{
+  if (debug)
+  {
+    logStdout("getMinCallDate()\n");
+  }
+
+  Date callEventDate;
+
+  // check if it's a content usage
+  if ( edrNumDatablocks(DETAIL.ASS_CONT_EXT) > 0 )
+  {
+    // if the content charging point is provided, use that as a pointer to
+    // the date to be used as start timestamp
+    if ( edrInternalState(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.CONTENT_CHARGING_POINT, 0, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.CONTENT_CHARGING_POINT, 0, 0) != EDR_INPUT_MISSING )
+    {
+      Long contentChargingPoint = edrLong(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.CONTENT_CHARGING_POINT, 0, 0);
+      if (contentChargingPoint == 1)
+      {
+        if ( edrInternalState(DETAIL.ASS_CONT_EXT.ORDER_PLACED_TIMESTAMP, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.ORDER_PLACED_TIMESTAMP, 0) != EDR_INPUT_MISSING )
+          callEventDate = edrDate(DETAIL.ASS_CONT_EXT.ORDER_PLACED_TIMESTAMP, 0);
+        else
+          return;
+      }
+      else if (contentChargingPoint == 2)
+      {
+        if ( edrInternalState(DETAIL.ASS_CONT_EXT.REQUESTED_DELIVERY_TIMESTAMP, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.REQUESTED_DELIVERY_TIMESTAMP, 0) != EDR_INPUT_MISSING )
+          callEventDate = edrDate(DETAIL.ASS_CONT_EXT.REQUESTED_DELIVERY_TIMESTAMP, 0);
+        else
+          return;
+      }
+      else if (contentChargingPoint == 3)
+      {
+        if ( edrInternalState(DETAIL.ASS_CONT_EXT.ACTUAL_DELIVERY_TIMESTAMP, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.ACTUAL_DELIVERY_TIMESTAMP, 0) != EDR_INPUT_MISSING )
+          callEventDate = edrDate(DETAIL.ASS_CONT_EXT.ACTUAL_DELIVERY_TIMESTAMP, 0);
+        else
+          return;
+      }
+      else
+      {
+        return;
+      }
+    }
+
+    // content charging point is not provided, there should be only one of the three dates
+    else
+    {
+      if ( edrInternalState(DETAIL.ASS_CONT_EXT.ORDER_PLACED_TIMESTAMP, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.ORDER_PLACED_TIMESTAMP, 0) != EDR_INPUT_MISSING )
+      {
+        callEventDate = edrDate(DETAIL.ASS_CONT_EXT.ORDER_PLACED_TIMESTAMP, 0);
+      }
+      else if ( edrInternalState(DETAIL.ASS_CONT_EXT.REQUESTED_DELIVERY_TIMESTAMP, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.REQUESTED_DELIVERY_TIMESTAMP, 0) != EDR_INPUT_MISSING )
+      {
+        callEventDate = edrDate(DETAIL.ASS_CONT_EXT.REQUESTED_DELIVERY_TIMESTAMP, 0);
+      }
+      else if ( edrInternalState(DETAIL.ASS_CONT_EXT.ACTUAL_DELIVERY_TIMESTAMP, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.ACTUAL_DELIVERY_TIMESTAMP, 0) != EDR_INPUT_MISSING )
+      {
+        callEventDate = edrDate(DETAIL.ASS_CONT_EXT.ACTUAL_DELIVERY_TIMESTAMP, 0);
+      }
+      else
+      {
+        return;
+      }
+    }
+  }
+
+  // check if it's a location service usage
+  else if ( edrNumDatablocks(DETAIL.ASS_LOCN_EXT) > 0 )
+  {
+    if ( edrInternalState(DETAIL.ASS_LOCN_EXT.SERVICE_USAGE.LCS_REQUEST_TIMESTAMP, 0, 0) != STATE_CLEARED and edrInputState(DETAIL.ASS_LOCN_EXT.SERVICE_USAGE.LCS_REQUEST_TIMESTAMP, 0, 0) != EDR_INPUT_MISSING )
+    {
+      callEventDate = edrDate(DETAIL.ASS_LOCN_EXT.SERVICE_USAGE.LCS_REQUEST_TIMESTAMP, 0, 0);
+    }
+    else
+    {
+      return;
+    }
+  }
+
+  // or a normal gsm/gprs/scu usage
+  else
+  {
+    // special handling for SCU type of records
+    if (edrString(DETAIL.RECORD_TYPE) == type_SCU)
+    {
+      // use the charging point to know which date is to be used as
+      // the start timestamp
+      if ( edrInternalState(DETAIL.CHARGING_POINT) != STATE_CLEARED and edrInputState(DETAIL.CHARGING_POINT) != EDR_INPUT_MISSING )
+      {
+        if ( edrString(DETAIL.CHARGING_POINT) == "C" )
+        {
+          if ( edrInternalState(DETAIL.CHARGING_END_TIMESTAMP) != STATE_CLEARED and edrInputState(DETAIL.CHARGING_END_TIMESTAMP) != EDR_INPUT_MISSING )
+            callEventDate = edrDate(DETAIL.CHARGING_END_TIMESTAMP);
+          else
+            return;
+        }
+        else if ( edrString(DETAIL.CHARGING_POINT) == "D" )
+        {
+          if ( edrInternalState(DETAIL.CHARGING_START_TIMESTAMP) != STATE_CLEARED and edrInputState(DETAIL.CHARGING_START_TIMESTAMP) != EDR_INPUT_MISSING )
+            callEventDate = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+          else
+            return;
+        }
+        else
+        {
+          return;
+        }
+      }
+
+      // ok so the charging point is not provided, use whatever date that is provided
+      else
+      {
+        if ( edrInternalState(DETAIL.CHARGING_START_TIMESTAMP) != STATE_CLEARED and edrInputState(DETAIL.CHARGING_START_TIMESTAMP) != EDR_INPUT_MISSING )
+        {
+          callEventDate = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+        }
+        else if ( edrInternalState(DETAIL.CHARGING_END_TIMESTAMP) != STATE_CLEARED and edrInputState(DETAIL.CHARGING_END_TIMESTAMP) != EDR_INPUT_MISSING )
+        {
+          callEventDate = edrDate(DETAIL.CHARGING_END_TIMESTAMP);
+        }
+        else
+        {
+          return;
+        }
+      }
+    }
+
+    // rest of the records
+    else
+    {
+      callEventDate = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+    }
+  }
+
+  if ( dateIsValid(callEventDate) != false )
+  {
+    if (dateDiff(minDate, callEventDate) > 0)
+    {
+      minDate = callEventDate;
+    }
+    
+    if (dateDiff(maxDate, callEventDate) < 0)
+    {
+      maxDate = callEventDate;
+    }
+  }
+
+}
+
+//------------------------------------------------------------------------------
+// getTotalContentAdvisedCharge() 
+//
+// This function is used to find the Advised Charge Information within Content
+//------------------------------------------------------------------------------
+function getTotalContentAdvisedCharge
+{
+  if (debug)
+  {
+    logStdout("getTotalContentAdvisedCharge()\n");
+  }
+  Long blockEntries;
+  Long blockIndex;
+  blockEntries = edrNumDatablocks(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST, 0);
+  for (blockIndex = 0; blockIndex < blockEntries; blockIndex = (blockIndex + 1))
+  {
+    if(edrInternalState(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE, 0, blockIndex) != STATE_CLEARED and edrInputState(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE, 0, blockIndex) != MISSING)
+    {
+       adviseChargeEntries =  adviseChargeEntries + 1;
+    }
+  }
+}
+
+
+
+//------------------------------------------------------------------------------
+// getTapFileName()
+//
+// This function will be used to find the tap file name
+//------------------------------------------------------------------------------
+function getTapFileName
+{
+  if (debug)
+  {
+    logStdout("getTapFileName()\n");
+  }
+
+  tapFileName = edrString(INTERNAL.STREAM_NAME);
+}
+
+
+//------------------------------------------------------------------------------
+// validateEarliestTimeStamp()
+//
+// This function will be used to validate the earliest timestamp
+//------------------------------------------------------------------------------
+function  validateEarliestTimeStamp
+{
+  if (debug)
+  {
+    logStdout("validateEarliestTimeStamp()\n");
+  }
+
+  Date firstCall = edrDate(TRAILER.FIRST_START_TIMESTAMP);
+
+  if (dateIsValid(firstCall) == true)
+  {
+    if (dateDiff(minDate, firstCall) != 0)
+    {
+      // Set Fatal Error
+      String offset = "-1";
+
+      // offset = longToStr( edrFieldTokenBytePos(TRAILER.FIRST_START_TIMESTAMP));
+      // edrAddError("ERR_TAP3_RET",3,"severe","errorcode",tag,depth,offset,arrayIndex,ruleID);
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","100","101","3",offset,"-1",
+		"First call event time does not match earlist call");
+      setAssociatedTapErr ("ERR_TAP3_FIRST_CALL_EVENT_TIMES_MISSMATCH", LOG_WARNING , "100","101", "3");
+    }
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateLatestTimeStamp()
+//
+// This function will be used to validate the latest timestamp
+//------------------------------------------------------------------------------
+function  validateLatestTimeStamp
+{
+  if (debug)
+  {
+    logStdout("validateLatestTimeStamp()\n");
+  }
+
+  Date lastCall = edrDate(TRAILER.LAST_START_TIMESTAMP);
+
+  if (dateIsValid(lastCall) == true)
+  {
+    if (dateDiff(maxDate, lastCall) != 0)
+    {
+      // Set Fatal Error
+      String offset = "-1";
+
+      // offset = longToStr( edrFieldTokenBytePos(TRAILER.LAST_START_TIMESTAMP));
+      // edrAddError("ERR_TAP3_RET",3,"severe","errorcode",tag,depth,offset,arrayIndex,ruleID);
+      edrAddError("ERR_TAP3_RET",LOG_WARNING,"warning","100","133","3",offset,"-1",
+		"Last call event time does not match latest call");
+      setAssociatedTapErr ("ERR_TAP3_LAST_CALL_EVENT_TIMES_MISSMATCH", LOG_WARNING , "100","133", "3");
+    }
+  }
+}
+
+//-----------------------------------------------------------------------------
+// This function will fetch the calculated Sum of Advised charge based on Refund value.
+//-----------------------------------------------------------------------------          
+function Decimal getCalculatedAdvisedSum (String Currency, Long Refund)
+{
+  Decimal CalcSum = -1.00;
+  Long i;
+
+  if(Refund == 0)
+  {
+       for( i = 0; i < AdvCurrencyEntries; i = i+1 )
+       {
+         if(Currency == AdvChargeCurrency_Arr[i])
+         {
+           CalcSum = totalCalcAdvisdchrg_Arr[i];
+           return CalcSum;
+         }
+       }
+  }
+  else
+  {
+       for( i = 0; i < AdvCurrencyEntriesRefund; i = i+1 )
+       {
+         if(Currency == AdvChargeCurrencyRefund_Arr[i])
+         {
+           CalcSum = totalCalcAdvisdchrgRefund_Arr[i];
+           return CalcSum;
+         }
+       }
+  }
+
+   return CalcSum;
+}
+
+//-----------------------------------------------------------------------------
+// This function will fetch the calculated Sum of Commission based on Refund value.
+//-----------------------------------------------------------------------------
+function Decimal getCalculatedCommissionSum (String Currency, Long Refund)
+{
+  Decimal CalcSum = -1.00;
+  Long i;
+
+  if(Refund == 0)
+  {
+       for( i = 0; i < AdvCurrencyEntries; i = i+1 )
+       {
+         if(Currency == AdvChargeCurrency_Arr[i])
+         {
+           CalcSum = totalCalcCommission_Arr[i];
+           return CalcSum;
+         }
+       }
+  }
+  else
+  {
+       for( i = 0; i < AdvCurrencyEntriesRefund; i = i+1 )
+       {
+         if(Currency == AdvChargeCurrencyRefund_Arr[i])
+         {
+           CalcSum = totalCalcCommissionRefund_Arr[i];
+           return CalcSum;
+         }
+       }
+  }
+
+   return CalcSum;
+}
+
+
+//-----------------------------------------------------------------------------
+// This function will fetch the calculated Sum of charge based on Refund value.
+//-----------------------------------------------------------------------------          
+function Decimal getCalculatedChargeSum (String chargeType, Long Refund)
+{
+  Decimal CalcSum = -1.00;
+  Long i;
+
+  if(Refund == 0)
+  {
+       for( i = 0; i < chargeTypeEntries; i = i+1 )
+       {
+         if(chargeType == chargeType_Arr[i])
+         {
+           CalcSum = totalCalcCharge_Arr[i];
+           return CalcSum;
+         }
+       }
+  }
+  else
+  {
+       for( i = 0; i < chargeTypeEntriesRefund; i = i+1 )
+       {
+         if(chargeType == chargeTypeRefund_Arr[i])
+         {
+           CalcSum = totalCalcChargeRefund_Arr[i];
+           return CalcSum;
+         }
+       }
+  }
+
+   return CalcSum;
+}
+   
+
+
+//------------------------------------------------------------------------------
+// validateAuditControlInformation()
+//
+// This function will be used to validate the total charge refund, Total Advised Charge, Total Advised Charge refund,
+// Total Commision, Total Commision refund, Advised Charge currency, Total Discount Refund and Total Tax Refund.
+//------------------------------------------------------------------------------
+function  validateAuditControlInformation
+{
+  if (debug)
+  {
+    logStdout("validateAuditControlInformation()\n");
+  }
+  Long blockIndex;
+  Long packetIndex;
+  Long blockEntries;
+  Long totalChargeBlockEntries;
+  String offset 	= "-1";
+  Long i;
+
+  Decimal totalDiscountRefund = edrDecimal(TRAILER.ASS_ROAMING_EXT.TOTAL_DISCOUNT_REFUND,0);
+  Decimal totalTaxRefund = edrDecimal(TRAILER.ASS_ROAMING_EXT.TOTAL_TAX_REFUND,0);
+
+  Long totalTaxRefundState = edrInputState(TRAILER.ASS_ROAMING_EXT.TOTAL_TAX_REFUND,0);
+  Long totalTaxRefundStateI = edrInternalState(TRAILER.ASS_ROAMING_EXT.TOTAL_TAX_REFUND,0);
+  Long totalDiscountRefundState = edrInputState(TRAILER.ASS_ROAMING_EXT.TOTAL_DISCOUNT_REFUND,0);
+  Long totalDiscountRefundStateI = edrInternalState(TRAILER.ASS_ROAMING_EXT.TOTAL_DISCOUNT_REFUND,0);
+
+  Decimal totalCalcAdvisdchrg = -1.00;
+  Decimal totalCalcAdvisdchrgRefund = -1.00;
+  Decimal totalCalcCommission = -1.00;
+  Decimal totalCalcCommissionRefund = -1.00;
+  Decimal totalCalcCharge = -1.00;
+  Decimal totalCalcChargeRefund = -1.00;
+
+  totalChargeBlockEntries = edrNumDatablocks(TRAILER.TOTAL_CHARGE_VALUE_LIST);
+  for (i = 0; i < totalChargeBlockEntries; i = (i + 1))
+  {
+    String chargeType = edrString(TRAILER.TOTAL_CHARGE_VALUE_LIST.CHARGE_TYPE, i);
+
+    Decimal totalChargeRefund = edrDecimal(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_REFUND, i);
+    Long totalChargeRefundState = edrInputState(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_REFUND, i);
+    Long totalChargeRefundStateI = edrInternalState(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_REFUND, i);
+
+    Decimal totalCharge	= edrDecimal(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_VALUE, i) / theAbsoluteAmountDivider ;
+    Long totalChargeState = edrInputState(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_VALUE, i);
+    Long totalChargeStateI = edrInternalState(TRAILER.TOTAL_CHARGE_VALUE_LIST.TOTAL_CHARGE_VALUE, i);
+
+    totalCalcCharge = getCalculatedChargeSum(chargeType, 0);
+    totalCalcChargeRefund  =  getCalculatedChargeSum(chargeType, 1);
+
+    if ( totalCharge < 0.0 and totalChargeStateI != STATE_CLEARED and totalChargeState != EDR_INPUT_MISSING )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","241","4",offset,"-1","Total Charge out of range");
+      setAssociatedTapErr ("ERR_TAP3_TOTAL_CHARGE_OOR", LOG_CRITICAL , "20", "241", "4");
+      edrDemandRollback();
+    }
+
+    if ( totalCharge != totalCalcCharge and totalChargeStateI != STATE_CLEARED and totalChargeState != EDR_INPUT_MISSING )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","241","4",offset,"-1",
+                "Total charge does not match the calculated sum of charges");
+      setAssociatedTapErr ("ERR_TAP3_TOTAL_CHARGE_MISSMATCH", LOG_CRITICAL , "100", "241", "4");
+      edrDemandRollback();
+    }
+
+    if ( totalChargeRefund <= 0.0 and totalChargeRefundStateI != STATE_CLEARED and totalChargeRefundState != EDR_INPUT_MISSING )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","355","4",offset,"-1","Total Charge Refund out of range");
+      setAssociatedTapErr ("ERR_TAP3_TOTAL_CHARGE_REFUND_OOR", LOG_CRITICAL , "20", "355", "4");
+      edrDemandRollback();
+    }
+
+    if ( totalChargeRefund != totalCalcChargeRefund and totalChargeRefundStateI != STATE_CLEARED and totalChargeRefundState != EDR_INPUT_MISSING )
+    {
+      // Set Fatal Error
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","355","4",offset,"-1",
+                "Total charge refund does not match the calculated sum of refund charges");
+      setAssociatedTapErr ("ERR_TAP3_TOTAL_CHARGE_REFUND_IS_NOT_CORRECT", LOG_CRITICAL , "100", "355", "4");
+      edrDemandRollback();
+    }
+  }
+
+
+  blockEntries = edrNumDatablocks(TRAILER.ASS_ROAMING_EXT);
+  for (blockIndex = 0; blockIndex < blockEntries; blockIndex = (blockIndex + 1))
+   {
+     Long packetEntries= edrNumDatablocks(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST, blockIndex);
+     for (packetIndex = 0; packetIndex < (packetEntries - 1); packetIndex = packetIndex + 1)
+     {
+
+       String AdvChargeCurrency = 
+		edrString(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.ADVISED_CHARGE_CURRENCY, blockIndex, packetIndex);
+
+       Decimal TotalAdvisdchrg = edrDecimal(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_ADVISEDCHARGE, blockIndex, packetIndex);
+       Decimal TotalAdvisdchrgRefund = 
+		edrDecimal(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_ADVISEDCHARGE_REFUND, blockIndex, packetIndex);
+       Long TotalAdvisdchrgState = edrInputState(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_ADVISEDCHARGE, blockIndex, packetIndex);
+       Long TotalAdvisdchrgStateI = edrInternalState(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_ADVISEDCHARGE, blockIndex, packetIndex);
+       Long TotalAdvisdchrgRefundState = edrInputState(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_ADVISEDCHARGE_REFUND, blockIndex, packetIndex);
+       Long TotalAdvisdchrgRefundStateI = edrInternalState(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_ADVISEDCHARGE_REFUND, blockIndex, packetIndex);
+
+       Decimal totalCommission = 
+		edrDecimal(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_COMMISSION,blockIndex, packetIndex);
+       Decimal totalCommissionRefund = 
+		edrDecimal(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_COMMISSION_REFUND,blockIndex, packetIndex);
+       Long totalCommissionState = edrInputState( TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_COMMISSION,blockIndex, packetIndex);       
+       Long totalCommissionStateI = edrInternalState( TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_COMMISSION,blockIndex, packetIndex);       
+       Long totalCommissionRefundState = edrInputState(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_COMMISSION_REFUND,blockIndex, packetIndex);
+       Long totalCommissionRefundStateI = edrInternalState(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST.TOTAL_COMMISSION_REFUND,blockIndex, packetIndex);
+
+       totalCalcAdvisdchrg	 = getCalculatedAdvisedSum(AdvChargeCurrency, 0);
+       totalCalcAdvisdchrgRefund = getCalculatedAdvisedSum(AdvChargeCurrency, 1);
+       totalCalcCommission	 = getCalculatedCommissionSum(AdvChargeCurrency, 0);
+       totalCalcCommissionRefund = getCalculatedCommissionSum(AdvChargeCurrency, 1);
+       
+       Bool currencyPresent  = false;
+       Long i;
+
+
+       if (TotalAdvisdchrg < 0.0 and TotalAdvisdchrgStateI != STATE_CLEARED and TotalAdvisdchrgState != EDR_INPUT_MISSING)
+       {
+         // Set Fatal Error
+         edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","356","2",offset,"-1",
+                "Total Advised Charge Value out of Range ");
+         setAssociatedTapErr ("ERR_TAP3_TOTAL_ADVISED_CHARGE_OOR", LOG_CRITICAL , "20","356", "2");
+         edrDemandRollback();
+       }
+
+      // totalCalcAdvisdchrg will be -1 when all the Advised charge in the detail records are of type Refund.
+       if ( TotalAdvisdchrg != totalCalcAdvisdchrg and TotalAdvisdchrgStateI != STATE_CLEARED and TotalAdvisdchrgState != EDR_INPUT_MISSING and totalCalcAdvisdchrg != -1.00 )
+       {
+         // Set Fatal Error
+         edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","356","4",offset,"-1",
+                "Total Advised Charge does not match the calculated sum of advised charges");
+         setAssociatedTapErr ("ERR_TAP3_TOTAL_ADVISED_CHARGE_IS_NOT_CORRECT", LOG_CRITICAL , "100", "356", "4");
+         edrDemandRollback();
+       }
+
+       if (TotalAdvisdchrgRefund <= 0.0 and TotalAdvisdchrgRefundStateI != STATE_CLEARED and TotalAdvisdchrgRefundState != EDR_INPUT_MISSING)
+       {
+         // Set Fatal Error
+         edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","357","2",offset,"-1",
+                "Total Advised Charge Refund Value out of Range ");
+         setAssociatedTapErr ("ERR_TAP3_TOTAL_ADVISED_CHARGE_REFUND_OOR", LOG_CRITICAL , "20","357", "2");
+        edrDemandRollback();
+      }
+
+      if ( TotalAdvisdchrgRefund != totalCalcAdvisdchrgRefund and TotalAdvisdchrgRefundStateI != STATE_CLEARED and TotalAdvisdchrgRefundState != EDR_INPUT_MISSING )
+      {
+        // Set Fatal Error
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","357","4",offset,"-1",
+                "Total Advised Charge refund does not match the calculated sum of refund charges");
+        setAssociatedTapErr ("ERR_TAP3_TOTAL_ADVISED_CHARGE_REFUND_IS_NOT_CORRECT", LOG_CRITICAL , "100", "357", "4");
+        edrDemandRollback();
+      }
+
+
+
+      if ( totalCommission <= 0.0  and totalCommissionStateI != STATE_CLEARED and totalCommissionState != EDR_INPUT_MISSING)
+      {
+         // Set Fatal Error
+         edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","358","4",offset,"-1","Total Commission out of range");
+         setAssociatedTapErr ("ERR_TAP3_TOTAL_COMMISSION_OOR", LOG_CRITICAL , "20", "358", "4");
+
+         edrDemandRollback();
+      }
+
+       if ( totalCommission != totalCalcCommission and totalCommissionStateI != STATE_CLEARED and totalCommissionState != EDR_INPUT_MISSING )
+       {
+         // Set Fatal Error
+         edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","358","4",offset,"-1",
+                "Total Commission does not match the calculated sum of charges");
+         setAssociatedTapErr ("ERR_TAP3_TOTAL_COMMISSION_IS_NOT_CORRECT", LOG_CRITICAL , "100", "358", "4");
+         edrDemandRollback();
+       }
+
+       if ( totalCommissionRefund <= 0.0 and totalCommissionRefundStateI != STATE_CLEARED and totalCommissionRefundState != EDR_INPUT_MISSING )
+       {
+        // Set Fatal Error
+         edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","359","4",offset,"-1","Total Commission refund out of range");
+         setAssociatedTapErr ("ERR_TAP3_TOTAL_COMMISSION_REFUND_OOR", LOG_CRITICAL , "20", "359", "4");
+
+         edrDemandRollback();
+       }
+
+      if ( totalCommissionRefund != totalCalcCommissionRefund and totalCommissionRefundStateI != STATE_CLEARED and totalCommissionRefundState != EDR_INPUT_MISSING )
+      {
+        // Set Fatal Error
+        edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","359","4",offset,"-1",
+                "Total charge Commission refund does not match the calculated sum of refund charges");
+        setAssociatedTapErr ("ERR_TAP3_TOTAL_CHARGE_COMMISSION_IS_NOT_CORRECT", LOG_CRITICAL , "100", "359", "4");
+        edrDemandRollback();
+      }
+
+       if(strLength(AdvChargeCurrency) != 3)
+       {
+         edrAddError("ERR_TAP3_RET", LOG_CRITICAL, "fatal", "10", "348", "4",
+                offset, "-1", "Advised Charge Currency Syntax Error");
+         setAssociatedTapErr("ERR_TAP3_ADVISED_CHARGE_CURRENCY_SE", LOG_CRITICAL ,"10" ,"348" ,"4");
+         edrDemandRollback();
+       }
+
+
+       for( i = 0 ; i < numOfCurrencyCode and currencyPresent == false ; i = i + 1 )
+       {
+         if( AdvChargeCurrency == currencyCode[i])
+         {
+           currencyPresent = true;
+         }
+       }
+       if(currencyPresent == false)
+       {
+         // Set Fatal Error
+         edrAddError("ERR_TAP3_RET", LOG_CRITICAL, "fatal", "20", "348", "4",
+                offset, "-1", "Advised Charge Currency Value Out of range");
+         setAssociatedTapErr("ERR_TAP3_ADVISED_CHARGE_CURRENCY_OOR", LOG_CRITICAL ,"20" ,"348" ,"4");
+         edrDemandRollback();
+       }
+
+     }
+
+  }
+
+
+   if ( totalDiscountRefund <= 0.0 and totalDiscountRefundStateI != STATE_CLEARED and totalDiscountRefundState != EDR_INPUT_MISSING )
+   {
+     // Set Fatal Error
+     edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","354","3",offset,"-1","Total Discount refund out of range");
+     setAssociatedTapErr ("ERR_TAP3_TOTAL_DISCOUNT_REFUND_OOR", LOG_CRITICAL , "20", "354", "3");
+
+     edrDemandRollback();
+   }
+
+   if ( totalTaxRefund <= 0.0 and totalTaxRefundStateI != STATE_CLEARED and totalTaxRefundState != EDR_INPUT_MISSING)
+   {
+     // Set Fatal Error
+     edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","20","353","3",offset,"-1","Total Tax refund out of range");
+     setAssociatedTapErr ("ERR_TAP3_TOTAL_TAX_REFUND_OOR", LOG_CRITICAL , "20", "353", "3");
+
+     edrDemandRollback();
+   }
+
+
+  // Cleanup the array
+
+  if ( arraySize( AdvChargeCurrency_Arr ) > 0 )
+  {
+    arrayClear( AdvChargeCurrency_Arr );
+    arrayClear( totalCalcAdvisdchrg_Arr );
+    arrayClear( totalCalcCommission_Arr );
+    AdvCurrencyEntries = 0;
+  }
+  if ( arraySize( AdvChargeCurrencyRefund_Arr ) > 0 )
+  {
+    arrayClear( AdvChargeCurrencyRefund_Arr );
+    arrayClear( totalCalcAdvisdchrgRefund_Arr );
+    arrayClear( totalCalcCommissionRefund_Arr );
+    AdvCurrencyEntriesRefund = 0;
+  }
+  if ( arraySize( chargeType_Arr ) > 0 )
+  {
+    arrayClear( chargeType_Arr );
+    arrayClear( totalCalcCharge_Arr );
+    chargeTypeEntries = 0;
+  }
+  if ( arraySize( chargeTypeRefund_Arr ) > 0 )
+  {
+    arrayClear( chargeTypeRefund_Arr );
+    arrayClear( totalCalcChargeRefund_Arr );
+    chargeTypeEntriesRefund = 0;
+  }
+
+}
+//------------------------------------------------------------------------------
+// validateChargeType()                               
+//
+// This Function will be used to validate the Charge Type
+//------------------------------------------------------------------------------
+function validateChargeType
+{
+  if (debug)
+  {
+    logStdout("validateChargeType()\n");
+  }
+  Long blockIndex;
+  Long blockEntries = edrNumDatablocks(TRAILER.TOTAL_CHARGE_VALUE_LIST);
+  for (blockIndex = 0 ; blockIndex < blockEntries ; blockIndex = (blockIndex + 1) )
+  {
+    if (edrInputState(TRAILER.TOTAL_CHARGE_VALUE_LIST.CHARGE_TYPE, blockIndex) == MISSING)
+    {
+      return;
+    }
+    String TotalValueChargeType = edrString(TRAILER.TOTAL_CHARGE_VALUE_LIST.CHARGE_TYPE, blockIndex);
+    Long ret = strSearchRegExpr(TotalValueChargeType, "[^0-9]");
+    if( ret >= 0 )
+    {
+      // Set Fatal Error
+      String offset = "-1";
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","11","71","4",offset,"-1", "Charge Type Syntax Error");
+      setAssociatedTapErr ("ERR_TAP3_CHARGE_TYPE_SYNTAX", LOG_CRITICAL , "11","71", "4");
+      edrDemandRollback();
+      return;
+    }
+    if( (TotalValueChargeType != "00") AND (TotalValueChargeType != "01") AND (TotalValueChargeType != "02")
+         AND (TotalValueChargeType != "03") AND (TotalValueChargeType != "04") AND (TotalValueChargeType != "05")
+         AND (TotalValueChargeType != "14") AND (TotalValueChargeType != "15") AND (TotalValueChargeType !="21")
+         AND (TotalValueChargeType != "100") AND (TotalValueChargeType != "101") AND (TotalValueChargeType != "102") )
+    {
+      // Set Fatal Error
+      String offset = "-1";
+      edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","21","71","4",offset,"-1", "Charge Type Out of Range");
+      setAssociatedTapErr ("ERR_TAP3_CHARGE_TYPE_ORR", LOG_CRITICAL , "21","71", "4");
+      edrDemandRollback();
+      return;
+    } 
+  }
+}
+
+
+
+//------------------------------------------------------------------------------
+// validateTotalAdvisedCharge()
+//
+// This Function will be used to validate the Total Advised Charge
+//-----------------------------------------------------------------------------
+function validateTotalAdvisedCharge
+{
+  if (debug)
+  {
+   logStdout("validateTotalAdvisedCharge()\n");
+  }
+   if ((edrNumDatablocks(TRAILER.ASS_ROAMING_EXT.ADV_CHARGE_LIST, 0) == 0) and
+        (adviseChargeEntries > 0))
+    {
+    String offset = "-1";
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","39","15","2",offset,"-1",
+                               "TotalAdvisedChargeValue missing within group and Advise Charge Info Present within the Content");
+
+    setAssociatedTapErr ("ERR_TAP3_TOTAL_ADVISED_CHARGE", LOG_CRITICAL , "39","15", "2");
+    edrDemandRollback();
+    }
+}
+
+//------------------------------------------------------------------------------
+// validateSumTotalTaxValue()
+//
+// This function will be used to validate the sum of the total tax of the TAP file
+//------------------------------------------------------------------------------
+function  validateSumTotalTaxValue
+{
+  if (debug)
+  {
+    logStdout("validateSumTotalTaxValue()\n");
+  }
+
+  Decimal sumTotalTax = edrDecimal(TRAILER.TOTAL_TAX_VALUE);
+  Decimal tapTotalTax = edrDecimal(TRAILER.TAP_TOTAL_TAX_VALUE);
+
+  if (tapTotalTax != sumTotalTax and edrInputState(TRAILER.TAP_TOTAL_TAX_VALUE) != MISSING and
+                                     edrInternalState(TRAILER.TAP_TOTAL_TAX_VALUE) != STATE_CLEARED)
+  {
+    // Set Fatal Error
+    String offset = "-1";
+
+    // offset = longToStr( edrFieldTokenBytePos(TRAILER.TAP_TOTAL_TAX_VALUE));
+    edrAddError("ERR_TAP3_RET",LOG_CRITICAL,"fatal","100","226","2",offset,"-1",
+		"Total tax value does not match sum of all taxes ");
+    setAssociatedTapErr ("ERR_TAP3_TOTAL_TAX_MISSMATCH", LOG_CRITICAL , "100","226", "2");
+    edrDemandRollback();
+  }
+}
+
+
+
+//------------------------------------------------------------------------------
+// validateTrailerRecord()
+//
+// This function will be used to validate the trailer record
+//------------------------------------------------------------------------------
+function validateTrailerRecord
+{
+  if (debug)
+  {
+    logStdout("validateTrailerRecord()\n");
+  }
+
+  if ( notFlag != "NOTIFICATION")
+  {
+  	validateTotalChargeValueList();
+  	validateTotalTaxValue();
+  	validateSumTotalTaxValue();
+  	validateTotalDiscountValue();
+  	validateCallEventDetailsCount();
+        validateEarliestTimeStamp();
+        validateLatestTimeStamp();
+        validateChargeType();    
+	validateAuditControlInformation();
+        validateTotalAdvisedCharge();
+  }
+
+  return ;
+}
+
+
+//------------------------------------------------------------------------------
+// validateHeaderRecord()
+//
+// This function will be used to validate the header record
+//------------------------------------------------------------------------------
+function validateHeaderRecord
+{
+  if (debug)
+  {
+    logStdout("validateHeaderRecord()\n");
+  }
+
+  validateSender();
+  validateRecipient();
+  validateFileSequenceNumber();
+  validateFileCreationTimeStamp();
+  validateFileCreationTimeStampCrossValidation();
+  validateTransferCutOffTimeStamp();
+  validateFileAvailableTimeStamp();
+  validateFileAvailableTimeStampCrossValidation();
+  validateSpecificationVersionNumber();
+  validateReleaseVersionNumber();
+  validateTapDecimalPlaces();
+  validateTapCurrency();
+  validateCountryCodeList();
+  validateFileTypeIndicator();
+  validateRapFileSequenceNumber();
+  validateInternationalAccessCode();   
+
+  return ;
+}
+
+//==============================================================================
+// Process Begin EDR record
+//==============================================================================
+function onBeginEdr
+{
+  initBegin();
+  getTapFileName();
+
+} // end onBeginEdr
+
+//==============================================================================
+// Process Header EDR record
+//==============================================================================
+function onHeaderEdr
+{
+  hasChargeRefund = false;
+
+  theAbsoluteAmountDivider = 1.0;
+  if( edrInternalState(HEADER.TAP_DECIMAL_PLACES) != STATE_CLEARED and edrInputState(HEADER.TAP_DECIMAL_PLACES) != MISSING )
+  {
+     Long tapDecimal = edrLong(HEADER.TAP_DECIMAL_PLACES);
+     Long i;
+     if( tapDecimal >= 0 and tapDecimal <= 6 )
+     {
+       for (i=0 ; i < tapDecimal ; i=i+1)
+       {
+         theAbsoluteAmountDivider = theAbsoluteAmountDivider * 10.0;
+       }
+     }
+  }
+  else
+  {
+    theAbsoluteAmountDivider = 1.0;
+  }
+
+  notFlag = edrString(HEADER.SENDER_COUNTRY_CODE); 
+  //----------------------------------------------------------------------------
+  // Validate Header Record
+  //----------------------------------------------------------------------------
+  validateHeaderRecord();
+
+} // end onHeaderEdr
+
+//=============================================================================
+// Check the ChargeRefundIndicator for CONTENT type EDRs
+//==============================================================================
+function checkHasChargeRefund
+{
+  if ( edrNumDatablocks( DETAIL.ASS_CONT_EXT ) > 0 )
+  {
+    Long blocks = edrNumDatablocks( DETAIL.ASS_CBD.CP, 0 );
+    Long i;
+    for (i = 0; i < blocks; i = i + 1)
+    {
+      if ( edrLong( DETAIL.ASS_CBD.CP.CHARGE_REFUND_INDICATOR, 0, i ) == 1 )
+      {
+        hasChargeRefund = true;
+      } // if
+    } // for
+  } // if
+}
+
+//==============================================================================
+// Calculates Charge and Charge refund based on ChargeRefundIndicator for All records
+//==============================================================================
+function sumChargeOrRefund
+{  
+  Long blockIndex;
+  Long packetIndex;
+  Long blockEntries;
+  Bool newEntry = true;
+  String chargeType;
+  Long j;
+
+
+  String offset = "-1";
+
+  blockEntries = edrNumDatablocks(DETAIL.ASS_CBD);
+  for (blockIndex = 0; blockIndex < blockEntries; blockIndex = (blockIndex + 1))
+  {
+    Long packetEntries= edrNumDatablocks(DETAIL.ASS_CBD.CP, blockIndex);
+    for (packetIndex = 0; packetIndex < packetEntries; packetIndex = packetIndex + 1)
+    {
+      chargeType = edrString(DETAIL.ASS_CBD.CP.IMPACT_CATEGORY, blockIndex, packetIndex);
+      if ( edrString(DETAIL.ASS_CBD.CP.RUM, blockIndex, packetIndex) != "N" and chargeType != "" )
+      {
+        if ( edrInternalState(DETAIL.ASS_CBD.CP.CHARGE_REFUND_INDICATOR, blockIndex, packetIndex) != STATE_CLEARED
+                  and edrInputState(  DETAIL.ASS_CBD.CP.CHARGE_REFUND_INDICATOR, blockIndex, packetIndex ) != EDR_INPUT_MISSING
+                  and edrLong( DETAIL.ASS_CBD.CP.CHARGE_REFUND_INDICATOR, blockIndex, packetIndex ) == 1 )
+        {
+          newEntry = true;
+          for( j = 0; j < chargeTypeEntriesRefund; j = (j+1) )
+          {
+            if(chargeType == chargeTypeRefund_Arr[j])
+            {
+              totalCalcChargeRefund_Arr[j] = totalCalcChargeRefund_Arr[j] +
+                  edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE, blockIndex, packetIndex );
+              newEntry = false;
+            }
+          }
+  
+          if(newEntry == true)
+          {
+            chargeTypeRefund_Arr[j] = chargeType;
+            totalCalcChargeRefund_Arr[j] = edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE, blockIndex, packetIndex );
+            chargeTypeEntriesRefund = chargeTypeEntriesRefund + 1;
+          }
+  
+        } //if
+        else
+        {
+          newEntry = true;
+          for( j = 0; j < chargeTypeEntries; j = (j+1) )
+          {
+            if(chargeType == chargeType_Arr[j])
+            {
+              totalCalcCharge_Arr[j] = totalCalcCharge_Arr[j] +
+                 edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE, blockIndex, packetIndex );
+              newEntry = false;
+            }
+          }
+  
+          if(newEntry == true)
+          {
+            chargeType_Arr[j] = chargeType;
+	    totalCalcCharge_Arr[j] = edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE, blockIndex, packetIndex );
+            chargeTypeEntries = chargeTypeEntries + 1;
+          }
+        } //else
+
+      } // end of if
+    }
+  }
+}
+
+
+
+//==============================================================================
+// Calculates Advised Charge and Commission based on ChargeRefundIndicator for CONTENT type EDRs
+//==============================================================================
+function SumAdvisedChargeOrRefund
+{
+  
+  if ( edrNumDatablocks( DETAIL.ASS_CBD ) > 0 )
+  {
+    Long blocks = edrNumDatablocks( DETAIL.ASS_CBD.CP, 0 );
+    Long i;
+    Long j;
+    Bool newEntry = true;
+    String Currency;
+
+    for (i = 0; i < blocks; i = i + 1)
+    {
+      Currency = edrString(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE_CURRENCY, 0, i);
+      if ( edrInternalState(DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.CHARGE_REFUND_INDICATOR, 0, i) != STATE_CLEARED
+                and edrInputState(  DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.CHARGE_REFUND_INDICATOR, 0, i ) != EDR_INPUT_MISSING
+                and edrLong( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.CHARGE_REFUND_INDICATOR, 0, i ) == 1 )
+      {
+        newEntry = true;
+        for( j = 0; j < AdvCurrencyEntriesRefund; j = (j+1) )
+        {
+          if(Currency == AdvChargeCurrencyRefund_Arr[j])
+          {
+            totalCalcAdvisdchrgRefund_Arr[j] = totalCalcAdvisdchrgRefund_Arr[j] +
+                edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE, 0, i );
+            totalCalcCommissionRefund_Arr[j] = totalCalcCommissionRefund_Arr[j] +
+                edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.COMMISSION, 0, i );
+            newEntry = false;
+          }
+        }
+
+        if(newEntry == true)
+        {
+          AdvChargeCurrencyRefund_Arr[j] = Currency;
+          totalCalcAdvisdchrgRefund_Arr[j] = edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE, 0, i );
+          totalCalcCommissionRefund_Arr[j] = edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.COMMISSION, 0, i );
+          AdvCurrencyEntriesRefund = AdvCurrencyEntriesRefund + 1;
+        }
+
+      } //if
+      else
+      {
+        newEntry = true;
+        for( j = 0; j < AdvCurrencyEntries; j = (j+1) )
+        {
+          if(Currency == AdvChargeCurrency_Arr[j])
+          {
+            totalCalcAdvisdchrg_Arr[j] = totalCalcAdvisdchrg_Arr[j] +
+                edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE, 0, i );
+            totalCalcCommission_Arr[j] = totalCalcCommission_Arr[j] +
+                edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.COMMISSION, 0, i );
+            newEntry = false;
+          }
+        }
+
+        if(newEntry == true)
+        {
+          AdvChargeCurrency_Arr[j] = Currency;
+          totalCalcAdvisdchrg_Arr[j] = edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE, 0, i );
+          totalCalcCommission_Arr[j] = edrDecimal( DETAIL.ASS_CONT_EXT.SERVICE_USED_LIST.COMMISSION, 0, i );	 
+          AdvCurrencyEntries = AdvCurrencyEntries + 1;
+        }
+      } //else
+
+    } //for
+  } // if
+} // function
+
+//==============================================================================
+// Process Detail EDR record
+//==============================================================================
+function onDetailEdr
+{
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+  //  init();
+
+  getMinMaxCallDate();
+  checkHasChargeRefund();
+  SumAdvisedChargeOrRefund();
+  sumChargeOrRefund();
+  getTotalContentAdvisedCharge();
+
+  record_length = edrLong(DETAIL.RECORD_LENGTH);
+
+} // end onDetailRecord
+
+//==============================================================================
+// Process Trailer EDR record
+//==============================================================================
+function onTrailerEdr
+{
+
+  //----------------------------------------------------------------------------
+  // Validate Trailer Record
+  //----------------------------------------------------------------------------
+  validateTrailerRecord();
+
+} // end onTrailerRecord

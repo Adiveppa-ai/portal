@@ -1,0 +1,37 @@
+set serveroutput on size 1000000
+CREATE OR REPLACE PROCEDURE receive_event_rc wrapped 
+a000000
+367
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+640 378
+TBJoDPuSiGOUyLMYFLK8cW1fjdAwgwLDBUgGfC9VsYvViwHpZsyDwpziZ/hw8ahUGHkn2u0R
+DcLFq1xauoN5aQ0oz+SD3FoJoxhE50L/bliCH3Jj43/6bBXHLRanlgI+hxg9g3qW5mDisodm
+sZ4WW0EDvZc/uJEo9XLpSq2r3AR7tGz3CF+F7tpnckM3G296KVGMqeWmcKw+Q2BeQI0XlMd+
+YoW2qppr9vA1nJibaNMHD0D31lmC5aBYXet4i067wbO0zJGi6BGrDtaVWHVXIEDFKiEpGDGy
+qeRRtzDmITxYPi4a38drn2w+Yi5A5H07BNFf8E1aGOUmVTJfxy5Ev8i+FD7vzZBrbifn2kgQ
+Vxw//cuqoiqMO8Toer+bWqN/3EaFyKWrylxVVtPGg039HCjTNE2DIAZxxe63t5daX/7vO7O2
+kmArR3muONK28b1eG7EhjJLJyFEzQEsnZ05Ynr138MaIdDlQSu76MT6R5kekOeVPsRV+pmLH
+D0KpCojXuFtpMQChaZxr/44z9hhqn9v4+8/Pn0DkyvmK0spGwZOfLxRcIUh8h0/NJY4yetrx
+SKoNTRN4nzk0YR3HKoRIliTHa7BmwfrOXHSaPvceQuJbM/Zll3+KAI5D7ZMZMeYz3xMYuGkg
+xsnrHoQtkvY82QdR4Xbyq2eZhjwW2CZhuncHHAtJocDACyhHyWpk79RgATFte8XNE4+No+kg
+1HDyZQK6EQMW8AqcGUyCeZZxOCJ1SSxLkgVgudxmC8OxIFx5O0HozeuBr85b+PxM5L4QxW3a
+EfaeOIQwaJPihdHGPrQc5MVtlbsZnwgPDKoPM/k/1i6PmlEwo5Ys6kPnK9DUM5007ZbyH92N
+huuqsMwgSw==
+
+/
+show errors;

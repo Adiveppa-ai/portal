@@ -1,0 +1,174 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" elementFormDefault="qualified" xmlns="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:op="http://www.portal.com/schemas/BusinessOpcodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <!--Copyright (c) 2007, 2018, Oracle and/or its affiliates. All rights reserved.
+
+        This material is the confidential property of Oracle Corporation or
+        its licensors and may be used, reproduced, stored or transmitted only
+        in accordance with a valid Oracle license or sublicense agreement.-->
+   <xsd:element name="PCM_OP_BAL_GET_ECE_BALANCES_inputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_BAL_GET_ECE_BALANCES_1216" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LOGIN" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="MODE" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:enumeration value="0"/>
+                     <xsd:enumeration value="1"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(service)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="START_T" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="TIME_ZONE_ID" minOccurs="0" maxOccurs="1"/>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_BAL_GET_ECE_BALANCES_1216">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:element name="PCM_OP_BAL_GET_ECE_BALANCES_outputFlist">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="BAL_IMPACTS" minOccurs="1" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:complexContent>
+                     <xsd:extension base="BAL_IMPACTS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_1313">
+                        <xsd:attribute name="elem" type="xsd:string"/>
+                     </xsd:extension>
+                  </xsd:complexContent>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CONTEXT_INFO" type="CONTEXT_INFO_SUBSTRUCT_PCM_OP_BAL_GET_ECE_BALANCES_1314" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MODE" minOccurs="0" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:enumeration value="0"/>
+                     <xsd:enumeration value="1"/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="POID" minOccurs="1" maxOccurs="1">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                     <xsd:pattern value="([0-9]*\.)+[0-9]*(\s)+(((/)*|(/)(service)((/)*([a-zA-Z_]*))*))(\s)+[0-9]+(\s)+[0-9]*"/>
+                     <xsd:pattern value=""/>
+                  </xsd:restriction>
+               </xsd:simpleType>
+            </xsd:element>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="BAL_IMPACTS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_1313">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CREDIT_FLOOR" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="CREDIT_LIMIT" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="CREDIT_PROFILE" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="CURRENT_BAL" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="RESULTS" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="RESULTS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_131325">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="SUB_BAL_IMPACTS" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="SUB_BAL_IMPACTS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_131327">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="THRESHOLDS" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:complexContent>
+                  <xsd:extension base="THRESHOLDS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_131326">
+                     <xsd:attribute name="elem" type="xsd:string"/>
+                  </xsd:extension>
+               </xsd:complexContent>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="RESULTS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_131325">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CREDIT_THRESHOLDS" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="THRESHOLDS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_131326">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CREDIT_THRESHOLDS_FIXED" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="SUB_BAL_IMPACTS_ARRAY_PCM_OP_BAL_GET_ECE_BALANCES_131327">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="AMOUNT" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="CONSUMED_RESERVED_AMOUNT" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="GRANTED_BAL" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="RESERVED_AMOUNT" type="UNION_PCM_OP_BAL_GET_ECE_BALANCES" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="VALID_FROM" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="VALID_TO" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="CONTEXT_INFO_SUBSTRUCT_PCM_OP_BAL_GET_ECE_BALANCES_1314">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+         <xsd:element name="CORRELATION_ID" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="EXTERNAL_USER" minOccurs="0" maxOccurs="1">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="128"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:choice>
+   </xsd:complexType>
+   <xsd:complexType name="BUFFER_PCM_OP_BAL_GET_ECE_BALANCES">
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:hexBinary">
+            <xsd:attribute name="flags" type="xsd:string" use="optional"/>
+            <xsd:attribute name="size" type="xsd:string" use="optional"/>
+            <xsd:attribute name="offset" type="xsd:string" use="optional"/>
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   <xsd:simpleType name="EMPTY_PCM_OP_BAL_GET_ECE_BALANCES">
+      <xsd:restriction base="xsd:string">
+         <xsd:length value="0"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="UNION_PCM_OP_BAL_GET_ECE_BALANCES">
+      <xsd:union memberTypes="xsd:decimal EMPTY_PCM_OP_BAL_GET_ECE_BALANCES"/>
+   </xsd:simpleType>
+</xsd:schema>

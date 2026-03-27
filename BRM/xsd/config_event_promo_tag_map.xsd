@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+Copyright (c) 2021, Oracle and/or its affiliates. All rights reserved. 
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema 
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    Schema definition for /config/event_promo_tag_map.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="PinTypes.xsd" />
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ConfigObject" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID" type="PinPoid" minOccurs="0" />
+              <xs:element name="ACCOUNT_OBJ" type="PinPoid" minOccurs="0" />
+              <xs:element name="DESCR" type="xs:string" minOccurs="0" />
+              <xs:element name="HOSTNAME" type="xs:string" minOccurs="0" />
+              <xs:element name="NAME" type="xs:string" minOccurs="1" />
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="VALUE" type="xs:string" minOccurs="0" />
+              <xs:element name="VERSION" type="xs:string" minOccurs="0" />
+              <xs:element name="EVENT_MAP" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PROMO_EVENT_TYPE" type="PinEventObjType" 
+                                      minOccurs="1" />
+                    <xs:element name="PROMO_TAG" type="xs:string" 
+                                      minOccurs="1" />
+                  </xs:sequence>
+                  <xs:attribute name="elem" type="xs:nonNegativeInteger" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="configName" type="xs:string"
+                    default="/config/event_promo_tag_map" />
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,0 +1,358 @@
+================================================================================
+ XmlLoader
+--------------------------------------------------------------------------------
+ Module Release Notes
+--------------------------------------------------------------------------------
+ $RCSfile: RELEASE_NOTES.XMLLOADER $
+================================================================================
+Modification Version: 15.0.0.0.1 Date: 25-Mar-2024
+Bug 36434781 -> Changes for RowType_IFW_PRICEMDL_STEP on LoadIfwConfig.xsd
+Problem:
+----------
+THRESHOLD_FROM and THRESHOLD_TO of pipeline IFW_PRICEMDL_STEP table 
+supports upto 15 digit decimal only.
+Solution
+----------
+The THRESHOLD_FROM and THRESHOLD_TO of IFW_PRICEMDL_STEP is now modified to 
+support upto 28 digit as pipeline supports upto 28 digit decimal when 
+MAX28DIGIT_DECIMAL_SUPPORT=Y is enabled.
+===============================================================================
+Modification Version: 15.0.0.0.1 2.36 Date: 02-Jan-2024
+Bug 36042865 - Remove compiler warnings 
+===============================================================================
+Modification Version: 15.0.0.0.0 2.35 Date: 09-Aug-2023
+Bug 35685141 - add -fPIE flags while compiling and -pie flag while linking to 
+		support Address Space Layout Randomization. 
+===============================================================================
+Modification Version: 15.0.0.0.0 2.34 Date: 16-Jul-2023
+Bug 35607183 -> LoadIfwConfig utility is failing
+Problem:
+----------
+The LoadIfwConfig utility is failing to load and core is generated.
+Solution
+----------
+The missing return statement in a non void method was causing
+issue due to compiler optimization in latest compiler. Added default
+return statement to fix the issue.
+===============================================================================
+Modification Version: 15.0.0.0.0 2.33 Date: 07-Jul-2023
+Bug 35543412 -> Upgrade DB Access Module 
+Problem:
+----------
+Upgrade DB Access Module to latest version
+Solution
+----------
+Upgraded DB Access Module to version 2023.1
+===============================================================================
+Modification Version: 12.0.0.0.1 2.32 Date: 17-Nov-2021
+Bug 33510361 -> Tax selector support for realtime discount pipeline
+Problem:
+----------
+The realtime discount balance impact should support tax selector code.
+Solution
+----------
+The new column IFW_DSCBALIMPACT.TAX_SELECTOR is introduced to store
+tax selector code which will be populated into discount balance impact.
+===============================================================================
+Modification Version: 12.0.0.0.1 2.31 Date: 15-Nov-2021
+------------------------------------
+Bug 33546002 - Dynamic charging feature for discount module
+Problem:
+--------
+Telenor dynamic charging feature
+Solution:
+---------
+Added new cloumn PRICE_TAG in ifw_dscbalimpact
+===============================================================================
+
+Modification Version: 12.0.0 2.30 Date: 28-Jan-2020
+------------------------------------
+Bug 30818604 - Enable Semaphore Support without -s commandline option
+Problem:
+--------
+PDC engine unable to supply -s commandline option, so semaphore file is not created
+Solution:
+---------
+New registry parameter 'SemaphoreEnable' is added 
+===============================================================================
+Modification Version: 12.0.0 2.29 Date: 08-Mar-2019
+------------------------------------
+Bug 29375840 - P-29297984 Realtime Pipeline should recover the DB connection automatically, not require restart 
+Problem:
+--------
+Database connection was not refreshed when system recovers after database connection failure. 
+Solution:
+---------
+New registry parameters 'LoginInfranetReconnectSemaphoreString' and 'LoginIntegrateReconnectSemaphoreString' are added.
+===============================================================================
+Modification Version: 7.5 2.28 Date: 05-Feb-2016
+------------------------------------
+Bug22660540 - P-22584005 Reloading of Discounts in BRMC Environment.
+Problem:
+--------
+Generate semaphore data dynamically, when some modified data (payload) is published from PDC into realtime pipeline.
+Solution:
+---------
+Introduced an option '-s' and new registry parameters 'SemaphoreFilePath' and 'ReloadSemaphoreString' for use by PDC 
+in a cloud environment.
+SemaphoreFilePath should have 'Absolute file path with semaphore filename'
+ReloadSemaphoreString should have 'Reload semaphore string'
+===============================================================================
+Modification Version: 7.5 2.27 Date: 29-Oct-2014
+------------------------------------
+Bug19909947 - Sync PDC Failing Because of Missing libBAS_crypt64.so 
+Problem:
+--------
+The problem was occurring because we are run time loading library libBAS_crypt64.so. We have desupported the building of library libBASCrypt64.so and no longer available from 7.5 PS10.
+Solution:
+---------
+The dynamic runtime loading of libBAS_crypt64.so code has been removed and now is instead using the BAS::Crypt functionality.
+===============================================================================
+Modification Version: 7.5 2.26 Date: 14-Apr-2014
+------------------------------------
+Bug18519242 - Segementation fault in LoadIfwConfig aftre PS7
+Problem:
+--------
+The problem was occurring because we linked LoadIfwConfig statically to libBAS_crypt64.so which internally linking to NZD libs causing core dump.
+Solution:
+---------
+Code is modified to decrypt the Password  by getting the function pointer to the decryption function from the dynamically loaded library libBAS_crypt64.so.
+===============================================================================
+Modification Version: 7.5 2.25 Date: 04-Sep-2013
+------------------------------------
+Bug17382013 - LoadIfwConfig PDC option keeps the older versions/configurations of a discount/charge share model
+Problem: 
+--------
+The problem was happening because the versions and configurations were not being deleted during pdc update which 
+otherwise happens with other pricing objects
+Solution: 
+---------
+Modified the code so as to do a deletion of the versions and configurations associated with the discount/charge share model being
+updated with pdc option, and then re-insert them back according to the input XML, thereby reflecting the correctly modified
+discount/charge share model.
+===============================================================================
+Modification Version: 7.5 2.24 Date: 29-Aug-2013
+------------------------------------
+Bug17380918 - MULTIPLE USC AND APN GROUPS WITH SAME NAMES IN DIFFERENT CASES ARE NOT EXTRACTED.
+Problem: 
+--------
+The problem was happening because the string was not case-compared for we used SimpleString as 
+the vector type
+Solution: 
+---------
+Changed the vector type from SimpleString to String which does a case-comparison while doing 
+a check for whether the string is already present in the vector or not.
+===============================================================================
+Modification Version: 7.5 2.23 Date: 31-Jul-2013
+------------------------------------
+Bug17241793 -> P-17155726 - Model Selector used with special characters are not getting migrated and errors 
+out: "javax.xml.stream.XMLStreamException: ParseError"
+Problem: 
+--------
+If the model selector happens to have special character(s) (like &, ", ', etc), the MODEL_SELECTOR
+field for the infoPacket does not get prefixed with '&amp;' unlike the CODE field, which results in 
+the parse error during migration
+Solution: 
+---------
+Invoked a method to handle special characters for all the non-date fields.
+===============================================================================
+Modification Version: 7.5 2.22 Date: 28-Mar-2013
+------------------------------------
+bug16542974 - Selector Detail not getting deleted for a selector rule after update. 
+Problem: 
+--------
+The selector detail and selector rule link entries should get deleted for a given 
+selector rule and then re-inserted back for a LoadIfwConfig update with -pdc option.
+This was not happening. Also, the table map containing code to sequence id was not 
+getting populated with the newly generated sequence id.
+Solution: 
+---------
+Changed the code to delete the entries from selector detail and selector rule link
+for a given selector rule, and then re-insert it back for a LoadIfwConfig with -pdc
+option. Also, the map is now populated with the newly generated sequence id for a 
+given code.
+===============================================================================
+Modification Version: 7.5 2.21 Date: 11-Mar-2013
+------------------------------------
+bug14748891 - DELETE RULE IN PRICE AND DISCOUNT SELECTOR DOESN'T DELETE IN BRM
+Problem: 
+--------
+(1) If Price Model Selector is updated so as to delete an associated selector rule with it,
+the selector rule does not get deleted (IFW_SELECTOR_RULESET continues to have the rule which
+was supposed to be deleted for the price model selector)
+
+(2) An update on IFW_SELECTOR_RULE_LNK results in addition of a new record which results in 
+redundant records.
+
+Solution: 
+---------
+- Modified the code so that an update on IFW_MODEL_SELECTOR would delete the previous associated
+selector rules with it (in the IFW_SELECTOR_RULESET) and then insert it back according to the
+updated xml with which LoadIfwConfig update was run.
+
+- The LoadIfwConfig.xsd has been modified to introduce a key pair, viz. SELECTOR_RULE,SELECTOR_DETAIL
+for the table IFW_SELECTOR_RULE_LNK. This has been done for LoadIfwConfig currently checks for the 
+presence of a key in a given table and decides whether to do an update, or an insert if there is no key,
+resulting in the issue(2).
+===============================================================================
+Modification Version: 7.5 2.20 Date: 24-May-2012
+------------------------------------
+bug14107503 -  LoadIfwConfig aborts with an error: "terminate called after throwing an 
+instance of 'RWBoundsErr'" while purging data (using -p switch).
+Problem: 
+--------
+The problem was occurring because the StringList containing the 'in' query for the 
+DELETE SQL was not being cleared before appending a new set of strings into it. 
+This resulted in an invalid index being fetched during the delete operation resulting 
+in the Abort with 'RWBoundsErr' error.
+Solution: 
+---------
+Modified the code so as to clear the StringList appropriately.
+===============================================================================
+Modification Version: 7.5 2.19
+------------------------------------
+bug13655481-  LoadIfwConfig does not differentiate between upper and lower cases
+for PriceModel's codes. This leads to the same pricemodel being returned for different
+pricemodel codes (different cases) resulting in primary key constraint violation while
+inserting the pricemodel steps for different pricemodels using LoadIfwConfig.
+Problem: The problem was occurring because the table map was allowed to have only one entry for a
+pricemodel even though they are in different cases.
+Solution: Modified the code so as to allow the map to have multiple entries in different cases.
+===============================================================================
+Modification Version: 7.5 2.18
+------------------------------------
+bug13407173 -  Update of Discount Model Configuration(IFW_DSCMDL_CNF) deletes the 
+first entry from the db.
+Problem: The problem was occuring because of an incorrect DELETE SQL statement which was 
+inclusive of all the rows for a given discount model.
+Solution: Modified the code so as to have the DELETE SQL statement specific to a particular
+row.
+===============================================================================
+Modification Version: 7.4 2.17
+------------------------------------
+bug13091915  - P-12962110 ZONE MODEL DATA IS NOT UPDATED PROPERLY IN BRM DB. 
+The bug is raised from PDC and related to the change in the bug10385631.
+===============================================================================
+Modification Version: 7.4 2.16
+------------------------------------
+bug13060316 -  LOADIFWCONFIG CORE DUMP DURING RETRIEVING CONFIGURATION
+Problem: After extracting the data with -rall option (or retrieve_all), 
+LoadIfwConifg crashes with a core dump. This happens when ClearAndDestroy() is called
+on a vector having duplicate pointers.
+Solution: Only unique pointers are added into the vector thereby circumventing the
+scenario that could arise during deleting the vector using ClearAndDestroy(). 
+===============================================================================
+Modification Version: 7.4 2.15
+------------------------------------
+bug12687681  -  LOADIFWCONFIG CHANGES TO SUPPORT COMPOSITION RELATIONSHIP
+This ECR has been triggered from PDC Application for which a new option(-pdc) being
+added in LoadIfwConfig for treating some of the tables as subtables of other tables.
+The details of the requirement has been described in the bug.
+===============================================================================
+Modification Version: 7.4 2.14
+------------------------------------
+bug9163026  -  End Time stamp added to the Log file for retrieve all option.
+===============================================================================
+Modification Version: 7.4 2.13
+------------------------------------
+bug9054835  - ORDER By added to the retrieval of the IFW_SERVICE
+bug9054821  - Start and End Time stamp added to the Log file. 
+===============================================================================
+Modification Version: 7.4 2.12
+------------------------------------
+bug8840385  - ORDER By added to the retrieval of the RATEPLAN_VER
+===============================================================================
+Modification Version: 7.4 2.11
+------------------------------------
+bug8592158  - Added a new optional boolean parameter ConvertToUpperCase
+===============================================================================
+Modification Version: 7.4 2.10
+------------------------------------
+bug8633075  - Removing IFW_LERG_DATA entries from LoadIfwConfig utility
+IFW_LERG_DATA is obsolete from DB
+===============================================================================
+Modification Version: 7.4 2.09
+------------------------------------
+bug8444640 - P-8337389 LOADIFWCONFIG UTILITY - INSERTING OLD SEQUENCE NUMBERS - ERROR
+Added code to  handle the mapping of the field MODEL of the table IFW_SELECTOR_RULESET
+For the translation of the field model the value of the corresponding row of the table
+IFW_MODEL_SELECTOR is checked for the field TYPE and based on its value the mapping is
+done either with Discoun Model or with Price Model
+bug8285435: Handling for UTF-8 characters done. Setting file encodeing for the parsing
+to the file encoding of the session, before using utf-8 characters the envronment need to set to
+UTF-8.
+
+===============================================================================
+Modification Version: 7.4 2.08
+------------------------------------
+bug8329569  "PIPELINE D/B AND CODE CHANGES RELATED TO REMOVAL OF SOME TABLES FROM LOADIFWCONF"
+Removed association of following tables with the tool.
+ IC_DAILY
+ IC_DAILY_ALTERNATE
+ IFW_CHANGESET
+ IFW_CSAUDIT
+ IFW_CSLOCK
+ IFW_CSREFERENCE
+ IFW_CSSTATE
+ IFW_DUPLICATECHECK
+ IFW_TAM
+===============================================================================
+Modification Version: 7.4 2.07
+------------------------------------
+bug8214101  "LOADIFWCONFIG INCOMPATIBLE RATE_PLAN EXTRACTS"
+While trying to export a single rateplan there were conflicting rateplan versions
+are getting retrieved. the cause of the problem was considering child releationship
+wile export where only dependencies need to be fetched.Code changes are done to seprate
+export and purge. To deal with the specific cases of export of Rateplan and DiscountModel
+seprate CustomConfig.xml are added.
+
+===============================================================================
+Modification Version: 7.4 2.06
+------------------------------------
+bug6791984: LOADIFWCONFIG ENHANCEMENTS - CLEANUP
+Review comments incorporated with this bug.
+
+bug7665855:P-7634380 USING THE LOADIFWCONFIG TO INSERT NULL FIELDS
+There was a issue when update tries to insert a new row in the database.
+It uses Insert command and in that case NULL_VALUE was not converted to "".
+Case is handled with this bug.
+
+===============================================================================
+Modification Version: 7.4 2.05
+------------------------------------
+bug7558613 
+
+Added support to update field with NULL value in the database
+===============================================================================
+Modification Version: 7.4 2.04
+------------------------------------
+bug7432936 "GENERIC SR TO TRACK MULTIPLE ERRORS WITH NEW VERSION OF LOADIFWCONFIG"
+
+changes to fix Insert in the case of empty database and checking in CustomConfig.xml 
+Given to the customer.
+
+-nodep option is introduced to suppress the dependency releationship in case of 
+retrieval for purge. 
+
+There were some wrong mapping of forgein keys in the CustomConfig.xml
+===============================================================================
+Modification Version: 7.4 2.03
+------------------------------------
+bug7296468 LOADIFWCONFIG CHANGE FOR AIA 2.4 - PRICING ENHANCEMENT
+Retrieve and retrieve_all option has enhanced with modifdate option.
+===============================================================================
+Modification Version: 7.4 2.02
+------------------------------------
+bug7255853 NO APPROPRIATE FUNCTION FOUND FOR CALL OF __RW_DEBUG_ITER 
+Changes to fix debug build .
+===============================================================================
+Modification Version: 7.4 2.01
+------------------------------------
+bug7225192  AIX and LNX Build breaker
+Defined the constant VC_FIXED locally.
+===============================================================================
+Modification Version: 7.4 2.00
+------------------------------------
+bug6842069 "LOADIFWCONFIG ENHANCEMENTS".
+Implementaion of the redesign of the tool along with the Performance fixes.
+===============================================================================

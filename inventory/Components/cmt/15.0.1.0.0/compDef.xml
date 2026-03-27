@@ -1,0 +1,453 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="cmt" version="15.0.1.0.0" description="Conversion Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="schema_files" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="conceptual" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="29545" dest="CMT_Service.xsd" mode="0664"/>
+                  <file size="1832" dest="payinfoCreditCardExtension.xsd" mode="0664"/>
+                  <file size="355" dest="deviceExtensions.xsd" mode="0664"/>
+                  <file size="1512" dest="serviceTelcoGSMExtension.xsd" mode="0664"/>
+                  <file size="9730" dest="CMT_Types.xsd" mode="0664"/>
+                  <file size="2324" dest="deviceSIMExtension.xsd" mode="0664"/>
+                  <file size="1643" dest="payinfoDebitCardExtension.xsd" mode="0664"/>
+                  <file size="358" dest="serviceExtensions.xsd" mode="0664"/>
+                  <file size="364" dest="promotionExtensions.xsd" mode="0664"/>
+                  <file size="405" dest="payinfoExtensions.xsd" mode="0664"/>
+                  <file size="1238" dest="promotionAccountLevelExtension.xsd" mode="0664"/>
+                  <file size="4015" dest="CMT_Balances.xsd" mode="0664"/>
+                  <file size="1394" dest="payinfoInvoiceExtension.xsd" mode="0664"/>
+                  <file size="1261" dest="deviceNUMExtension.xsd" mode="0664"/>
+                  <file size="1554" dest="promotionServiceLevelExtension.xsd" mode="0664"/>
+                  <file size="4003" dest="loan.xsd" mode="0664"/>
+                  <file size="40688" dest="CMT_Subscribers.xsd" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="CMT_Subscribers.xsd"/>
+            <permission mode="0664" wildcard="CMT_Service.xsd"/>
+            <permission mode="0664" wildcard="CMT_Balances.xsd"/>
+            <permission mode="0664" wildcard="CMT_Types.xsd"/>
+            <permission mode="0664" wildcard="deviceExtensions.xsd"/>
+            <permission mode="0664" wildcard="deviceSIMExtension.xsd"/>
+            <permission mode="0664" wildcard="deviceNUMExtension.xsd"/>
+            <permission mode="0664" wildcard="payinfoCreditCardExtension.xsd"/>
+            <permission mode="0664" wildcard="payinfoExtensions.xsd"/>
+            <permission mode="0664" wildcard="payinfoDebitCardExtension.xsd"/>
+            <permission mode="0664" wildcard="payinfoInvoiceExtension.xsd"/>
+            <permission mode="0664" wildcard="promotionAccountLevelExtension.xsd"/>
+            <permission mode="0664" wildcard="promotionServiceLevelExtension.xsd"/>
+            <permission mode="0664" wildcard="promotionExtensions.xsd"/>
+            <permission mode="0664" wildcard="serviceExtensions.xsd"/>
+            <permission mode="0664" wildcard="serviceTelcoGSMExtension.xsd"/>
+            <permission mode="0664" wildcard="loan.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="10104" dest="pin_cmp_cmt.pl" mode="0755"/>
+            <file size="902" dest="pin_cnf_cmt.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cmp_cmt.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_cmt.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="ctl_files" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="audit" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="1492" dest="profile_t.ctl" mode="0664"/>
+                  <file size="5477" dest="billinfo_t.ctl" mode="0664"/>
+                  <file size="1685" dest="group_t.ctl" mode="0664"/>
+                  <file size="599" dest="service_alias_list_t.ctl" mode="0664"/>
+                  <file size="618" dest="profile_loan_limit_t.ctl" mode="0664"/>
+                  <file size="3218" dest="service_t.ctl" mode="0664"/>
+                  <file size="3321" dest="account_t.ctl" mode="0664"/>
+                  <file size="1168" dest="purchased_product_cycle_fees_t.ctl" mode="0664"/>
+                  <file size="1081" dest="group_sharing_products_t.ctl" mode="0664"/>
+                  <file size="3615" dest="purchased_discount_t.ctl" mode="0664"/>
+                  <file size="1600" dest="ordered_balgroup_t.ctl" mode="0664"/>
+                  <file size="657" dest="profile_serv_extrating_t.ctl" mode="0664"/>
+                  <file size="792" dest="profile_acct_extrating_data_t.ctl" mode="0664"/>
+                  <file size="4608" dest="purchased_product_t.ctl" mode="0664"/>
+                  <file size="823" dest="group_sharing_charges_t.ctl" mode="0664"/>
+                  <file size="846" dest="group_sharing_profiles_t.ctl" mode="0664"/>
+                  <file size="792" dest="profile_serv_extrating_data_t.ctl" mode="0664"/>
+                  <file size="1516" dest="bal_grp_t.ctl" mode="0664"/>
+                  <file size="1145" dest="profile_loan_t.ctl" mode="0664"/>
+                  <file size="840" dest="ordered_groups_t.ctl" mode="0664"/>
+                  <file size="1619" dest="purchased_bundle_t.ctl" mode="0664"/>
+                  <file size="1112" dest="group_sharing_discounts_t.ctl" mode="0664"/>
+                  <file size="1557" dest="bal_grp_sub_bals_t.ctl" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="account_t.ctl"/>
+            <permission mode="0664" wildcard="bal_grp_sub_bals_t.ctl"/>
+            <permission mode="0664" wildcard="bal_grp_t.ctl"/>
+            <permission mode="0664" wildcard="billinfo_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_charges_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_discounts_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_profiles_t.ctl"/>
+            <permission mode="0664" wildcard="group_t.ctl"/>
+            <permission mode="0664" wildcard="ordered_balgroup_t.ctl"/>
+            <permission mode="0664" wildcard="ordered_groups_t.ctl"/>
+            <permission mode="0664" wildcard="profile_acct_extrating_data_t.ctl"/>
+            <permission mode="0664" wildcard="profile_serv_extrating_data_t.ctl"/>
+            <permission mode="0664" wildcard="profile_serv_extrating_t.ctl"/>
+            <permission mode="0664" wildcard="profile_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_bundle_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_discount_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_product_cycle_fees_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_product_t.ctl"/>
+            <permission mode="0664" wildcard="service_alias_list_t.ctl"/>
+            <permission mode="0664" wildcard="service_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_products_t.ctl"/>
+            <permission mode="0664" wildcard="profile_loan_limit_t.ctl"/>
+            <permission mode="0664" wildcard="profile_loan_t.ctl"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="ctl_files" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1547" dest="payinfo_t.ctl" mode="0664"/>
+               <file size="1466" dest="profile_t.ctl" mode="0664"/>
+               <file size="5108" dest="billinfo_t.ctl" mode="0664"/>
+               <file size="2330" dest="revenue_distribution_t.ctl" mode="0664"/>
+               <file size="4677" dest="event_t.ctl" mode="0664"/>
+               <file size="583" dest="group_permitteds_t.ctl" mode="0664"/>
+               <file size="1643" dest="group_t.ctl" mode="0664"/>
+               <file size="2480" dest="event_bal_impacts_t.ctl" mode="0664"/>
+               <file size="1279" dest="payinfo_inv_t.ctl" mode="0664"/>
+               <file size="596" dest="service_alias_list_t.ctl" mode="0664"/>
+               <file size="1299" dest="payinfo_cc_t.ctl" mode="0664"/>
+               <file size="752" dest="account_exemptions_t.ctl" mode="0664"/>
+               <file size="3605" dest="subscriber_contract_t.ctl" mode="0664"/>
+               <file size="716" dest="group_billing_members_t.ctl" mode="0664"/>
+               <file size="638" dest="profile_loan_limit_t.ctl" mode="0664"/>
+               <file size="3238" dest="service_t.ctl" mode="0664"/>
+               <file size="877" dest="account_cycle_fees_t.ctl" mode="0664"/>
+               <file size="908" dest="mapping_table_t.ctl" mode="0664"/>
+               <file size="3297" dest="account_t.ctl" mode="0664"/>
+               <file size="746" dest="event_essentials_t.ctl" mode="0664"/>
+               <file size="953" dest="device_num_t.ctl" mode="0664"/>
+               <file size="494" dest="event_billing_loan_fee_t.ctl" mode="0664"/>
+               <file size="558" dest="uniqueness_alias_list_t.ctl" mode="0664"/>
+               <file size="1167" dest="purchased_product_cycle_fees_t.ctl" mode="0664"/>
+               <file size="1150" dest="cmt_reference_t.ctl" mode="0664"/>
+               <file size="1808" dest="journal_t.ctl" mode="0664"/>
+               <file size="980" dest="group_sharing_products_t.ctl" mode="0664"/>
+               <file size="3853" dest="purchased_discount_t.ctl" mode="0664"/>
+               <file size="630" dest="account_phones_t.ctl" mode="0664"/>
+               <file size="1557" dest="ordered_balgroup_t.ctl" mode="0664"/>
+               <file size="1050" dest="device_services_t.ctl" mode="0664"/>
+               <file size="519" dest="event_billing_loan_debit_t.ctl" mode="0664"/>
+               <file size="1781" dest="au_uniqueness_t.ctl" mode="0664"/>
+               <file size="905" dest="group_sharing_members_t.ctl" mode="0664"/>
+               <file size="1211" dest="device_t.ctl" mode="0664"/>
+               <file size="1413" dest="uniqueness_t.ctl" mode="0664"/>
+               <file size="654" dest="profile_serv_extrating_t.ctl" mode="0664"/>
+               <file size="791" dest="profile_acct_extrating_data_t.ctl" mode="0664"/>
+               <file size="4837" dest="purchased_product_t.ctl" mode="0664"/>
+               <file size="1049" dest="mapping_table_entries_t.ctl" mode="0664"/>
+               <file size="820" dest="group_sharing_charges_t.ctl" mode="0664"/>
+               <file size="586" dest="service_telco_gsm_t.ctl" mode="0664"/>
+               <file size="843" dest="group_sharing_profiles_t.ctl" mode="0664"/>
+               <file size="791" dest="profile_serv_extrating_data_t.ctl" mode="0664"/>
+               <file size="746" dest="offering_override_usagemap_t.ctl" mode="0664"/>
+               <file size="4073" dest="item_t.ctl" mode="0664"/>
+               <file size="564" dest="au_uniqueness_alias_list_t.ctl" mode="0664"/>
+               <file size="1465" dest="payinfo_dd_t.ctl" mode="0664"/>
+               <file size="1846" dest="account_nameinfo_t.ctl" mode="0664"/>
+               <file size="4578" dest="event_t_virtual.ctl" mode="0664"/>
+               <file size="1475" dest="bal_grp_t.ctl" mode="0664"/>
+               <file size="2446" dest="cmt_balances_t.ctl" mode="0664"/>
+               <file size="501" dest="service_telco_t.ctl" mode="0664"/>
+               <file size="1142" dest="profile_loan_t.ctl" mode="0664"/>
+               <file size="679" dest="offering_override_usagemap_buf.ctl" mode="0664"/>
+               <directory dest="audit" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="1561" dest="payinfo_t.ctl" mode="0664"/>
+                  <file size="1492" dest="profile_t.ctl" mode="0664"/>
+                  <file size="5477" dest="billinfo_t.ctl" mode="0664"/>
+                  <file size="590" dest="group_permitteds_t.ctl" mode="0664"/>
+                  <file size="1685" dest="group_t.ctl" mode="0664"/>
+                  <file size="1282" dest="payinfo_inv_t.ctl" mode="0664"/>
+                  <file size="599" dest="service_alias_list_t.ctl" mode="0664"/>
+                  <file size="1240" dest="payinfo_cc_t.ctl" mode="0664"/>
+                  <file size="755" dest="account_exemptions_t.ctl" mode="0664"/>
+                  <file size="719" dest="group_billing_members_t.ctl" mode="0664"/>
+                  <file size="618" dest="profile_loan_limit_t.ctl" mode="0664"/>
+                  <file size="3218" dest="service_t.ctl" mode="0664"/>
+                  <file size="880" dest="account_cycle_fees_t.ctl" mode="0664"/>
+                  <file size="3321" dest="account_t.ctl" mode="0664"/>
+                  <file size="779" dest="device_num_t.ctl" mode="0664"/>
+                  <file size="1168" dest="purchased_product_cycle_fees_t.ctl" mode="0664"/>
+                  <file size="1081" dest="group_sharing_products_t.ctl" mode="0664"/>
+                  <file size="3615" dest="purchased_discount_t.ctl" mode="0664"/>
+                  <file size="633" dest="account_phones_t.ctl" mode="0664"/>
+                  <file size="1600" dest="ordered_balgroup_t.ctl" mode="0664"/>
+                  <file size="1053" dest="device_services_t.ctl" mode="0664"/>
+                  <file size="908" dest="group_sharing_members_t.ctl" mode="0664"/>
+                  <file size="1214" dest="device_t.ctl" mode="0664"/>
+                  <file size="657" dest="profile_serv_extrating_t.ctl" mode="0664"/>
+                  <file size="792" dest="profile_acct_extrating_data_t.ctl" mode="0664"/>
+                  <file size="4608" dest="purchased_product_t.ctl" mode="0664"/>
+                  <file size="823" dest="group_sharing_charges_t.ctl" mode="0664"/>
+                  <file size="589" dest="service_telco_gsm_t.ctl" mode="0664"/>
+                  <file size="846" dest="group_sharing_profiles_t.ctl" mode="0664"/>
+                  <file size="792" dest="profile_serv_extrating_data_t.ctl" mode="0664"/>
+                  <file size="1468" dest="payinfo_dd_t.ctl" mode="0664"/>
+                  <file size="1849" dest="account_nameinfo_t.ctl" mode="0664"/>
+                  <file size="1516" dest="bal_grp_t.ctl" mode="0664"/>
+                  <file size="504" dest="service_telco_t.ctl" mode="0664"/>
+                  <file size="1145" dest="profile_loan_t.ctl" mode="0664"/>
+                  <file size="840" dest="ordered_groups_t.ctl" mode="0664"/>
+                  <file size="1039" dest="device_sim_t.ctl" mode="0664"/>
+                  <file size="670" dest="service_telco_features_t.ctl" mode="0664"/>
+                  <file size="1619" dest="purchased_bundle_t.ctl" mode="0664"/>
+                  <file size="835" dest="bal_grp_bals_t.ctl" mode="0664"/>
+                  <file size="1112" dest="group_sharing_discounts_t.ctl" mode="0664"/>
+                  <file size="1557" dest="bal_grp_sub_bals_t.ctl" mode="0664"/>
+               </directory>
+               <file size="1124" dest="unique_acct_no_t.ctl" mode="0664"/>
+               <file size="2449" dest="event_bal_impacts_t_virtual.ctl" mode="0664"/>
+               <file size="1337" dest="offering_override_t.ctl" mode="0664"/>
+               <file size="837" dest="ordered_groups_t.ctl" mode="0664"/>
+               <file size="1036" dest="device_sim_t.ctl" mode="0664"/>
+               <file size="3114" dest="bill_t.ctl" mode="0664"/>
+               <file size="667" dest="service_telco_features_t.ctl" mode="0664"/>
+               <file size="696" dest="bill_invoices_t.ctl" mode="0664"/>
+               <file size="1620" dest="purchased_bundle_t.ctl" mode="0664"/>
+               <file size="828" dest="bal_grp_bals_t.ctl" mode="0664"/>
+               <file size="1010" dest="group_sharing_discounts_t.ctl" mode="0664"/>
+               <file size="1452" dest="bal_grp_sub_bals_t.ctl" mode="0664"/>
+               <file size="1989" dest="cmt_balances_bal_t.ctl" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="account_cycle_fees_t.ctl"/>
+            <permission mode="0664" wildcard="account_exemptions_t.ctl"/>
+            <permission mode="0664" wildcard="account_nameinfo_t.ctl"/>
+            <permission mode="0664" wildcard="account_phones_t.ctl"/>
+            <permission mode="0664" wildcard="account_t.ctl"/>
+            <permission mode="0664" wildcard="bal_grp_bals_t.ctl"/>
+            <permission mode="0664" wildcard="bal_grp_sub_bals_t.ctl"/>
+            <permission mode="0664" wildcard="bal_grp_t.ctl"/>
+            <permission mode="0664" wildcard="bill_invoices_t.ctl"/>
+            <permission mode="0664" wildcard="bill_t.ctl"/>
+            <permission mode="0664" wildcard="billinfo_t.ctl"/>
+            <permission mode="0664" wildcard="cmt_reference_t.ctl"/>
+            <permission mode="0664" wildcard="device_num_t.ctl"/>
+            <permission mode="0664" wildcard="device_services_t.ctl"/>
+            <permission mode="0664" wildcard="device_sim_t.ctl"/>
+            <permission mode="0664" wildcard="device_t.ctl"/>
+            <permission mode="0664" wildcard="event_t.ctl"/>
+            <permission mode="0664" wildcard="event_t_virtual.ctl"/>
+            <permission mode="0664" wildcard="group_billing_members_t.ctl"/>
+            <permission mode="0664" wildcard="group_permitteds_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_charges_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_discounts_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_profiles_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_members_t.ctl"/>
+            <permission mode="0664" wildcard="group_t.ctl"/>
+            <permission mode="0664" wildcard="item_t.ctl"/>
+            <permission mode="0664" wildcard="mapping_table_entries_t.ctl"/>
+            <permission mode="0664" wildcard="mapping_table_t.ctl"/>
+            <permission mode="0664" wildcard="ordered_balgroup_t.ctl"/>
+            <permission mode="0664" wildcard="ordered_groups_t.ctl"/>
+            <permission mode="0664" wildcard="payinfo_cc_t.ctl"/>
+            <permission mode="0664" wildcard="payinfo_dd_t.ctl"/>
+            <permission mode="0664" wildcard="payinfo_inv_t.ctl"/>
+            <permission mode="0664" wildcard="payinfo_t.ctl"/>
+            <permission mode="0664" wildcard="profile_acct_extrating_data_t.ctl"/>
+            <permission mode="0664" wildcard="profile_serv_extrating_data_t.ctl"/>
+            <permission mode="0664" wildcard="profile_serv_extrating_t.ctl"/>
+            <permission mode="0664" wildcard="profile_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_bundle_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_discount_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_product_cycle_fees_t.ctl"/>
+            <permission mode="0664" wildcard="purchased_product_t.ctl"/>
+            <permission mode="0664" wildcard="service_alias_list_t.ctl"/>
+            <permission mode="0664" wildcard="service_t.ctl"/>
+            <permission mode="0664" wildcard="service_telco_features_t.ctl"/>
+            <permission mode="0664" wildcard="service_telco_gsm_t.ctl"/>
+            <permission mode="0664" wildcard="service_telco_t.ctl"/>
+            <permission mode="0664" wildcard="unique_acct_no_t.ctl"/>
+            <permission mode="0664" wildcard="cmt_balances_t.ctl"/>
+            <permission mode="0664" wildcard="cmt_balances_bal_t.ctl"/>
+            <permission mode="0664" wildcard="uniqueness_alias_list_t.ctl"/>
+            <permission mode="0664" wildcard="uniqueness_t.ctl"/>
+            <permission mode="0664" wildcard="au_uniqueness_t.ctl"/>
+            <permission mode="0664" wildcard="au_uniqueness_alias_list_t.ctl"/>
+            <permission mode="0664" wildcard="event_essentials_t.ctl"/>
+            <permission mode="0664" wildcard="event_bal_impacts_t.ctl"/>
+            <permission mode="0664" wildcard="event_bal_impacts_t_virtual.ctl"/>
+            <permission mode="0664" wildcard="journal_t.ctl"/>
+            <permission mode="0664" wildcard="group_sharing_products_t.ctl"/>
+            <permission mode="0664" wildcard="offering_override_usagemap_buf.ctl"/>
+            <permission mode="0664" wildcard="offering_override_usagemap_t.ctl"/>
+            <permission mode="0664" wildcard="offering_override_t.ctl"/>
+            <permission mode="0664" wildcard="profile_loan_limit_t.ctl"/>
+            <permission mode="0664" wildcard="profile_loan_t.ctl"/>
+            <permission mode="0664" wildcard="event_billing_loan_fee_t.ctl"/>
+            <permission mode="0664" wildcard="event_billing_loan_debit_t.ctl"/>
+            <permission mode="0664" wildcard="subscriber_contract_t.ctl"/>
+            <permission mode="0664" wildcard="revenue_distribution_t.ctl"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="3889" dest="pin_cmt" mode="0755"/>
+            <file size="8694" dest="Infranet.properties" mode="0600"/>
+            <file size="2697" dest="ErrorCodes.properties" mode="0664"/>
+            <file size="280864" dest="cmt.jar" mode="0664"/>
+            <file size="3993" dest="Enumeration.properties" mode="0664"/>
+            <file size="223272" dest="cmt_mta_deploy" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cmt"/>
+            <permission mode="0664" wildcard="cmt.jar"/>
+            <permission mode="0664" wildcard="Enumeration.properties"/>
+            <permission mode="0664" wildcard="ErrorCodes.properties"/>
+            <permission mode="0600" wildcard="Infranet.properties"/>
+            <permission mode="0775" wildcard="cmt_mta_deploy"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="5728" dest="load_pin_acct.pl" mode="0755"/>
+               <file size="8809" dest="pin_convert_nonunique.sql" mode="0664"/>
+               <file size="8950" dest="pin_convert_unique.sql" mode="0664"/>
+               <file size="13535" dest="pin_init_acct" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="load_pin_acct.pl"/>
+            <permission mode="0664" wildcard="pin_convert_nonunique.sql"/>
+            <permission mode="0664" wildcard="pin_convert_unique.sql"/>
+            <permission mode="0664" wildcard="pin_init_acct"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="schema_files" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="physical" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="29030" dest="CMT_Service.xsd" mode="0664"/>
+                  <file size="1532" dest="payinfoCreditCardExtension.xsd" mode="0664"/>
+                  <file size="354" dest="deviceExtensions.xsd" mode="0664"/>
+                  <file size="1456" dest="serviceTelcoGSMExtension.xsd" mode="0664"/>
+                  <file size="9187" dest="CMT_Types.xsd" mode="0664"/>
+                  <file size="2275" dest="deviceSIMExtension.xsd" mode="0664"/>
+                  <file size="1687" dest="payinfoDebitCardExtension.xsd" mode="0664"/>
+                  <file size="349" dest="serviceExtensions.xsd" mode="0664"/>
+                  <file size="353" dest="promotionExtensions.xsd" mode="0664"/>
+                  <file size="395" dest="payinfoExtensions.xsd" mode="0664"/>
+                  <file size="1167" dest="promotionAccountLevelExtension.xsd" mode="0664"/>
+                  <file size="3728" dest="CMT_Balances.xsd" mode="0664"/>
+                  <file size="1325" dest="payinfoInvoiceExtension.xsd" mode="0664"/>
+                  <file size="1213" dest="deviceNUMExtension.xsd" mode="0664"/>
+                  <file size="1453" dest="promotionServiceLevelExtension.xsd" mode="0664"/>
+                  <file size="3469" dest="loan.xsd" mode="0664"/>
+                  <file size="39762" dest="CMT_Subscribers.xsd" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="CMT_Subscribers.xsd"/>
+            <permission mode="0664" wildcard="CMT_Service.xsd"/>
+            <permission mode="0664" wildcard="CMT_Balances.xsd"/>
+            <permission mode="0664" wildcard="CMT_Types.xsd"/>
+            <permission mode="0664" wildcard="deviceExtensions.xsd"/>
+            <permission mode="0664" wildcard="deviceSIMExtension.xsd"/>
+            <permission mode="0664" wildcard="deviceNUMExtension.xsd"/>
+            <permission mode="0664" wildcard="payinfoCreditCardExtension.xsd"/>
+            <permission mode="0664" wildcard="payinfoExtensions.xsd"/>
+            <permission mode="0664" wildcard="payinfoDebitCardExtension.xsd"/>
+            <permission mode="0664" wildcard="payinfoInvoiceExtension.xsd"/>
+            <permission mode="0664" wildcard="promotionAccountLevelExtension.xsd"/>
+            <permission mode="0664" wildcard="promotionServiceLevelExtension.xsd"/>
+            <permission mode="0664" wildcard="promotionExtensions.xsd"/>
+            <permission mode="0664" wildcard="serviceTelcoGSMExtension.xsd"/>
+            <permission mode="0664" wildcard="serviceExtensions.xsd"/>
+            <permission mode="0664" wildcard="loan.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="sample_data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="17970" dest="LegacyDataSample.xml" mode="0755"/>
+               <file size="716" dest="myExtension.xsd" mode="0755"/>
+               <file size="11466" dest="LegacyDataSample_Parent.xml" mode="0755"/>
+               <file size="14977" dest="LegacyIncrementalService.xml" mode="0755"/>
+               <file size="10977" dest="LegacyDataSample_PayingChild.xml" mode="0755"/>
+               <file size="2007" dest="AccountBalances.xml" mode="0755"/>
+               <file size="9237" dest="LegacyDataSample_NonPayingChild.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="AccountBalances.xml"/>
+            <permission mode="0755" wildcard="LegacyDataSample_NonPayingChild.xml"/>
+            <permission mode="0755" wildcard="LegacyIncrementalService.xml"/>
+            <permission mode="0755" wildcard="LegacyDataSample_PayingChild.xml"/>
+            <permission mode="0755" wildcard="LegacyDataSample.xml"/>
+            <permission mode="0755" wildcard="LegacyDataSample_Parent.xml"/>
+            <permission mode="0755" wildcard="myExtension.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="sample_data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="custom" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="931" dest="NewClassSampleData.xml" mode="0755"/>
+                  <file size="1210" dest="myclass_t.ctl" mode="0755"/>
+                  <file size="637" dest="myclass_remit_t.ctl" mode="0755"/>
+                  <file size="687" dest="myclass_rules_t.ctl" mode="0755"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="NewClassSampleData.xml"/>
+            <permission mode="0755" wildcard="myclass_remit_t.ctl"/>
+            <permission mode="0755" wildcard="myclass_rules_t.ctl"/>
+            <permission mode="0755" wildcard="myclass_t.ctl"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="cmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="sample_data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="extend" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="683" dest="sampleExtension_cust1_t.ctl" mode="0755"/>
+                  <file size="632" dest="sampleExtension_substr1_t.ctl" mode="0755"/>
+                  <file size="683" dest="sampleExtension_cycle_t.ctl" mode="0755"/>
+                  <file size="3952" dest="ExtendedClass.xml" mode="0755"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="ExtendedClass.xml"/>
+            <permission mode="0755" wildcard="sampleExtension_cust1_t.ctl"/>
+            <permission mode="0755" wildcard="sampleExtension_cycle_t.ctl"/>
+            <permission mode="0755" wildcard="sampleExtension_substr1_t.ctl"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" mode="750" patchable="true">
+            <directory dest="data" mode="750" patchable="true">
+               <file size="33775" dest="dd_objects_cmt.source" mode="0664"/>
+               <file size="13633" dest="create_cmt_procedure_oracle.sql" mode="0664"/>
+               <file size="2858" dest="cmt_clean_old_balances_oracle.sql" mode="0664"/>
+               <file size="1362" dest="create_cmt_reference_index_oracle.source" mode="0664"/>
+               <file size="1115" dest="cmt_copy_group_planlists_oracle.sql" mode="0664"/>
+               <file size="615" dest="drop_tables_cmt_oracle.source" mode="0664"/>
+               <file size="2117" dest="update_realtime_batch_cntr_oracle.sql" mode="0664"/>
+               <file size="2361" dest="update_due_amount_oracle.sql" mode="0664"/>
+            </directory>
+         </directory>
+      </directory>
+   </file-map>
+</component-def>

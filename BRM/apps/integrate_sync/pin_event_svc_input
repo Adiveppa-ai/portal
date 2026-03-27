@@ -1,0 +1,19 @@
+#@(#)% %
+# Copyright (c) 2001 - 2006 Oracle. All rights reserved.This material is the confidential property of Oracle Corporation
+# or its licensors and may be used, reproduced, stored or transmitted only in accordance with a valid Oracle
+# license or sublicense  agreement.
+#
+
+#
+# This is a sample input file containing a list of Event type and Service
+# type pairs available in the Infranet database.
+# This input will be used by the validatation program to run the validation
+# for each of the Event types defined in Infranet.
+#
+
+#Event_type	Service_type
+
+/event/session/gsm	/service/gsm/telephony
+/event/session/gsm	/service/gsm/sms
+/event/session/gsm	/service/gsm/fax
+/event/session/gsm	/service/gsm/data

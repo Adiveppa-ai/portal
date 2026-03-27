@@ -1,0 +1,60 @@
+r << a 1
+0 PIN_FLD_POID           POID [0] 0.0.0.1 /plan -1 0
+0 PIN_FLD_LOCALES       ARRAY [0] allocated 20, used 1
+1     PIN_FLD_LOCALE          STR [0] "en_US"
+0 PIN_FLD_PAYINFO       ARRAY [0] allocated 20, used 6
+1     PIN_FLD_NAME            STR [0] "Invoice1"
+1     PIN_FLD_INV_TYPE       ENUM [0] 257
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /payinfo/invoice -1 0
+1     PIN_FLD_INHERITED_INFO SUBSTRUCT [0] allocated 20, used 1
+2         PIN_FLD_INV_INFO      ARRAY [0] allocated 20, used 10
+3             PIN_FLD_DELIVERY_PREFER   ENUM [0] 0
+3             PIN_FLD_NAME            STR [0] "Ayypa"
+3             PIN_FLD_INV_TERMS      ENUM [0] 0
+3             PIN_FLD_DELIVERY_DESCR    STR [0] "Ayypa_B"
+3             PIN_FLD_EMAIL_ADDR      STR [0] "Ayypa@yahoo.com"
+3             PIN_FLD_COUNTRY         STR [0] "India"
+3             PIN_FLD_ZIP             STR [0] "560013"
+3             PIN_FLD_STATE           STR [0] "Karnataka"
+3             PIN_FLD_CITY            STR [0] "Banaglore"
+3             PIN_FLD_ADDRESS         STR [0] "No. 4"
+1     PIN_FLD_PAY_TYPE       ENUM [0] 10001
+1     PIN_FLD_FLAGS           INT [0] 1
+0 PIN_FLD_BAL_INFO       ARRAY [0] allocated 20, used 4
+1     PIN_FLD_NAME      STR [0] "Default"
+1     PIN_FLD_POID      POID [0] 0.0.0.1 /balance_group -1 0
+1     PIN_FLD_BILLINFO  ARRAY [0] NULL array ptr
+0 PIN_FLD_FLAGS           INT [0] 0
+0 PIN_FLD_NAMEINFO      ARRAY [1] allocated 20, used 9
+1     PIN_FLD_LAST_NAME       STR [0] "Can"
+1     PIN_FLD_FIRST_NAME      STR [0] "Jone"
+1     PIN_FLD_CONTACT_TYPE    STR [0] "Account holder"
+1     PIN_FLD_EMAIL_ADDR      STR [0] "Ayypa@yahoo.com"
+1     PIN_FLD_COUNTRY         STR [0] "India"
+1     PIN_FLD_ZIP             STR [0] "560013"
+1     PIN_FLD_STATE           STR [0] "Karnataka"
+1     PIN_FLD_CITY            STR [0] "Banaglore"
+1     PIN_FLD_ADDRESS         STR [0] "No. 4"
+0 PIN_FLD_BAL_INFO      ARRAY [0] allocated 20, used 3
+1     PIN_FLD_NAME            STR [0] "Balance Group<Account>"
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /balance_group -1 0
+1     PIN_FLD_BILLINFO      ARRAY [0] NULL array ptr
+0 PIN_FLD_ACCTINFO      ARRAY [0] allocated 20, used 4
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /account -1 0
+1     PIN_FLD_BAL_INFO      ARRAY [0] NULL array ptr
+1     PIN_FLD_CURRENCY        INT [0] 840
+1     PIN_FLD_BUSINESS_TYPE   ENUM [0] 2
+0 PIN_FLD_BILLINFO      ARRAY [0] allocated 20, used 5
+1     PIN_FLD_POID           POID [0] 0.0.0.1 /billinfo -1 0
+1     PIN_FLD_BILLINFO_ID     STR [0] "Bill Unit(1)"
+1     PIN_FLD_PAYINFO       ARRAY [0] NULL array ptr
+1     PIN_FLD_PAY_TYPE       ENUM [0] 10001
+1     PIN_FLD_BAL_INFO      ARRAY [0] NULL array ptr
+0 PIN_FLD_SERVICES                             ARRAY [1] allocated 4, used 4
+1     PIN_FLD_SERVICE_OBJ                       POID [0] 0.0.0.1 /service/telco/gsm/telephony -1 0
+1     PIN_FLD_PASSWD_CLEAR                       STR [0] "XXXX"
+1     PIN_FLD_LOGIN                              STR [0] "20260801142005"
+1     PIN_FLD_ALIAS_LIST	ARRAY [1] allocated 4, used 4
+2		PIN_FLD_NAME	STR [0]	"20260801142005"
+a
+xop PCM_OP_CUST_COMMIT_CUSTOMER 0 1

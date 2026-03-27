@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+        <xs:annotation>
+                <xs:documentation>
+ Copyright (c) 2004, 2009, Oracle and/or its affiliates. All rights reserved. 
+                        This material is the confidential property of Oracle Corporation or its
+                        licensors and may be used, reproduced, stored or transmitted only in
+                        accordance with a valid Oracle license or sublicense agreement.
+                </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType name="LoginExclusionManagementComponentType">
+        <xs:sequence>
+	<xs:element name="ServiceList">
+                <xs:complexType>
+	        <xs:sequence>
+                <xs:element name="Service" maxOccurs="unbounded">
+                        <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                        <xs:maxLength value="1023"/>
+                                        <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                        </xs:simpleType>
+                </xs:element>
+	        </xs:sequence>
+		</xs:complexType>
+		
+		<xs:unique name="uniqueServiceName">
+                        <xs:selector xpath=".//businessConfig:*"/>
+                        <xs:field xpath="businessConfig:Service"/>
+	        </xs:unique>	
+	
+	
+	
+	</xs:element>                
+        </xs:sequence>
+        </xs:complexType>
+
+
+</xs:schema>

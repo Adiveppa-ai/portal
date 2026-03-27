@@ -1,0 +1,173 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="EAI_FrameworkMgr" version="15.0.1.0.0" description="EAI_FrameworkMgr" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_eai" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="16176" dest="plugin_flist.so" mode="0755"/>
+            <file size="30208" dest="plugin_http.so" mode="0755"/>
+            <file size="16128" dest="plugin_xml.so" mode="0755"/>
+            <file size="26328" dest="libdm_eai.so" mode="0755"/>
+         </directory>
+         <directory dest="eai_js" mode="750" patchable="true">
+            <file size="1407" dest="Infranet_eai.properties" mode="0600"/>
+            <file size="1407" dest="Infranet.properties" mode="0600"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="plugin_http.so"/>
+            <permission mode="0755" wildcard="plugin_xml.so"/>
+            <permission mode="0755" wildcard="plugin_flist.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1346" dest="pin_cmp_dm_eai.pl" mode="0755"/>
+            <file size="11562" dest="pin_cnf_eai.pl" mode="0755"/>
+            <file size="1265" dest="pin_cmp_eai_js.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cmp_dm_eai.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_eai.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1744" dest="start_dm_eai" mode="0755"/>
+         <file size="784" dest="stop_dm_eai" mode="0755"/>
+         <file size="161952" dest="dm_eai" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_dm_eai"/>
+            <permission mode="0755" wildcard="stop_dm_eai"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1121" dest="pin_notify_ipc" mode="0644"/>
+               <file size="782" dest="pin_notify_plugin_http" mode="0644"/>
+               <file size="1336" dest="pin_notify_eai" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="pin_notify*"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="11562" dest="pin_cnf_eai.pl" mode="0755"/>
+            <file size="2940" dest="pin_cmp_cm_eai.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="*.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="eai_js" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="dtds" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="288" dest="dealcanc.dtd" mode="0644"/>
+               <file size="307" dest="srvcpasswd.dtd" mode="0644"/>
+               <file size="295" dest="pdtcanc.dtd" mode="0644"/>
+               <file size="652" dest="custcreate.dtd" mode="0644"/>
+               <file size="315" dest="pdtpurch.dtd" mode="0644"/>
+               <file size="295" dest="billinfoupdt.dtd" mode="0644"/>
+               <file size="531" dest="statupdate.dtd" mode="0644"/>
+               <file size="282" dest="nameinfoupdt.dtd" mode="0644"/>
+               <file size="288" dest="dealpurch.dtd" mode="0644"/>
+               <file size="5542" dest="common.dtd" mode="0644"/>
+               <file size="284" dest="payinfoupdt.dtd" mode="0644"/>
+               <file size="263" dest="custdelete.dtd" mode="0644"/>
+               <file size="298" dest="srvclogin.dtd" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="*.dtd"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="eai_js" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="20913" dest="payloadconfig_ipc.xml" mode="0644"/>
+            <file size="20150" dest="payloadconfig.xml" mode="0644"/>
+            <file size="3626" dest="payloadconfig_plugin_http.xml" mode="0644"/>
+            <file size="70240" dest="payloadconfig_ifw_sync.xml" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="payloadconfig*"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1587" dest="start_eai_js" mode="0775"/>
+         <file size="719" dest="stop_eai_js" mode="0775"/>
+         <file size="92344" dest="load_config_business_event" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="start_eai_js"/>
+            <permission mode="0775" wildcard="stop_eai_js"/>
+            <permission mode="0775" wildcard="load_config_business_event"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="eai_js" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="72816" dest="payloadconfig_kafka_sync.xml" mode="0755"/>
+            <file size="13195" dest="payloadconfig_crm_sync.xml" mode="0755"/>
+            <file size="3579" dest="payloadconfig_collections.xml" mode="0755"/>
+            <file size="14015" dest="payloadconfig_sfdc_sync.xml" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="payloadconfig_crm_sync.xml"/>
+            <permission mode="0755" wildcard="payloadconfig_collections.xml"/>
+            <permission mode="0755" wildcard="payloadconfig_sfdc_sync.xml"/>
+            <permission mode="0755" wildcard="payloadconfig_kafka_sync.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="433" dest="pin_notify_sfdc_sync" mode="0644"/>
+               <file size="431" dest="pin_notify_crm_sync" mode="0644"/>
+               <file size="6535" dest="pin_notify_kafka_sync" mode="0644"/>
+               <file size="768" dest="pin_notify_collections" mode="0644"/>
+               <file size="70311" dest="payload_config.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="pin_notify_crm_sync"/>
+            <permission mode="0644" wildcard="pin_notify_collections"/>
+            <permission mode="0644" wildcard="pin_notify_sfdc_sync"/>
+            <permission mode="0644" wildcard="pin_notify_kafka_sync"/>
+            <permission mode="0755" wildcard="payload_config.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="xsd" mode="750" patchable="true">
+         <file size="164942" dest="payload_config.xsd" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="payload_config.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="eai_js" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="xsd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2340" dest="DiscountInfoChange.xsd" mode="0755"/>
+               <file size="1146" dest="AccountInfoChange.xsd" mode="0755"/>
+               <file size="1706" dest="SponsorshipInfoChange.xsd" mode="0755"/>
+               <file size="7077" dest="ProductInfoChange.xsd" mode="0755"/>
+               <file size="4174" dest="CollectionsAction.xsd" mode="0755"/>
+               <file size="1087" dest="CollectionsInfoChange.xsd" mode="0755"/>
+               <file size="1164" dest="AccountStatusUpdate.xsd" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="AccountStatusUpdate.xsd"/>
+            <permission mode="0755" wildcard="AccountInfoChange.xsd"/>
+            <permission mode="0755" wildcard="DiscountInfoChange.xsd"/>
+            <permission mode="0755" wildcard="ProductInfoChange.xsd"/>
+            <permission mode="0755" wildcard="CollectionsAction.xsd"/>
+            <permission mode="0755" wildcard="CollectionsInfoChange.xsd"/>
+            <permission mode="0755" wildcard="SponsorshipInfoChange.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="99784" dest="fm_publish.so" mode="0775"/>
+         <file size="16400" dest="fm_publish_pol.so" mode="0775"/>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="71372" dest="eai.jar" mode="0644"/>
+      </directory>
+   </file-map>
+</component-def>

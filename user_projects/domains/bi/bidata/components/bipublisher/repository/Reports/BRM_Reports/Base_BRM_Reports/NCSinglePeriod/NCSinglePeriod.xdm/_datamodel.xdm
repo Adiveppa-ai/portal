@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="as_are"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ bipext.INFSTRTOTIMET(:StartDate, 2) START_DATE,
+ 	 bipext.INFSTRTOTIMET(:EndDate, 2)-1 END_DATE,
+ "account_t"."STATUS", "account_t"."POID_ID0",
+ "account_nameinfo_t"."COUNTRY", "account_nameinfo_t"."STATE",
+ "account_t"."ACCOUNT_NO", "account_nameinfo_t"."LAST_NAME",
+ "account_nameinfo_t"."FIRST_NAME", "account_nameinfo_t"."REC_ID",
+ "account_t"."LAST_STATUS_T", "account_t"."CREATED_T",
+ "account_t"."POID_DB", "BILLINFO_T"."PAY_TYPE"
+ FROM ("ACCOUNT_T" "account_t" INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t" ON "account_t"."POID_ID0" = "account_nameinfo_t"."OBJ_ID0")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "account_t"."POID_ID0" = "BILLINFO_T"."ACCOUNT_OBJ_ID0"
+ WHERE bipext.infCheckDates(:StartDate, :EndDate) = 1
+ AND "account_t"."POID_DB" >
+ 0
+ AND "account_t"."POID_ID0" >
+ 1
+ AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(:param_BillingType,"BILLINFO_T"."PAY_TYPE")
+ AND "account_nameinfo_t"."COUNTRY" LIKE NVL(:param_Country,"account_nameinfo_t"."COUNTRY")
+ AND "account_nameinfo_t"."REC_ID" = 1
+ AND "account_nameinfo_t"."STATE" LIKE NVL(:param_State,"account_nameinfo_t"."STATE")
+ AND (( "account_t"."LAST_STATUS_T" >=bipext.infstrtotimet(:StartDate,2)
+ AND "account_t"."LAST_STATUS_T" <=bipext.infstrtotimet(:EndDate,2)-1
+ ) OR
+ ( "account_t"."CREATED_T" >=bipext.infstrtotimet(:StartDate,2)
+ AND "account_t"."CREATED_T" <=bipext.infstrtotimet(:EndDate,2)-1
+ ))
+ AND "account_t"."STATUS" <>
+ 0
+ ORDER BY "account_nameinfo_t"."COUNTRY",
+ "account_nameinfo_t"."STATE",
+ "account_t"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="START_DATE" value="START_DATE" dataType="xsd:integer" label="START_DATE" breakOrder="None" fieldOrder="1"/>
+    <element name="END_DATE" value="END_DATE" dataType="xsd:integer" label="END_DATE" breakOrder="None" fieldOrder="2"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="3"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="4"/>
+    <element name="COUNTRY" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="5"/>
+    <element name="STATE" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="6"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="7"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="8"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="9"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="10"/>
+    <element name="LAST_STATUS_T" value="LAST_STATUS_T" dataType="xsd:integer" label="LAST_STATUS_T" breakOrder="None" fieldOrder="11"/>
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="12"/>
+    <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="13"/>
+    <element name="PAY_TYPE" value="PAY_TYPE" dataType="xsd:integer" label="PAY_TYPE" breakOrder="None" fieldOrder="14"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="YESNO">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="BillType">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="SUBORDINATE" value="10007"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="StartDate" dataType="xsd:date">
+         <date label=" Enter start date (MM/DD/YYYY). " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="EndDate" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="param_Country" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries. " valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_State" dataType="xsd:string">
+         <select label=" Enter a specific state, or select ALL to include all states.  " valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_BillingType" dataType="xsd:string">
+         <select label="Select a type of billing, or select ALL to include all types of billing. " valueSet="BillType" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_AccountDetails" dataType="xsd:string">
+         <select label="Include account-level details? " valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_StateDetails" dataType="xsd:string">
+         <select label="Include state-level details?" valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_Charts" dataType="xsd:string">
+         <select label="Include charts? " valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

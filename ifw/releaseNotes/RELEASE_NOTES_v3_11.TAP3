@@ -1,0 +1,142 @@
+======================================================================================
+TAP3_v3_11 RELEASE_NOTES
+========================================================================================
+Release        : 7.4.0
+Date           : 14-Apr-2009
+ChangeOrder    : bug8311363
+Title          : EUB:PARTIALTYPE INDICATOR IS NOT POPULATED PROPERLY IN CASE OF ASSEMBLED CALLS 
+========================================================================================
+Release        : 7.4
+Date           : 10-Mar-2009
+ChangeOrder    : bug8282645
+Title          : P-7632456 TAPCURRENCY SHOULD BE "XDR" INSTEAD OF "SDR"
+---------------------------------------------------------------------------------------
+Release        : 7.4
+Date           : 25-Nov-2008
+ChangeOrder    : bug5771846
+Title          : PRSF00239052:SCM TAP3 GENERATED TAP3.11 OUTPUT IS NOT ACCORDING TO TD57
+---------------------------------------------------------------------------------------
+Release        : 7.4
+Date           : 05-Nov-2008
+ChangeOrder    : bug6513000
+Title          : P-6491332 TAP-OUT: CONDITIONAL FIELD FOR SUPPL SERVICE NOT PROVIDED 
+---------------------------------------------------------------------------------------
+Release        : 7.4
+Date           : 24-Oct-2008
+ChangeOrder    : bug7432930
+Title          : P-6764671 CALLREFERENCE FIELD NOT HANDLED CORRECT BY TAP3-OUTPUT GRAMMAR 
+---------------------------------------------------------------------------------------
+Release        : 7.3.2
+Date           : 24-Oct-2008
+ChangeOrder    : bug7302362
+Title          : P-7203925 THE EXCHANGE RATE IN TAP3.11 DOES NOT MATCH WITH TAP STANDARD
+----------------------------------------------------------------------------------------
+Release        : 7.3.1
+Date           : 31-Oct-2007
+ChangeOrder    : bug6532186
+Title          : P-6491879 TAP3.11 NOTIFICATION FILES MISSING MANDATORY FIELDS
+---------------------------------------------------------------------------------------
+Release        : 7.3.1
+Date           : 04-Oct-2007
+ChangeOrder    : bug6457917
+Title          : P-6369437 TAP3.11 INGRAMMAR ISSUES WITH MAPPING IN HEADER AND DETAIL
+---------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 05-Dec-2006
+ChangeOrder    : PRSF00236241
+Title          : TAP3.11 Validation COs - Set 1(propagation of PRSF00231564)
+---------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 11-Sep-2006
+ChangeOrder    : PRSF00231455
+Title          : DaVinci :  not able to load suspended using pin_rel
+---------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 22-Aug-2006
+ChangeOrder    : PRSF00229454
+Title          : SCM TAP3-Ph2: Validation of totalChargeRefund for TAP3.11 files incorrect
+---------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 08-Aug-2006
+ChangeOrder    : PRSF00165666
+Title          : QF::TAP3.10-validation of TD57 -specifications( TAP input grammar)
+---------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 13-Aug-2006
+ChangeOrder    : PRSF00227030
+Title          : Davinci Roaming: Duration field is O for all records in HUR - GSM report
+----------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 04-Aug-2006
+ChangeOrder    : PRSF00205328
+Title          : CO to track the Roaming CO's need to be propagated to DaVinci.
+----------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 03-Aug-2006
+ChangeOrder    : PRSF00225739
+Title          : Davinci Roaming: When a missing RAP is generated, the RAP generated 
+                 for the original TAP file is empty 
+----------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity 
+Date           : 26-Jul-2006
+ChangeOrder    : PRSF00206921
+Title          : Patch Failure: TAP3.11 Upgrade: recEntityCode field in a TAP3.11 file 
+                 in the out file generated has a wrong value.
+----------------------------------------------------------------------------------------
+Release        : New_Pipeline_Velocity
+Date           : 26-Jul-2006
+ChangeOrder    : PRSF00223063 
+Title          : Davinci Roaming: The TAP out file generated in Outcollect processing 
+                 has partial string in accessPointNameNI 
+----------------------------------------------------------------------------------------
+
+Release        : New_Pipeline_Velocity 
+Date           : 05-Jun-2006
+ChangeOrder    : PRSF00217790
+Title          : RAP Severe Issue: Persisting Lookup Information
+----------------------------------------------------------------------------------------
+
+Release        : New_Pipeline_Velocity 
+Date           : 19-May-2006
+ChangeOrder    : PRSF00212580
+Title          : Integration Issues - DaVinci Roaming
+----------------------------------------------------------------------------------------
+
+
+Release        : New_Pipeline_Velocity 
+Date           : 16-May-2006
+ChangeOrder    : PRSF00210674
+Title          : Integration issues - ClirIndicator field mapping and 
+                     Destination block population
+Description    : ClirIndicator field mapping, Destination block population
+Notes          :
+----------------------------------------------------------------------------------------
+
+Release        : New_Pipeline_Velocity 
+Date           : 04-May-2006
+ChangeOrder    : PRSF00207274
+Title          : TAP3 changes for DaVinci 
+Description    : Mapping of all missing / optional fields to EDR container
+Notes          :
+----------------------------------------------------------------------------------------
+
+
+Release        : New_Pipeline_Velocity 
+Date           : 29-Mar-2006
+ChangeOrder    : PRSF00200931
+Title          : RAP InGrammar changes for DaVinci 
+Description    : Mapping of RAP records to EDR container
+Notes          :
+----------------------------------------------------------------------------------------
+
+========================================================================================
+
+Release        : New_Pipeline_Velocity 
+Date           : 20-Jan-2006
+ChangeOrder    : PRSF00190327
+Title          : TAP 3.11 Propagation work
+Description    : Propagation of TAP3.11 work from 7.0_EBF stream.
+Notes          :
+----------------------------------------------------------------------------------------
+
+========================================================================================

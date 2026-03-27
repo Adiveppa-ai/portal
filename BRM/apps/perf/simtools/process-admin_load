@@ -1,0 +1,99 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#
+#  This material is the confidential property of Oracle Corporation
+#  or its subsidiaries or licensors and may be used, reproduced, stored
+#  or transmitted only in accordance with a valid Oracle license or
+#  sublicense agreement.
+
+if ( $ARGV[0] ) {
+$sfile=$ARGV[0];
+} else {
+$sfile="admin_load.event";
+}
+
+if ( open ( INFILE,$sfile ) ) {
+
+$OPCOUNT=0;
+$ERROR_COUNT=0;
+$last_time = 0;
+$resp = 0;
+
+while (<INFILE>) {
+    @Fld = split(' ', $_, 99);
+    if (/^Event: op-/) {
+	$value = $Fld[4];
+	$subxx{$Fld[1]} += $value * $value;
+	$subx{$Fld[1]} += $value;
+	$subn{$Fld[1]}++;
+	$count++;
+
+	if ( !$submaxx{$Fld[1]} || ($value > $submaxx{$Fld[1]})) {
+	    $submaxx{$Fld[1]} = $value;
+        } 
+	$last_time = $Fld[4] + $Fld[5];
+    }
+
+    if (/^Error: op-/) {
+	$suberrors{$Fld[1]}++;
+    }
+
+    if (/^Event: OP-/) {
+	$value = $Fld[4];
+	$OPXX{$Fld[1]} += $value * $value;
+	$OPX{$Fld[1]} += $value;
+	$OPN{$Fld[1]}++;
+	$OPCOUNT++;
+	$resp += $value;
+
+	if (!$OPMAXX{$Fld[1]} || ($value > $OPMAXX{$Fld[1]})) {	
+	    $OPMAXX{$Fld[1]} = $value;
+	}
+	$last_time = $Fld[4] + $Fld[5];
+    }
+
+    if (/^Error: OP-/) {
+	$OPERRORS{$Fld[1]}++;
+	$ERROR_COUNT++;
+    }
+}
+
+printf "CSR OPs: %d (%d failed)\n", $OPCOUNT, $ERROR_COUNT;
+printf "Running time: %.0fs\n", $last_time / 1000.0;
+printf "CSR OPs per second: %.1f\n", $OPCOUNT / $last_time * 1000.0;
+printf "CSR Mean OP time: %dms\n", $resp / $OPCOUNT;
+
+printf (("\n"));
+foreach $i (keys %OPX) {
+    printf "Operation: %s\n", $i;
+    printf "  Mean OP time: %dms\n", $OPX{$i} / $OPN{$i};
+    printf "  Sdev OP time: %dms\n",
+     sqrt($OPXX{$i} / $OPN{$i} - ($OPX{$i} * $OPX{$i}) / ($OPN{$i} * $OPN{$i}));
+    printf "  Max  OP time: %dms\n", $OPMAXX{$i};
+    if ( !$OPERRORS{$i}) {
+	    $OPERRORS{$i} = 0;
+    }
+    printf "  Num  OPs is: %d (%.0f%% of all OPS) with %d errors\n", $OPN{$i},
+
+      100.0 * $OPN{$i} / $OPCOUNT, $OPERRORS{$i};
+}
+printf (("\n"));
+foreach $i (keys %subx) {
+
+    printf "Sub-operation: %s\n", $i;
+    printf "  Mean sub-op time: %dms\n", $subx{$i} / $subn{$i};
+    printf "  Sdev sub-op time: %dms\n",
+
+      sqrt($subxx{$i} / $subn{$i} - ($subx{$i} * $subx{$i}) / ($subn{$i} * $subn{$i}));
+    printf "  Max  sub-op time: %dms\n", $submaxx{$i};
+    if ( !$suberrors{$i}) {
+	    $suberrors{$i} = 0;
+    }
+    printf "  Num  sub-ops is: %d (%.0f%% of all sub-ops) with %d errors\n",
+
+      $subn{$i}, 100.0 * $subn{$i} / $count, $suberrors{$i};
+}
+
+}
+

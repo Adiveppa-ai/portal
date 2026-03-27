@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><adapter-config xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata" adapter="Oracle BRM Adapter" name="BRMARService">
+    <connection-factory UIConnectionName="" adapterRef="" location="eis/BRM"/>
+    <endpoint-interaction operation="PCM_OP_AR_GET_ACCT_BILLS" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_ACCT_BILLS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_ACCT_BILLS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_GET_ACCT_BAL_SUMMARY" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_ACCT_BAL_SUMMARY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_ACCT_BAL_SUMMARY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_BILL_ADJUSTMENT" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_BILL_ADJUSTMENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_BILL_ADJUSTMENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_GET_ACTION_ITEMS" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_ACTION_ITEMS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_ACTION_ITEMS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_ITEM_ADJUSTMENT" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_ITEM_ADJUSTMENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_ITEM_ADJUSTMENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_GET_BAL_SUMMARY" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_BAL_SUMMARY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_BAL_SUMMARY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_ACCOUNT_ADJUSTMENT" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_ACCOUNT_ADJUSTMENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_ACCOUNT_ADJUSTMENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_EVENT_ADJUSTMENT" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_EVENT_ADJUSTMENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_EVENT_ADJUSTMENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_RESOURCE_AGGREGATION" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_RESOURCE_AGGREGATION"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_RESOURCE_AGGREGATION.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_GET_BILLS" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_BILLS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_BILLS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_GET_BILL_ITEMS" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_BILL_ITEMS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_BILL_ITEMS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_AR_GET_ACCT_ACTION_ITEMS" portType="BRMARService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_AR_GET_ACCT_ACTION_ITEMS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_AR_GET_ACCT_ACTION_ITEMS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+</adapter-config>

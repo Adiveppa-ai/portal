@@ -1,0 +1,3 @@
+rm *.pinlog
+rm logs/filesprocessed.*
+pin_nfcd_collector

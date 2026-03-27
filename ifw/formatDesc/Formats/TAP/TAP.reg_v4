@@ -1,0 +1,366 @@
+FORMAT_DESC 
+{
+# ###########################################################################  
+  TAP2
+# ###########################################################################  
+  {
+    INFO
+    {
+      RowType     = VAR
+      ColType     = FIX
+      IdPos       = 0
+      IdLen       = 2
+      DecimalWithPoint = false
+      DefaultBlock= DETAIL
+    }
+
+    HEADER
+    {
+      ID          = 10
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2;HEADER.RECORD_TYPE
+        SENDER                          = 5;HEADER.SENDER
+        RECIPIENT                       = 5;HEADER.RECIPIENT
+        FILE_SEQUENCE_NUMBER            = 5;HEADER.FILE_SEQUENCE_NUMBER
+        TAX_TREATMENT                   = 1
+        TAX_RATE                        = 32
+        UNUSED                          = 13
+        FILE_CREATION_DATE              = 6(FORMAT:%y%m%d);HEADER.FILE_CREATION_TIMESTAMP
+        FILE_TRANSMISSION_DATE          = 6(FORMAT:%y%m%d);HEADER.FILE_TRANSMISSION_DATE
+        TRANSFER_CUTOFF_TIMESTAMP       = 12(FORMAT:%y%m%d%H%M%S);HEADER.TRANSFER_CUTOFF_TIMESTAMP
+        UTC_TIME_OFFSET                 = 5;HEADER.UTC_TIME_OFFSET
+        SPECIFICATION_VERSION_NUMBER    = 2;HEADER.SPECIFICATION_VERSION_NUMBER
+        INTERNATIONAL_ACCESS_CODE       = 12
+        COUNTRY_CODE                    = 8
+        RELEASE_VERSION                 = 2;HEADER.RELEASE_VERSION
+        FILE_CREATION_TIME              = 6
+        UTC_TIME_OFFSET1                = 5
+        FILE_TYPE_INDICATOR             = 1;HEADER.FILE_TYPE_INDICATOR
+        UNUSED_HEADER                   = 32
+      }
+    }
+
+    DETAIL
+    {
+      ID          = 20;30
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2;DETAIL.RECORD_TYPE
+        CHAIN_REFERENCE                 = 6;DETAIL.CHAIN_REFERENCE
+        NETWORK_TYPE                    = 1
+        IMSI                            = 15;DETAIL.DEVICE_NUMBER
+        IMEI                            = 16
+        MODIFICATION_INDICATOR          = 1;DETAIL.B_MODIFICATION_INDICATOR
+        TYPE_OF_NUMBER                  = 1;DETAIL.B_TYPE_OF_NUMBER
+        NUMBERING_PLAN                  = 1
+        CALLED_NUMBER                   = 21;DETAIL.B_NUMBER
+        SERVICE_CODE                    = 3;DETAIL.SERVICE_CODE;(INTERN)DETAIL.INTERN_SERVICE_CODE
+        DUAL_SERVICE_TYPE               = 1
+        DUAL_SERVICE_CODE               = 2
+        RADIO_CHANNEL_REQUESTED         = 1;DETAIL.QOS_REQUESTED
+        RADIO_CHANNEL_USED              = 1;DETAIL.QOS_USED
+        TRANSPARENCY_INDICATOR          = 1
+        SS_EVENT_ACTION_CODE_1          = 1
+        SS_CODE_1                       = 2
+        SS_EVENT_ACTION_CODE_2          = 1
+        SS_CODE_2                       = 2
+        SS_EVENT_ACTION_CODE_3          = 1
+        SS_CODE_3                       = 2
+        SS_EVENT_ACTION_CODE_4          = 1
+        SS_CODE_4                       = 2
+        SS_EVENT_ACTION_CODE_5          = 1
+        SS_CODE_5                       = 2
+        MSC_ID                          = 15;DETAIL.SWITCH_IDENTIFICATION
+        LOCATION_AREA                   = 5;DETAIL.LOCATION_AREA_INDICATOR
+        CELL_ID                         = 5;DETAIL.CELL_ID
+        MOBILE_STATION_CLASS_MARK       = 1;DETAIL.MS_CLASS_MARK
+        CHARGING_DATE                   = 0
+        CHARGE_START_TIME               = 12(FORMAT:%y%m%d%H%M%S);DETAIL.CHARGING_START_TIMESTAMP
+        UTC_TIME_OFFSET_CODE            = 1
+        CHARGEABLE_UNITS                = 6;DETAIL.CHARGEABLE_QUANTITY_VALUE
+        DATA_VOLUME_REFERENCE           = 6
+        CHARGE                          = 9:3;DETAIL.CHARGED_AMOUNT_VALUE
+        CHARGED_ITEM                    = 1;DETAIL.CHARGED_ITEM
+        TAX_RATE_CODE                   = 1
+        EXCHANGE_RATE_CODE              = 1
+        DESTINATION_NETWORK             = 6;DETAIL.APPLICATION
+        UNUSED_MOBILE_ORIGINATED_CALL   = 3
+      }
+    }
+
+    TRAILER
+    {
+      ID          = 90
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2;TRAILER.RECORD_TYPE
+        SENDER                          = 5;TRAILER.SENDER
+        RECIPIENT                       = 5;TRAILER.RECIPIENT
+        FILE_SEQUENCE_NUMBER            = 5;TRAILER.FILE_SEQUENCE_NUMBER
+        TOTAL_NUMBER_OF_RECORDS         = 6;TRAILER.TOTAL_NUMBER_OF_RECORDS
+        FIRST_CALL_DATE                 = 12(FORMAT:%y%m%d%H%M%S);TRAILER.FIRST_CALL_TIMESTAMP
+        UTC_TIME_OFFSET                 = 5
+        LAST_CALL_DATE                  = 12(FORMAT:%y%m%d%H%M%S);TRAILER.LAST_CALL_TIMESTAMP
+        UTC_TIME_OFFSET1                = 5
+        TOTAL_CHARGE                    = 12:3;TRAILER.TOTAL_CHARGED_VALUE
+        TOTAL_TOLL_VALUE                = 12
+        TOTAL_CAMEL_FEE_VALUE           = 12
+        UNUSED_TRAILER                  = 67
+      }
+    }
+
+    EXCHANGE_RATES_RECORD
+    {
+      ID          = 12
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        EXCHANGE_RATE_CODE_1            = 1
+        EXCHANGE_RATE_1                 = 10
+        EXCHANGE_RATE_EXPONENT_1        = 1
+        EXCHANGE_RATE_CODE_2            = 1
+        EXCHANGE_RATE_2                 = 10
+        EXCHANGE_RATE_EXPONENT_2        = 1
+        EXCHANGE_RATE_CODE_3            = 1
+        EXCHANGE_RATE_3                 = 10
+        EXCHANGE_RATE_EXPONENT_3        = 1
+        EXCHANGE_RATE_CODE_4            = 1
+        EXCHANGE_RATE_4                 = 10
+        EXCHANGE_RATE_EXPONENT_4        = 1
+        EXCHANGE_RATE_CODE_5            = 1
+        EXCHANGE_RATE_5                 = 10
+        EXCHANGE_RATE_EXPONENT_5        = 1
+        EXCHANGE_RATE_CODE_6            = 1
+        EXCHANGE_RATE_6                 = 10
+        EXCHANGE_RATE_EXPONENT_6        = 1
+        EXCHANGE_RATE_CODE_7            = 1
+        EXCHANGE_RATE_7                 = 10
+        EXCHANGE_RATE_EXPONENT_7        = 1
+        EXCHANGE_RATE_CODE_8            = 1
+        EXCHANGE_RATE_8                 = 10
+        EXCHANGE_RATE_EXPONENT_8        = 1
+        EXCHANGE_RATE_CODE_9            = 1
+        EXCHANGE_RATE_9                 = 10
+        EXCHANGE_RATE_EXPONENT_9        = 1
+        EXCHANGE_RATE_CODE_10           = 1
+        EXCHANGE_RATE_10                = 10
+        EXCHANGE_RATE_EXPONENT_10       = 1
+        UNUSED    = 38
+      }
+    }
+
+    UTC_TIME_OFFSET_RECORD
+    {
+      ID          = 14
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        UTC_TIME_OFFSET_CODE_1          = 1
+        UTC_TIME_OFFSET_1               = 5
+        UTC_TIME_OFFSET_CODE_2          = 1
+        UTC_TIME_OFFSET_2               = 5
+        UTC_TIME_OFFSET_CODE_3          = 1
+        UTC_TIME_OFFSET_3               = 5
+        UTC_TIME_OFFSET_CODE_4          = 1
+        UTC_TIME_OFFSET_4               = 5
+        UTC_TIME_OFFSET_CODE_5          = 1
+        UTC_TIME_OFFSET_5               = 5
+        UTC_TIME_OFFSET_CODE_6          = 1
+        UTC_TIME_OFFSET_6               = 5
+        UTC_TIME_OFFSET_CODE_7          = 1
+        UTC_TIME_OFFSET_7               = 5
+        UTC_TIME_OFFSET_CODE_8          = 1
+        UTC_TIME_OFFSET_8               = 5
+        UTC_TIME_OFFSET_CODE_9          = 1
+        UTC_TIME_OFFSET_9               = 5
+        UTC_TIME_OFFSET_CODE_10         = 1
+        UTC_TIME_OFFSET_10              = 5
+        UTC_TIME_OFFSET_CODE_11         = 1
+        UTC_TIME_OFFSET_11              = 5
+        UTC_TIME_OFFSET_CODE_12         = 1
+        UTC_TIME_OFFSET_12              = 5
+        UTC_TIME_OFFSET_CODE_13         = 1
+        UTC_TIME_OFFSET_13              = 5
+        UTC_TIME_OFFSET_CODE_14         = 1
+        UTC_TIME_OFFSET_14              = 5
+        UTC_TIME_OFFSET_CODE_15         = 1
+        UTC_TIME_OFFSET_15              = 5
+        UNUSED                          = 68
+      }
+    }
+
+    MESSAGE_DESCRIPTION_RECORD
+    {
+      ID          = 16
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        MESSAGE_DESCRIPTION_CODE_1      = 1
+        MESSAGE_DESCRIPTION_1           = 30
+        MESSAGE_DESCRIPTION_CODE_2      = 1
+        MESSAGE_DESCRIPTION_2           = 30
+        MESSAGE_DESCRIPTION_CODE_3      = 1
+        MESSAGE_DESCRIPTION_3           = 30
+        MESSAGE_DESCRIPTION_CODE_4      = 1
+        MESSAGE_DESCRIPTION_4           = 30
+        MESSAGE_DESCRIPTION_CODE_5      = 1
+        MESSAGE_DESCRIPTION_5           = 30
+        UNUSED                          = 3
+      }
+    }
+
+    MOBILE_SUPPLEMENTARY_SERVICE_CALL
+    {
+      ID          = 40
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        CHAIN_REFERENCE                 = 6
+        IMSI                            = 15
+        IMEI                            = 16
+        SERVICE_CODE_1                  = 3
+        SERVICE_CODE_2                  = 3
+        SERVICE_CODE_3                  = 3
+        SERVICE_CODE_4                  = 3
+        SERVICE_CODE_5                  = 3
+        SUPPLEMENTARY_SERVICE_CODE      = 2
+        ACTION_CODE                     = 1
+        MSC_IDENTIFICATION              = 15
+        LOCATION_AREA                   = 5
+        CELL_ID                         = 5
+        MS_CLASS_MARK                   = 1
+        CHARGE_START_DATE               = 6
+        CHARGE_START_TIME               = 6
+        UTC_TIME_OFFSET_CODE            = 1
+        CHARGE                          = 9
+        CHARGED_ITEM                    = 1
+        TAX_RATE_CODE                   = 1
+        EXCHANGE_RATE_CODE              = 1
+        SS_PARAMETER                    = 40
+        NETWORK_TYPE                    = 1
+        UNUSED                          = 11
+      }
+    }
+
+    APLMN_SERVICE_CENTRE_USAGE
+    {
+      ID          = 50
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        CHAIN_REFERENCE                 = 6
+        DESTINATION_NETWORK             = 6
+        ORIGINATING_NETWORK             = 6
+        SUBSCRIBER_IDENTIFIER_TYPE      = 1
+        IMSI_MSISDN                     = 15
+        DEPOSIT_DATE                    = 6
+        DEPOSIT_TIME                    = 6
+        UTC_TIME_OFFSET_CODE            = 1
+        COMPLETION_DATE                 = 6
+        COMPLETION_TIME                 = 6
+        UTC_TIME_OFFSET_CODE            = 1
+        CHARGED_PARTY_STATUS            = 1
+        CHARGING_POINT                  = 1
+        MESSAGE_STATUS                  = 1
+        CHARGED_ITEM                    = 1
+        PRIORITY_CODE                   = 1
+        MESSAGE_TYPE                    = 1
+        CHARGEABLE_UNITS                = 6
+        MESSAGE_DESCRIPTION_CODE        = 1
+        MODIFICATION_INDICATOR          = 1
+        TYPE_OF_NUMBER                  = 1
+        NUMBERING_PLAN                  = 1
+        NON_CHARGED_NUMBER              = 21
+        SERVICE_CENTRE_IDENTITY         = 15
+        CHARGE                          = 9
+        TAX_RATE_CODE                   = 1
+        EXCHANGE_RATE_CODE              = 1
+        CLIR_INDICATOR                  = 1
+        NETWORK_TYPE                    = 1
+        DISTANCE_CHARGE_BAND_CODE       = 1
+        UNUSED                          = 32
+      }
+    }
+
+    VALUE_ADDED_SERVICE
+    {
+      ID          = 60
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        SUBSCRIBER_IDENTIFIER_TYPE      = 1
+        IMSI_MSISDN                     = 15
+        VAS_CODE                        = 8
+        VAS_DESCRIPTION                 = 60
+        CHARGEABLE_UNITS                = 6
+        CHARGE_DATE                     = 6
+        CHARGE_TIME                     = 6
+        UTC_TIME_OFFSET_CODE            = 1
+        CHARGE                          = 9
+        CHARGED_ITEM                    = 1
+        TAX_RATE_CODE                   = 1
+        EXCHANGE_RATE_CODE              = 1
+        NETWORK_TYPE                    = 1
+        UNUSED                          = 42
+      }
+    }
+
+    ASSOCIATED_CHARGE_BREAKDOWN
+    {
+      ID          = 70
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        CHAIN_REFERENCE                 = 6
+        IMSI                            = 15
+        TOLL_CHARGE                     = 9
+        UNUSED                          = 128
+      }
+    }
+
+    ASSOCIATED_CAMEL
+    {
+      ID          = 71
+
+      FIELDS
+      {
+        RECORD_TYPE                     = 2
+        CHAIN_REFERENCE                 = 6
+        IMSI                            = 15
+        MODIFICATION_INDICATOR          = 1
+        TYPE_OF_NUMBER                  = 1
+        NUMBERING_PLAN                  = 1
+        CAMEL_SERVER_ADDRESS            = 21
+        CAMEL_SERVICE_KEY               = 10
+        CAMEL_MSC_ADDRESS               = 24
+        CAMEL_REFERENCE_NUMBER          = 16
+        CAMEL_INITIATED_CF_INDICATOR    = 1
+        MODIFICATION_INDICATOR          = 1
+        TYPE_OF_NUMBER                  = 1
+        NUMBERING_PLAN                  = 1
+        CAMEL_DESTINATION_NUMBER        = 21
+        DEFAULT_CALL_HANDLING_INDICATOR = 1
+        CAMEL_INVOCATION_FEE            = 9
+        CHARGED_ITEM                    = 1
+        CHARGING_DATE                   = 6
+        CHARGING_START_TIME             = 6
+        UTC_TIME_OFFSET_CODE            = 1
+        CAMEL_MODIFICATION              = 6
+        TAX_RATE_CODE                   = 1
+        EXCHANGE_RATE_CODE              = 1
+        UNUSED                          = 6
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema targetNamespace="http://www.portal.com/schemas/BusinessConfig" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/schemas/BusinessConfig" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2022, Oracle and/or its affiliates.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+                </xs:documentation>
+	</xs:annotation>
+	
+        <xs:include schemaLocation="bus_params_act.xsd"/>
+	<xs:include schemaLocation="bus_params_AR.xsd"/>
+	<xs:include schemaLocation="bus_params_billing.xsd"/>
+	<xs:include schemaLocation="bus_params_multi_bal.xsd"/>
+	<xs:include schemaLocation="bus_params_billing_flow.xsd"/>
+	<xs:include schemaLocation="bus_params_rating.xsd"/>
+	<xs:include schemaLocation="bus_params_rerate.xsd"/>
+        <xs:include schemaLocation="bus_params_subscription.xsd"/>
+	<xs:include schemaLocation="bus_params_Invoicing.xsd"/>
+	<xs:include schemaLocation="bus_params_selective_loading.xsd"/>
+	<xs:include schemaLocation="bus_params_pricing.xsd"/>
+        <xs:include schemaLocation="bus_params_AAA.xsd"/>
+        <xs:include schemaLocation="bus_params_customer.xsd"/>
+        <xs:include schemaLocation="bus_params_TCF.xsd"/>
+        <xs:include schemaLocation="bus_params_collections.xsd"/>
+        <xs:include schemaLocation="bus_params_system.xsd"/>
+        <xs:include schemaLocation="bus_params_Installment.xsd"/>
+        <xs:include schemaLocation="bus_params_notification.xsd"/>
+	
+
+
+	<xs:complexType name="BusParamConfigurationClassType">
+		<xs:choice>
+                        <xs:element name="BusParamsActivity" type="BusParamsActivityType"/>
+			<xs:element name="BusParamsAR" type="BusParamsARType"/>
+			<xs:element name="BusParamsBilling" type="BusParamsBillingType"/>
+			<xs:element name="BusParamsMultiBal" type="BusParamsMultiBalType"/>
+			<xs:element name="BusParamsBillingFlow" type="BusParamsBillingFlowType"/>
+			<xs:element name="BusParamsRating" type="BusParamsRatingType"/>
+			<xs:element name="BusParamsRerate" type="BusParamsRerateType"/>
+                        <xs:element name="BusParamsSubscription" type="BusParamsSubscriptionType"/>
+			<xs:element name="BusParamsInvoicing" type="BusParamsInvoicingType"/>
+			<xs:element name="BusParamsSelectiveLoading" type="BusParamsSelectiveLoadingType"/>
+			<xs:element name="BusParamsPricing" type="BusParamsPricingType"/>
+                        <xs:element name="BusParamsAAA" type="BusParamsAAAType"/>
+                        <xs:element name="BusParamsCustomer" type="BusParamsCustomerType"/>
+                        <xs:element name="BusParamsTCF" type="BusParamsTCFType"/>
+                        <xs:element name="BusParamsCollections" type="BusParamsCollectionsType"/>
+                        <xs:element name="BusParamsSystem" type="BusParamsSystemType"/>
+                        <xs:element name="BusParamsInstallment" type="BusParamsInstallmentType"/>
+                        <xs:element name="BusParamsNotification" type="BusParamsNotificationType"/>
+
+
+		</xs:choice>
+	</xs:complexType>
+		
+</xs:schema>

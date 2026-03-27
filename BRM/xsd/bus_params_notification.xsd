@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  **************************************************************************
+* Copyright (c) 2023, Oracle and/or its affiliates.
+  *
+  * This material is the confidential property of Oracle Corporation
+  * or its licensors and may be used, reproduced, stored or transmitted
+  * only in accordance with a valid Oracle license or sublicense agreement.
+  **************************************************************************
+-->
+<xs:schema
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+        <xs:annotation>
+                <xs:documentation xml:lang="en">
+ Copyright (c) 2022, Oracle and/or its affiliates.
+                        This material is the confidential property of Oracle Corporation or its
+                        licensors and may be used, reproduced, stored or transmitted only in
+                        accordance with a valid Oracle license or sublicense agreement.
+                </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType name="BusParamsNotificationType">
+                <xs:sequence>
+                        <xs:element name="KafkaDBNumber">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						KafkaDBNumber for which  DynamicKey is populated
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+                </xs:sequence>
+        </xs:complexType>
+
+</xs:schema>

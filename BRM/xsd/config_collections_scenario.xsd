@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    Schema definition for collections scenario config object.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="PinTypes.xsd"/>
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ConfigObject" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID" type="PinPoid" minOccurs="0"/>
+              <xs:element name="ACCOUNT_OBJ" type="PinPoid" minOccurs="0"/>
+              <xs:element name="DESCR" type="xs:string" minOccurs="0"/>
+              <xs:element name="HOSTNAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="VALUE" type="xs:string" minOccurs="0"/>
+              <xs:element name="VERSION" type="xs:string" minOccurs="0"/>
+              <xs:element name="SCENARIO_INFO" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="PROFILE_NAME" type="xs:string" minOccurs="1" />
+                    <xs:element name="ENTRY_AMOUNT" type="xs:decimal" minOccurs="1" />
+                    <xs:element name="ENTRY_DAYS" type="xs:integer" minOccurs="1" />
+                    <xs:element name="EXIT_AMOUNT" type="xs:decimal" minOccurs="1" />
+                    <xs:element name="SCENARIO_DESCR" type="xs:string" minOccurs="0" />
+                    <xs:element name="SCENARIO_NAME" type="xs:string" minOccurs="1" />
+                    <xs:element name="SEVERITY" type="xs:integer" minOccurs="0" />
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ACTIONS" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="ACTION_MODE" minOccurs="1">
+					  <xs:simpleType>
+					    <xs:restriction base="xs:integer">
+						  <xs:enumeration value="0" />
+						  <xs:enumeration value="1" />
+						</xs:restriction>
+					  </xs:simpleType>
+					</xs:element>
+                    <xs:element name="ACTION_NAME" type="xs:string" minOccurs="1" />
+                    <xs:element name="DUE_DAY" type="xs:integer" minOccurs="1" />
+                  </xs:all>
+                  <xs:attribute name="elem" type="xs:integer" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PROFILE_DATA_ARRAY" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="STRING_ID" type="xs:integer" minOccurs="1" />
+                    <xs:element name="VALUE" type="xs:string" minOccurs="1" />
+                  </xs:all>
+                  <xs:attribute name="elem" type="xs:integer" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="configName" type="xs:string" default="/config/collections/scenario" />
+      <xs:attribute name="configMode" type="xs:string" default="replaceAll" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

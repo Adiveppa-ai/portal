@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><adapter-config xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata" adapter="Oracle BRM Adapter" name="BRMCOLLECTIONSService">
+    <connection-factory UIConnectionName="" adapterRef="" location="eis/BRM"/>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_ADD_ACTION" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_ADD_ACTION"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_ADD_ACTION.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_ASSIGN_AGENT" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_ASSIGN_AGENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_ASSIGN_AGENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_CREATE" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_CREATE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_CREATE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_DELETE" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_DELETE"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_DELETE.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_MODIFY" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_MODIFY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_MODIFY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_GROUP_SET_PARENT" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_GROUP_SET_PARENT"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_GROUP_SET_PARENT.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_REPLACE_SCENARIO" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_REPLACE_SCENARIO"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_REPLACE_SCENARIO.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_SET_ACTION_STATUS" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_SET_ACTION_STATUS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_SET_ACTION_STATUS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+    <endpoint-interaction operation="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS" portType="BRMCOLLECTIONSService_ptt">
+        <interaction-spec className="oracle.tip.adapter.brm.BRMInteractionSpec">
+            <property name="OpcodeName" value="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS"/>
+            <property name="OpcodeFlags" value="0"/>
+            <property name="OpcodeSchema" value="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS.xsd"/>
+            <property name="ValidationAttr" value="ValidationRequired"/>
+        </interaction-spec>
+    </endpoint-interaction>
+</adapter-config>

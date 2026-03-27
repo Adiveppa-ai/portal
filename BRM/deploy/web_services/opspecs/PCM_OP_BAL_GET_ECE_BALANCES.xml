@@ -1,0 +1,147 @@
+<!--  $Header: bus_platform_vob/financial/opcodes/fm_bal/op_specs/PCM_OP_BAL_GET_ECE_BALANCES.xml /cgbubrm_7.5.0.portalbase/2 2016/06/01 22:58:54 kpramod Exp $ -->
+<!-- 
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates. All rights reserved.
+
+   NAME
+     PCM_OP_BAL_GET_ECE_BALANCES.xml
+
+   DESCRIPTION
+     Describes the input and output specifications.
+
+   NOTES
+     Call to this opcode is redirected to ECE via EM Gateway.
+
+   MODIFIED   (MM/DD/YY)
+   kpramod     05/10/16 - Changing BALANCES to BAL_IMPACTS matching actual
+                          implementation.
+   kpramod     08/01/14 - Creation
+
+-->
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_BAL_GET_ECE_BALANCES" visibility="public" transaction="required" component="fm_bal" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc> This opcode returns the balances from ECE. </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Service poid - needed for identifying the product type in ECE.</Doc>
+        <ClassRef>obj://service</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_LOGIN" use="required">
+        <Doc>The login or alias to use as the public user identity in ECE.</Doc>
+      </String>
+      <Timestamp name="PIN_FLD_START_T" use="required">
+        <Doc>Start time to use to fetch balances.</Doc>
+      </Timestamp>
+      <String name="PIN_FLD_TIME_ZONE_ID" use="optional">
+        <Doc>Time zone in String format e.g "UTC","America/Los_Angeles". Default is "UTC".</Doc>
+      </String>
+      <Enum name="PIN_FLD_MODE" use="optional">
+        <Doc>Indicates if summary balances (0- default) or detailed balances (1) should be returned</Doc>
+        <Values>
+          <Value>0</Value>
+          <Doc>Balance Summary Mode</Doc>
+        </Values>
+        <Values>
+          <Value>1</Value>
+          <Doc>Balance Detail Mode</Doc>
+        </Values>
+      </Enum>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Service poid - needed for identifying the product type in ECE</Doc>
+        <ClassRef>obj://service</ClassRef>
+      </Poid>
+      <Enum name="PIN_FLD_MODE" use="optional">
+        <Doc>indicates if summary balances (0- default) or detailed balances (1) should be returned</Doc>
+        <Values>
+          <Value>0</Value>
+          <Doc>Balance Summary Mode</Doc>
+        </Values>
+        <Values>
+          <Value>1</Value>
+          <Doc>Balance Detail Mode</Doc>
+        </Values>
+      </Enum>
+      <Array name="PIN_FLD_BAL_IMPACTS" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="true" isRecursive="false">
+        <Doc> Array id represents the resource id.</Doc>
+        <Fields>
+          <Decimal name="PIN_FLD_CURRENT_BAL" use="required">
+            <Doc>This field represents the total of the current sub balance</Doc>
+          </Decimal>
+          <Int name="PIN_FLD_CREDIT_PROFILE" use="optional">
+            <Doc> credit profile for the resource.</Doc>
+          </Int>
+          <Decimal name="PIN_FLD_CREDIT_FLOOR" use="optional">
+            <Doc>This field represents the credit floor</Doc>
+          </Decimal>
+          <Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+            <Doc>This field represents the credit limit</Doc>
+          </Decimal>
+          <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="true" isRecursive="false">
+            <Doc> List of percentage credit thresholds.</Doc>
+            <Fields>
+              <Int name="PIN_FLD_CREDIT_THRESHOLDS" use="optional">
+                <Doc> Percentage credit threshold.</Doc>
+              </Int>
+            </Fields>
+          </Array>
+          <Array name="PIN_FLD_THRESHOLDS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="true" isRecursive="false">
+            <Doc> List of fixed credit thresholds.</Doc>
+            <Fields>
+              <String name="PIN_FLD_CREDIT_THRESHOLDS_FIXED" use="optional">
+                <Doc> Fixed credit threshold.</Doc>
+              </String>
+            </Fields>
+          </Array>
+          <Array name="PIN_FLD_SUB_BAL_IMPACTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+            <Doc>Array to hold sub balance validity information.</Doc>
+            <Fields>
+              <Timestamp name="PIN_FLD_VALID_TO" use="optional">
+                <Doc>End time for validity of sub-balance item</Doc>
+              </Timestamp>
+              <Timestamp name="PIN_FLD_VALID_FROM" use="optional">
+                <Doc>Start time for validity of sub-balance item </Doc>
+              </Timestamp>
+              <Decimal name="PIN_FLD_AMOUNT" use="required">
+                <Doc> Current balance amount</Doc>
+              </Decimal>
+              <Decimal name="PIN_FLD_GRANTED_BAL" use="optional">
+                <Doc> Granted balance amount</Doc>
+              </Decimal>
+              <Decimal name="PIN_FLD_RESERVED_AMOUNT" use="required">
+                <Doc> Active reservation </Doc>
+              </Decimal>
+              <Decimal name="PIN_FLD_CONSUMED_RESERVED_AMOUNT" use="required">
+                <Doc> Consumed reservation amount</Doc>
+              </Decimal>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

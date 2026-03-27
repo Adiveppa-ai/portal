@@ -1,0 +1,264 @@
+//==============================================================================
+//
+// Copyright (c) 1996, 2013, Oracle and/or its affiliates. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+
+include "ISC_TAP_0312_Include.isc";
+String  transId;
+
+function onBeginTransaction
+{
+
+  transId = longToStr(decimalToLong(edrDecimal(INTERNAL.TRANSACTION_ID)));
+}
+
+
+function onDetailEdr
+{
+  String myContext = "DETAIL";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  childContext = myContext + "." + "mobileOriginatedCall";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMobileOriginatedCall ( myContext, nMyIndices, "mobileOriginatedCall", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "mobileTerminatedCall";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMobileTerminatedCall ( myContext, nMyIndices, "mobileTerminatedCall", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "supplServiceEvent";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapSupplServiceEvent ( myContext, nMyIndices, "supplServiceEvent", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "serviceCentreUsage";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapServiceCentreUsage ( myContext, nMyIndices, "serviceCentreUsage", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "gprsCall";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapGprsCall ( myContext, nMyIndices, "gprsCall", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "contentTransaction";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapContentTransaction ( myContext, nMyIndices, "contentTransaction", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "locationService";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapLocationService ( myContext, nMyIndices, "locationService", 0 );                               
+  }                                                                                                          
+
+  childContext = myContext + "." + "messagingEvent";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMessagingEvent ( myContext, nMyIndices, "messagingEvent", 0 );                               
+  }
+  
+  childContext = myContext + "." + "mobileSession";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMobileSession ( myContext, nMyIndices, "mobileSession", 0 );                               
+  }
+  edrDate(DETAIL.CREATED_TIMESTAMP) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.NE_CHARGING_START_TIMESTAMP) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.NE_CHARGING_END_TIMESTAMP) = edrDate(DETAIL.CHARGING_END_TIMESTAMP);
+
+}
+
+
+// The code within onInvalidDetailEdr is the same as that in onDetailEdr
+// This is because we want the BusinessMapping to go through even if the 
+// Validation fails as the RAP Outgrammar relies on some of the Business
+// fields to populate some of the values in RAP file
+function onInvalidDetailEdr
+{
+  String myContext = "DETAIL";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  childContext = myContext + "." + "mobileOriginatedCall";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapMobileOriginatedCall ( myContext, nMyIndices, "mobileOriginatedCall", 0 );
+  }
+
+  childContext = myContext + "." + "mobileTerminatedCall";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapMobileTerminatedCall ( myContext, nMyIndices, "mobileTerminatedCall", 0 );
+  }
+
+  childContext = myContext + "." + "supplServiceEvent";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapSupplServiceEvent ( myContext, nMyIndices, "supplServiceEvent", 0 );
+  }
+
+  childContext = myContext + "." + "serviceCentreUsage";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapServiceCentreUsage ( myContext, nMyIndices, "serviceCentreUsage", 0 );
+  }
+
+  childContext = myContext + "." + "gprsCall";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapGprsCall ( myContext, nMyIndices, "gprsCall", 0 );
+  }
+
+  childContext = myContext + "." + "contentTransaction";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapContentTransaction ( myContext, nMyIndices, "contentTransaction", 0 );
+  }
+
+  childContext = myContext + "." + "locationService";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapLocationService ( myContext, nMyIndices, "locationService", 0 );
+  }
+
+  childContext = myContext + "." + "messagingEvent";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapMessagingEvent ( myContext, nMyIndices, "messagingEvent", 0 );
+  }
+
+  childContext = myContext + "." + "mobileSession";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapMobileSession ( myContext, nMyIndices, "mobileSession", 0 );
+  }
+  edrDate(DETAIL.CREATED_TIMESTAMP) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.NE_CHARGING_START_TIMESTAMP) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.NE_CHARGING_END_TIMESTAMP) = edrDate(DETAIL.CHARGING_END_TIMESTAMP);
+
+}
+
+function onHeaderEdr
+{
+  String myContext = "HEADER";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  initializeForNewHeader();
+  record_Type = record_Header;
+  edrString(HEADER.RECORD_TYPE) = type_HEADER;
+
+  edrString(HEADER.TRANS_ID) = transId;
+
+  childContext = myContext + "." + "notification";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapNotification ( myContext, nMyIndices, "notification", 0 );
+
+    edrLong(HEADER.RECORD_NUMBER) = 1;
+    edrString(HEADER.SENDER_COUNTRY_CODE) = "NOTIFICATION";
+  }
+
+  childContext = myContext + "." + "batchControlInfo";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapBatchControlInfo ( myContext, nMyIndices, "batchControlInfo", 0 );
+
+    records = records + 1;
+    edrLong(HEADER.RECORD_NUMBER) = records;
+  }
+
+  childContext = myContext + "." + "accountingInfo";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapAccountingInfo ( myContext, nMyIndices, "accountingInfo", 0 );
+  }
+
+  childContext = myContext + "." + "networkInfo";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapNetworkInfo ( myContext, nMyIndices, "networkInfo", 0 );
+  }
+
+  // for every stream, the default TelNnumber is different, built as <iac><cc>
+  defTelNumber = convertCli( "", "00", 0,
+                            NORM_NAC,
+                            calledNumberAnalysisIACarray[0], // NORM_IAC,
+                            calledNumberAnalysisCCarray[0], // NORM_CC,
+                            NORM_IAC_SIGN,
+                            NORM_NDC );
+
+  edrString(HEADER.ORIGIN_COUNTRY_CODE) = defTelNumber;
+  edrString(HEADER.SENDER_COUNTRY_CODE) = strSenderCountryCode;
+  edrString(HEADER.IAC_LIST) = getIacList();
+  edrString(HEADER.CC_LIST) = getCcList();
+
+  childContext = myContext + "." + "messageDescriptionInfo";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapMessageDescriptionInfoList ( myContext, nMyIndices, "messageDescriptionInfo", 0 );
+  }
+}
+
+function onTrailerEdr
+{
+  String myContext = "TRAILER";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  record_Type = record_Trailer;
+  edrString(TRAILER.RECORD_TYPE)                     = type_TRAILER;
+  edrString(TRAILER.SENDER)                          = theSender;
+  edrString(TRAILER.RECIPIENT)                       = theRecipient;
+  edrLong(TRAILER.SEQUENCE_NUMBER)                   = theFileSeqNum;
+  edrLong(TRAILER.ORIGIN_SEQUENCE_NUMBER)            = theOrigFileSeqNum;
+
+  childContext = myContext + "." + "auditControlInfo";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    if (edrAddDatablock(TRAILER.TOTAL_CHARGE_VALUE_LIST) == false)
+    {
+      edrAddError( "ERR_EDR_ADD_DATABLOCK", 4 );
+    }
+    if (edrAddDatablock(TRAILER.ASS_ROAMING_EXT) == false)
+    {
+      edrAddError( "ERR_EDR_ADD_DATABLOCK", 4 );
+    }
+
+    mapAuditControlInfo ( myContext, nMyIndices, "auditControlInfo", 0 );
+
+    addUtcTimeOffsetCodes();
+    addRecEntityCodes();
+
+    records = records + 1;
+    edrLong(TRAILER.RECORD_NUMBER)                     = records;
+    edrLong(TRAILER.TOTAL_NUMBER_OF_RECORDS)           = details;
+  }
+
+  else
+  {
+    // if the trailer EDR does not contain auditControlInfo block
+    // it means that it was a notification TAP file
+    edrLong(TRAILER.RECORD_NUMBER)                     = 2;
+    edrLong(TRAILER.TOTAL_NUMBER_OF_RECORDS)           = 0;
+    edrDate(TRAILER.FIRST_START_TIMESTAMP)             = strToDate(theFileCreationTimeStamp);
+    edrString(TRAILER.FIRST_CHARGING_UTC_TIME_OFFSET)  = theFileCreationUtcTimeOffset;
+    edrDate(TRAILER.LAST_START_TIMESTAMP)              = strToDate(theFileCreationTimeStamp);
+    edrString(TRAILER.LAST_CHARGING_UTC_TIME_OFFSET)   = theFileCreationUtcTimeOffset;
+  }
+}

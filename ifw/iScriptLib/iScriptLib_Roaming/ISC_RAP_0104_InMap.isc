@@ -1,0 +1,1054 @@
+//==============================================================================
+//
+// Copyright (c) 2009, Oracle and/or its affiliates. All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+
+include "ISC_TAP_0311_Include.isc";
+                                                                                                                                                                    
+function mapOperatorSpecList ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+                                                                                                             
+  String childContext     = myContext + "." + "OperatorSpecInformation_Elem";                                       
+  Long OperatorSpecListEntries = edrNumDatablocksEx( childContext, indices, nMyIndices );                   
+  Long i;                                                                                                    
+  for( i = 0; i < OperatorSpecListEntries; i = i + 1 )                                                      
+  {                                                                                                          
+    indices[nMyIndices] = i;                                                                                 
+    Long nChildIndices  = nMyIndices + 1;                                                                    
+    mapOperatorSpecInformation ( childContext, nChildIndices, "OperatorSpecInformation", 0 );                         
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapAckFileAvailableTimeStamp ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "localTimeStamp";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapLocalTimeStamp ( myContext, nMyIndices, "localTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "utcTimeOffset";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapUtcTimeOffset ( myContext, nMyIndices, "utcTimeOffset", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapAckFileCreationTimeStamp ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "localTimeStamp";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapLocalTimeStamp ( myContext, nMyIndices, "localTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "utcTimeOffset";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapUtcTimeOffset ( myContext, nMyIndices, "utcTimeOffset", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapAcknowledgement ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "sender";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapSender ( myContext, nMyIndices, "sender", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "recipient";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRecipient ( myContext, nMyIndices, "recipient", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapFileSequenceNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRapFileSequenceNumber ( myContext, nMyIndices, "rapFileSequenceNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "ackFileCreationTimeStamp";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapAckFileCreationTimeStamp ( myContext, nMyIndices, "ackFileCreationTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "ackFileAvailableTimeStamp";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapAckFileAvailableTimeStamp ( myContext, nMyIndices, "ackFileAvailableTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "fileTypeIndicator";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapFileTypeIndicator ( myContext, nMyIndices, "fileTypeIndicator", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "operatorSpecList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapOperatorSpecList ( myContext, nMyIndices, "operatorSpecList", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapTotalSevereReturnTax ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+
+function mapReturnDetailsCount ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapTotalSevereReturnValue ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapSevereReturnValue ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapReturnSummary ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "fileSequenceNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapFileSequenceNumber ( myContext, nMyIndices, "fileSequenceNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "severeReturnValue";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapSevereReturnValue ( myContext, nMyIndices, "severeReturnValue", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapReturnSummaryList ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+                                                                                                             
+  String childContext     = myContext + "." + "ReturnSummary";                                            
+  Long ReturnSummaryListEntries = edrNumDatablocksEx( childContext, indices, nMyIndices );                   
+  Long i;                                                                                                    
+  for( i = 0; i < ReturnSummaryListEntries; i = i + 1 )                                                      
+  {                                                                                                          
+    mapReturnSummary ( myContext, nMyIndices, "ReturnSummary", i );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapRapAuditControlInfo ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "returnSummaryList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapReturnSummaryList ( myContext, nMyIndices, "returnSummaryList", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "totalSevereReturnValue";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapTotalSevereReturnValue ( myContext, nMyIndices, "totalSevereReturnValue", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "returnDetailsCount";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapReturnDetailsCount ( myContext, nMyIndices, "returnDetailsCount", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "operatorSpecList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapOperatorSpecList ( myContext, nMyIndices, "operatorSpecList", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "totalSevereReturnTax";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapTotalSevereReturnTax ( myContext, nMyIndices, "totalSevereReturnTax", 0 );                 
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapErrorCode ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapItemOffset ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapItemLevel ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapItemOccurrence ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapPathItemId ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapErrorContext ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "pathItemId";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapPathItemId ( myContext, nMyIndices, "pathItemId", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "itemOccurrence";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapItemOccurrence ( myContext, nMyIndices, "itemOccurrence", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "itemLevel";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapItemLevel ( myContext, nMyIndices, "itemLevel", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapErrorContextList ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+                                                                                                             
+  String childContext     = myContext + "." + "ErrorContext";                                            
+  Long ErrorContextListEntries = edrNumDatablocksEx( childContext, indices, nMyIndices );                   
+  Long i;                                                                                                    
+  for( i = 0; i < ErrorContextListEntries; i = i + 1 )                                                      
+  {                                                                                                          
+    mapErrorContext ( myContext, nMyIndices, "ErrorContext", i );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapErrorDetail ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "errorContext";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorContextList ( myContext, nMyIndices, "errorContext", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "itemOffset";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapItemOffset ( myContext, nMyIndices, "itemOffset", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorCode";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapErrorCode ( myContext, nMyIndices, "errorCode", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapErrorDetailList ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+                                                                                                             
+  String childContext     = myContext + "." + "ErrorDetail";                                            
+  Long ErrorDetailListEntries = edrNumDatablocksEx( childContext, indices, nMyIndices );                   
+  Long i;                                                                                                    
+  for( i = 0; i < ErrorDetailListEntries; i = i + 1 )                                                      
+  {                                                                                                          
+    mapErrorDetail ( myContext, nMyIndices, "ErrorDetail", i );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapSevereReturn ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+
+  createNewRapDetail(SEVERE);
+  edrString(DETAIL.ASS_ROAMING_EXT.RAP_RECORD_TYPE, 0) = SEVERE;
+
+  childContext = myContext + "." + "fileSequenceNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapFileSequenceNumber ( myContext, nMyIndices, "fileSequenceNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //childContext = myContext + "." + "callEventDetail";                                                       
+  //if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  //{                                                                                                          
+  //  mapCallEventDetail ( myContext, nMyIndices, "callEventDetail", 0 );                               
+  //}                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "operatorSpecList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapOperatorSpecList ( myContext, nMyIndices, "operatorSpecList", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  edrLong(DETAIL.ASS_ROAMING_EXT.TAP_FILE_SEQ_NO, 0) = theFileSeqNum;
+  if ( edrString(DETAIL.SOURCE_NETWORK) == "" )
+  {
+    edrString(DETAIL.SOURCE_NETWORK) = headerSender;
+  }
+
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapAuditControlInfoError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "auditControlInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapAuditControlInfo ( myContext, nMyIndices, "auditControlInfo", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapMessageDescriptionError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "messageDescriptionInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMessageDescriptionInfoList ( myContext, nMyIndices, "messageDescriptionInfo", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapNetworkInfoError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "networkInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapNetworkInfo ( myContext, nMyIndices, "networkInfo", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapAccountingInfoError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "accountingInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapAccountingInfo ( myContext, nMyIndices, "accountingInfo", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapBatchControlError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "batchControlInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapBatchControlInfo ( myContext, nMyIndices, "batchControlInfo", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+
+function mapNotificationError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "notification";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapNotification ( myContext, nMyIndices, "notification", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapTransferBatchError ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+  
+  return; // just return, there is no need to map this block to any business fields, it is just for information and the staging fields solve that purpose
+                                                                                                             
+  childContext = myContext + "." + "errorDetail";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapErrorDetailList ( myContext, nMyIndices, "errorDetail", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapFatalReturn ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  createNewRapDetail(FATAL);
+  edrString(DETAIL.ASS_ROAMING_EXT.RAP_RECORD_TYPE, 0) = FATAL;
+
+  childContext = myContext + "." + "fileSequenceNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapFileSequenceNumber ( myContext, nMyIndices, "fileSequenceNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "transferBatchError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapTransferBatchError ( myContext, nMyIndices, "transferBatchError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "notificationError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapNotificationError ( myContext, nMyIndices, "notificationError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "batchControlError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapBatchControlError ( myContext, nMyIndices, "batchControlError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "accountingInfoError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapAccountingInfoError ( myContext, nMyIndices, "accountingInfoError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "networkInfoError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapNetworkInfoError ( myContext, nMyIndices, "networkInfoError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "messageDescriptionError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMessageDescriptionError ( myContext, nMyIndices, "messageDescriptionError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "auditControlInfoError";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapAuditControlInfoError ( myContext, nMyIndices, "auditControlInfoError", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "operatorSpecList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapOperatorSpecList ( myContext, nMyIndices, "operatorSpecList", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapEndMissingSeqNumber ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+
+  endSeqNum = strToLong(edrStringEx( myContext, indices, nParentIndices ));
+  edrLong(DETAIL.ASS_ROAMING_EXT.END_MISSING_SEQ_NUM, 0) = endSeqNum;
+  
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + edrStringEx( myContext, indices, nParentIndices ) + "\n");                     
+}                                                                                                            
+                                                                                                             
+function mapStartMissingSeqNumber ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+
+  startSeqNum = strToLong(edrStringEx( myContext, indices, nParentIndices ));
+  edrLong(DETAIL.ASS_ROAMING_EXT.START_MISSING_SEQ_NUM, 0) = startSeqNum;
+  
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + edrStringEx( myContext, indices, nParentIndices ) + "\n");                     
+}                                                                                                            
+                                                                                                             
+function mapMissingReturn ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+
+  createNewRapDetail(MISSING);
+  edrString(DETAIL.ASS_ROAMING_EXT.RAP_RECORD_TYPE, 0) = MISSING;
+  startSeqNum = 0;
+  endSeqNum   = 0;
+  
+  childContext = myContext + "." + "startMissingSeqNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapStartMissingSeqNumber ( myContext, nMyIndices, "startMissingSeqNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "endMissingSeqNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapEndMissingSeqNumber ( myContext, nMyIndices, "endMissingSeqNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "operatorSpecList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapOperatorSpecList ( myContext, nMyIndices, "operatorSpecList", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapReturnDetail ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "missingReturn";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMissingReturn ( myContext, nMyIndices, "missingReturn", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "fatalReturn";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapFatalReturn ( myContext, nMyIndices, "fatalReturn", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "severeReturn";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapSevereReturn ( myContext, nMyIndices, "severeReturn", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapReturnDetailList ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+                                                                                                             
+  String childContext     = myContext + "." + "ReturnDetail";                                            
+  Long ReturnDetailListEntries = edrNumDatablocksEx( childContext, indices, nMyIndices );                   
+  Long i;                                                                                                    
+  for( i = 0; i < ReturnDetailListEntries; i = i + 1 )                                                      
+  {                                                                                                          
+    mapReturnDetail ( myContext, nMyIndices, "ReturnDetail", i );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapRoamingPartner ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + edrStringEx( myContext, indices, nParentIndices ) + "\n");                     
+}                                                                                                            
+                                                                                                             
+function mapRapReleaseVersionNumber ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapRapSpecificationVersionNumber ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext = parentContext + "." + child;                                                          
+                                                                                                             
+  //logContext( myContext, nParentIndices );                                                                   
+  //logStdout( "Value: " + longToStr(edrLongEx( myContext, indices, nParentIndices )) + "\n");            
+}                                                                                                            
+                                                                                                             
+function mapRapFileAvailableTimeStamp ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "localTimeStamp";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapLocalTimeStamp ( myContext, nMyIndices, "localTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "utcTimeOffset";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapUtcTimeOffset ( myContext, nMyIndices, "utcTimeOffset", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapRapFileCreationTimeStamp ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "localTimeStamp";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapLocalTimeStamp ( myContext, nMyIndices, "localTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "utcTimeOffset";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapUtcTimeOffset ( myContext, nMyIndices, "utcTimeOffset", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapRapBatchControlInfo ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "sender";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapSender ( myContext, nMyIndices, "sender", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "recipient";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRecipient ( myContext, nMyIndices, "recipient", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapFileSequenceNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRapFileSequenceNumber ( myContext, nMyIndices, "rapFileSequenceNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapFileCreationTimeStamp";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapRapFileCreationTimeStamp ( myContext, nMyIndices, "rapFileCreationTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapFileAvailableTimeStamp";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapRapFileAvailableTimeStamp ( myContext, nMyIndices, "rapFileAvailableTimeStamp", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "specificationVersionNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapSpecificationVersionNumber ( myContext, nMyIndices, "specificationVersionNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "releaseVersionNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapReleaseVersionNumber ( myContext, nMyIndices, "releaseVersionNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapSpecificationVersionNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRapSpecificationVersionNumber ( myContext, nMyIndices, "rapSpecificationVersionNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapReleaseVersionNumber";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRapReleaseVersionNumber ( myContext, nMyIndices, "rapReleaseVersionNumber", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "fileTypeIndicator";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapFileTypeIndicator ( myContext, nMyIndices, "fileTypeIndicator", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "roamingPartner";                                                       
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )                            
+  {                                                                                                          
+    mapRoamingPartner ( myContext, nMyIndices, "roamingPartner", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "operatorSpecList";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapOperatorSpecList ( myContext, nMyIndices, "operatorSpecList", 0 );                               
+  }                                                                                                          
+      
+  childContext = myContext + "." + "tapDecimalPlaces";
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )
+  {
+    mapTapDecimalPlaces ( myContext, nMyIndices, "tapDecimalPlaces", 0 );
+  }
+
+  childContext = myContext + "." + "tapCurrency";
+  if ( edrInternalStateEx( childContext, indices, nMyIndices ) != STATE_CLEARED )
+  {
+    mapTapCurrency ( myContext, nMyIndices, "tapCurrency", 0 );
+  }
+                                                                                                       
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+                                                                                                             
+function mapReturnBatch ( String parentContext, Long nParentIndices, String child, Long childIndex )   
+{                                                                                                            
+  String myContext        = parentContext + "." + child;                                                   
+  indices[nParentIndices] = childIndex;                                                                      
+  Long nMyIndices         = nParentIndices + 1;                                                              
+  String childContext;                                                                                       
+                                                                                                             
+  childContext = myContext + "." + "rapBatchControlInfoRap";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapRapBatchControlInfo ( myContext, nMyIndices, "rapBatchControlInfoRap", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "returnDetails";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapReturnDetailList ( myContext, nMyIndices, "returnDetails", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "rapAuditControlInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapRapAuditControlInfo ( myContext, nMyIndices, "rapAuditControlInfo", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  //logContext( myContext, nMyIndices );                                                                       
+}                                                                                                            
+
+
+function onDetailEdr
+{
+  String myContext = "DETAIL";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  childContext = myContext + "." + "missingReturn";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMissingReturn ( myContext, nMyIndices, "missingReturn", 0 );                               
+    return;
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "fatalReturn";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapFatalReturn ( myContext, nMyIndices, "fatalReturn", 0 );                               
+    return;
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "severeReturn";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapSevereReturn ( myContext, nMyIndices, "severeReturn", 0 );                               
+  }                                                                                                          
+  
+  childContext = myContext + "." + "mobileOriginatedCall";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMobileOriginatedCall ( myContext, nMyIndices, "mobileOriginatedCall", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "mobileTerminatedCall";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapMobileTerminatedCall ( myContext, nMyIndices, "mobileTerminatedCall", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "supplServiceEvent";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapSupplServiceEvent ( myContext, nMyIndices, "supplServiceEvent", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "serviceCentreUsage";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapServiceCentreUsage ( myContext, nMyIndices, "serviceCentreUsage", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "gprsCall";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapGprsCall ( myContext, nMyIndices, "gprsCall", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "contentTransaction";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapContentTransaction ( myContext, nMyIndices, "contentTransaction", 0 );                               
+  }                                                                                                          
+                                                                                                             
+  childContext = myContext + "." + "locationService";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapLocationService ( myContext, nMyIndices, "locationService", 0 );                               
+  }                                                                                                          
+
+  edrDate(DETAIL.CREATED_TIMESTAMP) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.NE_CHARGING_START_TIMESTAMP) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.NE_CHARGING_END_TIMESTAMP) = edrDate(DETAIL.CHARGING_END_TIMESTAMP);
+}
+
+function onHeaderEdr
+{
+  String myContext = "HEADER";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  initializeForNewHeader();
+
+  childContext = myContext + "." + "acknowledgement";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapAcknowledgement ( myContext, nMyIndices, "acknowledgement", 0 );
+
+    edrString(HEADER.RECORD_TYPE) = "000";
+    edrLong(HEADER.RECORD_NUMBER) = 1;
+  }
+
+  childContext = myContext + "." + "rapBatchControlInfoRap";
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )
+  {
+    mapRapBatchControlInfo ( myContext, nMyIndices, "rapBatchControlInfoRap", 0 );
+
+    edrString(HEADER.RECORD_TYPE) = type_HEADER;
+    edrLong(HEADER.RECORD_NUMBER) = 1;
+  }
+}
+
+function onTrailerEdr
+{
+  String myContext = "TRAILER";
+  Long  nMyIndices = 0;
+  String childContext;
+
+  childContext = myContext + "." + "rapAuditControlInfo";                                                       
+  if ( edrNumDatablocksEx( childContext, indices, nMyIndices ) > 0 )                                         
+  {                                                                                                          
+    mapRapAuditControlInfo ( myContext, nMyIndices, "rapAuditControlInfo", 0 );                               
+  }                                                                                                          
+
+  else
+  {
+    // if the trailer EDR does not contain rapAuditControlInfo block
+    // it means that it was a acknowledgement RAP file
+  }
+}
+
+function onStartEdr
+{
+  processingRAPIN();
+}

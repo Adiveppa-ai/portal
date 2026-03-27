@@ -1,0 +1,164 @@
+/*
+* Copyright (c) 2004, 2024, Oracle and/or its affiliates.
+ *      This material is the confidential property of Oracle Corporation
+ *      or its licensors and may be used, reproduced, stored or transmitted
+ *      only in accordance with a valid Oracle license or sublicense agreement.
+ */
+
+
+##############################################################################
+# Pre-process Configuration 
+##############################################################################
+infranet.cmt.noofrecords	= 1
+infranet.cmt.avgnoofservices	= 5
+infranet.cmt.avgnoofdevices	= 2
+infranet.cmt.ctlfldseparator	= ,
+infranet.cmt.preprocess.validation = false
+infranet.cmt.preprocess.num_of_threads = 5
+infranet.cmt.file.location = ${PIN_HOME}/cmt/input_files/
+infranet.cmt.schema.location=${PIN_HOME}/apps/cmt/schema_files/physical
+infranet.cmt.datfile.location = ${PIN_HOME}/cmt/data_files
+infranet.cmt.ctlfile.location = ${PIN_HOME}/cmt/ctl_files
+infranet.cmt.glid = 0
+infranet.cmt.creditprofile = 102
+infranet.cmt.item_update = true
+infranet.cmt.31daybilling = true
+infranet.cmt.31daybilling.forward = true
+infranet.cmt.billingdelay = false
+infranet.cmt.uselegacybalances = false
+
+
+##############################################################################
+# Staged DB Configuration 
+##############################################################################
+infranet.cmt.dbnumber		= 0.0.0.5
+infranet.cmt.dbname		= dbname
+infranet.cmt.userid		= pin
+
+
+##############################################################################
+# StagingDb Connection Pooling Configuration
+##############################################################################
+infranet.cmt.minconns          = 15
+infranet.cmt.maxconns          = 30
+infranet.cmt.timeout           = 1000
+
+
+##############################################################################
+# Primary DB Configuration 
+##############################################################################
+infranet.cmt.primarydbname		= pindb 
+infranet.cmt.primarydbuserid		= pin 
+infranet.cmt.primarydbnumber		= 0.0.0.2
+
+
+##############################################################################
+# Target DB Configuration 
+##############################################################################
+infranet.cmt.targetdbnumber		= 0.0.0.1
+
+
+##############################################################################
+# Change the following line to include userid, password and address 
+# of infranet CM. CMT logs on to infranet CM as this specified user.
+##############################################################################
+
+
+##############################################################################
+# Default log file configuration
+# infranet.log.name defines the name of the application
+# infranet.log.level defines the log level (1=Error; 2=Warning; 3=Debug)
+# Change infranet.login.type line only if you need a different login type
+##############################################################################
+infranet.login.type=1
+infranet.log.file = cmt.pinlog
+infranet.log.name = CMT
+infranet.log.level = 3
+infranet.log.logallebuf = true
+
+
+##############################################################################
+# Loader Configuration
+# infranet.cmt.dbtype defines the type of the database
+# infranet.cmt.loaders defines the main tables loader configuration
+# infranet.cmt.auditloaders defines the audit tables loader configuration
+##############################################################################
+infranet.cmt.dbtype = ORACLE
+infranet.cmt.sqlldr = sqlldr 
+
+infranet.cmt.loaders = account_t; account_nameinfo_t; purchased_product_t; account_phones_t; purchased_discount_t; account_exemptions_t; service_t; service_alias_list_t; billinfo_t; bill_t; item_t; event_t; device_t; device_sim_t; device_num_t; device_services_t; offering_override_t; offering_override_usagemap_t; offering_override_usagemap_buf; profile_t; profile_acct_extrating_data_t; profile_serv_extrating_data_t; profile_serv_extrating_t; payinfo_t; payinfo_inv_t; payinfo_cc_t; payinfo_dd_t; group_t; group_permitteds_t; group_sharing_members_t; group_sharing_charges_t; group_sharing_discounts_t; group_sharing_products_t; group_sharing_profiles_t; group_billing_members_t; bal_grp_t; bal_grp_bals_t; bal_grp_sub_bals_t; ordered_groups_t; ordered_balgroup_t; service_telco_features_t; service_telco_t; service_telco_gsm_t; event_bal_impacts_t; event_essentials_t; journal_t; cmt_reference_t; purchased_product_cycle_fees_t; purchased_bundle_t;event_t_virtual;event_bal_impacts_t_virtual;cmt_balances_t;cmt_balances_bal_t; profile_loan_t; profile_loan_limit_t; event_billing_loan_fee_t; event_billing_loan_debit_t;subscriber_contract_t;revenue_distribution_t;
+
+infranet.cmt.auditloaders = account_t; purchased_product_t; purchased_discount_t; service_t ; service_alias_list_t; group_t; group_sharing_charges_t; group_sharing_discounts_t; group_sharing_products_t; group_sharing_profiles_t; bal_grp_t; ordered_groups_t; ordered_balgroup_t; profile_t; profile_acct_extrating_data_t; profile_serv_extrating_data_t; profile_serv_extrating_t; purchased_product_cycle_fees_t; purchased_bundle_t; profile_loan_t; profile_loan_limit_t; billinfo_t;
+
+##############################################################################
+# Partition Configuration
+#
+# infranet.cmt.timestampvalidation defines the mode of validation for the 
+# timestamp to be encoded in the poid for a finite partitioned class.
+#
+# The value 0 indicates that no timestamp validations are performed. If 
+# created_t is provided it would be used otherwise current system time would 
+# be used for a finite partitioned class.
+#
+# The value 1 indicates that created_t in the input XML file becomes
+# mandatory for any finite partitioned class. If not provided, CMT would 
+# report an error. This is the default mode.
+#
+# The value 2 indicates that default time to be used for poid encoding. If
+# created_t is provided for any finite partitioned class, CMT would throw 
+# an error.
+#
+# Please note that any value other than 0, 1 and 2 would be considered as 1.
+#
+##############################################################################
+infranet.cmt.timestampvalidation = 1
+
+##############################################################################
+# Deploy Configuration
+# infranet.cmt.deploy.opcode defines if CF opcode will be called or not the 
+# default value is true, a value false will result in no opcode being called.
+# infranet.cmt.deploy.num_of_threads defines the number of threads for deploy
+##############################################################################
+infranet.cmt.deploy.opcode=true
+infranet.cmt.deploy.num_of_threads=5
+
+##############################################################################
+# MultiDB Configuration
+# infranet.cmt.deploy.multidb defines the support
+# infranet.cmt.uniqloaders defines the uniqueness tables loader configuration
+##############################################################################
+infranet.cmt.deploy.multidb = false
+
+infranet.cmt.uniqloaders = uniqueness_t; au_uniqueness_t; unique_acct_no_t;
+
+##############################################################################
+# Setting this flag to false will migrate balances loaded through Balances xml
+# file into the existing account instead of deleting existing balances.
+# By default this is set to true
+##############################################################################
+infranet.cmt.deleteExistingBalances = true
+
+##############################################################################
+# To enable SSL, make sure to provide correct values for below config entries. e.g wallet location and filename etc.
+# following are sample values
+##############################################################################
+infranet.pcp.ssl.enabled = false
+infranet.pcp.ssl.wallet.location = /home/pin/opt/portal/BRM/wallet/client
+infranet.pcp.ssl.wallet.filename = cwallet.sso
+
+##############################################################################
+# DB SSL Configuration
+# client_auth is set to true for Two Way DB SSL Configuration
+# truststore and keystore passwords are needed only when the their filenames
+# are of type PKCS12
+##############################################################################
+infranet.cmt.db.ssl.enabled = false
+infranet.cmt.db.ssl.client_auth = false
+
+infranet.cmt.db.ssl.truststore.location = __DB_SSL_TRUSTSTORE_LOC__
+infranet.cmt.db.ssl.truststore.filename = cwallet.sso
+#infranet.cmt.db.ssl.truststore.password =
+
+infranet.cmt.db.ssl.keystore.location = __DB_SSL_KEYSTORE_LOC__ 
+infranet.cmt.db.ssl.keystore.filename = cwallet.sso
+#infranet.cmt.db.ssl.keystore.password =

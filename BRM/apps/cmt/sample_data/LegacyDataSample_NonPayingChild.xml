@@ -1,0 +1,254 @@
+<Sbsc xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.portal.com/InfranetXMLSchema  ../schema_files/physical/CMT_Subscribers.xsd">
+	<ActSbsc id="0.0.0.1-10004" parenRef="0.0.0.1-10002" payParenRef="0.0.0.1-10002">
+		<Act>
+			<ActNo>0.0.0.1-10004</ActNo>
+			<Curr>978</Curr>
+			<CustSegList/>
+			<SubSta>A</SubSta>
+			<BType>B</BType>
+			<Eff>2004-05-26T01:22:15-07:00</Eff>
+                        <AccCode1>10</AccCode1>
+                        <AccCode2>10</AccCode2>
+                        <GLSgmt>*</GLSgmt>
+                        <Locale>en_US</Locale>
+			<ANArr elem="1">
+				<Add>Jayanagar</Add>
+				<City>Bangalore</City>
+				<Comp>Ness</Comp>
+				<CntTyp>AccountHolder</CntTyp>
+				<Cnt>India</Cnt>
+				<EAdd>madhu@yahoo.com</EAdd>
+				<FNm>B</FNm>
+				<MNm>B</MNm>
+				<LNm>reddy</LNm>
+				<Sal>Mr</Sal>
+				<Stt>Karnataka</Stt>
+				<Tit>Engineer</Tit>
+				<Zip>560093</Zip>
+				<APhArr elem="1">
+					<Ph>465522672</Ph>
+					<PhTyp>H</PhTyp>
+				</APhArr>
+			</ANArr>
+			<AEArr>
+				<CertNum>CertificateNum</CertNum>
+				<End>2010-02-02T01:22:15-07:00</End>
+				<Perc>2</Perc>
+				<Str>2004-05-26T01:22:15-07:00</Str>
+				<Typ>FED</Typ>
+			</AEArr>
+		</Act>
+		<ActSub>
+			<ActSrv id="10004" type="/service/telco/gsm/telephony" precreate="/item/misc" global="true" bal_grp="true" billInfoElem="1">
+				<Log>159-20040202-210004-0-24083-1-zion</Log>
+				<Pass>md5|5f4dcc3b5aa765d61d8327deb882cf99</Pass>
+				<SrvSta>A</SrvSta>
+				<Eff>2004-05-26T01:22:15-07:00</Eff>
+				<ServId>MyGSMTelephonyService</ServId>
+				<SrvALArr elem="1">
+					<Nam>00491110004</Nam>
+				</SrvALArr>
+				<SrvALArr elem="2">
+					<Nam>000000000810004</Nam>
+				</SrvALArr>
+				<SrvGSDisc id="30001" global="true" pkgId="43532" numOfChlds="1">
+					<DiscInfo pkgId="43532">
+						<DisObj>0.0.0.1 /discount 11285 0</DisObj>
+					</DiscInfo>
+					<Eff>2004-05-26T01:22:15-07:00</Eff>
+				</SrvGSDisc>
+				<SrvGSChrg id="773" global="true">
+					<SpnsObj>0.0.0.1 /sponsorship 2222 0</SpnsObj>
+					<Eff>2004-05-26T01:22:15-07:00</Eff>
+				</SrvGSChrg>
+				<SMOGrpDis>
+				      <DGRef>30001</DGRef>
+				</SMOGrpDis>
+				<DevRefArr>
+					<DevRef>10004</DevRef>
+				</DevRefArr>
+				<DevRefArr>
+					<DevRef>20004</DevRef>
+				</DevRefArr>
+				<SClsInfo>
+					<SrvTlcoGSMlExtn>
+						<Ftr>
+							<Nam>HOLD</Nam>
+							<FtrStat>A</FtrStat>
+						</Ftr>
+						<MSISDN>2</MSISDN>
+						<BSrv/>
+						<IMEI>IMEI</IMEI>
+					</SrvTlcoGSMlExtn>
+				</SClsInfo>
+				<SrvProm id="10004" type="/profile/serv_extrating" global="true">
+					<PrmNm>FRIENDS_FAMILY</PrmNm>
+					<Eff>2004-05-26T01:22:15-07:00</Eff>
+					<PrmSrvLvlExtn>
+						<SLPSta>A</SLPSta>
+						<Label>MY_FRIENDS</Label>
+						<SLPArr elem="1">
+							<Nam>NewDis</Nam>
+							<Val>1</Val>
+							<VldT>2006-02-02T01:22:15-07:00</VldT>
+							<VldF>2004-02-02T01:22:15-07:00</VldF>
+						</SLPArr>
+					</PrmSrvLvlExtn>
+				</SrvProm>
+			</ActSrv>
+		</ActSub>
+                <PurPrd id="10000" serviceRef="10004" pkgId="23141">
+                        <CDis>30</CDis>
+                        <CDisAmt>31</CDisAmt>
+                        <CFeeAmt>32</CFeeAmt>
+                        <CEnd>2012-02-02T01:22:15-07:00</CEnd>
+                        <CStrt>2004-05-26T01:22:15-07:00</CStrt>
+                        <DlObj>0.0.0.1 /deal 10197 0</DlObj>
+                        <PlObj>0.0.0.1 /plan 8245 0</PlObj>
+                        <PrObj>0.0.0.1 /product 10965 0</PrObj>
+                        <PuDis>30</PuDis>
+                        <PuDiscAmt>31</PuDiscAmt>
+                        <PuFAmt>32</PuFAmt>
+                        <PuEnd>2014-02-02T01:22:15-07:00</PuEnd>
+                        <PuStr>2004-05-26T01:22:15-07:00</PuStr>
+                        <PrSta>A</PrSta>
+			<Qnty>3</Qnty>
+                        <UsgDis>30</UsgDis>
+                        <UsgEnd>2012-02-02T01:22:15-07:00</UsgEnd>
+                        <UsgStr>2004-05-26T01:22:15-07:00</UsgStr>
+			<StFlags>OV</StFlags>
+			<EffctT>2004-05-26T01:22:15-07:00</EffctT>
+                </PurPrd>
+                <PurDis id="10001" serviceRef="10004" pkgId= "12532">
+                        <CEnd>2010-02-02T01:22:15-07:00</CEnd>
+                        <CStrt>2004-02-02T01:22:15-07:00</CStrt>
+                        <DObj>0.0.0.1 /deal 8725 0</DObj>
+                        <PlObj>0.0.0.1 /plan 9749 0</PlObj>
+                        <DisObj>0.0.0.1 /discount 11285 0</DisObj>
+                        <PurEnd>2010-02-02T01:22:15-07:00</PurEnd>
+                        <PurStr>2004-02-02T01:22:15-07:00</PurStr>
+                        <Qnty>1</Qnty>
+                        <DisStr>A</DisStr>
+                        <UsgEnd>2010-02-02T01:22:15-07:00</UsgEnd>
+                        <UsgStrt>2004-02-02T01:22:15-07:00</UsgStrt>
+			<EffctT>2004-05-26T01:22:15-07:00</EffctT>
+                </PurDis>
+                <PurPrd id="10002" serviceRef="10004" pkgId="65427"> 
+                        <CDis>30</CDis>
+                        <CDisAmt>31</CDisAmt>
+                        <CFeeAmt>32</CFeeAmt>
+                        <CEnd>2012-02-02T01:22:15-07:00</CEnd>
+                        <CStrt>2004-05-26T01:22:15-07:00</CStrt>
+                        <DlObj>0.0.0.1 /deal 10197 0</DlObj>
+                        <PlObj>0.0.0.1 /plan 8245 0</PlObj>
+                        <PrObj>0.0.0.1 /product 10965 0</PrObj>
+                        <PuDis>30</PuDis>
+                        <PuDiscAmt>31</PuDiscAmt>
+                        <PuFAmt>32</PuFAmt>
+                        <PuEnd>2014-02-02T01:22:15-07:00</PuEnd>
+                        <PuStr>2004-05-26T01:22:15-07:00</PuStr>
+                        <PrSta>A</PrSta>
+			<Qnty>2</Qnty>
+                        <UsgDis>30</UsgDis>
+                        <UsgEnd>2012-02-02T01:22:15-07:00</UsgEnd>
+                        <UsgStr>2004-05-26T01:22:15-07:00</UsgStr>
+			<EffctT>2004-05-26T01:22:15-07:00</EffctT>
+                </PurPrd>
+                <PurDis id="10003" serviceRef="10004" pkgId="43532">
+                        <CEnd>2010-02-02T01:22:15-07:00</CEnd>
+                        <CStrt>2004-02-02T01:22:15-07:00</CStrt>
+                        <DObj>0.0.0.1 /deal 8725 0</DObj>
+                        <PlObj>0.0.0.1 /plan 9749 0</PlObj>
+                        <DisObj>0.0.0.1 /discount 11285 0</DisObj>
+                        <PurEnd>2010-02-02T01:22:15-07:00</PurEnd>
+                        <PurStr>2004-02-02T01:22:15-07:00</PurStr>
+                        <Qnty>1</Qnty>
+                        <DisStr>A</DisStr>
+                        <UsgEnd>2010-02-02T01:22:15-07:00</UsgEnd>
+                        <UsgStrt>2004-02-02T01:22:15-07:00</UsgStrt>
+			<EffctT>2004-05-26T01:22:15-07:00</EffctT>
+                </PurDis>
+		<ActDev>
+			<DeviceInfo>
+				<Device id="10004" type="/device/num">
+					<DevId>00491110004</DevId>
+					<Src>source1</Src>
+					<Mnufr>Airtel1</Mnufr>
+					<Mdl>A4IR121</Mdl>
+                                        <StId>2</StId>
+				</Device>
+				<DevNum elem="1">
+					<CtgId>2</CtgId>
+					<CtgVer>3</CtgVer>
+					<NwElm>sample_network_element_1</NwElm>
+				</DevNum>
+			</DeviceInfo>
+			<DeviceInfo>
+				<Device id="20004" type="/device/sim">
+					<DevId>00490010004</DevId>
+					<Src>source2</Src>
+					<Mnufr>Airtel2</Mnufr>
+					<Mdl>A4IR124</Mdl>
+                                        <StId>5</StId>
+				</Device>
+				<DevSim elem="1">
+					<Imsi>000000000810004</Imsi>
+					<Pin1>1104</Pin1>
+					<Pin2>2104</Pin2>
+					<Puk1>38104</Puk1>
+					<Puk2>3726104</Puk2>
+					<Ki>1A73DFCD69F6E11DF3678DC81C9E8104</Ki>
+					<Adm1>23024104</Adm1>
+					<NwElm>sample_network_element_1</NwElm>
+				</DevSim>
+			</DeviceInfo>
+		</ActDev>
+		<ABinfo global="true" spnrCnt="1" spnreeCnt="0" elem="1">
+			<ACDom>26</ACDom>
+			<ActgType>B</ActgType>
+			<ANxt>2004-07-26T01:22:15-07:00</ANxt>
+			<BlWn>1</BlWn>
+			<BlSgmnt>RC</BlSgmnt>
+			<PTyp>NPC</PTyp>
+                        <BISta>A</BISta>
+			<ExmtFrmColl>A</ExmtFrmColl>
+                        <BIStaFlag>SBCA</BIStaFlag>
+                        <BillInfoId>MyBillId</BillInfoId>
+			<PendingRecv>50.56</PendingRecv>
+		</ABinfo>
+		<APinfo id="10004" type="/payinfo">
+			<DDom>26</DDom>
+			<RelDue>2004-05-26T01:22:15-07:00</RelDue>
+			<Ach>0</Ach>
+			<Name>MyPayinfo</Name>
+		</APinfo>
+		<ActProm id="10004" type="/profile/acct_extrating" global="true">
+			<PrmNm>SPECIAL_DAY</PrmNm>
+			<Eff>2004-05-26T01:22:15-07:00</Eff>
+			<PrmActLvlExtn>
+				<ALPArr elem="1">
+					<Nam>NewGRP</Nam>
+					<Val>1</Val>
+					<VldT>2006-02-02T01:22:15-07:00</VldT>
+					<VldF>2004-02-02T01:22:15-07:00</VldF>
+				</ALPArr>
+			</PrmActLvlExtn>
+		</ActProm>
+		<ActBal>
+			<ActBalArr parentRef="" serviceRef="10004" Resource="978" elem="1">
+				<BSBArr elem="1" grtObjRef="/purchased_product">
+					<CurBal>20</CurBal>
+					<VldFrm>2006-02-02T01:22:15-07:00</VldFrm>
+					<ValTo>2004-02-02T01:22:15-07:00</ValTo>
+					<GrtObj>10002</GrtObj>
+                                        <Cont></Cont>
+				</BSBArr>
+				<RsvAmt>12</RsvAmt>
+				<ConRule>ESTLET</ConRule>
+			</ActBalArr>
+		</ActBal>
+	</ActSbsc>
+	<SbscPrms>
+                <PlObj>0.0.0.1 /plan 8245 0</PlObj>
+        </SbscPrms>
+</Sbsc>

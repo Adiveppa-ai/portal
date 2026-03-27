@@ -1,0 +1,163 @@
+---
+---     Copyright (c) 2011 Oracle. All rights reserved.
+---     This material is the confidential property of Oracle Corporation
+---     or its licensors and may be used, reproduced, stored
+---     or transmitted only in accordance with a valid Oracle license or
+---     sublicense agreement.
+---
+
+create or replace PACKAGE BILLING_PROVIDER AS
+
+  type BPCursor IS ref CURSOR;
+    
+  FUNCTION REPORTDATA (pAccountNumber IN VARCHAR2,
+  pContentProvider IN VARCHAR2,
+  pCountry IN VARCHAR2,
+  pState IN VARCHAR2,
+  pStartDate IN VARCHAR2,
+  pEndDate IN VARCHAR2) RETURN BILLING_PROVIDER.BPCursor;
+  
+  END;
+/
+
+create or replace PACKAGE BODY BILLING_PROVIDER AS
+
+  FUNCTION REPORTDATA (pAccountNumber IN VARCHAR2,
+  pContentProvider IN VARCHAR2,
+  pCountry IN VARCHAR2,
+  pState IN VARCHAR2,
+  pStartDate IN VARCHAR2,
+  pEndDate IN VARCHAR2) 
+  RETURN BILLING_PROVIDER.BPCursor IS BPDataCursor BILLING_PROVIDER.BPCursor;
+  
+  -- Stores TT status
+  ttstatus INT;
+  
+  -- Number of rows inserted to Oracle Global TMP tables from JUDF after decompression 
+  iSuccess INT;
+  
+  -- Truncated SQL query with no subtables
+  TruncatedSQL varchar2(10000); 
+ 
+  PRAGMA AUTONOMOUS_TRANSACTION;
+  
+  BEGIN
+  
+  -- Truncated query with no subtables.
+TruncatedSQL:= 'SELECT EVENT_T.POID_ID0, EVENT_T.POID_TYPE, EVENT_T.POID_REV, EVENT_T.COMPACT_SUB_EVENT
+			   FROM (((((((("REMIT_CALC_T" "REMIT_CALC_T"
+				   INNER JOIN "REMIT_INFO_DETAIL_T" "REMIT_INFO_DETAIL_T" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" = "REMIT_INFO_DETAIL_T"."PROVIDER_ID_ID0")
+				   INNER JOIN "REMIT_CALC_DETAIL_T" "REMIT_CALC_DETAIL_T" ON ("REMIT_CALC_T"."POID_ID0" = "REMIT_CALC_DETAIL_T"."OBJ_ID0") AND ("REMIT_INFO_DETAIL_T"."PRODUCT_OBJ_ID0" = "REMIT_CALC_DETAIL_T"."PRODUCT_OBJ_ID0"))
+				   INNER JOIN "ACCOUNT_T" "ACCOUNT_T1" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" ="ACCOUNT_T1"."POID_ID0")
+				   INNER JOIN "EVENT_T" "EVENT_T1" ON "REMIT_CALC_DETAIL_T"."EVENT_OBJ_ID0" = "EVENT_T1"."POID_ID0")
+				   INNER JOIN "REMIT_INFO_T" "REMIT_INFO_T" ON "REMIT_INFO_DETAIL_T"."OBJ_ID0"="REMIT_INFO_T"."POID_ID0")
+				   INNER JOIN "EVENT_T" "EVENT_T" ON "REMIT_INFO_T"."EVENT_OBJ_ID0" ="EVENT_T"."POID_ID0")
+				   INNER JOIN "ITEM_T" "ITEM_T" ON "REMIT_INFO_T"."ITEM_OBJ_ID0" = "ITEM_T"."POID_ID0")
+				   INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0" = "ACCOUNT_T"."POID_ID0")
+				   INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0" = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+				   INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON "EVENT_T1"."CURRENCY" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+				   INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T1" ON "EVENT_T"."CURRENCY" = "CONFIG_BEID_BALANCES_T1"."REC_ID"
+			   WHERE "ACCOUNT_T"."POID_DB" > 0 AND "ACCOUNT_T"."POID_ID0" > 1
+				   AND "ACCOUNT_T"."ACCOUNT_NO" LIKE DECODE('''||pAccountNumber||''',''ALL'',''%'','''||pAccountNumber||''')
+				   AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL('''||pCountry||''',"ACCOUNT_NAMEINFO_T"."COUNTRY")
+				   AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL('''||pState||''', "ACCOUNT_NAMEINFO_T"."STATE")
+				   AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1 AND (BIPEXT.INFCHECKDATES('''||pStartDate||''','''||pEndDate||''') = 1
+				   AND ("EVENT_T"."END_T" >= BIPEXT.INFSTRTOTIMET('''||pStartDate||''',2) AND "EVENT_T"."END_T" <= BIPEXT.INFSTRTOTIMET('''||pEndDate||''',2)-1))
+				   AND DECODE("REMIT_CALC_T"."REMIT_TYPE", ''U'', "REMIT_INFO_T"."CREATED_T", ''P'', "ITEM_T"."CLOSED_T", ''B'', "ITEM_T"."EFFECTIVE_T") > "REMIT_CALC_T"."START_T"
+				   AND DECODE("REMIT_CALC_T"."REMIT_TYPE", ''U'', "REMIT_INFO_T"."CREATED_T", ''P'', "ITEM_T"."CLOSED_T", ''B'', "ITEM_T"."EFFECTIVE_T") < "REMIT_CALC_T"."END_T"
+				   AND EVENT_T.COMPACT_SUB_EVENT like ''%''';
+   -- Query for TT or NON-TT environment
+   -- If return value is > 0 then TT else NON-TT.
+   
+   SELECT COUNT(residency_type) INTO ttstatus FROM dd_objects_t WHERE residency_type = 301 OR residency_type = 302;
+   
+   -- TT   
+   IF ttstatus > 0 THEN
+        
+        -- Call server Java function to de-compact the buffer data in EVENT_T to Oracle Global TMP tables. 
+        iSuccess:=Expand_Compacted_Events(TruncatedSQL);       
+                
+        OPEN BPDataCursor FOR
+                
+                      SELECT "ACCOUNT_T"."CURRENCY", upper("ACCOUNT_NAMEINFO_T"."COUNTRY") "Country", upper("ACCOUNT_NAMEINFO_T"."STATE") "State", "TM_EVENT_ACT_CONTENT_T"."CONTPROVIDER",
+                                                "TM_EVENT_ACT_CONTENT_T"."CONTCATEGORY", "TM_EVENT_ACT_CONTENT_T"."QTY","ACCOUNT_T"."POID_ID0", "ACCOUNT_T"."ACCOUNT_NO",
+                                                "ACCOUNT_NAMEINFO_T"."LAST_NAME", "ACCOUNT_NAMEINFO_T"."FIRST_NAME", "ACCOUNT_NAMEINFO_T"."REC_ID", "EVENT_T"."END_T",
+                                                "REMIT_CALC_T"."REMIT_TYPE", "REMIT_INFO_T"."CREATED_T", "ITEM_T"."CLOSED_T", "ITEM_T"."EFFECTIVE_T",
+                                                "REMIT_CALC_T"."START_T", "REMIT_CALC_T"."END_T" "END_TE", "TM_EVENT_ACT_CONTENT_T"."OBJ_ID0", "REMIT_CALC_DETAIL_T"."OBJ_ID0" "OBJ_ID0_REMITDETAIL",
+                                                "REMIT_CALC_T"."AMOUNT", "EVENT_T1"."CURRENCY", "ACCOUNT_T1"."ACCOUNT_NO" "ACCOUNT_NO1", "EVENT_BAL_IMPACTS_T"."AMOUNT" "AMOUNT01",
+                                                "ACCOUNT_T"."POID_DB", "CONFIG_BEID_BALANCES_T"."NAME" "CURR_NAME", "CONFIG_BEID_BALANCES_T1"."NAME" "CURR_NAME1"
+                      FROM (((((((((("REMIT_CALC_T" "REMIT_CALC_T" 
+                                  INNER JOIN "REMIT_INFO_DETAIL_T" "REMIT_INFO_DETAIL_T" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" = "REMIT_INFO_DETAIL_T"."PROVIDER_ID_ID0")
+                                                  INNER JOIN "REMIT_CALC_DETAIL_T" "REMIT_CALC_DETAIL_T" ON ("REMIT_CALC_T"."POID_ID0" = "REMIT_CALC_DETAIL_T"."OBJ_ID0") AND ("REMIT_INFO_DETAIL_T"."PRODUCT_OBJ_ID0" = "REMIT_CALC_DETAIL_T"."PRODUCT_OBJ_ID0"))
+                          INNER JOIN "ACCOUNT_T" "ACCOUNT_T1" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" ="ACCOUNT_T1"."POID_ID0")
+                                                  INNER JOIN "EVENT_T" "EVENT_T1" ON "REMIT_CALC_DETAIL_T"."EVENT_OBJ_ID0" = "EVENT_T1"."POID_ID0")
+                                                  INNER JOIN "REMIT_INFO_T" "REMIT_INFO_T" ON "REMIT_INFO_DETAIL_T"."OBJ_ID0"="REMIT_INFO_T"."POID_ID0")
+                                                  INNER JOIN "EVENT_T" "EVENT_T" ON "REMIT_INFO_T"."EVENT_OBJ_ID0" ="EVENT_T"."POID_ID0")
+                                                  INNER JOIN "ITEM_T" "ITEM_T" ON "REMIT_INFO_T"."ITEM_OBJ_ID0" = "ITEM_T"."POID_ID0")
+                                                  INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0" = "ACCOUNT_T"."POID_ID0")
+                                                  INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T" ON ("EVENT_T"."POID_ID0"="EVENT_BAL_IMPACTS_T"."OBJ_ID0") AND ("EVENT_T"."CURRENCY" = "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"))
+                                                  INNER JOIN "TM_EVENT_ACT_CONTENT_T" "TM_EVENT_ACT_CONTENT_T" ON "EVENT_BAL_IMPACTS_T"."OBJ_ID0" = "TM_EVENT_ACT_CONTENT_T"."OBJ_ID0")
+                                                  INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0" = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+                                                  INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON "EVENT_T1"."CURRENCY" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+                                                  INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T1" ON "EVENT_T"."CURRENCY" = "CONFIG_BEID_BALANCES_T1"."REC_ID"
+                      WHERE "ACCOUNT_T"."POID_DB" > 0
+                          AND "ACCOUNT_T"."POID_ID0" > 1
+                                                  AND "ACCOUNT_T"."ACCOUNT_NO" LIKE DECODE(pAccountNumber,'ALL','%',pAccountNumber) 
+                                                  AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(pCountry,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+                                                  AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(pState, "ACCOUNT_NAMEINFO_T"."STATE")
+                                                  AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+                                                  AND "TM_EVENT_ACT_CONTENT_T"."CONTPROVIDER" LIKE NVL(pContentProvider, "TM_EVENT_ACT_CONTENT_T"."CONTPROVIDER")
+                                                  AND (BIPEXT.INFCHECKDATES(pStartDate, pEndDate) = 1 AND ("EVENT_T"."END_T" >= BIPEXT.INFSTRTOTIMET(pStartDate,2) AND  "EVENT_T"."END_T" <= BIPEXT.INFSTRTOTIMET(pEndDate,2)-1))
+                                                  AND DECODE("REMIT_CALC_T"."REMIT_TYPE", 'U', "REMIT_INFO_T"."CREATED_T", 'P', "ITEM_T"."CLOSED_T", 'B', "ITEM_T"."EFFECTIVE_T") > "REMIT_CALC_T"."START_T"
+                                                  AND DECODE("REMIT_CALC_T"."REMIT_TYPE", 'U', "REMIT_INFO_T"."CREATED_T", 'P', "ITEM_T"."CLOSED_T", 'B', "ITEM_T"."EFFECTIVE_T") < "REMIT_CALC_T"."END_T"
+                      ORDER BY "REMIT_CALC_DETAIL_T"."OBJ_ID0", "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE", "TM_EVENT_ACT_CONTENT_T"."CONTCATEGORY",
+                             "EVENT_T"."END_T", "TM_EVENT_ACT_CONTENT_T"."OBJ_ID0";
+                                                    
+   -- NON-TT/BRM                               
+   ELSE
+   
+                OPEN BPDataCursor FOR 
+                       SELECT "ACCOUNT_T"."CURRENCY", upper("ACCOUNT_NAMEINFO_T"."COUNTRY") "Country", upper("ACCOUNT_NAMEINFO_T"."STATE") "State", "EVENT_ACT_CONTENT_T"."CONTPROVIDER",
+                                                 "EVENT_ACT_CONTENT_T"."CONTCATEGORY", "EVENT_ACT_CONTENT_T"."QTY", "ACCOUNT_T"."POID_ID0", "ACCOUNT_T"."ACCOUNT_NO",
+                                                  "ACCOUNT_NAMEINFO_T"."LAST_NAME", "ACCOUNT_NAMEINFO_T"."FIRST_NAME", "ACCOUNT_NAMEINFO_T"."REC_ID", "EVENT_T"."END_T",
+                                                  "REMIT_CALC_T"."REMIT_TYPE", "REMIT_INFO_T"."CREATED_T", "ITEM_T"."CLOSED_T", "ITEM_T"."EFFECTIVE_T",
+                                                  "REMIT_CALC_T"."START_T", "REMIT_CALC_T"."END_T" "END_TE", "EVENT_ACT_CONTENT_T"."OBJ_ID0", "REMIT_CALC_DETAIL_T"."OBJ_ID0" "OBJ_ID0_REMITDETAIL",
+                                                  "REMIT_CALC_T"."AMOUNT", "EVENT_T1"."CURRENCY", "ACCOUNT_T1"."ACCOUNT_NO" "ACCOUNT_NO1", "EVENT_BAL_IMPACTS_T"."AMOUNT" "AMOUNT01",
+                                                  "ACCOUNT_T"."POID_DB", "CONFIG_BEID_BALANCES_T"."NAME" "CURR_NAME", "CONFIG_BEID_BALANCES_T1"."NAME" "CURR_NAME1"
+               FROM (((((((((("REMIT_CALC_T" "REMIT_CALC_T" 
+                                  INNER JOIN "REMIT_INFO_DETAIL_T" "REMIT_INFO_DETAIL_T" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" = "REMIT_INFO_DETAIL_T"."PROVIDER_ID_ID0")
+                                                  INNER JOIN "REMIT_CALC_DETAIL_T" "REMIT_CALC_DETAIL_T" ON ("REMIT_CALC_T"."POID_ID0" = "REMIT_CALC_DETAIL_T"."OBJ_ID0") AND ("REMIT_INFO_DETAIL_T"."PRODUCT_OBJ_ID0" = "REMIT_CALC_DETAIL_T"."PRODUCT_OBJ_ID0"))
+                          INNER JOIN "ACCOUNT_T" "ACCOUNT_T1" ON "REMIT_CALC_T"."ACCOUNT_OBJ_ID0" ="ACCOUNT_T1"."POID_ID0")
+                                                 INNER JOIN "EVENT_T" "EVENT_T1" ON "REMIT_CALC_DETAIL_T"."EVENT_OBJ_ID0" = "EVENT_T1"."POID_ID0")
+                                                  INNER JOIN "REMIT_INFO_T" "REMIT_INFO_T" ON "REMIT_INFO_DETAIL_T"."OBJ_ID0" ="REMIT_INFO_T"."POID_ID0")
+                                                  INNER JOIN "EVENT_T" "EVENT_T" ON "REMIT_INFO_T"."EVENT_OBJ_ID0" ="EVENT_T"."POID_ID0")
+                                                  INNER JOIN "ITEM_T" "ITEM_T" ON "REMIT_INFO_T"."ITEM_OBJ_ID0" = "ITEM_T"."POID_ID0")
+                                                  INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0" = "ACCOUNT_T"."POID_ID0")
+                                                  INNER JOIN "EVENT_BAL_IMPACTS_T" "EVENT_BAL_IMPACTS_T" ON ("EVENT_T"."POID_ID0" = "EVENT_BAL_IMPACTS_T"."OBJ_ID0") AND ("EVENT_T"."CURRENCY" = "EVENT_BAL_IMPACTS_T"."RESOURCE_ID"))
+                                                  INNER JOIN "EVENT_ACT_CONTENT_T" "EVENT_ACT_CONTENT_T" ON "EVENT_BAL_IMPACTS_T"."OBJ_ID0" = "EVENT_ACT_CONTENT_T"."OBJ_ID0")
+                                                  INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0"  = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+                                                  INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T" ON "EVENT_T1"."CURRENCY"  = "CONFIG_BEID_BALANCES_T"."REC_ID"
+                                                  INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T1" ON "EVENT_T"."CURRENCY"  = "CONFIG_BEID_BALANCES_T1"."REC_ID"
+              WHERE "ACCOUNT_T"."POID_DB" > 0
+                                  AND "ACCOUNT_T"."POID_ID0" > 1
+                                                  AND "ACCOUNT_T"."ACCOUNT_NO" LIKE DECODE(pAccountNumber,'ALL','%',pAccountNumber) 
+                                                  AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(pCountry,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+                                                  AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(pState, "ACCOUNT_NAMEINFO_T"."STATE")
+                                                  AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+                                                  AND "EVENT_ACT_CONTENT_T"."CONTPROVIDER" LIKE NVL(pContentProvider, "EVENT_ACT_CONTENT_T"."CONTPROVIDER")
+                                                  AND (BIPEXT.INFCHECKDATES(pStartDate, pEndDate) = 1 AND ("EVENT_T"."END_T" >= BIPEXT.INFSTRTOTIMET(pStartDate,2) AND  "EVENT_T"."END_T" <= BIPEXT.INFSTRTOTIMET(pEndDate,2)-1))
+                                                  AND DECODE("REMIT_CALC_T"."REMIT_TYPE", 'U', "REMIT_INFO_T"."CREATED_T", 'P', "ITEM_T"."CLOSED_T", 'B', "ITEM_T"."EFFECTIVE_T") > "REMIT_CALC_T"."START_T"
+                                                  AND DECODE("REMIT_CALC_T"."REMIT_TYPE", 'U', "REMIT_INFO_T"."CREATED_T", 'P', "ITEM_T"."CLOSED_T", 'B', "ITEM_T"."EFFECTIVE_T") < "REMIT_CALC_T"."END_T"
+                      ORDER BY "REMIT_CALC_DETAIL_T"."OBJ_ID0", "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE", "EVENT_ACT_CONTENT_T"."CONTCATEGORY",
+                                                     "EVENT_T"."END_T", "EVENT_ACT_CONTENT_T"."OBJ_ID0";
+        
+END IF;
+
+COMMIT;
+
+RETURN BPDataCursor;
+                   
+END REPORTDATA;
+
+END BILLING_PROVIDER;
+/

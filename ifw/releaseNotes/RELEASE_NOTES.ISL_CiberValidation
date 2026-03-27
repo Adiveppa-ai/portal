@@ -1,0 +1,139 @@
+========================================================================================
+ISL_CiberValidation
+----------------------------------------------------------------------------------------
+Module Release Notes
+----------------------------------------------------------------------------------------
+$RCSfile: ISL_CiberValidation,v $
+$Revision: 1.0 $
+$Author: cdiab $
+$Date: 2002/07/15 15:15:35 $
+========================================================================================
+
+Actual Version : v6.5 SP1 / 27-Mar-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00036007  Fixed the reject reason script.
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+Actual Version : v6.5 SP1 / 20-Mar-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00035310  Fixed field validation rules
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+Actual Version : v6.5 SP1 / 14-Mar-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00034538 added new validation and mapping scripts; added more field level edits
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v6.4.0 / 21-August-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+-all developer tests passed by this version.
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v6.3.1 / 19-July-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+- corespond to the v6.3.1 version of the CIBER input/output format
+
+New Features   :
+----------------
+- renamed TOLL_RATING_POINT_IND to TOLL_RATING_POINT_LENGTH
+- renamed NO_x_SURCHARGE_INDICATOR to CHARGE_NO_x_SURCHARGE_IND
+- added new field R70_RECORD_USE_INDICATOR specific to record type 70
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : v6.3.0 / 15-July-2002 / cdiab
+----------------
+
+Notes          : 
+----------------
+- use the TLS/TLS_IRules2Db/irules2db.pl script to load these rules to the database.
+- NB: the irules2db.pl must be run from his location directory.
+
+New Features   :
+----------------
+- Validates Ciber v2.5, specs from Nov2001
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================

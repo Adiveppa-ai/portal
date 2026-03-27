@@ -1,0 +1,20 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#      This step is a temporary step used to insert the text password instead of integrate
+#      The step will be used only temporarily until the main sql template is changed.
+# ---------------------------------------------------------------------------------
+open(WSQL,">$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_Roles_temp.sql");
+open(SQL,"$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_Roles.sql");
+$String="identified by INTEGRATE";
+map{s{identified by INTEGRATE}{identified by password};print WSQL $_;print $_;}<SQL>;
+close(WSQL);
+close(SQL);
+exit 0

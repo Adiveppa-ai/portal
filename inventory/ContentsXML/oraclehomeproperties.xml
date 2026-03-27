@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ORACLEHOME_INFO>
+   <GUID>7b5cd61a-a069-4e4f-99cf-f2bf05d981d0</GUID>
+   <HOME/>
+   <ARU_PLATFORM_INFO>
+      <ARU_ID>226</ARU_ID>
+      <ARU_ID_DESCRIPTION>Linux x86-64</ARU_ID_DESCRIPTION>
+   </ARU_PLATFORM_INFO>
+</ORACLEHOME_INFO>

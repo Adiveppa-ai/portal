@@ -1,0 +1,448 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_BILL_SET_LIMIT_AND_CR" visibility="public" transaction="required" component="financial" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>This opcode will set the credit limit for both currency and 
+    non-currency resources.</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Account object action was applied to</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_SERVICE_OBJ" use="optional" mode="complete">
+        <Doc> Service object action was applied to</Doc>
+        <ClassRef>obj://service</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_BAL_GRP_OBJ" use="optional" mode="complete">
+        <Doc> Balance Group poid: if passed, this balance group will be 
+          impacted  otherwise, the one which belongs to the optional 
+          service_obj (if passed) or the account default one will be impacted.
+        </Doc>
+        <ClassRef>obj://balance_group</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_SESSION_OBJ" use="optional" mode="complete">
+        <Doc> Session object - session in which event took place - null 
+          means none</Doc>
+        <ClassRef>obj://event.session</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_PROGRAM_NAME" use="required" maxlen="256">
+        <Doc> Program name - identifies calling program</Doc>
+      </String>
+      <String name="PIN_FLD_DESCR" use="optional" maxlen="256">
+        <Doc> Event description - free text for application to describe 
+          event.</Doc>
+      </String>
+      <Timestamp name="PIN_FLD_START_T" use="optional">
+        <Doc> Start time - Timestamp of when event started (Portal Time).</Doc>
+      </Timestamp>
+      <Timestamp name="PIN_FLD_END_T" use="optional">
+        <Doc> End time - Timestamp of when event ended (Portal Time).  This 
+          field is used to determine which billing cycle the event is part of.
+        </Doc>
+      </Timestamp>
+      <Int name="PIN_FLD_FLAGS" use="optional">
+	<Doc> Flags : 0 - Default value, If PIN_FLD_THRESHOLDS not passed,Merge with existing values.
+		      1 - If PIN_FLD_THRESHOLDS not passed, set this to NULL.</Doc>
+      </Int>	
+      <Array name="PIN_FLD_LIMIT" use="optional" elemIdMode="key" iterationOrder="undefined" minElements="0" maxElements="1" minElemId="1" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+        <Doc>  Limit array.   Only one element can appear in this array. 
+          Its element-id matches the balance element whose limit is to be set.
+           This field is mandatory if PIN_FLD_RULES not present.
+        </Doc>
+        <Fields>
+          <Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+            <Doc>Limit for this resource. Current balance cannot exceed this 
+              limit unless affected by a limit override rate or manually 
+              adjusted by a CSR.</Doc>
+          </Decimal>
+          <Decimal name="PIN_FLD_CREDIT_FLOOR" use="optional">
+            <Doc>Baseline for calculating percentage for threshold triggers. 
+              Credit limit minus credit floor is 100% of measured range. 
+              Credit floor does NOT enforce any limit on current balance.</Doc>
+          </Decimal>
+          <Int name="PIN_FLD_DYNAMIC_CREDIT_FLOOR" use="optional">
+            <Doc>Flags to indicate dynamic credit floor setting, whether to use
+	       credit_floor or sum of original balances for credit thresholds check</Doc>
+          </Int> 
+          <Int name="PIN_FLD_OVERRIDE_CREDIT_LIMIT" use="optional">
+             <Doc> Flag to determine to either consider or not consider the credit
+               limit. If flag is 0,(which is default), then credit limit will be decided
+               based on rating modes. If the flag is 0x01, then credit limit will be
+               overriden.</Doc>
+          </Int> 
+          <Int name="PIN_FLD_CREDIT_THRESHOLDS" use="optional">
+            <Doc>Bit flags for triggering when resource balance crosses a 
+              boundary when increasing in value.</Doc>
+          </Int>
+          <Array name="PIN_FLD_THRESHOLDS" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+            <Doc> Array of fixed threshold values. </Doc>
+            <Fields>
+              <Int name="PIN_FLD_THRESHOLD" use="required">
+                <Doc>Fixed threshold value.</Doc>
+              </Int>
+              <Decimal name="PIN_FLD_AMOUNT" use="required">
+                <Doc>Fixed threshold value in decimal.</Doc>
+              </Decimal>
+            </Fields>
+          </Array>
+          <Int name="PIN_FLD_LOAN_THRESHOLDS" use="optional">
+            <Doc>Bit flags for triggering when resource balance crosses a
+              boundary when increasing in value.</Doc>
+          </Int>
+      	  <String name="PIN_FLD_LOAN_THRESHOLDS_FIXED" use="optional" maxlen="256">
+            <Doc> Fixed threshold value. </Doc>
+      	  </String>
+        </Fields>
+      </Array>
+      <Int name="PIN_FLD_ROLL_UP_CREDIT_LIMIT" use="optional">
+        <Doc>This flag is used to roll up credit limit in a Payment Responsible
+             Real-Time Credit Enforcement (PR_RTCE) balance monitoring group.
+             If the flag value is 1, then the credit limit of nonpaying child
+             account will be rolled up to its parent account's balance group
+             monitor. Once the child account is moved out of hierarchy, the
+             rolled up credit limit will be rolled down to the corresponding
+             nonpaying child account's balance group.</Doc>
+      </Int>
+	  <Array name="PIN_FLD_TEMP_LIMIT" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+		<Doc>  Temporary Limit array. </Doc>
+		<Fields>
+			<Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+				<Doc>Limit for this resource. </Doc>
+			</Decimal>
+			<Int name="PIN_FLD_RESOURCE_ID" use="optional">
+				<Doc> Resource id</Doc>
+			</Int>
+			<Timestamp name="PIN_FLD_VALID_FROM" use="optional">
+				<Doc> Start date of this validity. If unit and offset are also passed PIN_FLD_VALID_FROM takes precedence </Doc>
+			</Timestamp>
+			<Enum name="PIN_FLD_VALID_FROM_UNIT" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_FROM is not passed. Relative Unit for validity start date can be <h:ul><h:li>Seconds(1)</h:li><h:li>Minutes(2)</h:li><h:li>Hours(3)</h:li><h:li>Days(4)</h:li><h:li>Months(5)</h:li><h:li>Act Cycles(8)</h:li></h:ul> </Doc>
+				<Values>
+					<Value>1</Value>
+					<Doc>Seconds</Doc>
+				</Values>
+				<Values>
+					<Value>2</Value>
+					<Doc>Minutes</Doc>
+				</Values>
+				<Values>
+					<Value>3</Value>
+					<Doc>Hours</Doc>
+				</Values>
+				<Values>
+					<Value>4</Value>
+					<Doc>Days</Doc>
+				</Values>
+				<Values>
+					<Value>5</Value>
+					<Doc>Months</Doc>
+				</Values>
+				<Values>
+					<Value>8</Value>
+					<Doc>Act Cycles</Doc>
+				</Values>
+			</Enum>
+			<Int name="PIN_FLD_VALID_FROM_OFFSET" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_FROM is not passed. Relative offset for validity to be used in conjunction with unit to calculate start time</Doc>
+			</Int>
+			<Timestamp name="PIN_FLD_VALID_TO" use="optional">
+				<Doc> End date of this validity. If unit and offset are also passed PIN_FLD_VALID_TO takes precedence </Doc>
+			</Timestamp>
+			<Enum name="PIN_FLD_VALID_TO_UNIT" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_TO is not passed. Relative Unit for validity end date can be <h:ul><h:li>Seconds(1)</h:li><h:li>Minutes(2)</h:li><h:li>Hours(3)</h:li><h:li>Days(4)</h:li><h:li>Months(5)</h:li><h:li>Act Cycles(8)</h:li></h:ul> </Doc>
+				<Values>
+					<Value>1</Value>
+					<Doc>Seconds</Doc>
+				</Values>
+				<Values>
+					<Value>2</Value>
+					<Doc>Minutes</Doc>
+				</Values>
+				<Values>
+					<Value>3</Value>
+					<Doc>Hours</Doc>
+				</Values>
+				<Values>
+					<Value>4</Value>
+					<Doc>Days</Doc>
+				</Values>
+				<Values>
+					<Value>5</Value>
+					<Doc>Months</Doc>
+				</Values>
+				<Values>
+					<Value>8</Value>
+					<Doc>Act Cycles</Doc>
+				</Values>
+			</Enum>
+			<Int name="PIN_FLD_VALID_TO_OFFSET" use="optional">
+				<Doc> Used for calculating validity if PIN_FLD_VALID_TO is not passed. Relative offset for validity to be used in conjunction with unit to calculate end time</Doc>
+			</Int>
+			<Int name="PIN_FLD_REC_ID" use="optional">
+        			<Doc>RecId for the sub-balance to be updated</Doc>
+      			</Int>
+		</Fields>
+	  </Array>
+      <Array name="PIN_FLD_RULES" use="optional" elemIdMode="key" iterationOrder="undefined" minElements="0" maxElements="1" minElemId="1" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+        <Doc> This array contains the consumption rules to be applied on the resource.
+		This field is mandatory if PIN_FLD_LIMIT is not present.</Doc>
+        <Fields>
+          <Enum name="PIN_FLD_CONSUMPTION_RULE" use="required">
+            <Doc>Consumption rule to be applied on the resource for determining the sub-balance to consume.</Doc>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_EST (1)</Value>
+              <Doc>Earliest start time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_LST (2)</Value>
+              <Doc>Latest start time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_EET (3)</Value>
+              <Doc>Earliest expiration time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_LET (4)</Value>
+              <Doc>Latest expiration time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_ESTLET (5)</Value>
+              <Doc>Earliest start time and latest expiration time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_ESTEET (6)</Value>
+              <Doc>Earliest start time and earliest expiration time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_LSTEET (7)</Value>
+              <Doc>Latest start time and earliest expiration time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_LSTLET (8)</Value>
+              <Doc>Latest start time and latest expiration time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_EETEST (9)</Value>
+              <Doc>Earliest expiration time and earliest start time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_EETLST (10)</Value>
+              <Doc>Earliest expiration time and latest start time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_LETEST (11)</Value>
+              <Doc>Latest expiration time and earliest start time</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_CONSUMPTION_RULE_LETLST (12)</Value>
+              <Doc>Latest expiration time and latest start time</Doc>
+            </Values>
+          </Enum>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Account object passed into call.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="1" maxElements="256" minElemId="1" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+        <Doc> Array of results information.  Since only one event object 
+          is created by this call, only one element  will be returned. 
+          The element-id is not significant.</Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc> Poid of the event object created for event</Doc>
+            <ClassRef>obj://event</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="optional" mode="complete">
+            <Doc> Account object involved</Doc>
+            <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_SERVICE_OBJ" use="optional" mode="complete">
+            <Doc> Service object action was applied to</Doc>
+            <ClassRef>obj://service</ClassRef>
+          </Poid>
+          <Enum name="PIN_FLD_RATING_STATUS" use="optional">
+            <Doc>Status of Rating result. Either success or reason for failure</Doc>
+            <Values>
+              <Value>0</Value>
+              <Doc>SUCCESSFUL_RATING</Doc>
+            </Values>
+            <Values>
+              <Value>1</Value>
+              <Doc>ZERO_QUANTITY</Doc>
+            </Values>
+            <Values>
+              <Value>10</Value>
+              <Doc>NO_SCALE_TO_RATE</Doc>
+            </Values>
+            <Values>
+              <Value>11</Value>
+              <Doc>NO_CANDIDATE_RUMS</Doc>
+            </Values>
+            <Values>
+              <Value>12</Value>
+              <Doc>NO_INITIAL_PRODUCTS</Doc>
+            </Values>
+            <Values>
+              <Value>13</Value>
+              <Doc>PRIMARY_PRODUCT_NOT_IN_DB</Doc>
+            </Values>
+            <Values>
+              <Value>14</Value>
+              <Doc>NO_PRODUCT_IN_AUDIT_DB</Doc>
+            </Values>
+            <Values>
+              <Value>15</Value>
+              <Doc>CALC_MAX_IN_MULTI_RUM</Doc>
+            </Values>
+            <Values>
+              <Value>16</Value>
+              <Doc>NO_MATCHING_RUM</Doc>
+            </Values>
+            <Values>
+              <Value>17</Value>
+              <Doc>NO_QUALIFIED_PRODUCTS</Doc>
+            </Values>
+            <Values>
+              <Value>18</Value>
+              <Doc>NO_RUM</Doc>
+            </Values>
+            <Values>
+              <Value>19</Value>
+              <Doc>STATUS_MISMATCH</Doc>
+            </Values>
+            <Values>
+              <Value>20</Value>
+              <Doc>NO_RATE_PLAN</Doc>
+            </Values>
+            <Values>
+              <Value>21</Value>
+              <Doc>NO_MATCHING_SELECTOR_DATA</Doc>
+            </Values>
+            <Values>
+              <Value>22</Value>
+              <Doc>NO_MATCHING_IMPACT_CATEGORY</Doc>
+            </Values>
+            <Values>
+              <Value>23</Value>
+              <Doc>NO_RATING_CURRENCY</Doc>
+            </Values>
+            <Values>
+              <Value>24</Value>
+              <Doc>CREDIT_LIMIT_EXCEEDED</Doc>
+            </Values>
+          </Enum>
+          <Array name="PIN_FLD_LIMIT" use="optional" elemIdMode="key" iterationOrder="undefined" minElements="0" maxElements="1" minElemId="1" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+            <Doc> Limit array. Only one element can appear in this array.
+	     Its element-id matches the balance element whose limit is to 
+	     be set.</Doc>
+            <Fields>
+              <Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+                <Doc>Limit for this resource. Current balance cannot exceed 
+                 this limit unless affected by a limit override rate or 
+                 manually adjusted by a CSR.</Doc>
+              </Decimal>
+              <Decimal name="PIN_FLD_CREDIT_FLOOR" use="optional">
+                <Doc>Baseline for calculating percentage for threshold 
+                  triggers. Credit limit minus credit floor is 100% of 
+                  measured range. Credit floor does NOT enforce any limit 
+                  on current balance.</Doc>
+              </Decimal>
+              <Int name="PIN_FLD_DYNAMIC_CREDIT_FLOOR" use="optional">
+               <Doc>Flags to indicate dynamic credit floor setting, whether to use 
+  	      credit_floor or sum of original balances for credit thresholds check</Doc>
+              </Int>  
+              <Int name="PIN_FLD_OVERRIDE_CREDIT_LIMIT" use="optional">
+                 <Doc> Flag to determine to either consider or not consider the credit
+                   limit. If flag is 0,(which is default), then credit limit will be decided
+                   based on rating modes. If the flag is 0x01, then credit limit will be
+                   overriden.</Doc>
+              </Int> 
+              <Int name="PIN_FLD_CREDIT_THRESHOLDS" use="optional">
+                <Doc>Bit flags for triggering when resource balance crosses 
+                  a boundary when increasing in value.</Doc>
+              </Int>
+              <Array name="PIN_FLD_THRESHOLDS" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+                <Doc> Array of fixed threshold values. </Doc>
+                <Fields>
+                  <Int name="PIN_FLD_THRESHOLD" use="required">
+                    <Doc>Fixed threshold value.</Doc>
+                  </Int>
+                  <Decimal name="PIN_FLD_AMOUNT" use="required">
+                    <Doc>Fixed threshold value in decimal.</Doc>
+                  </Decimal>
+                </Fields>
+              </Array>
+              <Int name="PIN_FLD_LOAN_THRESHOLDS" use="optional">
+                <Doc>Bit flags for triggering when resource balance crosses a
+                     boundary when increasing in value.</Doc>
+              </Int>
+              <String name="PIN_FLD_LOAN_THRESHOLDS_FIXED" use="optional" maxlen="256">
+                <Doc> Fixed threshold value. </Doc>
+              </String>
+            </Fields>
+          </Array>
+		  <Array name="PIN_FLD_SUB_BAL_IMPACTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+			<Doc>Sub Balance Imapcts</Doc>
+			<Fields>
+				<Poid name="PIN_FLD_BAL_GRP_OBJ" use="optional" mode="complete">
+					<Doc> Balance Group poid: if passed, this balance group will be impacted  otherwise, the one which belongs to the optional service_obj (if passed) or the account default one will be impacted.</Doc>
+					<ClassRef>obj://balance_group</ClassRef>
+				</Poid>
+				<Int name="PIN_FLD_RESOURCE_ID" use="optional">
+					<Doc> Resource id</Doc>
+				</Int>
+				<Array name="PIN_FLD_SUB_BALANCES" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+					<Doc>Sub Balances</Doc>
+					<Fields>
+						<Timestamp name="PIN_FLD_VALID_FROM" use="optional">
+							<Doc> Start date of this validity </Doc>
+						</Timestamp>
+						<Timestamp name="PIN_FLD_VALID_TO" use="optional">
+							<Doc> End date of this validity </Doc>
+						</Timestamp>
+						<Decimal name="PIN_FLD_AMOUNT" use="optional">
+							<Doc>Fixed threshold value in decimal.</Doc>
+						</Decimal>
+					</Fields>
+				</Array>
+			</Fields>
+		  </Array>
+          <Array name="PIN_FLD_RULES" use="optional" elemIdMode="key" iterationOrder="undefined" minElements="0" maxElements="1" minElemId="1" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+            <Doc> This array contains the consumption rules to be applied on 
+	      the resource.</Doc>
+            <Fields>
+              <Enum name="PIN_FLD_CONSUMPTION_RULE" use="required" ref="op:///#in.PIN_FLD_RULES.PIN_FLD_CONSUMPTION_RULE">
+                <Doc>Consumption rule to be applied on the resource for determining the sub-balance to consume.</Doc>
+              </Enum>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

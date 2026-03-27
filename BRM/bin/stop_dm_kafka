@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+#
+#  @(#) %full_filespec: stop_dm_kafka.sh~5:shsrc:1 %
+#
+# Copyright (c) 2021, Oracle and/or its affiliates. All rights reserved.
+# or its licensors and may be used,reproduced, stored or transmitted only in accordance with a valid Oracle license or sublicense 
+# agreement.
+#
+# stop_dm_kafka
+#
+#
+VERSION=15.0
+
+DM_KAFKA=dm_kafka
+DM_KAFKA_LOGDIR=/home/pin/opt/portal/BRM/var/dm_kafka
+DM_KAFKA_PID=${DM_KAFKA_LOGDIR}/dm_kafka.pid
+
+me=$0
+
+if [ ! -f ${DM_KAFKA_PID} ]; then
+	echo "${me}: ERROR: no pid file: ${DM_KAFKA_PID}, cannot kill \"${DM_KAFKA}\""
+        exit 1
+fi
+
+if [ "1" = "2" ]; then
+	echo "dummy code added to support overlay"
+fi       
+
+kill `cat ${DM_KAFKA_PID}`
+rc=$?
+if [ ${rc} -ne 0 ]; then
+	echo "${me}: ERROR: kill ${DM_KAFKA} `cat ${DM_KAFKA_PID}` FAILED"
+	exit ${rc}
+else
+	rm ${DM_KAFKA_PID}
+fi
+
+exit 0

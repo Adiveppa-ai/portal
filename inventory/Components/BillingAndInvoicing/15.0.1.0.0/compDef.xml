@@ -1,0 +1,285 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="BillingAndInvoicing" version="15.0.1.0.0" description="BillingAndInvoicing" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="jars" mode="750" patchable="true">
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="28965" dest="pxslt.jar" mode="0644"/>
+         </directory>
+         <file size="3341" dest="formatter.jar" mode="0644"/>
+         <file size="19257" dest="pxslt.jar" mode="0644"/>
+         <file-perms>
+            <permission mode="0644" wildcard="formatter.jar"/>
+            <permission mode="0644" wildcard="pxslt.jar"/>
+            <permission mode="0644" wildcard="commons-logging-1.2-0a2317f.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="24805" dest="pin_cnf_pin_bill.pl" mode="0775"/>
+            <file size="2670" dest="pin_cnf_pin_remit.pl" mode="0664"/>
+            <file size="6736" dest="pin_cmp_billing.pl" mode="0775"/>
+            <file size="2911" dest="pin_cnf_formatter.pl" mode="0775"/>
+            <file size="9313" dest="pin_cnf_pin_inv.pl" mode="0755"/>
+            <file size="3051" dest="pin_cmp_formatter.pl" mode="0775"/>
+            <file size="4594" dest="pin_cnf_pin_subscription.pl" mode="0644"/>
+            <file size="2753" dest="pin_cnf_pin_bulk.pl" mode="0755"/>
+            <file size="1906" dest="pin_cmp_pin_inv.pl" mode="0755"/>
+            <file size="1594" dest="pin_cmp_pin_subscription.pl" mode="0644"/>
+            <file size="2717" dest="pin_cnf_rate_change.pl" mode="0664"/>
+            <file size="2761" dest="pin_cnf_monitor_balance.pl" mode="0755"/>
+            <file size="8282" dest="pin_cnf_pin_deposits.pl" mode="0775"/>
+            <file size="5940" dest="pin_cnf_pin_installments.pl" mode="0775"/>
+            <file size="2705" dest="pin_cnf_ar_taxes.pl" mode="0755"/>
+            <file size="5034" dest="pin_cmp_qm_port.pl" mode="0775"/>
+            <file size="10214" dest="pin_cnf_pin_state_change.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_cmp_billing.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_formatter.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_formatter.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_pin_inv.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_pin_inv.pl"/>
+            <permission mode="0644" wildcard="pin_cnf_pin_subscription.pl"/>
+            <permission mode="0644" wildcard="pin_cmp_pin_subscription.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_ar_taxes.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_pin_bulk.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_monitor_balance.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_pin_state_change.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_pin_installments.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_pin_deposits.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_upgrade.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_upgrade.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_qm_port.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_rate_change.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_pin_remit.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_pin_bill.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_billing.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1829" dest="start_formatter" mode="0755"/>
+         <file size="690" dest="stop_formatter" mode="0755"/>
+         <file size="336600" dest="pin_sub_balance_cleanup" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_formatter"/>
+            <permission mode="0755" wildcard="stop_formatter"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="214528" dest="pin_deposit_release_purchased_deposit" mode="0775"/>
+         <file size="231496" dest="pin_deferred_act" mode="0775"/>
+         <file size="201448" dest="pin_roll_up_ar_items" mode="0775"/>
+         <file size="205104" dest="pin_update_journals" mode="0775"/>
+         <file size="102448" dest="pin_clean" mode="0775"/>
+         <file size="231200" dest="pin_inv_send" mode="0755"/>
+         <file size="214472" dest="pin_installment_status_change" mode="0775"/>
+         <file size="265944" dest="pin_collect" mode="0775"/>
+         <file size="22073" dest="pin_load_invoice_events" mode="0755"/>
+         <file size="214720" dest="pin_deposit_transfer_deposit" mode="0775"/>
+         <file size="205224" dest="pin_discount_cleanup" mode="0775"/>
+         <file size="205968" dest="pin_update_balances" mode="0775"/>
+         <file size="197328" dest="pin_clean_asos" mode="0775"/>
+         <file size="226768" dest="pin_apply_bulk_adjustment" mode="0775"/>
+         <file size="215152" dest="pin_upd_assoc_bus_profile" mode="0755"/>
+         <file size="192504" dest="pin_rollover" mode="0775"/>
+         <file size="273856" dest="pin_gen_notifications" mode="0775"/>
+         <file size="101448" dest="pin_recover" mode="0775"/>
+         <file size="209496" dest="pin_product_cleanup" mode="0775"/>
+         <file size="282472" dest="pin_deposit" mode="0775"/>
+         <file size="23026" dest="pin_load_invoice_template" mode="0755"/>
+         <file size="15343" dest="pin_bill_day" mode="0775"/>
+         <file size="2379" dest="pin_bill_week" mode="0775"/>
+         <file size="336600" dest="pin_sub_balance_cleanup" mode="0775"/>
+         <file size="214512" dest="pin_balance_transfer" mode="0775"/>
+         <file size="313496" dest="pin_trial_bill_accts" mode="0775"/>
+         <file size="338592" dest="pin_bill_accts" mode="0775"/>
+         <file size="227808" dest="pin_inv_export" mode="0755"/>
+         <file size="214376" dest="pin_mta_test_caf" mode="0775"/>
+         <file size="252368" dest="pin_inv_accts" mode="0755"/>
+         <file size="218824" dest="pin_monitor_balance" mode="0775"/>
+         <file size="273472" dest="pin_cycle_fees" mode="0775"/>
+         <file size="196744" dest="pin_cycle_forward" mode="0775"/>
+         <file size="2823" dest="pin_bill_month" mode="0775"/>
+         <file size="316448" dest="pin_make_corrective_bills" mode="0755"/>
+         <file size="219088" dest="pin_deposit_calc_interest" mode="0775"/>
+         <file size="84608" dest="pin_mta_monitor" mode="0775"/>
+         <file size="97520" dest="pin_mass_refund" mode="0775"/>
+         <file size="210432" dest="pin_contracts" mode="0775"/>
+         <file size="36944" dest="pin_recycle" mode="0775"/>
+         <file size="3252" dest="pin_remit_month" mode="0775"/>
+         <file size="245792" dest="pin_cust_convert_wholesale_hierarchy" mode="0755"/>
+         <file size="286960" dest="pin_refund" mode="0775"/>
+         <file size="215264" dest="pin_trial_bill_purge" mode="0775"/>
+         <file size="32376" dest="pin_rate_change" mode="0775"/>
+         <file size="209872" dest="pin_clean_offer_override" mode="0775"/>
+         <file size="214464" dest="pin_installments" mode="0775"/>
+         <file size="93456" dest="pin_get_results" mode="0775"/>
+         <file size="60464" dest="pin_config_distribution" mode="0775"/>
+         <file size="219272" dest="pin_del_closed_accts" mode="0775"/>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_inv_send"/>
+            <permission mode="0755" wildcard="pin_inv_accts"/>
+            <permission mode="0755" wildcard="pin_inv_export"/>
+            <permission mode="0755" wildcard="pin_load_invoice_events"/>
+            <permission mode="0755" wildcard="pin_load_invoice_template"/>
+            <permission mode="0755" wildcard="pin_upd_assoc_bus_profile"/>
+            <permission mode="0755" wildcard="pin_make_corrective_bills"/>
+            <permission mode="0775" wildcard="pin_cycle_forward"/>
+            <permission mode="0775" wildcard="pin_rollover"/>
+            <permission mode="0775" wildcard="pin_discount_cleanup"/>
+            <permission mode="0775" wildcard="pin_product_cleanup"/>
+            <permission mode="0775" wildcard="pin_sub_balance_cleanup"/>
+            <permission mode="0775" wildcard="pin_clean_offer_override"/>
+            <permission mode="0775" wildcard="pin_balance_transfer"/>
+            <permission mode="0775" wildcard="pin_mass_refund"/>
+            <permission mode="0775" wildcard="pin_refund"/>
+            <permission mode="0775" wildcard="pin_bill_month"/>
+            <permission mode="0775" wildcard="pin_bill_week"/>
+            <permission mode="0775" wildcard="pin_bill_day"/>
+            <permission mode="0775" wildcard="pin_roll_up_ar_items"/>
+            <permission mode="0775" wildcard="pin_remit_month"/>
+            <permission mode="0775" wildcard="pin_collect"/>
+            <permission mode="0775" wildcard="pin_deposit"/>
+            <permission mode="0775" wildcard="pin_clean"/>
+            <permission mode="0775" wildcard="pin_recover"/>
+            <permission mode="0775" wildcard="pin_bill_accts"/>
+            <permission mode="0775" wildcard="pin_cycle_fees"/>
+            <permission mode="0775" wildcard="pin_deferred_act"/>
+            <permission mode="0775" wildcard="pin_config_distribution"/>
+            <permission mode="0775" wildcard="pin_get_results"/>
+            <permission mode="0775" wildcard="pin_trial_bill_accts"/>
+            <permission mode="0775" wildcard="pin_trial_bill_purge"/>
+            <permission mode="0775" wildcard="pin_apply_bulk_adjustment"/>
+            <permission mode="0775" wildcard="pin_rate_change"/>
+            <permission mode="0775" wildcard="pin_monitor_balance"/>
+            <permission mode="0775" wildcard="pin_mta_monitor"/>
+            <permission mode="0775" wildcard="pin_mta_test_caf"/>
+            <permission mode="0775" wildcard="pin_update_journals"/>
+            <permission mode="0775" wildcard="pin_recycle"/>
+            <permission mode="0775" wildcard="pin_clean_asos"/>
+            <permission mode="0775" wildcard="pin_del_closed_accts"/>
+            <permission mode="0775" wildcard="pin_contracts"/>
+            <permission mode="0775" wildcard="pin_update_balances"/>
+            <permission mode="0775" wildcard="pin_gen_notifications"/>
+            <permission mode="0775" wildcard="pin_installments"/>
+            <permission mode="0775" wildcard="pin_installment_status_change"/>
+            <permission mode="0775" wildcard="pin_deposit_calc_interest"/>
+            <permission mode="0775" wildcard="pin_deposit_release_purchased_deposit"/>
+            <permission mode="0775" wildcard="pin_deposit_transfer_deposit"/>
+            <permission mode="0755" wildcard="pin_cust_convert_wholesale_hierarchy"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="stylesheets" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="6656" dest="sh_events3.gif" mode="0644"/>
+                  <file size="4521" dest="sni_icp.gif" mode="0644"/>
+                  <file size="4587" dest="op.jpg" mode="0644"/>
+                  <file size="3542" dest="fb.jpg" mode="0644"/>
+                  <file size="1669" dest="image.gif" mode="0644"/>
+                  <file size="1293" dest="README" mode="0644"/>
+                  <file size="4345" dest="cc.jpg" mode="0644"/>
+                  <file size="4533" dest="sni_sets.gif" mode="0644"/>
+               </directory>
+            </directory>
+         </directory>
+         <directory dest="formatter" mode="750" patchable="true">
+            <file size="2803" dest="Infranet.properties" mode="0600"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="README"/>
+            <permission mode="0644" wildcard="cc.jpg"/>
+            <permission mode="0644" wildcard="fb.jpg"/>
+            <permission mode="0644" wildcard="op.jpg"/>
+            <permission mode="0644" wildcard="image.gif"/>
+            <permission mode="0644" wildcard="sh_events3.gif"/>
+            <permission mode="0644" wildcard="sni_icp.gif"/>
+            <permission mode="0644" wildcard="sni_sets.gif"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_inv_doc_gen" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1518" dest="docgen.sh" mode="2775"/>
+            <file size="1029" dest="InvoiceList.xml" mode="2775"/>
+            <file size="2757" dest="invoice_bursting_HIT.plb" mode="2775"/>
+            <file size="1121" dest="InvoiceList.xsd" mode="2775"/>
+            <file size="48997" dest="pin_inv_doc_gen.jar" mode="2775"/>
+            <file size="697" dest="Create_Xmlp_Invoice_Job.sql" mode="2775"/>
+            <file size="2819" dest="invoice_bursting.plb" mode="2775"/>
+            <file size="4509" dest="Infranet.properties.sample" mode="2775"/>
+            <directory dest="lib" mode="750" patchable="true">
+               <file size="11558" dest="ApacheLicense.txt" mode="2775"/>
+            </directory>
+         </directory>
+         <directory dest="pin_bill_handler" mode="750" patchable="true">
+            <file size="2280" dest="BillHandler_config.values" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="2775" wildcard="Create_Xmlp_Invoice_Job.sql"/>
+            <permission mode="2775" wildcard="InvoiceList.xml"/>
+            <permission mode="2775" wildcard="InvoiceList.xsd"/>
+            <permission mode="2775" wildcard="docgen.sh"/>
+            <permission mode="2775" wildcard="invoice_bursting.plb"/>
+            <permission mode="2775" wildcard="invoice_bursting_HIT.plb"/>
+            <permission mode="2775" wildcard="pin_inv_doc_gen.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_inv_doc_gen" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="lib" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="wls" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="59567350" dest="com.oracle.webservices.wls.jaxws-wlswss-client.jar" mode="2775"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="2775" wildcard="com.oracle.webservices.wls.jaxws-wlswss-client.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_inv_doc_gen" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="lib" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="xmlp" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="279338" dest="bip_jaxws_client.jar" mode="2775"/>
+                  <file size="3256" dest="orawsdl_12.2.1.2.0.jar" mode="2775"/>
+                  <file size="887521" dest="xmlef.jar" mode="2775"/>
+                  <file size="12333994" dest="xdo-server.jar" mode="2775"/>
+                  <file size="1697996" dest="xmlparserv2.jar" mode="2775"/>
+                  <file size="31190" dest="jaxrpc.jar" mode="2775"/>
+                  <file size="7992774" dest="xdo-core.jar" mode="2775"/>
+                  <file size="355038" dest="mail.jar" mode="2775"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="2775" wildcard="jaxrpc.jar"/>
+            <permission mode="2775" wildcard="mail.jar"/>
+            <permission mode="2775" wildcard="orawsdl_12.2.1.2.0.jar"/>
+            <permission mode="2775" wildcard="xdo-core.jar"/>
+            <permission mode="2775" wildcard="xdo-server.jar"/>
+            <permission mode="2775" wildcard="xmlef.jar"/>
+            <permission mode="2775" wildcard="xmlparserv2.jar"/>
+            <permission mode="2775" wildcard="bip_jaxws_client.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_billd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1282" dest="PinCorrBillFileInput.xml" mode="0644"/>
+            <file size="5252" dest="create_journal_doc.txt" mode="0644"/>
+            <file size="1345" dest="BusinessConfiguration.xsd" mode="0644"/>
+            <file size="1404" dest="PinConvertWholesaleInput.xml" mode="0644"/>
+            <file size="1289" dest="PinBillRunControl.xml" mode="0644"/>
+            <file size="348" dest="del_closed_accts_list.txt" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="BusinessConfiguration.xsd"/>
+            <permission mode="0644" wildcard="PinBillRunControl.xml"/>
+            <permission mode="0644" wildcard="PinCorrBillFileInput.xml"/>
+            <permission mode="0644" wildcard="PinConvertWholesaleInput.xml"/>
+            <permission mode="0644" wildcard="create_journal_doc.txt"/>
+            <permission mode="0644" wildcard="del_closed_accts_list.txt"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

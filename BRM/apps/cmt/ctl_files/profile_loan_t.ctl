@@ -1,0 +1,34 @@
+--
+-- @(#)profile_loan_t.ctl 1
+--
+--     Copyright (c) 2023, Oracle and/or its affiliates.
+--
+--     This material is the confidential property of Oracle Corporation
+--     or its licensors and may be used, reproduced, stored or transmitted 
+--     only in accordance with a valid Oracle license or sublicense agreement.
+--
+--
+--
+LOAD DATA
+APPEND
+   INTO TABLE PROFILE_LOAN_T
+   (
+	OBJ_ID0			INTEGER EXTERNAL TERMINATED BY ',',
+	CREDIT_AMOUNT		INTEGER EXTERNAL TERMINATED BY ',',
+	NUMBER_OF_LOANS		INTEGER EXTERNAL TERMINATED BY ',',
+	EXTERNAL_ELIGIBILITY	INTEGER EXTERNAL TERMINATED BY ',',
+	CONFIG_LOAN_OBJ_DB	INTEGER EXTERNAL TERMINATED BY ',',
+	CONFIG_LOAN_OBJ_ID0	INTEGER EXTERNAL TERMINATED BY ',',
+	OPT_LOAN		INTEGER EXTERNAL TERMINATED BY ',',
+	MAX_ACTIVE_LOANS	INTEGER EXTERNAL TERMINATED BY ',',
+	REPAYMENT_DAYS		INTEGER EXTERNAL TERMINATED BY ',',
+	PULLBACK		INTEGER EXTERNAL TERMINATED BY ',',
+	NO_OF_ACTIVE_LOANS	INTEGER EXTERNAL TERMINATED BY ',',
+
+-- Constant Values
+	CYCLE_T			CONSTANT '0',
+	CONFIG_LOAN_OBJ_TYPE	CONSTANT '/config/loan',
+	CONFIG_LOAN_OBJ_REV	CONSTANT '0',
+	FREQUENCY		CONSTANT '0',
+	UNIT			CONSTANT '0'
+    )

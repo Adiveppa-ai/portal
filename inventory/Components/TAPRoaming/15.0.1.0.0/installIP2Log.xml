@@ -1,0 +1,196 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. --><ACTION_LIST>
+   <ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/incollect/nrtrdeout/oprt1" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/incollect/nrtrdeout/oprt2" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/correction/done" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/correction/error" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/correction/in" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/correction/out" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/correction/suspended_batch" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/settlement/out/tapheaderinfo" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/outcollect/settlement/suspended_batch" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/rapin/notification" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/stoprap/in" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/stoprap/out" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/recycledunknown" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/resubmit" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="createDirRecurse" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="fileActions" VER="12.1.3.0.0" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="destination" VAL="%SYMBOL_IFW_SERVER_HOME%/data/resubmitTmp" TYPE="String" SECURE="F"/>
+         <INPUT NAME="selectedNodes" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="permissions" VAL="700" TYPE="String" SECURE="F"/>
+         <INPUT NAME="owner" VAL="null" TYPE="" SECURE="F"/>
+         <INPUT NAME="group" VAL="null" TYPE="" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="mkdir -p /home/pin/opt/portal/ifw/data/incollect/reprice/done /home/pin/opt/portal/ifw/data/incollect/reprice/error /home/pin/opt/portal/ifw/data/incollect/reprice/in /home/pin/opt/portal/ifw/data/incollect/settlement/done /home/pin/opt/portal/ifw/data/incollect/settlement/error/ /home/pin/opt/portal/ifw/data/incollect/settlement/in /home/pin/opt/portal/ifw/data/incollect/settlement/suspended_batch /home/pin/opt/portal/ifw/data/incollect/settlement/out/gprs /home/pin/opt/portal/ifw/data/incollect/settlement/out/gsm /home/pin/opt/portal/ifw/data/incollect/tapin/done /home/pin/opt/portal/ifw/data/incollect/tapin/error /home/pin/opt/portal/ifw/data/incollect/tapin/in /home/pin/opt/portal/ifw/data/incollect/tapin/out /home/pin/opt/portal/ifw/data/incollect/tapin/rapout" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="rm -rf /home/pin/opt/portal/ifw/data/incollect/reprice/done /home/pin/opt/portal/ifw/data/incollect/reprice/error /home/pin/opt/portal/ifw/data/incollect/reprice/in /home/pin/opt/portal/ifw/data/incollect/settlement/done /home/pin/opt/portal/ifw/data/incollect/settlement/error/ /home/pin/opt/portal/ifw/data/incollect/settlement/in /home/pin/opt/portal/ifw/data/incollect/settlement/suspended_batch /home/pin/opt/portal/ifw/data/incollect/settlement/out/gprs /home/pin/opt/portal/ifw/data/incollect/settlement/out/gsm /home/pin/opt/portal/ifw/data/incollect/tapin/done /home/pin/opt/portal/ifw/data/incollect/tapin/error /home/pin/opt/portal/ifw/data/incollect/tapin/in /home/pin/opt/portal/ifw/data/incollect/tapin/out /home/pin/opt/portal/ifw/data/incollect/tapin/rapout" TYPE="String" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="mkdir -p /home/pin/opt/portal/ifw/data/outcollect/done /home/pin/opt/portal/ifw/data/outcollect/error /home/pin/opt/portal/ifw/data/outcollect/in /home/pin/opt/portal/ifw/data/outcollect/reject /home/pin/opt/portal/ifw/data/outcollect/settlement/backout /home/pin/opt/portal/ifw/data/outcollect/settlement/done /home/pin/opt/portal/ifw/data/outcollect/settlement/error /home/pin/opt/portal/ifw/data/outcollect/settlement/in /home/pin/opt/portal/ifw/data/outcollect/settlement/out/gprs /home/pin/opt/portal/ifw/data/outcollect/settlement/out/gsm /home/pin/opt/portal/ifw/data/outcollect/settlement/suspended_batch /home/pin/opt/portal/ifw/data/outcollect/tapout/common /home/pin/opt/portal/ifw/data/outcollect/tapout/sent /home/pin/opt/portal/ifw/data/outcollect/tapout/oprt1 /home/pin/opt/portal/ifw/data/outcollect/tapout/oprt2 /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/done /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/error /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/in /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/reject /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/out/gsm /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/out/gprs" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="rm -rf /home/pin/opt/portal/ifw/data/outcollect/done /home/pin/opt/portal/ifw/data/outcollect/error /home/pin/opt/portal/ifw/data/outcollect/in /home/pin/opt/portal/ifw/data/outcollect/reject /home/pin/opt/portal/ifw/data/outcollect/settlement/backout /home/pin/opt/portal/ifw/data/outcollect/settlement/done /home/pin/opt/portal/ifw/data/outcollect/settlement/error /home/pin/opt/portal/ifw/data/outcollect/settlement/in /home/pin/opt/portal/ifw/data/outcollect/settlement/out/gprs /home/pin/opt/portal/ifw/data/outcollect/settlement/out/gsm /home/pin/opt/portal/ifw/data/outcollect/settlement/suspended_batch /home/pin/opt/portal/ifw/data/outcollect/tapout/common /home/pin/opt/portal/ifw/data/outcollect/tapout/sent /home/pin/opt/portal/ifw/data/outcollect/tapout/oprt1 /home/pin/opt/portal/ifw/data/outcollect/tapout/oprt2 /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/done /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/error /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/in /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/reject /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/out/gsm /home/pin/opt/portal/ifw/data/outcollect/settlement/backout/out/gprs" TYPE="String" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+<ACTION NAME="Spawn" INSTALL="T" DEINSTALL="T">
+      <LIB NAME="SpawnActions" VER="10.1.0.3.4" REP_VER="0.0" MIN_INST_VER="1.5.0.0.0"/>
+      <INPUT_LIST>
+         <INPUT NAME="installcommand" VAL="mkdir -p /home/pin/opt/portal/ifw/data/rapin/ack /home/pin/opt/portal/ifw/data/rapin/done /home/pin/opt/portal/ifw/data/rapin/eet /home/pin/opt/portal/ifw/data/rapin/error /home/pin/opt/portal/ifw/data/rapin/in /home/pin/opt/portal/ifw/data/rapin/reject" TYPE="String" SECURE="F"/>
+         <INPUT NAME="deinstallcommand" VAL="rm -rf /home/pin/opt/portal/ifw/data/rapin/ack /home/pin/opt/portal/ifw/data/rapin/done /home/pin/opt/portal/ifw/data/rapin/eet /home/pin/opt/portal/ifw/data/rapin/error /home/pin/opt/portal/ifw/data/rapin/in /home/pin/opt/portal/ifw/data/rapin/reject" TYPE="String" SECURE="F"/>
+         <INPUT NAME="WaitForCompletion" VAL="true" TYPE="Boolean" SECURE="F"/>
+      </INPUT_LIST>
+      <LOG_OBJ_LIST/>
+   </ACTION>
+</ACTION_LIST>

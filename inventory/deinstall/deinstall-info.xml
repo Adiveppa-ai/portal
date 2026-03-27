@@ -1,0 +1,498 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<deinstall-info xmlns:ns2="http://xmlns.oracle.com/cie/gdr/nfo" xmlns:ns3="http://xmlns.oracle.com/cie/gdr/rgy" xmlns="http://xmlns.oracle.com/cie/gdr/dei">
+   <refcounts/>
+   <components>
+      <component name="AccountMigrationMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/15.0.1/AccountMigrationMgr-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/amt.1/15.0.1/amt.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/amt.1/15.0.1/amt.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/amt/15.0.1/amt-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/amt/15.0.1/amt-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/spamt.1/15.0.1/spamt.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/spamt.1/15.0.1/spamt.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/spamt/15.0.1/spamt-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr/spamt/15.0.1/spamt-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="BRMServer" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/15.0.1/BRMServer-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/BRMActions/15.0.1/BRMActions-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/BRMActions/15.0.1/BRMActions-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/BRMScreens/15.0.1/BRMScreens-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/BRMScreens/15.0.1/BRMScreens-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/cet.1/15.0.1/cet.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/cet.1/15.0.1/cet.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/cet/15.0.1/cet-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/cet/15.0.1/cet-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/cryptoj/15.0.1/cryptoj-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/cryptoj/15.0.1/cryptoj-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/device-permit-map.1/15.0.1/device-permit-map.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/device-permit-map.1/15.0.1/device-permit-map.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/device-permit-map/15.0.1/device-permit-map-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/device-permit-map/15.0.1/device-permit-map-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/helpset/15.0.1/helpset-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/helpset/15.0.1/helpset-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/jackson-annotations-2.16.2/15.0.1/jackson-annotations-2.16.2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/jackson-annotations-2.16.2/15.0.1/jackson-annotations-2.16.2-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/jackson-core-2.16.2/15.0.1/jackson-core-2.16.2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/jackson-core-2.16.2/15.0.1/jackson-core-2.16.2-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/jackson-databind-2.16.2/15.0.1/jackson-databind-2.16.2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/jackson-databind-2.16.2/15.0.1/jackson-databind-2.16.2-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/js.1/15.0.1/js.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/js.1/15.0.1/js.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/js/15.0.1/js-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/js/15.0.1/js-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/ojmisc/15.0.1/ojmisc-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/ojmisc/15.0.1/ojmisc-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/oraclepki/15.0.1/oraclepki-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/oraclepki/15.0.1/oraclepki-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcm.1/15.0.1/pcm.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcm.1/15.0.1/pcm.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcm/15.0.1/pcm-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcm/15.0.1/pcm-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcmext.1/15.0.1/pcmext.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcmext.1/15.0.1/pcmext.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcmext/15.0.1/pcmext-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/pcmext/15.0.1/pcmext-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/perflib/15.0.1/perflib-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/perflib/15.0.1/perflib-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/svrwallet.1/15.0.1/svrwallet.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/svrwallet.1/15.0.1/svrwallet.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/svrwallet/15.0.1/svrwallet-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer/svrwallet/15.0.1/svrwallet-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="BRMServicesFrameworkMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServicesFrameworkMgr/15.0.1/BRMServicesFrameworkMgr-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServicesFrameworkMgr/agentsimulator/15.0.1/agentsimulator-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServicesFrameworkMgr/agentsimulator/15.0.1/agentsimulator-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="BRM_SDK" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/15.0.1/BRM_SDK-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/device-permit-map.1/15.0.1/device-permit-map.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/device-permit-map.1/15.0.1/device-permit-map.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/device-permit-map/15.0.1/device-permit-map-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/device-permit-map/15.0.1/device-permit-map-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/oraclepki/15.0.1/oraclepki-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/oraclepki/15.0.1/oraclepki-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcm.1/15.0.1/pcm.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcm.1/15.0.1/pcm.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcm/15.0.1/pcm-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcm/15.0.1/pcm-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcmext.1/15.0.1/pcmext.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcmext.1/15.0.1/pcmext.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcmext/15.0.1/pcmext-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK/pcmext/15.0.1/pcmext-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="Base_BRM_Reports" version="15.0.1.0.0">
+         <files>
+            <file path="/plugins/maven/com/oracle/Base_BRM_Reports/15.0.1/Base_BRM_Reports-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/Base_BRM_Reports/BIPExtension/15.0.1/BIPExtension-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/Base_BRM_Reports/BIPExtension/15.0.1/BIPExtension-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="BillingAndInvoicing" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/15.0.1/BillingAndInvoicing-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/bip_jaxws_client/15.0.1/bip_jaxws_client-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/bip_jaxws_client/15.0.1/bip_jaxws_client-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/com.oracle.webservices.wls.jaxws-wlswss-client/15.0.1/com.oracle.webservices.wls.jaxws-wlswss-client-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/com.oracle.webservices.wls.jaxws-wlswss-client/15.0.1/com.oracle.webservices.wls.jaxws-wlswss-client-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/formatter/15.0.1/formatter-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/formatter/15.0.1/formatter-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/jaxrpc/15.0.1/jaxrpc-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/jaxrpc/15.0.1/jaxrpc-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/mail/15.0.1/mail-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/mail/15.0.1/mail-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/orawsdl_12.2.1.2.0/15.0.1/orawsdl_12.2.1.2.0-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/orawsdl_12.2.1.2.0/15.0.1/orawsdl_12.2.1.2.0-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/pin_inv_doc_gen/15.0.1/pin_inv_doc_gen-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/pin_inv_doc_gen/15.0.1/pin_inv_doc_gen-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/pxslt.1/15.0.1/pxslt.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/pxslt.1/15.0.1/pxslt.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/pxslt/15.0.1/pxslt-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/pxslt/15.0.1/pxslt-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xdo-core/15.0.1/xdo-core-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xdo-core/15.0.1/xdo-core-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xdo-server/15.0.1/xdo-server-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xdo-server/15.0.1/xdo-server-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xmlef/15.0.1/xmlef-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xmlef/15.0.1/xmlef-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xmlparserv2/15.0.1/xmlparserv2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing/xmlparserv2/15.0.1/xmlparserv2-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="CORE" version="15.0.1.0.0">
+         <files>
+            <file path="/oui/plugins/maven/com/oracle/CORE/prereq/15.0.1/prereq-15.0.1.location"/>
+            <file path="/oui/plugins/maven/com/oracle/CORE/prereq/15.0.1/prereq-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/15.0.1/CORE-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/BRMActions/15.0.1/BRMActions-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/BRMActions/15.0.1/BRMActions-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/BRMScreens/15.0.1/BRMScreens-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/BRMScreens/15.0.1/BRMScreens-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset/15.0.1/helpset-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset/15.0.1/helpset-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_es/15.0.1/helpset_es-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_es/15.0.1/helpset_es-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_fr/15.0.1/helpset_fr-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_fr/15.0.1/helpset_fr-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_it/15.0.1/helpset_it-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_it/15.0.1/helpset_it-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_ja/15.0.1/helpset_ja-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_ja/15.0.1/helpset_ja-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_ko/15.0.1/helpset_ko-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_ko/15.0.1/helpset_ko-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_pt_BR/15.0.1/helpset_pt_BR-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_pt_BR/15.0.1/helpset_pt_BR-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_ru_RU/15.0.1/helpset_ru_RU-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_ru_RU/15.0.1/helpset_ru_RU-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_zh_CN/15.0.1/helpset_zh_CN-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_zh_CN/15.0.1/helpset_zh_CN-15.0.1.pom"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_zh_TW/15.0.1/helpset_zh_TW-15.0.1.location"/>
+            <file path="/plugins/maven/com/oracle/CORE/helpset_zh_TW/15.0.1/helpset_zh_TW-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="EAI_FrameworkMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/EAI_FrameworkMgr/15.0.1/EAI_FrameworkMgr-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/EAI_FrameworkMgr/eai/15.0.1/eai-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/EAI_FrameworkMgr/eai/15.0.1/eai-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="JCA_Adapter" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/15.0.1/JCA_Adapter-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/OracleBRMJCA15Adapter/15.0.1/OracleBRMJCA15Adapter-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/OracleBRMJCA15Adapter/15.0.1/OracleBRMJCA15Adapter-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/WSDLGenerator/15.0.1/WSDLGenerator-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/WSDLGenerator/15.0.1/WSDLGenerator-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/testJca/15.0.1/testJca-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/testJca/15.0.1/testJca-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/weblogic_startup/15.0.1/weblogic_startup-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/weblogic_startup/15.0.1/weblogic_startup-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/xmlparserv2/15.0.1/xmlparserv2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter/xmlparserv2/15.0.1/xmlparserv2-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="MultiDBMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/MultiDBMgr/15.0.1/MultiDBMgr-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/MultiDBMgr/pin_reset_seq/15.0.1/pin_reset_seq-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/MultiDBMgr/pin_reset_seq/15.0.1/pin_reset_seq-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="RatedEventLoader" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/15.0.1/RatedEventLoader-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rated-event-manager.1/15.0.1/brm-rated-event-manager.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rated-event-manager.1/15.0.1/brm-rated-event-manager.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rated-event-manager/15.0.1/brm-rated-event-manager-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rated-event-manager/15.0.1/brm-rated-event-manager-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rel-manager.1/15.0.1/brm-rel-manager.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rel-manager.1/15.0.1/brm-rel-manager.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rel-manager/15.0.1/brm-rel-manager-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/brm-rel-manager/15.0.1/brm-rel-manager-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/jline-3.23.0/15.0.1/jline-3.23.0-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/jline-3.23.0/15.0.1/jline-3.23.0-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/rel.1/15.0.1/rel.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/rel.1/15.0.1/rel.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/rel/15.0.1/rel-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader/rel/15.0.1/rel-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="WebServiceMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/15.0.1/WebServiceMgr-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/WSDLGenerator/15.0.1/WSDLGenerator-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/WSDLGenerator/15.0.1/WSDLGenerator-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/impl_generator/15.0.1/impl_generator-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/impl_generator/15.0.1/impl_generator-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/weblogic_ws_startup/15.0.1/weblogic_ws_startup-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr/weblogic_ws_startup/15.0.1/weblogic_ws_startup-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="batch_controller" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/batch_controller/15.0.1/batch_controller-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/batch_controller/batch/15.0.1/batch-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/batch_controller/batch/15.0.1/batch-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="cm" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/cm/15.0.1/cm-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/PortalTransform/15.0.1/PortalTransform-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/PortalTransform/15.0.1/PortalTransform-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/loadpricelist.1/15.0.1/loadpricelist.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/loadpricelist.1/15.0.1/loadpricelist.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/loadpricelist/15.0.1/loadpricelist-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/loadpricelist/15.0.1/loadpricelist-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/pin_job_executor.1/15.0.1/pin_job_executor.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/pin_job_executor.1/15.0.1/pin_job_executor.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/pin_job_executor/15.0.1/pin_job_executor-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/pin_job_executor/15.0.1/pin_job_executor-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/sepa.1/15.0.1/sepa.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/sepa.1/15.0.1/sepa.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/sepa/15.0.1/sepa-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/sepa/15.0.1/sepa-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/storableclasstoxml.1/15.0.1/storableclasstoxml.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/storableclasstoxml.1/15.0.1/storableclasstoxml.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/storableclasstoxml/15.0.1/storableclasstoxml-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/storableclasstoxml/15.0.1/storableclasstoxml-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/uel/15.0.1/uel-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cm/uel/15.0.1/uel-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="cmt" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/cmt/15.0.1/cmt-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/cmt/cmt/15.0.1/cmt-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/cmt/cmt/15.0.1/cmt-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="dm_kafka" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/15.0.1/dm_kafka-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/dm_kafka.1/15.0.1/dm_kafka.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/dm_kafka.1/15.0.1/dm_kafka.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/dm_kafka/15.0.1/dm_kafka-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/dm_kafka/15.0.1/dm_kafka-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/jackson-annotations-2.16.2/15.0.1/jackson-annotations-2.16.2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/jackson-annotations-2.16.2/15.0.1/jackson-annotations-2.16.2-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/jackson-core-2.16.2/15.0.1/jackson-core-2.16.2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/jackson-core-2.16.2/15.0.1/jackson-core-2.16.2-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/jackson-databind-2.16.2/15.0.1/jackson-databind-2.16.2-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/jackson-databind-2.16.2/15.0.1/jackson-databind-2.16.2-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/js.1/15.0.1/js.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/js.1/15.0.1/js.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/js/15.0.1/js-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/js/15.0.1/js-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/log4j-api-2.23.1/15.0.1/log4j-api-2.23.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/log4j-api-2.23.1/15.0.1/log4j-api-2.23.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/log4j-core-2.23.1/15.0.1/log4j-core-2.23.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/log4j-core-2.23.1/15.0.1/log4j-core-2.23.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/log4j-slf4j-impl-2.23.1/15.0.1/log4j-slf4j-impl-2.23.1-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/log4j-slf4j-impl-2.23.1/15.0.1/log4j-slf4j-impl-2.23.1-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/slf4j-api-2.0.11/15.0.1/slf4j-api-2.0.11-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka/slf4j-api-2.0.11/15.0.1/slf4j-api-2.0.11-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="dm_oracle" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/dm_oracle/15.0.1/dm_oracle-15.0.1.pom"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_oracle/virtualcolumns/15.0.1/virtualcolumns-15.0.1.location"/>
+            <file path="/BRM/plugins/maven/com/oracle/dm_oracle/virtualcolumns/15.0.1/virtualcolumns-15.0.1.pom"/>
+         </files>
+      </component>
+      <component name="oracle.bali.ice" version="12.2.1.4.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle.bali.ice/12.2.1/oracle.bali.ice-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle_ice/12.2.1/oracle_ice-12.2.1.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle_ice/12.2.1/oracle_ice-12.2.1.pom"/>
+         </files>
+      </component>
+      <component name="oracle.bali.jewt" version="12.2.1.4.0">
+         <files>
+            <file path="/oracle_common/modules/internal/features/oracle.bali.jewt_adf.runtime.war.jar"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/jewt4/12.2.1/jewt4-12.2.1.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/jewt4/12.2.1/jewt4-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/olaf2/12.2.1/olaf2-12.2.1.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/olaf2/12.2.1/olaf2-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle.bali.jewt.adf.runtime.war/12.2.1/oracle.bali.jewt.adf.runtime.war-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle.bali.jewt/12.2.1/oracle.bali.jewt-12.2.1.pom"/>
+         </files>
+      </component>
+      <component name="oracle.bali.share" version="12.2.1.4.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle.bali.share/12.2.1/oracle.bali.share-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/share/12.2.1/share-12.2.1.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/share/12.2.1/share-12.2.1.pom"/>
+         </files>
+      </component>
+      <component name="oracle.glcm.comdev" version="7.8.4.0.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/comdev/com.oracle.cie.comdev_7.8.4.0/7.8.4/com.oracle.cie.comdev_7.8.4.0-7.8.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/comdev/com.oracle.cie.comdev_7.8.4.0/7.8.4/com.oracle.cie.comdev_7.8.4.0-7.8.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/comdev/comdev-classpath/7.8.4/comdev-classpath-7.8.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/comdev/comdev-classpath/7.8.4/comdev-classpath-7.8.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/oracle.glcm.comdev/7.8.4/oracle.glcm.comdev-7.8.4.pom"/>
+         </files>
+      </component>
+      <component name="oracle.glcm.dependency" version="1.8.4.0.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/dependency/com.oracle.cie.dependency_1.8.4.0/1.8.4/com.oracle.cie.dependency_1.8.4.0-1.8.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/dependency/com.oracle.cie.dependency_1.8.4.0/1.8.4/com.oracle.cie.dependency_1.8.4.0-1.8.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/dependency/dependency-classpath/1.8.4/dependency-classpath-1.8.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/dependency/dependency-classpath/1.8.4/dependency-classpath-1.8.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/oracle.glcm.dependency/1.8.4/oracle.glcm.dependency-1.8.4.pom"/>
+         </files>
+      </component>
+      <component name="oracle.glcm.logging" version="1.6.4.0.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/logging/com.oracle.glcm.common-logging_1.6.4.0/1.6.4/com.oracle.glcm.common-logging_1.6.4.0-1.6.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/logging/com.oracle.glcm.common-logging_1.6.4.0/1.6.4/com.oracle.glcm.common-logging_1.6.4.0-1.6.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/logging/common-logging-classpath/1.6.4/common-logging-classpath-1.6.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/logging/common-logging-classpath/1.6.4/common-logging-classpath-1.6.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/oracle.glcm.logging/1.6.4/oracle.glcm.logging-1.6.4.pom"/>
+         </files>
+      </component>
+      <component name="oracle.glcm.opatch.common.api" version="13.9.4.0.0">
+         <files>
+            <file path="/OPatch/modules/features/oracle.glcm.opatch.common.api.classpath.jar"/>
+         </files>
+      </component>
+      <component name="oracle.glcm.wizard" version="7.8.4.0.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/wizard/com.oracle.cie.wizard_7.8.4.0/7.8.4/com.oracle.cie.wizard_7.8.4.0-7.8.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/wizard/com.oracle.cie.wizard_7.8.4.0/7.8.4/com.oracle.cie.wizard_7.8.4.0-7.8.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/wizard/wizard-classpath/7.8.4/wizard-classpath-7.8.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/wizard/wizard-classpath/7.8.4/wizard-classpath-7.8.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/oracle.glcm.wizard/7.8.4/oracle.glcm.wizard-7.8.4.pom"/>
+         </files>
+      </component>
+      <component name="oracle.glcm.xmldh" version="3.4.4.0.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/xmldh/com.oracle.cie.xmldh_3.4.4.0/3.4.4/com.oracle.cie.xmldh_3.4.4.0-3.4.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/xmldh/com.oracle.cie.xmldh_3.4.4.0/3.4.4/com.oracle.cie.xmldh_3.4.4.0-3.4.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/xmldh/xmldh-classpath/3.4.4/xmldh-classpath-3.4.4.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/glcm/xmldh/xmldh-classpath/3.4.4/xmldh-classpath-3.4.4.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/oracle.glcm.xmldh/3.4.4/oracle.glcm.xmldh-3.4.4.pom"/>
+         </files>
+      </component>
+      <component name="oracle.help.ohj" version="12.2.1.4.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/ohj/12.2.1/ohj-12.2.1.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/ohj/12.2.1/ohj-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle.help.ohj/12.2.1/oracle.help.ohj-12.2.1.pom"/>
+         </files>
+      </component>
+      <component name="oracle.help.share" version="12.2.1.4.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/help-share/12.2.1/help-share-12.2.1.location"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/help-share/12.2.1/help-share-12.2.1.pom"/>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/oracle.help.share/12.2.1/oracle.help.share-12.2.1.pom"/>
+         </files>
+      </component>
+      <component name="pipeline" version="15.0.1.0.0">
+         <files>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/15.0.1/pipeline-15.0.1.pom"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/cet.1/15.0.1/cet.1-15.0.1.location"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/cet.1/15.0.1/cet.1-15.0.1.pom"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/cet/15.0.1/cet-15.0.1.location"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/cet/15.0.1/cet-15.0.1.pom"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/cryptoj/15.0.1/cryptoj-15.0.1.location"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/cryptoj/15.0.1/cryptoj-15.0.1.pom"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/ojmisc/15.0.1/ojmisc-15.0.1.location"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/ojmisc/15.0.1/ojmisc-15.0.1.pom"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/oraclepki/15.0.1/oraclepki-15.0.1.location"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/oraclepki/15.0.1/oraclepki-15.0.1.pom"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/stateconfigtool/15.0.1/stateconfigtool-15.0.1.location"/>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline/stateconfigtool/15.0.1/stateconfigtool-15.0.1.pom"/>
+         </files>
+      </component>
+   </components>
+   <features>
+      <feature name="AccountMigrationMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/AccountMigrationMgr.1/15.0.1/AccountMigrationMgr.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="BRMServer" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServer.1/15.0.1/BRMServer.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="BRMServicesFrameworkMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BRMServicesFrameworkMgr.1/15.0.1/BRMServicesFrameworkMgr.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="BRM_SDK" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BRM_SDK.1/15.0.1/BRM_SDK.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="BillingAndInvoicing" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/BillingAndInvoicing.1/15.0.1/BillingAndInvoicing.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="EAI_FrameworkMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/EAI_FrameworkMgr.1/15.0.1/EAI_FrameworkMgr.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="JCA_Adapter" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/JCA_Adapter.1/15.0.1/JCA_Adapter.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="MultiDBMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/MultiDBMgr.1/15.0.1/MultiDBMgr.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="RatedEventLoader" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/RatedEventLoader.1/15.0.1/RatedEventLoader.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="WebServiceMgr" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/WebServiceMgr.1/15.0.1/WebServiceMgr.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="batch_controller" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/batch_controller.1/15.0.1/batch_controller.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="cm" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/cm.1/15.0.1/cm.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="cmt" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/cmt.1/15.0.1/cmt.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="dm_kafka" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/dm_kafka.1/15.0.1/dm_kafka.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="dm_oracle" version="15.0.1.0.0">
+         <files>
+            <file path="/BRM/plugins/maven/com/oracle/dm_oracle.1/15.0.1/dm_oracle.1-15.0.1.pom"/>
+         </files>
+      </feature>
+      <feature name="glcm_common" version="13.9.4.0.0">
+         <files>
+            <file path="/oracle_common/modules/features/glcm_common_glcm_common_lib_13.9.4.jar"/>
+         </files>
+      </feature>
+      <feature name="glcm_common_logging" version="13.9.4.0.0">
+         <files>
+            <file path="/oracle_common/modules/features/glcm_common_logging_glcm_common_logging_lib_13.9.4.jar"/>
+         </files>
+      </feature>
+      <feature name="jrf_presoTools_core" version="12.2.1.4.0">
+         <files>
+            <file path="/oracle_common/plugins/maven/com/oracle/fmwshare/jrf_presoTools_core/12.2.1/jrf_presoTools_core-12.2.1.pom"/>
+         </files>
+      </feature>
+      <feature name="pipeline" version="15.0.1.0.0">
+         <files>
+            <file path="/ifw/plugins/maven/com/oracle/pipeline.1/15.0.1/pipeline.1-15.0.1.pom"/>
+         </files>
+      </feature>
+   </features>
+</deinstall-info>

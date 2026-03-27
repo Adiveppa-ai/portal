@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2004 - 2006 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="CalendarConfigurationType">
+	<xs:sequence>
+	<xs:element name="CalendarList">
+	<xs:complexType>
+	<xs:sequence>
+	<xs:element name="Calendar" maxOccurs="unbounded">
+		<xs:complexType>
+		<xs:sequence>
+		<xs:element name="Date" maxOccurs="unbounded">
+			<xs:complexType>
+			<xs:sequence>
+			<xs:element name="Day" type="xs:gDay"/>
+			<xs:element name="Month" type="xs:gMonth"/>
+			<xs:element name="Year">
+				<xs:simpleType>
+					<xs:restriction base="yearType">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			</xs:sequence>
+			</xs:complexType>
+			</xs:element>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			</xs:complexType>
+			<xs:unique name="uniqueDate">
+				<xs:selector xpath=".//businessConfig:Date"/>
+				<xs:field xpath="businessConfig:Day"/>
+				<xs:field xpath="businessConfig:Month"/>
+				<xs:field xpath="businessConfig:Year"/>
+	                </xs:unique>	
+	</xs:element>
+	</xs:sequence>
+	</xs:complexType>
+	<xs:unique name="uniqueCalendarName">
+		<xs:selector xpath=".//businessConfig:Calendar"/>
+		<xs:field xpath="./@name"/>
+	</xs:unique>
+	</xs:element>
+	</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="yearType">
+		<xs:union memberTypes="xs:gYear zeroType"/>
+	</xs:simpleType>
+	<xs:simpleType name="zeroType">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:maxInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

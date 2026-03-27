@@ -1,0 +1,2017 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2019, Oracle and/or its affiliates. All rights reserved.
+#
+#   This material is the confidential property of Oracle Corporation
+#   or its subsidiaries or licensors and may be used, reproduced, stored
+#   or transmitted only in accordance with a valid Oracle license or
+#   sublicense agreement.
+
+use Getopt::Std;
+#
+
+#==========BEGINNING OF CONFIGURATION SECTION =================================
+#$DEBUG = 1;
+$PINHOME="/opt/portal/6.7";
+#$PINHOME="C:/infranet";
+# array below used only for result comparison
+@TEST =( "Infranet 6.7", ".",
+	 "Infranet 6.5","/opt/portal/6.5/apps/perf/simtools",
+	 );
+$DBSERVER ="oracle";   # could be oracle or odbc
+@SECTIONS_TO_EXEC = ( 1, #configuration test
+		      1, #basic regression test with Plan Bench_Basic
+		      1, #basic regression test with Plan Bench_Power
+		      1, #basic regression test with Plan Bench_Basic Tax Now
+		      1, #basic regress test with Plan Bench_Basic Deffered Tax
+		      1, #testing subordinate accounts
+		      1, #testing multiproduct accounts
+		      1, #IPT test
+		      1, #branding performance test   
+		      0
+		      );
+$NUM_SUBORD_ACCT = 10;   # number of subordinate accounts per parent
+$NUM_RUN_TO_BUY_PRODUCTS = 4;     # number of runs to buy products ( to create 
+				  # more products and see perf degradation
+$BRAND_LOGIN = "brand1";
+$BRAND_PASSWD = "brand_passw";
+$ZONEMAP_SIZE = "2x5";    # matrix size width x length(depth)
+
+#==========END OF CONFIGURATION SECTION ======================================
+@SECTIONS_NAME = ( "Configuration Test",
+	           "ITM-C Test with Plan Bench_Basic",
+	           "ITM-C Test with Plan Bench_Power",
+	           "ITM-C Test with Plan Bench_Basic Tax Now",
+	           "ITM-C Test with Plan Bench_Basic Deffered Tax ",
+	           "ITM-C Test with subordinate accounts ",
+	           "ITM-C Test with multiproduct accounts ",
+	           "IPT Test ",
+	           "Branding Performance Test ",
+		   ""
+		      );
+#==================================================================
+($ME = $0) =~ s,.*/,,;
+
+#=============================================================================
+# check what operation system we are running on
+# $^O will return name of OS
+if ( $^O =~ /win/i )
+{
+# NT computer ( actually any windows operation system )
+$COPY = "cp";  # this is for MKS only
+`copy process-pin_loader.bat process-pin_loader`;
+}
+else
+{
+# UNIX assignment
+$COPY = "cp";
+}
+
+$CONF_FILE="pin.conf";
+
+# Parse command line flag.
+# c - don't create accounts for first test and skip first DB cleaning
+#     it means DB created and already ready to test real workload
+# a - create accounts without cleaning DB
+# s - save changable file: pin_setup.values and pin.conf       
+#
+getopts('CcSsPpAa');
+
+$PERF_MGR_EXEC="perf_mgr";
+$PERF_PRINT=" %d.%s test completed %s in %d h %d min %d sec.\n Performance obtained: %5.1f op/sec\n";
+$test_host_name = `hostname`;
+chop ($test_host_name);
+
+#####################################################
+# for Apollo we need to adjust setup/scripts/pin_setup.pl
+adjust_pin_setup ();
+#####################################################
+# all performance test done with performance plan list
+`$COPY $PINHOME/apps/perf/unsupported/Benchmark.xml $PINHOME/setup/scripts/basicISP.xml`;
+# if requested save changeable config files
+if (defined $opt_s || defined $opt_S) {
+   $currtime1 = time();
+   save_pinconf_file("$CONF_FILE");
+  `$COPY $PINHOME/setup/pin_setup.values $PINHOME/setup/pin_setup.values.$currtime1`;
+}
+
+initialize_configs ();
+
+print "***************************************************************\n";
+print "***         INFRANET   Stress Test                         ****\n";
+$date_started = get_date();
+printf "*** started on %s at %s\n", $test_host_name, $date_started;
+$currtime1 = time();
+$offset=find_param_value ( "$CONF_FILE", "perfmgr", "offset" );
+$users=find_param_value ( "$CONF_FILE", "perfmgr", "users" );
+$num_to_bill=( $users - $offset+1) ;
+#
+#  find and convert time in sec
+#
+$runtime=find_param_value ( "$CONF_FILE", "perfmgr", "time_run" );
+$sectime = $runtime;
+if ( $runtime =~ m/m$/ ) {
+($sectime,$unit) = split (/m/,$runtime );
+$sectime=$sectime *60;
+}
+if ( $runtime =~ m/s$/ ) {
+($sectime,$unit) = split (/s/,$runtime );
+}
+if ( $runtime =~ m/h$/ ) {
+($sectime,$unit) = split (/h/,$runtime );
+$sectime*=3600;
+}
+printf "*** each test will run %s seconds \n", $sectime;
+
+##########################################################################
+#     should we skip first cleaning and creating accounts?
+if (defined $opt_c || defined $opt_C) {
+        $to_create_accounts = 0; # already we have something
+	$cleaned = 1;    # already cleaned 
+}
+else {
+     if (defined $opt_a || defined $opt_A) {
+        $to_create_accounts = 1; # yes, create accounts      
+	$cleaned = 1;    # already cleaned 
+     }
+     else {
+        $to_create_accounts = 1; # yes, create accounts      
+	$cleaned = 0;    # not cleaned yet
+     }
+}
+############################################################################
+#   configuration and connections test
+############################################################################
+
+$Section = 0;
+$cleaning = 1;   # need to configure and clean DB
+
+configuration_test ();
+
+############################################################################
+#   basic test for Basic accounts
+############################################################################
+
+$Section = 1;
+$cleaning = 1;
+
+basic_test ($Section, "Bench_Basic",0);
+
+############################################################################
+#   basic test for Power accounts
+############################################################################
+
+$Section = 2;
+$cleaning = 1;
+
+basic_test ($Section, "Bench_Power",0);
+
+############################################################################
+#   basic test for Power accounts
+############################################################################
+
+$Section = 3;
+$cleaning = 1;
+
+basic_test ($Section, "Bench_Basic_TaxN",0);
+
+############################################################################
+#   basic test for Power accounts
+############################################################################
+
+$Section = 4;
+$cleaning = 1;
+
+basic_test ($Section, "Bench_Basic_TaxD",0);
+
+############################################################################
+#  Testing subordinate accounts with plan Bench_basic
+############################################################################
+
+$Section = 5;
+$cleaning = 1;
+
+subordinate_test ($Section, "Bench_Basic");
+
+############################################################################
+#  Testing multiproduct accounts with plan Bench_basic
+############################################################################
+
+$Section = 6;
+$cleaning = 1;
+
+multiproduct_test ($Section, "Bench_Basic");
+
+############################################################################
+#  IPT test with plan Bench_IPT 
+############################################################################
+
+$Section = 7;
+$cleaning = 1;
+
+ipt_test ($Section, "Bench_IPT");
+
+############################################################################
+#  Basic test with plan Bench_basic and branding scope
+############################################################################
+
+$Section = 8;
+$cleaning = 1;
+
+branding_test ($Section, "Bench_Basic");
+
+$date_finished = get_date();
+printf "Stress test completed at %s \n", $date_finished;
+print "***************************************************************\n";
+
+# do we need to make comparison with another stress test
+if (defined $opt_P || defined $opt_p) {
+result_comparison ();
+}
+
+1;
+
+###############################################################################
+# save_pinconf_file()
+#       input:
+#               pinconf_file
+#               prefix (dm, cm etc.)
+#               assoc array of pinconf entries
+###############################################################################
+sub save_pinconf_file {
+        local ($FILE) = @_;
+
+        #
+        # Move pin.conf to pin.conf.xxxx
+        #
+        if (! -e "$FILE.$currtime1") {
+                printout("$ME: Saving $FILE as $FILE.$currtime1\n");
+                open (OUTFILE, ">$FILE.$currtime1") ||
+                        die "$ME: Unable to create file '$FILE.$currtime1': $!\n";
+                open (FILE, "<$FILE") ||
+                        die "$ME: Unable to open file '$FILE': $!\n";
+                while (<FILE>) {
+                        print OUTFILE $_;
+                }
+                close(OUTFILE);
+                close(FILE);
+        }
+}
+
+
+###############################################################################
+# comment some line in pin.conf
+# comment_conf()
+#       input:
+#               file
+#               prefix (dm, cm etc.)
+#               parameter
+###############################################################################
+sub comment_conf {
+        local ($file, $prefix, $param) = @_;
+        local ($tmpoutfile) = "$file.xxx";
+
+        if ($DEBUG) {
+                printout("$ME: prefix $prefix; parameter: $param\n");
+        }
+
+        #
+        # Open file for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+       open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+
+
+       while (<FILE>) {
+               $line = $_;
+               $matched = 0;
+                if ($line =~ m/^\s*-\s+$prefix\s+$param\s+/) {
+                 # comment out this line
+                       if ($DEBUG) {
+                          printout("$ME: comment out line: $line");
+                       }
+                    print OUTFILE "#$line";
+                 } else {
+                    print OUTFILE "$line";
+                }
+
+        } # end while
+        #
+        # Close filehandles
+        #
+        close(FILE);
+        close(OUTFILE);
+        #
+        # Moving pin.conf.xxx to pin.conf
+        #
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+
+}
+
+###############################################################################
+# uncomment some line in pin.conf
+# uncomment_conf()
+#       input:
+#               file
+#               prefix (dm, cm etc.)
+#               parameter
+###############################################################################
+sub uncomment_conf {
+        local ($file, $prefix, $param) = @_;
+        local ($tmpoutfile) = "$file.xxx";
+
+        if ($DEBUG) {
+                printout("$ME: prefix $prefix; parameter: $param\n");
+        }
+
+        #
+        # Open file for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+       open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+
+
+       while (<FILE>) {
+               $line = $_;
+                if ($line =~ m/^\#+\s*-*\s+$prefix\s+$param\s+/) {
+                 # comment out this line
+                       if ($DEBUG) {
+                          printout("$ME: uncomment line: $line");
+                       }
+                    @words = split (/$prefix/,$line);
+                    print OUTFILE "- $prefix$words[1]";
+                 } else {
+                    print OUTFILE "$line";
+                }
+
+        } # end while
+        #
+        # Close filehandles
+        #
+        close(FILE);
+        close(OUTFILE);
+        #
+        # Moving pin.conf.xxx to pin.conf
+        #
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+
+}
+
+
+###############################################################################
+# find_param_value()
+#       input:
+#               file
+#               prefix (dm, cm etc.)
+#               parameter                      
+###############################################################################
+sub find_param_value {
+        local ($file, $prefix, $param) = @_;
+
+        if ($DEBUG) {
+                printout("$ME: prefix $prefix; parameter: $param\n");
+        }
+
+        #
+        # Open file for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+       $value = "";
+
+       while (<FILE>) {
+                $line = $_;
+                if ($line =~ m/^\s*-*\s*$prefix\s+/) {
+                   @words=split(/[\t ]+/,$line);
+                   $count = 1;
+                   while ( $count <= @words ) {
+                         if ( $words[$count-1] eq $param ) {
+                           $value = $words[$count];
+			   if ( $value =~m/\n/) {
+                           	chop($value);
+		           }
+                           if ($DEBUG) {
+                                  printout("$ME:    Found parameter $param; value = $value\n");
+                           }
+                           last;
+                         }
+                         $count++;
+                   }
+                 }
+        } # end while
+        #
+        # Close filehandles
+        #
+        close(FILE);
+        if ($DEBUG) {
+                printout("$ME:    Return value: $value\n");
+        }
+
+        return $value;
+}
+###############################################################################
+# fix_pinconf()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries      
+###############################################################################
+sub fix_pinconf { 
+	local ($file, $prefix, %PINCONF) = @_;
+	local ($tmpoutfile) = "$file.xxx";
+	local %MATCHES = ();
+
+	if ($DEBUG) {
+		printout("$ME: prefix $prefix\n");
+	}
+
+
+        #
+        # Open pin.conf for output
+        # Open pin.conf.xxx for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+        open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+ 
+	
+	# Read entries from pin.conf
+	# If line matches key to be substituted, transform
+	# Write line to pin.conf.xxx
+	# 
+
+	while (<FILE>) {
+		$line = $_;
+		$matched = 0;
+
+		foreach $pinkey (keys(%PINCONF)) {
+			if ($line =~ m/^\s*-\s+$prefix\s+$pinkey\s+/) {
+				$matched = 1;
+				$MATCHES{$pinkey} = 1;
+				if ($DEBUG) {
+					printout("$ME:    Replacing key $pinkey\n");
+				}
+				print OUTFILE "- $prefix $pinkey $PINCONF{$pinkey}\n";
+			}
+		} # end foreach
+
+		if ($matched == 0) {
+			print OUTFILE "$line";
+		}
+
+	} # end while
+
+	#
+	# Walk through all the non-matched pinconf entries in PINCONF
+	# and output them.
+	#
+	foreach $pinkey (keys(%PINCONF)) {
+		if (! exists $MATCHES{$pinkey}) {
+			if ($DEBUG) {
+				printout("$ME:    Adding key $pinkey\n");
+			}
+			print OUTFILE "- $prefix $pinkey $PINCONF{$pinkey}\n";
+		}
+	}
+
+	#
+	# Close filehandles
+	# 
+	close(FILE); 
+	close(OUTFILE); 
+
+	if ($DEBUG) {
+		printout("$ME:    Renaming $tmpoutfile to $file\n");
+	}
+	
+	#
+	# Moving pin.conf.xxx to pin.conf
+	#
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+
+}
+
+###############################################################################
+# fix_pin_setup()
+#	input:
+#		pin_setup.values_file
+#		flag: 0 - initial non scoping, 1- scoping
+###############################################################################
+sub fix_pin_setup { 
+	local ($file, $flag) = @_;
+	local ($tmpoutfile) = "$file.xxx";
+	local %MATCHES = ();
+
+
+        #
+        # Open pin.setup.values for output
+        # Open pin.setup.values.xxx for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+        open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+ 
+	# Read entries from pinsetup.values
+	# If line matches key to be substituted, transform
+	# Write line to pin.setup.values.xxx
+	# 
+
+	while (<FILE>) {
+		$line = $_;
+
+		if ($line =~ m/SETUP_DROP_ALL_TABLES/) {
+			if ($DEBUG) {
+				printout("$ME:    Replacing SETUP_DROP_ALL_TABLES\n");
+			}
+			print OUTFILE "\$SETUP_DROP_ALL_TABLES = \"Yes\";\n";
+			next;
+		}
+
+		if ($line =~ m/COMPONENT_LIST/) {
+		  if ($line !~ m/cmmp/) {  #full component list?
+			if ($DEBUG) {
+				printout("$ME:    Replacing COMPONENT_LIST\n");
+			}
+			print OUTFILE "\@COMPONENT_LIST  = ( \"radius\" ,\"archiving\", \"dm_email\", \"answer_fusa\", \"dm_fusa\", \"dm_taxware\", \"infmgr\", \"infmgr_cli\", \"nmgr\", \"pin_inv\", \"pin_billd\", \"testnap\", \"dm_$DBSERVER\", \"js\", \"cmmp\", \"cm\" );\n";
+			next;
+		  }
+		}
+
+		if ($line =~ m/enforce_scoping/) {
+			if ($DEBUG) {
+				printout("$ME:    Replacing enforce_scoping\n");
+			}
+			print OUTFILE "\$MAIN_CM{'enforce_scoping'} = \"$flag\";\n";
+			next;
+		}
+
+		print OUTFILE "$line";
+
+	} # end while
+
+	#
+	# Close filehandles
+	# 
+	close(FILE); 
+	close(OUTFILE); 
+
+	if ($DEBUG) {
+		printout("$ME:    Renaming $tmpoutfile to $file\n");
+	}
+	
+	#
+	# Moving pin.setup.values.xxx to pin.setup.values
+	#
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+
+}
+###############################################################################
+# add_pinconf()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries  to remove
+###############################################################################
+sub add_pinconf { 
+	local ($file, $prefix, %PINCONF) = @_;
+
+	if ($DEBUG) {
+		printout("$ME: $prefix\n");
+	}
+	
+	save_pinconf_file($file);	
+	
+        #
+        # Open pin.conf for output
+        # Open pin.conf.yyy for input
+        #
+        open (OUTFILE, ">>$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+ 
+	# Walk through all the pinconf entries in PINCONF
+	# and output them.
+	#
+	foreach $pinkey (keys(%PINCONF)) {
+		if ($DEBUG) {
+			printout("$ME:    Adding key $pinkey\n");
+		}
+		print OUTFILE "- $prefix $pinkey $PINCONF{$pinkey}\n";
+	}
+
+	#
+	# Close filehandles
+	# 
+	close(OUTFILE); 
+}
+
+###############################################################################
+# del_pinconf()
+#	input:
+#		pinconf_file
+#		prefix (dm, cm etc.)
+#		assoc array of pinconf entries  to remove
+###############################################################################
+sub del_pinconf { 
+	local ($file, $prefix, %PINCONF) = @_;
+	local ($tmpoutfile) = "$file.yyy";
+
+	if ($DEBUG) {
+		printout("$ME: $prefix\n");
+	}
+	
+	save_pinconf_file($file);	
+	
+        #
+        # Open pin.conf for output
+        # Open pin.conf.yyy for input
+        #
+        open (FILE, "$file") ||
+            die "$ME: Unable to open file '$file': $!\n";
+        open (OUTFILE, ">$tmpoutfile") ||
+            die "$ME: Unable to create file '$tmpoutfile': $!\n";
+ 
+	# Read entries from pin.conf
+	# If line matches key to be substituted, delete
+	# Write line to pin.conf.yyy
+	# 
+	while (<FILE>) {
+		$line = $_;
+		$matched = 0;
+
+		foreach $pinkey (keys(%PINCONF)) {
+			if ($line =~ m/^\s*-\s+$prefix\s+$pinkey\s+/) {
+				$matched = 1;
+				if ($DEBUG) {
+					printout("$ME:    Removing key $pinkey\n");
+				}
+			}
+		} # end foreach
+
+		if ($matched == 0) {
+			print OUTFILE "$line";
+		}
+
+	} # end while
+
+	#
+	# Close filehandles
+	# 
+	close(FILE); 
+	close(OUTFILE); 
+
+	if ($DEBUG) {
+		printout("$ME:    Renaming $tmpoutfile to $file\n");
+	}
+	
+	#
+	# Moving pin.conf.yyy to pin.conf
+	#
+        unlink "$file";
+        (rename "$tmpoutfile", "$file") ||
+            die "$ME: Cannot rename $tmpoutfile to $file: $!\n";
+}
+
+###############################################################################
+# printout
+#	input:
+#		string to be printed out
+###############################################################################
+sub printout {
+	local ($outstr) = @_;
+
+         print $outstr;
+}
+
+###############################################################################
+# check_continue ()
+#       input:
+#               string with result of test
+#               number of obtained op/sec 
+###############################################################################
+sub check_continue {
+        local ($resultstr, $opsecresult) = @_;
+
+        if ( ( $resultstr eq "with errors" ) || ( $opsecresult == 0 ) ) {
+            print " Stress test aborted due errors in the previous test.\n";
+            exit;
+        }
+}
+
+###############################################################################
+# find_next_date ()
+#       input:
+#               time from time()         
+#       output:
+#               string in format mmddhhssyyyy  one month later
+###############################################################################
+sub find_next_date {
+        local ($mytime) = @_;
+
+        $next_date = $mytime + 40 * 24 *3600; # +32days in sec
+        ($sec,$min,$hour,$day,$month,$year)=localtime($next_date);
+        if ( $year < 1000 ) {
+		if ( $year > 70 ) {     # HP algorithm
+		    $year = $year + 1900;
+		}
+		else {
+		    $year = $year + 2000;
+		}
+	}
+	$outstr=sprintf ("%02d%02d%02d%02d%04d",$month+1,$day,$hour,$min,$year);
+        return ($outstr);
+}
+
+###############################################################################
+# get_date ()
+#       output:
+#               string in format MM/DD/YYYY HH:MM:SS
+###############################################################################
+sub get_date {
+	$mytime = time();
+                
+	($sec,$min,$hour,$day,$month,$year)=localtime($mytime);
+        if ( $year < 1000 ) {
+		if ( $year > 70 ) {     # HP algorithm
+		    $year = $year + 1900;
+		}
+		else {
+		    $year = $year + 2000;
+		}
+	}
+	$outstr=sprintf ("%02d/%02d/%04d %02d:%02d:%02d",$month+1,$day,$year,$hour,$min,$sec);
+	return ($outstr);
+}
+
+###############################################################################
+# clean_setup_db ()
+#       just clean DB and reconfigure all services;
+###############################################################################
+
+sub clean_setup_db {
+
+    local ( $ReadIn );
+
+if ( !$cleaned ) {  # not to clean DB
+print "***************************************************************\n";
+print "***         DB cleaning and configuration                  ****\n";
+$currtime1 = time();
+if ( -e "$PINHOME/setup/scripts/pin_pre_cmp_dm_$DBSERVER.pl" ) {
+	open(OFILE, ">$PINHOME/setup/scripts/upgrade_dm_$DBSERVER.pl") || die "$ME: cannot create $PINHOME/setup/scripts/upgrade_dm_$DBSERVER.pl\n";
+	open(IFILE, "<$PINHOME/setup/scripts/pin_pre_cmp_dm_$DBSERVER.pl") || die "$ME: cannot open $PINHOME/setup/scripts/pin_pre_cmp_dm_$DBSERVER.pl\n";
+
+# below is hack to fix problems with 6.0.2 and 6.0.3
+     line: while ($ReadIn = <IFILE>) {
+	   if ( $ReadIn =~ /^\# Start the cm now./) {
+	     print OFILE "  if ( \$ServiceName{ \$CurrentComponent } !~ /^\$/ ) {\n";
+	     print OFILE "    \&Stop( \$ServiceName{ \$CurrentComponent } ); \n";
+	     print OFILE "    \&Start( \$ServiceName{ \$CurrentComponent } ); \n";
+	     print OFILE "  } \n";
+	   }
+	   print OFILE $ReadIn;
+	}
+	close(OFILE);
+	close(IFILE);
+	unlink ( "$PINHOME/setup/scripts/pin_pre_cmp_dm_$DBSERVER.pl" );
+}
+chdir ( "$PINHOME/setup" );
+unlink ( "pin_setup.log" );
+unlink ( "upgrade.log" );
+unlink ( "setup.log" );
+`./pin_setup < pin_setup.values > setup.log`;
+chdir ( "$PINHOME/setup/scripts" );
+print "***************************************************************\n";
+if ( -e "$PINHOME/setup/scripts/upgrade_dm_$DBSERVER.pl" ) {
+`perl upgrade_dm_$DBSERVER.pl > ../upgrade.log`;
+}
+
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+print "***************************************************************\n";
+printf "Infranet cleaning and setup completed in %d h %d min %d sec.\n", $ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+chdir ( "$PINHOME/apps/perf/simtools" );
+$cleaned = 1;
+}
+
+}
+
+###############################################################################
+# basic_test ()
+#       run all basic itm-c workloads                  
+###############################################################################
+
+sub basic_test {
+
+    local ( $Section,$Plan,$test_num ) = @_;
+
+    if ( $SECTIONS_TO_EXEC [$Section ] ) {
+      if ( $cleaning ) {
+        ############################################################
+        #   cleaning and configuration
+        #############################################################
+
+        clean_setup_db ();
+      }
+print "***************************************************************\n";
+if ( !$to_create_accounts ) {
+$Plan = "XXXX";
+print "Basic ITM-C test for already existed accounts \n";
+}
+else {
+print "Basic ITM-C test for accounts with plan $Plan \n";
+}
+
+if ($Plan =~ /Tax/) {
+	print " Loading default tax supplier\n";
+	chdir ( "$PINHOME/setup/scripts" );
+	`load_tax_supplier -c tax_supplier_template`;
+	chdir ( "$PINHOME/apps/perf/simtools" );
+}
+
+if ( $to_create_accounts ) {
+$test_num += 1;
+
+############################################################################
+#
+#   test 1
+#
+$test_name = "Credit card account registration(pin_loader)";
+
+$num_to_create=( $users - $offset+1) / 2 ;
+$num_threads=find_param_value ( "$CONF_FILE", "pin_loader1", "threads" );
+$currtime1 = time();
+unlink "default.pinlog";
+`pin_loader -c -n $num_to_create -Q $Plan -I $offset -T $num_threads -U user%d -P password -E pin_loader.event`;
+`perl process-pin_loader  > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+            {
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("report$Section.$test_num","Accounts","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+
+$test_num += 1;
+############################################################################
+#
+#   test 2
+#
+$test_name = "Invoice account registration(pin_loader)";
+$currtime1 = time();
+unlink "default.pinlog";
+$offset1= $offset+$num_to_create;
+`pin_loader -n $num_to_create -Q $Plan -I $offset1 -T $num_threads -U user%d -P password -E pin_loader.event`;
+`perl process-pin_loader  > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+      {  # analyzing results
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("report$Section.$test_num","Accounts","created:");
+      }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+}
+$to_create_accounts = 1; # yes, always after cleaning
+$test_num += 1;
+############################################################################
+#
+#   test 3
+#
+uncomment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+$test_name = "Account verification(admin_load)";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "admin_load" );
+`$COPY admin_load.verify admin_load.control`;
+$currtime1 = time();
+`$PERF_MGR_EXEC> report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "admin_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("admin_load$num/report","CSR","second:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+$test_num += 1;
+############################################################################
+#
+#   test 4
+#
+uncomment_conf ("$CONF_FILE", "perfmgr", "sessload" );
+comment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+$test_name = "Sessload";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "sessload" );
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "sessload$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("sessload$num/report","Sessions","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+$test_num += 1;
+############################################################################
+#
+#   test 5
+#
+uncomment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+comment_conf ("$CONF_FILE", "perfmgr", "sessload" );
+$test_name = "Balance impact update(admin_load)";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "admin_load" );
+`$COPY admin_load.bal admin_load.control`;
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "admin_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("admin_load$num/report","CSR","second:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+$test_num += 1;
+############################################################################
+#
+#   test 6
+#
+$test_name = "CSR transaction mix(admin_load)";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "admin_load" );
+`$COPY admin_load.mix admin_load.control`;
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "admin_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("admin_load$num/report","CSR","second:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+$test_num += 1;
+############################################################################
+#
+#   test 7
+#
+comment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+uncomment_conf ("$CONF_FILE", "perfmgr", "opcode_load" );
+$test_name = "Dialup session tracking(opcode_load)";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "opcode_load" );
+`$COPY opcode_load.control.stop_accounting opcode_load.control`;
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "opcode_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("opcode_load$num/report","Sessions","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+$test_num += 1;
+############################################################################
+#
+#   test 8
+#
+###########################################################################
+comment_conf ("$CONF_FILE", "perfmgr", "opcode_load" );
+uncomment_conf ("$CONF_FILE", "perfmgr", "bill_accts" );
+$target=find_param_value ( "$CONF_FILE", "bill_accts1", "target" );
+if ( $target ) {
+$bill_time_limit=sprintf ("%d",(1*$num_to_bill)/$target);
+}
+else {
+$bill_time_limit=$runtime;
+}
+
+#change standard test run to run for billing
+%PERF_MGR_ENTRIES=();
+$PERF_MGR_ENTRIES{'time_run'}= $bill_time_limit ;
+fix_pinconf ( "$CONF_FILE", "perfmgr", %PERF_MGR_ENTRIES );
+
+$test_name = "Billing(pin_bill_accts)";
+$currtime1 = time();
+$datestr=find_next_date ($currtime1);
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "bill_accts" );
+
+        if ( $copies > 1 ) {
+            %BILL_ENTRIES=();
+            $BILL_ENTRIES{'bill_accts'}=1;
+            fix_pinconf ( "$CONF_FILE", "perf_mgr", %BILL_ENTRIES );
+            }
+        # fix date
+         {
+            %BILL_ENTRIES=();
+            $BILL_ENTRIES{'date'}=$datestr;
+            fix_pinconf ( "$CONF_FILE", "bill_accts1", %BILL_ENTRIES );
+            }
+
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$timimg = $elapstime; 
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$result = "successfully";
+
+if ( -e "bill_accts1/default.pinlog") {
+       $result = "with errors";
+}
+$opsec = 0;
+$opsec = find_param_value ("bill_accts1/tmp","Performance","op/sec:");
+
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+$accts = 0;
+$accts += find_param_value ("bill_accts1/tmp","Processing","accounts");
+printf " Accounts billed - %d \n",$accts;
+print "***************************************************************\n";
+
+$test_num += 1;
+############################################################################
+#
+#   test 9
+#
+###########################################################################
+comment_conf ("$CONF_FILE", "perfmgr", "bill_accts" );
+uncomment_conf ("$CONF_FILE", "perfmgr", "pin_collect" );
+$target=find_param_value ( "$CONF_FILE", "pin_collect1", "target" );
+if ( $target ) {
+$bill_time_limit=sprintf ("%d",($num_to_bill)/$target/2);
+}
+else {
+$bill_time_limit=$runtime;
+}
+
+#change standard test run to run for billing
+%PERF_MGR_ENTRIES=();
+$PERF_MGR_ENTRIES{'time_run'}= $bill_time_limit ;
+fix_pinconf ( "$CONF_FILE", "perfmgr", %PERF_MGR_ENTRIES );
+
+$test_name = "CC settlement(pin_collect)";
+$currtime1 = time();
+$datestr=find_next_date ($currtime1);
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "pin_collect" );
+
+        if ( $copies > 1 ) {
+            %BILL_ENTRIES=();
+            $BILL_ENTRIES{'pin_collect'}=1;
+            fix_pinconf ( "$CONF_FILE", "perf_mgr", %BILL_ENTRIES );
+            }
+        # fix date
+         {
+            %BILL_ENTRIES=();
+            $BILL_ENTRIES{'date'}=$datestr;
+            fix_pinconf ( "$CONF_FILE", "pin_collect1", %BILL_ENTRIES );
+            }
+
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$timimg = $elapstime; 
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$result = "successfully";
+
+if ( -e "pin_collect1/default.pinlog") {
+       $result = "with errors";
+}
+$opsec = 0;
+$opsec = find_param_value ("pin_collect1/tmp","Performance","op/sec:");
+
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+$accts = 0;
+$accts += find_param_value ("pin_collect1/tmp","Processing","accounts");
+printf " Accounts collected - %d \n",$accts;
+print "***************************************************************\n";
+
+#recovery after changing in run_time
+comment_conf ("$CONF_FILE", "perfmgr", "pin_collect" );
+%PERF_MGR_ENTRIES=();
+$PERF_MGR_ENTRIES{'time_run'}= $runtime ;
+fix_pinconf ( "$CONF_FILE", "perfmgr", %PERF_MGR_ENTRIES );
+$cleaned = 0;    # DB need to be clean again
+     }
+
+}
+
+sub configuration_test {
+
+    if ( $SECTIONS_TO_EXEC [0] ) {
+      if ( $cleaning ) {
+        ############################################################
+        #   cleaning and configuration
+        #############################################################
+
+        clean_setup_db ();
+      }
+
+############################################################################
+#
+#   test 1
+#
+uncomment_conf ("$CONF_FILE", "perfmgr", "connect_load" );
+$test_num = 1;
+$test_name = "Connection(connect_load)";
+
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "connect_load" );
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "connect_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("connect_load$num/report","Connect/disconnects","second:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+
+############################################################################
+#
+#   test 2
+#
+$test_num = 2;
+$test_name = "Test Loopback to CM (test_loopback)";
+
+$num_threads=find_param_value ( "$CONF_FILE", "sessload1", "threads" );
+$currtime1 = time();
+unlink "default.pinlog";
+`test_loopback -c -T $num_threads -l $runtime 2> report$Section.$test_num `;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+            {
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("test_loopback.report","Test","Op/sec:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+############################################################################
+#
+#   test 3
+#
+$test_num = 3;
+$test_name = "Test Loopback to DM (test_loopback)";
+
+$num_threads=find_param_value ( "$CONF_FILE", "sessload1", "threads" );
+$currtime1 = time();
+unlink "default.pinlog";
+`test_loopback -T $num_threads -l $runtime 2> report$Section.$test_num `;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+            {
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("test_loopback.report","Test","Op/sec:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+comment_conf ("$CONF_FILE", "perfmgr", "connect_load" );
+check_continue ( $result, $opsec );
+    }
+}
+
+sub subordinate_test {
+
+    local ( $Section,$Plan ) = @_;
+
+    if ( $SECTIONS_TO_EXEC [$Section ] ) {
+      if ( $cleaning ) {
+        ############################################################
+        #   cleaning and configuration
+        #############################################################
+
+        clean_setup_db ();
+      }
+
+print "***************************************************************\n";
+print " Performance test for subordinate accounts \n";
+
+$test_num = 0;
+
+if ( $to_create_accounts ) {
+
+$test_num += 1;
+############################################################################
+#
+#   test 1
+#
+$test_name = "Invoice subordinate accounts registration(pin_loader)";
+
+$num_to_create=( $users - $offset+1) ;
+$num_threads=find_param_value ( "$CONF_FILE", "pin_loader1", "threads" );
+$currtime1 = time();
+unlink "default.pinlog";
+`pin_loader -O $NUM_SUBORD_ACCT -n $num_to_create -Q $Plan -I $offset -T $num_threads -U user%d -P password -E pin_loader.event`;
+`perl process-pin_loader  > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+            {
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("report$Section.$test_num","Accounts","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+}
+$to_create_accounts = 1; # always create after cleaning
+
+$test_num += 1;
+############################################################################
+#
+#   test 2
+#
+###########################################################################
+uncomment_conf ("$CONF_FILE", "perfmgr", "bill_accts" );
+$target=find_param_value ( "$CONF_FILE", "bill_accts1", "target" );
+if ( $target ) {
+$bill_time_limit=sprintf ("%d",(1*$num_to_bill)/$target);
+}
+else {
+$bill_time_limit=$runtime;
+}
+
+#change standard test run to run for billing
+%PERF_MGR_ENTRIES=();
+$PERF_MGR_ENTRIES{'time_run'}= $bill_time_limit ;
+fix_pinconf ( "$CONF_FILE", "perfmgr", %PERF_MGR_ENTRIES );
+
+$test_name = "Billing(pin_bill_accts)";
+$currtime1 = time();
+$datestr=find_next_date ($currtime1);
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "bill_accts" );
+
+        if ( $copies > 1 ) {
+            %BILL_ENTRIES=();
+            $BILL_ENTRIES{'bill_accts'}=1;
+            fix_pinconf ( "$CONF_FILE", "perf_mgr", %BILL_ENTRIES );
+            }
+        # fix date
+         {
+            %BILL_ENTRIES=();
+            $BILL_ENTRIES{'date'}=$datestr;
+            fix_pinconf ( "$CONF_FILE", "bill_accts1", %BILL_ENTRIES );
+            }
+
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$timimg = $elapstime; 
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$result = "successfully";
+
+if ( -e "bill_accts1/default.pinlog") {
+       $result = "with errors";
+}
+$accts = 0;
+$accts += find_param_value ("bill_accts1/tmp","Processing","accounts");
+#$accts += find_param_value ("bill_accts1/tmp2","Processing","accounts");
+
+if ( $accts > $num_to_bill ) {
+  $accts = $num_to_bill;
+}
+$opsec = 0;
+$opsec = find_param_value ("report$Section.$test_num","bill_accts","bill_accts");
+
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+printf " Accounts billed - %d \n",$accts;
+print "***************************************************************\n";
+
+#recovery after changing in run_time
+comment_conf ("$CONF_FILE", "perfmgr", "bill_accts" );
+%PERF_MGR_ENTRIES=();
+$PERF_MGR_ENTRIES{'time_run'}= $runtime ;
+fix_pinconf ( "$CONF_FILE", "perfmgr", %PERF_MGR_ENTRIES );
+
+$test_num += 1;
+############################################################################
+#
+#   test 3
+#
+uncomment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+$test_name = "Item search (admin_load)";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "admin_load" );
+  open (OUTFILE, ">admin_load.control") ||
+            die "$ME: Unable to create file admin_load.control': $!\n";
+  print OUTFILE "OP-item-search   100 op-find-acct,op-item-search";
+  close(OUTFILE);
+$currtime1 = time();
+`$PERF_MGR_EXEC> report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "admin_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("admin_load$num/report","CSR","second:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+comment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+$cleaned = 0;    # DB need to be clean again
+    }
+}
+
+sub multiproduct_test {
+
+    local ( $Section,$Plan ) = @_;
+
+    if ( $SECTIONS_TO_EXEC [$Section ] ) {
+      if ( $cleaning ) {
+        ############################################################
+        #   cleaning and configuration
+        #############################################################
+
+        clean_setup_db ();
+      }
+
+print "***************************************************************\n";
+print " Performance test for multiproduct accounts \n";
+
+$test_num = 0;
+
+if ( $to_create_accounts ) {
+
+$test_num += 1;
+############################################################################
+#
+#   test 1
+#
+$test_name = "Invoice multiproduct accounts registration(pin_loader)";
+
+$num_to_create=( $users - $offset+1) ;
+$num_threads=find_param_value ( "$CONF_FILE", "pin_loader1", "threads" );
+$currtime1 = time();
+unlink "default.pinlog";
+`pin_loader -n $num_to_create -Q $Plan -I $offset -T $num_threads -U user%d -P password -E pin_loader.event`;
+`perl process-pin_loader  > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+            {
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("report$Section.$test_num","Accounts","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+$to_create_accounts = 0; # already created                
+}
+
+for ( $nn = 1; $nn <= $NUM_RUN_TO_BUY_PRODUCTS; $nn++ ) {
+$test_num += 1;
+############################################################################
+#
+#   test 2
+#
+uncomment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+$test_name = "Buy products (admin_load)";
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "admin_load" );
+  open (OUTFILE, ">admin_load.control") ||
+            die "$ME: Unable to create file admin_load.control': $!\n";
+  print OUTFILE "OP-purchase-product   100 op-find-acct,op-purchase-product";
+  close(OUTFILE);
+$currtime1 = time();
+`$PERF_MGR_EXEC> report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "admin_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("admin_load$num/report","CSR","second:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+comment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+}
+
+# repeat basic test with multiproduct accounts
+$cleaned = 1;    # DB need to be clean again
+basic_test ($Section, "Bench_Basic", $test_num);
+
+$cleaned = 0;    # DB need to be clean again
+    }
+}
+sub branding_test {
+
+    local ( $Section,$Plan ) = @_;
+
+    if ( $SECTIONS_TO_EXEC [$Section ] ) {
+        ############################################################
+        #   cleaning and configuration
+        #############################################################
+
+print "***************************************************************\n";
+print " Performance test for Branding \n";
+
+if ( $to_create_accounts ) {
+
+print " Setup Environment for Branding \n";
+fix_pin_setup ( "$PINHOME/setup/pin_setup.values", 1 );
+clean_setup_db ();
+#create brand account
+`pin_loader -U $BRAND_LOGIN -P $BRAND_PASSWD -Q CSR -b -n 1 -E pin_loader.event`;
+}
+%BRAND_ENTRIES=();
+$BRAND_ENTRIES{'login_name'}=$BRAND_LOGIN;
+$BRAND_ENTRIES{'login_pw'}=$BRAND_PASSWD;
+fix_pinconf ( "$CONF_FILE", "nap", %BRAND_ENTRIES );
+
+if ( $to_create_accounts ) {
+
+#load price list for this brand
+  open (INFILE, "$PINHOME/apps/load_price_list/Infranet.properties") ||
+	      die "$ME: Unable to open file Infranet.properties': $!\n";
+  open (OUTFILE, ">$PINHOME/apps/perf/simtools/Infranet.properties") ||
+            die "$ME: Unable to create file Infranet.properties': $!\n";
+  while (<INFILE>) {
+	   $line = $_;
+	   if ( $line =~ m/connection/) {
+		   ($part1, $part2 ) = split (/\@/,$line );
+                   print OUTFILE "infranet.connection=pcp://$BRAND_LOGIN:$BRAND_PASSWD\@$part2";
+		   next;
+	   }
+	   print OUTFILE "$line";
+  }
+
+  close(OUTFILE);
+  close(INFILE);
+  $pcmext = "";
+  if ( -e "$PINHOME/jars/pcmext.jar") {
+                $pcmext = "$PINHOME/jars/pcmext.jar:";
+  }
+`java -cp "$PINHOME/jars/loadpricelist.jar:$PINHOME/jars/pcm.jar:$pcmext$PINHOME/jars/oraclepki.jar:$PINHOME/jars/osdt_cert.jar:$PINHOME/jars/osdt_core.jar:$PINHOME/apps/perf/simtools" com.portal.loadpricelist.LoadPriceList -f -v -c $PINHOME/setup/scripts/basicISP.xml`;
+}
+
+$cleaning= 0;
+# repeat all basic test with branding scope
+basic_test ($Section, "Bench_Basic",0);
+
+ initialize_configs ();
+   }
+
+}
+
+sub adjust_pin_setup {
+$script_name="$PINHOME/setup/scripts/pin_setup.pl";
+$tmpfile = "tmp";
+# we add hidden cm pin.conf entry for billing
+ chmod( 0777, $script_name );
+ $add_string =<<END
+# stress_test function added
+sub configure_pin_billd_post_configure 
+{
+   AddPinConfEntry( \$MAIN_CM{'location'}."/".\$PINCONF,
+                "valid_forward_interval",
+                "- fm_bill valid_forward_interval 712" );
+}
+END
+;
+# concatenate 
+        open(TMPFILE, ">$tmpfile") || die "$ME: cannot create $tmpfile\n";
+        open(SCRIPT, "$script_name") || die "$ME: cannot read $script_name\n";
+        $flag=0;
+loop:   while ($line=<SCRIPT>) {
+        if ($line =~ m/stress_test/) {
+           $flag = 1;
+           close(TMPFILE);
+           last;
+         }
+        print TMPFILE $line;
+        }
+
+    close ( SCRIPT);
+        if ( $flag == 0 ) {
+         print TMPFILE "$add_string";
+         print TMPFILE "\n";
+         close(TMPFILE);
+
+         unlink ( $script_name );
+         rename ( $tmpfile, $script_name );
+       }
+}
+
+sub initialize_configs {
+
+`$COPY $CONF_FILE.stress $CONF_FILE`;
+#
+#   initialization pin.conf
+#
+comment_conf ("$CONF_FILE", "perfmgr", "simrad" );
+comment_conf ("$CONF_FILE", "perfmgr", "pin_loader" );
+comment_conf ("$CONF_FILE", "perfmgr", "sessload" );
+comment_conf ("$CONF_FILE", "perfmgr", "admin_load" );
+comment_conf ("$CONF_FILE", "perfmgr", "bill_accts" );
+comment_conf ("$CONF_FILE", "perfmgr", "pin_collect" );
+comment_conf ("$CONF_FILE", "perfmgr", "opcode_load" );
+%PERF_MGR_ENTRIES=();
+$PERF_MGR_ENTRIES{'host'}="$test_host_name";
+$PERF_MGR_ENTRIES{'iterations'}=1;
+fix_pinconf ( "$CONF_FILE", "perfmgr", %PERF_MGR_ENTRIES );
+fix_pin_setup ( "$PINHOME/setup/pin_setup.values", 0 );
+
+}
+
+sub ipt_test {
+
+    local ( $Section,$Plan ) = @_;
+
+    if ( $SECTIONS_TO_EXEC [$Section ] ) {
+        ############################################################
+        #   cleaning and configuration
+        #############################################################
+
+print "***************************************************************\n";
+print " Performance test for IPT \n";
+$test_num = 0;
+
+if ( $to_create_accounts ) {
+
+set_for_ipt ();
+
+$test_num += 1;
+
+############################################################################
+#
+#   test 1
+#
+$test_name = "IPT accounts registration(pin_loader)";
+
+$num_to_create=( $users - $offset+1) ;
+$num_threads=find_param_value ( "$CONF_FILE", "pin_loader1", "threads" );
+$currtime1 = time();
+unlink "default.pinlog";
+`pin_loader  -n $num_to_create -Q $Plan -I $offset -T $num_threads -U user%d -P password -E pin_loader.event`;
+`perl process-pin_loader  > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+
+            {
+            if ( -e "default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("report$Section.$test_num","Accounts","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+
+check_continue ( $result, $opsec );
+}
+$to_create_accounts = 1; # always create after cleaning
+
+$test_num += 1;
+############################################################################
+#
+#   test 2
+############################################################################
+uncomment_conf ("$CONF_FILE", "perfmgr", "opcode_load" );
+$copies=find_param_value ( "$CONF_FILE", "perfmgr", "opcode_load" );
+
+for ( ; $test_num <= 3; $test_num++ ) {
+if ( $test_num == 1 ) {
+$test_name = "IPT authentication session tracking(opcode_load)";
+`$COPY opcode_load.control.ipt_authenticate opcode_load.control`;
+}
+if ( $test_num == 2 ) {
+$test_name = "IPT authorization session tracking(opcode_load)";
+`$COPY opcode_load.control.ipt_authorize opcode_load.control`;
+}
+if ( $test_num == 3 ) {
+$test_name = "IPT stop session tracking(opcode_load)";
+`$COPY opcode_load.control.ipt_stop_accounting opcode_load.control`;
+}
+$currtime1 = time();
+`$PERF_MGR_EXEC > report$Section.$test_num`;
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+
+$opsec = 0;
+$result = "successfully";
+$num = 0;
+
+        while ( $num < $copies ) {
+            $num++;
+            if ( -e "opcode_load$num/default.pinlog") {
+                $result = "with errors";
+            }
+            $opsec = $opsec + find_param_value ("opcode_load$num/report","Sessions","created:");
+        }
+print "***************************************************************\n";
+printf $PERF_PRINT, $test_num,$test_name, $result,$ehours,$emin,$esec,$opsec;
+print "***************************************************************\n";
+}
+
+$cleaned = 0;    # DB need to be clean again
+ initialize_configs ();
+   }
+}
+ 
+sub set_for_ipt {
+
+clean_setup_db ();
+chdir ( "$PINHOME/setup/scripts" );
+	open(OFILE, ">$PINHOME/setup/scripts/pin_stress_iptmgr.pl") || die "$ME: cannot open $PINHOME/setup/scripts/pin_stress_iptmgr.pl\n";
+
+# below is generated script to restart services
+	print OFILE "    require \"pin_res.pl\"; \n";
+	print OFILE "    require \"pin_functions.pl\"; \n";
+	print OFILE "    require \"../pin_setup.values\"; \n";
+	print OFILE "    \&Stop( \$ServiceName{ \"cm\" } ); \n";
+	print OFILE "    \&Stop( \$ServiceName{ \"js\" } ); \n";
+	print OFILE "    \&Start( \$ServiceName{ \"js\" } ); \n";
+	print OFILE "    \&Start( \$ServiceName{ \"cm\" } ); \n";
+	print OFILE "    sleep(5); \n";
+	close(OFILE);
+unlink ( "ipt.log" );
+print " Setup Environment for IPT testing \n";
+`perl pin_cmp_iptmgr.pl > ipt.log`;
+
+#load zonemap and corresponding price list 
+($width,$length)=split (/x/,$ZONEMAP_SIZE );
+print " Loading zonemap matrix with W=$width and L=$length \n";
+`$PINHOME/apps/perf/simtools/zonemap_loader -w $width -l $length -h $width -t $length`;
+
+`perl pin_stress_iptmgr.pl >> ipt.log`;
+chdir ( "$PINHOME/apps/perf/simtools" );
+}
+
+
+sub result_comparison {
+
+printf " ========================================== \n";
+printf " Comparison results from the different tests \n";
+printf " ========================================== \n";
+$Section = 0;
+
+    while ( $SECTIONS_NAME [$Section ] ne "" ) {
+	if ( -e "report$Section.1" ) {  # is section was tested
+        	$sname = $SECTIONS_NAME [$Section];
+		print "         Test \#$Section  $sname \n";
+        	print "=========================================== \n";
+                printf ": Infranet version  :  op/sec :Response:Utilization/Computer Name (\%user,\%sys,\%idle)\n";
+        	print "=========================================== \n";
+		$testnum = 1;
+		while ( -e "report$Section.$testnum" ) { # do we have next test?
+		   $index = 0;
+		   while ( $index < 6 ) {
+			display_results ($index, $Section, $testnum ); 
+	                $index = $index +2;
+         	   }
+                   print " ========================================== \n";
+		   $testnum++;
+		}
+	}
+	$Section++;
+    }
+}
+
+sub display_results {
+  local($locindex, $sessnum, $testnum ) = @_;
+  local ($resp);
+
+  $nn = $locindex / 2;
+  $result_path = $TEST[$locindex+1];
+  $version = $TEST[$locindex];
+  if ( -e "$result_path/report$sessnum.$testnum" ) {  # display only if result exists
+        open (INFILE, "$result_path/report$sessnum.$testnum") ||
+            die "$ME: Unable to open file '$result_path/report$sessnum.$testnum': $!\n";
+       $itmc_code = "";
+
+       @util = ( "", "", 0,0,0, );
+       $index1 = 0;
+       while (<INFILE>) {
+                $line = $_;
+                if ($line =~ m/OP-bal[-_]impact/) {
+			$itmc_code = "(PRER)";
+		}
+                if ($line =~ m/OP-find[-_]verify/) {
+			$itmc_code = "(EAA)";
+		}
+                if ($line =~ m/OP-update[-_]/) {
+			$itmc_code = "(CSR)";
+		}
+                if ($line =~ m/OP-purchase[-_]/) {
+			$itmc_code = "(BUY)";
+		}
+                if ($line =~ m/OP-item[-_]/) {
+			$itmc_code = "(SRCH)";
+		}
+                if ($line =~ m/STOP_ACCOUNTING/) {
+			$itmc_code = "(TST-STOP)";
+		}
+                if ($line =~ m/START_ACCOUNTING/) {
+			$itmc_code = "(TST-START)";
+		}
+                if ($line =~ m/AUTHENTICATE/) {
+			$itmc_code = "(TST-AUTHEN)";
+		}
+                if ($line =~ m/AUTHORIZE/) {
+			$itmc_code = "(TST-AUTHOR)";
+		}
+                if ($line =~ m/collisions/) {
+                   while (<INFILE>) {
+                       $line = $_;
+		       if ($line =~ m/^\s*SUMMARY:\s+/) {
+			  last;
+		       }
+		       @util=split(/[\t ]+/,$line);
+		       if ( $util[1] ne "" ) {
+			$utils[$index1] = sprintf ( "%s ( %s, %s, %s ) ", $util[1], $util[3], $util[4],$util[5]);
+			$index1++;
+		       }
+		   } 
+		}
+                if ($line =~ m/^\s*SUMMARY:\s+/) {
+		   $line = <INFILE>;
+                   @words=split(/[\t ]+/,$line);
+		}
+                if ($line =~ m/^Mean time\s+/) {
+                   @words=split(/[\t ]+/,$line);
+		   ($resp,$resp1, $resp3) = split (/m/,$words[5]);
+		}
+                if ( ($line =~ m/^Accounts\s+/) || ($line =~ m/created:\s+/)) {
+                   @words=split(/[\t ]+/,$line);
+		   $words[2] = $words[4];
+		   $words[1] = "pin_loader";
+                   if ( $testnum == 2 ) {
+			$itmc_code = "(REGI)";
+		   }
+	           else {
+			$itmc_code = "(REGC)";
+		   }	
+		   $words[3] = $resp/1000 ;
+		   $utils[0] = "";
+		   $utils[1] = "";
+		   $utils[2] = "";
+		}
+                if ( ($line =~ m/^Test completed\s+/) || ($line =~ m/Response:\s+/)) {
+                   @words=split(/[\t ]+/,$line);
+		   $words[2] = $words[5];
+		   $words[1] = "test_loopback";
+                   if ( $testnum == 2 ) {
+			$itmc_code = "(cm)";
+		   }
+	           else {
+			$itmc_code = "(dm)";
+		   }	
+		   ($resp,$resp1, $resp3) = split (/m/,$words[7]);
+		   $words[3] = $resp/1000 ;
+		   $utils[0] = "";
+		   $utils[1] = "";
+		   $utils[2] = "";
+		}
+       }
+	## add some ITM-C codes
+       if ( $words[1] eq "connect_load" ) {
+		$itmc_code = "(CONN)";
+       }
+       if ( $words[1] eq "sessload" ) {
+		$itmc_code = "(ERR)";
+       }
+       if ( $words[1] eq "pin_collect" ) {
+		$itmc_code = "(CCS)";
+       }
+       if ( $words[1] eq "bill_accts" ) {
+		$itmc_code = "(BC)";
+       }
+       if ( $nn == 0 && $words [2] != 0) { # header before first line
+	       printf ( "              Test %1d.%02d  %s %s\n", $sessnum, $testnum, $words[1], $itmc_code );
+       }
+       if ( $words [2] != 0 ) {
+	       printf ( " %-19s  %7.2f      %3.2f  %s %s %s \n", $version, $words [2], $words[3] , $utils[0], $utils[1],$utils[2]);
+       }
+       close (INFILE);
+  }
+}
+
+1;
+
+
+

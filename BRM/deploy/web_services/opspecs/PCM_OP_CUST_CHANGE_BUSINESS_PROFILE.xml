@@ -1,0 +1,300 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE" visibility="public" transaction="required" component="fm_cust" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes   opspec.xsd">
+  <Doc>
+      This opcode changes a bill unit's business profile. It validates all
+      the balance groups and services associated with the bill unit 
+      against the requirements of the new business profile.
+</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Account poid the billinfo object belongs to</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_PROGRAM_NAME" use="required" maxlen="256">
+        <Doc> This, program name, identifies the calling program.</Doc>
+      </String>
+      <Timestamp name="PIN_FLD_START_T" use="optional">
+        <Doc> Start time - Timestamp of when event started</Doc>
+      </Timestamp>
+      <Timestamp name="PIN_FLD_END_T" use="optional">
+        <Doc> End time - Timestamp of when event ended</Doc>
+      </Timestamp>
+      <Array name="PIN_FLD_BILLINFO" use="required" minElements="1">
+        <Doc> Billinfo array </Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc> Billinfo poid</Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_BUSINESS_PROFILE_OBJ" use="required" mode="complete">
+            <Doc> Business profile poid </Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_BILLINFO_ID" use="optional" maxlen="256">
+            <Doc> Identifying the billinfo by name</Doc>
+          </String>
+          <Enum name="PIN_FLD_BILLING_STATUS" use="optional">
+            <Doc> Indicates whether the billinfo should be billed or it should be
+                          suspended for billing
+                    </Doc>
+            <Values>
+              <Value>PIN_BILL_ACTIVE (0)</Value>
+              <Doc>Active</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_BILL_INACTIVE (1)</Value>
+              <Doc>Inactive</Doc>
+            </Values>
+            <Values>
+              <Value>&gt;PIN_BILL_ERROR (4)</Value>
+              <Doc>Error when retrieving status</Doc>
+            </Values>
+          </Enum>
+          <Int name="PIN_FLD_BILLING_STATUS_FLAGS" use="optional">
+            <Doc> Indicates a reason for setting of the given billing status</Doc>
+          </Int>
+          <Enum name="PIN_FLD_STATUS" use="optional">
+            <Doc> Status of the billinfo: active, inactive or closed</Doc>
+            <Values>
+              <Value>PIN_STATUS_ACTIVE (10100)</Value>
+              <Doc>Active</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_STATUS_INACTIVE (10102)</Value>
+              <Doc>Inactive</Doc>
+            </Values>
+            <Values>
+              <Value>&gt;PIN_STATUS_CLOSED (10103)</Value>
+              <Doc>Closed </Doc>
+            </Values>
+          </Enum>
+          <Int name="PIN_FLD_STATUS_FLAGS" use="optional">
+            <Doc> Indicates a reason for setting of the given status</Doc>
+          </Int>
+          <Int name="PIN_FLD_ACTG_FUTURE_DOM" use="optional">
+            <Doc> Indicates a billing day of month</Doc>
+          </Int>
+          <Int name="PIN_FLD_BILL_WHEN" use="optional">
+            <Doc> Indicates a billing frequency: monthly or quarterly</Doc>
+          </Int>
+          <Enum name="PIN_FLD_BILLING_SEGMENT" use="optional">
+            <Doc> Indicates a billing segment</Doc>
+            <Values>
+              <Value>101</Value>
+              <Doc>A sample of customer definable Segment ID</Doc>
+            </Values>
+            <Values>
+              <Value>102</Value>
+              <Doc>A sample of customer definable Segment ID</Doc>
+            </Values>
+          </Enum>
+          <Int name="PIN_FLD_SPONSOR_FLAGS" use="optional">
+            <Doc> It indicates whether this billinfo has a sponsoree.</Doc>
+          </Int>
+          <Int name="PIN_FLD_SPONSOREE_FLAGS" use="optional">
+            <Doc> It indicates whether this billinfo has a sponsor.</Doc>
+          </Int>
+          <Poid name="PIN_FLD_AR_BILLINFO_OBJ" use="optional" mode="complete">
+            <Doc> It indicates the AR billinfo for the given billinfo.  
+                          It can be presented only for a subodinate billinfo.
+                    </Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_PARENT_BILLINFO_OBJ" use="optional" mode="complete">
+            <Doc> It indicates the immediate (one level up) parent. Note that 
+                          the given billinfo is not necessarily a subordinate. 
+                    </Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_PAYINFO_OBJ" use="optional" mode="complete">
+            <Doc> It indicates the payinfo for given billinfo.</Doc>
+            <ClassRef>obj://payinfo</ClassRef>
+          </Poid>
+          <Enum name="PIN_FLD_PAY_TYPE" use="required">
+            <Doc> Type of payment method </Doc>
+            <Values>
+              <Value>PIN_PAY_TYPE_PREPAID (10000)</Value>
+              <Doc>Prepaid to keep negative balance</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_INVOICE (10001)</Value>
+              <Doc>Invoiced monthly</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_DEBIT (10002)</Value>
+              <Doc>Checking account debit</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_CC (10003)</Value>
+              <Doc>Credit Card</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_DDEBIT (10004)</Value>
+              <Doc>French Direct Debit</Doc>
+            </Values>
+            <Values>
+              <Value> PIN_PAY_TYPE_DD (10005)</Value>
+              <Doc>US/Canadian Direct Debit</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_SMARTC (10006)</Value>
+              <Doc>Smartcard</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_SUBORD (10007)</Value>
+              <Doc>Roll up to parent account</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_CASH (10011)</Value>
+              <Doc>Cash payments for payment tool</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_CHECK (10012)</Value>
+              <Doc>Check payments for payment tool</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_WTRANSFER (10013)</Value>
+              <Doc>Wire transfer payments for payment tool</Doc>
+            </Values>
+            <Values>
+              <Value> PIN_PAY_TYPE_PAYORDER (10014)</Value>
+              <Doc>Inter bank payment order payments for payment tool</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_POSTALORDER (10015)</Value>
+              <Doc>Postal order payments for payment tool</Doc>
+            </Values>
+            <Values>
+              <Value>PIN_PAY_TYPE_VOUCHER (10016)</Value>
+              <Doc>Voucher payments</Doc>
+            </Values>
+          </Enum>
+          <Int name="PIN_FLD_CURRENCY" use="optional">
+            <Doc> Currency </Doc>
+          </Int>
+          <Int name="PIN_FLD_CURRENCY_SECONDARY" use="optional">
+            <Doc> Secondary currency </Doc>
+          </Int>
+        </Fields>
+      </Array>
+      <Array name="PIN_FLD_BAL_INFO" use="optional" minElements="0" minElemId="0">
+        <Doc> PIN_FLD_BAL_INFO array </Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc> Balance group poid </Doc>
+            <ClassRef>obj://balance_group</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+            <Doc> Account poid for this balane group</Doc>
+            <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_SERVICE_OBJ" use="optional" mode="complete">
+            <Doc> The service object is for this new balane group. NULL poid means 
+                         the balance group will be mapped to account level. Otherwise
+                         this balance group will be mapped to the passed service instance.
+                   </Doc>
+            <ClassRef>obj://service</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_BILLINFO_OBJ" use="required" mode="complete">
+            <Doc> Billinfo obj for this balance group</Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_NAME" use="required" maxlen="255">
+            <Doc> Balance group name </Doc>
+          </String>
+          <Array name="PIN_FLD_LIMIT" use="optional" elemIdMode="index" minElements="0" minElemId="0">
+            <Doc> More than one element can appear in this limit array. 
+                        Its element-id matches the balance element whose limit
+                        is to be set. The element-id is the resource-id. 
+                  </Doc>
+            <Fields>
+              <Decimal name="PIN_FLD_CREDIT_LIMIT" use="optional">
+                <Doc> New Limit</Doc>
+              </Decimal>
+              <Decimal name="PIN_FLD_CREDIT_FLOOR" use="optional">
+                <Doc> Credit floor </Doc>
+              </Decimal>
+              <Int name="PIN_FLD_CREDIT_THRESHOLDS" use="optional">
+                <Doc> Credit thresholds </Doc>
+              </Int>
+              <Array name="PIN_FLD_THRESHOLDS" use="optional" elemIdMode="ignored" iterationOrder="undefined" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="false">
+                <Doc> Array of fixed threshold values. </Doc>
+                <Fields>
+                  <Int name="PIN_FLD_THRESHOLD" use="required">
+                    <Doc>Fixed threshold value.</Doc>
+                  </Int>
+                  <Decimal name="PIN_FLD_AMOUNT" use="optional">
+                    <Doc>Fixed threshold value in Decimal data type</Doc>
+                  </Decimal>
+                </Fields>
+              </Array>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Array name="PIN_FLD_SERVICES" use="optional" minElements="0" minElemId="0">
+        <Doc> PIN_FLD_SERVICES array </Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc>Poid for the service object we are modifying</Doc>
+            <ClassRef>obj://service</ClassRef>
+          </Poid>
+          <Substruct name="PIN_FLD_INHERITED_INFO" use="optional" isRecursive="false">
+            <Doc> This is the inherited info for the specified object.  
+                       If the value of array element under this inherited info is NULL  
+                       (no subflist), the specified extended service element in
+                       the service object is deleted.
+            </Doc>
+<!--
+            <Fields>
+            </Fields>
+-->
+          </Substruct>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Account object passed into call</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="required" minElements="1">
+        <Doc> The following field is included on the output flist 
+                   only if there was no error during the operation.
+             </Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc> Poid of the billinfo object which is successfully 
+                          changed to the new business_profile 
+                    </Doc>
+            <ClassRef>obj://billinfo</ClassRef>
+          </Poid>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

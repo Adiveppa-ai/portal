@@ -1,0 +1,39 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+# ---------------------------------------------------------------------------------
+#      This step is used to insert the data from the sql files into
+#      the pipeline DB.
+# ---------------------------------------------------------------------------------
+
+$osid = $ENV{'DB_SID'};
+if ("a$osid" eq "a") 
+{
+   $osid = $ENV{'ORACLE_SID'} || "QA10";
+}
+
+$oui= lc($ENV{'INT_USER'}) || "integrate"; 
+$oup=$ENV{'INT_UPSWD'} || "integrate";
+
+if ( "a$ENV{'CFGautoifw_nodbinit'}" eq "a1" )
+{
+  print "** SKIPPING IFW DATABASE LOAD";
+  exit 0;
+}
+
+print "** IFW database ifw setup sqlplus -S $oui\/$oup\@$osid";
+my $cmd;
+if ($ENV{'OS_TYPE'} eq "Windows") {
+  $cmd = "cd $ENV{'INT_HOME'}/conf/pricingdata/Oracle & sqlplus -S $oui\/$oup\@$osid \@$ENV{'INT_HOME'}/conf/pricingdata/Oracle/insertWIRELESS_SAMPLE.sql; ";
+}
+else {
+  $cmd = "cd $ENV{'INT_HOME'}/conf/pricingdata/Oracle; sqlplus -S $oui\/$oup\@$osid \@$ENV{'INT_HOME'}/conf/pricingdata/Oracle/insertWIRELESS_SAMPLE.sql; ";
+}
+system($cmd);
+
+exit 0;

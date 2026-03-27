@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="SuspenseMgr" version="15.0.1.0.0" description="Suspense Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1347" dest="pin_cnf_cm_suspense.pl" mode="0755"/>
+            <file size="4064" dest="pin_cmp_dm_suspense.pl" mode="0755"/>
+            <file size="6503" dest="pin_cmp_cm_suspense.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cmp_cm_suspense.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_cm_suspense.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_dm_suspense.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="68608" dest="load_localized_strings" mode="0755"/>
+         <file size="32872" dest="load_pin_suspense_reason_code" mode="0755"/>
+         <file size="32896" dest="load_pin_batch_suspense_reason_code" mode="0755"/>
+         <file size="32864" dest="load_pin_batch_suspense_override_reason" mode="0755"/>
+         <file size="12293" dest="load_suspended_batch_info" mode="0755"/>
+         <file size="32792" dest="load_pin_suspense_editable_flds" mode="0755"/>
+         <file size="32840" dest="load_pin_suspense_override_reason" mode="0755"/>
+         <file size="77768" dest="load_edr_field_mapping" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="load_pin_batch_suspense_reason_code"/>
+            <permission mode="0755" wildcard="load_pin_batch_suspense_override_reason"/>
+            <permission mode="0755" wildcard="load_pin_suspense_reason_code"/>
+            <permission mode="0755" wildcard="load_pin_suspense_editable_flds"/>
+            <permission mode="0755" wildcard="load_localized_strings"/>
+            <permission mode="0755" wildcard="load_pin_suspense_override_reason"/>
+            <permission mode="0755" wildcard="load_suspended_batch_info"/>
+            <permission mode="0755" wildcard="load_edr_field_mapping"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1252" dest="pin_suspense_override_reason" mode="0644"/>
+               <file size="142547" dest="edr_field_mapping.xml" mode="0644"/>
+               <file size="1961" dest="pin_batch_suspense_reason_code" mode="0644"/>
+               <file size="1459" dest="pin_suspense_editable_flds" mode="0644"/>
+               <file size="4185" dest="pin_suspense_reason_code" mode="0644"/>
+               <file size="1290" dest="pin_batch_suspense_override_reason" mode="0644"/>
+            </directory>
+         </directory>
+         <directory dest="dd" mode="750" patchable="true">
+            <directory dest="data" mode="750" patchable="true">
+               <file size="10385" dest="65_72_suspense_upgrade_dd_objects.source" mode="0644"/>
+               <file size="3211" dest="create_indexes_suspense_oracle.source" mode="0644"/>
+               <file size="815" dest="drop_indexes_suspense_oracle.source" mode="0644"/>
+               <file size="1063" dest="drop_tables_suspense_oracle.source" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="pin_batch_suspense_reason_code"/>
+            <permission mode="0644" wildcard="pin_batch_suspense_override_reason"/>
+            <permission mode="0644" wildcard="pin_suspense_reason_code"/>
+            <permission mode="0644" wildcard="pin_suspense_editable_flds"/>
+            <permission mode="0644" wildcard="pin_suspense_override_reason"/>
+            <permission mode="0644" wildcard="edr_field_mapping.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="suspense_reason_code" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="7376" dest="suspense_reason_code.ja" mode="0755"/>
+               <file size="3680" dest="batch_suspense_reason_code.it" mode="0755"/>
+               <file size="6979" dest="suspense_reason_code.zh_TW" mode="0755"/>
+               <file size="3695" dest="batch_suspense_reason_code.fr" mode="0755"/>
+               <file size="7411" dest="suspense_reason_code.fr" mode="0755"/>
+               <file size="10102" dest="suspense_reason_code.en_US" mode="0755"/>
+               <file size="3688" dest="batch_suspense_reason_code.es" mode="0755"/>
+               <file size="7436" dest="suspense_reason_code.it" mode="0755"/>
+               <file size="3725" dest="batch_suspense_reason_code.ja" mode="0755"/>
+               <file size="7400" dest="suspense_reason_code.es" mode="0755"/>
+               <file size="3665" dest="batch_suspense_reason_code.en_US" mode="0755"/>
+               <file size="3660" dest="batch_suspense_reason_code.zh" mode="0755"/>
+               <file size="6948" dest="suspense_reason_code.zh" mode="0755"/>
+               <file size="3664" dest="batch_suspense_reason_code.zh_TW" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="batch_suspense_reason_code.*"/>
+            <permission mode="0755" wildcard="suspense_reason_code.*"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="11224" dest="10_20_suspense_upgrade_dd_objects.source" mode="0644"/>
+               <file size="55745" dest="dd_objects_suspense.source" mode="0644"/>
+               <file size="24332" dest="7.2_7.3_dd_objects_batch_suspense.source" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="dd_objects_suspense.source"/>
+            <permission mode="0644" wildcard="10_20_suspense_upgrade_dd_objects.source"/>
+            <permission mode="0644" wildcard="7.2_7.3_dd_objects_batch_suspense.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="34952" dest="fm_batch_suspense.so" mode="0755"/>
+      </directory>
+      <directory dest="xsd" mode="750" patchable="true">
+         <file size="2643" dest="edr_field_mapping.xsd" mode="0755"/>
+      </directory>
+   </file-map>
+</component-def>

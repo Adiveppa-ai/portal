@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BusinessConfiguration
+	xmlns="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.portal.com/schemas/BusinessConfig BusinessConfiguration.xsd"> 
+
+	<!-- Sample input file for pin_corrective_bill containing parameters for bill run management -->
+	<!-- Modify according to guidelines -->
+	<CorrBillConfiguration> 
+		<!-- List of Account No to be billed 
+		<Accounts>
+			<AccountNo>0.0.0.1-311038</AccountNo>
+		</Accounts>
+		<Accounts>
+                        <AccountNo>0.0.0.1-304210</AccountNo>
+                </Accounts>
+		<Accounts>
+                        <AccountNo>0.0.0.1-308866</AccountNo>
+                </Accounts>
+		<Accounts>
+                        <AccountNo>0.0.0.1-306698</AccountNo>
+                </Accounts>
+		-->
+		<!-- List of Bill No to be billed -->
+		<Bills>
+                        <BillNo>B1-578</BillNo>
+                </Bills>
+		<Bills>
+                        <BillNo>B1-581</BillNo>
+                </Bills>
+		<Bills>
+                        <BillNo>B1-598</BillNo>
+                </Bills>
+		<Bills>
+                        <BillNo>B1-588</BillNo>
+                </Bills>
+	</CorrBillConfiguration> 
+</BusinessConfiguration>

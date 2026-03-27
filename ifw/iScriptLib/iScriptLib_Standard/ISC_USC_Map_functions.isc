@@ -1,0 +1,312 @@
+//==============================================================================
+//
+// Copyright (c) 2003, 2015, Oracle and/or its affiliates. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_ISC_USC_Map_functions
+//
+//------------------------------------------------------------------------------
+// Revision History:
+// 1.0 - sm - Initial Draft
+//------------------------------------------------------------------------------
+
+function Bool isPatternPresent( String edrPattern, String tableData, Long index)
+{
+  if((tableData == ".*") or (tableData == ""))
+  {
+     return( true );
+  }
+
+  if((edrPattern == "") and (tableData != ".*"))
+  {
+     return( false );
+  }
+
+  if((edrPattern == "") and (tableData == ".*"))
+  {
+     return( true );
+  }
+
+  if(strLength(edrPattern) >= strLength(tableData))
+  { 
+
+     if(strSearch( edrPattern, tableData, index ) >= 0)
+     {
+        return( true );
+     }
+     else
+     {
+        return( false );
+     }
+  }
+  else
+  {
+     if(strSearch( tableData, edrPattern, index ) >= 0)
+     {
+        return( true );
+     }
+     else
+     {
+        return( false );
+     }
+
+  }
+}
+
+function Bool isPatternEqual( String edrPattern, String tableData)
+{
+
+   String defaultGroup = "ALL_RATE";
+   if(edrPattern == "")
+   {
+       edrPattern = defaultGroup;
+   }
+   if(edrPattern == tableData)
+   {
+        return( true );
+   }
+   else
+   {
+       return( false );
+   }
+   
+}
+
+function Bool isValidTimeStamp( Date edrTimeStamp, String valid_from, String valid_to, String time_from, String time_to)
+{
+   Long counter;
+   Long diff;
+   Long frmDay;
+   Long toDay;
+   Long day;
+   Long month;
+   Long year;
+   Long a;
+   Long m;
+   Long d;
+   Long y;
+   Date valid_frm_date;
+   Date valid_to_date;
+   Date edr_date;
+   String time_from_str;
+   String time_to_str;
+   String edr_time_str;
+   String edr_time_stamp;
+   String week_time_from_str;
+   String week_time_to_str;
+   Bool dayPresent;
+   String edr_date_str;
+
+   dayPresent = false;
+
+   if(valid_from == "")
+   {
+       valid_from = "19010101";
+   }
+
+   if(valid_to == "")
+   {
+       valid_to = "20370205";
+   }
+
+   edr_time_str = strSubstr(dateToStr(edrTimeStamp),8,6);
+   edr_date_str = strSubstr(dateToStr(edrTimeStamp),0,8);
+   
+   if((0 == strToLong(valid_from)) and (0 == strToLong(valid_to)))
+   {
+	   if(((strLength(valid_from) == 3) and (strLength(valid_to) == 3)) or ((strLength(valid_from) == 8) and (strLength(valid_to) == 8)))
+	   {
+	       if ( strToUpper(strSubstr(valid_from,0,3)) == "MON" )
+		    frmDay = 1;
+	       else if ( strToUpper(strSubstr(valid_from,0,3)) == "TUE" )
+		    frmDay = 2;
+	       else if ( strToUpper(strSubstr(valid_from,0,3)) == "WED" )
+		    frmDay = 3;
+	       else if ( strToUpper(strSubstr(valid_from,0,3)) == "THU" )
+		    frmDay = 4;
+	       else if ( strToUpper(strSubstr(valid_from,0,3)) == "FRI" )
+		    frmDay = 5;
+	       else if ( strToUpper(strSubstr(valid_from,0,3)) == "SAT" )
+		    frmDay = 6;
+	       else if ( strToUpper(strSubstr(valid_from,0,3)) == "SUN" )
+		    frmDay = 7;
+	       else
+		    return(false);
+
+	       if ( strToUpper(strSubstr(valid_to,0,3)) == "MON" )
+		    toDay = 1;
+	       else if ( strToUpper(strSubstr(valid_to,0,3)) == "TUE" )
+		    toDay = 2;
+	       else if ( strToUpper(strSubstr(valid_to,0,3)) == "WED" )
+		    toDay = 3;
+	       else if ( strToUpper(strSubstr(valid_to,0,3)) == "THU" )
+		    toDay = 4;
+	       else if ( strToUpper(strSubstr(valid_to,0,3)) == "FRI" )
+		    toDay = 5;
+	       else if ( strToUpper(strSubstr(valid_to,0,3)) == "SAT" )
+		    toDay = 6;
+	       else if ( strToUpper(strSubstr(valid_to,0,3)) == "SUN" )
+		    toDay = 7;
+	       else
+		    return(false);
+
+
+	       //if(frmDay > toDay)
+	       //{
+	       //     return(false); 
+	       //} 
+
+	       //get the day from edrDate
+	       edr_time_stamp = dateToStr(edrTimeStamp);
+
+	       year = strToLong(strSubstr(edr_time_stamp,0,4));
+	       month = strToLong(strSubstr(edr_time_stamp,4,2));
+	       day = strToLong(strSubstr(edr_time_stamp,6,2));
+
+	       a = (14 - month) / 12;
+	       y = year - a;
+	       m = month + 12 * a - 2;
+	       d = ( day + y + y/4 - y/100 + y/400 + (31 * m)/12 )%7;
+
+	       if(d == 0)
+		  d = 7;
+
+	       //logStdout(" D : " + longToStr(d) + "\n");
+
+	       if((frmDay == toDay) and (d != frmDay))
+	       {
+		 return(false);
+	       }
+
+	       if(frmDay < toDay)
+	       {
+		   if((d < frmDay) or (d > toDay))
+		   {
+			return(false);
+		   }
+	       }
+	       else
+	       {
+		   if((d < frmDay) and (d > toDay))
+		   {
+			return(false);
+		   }
+	       }
+
+	       if((strLength(valid_from) == 8) and (strLength(valid_to) == 8))
+	       {
+		  week_time_from_str = strSubstr(valid_from,3,2);   
+		  week_time_from_str = week_time_from_str + strSubstr(valid_from,6,2);   
+		  week_time_from_str = week_time_from_str + "00";
+
+		  week_time_to_str = strSubstr(valid_to,3,2);   
+		  week_time_to_str = week_time_to_str + strSubstr(valid_to,6,2);   
+		  week_time_to_str = week_time_to_str + "00";
+
+		  if ((d == frmDay) and (strToLong(edr_time_str) < strToLong(week_time_from_str)))
+		  {
+		      return(false);
+		  }
+
+		  if ((d == toDay) and (strToLong(edr_time_str) > strToLong(week_time_to_str)))
+		  {
+		      return(false);
+		  }
+	       }
+
+	       dayPresent = true;
+
+	   }
+   }
+
+   if(dayPresent == false)
+   {
+       if(strLength(valid_from) < 14)
+       {
+           diff = 14 - strLength(valid_from);
+           for(counter = 0; counter < diff ; counter = counter + 1)
+           {
+               valid_from = valid_from + "0";
+           }
+       }
+
+       if(strLength(valid_to) < 14)
+       {
+           diff = 14 - strLength(valid_to);
+           for(counter = 0; counter < diff ; counter = counter + 1)
+           {
+              valid_to = valid_to + "0";
+           }
+       }
+
+       edr_date_str = edr_date_str + "000000"; //Adding HHMMSS as 00:00:00
+       
+       edr_date = strToDate(edr_date_str);
+       valid_frm_date = strToDate(valid_from);
+       valid_to_date = strToDate(valid_to);
+
+       if( dateDiff(valid_to_date,edr_date) < 0)
+       {
+           return( false );
+       }
+
+       if(dateDiff(valid_to_date,valid_frm_date) >= dateDiff(valid_to_date,edr_date))
+       {
+       }
+       else
+       {
+           return( false );
+       }
+   }
+
+   //time validity
+   
+   if(time_from == "")
+   {
+       time_from = "00:00";
+   }
+   if(time_to == "")
+   {
+       time_to = "24:00";
+   }
+
+   if((strLength(time_from) != 5) or (strLength(time_to) != 5))
+   {
+       return( false );
+   }
+  
+   time_from_str = strSubstr(time_from,0,2);   
+   time_from_str = time_from_str + strSubstr(time_from,3,2);   
+   time_from_str = time_from_str + "00";
+    
+   time_to_str = strSubstr(time_to,0,2);   
+   time_to_str = time_to_str + strSubstr(time_to,3,2);   
+   time_to_str = time_to_str + "00";
+   
+   if((strToLong(edr_time_str) > strToLong(time_to_str)) or (strToLong(edr_time_str) < strToLong(time_from_str)))
+   {
+       return( false );
+   }
+   else
+   {
+       return( true );
+   }
+   
+   return( true );
+}
+
+function Bool isValidQuantity( String edrPattern, String tableData)
+{
+   if((tableData == "") or (strToLong(tableData) >= strToLong(edrPattern)))
+   {
+      return( true );
+   }
+   else
+   {
+      return( false );
+   } 
+}

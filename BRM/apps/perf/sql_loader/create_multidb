@@ -1,0 +1,286 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+($ME = $0) =~ s,.*/,,;
+require "../db_conf.pm";
+######################################################################
+## Configuration stuff
+######################################################################
+
+$CONF_COMMIT_FREQ=50;
+$CONF_NUM_THREADS=4;   # only for UNIX , must be 1 for windows
+$ARRAY_SIZE=10;        # max number of services per account in DB
+$DB_LINK_TO_UNIQ="md_primary";   # db link from all DBs to uniqueness to create
+#############################
+# below is parameters structure
+# 1)db name (connection string) where remote db located; 
+# 2) starting id for portion of accounts created;
+# 3)number accounts created per thread;
+############################
+@ACCOUNTS= (
+	  "vulcan" , 1000000, 2500, 
+	  "galaxy" , 2000000, 2500, 
+	  );
+#--------------------------------------------
+# end of configuration section
+#--------------------------------------------
+#=============================================================================
+
+$sqlout="";
+#--------------------------------------
+#--------------------------------------
+$currtime0 = time();
+
+$sqlcommand =<<SQLPLUSENDPROC
+set pagesize 0
+select max(poid_id0)  from uniqueness_t;
+SQLPLUSENDPROC
+;
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME, $sqlcommand);
+($max_uniq_poid)=split (' ', $sqlout,99);
+
+$index = 0;
+$total_num_accnts= 0;
+while ( $index < @ACCOUNTS ) {
+
+$currtime1 = time();
+$db_name = $ACCOUNTS[$index];
+$beg_id0 = $ACCOUNTS[$index+1];
+$num_accounts = $ACCOUNTS[$index+2];
+
+$index = $index +3;
+
+if ( $db_name eq $CONF_DBNAME ) {
+$my_uniq_table="uniqueness_t";
+} else {
+$my_uniq_table="uniqueness_t\@$DB_LINK_TO_UNIQ";
+}
+#########################
+# create sysnonym(alias) for remote uniqueness_table
+########################
+$sqlcommand =<<SQLPLUSENDPROC
+drop synonym remote_uniqueness_t;
+create synonym remote_uniqueness_t for $my_uniq_table;
+SQLPLUSENDPROC
+;
+exec_sqlcommand($CONF_OWNER,$db_name, $sqlcommand);
+
+$current_thread=$CONF_NUM_THREADS;
+
+while ( $current_thread > 0 ) {
+#--------------------------------------
+$sqlcmnd_array[$current_thread] =<<SQLPLUSEND
+
+DECLARE
+service_type VARCHAR2(255);
+login_name VARCHAR2(255);
+services DBMS_SQL.VARCHAR2_TABLE;
+serv_id DBMS_SQL.NUMBER_TABLE;
+db_id INTEGER;
+db_no INTEGER;
+beg_id INTEGER;      -- uniqueness poid
+counts INTEGER;
+commit_cnt INTEGER;
+init_id0 INTEGER;    -- account_poid
+service_id INTEGER;    -- service_poid
+user_id0 INTEGER;    -- login number
+create_t INTEGER;
+num INTEGER;
+num_accounts_inserted INTEGER;
+
+-- 
+-- set up cursors to fetch some of the configuration stuff from the database.
+--
+-- Get the DB no
+cursor db_id0 is 
+	select poid_db, created_t from account_t 
+		where poid_id0 = 1;
+
+cursor my_service is 
+        select POID_ID0, POID_TYPE, ACCOUNT_OBJ_ID0,ACCOUNT_OBJ_DB  from service_t where LOGIN = '${USER_PREFIX}'||TO_CHAR(user_id0)
+                or LOGIN = TO_CHAR(user_id0) || '\@portal.com';
+BEGIN
+	-- db no
+	open db_id0;
+	fetch db_id0 into db_id, create_t;
+	close db_id0;
+
+	-- max(poid_id0) from unique_t
+        beg_id := $max_uniq_poid;
+
+	num_accounts_inserted := 0;
+	user_id0 := $beg_id0;        -- start login id
+        beg_id := beg_id +1;
+	commit_cnt := 0;
+	while ( num_accounts_inserted < $num_accounts ) LOOP
+	open my_service;
+        FOR num IN 1..$ARRAY_SIZE LOOP
+            fetch my_service into serv_id(num), services(num), init_id0, db_no ;
+          EXIT WHEN my_service%NOTFOUND;
+        END LOOP;
+	close my_service;
+
+     	   FOR counts IN 1..services.COUNT LOOP
+
+		service_type := services(counts);
+	        service_id := serv_id(counts);
+
+                if ( service_type = '/service/email' ) THEN
+                   login_name := TO_CHAR(user_id0)||'\@portal.com';
+                ELSE
+                   login_name := '${USER_PREFIX}'||TO_CHAR(user_id0);
+                end IF;
+
+
+		INSERT INTO remote_uniqueness_t (
+			poid_db, poid_id0, poid_type, poid_rev,
+			created_t, mod_t,
+			--
+			account_obj_db, account_obj_id0, account_obj_type,
+			service_obj_db, service_obj_id0, service_obj_type,
+			--
+                        type,
+			--
+			read_access, write_access,
+			login, effective_t,
+			status, account_no
+		) VALUES (
+			db_id, beg_id, '/uniqueness', 1,
+			create_t, create_t,
+			--
+			db_no, init_id0, '/account',
+			db_no, service_id, service_type,
+			--
+                        counts,
+			--
+			'G','S',
+			login_name,create_t,2,
+			'0.0.0.'||TO_CHAR(db_no)||'-' || TO_CHAR(user_id0)
+			);
+		beg_id := beg_id + 1;
+		IF (commit_cnt = $CONF_COMMIT_FREQ ) THEN
+			commit_cnt := 0;
+			commit;
+		END IF;
+		commit_cnt := commit_cnt + 1;
+
+             end LOOP;
+             num_accounts_inserted := num_accounts_inserted + 1;
+	     user_id0 := user_id0 + 1;
+        END LOOP;
+																 --
+END;
+/
+
+SQLPLUSEND
+;
+
+$current_thread=$current_thread - 1;
+$max_uniq_poid=$max_uniq_poid+ $ARRAY_SIZE * $num_accounts; 
+$beg_id0=$beg_id0 +  $num_accounts;
+# end of while
+}
+
+#  end of while
+##################################################
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+{
+if ( $^O =~ /win/i )
+{
+# special code for Windows
+        exec_sqlcommand($CONF_OWNER,$db_name,$sqlcmnd_array[$current_thread]
+);
+        print $sqlout;
+}
+else
+{
+$procid[$current_thread] = fork();
+#--------------------------------------
+#  child process
+#--------------------------------------
+if ( $procid[$current_thread] == 0 ) {
+        exec_sqlcommand($CONF_OWNER,$db_name,$sqlcmnd_array[$current_thread]
+);
+
+print $sqlout;
+exit;    # this terminates child process
+}
+# this is a parent process
+}
+
+$current_thread=$current_thread + 1;
+}
+if (!( $^O =~ /win/i ))
+{
+#
+# waiting while all processes were completed
+#
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+ {
+  waitpid ($procid[$current_thread], 0 );
+  $current_thread=$current_thread + 1;
+ }
+}
+
+
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$accounts = $num_accounts * $CONF_NUM_THREADS;
+$total_num_accnts = $total_num_accnts + $accounts;
+print "***************************************************************\n";
+printf " $accounts accounts  from db $db_name were processed in %d h %d min %d sec.\n",
+	   $ehours,$emin,$esec;
+print "***************************************************************\n";
+# go to the next DB from config array
+}
+
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime0;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$accounts = $total_num_accnts;
+print "***************************************************************\n";
+printf " Totally $accounts accounts were processed in %d h %d min %d sec.\n",
+	   $ehours,$emin,$esec;
+print "***************************************************************\n";
+
+# Get the max poid id
+$sqlcommand =<<SQLPLUSEND2
+set pagesize 0
+select to_char(max(poid_id0) + 10000) from uniqueness_t;
+select pin_sequence.get_nextval() from dual;
+SQLPLUSEND2
+;
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+($LAST_SEQ_NO,$CURRENT_VAL)=split (' ',$sqlout,99);
+if ( $LAST_SEQ_NO > $CURRENT_VAL ) {
+	$INCREMENT=$LAST_SEQ_NO + 10000 - $CURRENT_VAL;
+# update sequence to point beyond max used
+print "Adjusting sequence by adding $INCREMENT to poid_ids2 \n";
+$sqlcommand =<<SQLPLUSEND2
+update data_t set inc_by=${INCREMENT} where name='STANDARD_POIDS';
+commit;
+select pin_sequence.get_nextval() from dual;
+update data_t set inc_by=1 where name='STANDARD_POIDS';
+commit;
+SQLPLUSEND2
+;
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+#print $sqlout;
+}
+1;
+
+
+

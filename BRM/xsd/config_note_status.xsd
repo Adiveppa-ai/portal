@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+  <xs:include schemaLocation="PinTypes.xsd" />
+
+  <xs:annotation>
+    <xs:documentation  xml:lang="en">
+ Copyright (c) 2007, 2014, Oracle and/or its affiliates. All rights reserved.
+	This material is the confidential property of Oracle Corporation or its
+	licensors and may be used, reproduced, stored or transmitted only in
+	accordance with a valid Oracle license or sublicense agreement.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element name="ConfigObject" minOccurs="1" maxOccurs="1">
+	  <xs:complexType>
+	    <xs:sequence>
+		<xs:element name="DESCR" type="xs:string" minOccurs="0" />
+		<xs:element name="NAME" type="xs:string" minOccurs="1" />
+
+		<xs:element name="STATUSES" minOccurs="1" maxOccurs="unbounded">
+		  <xs:complexType>
+		    <xs:sequence>
+			<xs:element name="STATUS" type="xs:int" minOccurs="1" />
+			<xs:element name="STRING_ID" type="xs:int" minOccurs="1" />
+			<xs:element name="STR_VERSION" type="xs:int" minOccurs="1" />
+			<xs:element name="NAME" type="xs:string" minOccurs="1" />
+		    </xs:sequence>
+		    <xs:attribute name="elem" type="xs:int" />
+		  </xs:complexType>
+		</xs:element>
+	    </xs:sequence>
+	  </xs:complexType>
+	</xs:element>
+      </xs:sequence>
+      <xs:attribute name="configName" type="xs:string" default="/config/note_status" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

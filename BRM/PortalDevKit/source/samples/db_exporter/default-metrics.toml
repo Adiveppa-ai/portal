@@ -1,0 +1,81 @@
+[[metric]]
+context = "sessions"
+labels = [ "status", "type" ]
+metricsdesc = { value= "Gauge metric with count of sessions by status and type." }
+request = "SELECT status, type, COUNT(*) as value FROM v$session GROUP BY status, type"
+
+[[metric]]
+context = "resource"
+labels = [ "resource_name" ]
+metricsdesc = { current_utilization= "Generic counter metric from v$resource_limit view in Oracle (current value).", limit_value="Generic counter metric from v$resource_limit view in Oracle (UNLIMITED: -1)." }
+request="SELECT resource_name,current_utilization,CASE WHEN TRIM(limit_value) LIKE 'UNLIMITED' THEN '-1' ELSE TRIM(limit_value) END as limit_value FROM v$resource_limit"
+
+[[metric]]
+context = "brm_stream"
+metricsdesc = { value = "BRM Stream number." }
+request = "select stream as value from BRM_PS_T"
+ignorezeroresult = true
+
+[[metric]]
+context = "brm_version"
+metricsdesc = { value = "BRM Patch set number." }
+request = "select patch_number as value from BRM_PS_T"
+ignorezeroresult = true
+
+[[metric]]
+context = "brm_event_part"
+labels = [ "partition_name" ]
+metricsdesc = { value = "BRM event_t table partitions details." }
+request = "select partition_name, nvl(num_rows, 0) as value from sys.dba_tab_partitions where table_owner = 'PIN775' and table_name = 'EVENT_T' order by partition_name"
+ignorezeroresult = true
+
+[[metric]]
+context = "brm_bill_count"
+metricsdesc = { value = "BRM, Number of Bills got generated in last 24 hours." }
+request = "select NVL((sum(NUMBER_OF_BILLS)),0) as value from PROC_AUD_T a, PROC_AUD_BILL_T b where poid_type = '/process_audit/billing' and created_t > ((cast(systimestamp as date) - cast(to_timestamp(to_date('1970-01-01', 'YYYY-MM-DD')) as date)) * 60 * 60 * 24 - 86400) and a.poid_id0=b.obj_id0"
+ignorezeroresult = true
+
+[[metric]]
+context = "brm_invoices_day_count"
+metricsdesc = { value = "BRM, Number of Invoices got generated in last 24 hours." }
+request = "select count(*) as value from invoice_t where created_t > ((cast(systimestamp as date) - cast(to_timestamp(to_date('1970-01-01', 'YYYY-MM-DD')) as date)) * 60 * 60 * 24 - 86400)"
+ignorezeroresult = true
+
+[[metric]]
+context = "size_of_audit_tables"
+labels = [ "segment_name" ]
+metricsdesc = { value = "Size of the BRM Audit tables" }
+request = "SELECT segment_name, sum(bytes) as value FROM dba_extents WHERE owner = 'PIN771' and segment_type = 'TABLE' and segment_name like 'AU%' group by segment_name order by value desc"
+ignorezeroresult = true
+
+[[metric]]
+context = "asm_diskgroup"
+labels = [ "name" ]
+metricsdesc = { total = "Total size of ASM disk group.", free = "Free space available on ASM disk group." }
+request = "SELECT name,total_mb*1024*1024 as total,free_mb*1024*1024 as free FROM v$asm_diskgroup"
+ignorezeroresult = true
+
+[[metric]]
+context = "activity"
+metricsdesc = { value="Generic counter metric from v$sysstat view in Oracle." }
+fieldtoappend = "name"
+request = "SELECT name, value FROM v$sysstat WHERE name IN ('parse count (total)', 'execute count', 'user commits', 'user rollbacks')"
+
+[[metric]]
+context = "process"
+metricsdesc = { count="Gauge metric with count of processes." }
+request = "SELECT COUNT(*) as count FROM v$process"
+
+[[metric]]
+context = "wait_time"
+metricsdesc = { value="Generic counter metric from v$waitclassmetric view in Oracle." }
+fieldtoappend= "wait_class"
+request = '''
+SELECT
+  n.wait_class as WAIT_CLASS,
+  round(m.time_waited/m.INTSIZE_CSEC,3) as VALUE
+FROM
+  v$waitclassmetric  m, v$system_wait_class n
+WHERE
+  m.wait_class_id=n.wait_class_id AND n.wait_class != 'Idle'
+'''

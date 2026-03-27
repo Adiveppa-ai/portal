@@ -1,0 +1,52 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="CIBERRoamingMgr" version="15.0.1.0.0" description="CIBERRoaming Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="ifw.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="releaseNotes" mode="750" patchable="true">
+         <file size="2930" dest="RELEASE_NOTES.CIBER" mode="0664"/>
+         <file size="2384" dest="RELEASE_NOTES.FCT_CiberOcc" mode="0664"/>
+         <file size="3136" dest="RELEASE_NOTES.ISL_CiberValidation" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="RELEASE_NOTES.CIBER"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_CiberOcc"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.ISL_CiberValidation"/>
+         </file-perms>
+      </directory>
+      <directory dest="formatDesc" mode="750" patchable="true">
+         <directory dest="Formats" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="CIBER" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="44366" dest="CIBER_v25_Blocks.dsc" mode="0644"/>
+               <file size="51591" dest="CIBER_v25_InGrammar.dsc" mode="0644"/>
+               <file size="46748" dest="CIBER_v25_InMap.dsc" mode="0644"/>
+               <file size="22030" dest="CIBER_v25_OutGrammar.dsc" mode="0644"/>
+               <file size="43567" dest="CIBER_v25_OutMap.dsc" mode="0644"/>
+               <file size="10229" dest="CIBER_v25_RetOutGrammar.dsc" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="CIBER_v25_Blocks.dsc"/>
+            <permission mode="0644" wildcard="CIBER_v25_InGrammar.dsc"/>
+            <permission mode="0644" wildcard="CIBER_v25_InMap.dsc"/>
+            <permission mode="0644" wildcard="CIBER_v25_OutGrammar.dsc"/>
+            <permission mode="0644" wildcard="CIBER_v25_OutMap.dsc"/>
+            <permission mode="0644" wildcard="CIBER_v25_RetOutGrammar.dsc"/>
+         </file-perms>
+      </directory>
+      <directory dest="iScriptLib" mode="750" patchable="true">
+         <directory dest="iScriptLib_CiberValidation" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="106008" dest="CIBER_VAL.xml" mode="0644"/>
+            <file size="79102" dest="ISC_CiberInputValidation.isc" mode="0644"/>
+            <file size="19583" dest="ISC_CiberOutputMapping.isc" mode="0644"/>
+            <file size="4218" dest="ISC_CiberRejectReason.isc" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="CIBER_VAL.xml"/>
+            <permission mode="0644" wildcard="ISC_CiberInputValidation.isc"/>
+            <permission mode="0644" wildcard="ISC_CiberOutputMapping.isc"/>
+            <permission mode="0644" wildcard="ISC_CiberRejectReason.isc"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="131816" dest="libFCT_CiberOcc.so" mode="0664"/>
+      </directory>
+   </file-map>
+</component-def>

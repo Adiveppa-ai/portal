@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# @(#)%full_filespec: pin_amt~6:shsrc:1 %
+#
+# Copyright (c) 2001, 2021, Oracle and/or its affiliates. All rights reserved.
+#
+# This material is the confidential property of Oracle Corporation
+# or its licensors and may be used, reproduced, stored or transmitted
+# only in accordance with a valid Oracle license or sublicense agreement.
+#
+
+PIN_DIR=__PIN_HOME__
+ORA_DIR=__ORACLE_HOME__
+JAVA_DIR=$JAVA_HOME
+
+AMT_DIR=${PIN_DIR}/apps/amt
+JAR_DIR=${PIN_DIR}/jars
+CLASSPATH=.:$JAR_DIR/amt.jar:$JAR_DIR/pcm.jar:$JAR_DIR/pcmext.jar:${PIN_DIR}/apps/amt/ttjdbc6.jar:$ORA_DIR/jdbc/lib/ojdbc8.jar:$ORA_DIR/lib/ojdbc8.jar:$ORA_DIR/jdbc/lib/classes12.zip:$JAR_DIR/oraclepki.jar:$JAR_DIR/osdt_cert.jar:$JAR_DIR/osdt_core.jar
+
+PATH=${PATH}:${ORA_DIR}/bin:${PIN_DIR}/jre/bin
+
+export CLASSPATH PATH
+
+JAVA=$JAVA_DIR/bin/java
+
+$JAVA -DPIN_HOME=$PIN_DIR -DJAVA_OPTS="-Xmx2048m -Xms256m" com.portal.amt.AmtUI $*

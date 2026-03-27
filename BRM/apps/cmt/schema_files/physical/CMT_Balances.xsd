@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<!-- Balance data processing During the initial load accounts will be created with a default balance group all these balances will be added to the that default balance group and a corresponding entry would be made in the mapping table  -->
+	<xs:include schemaLocation="CMT_Types.xsd"/>
+	<xs:element name="ActBal">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ActBalArr" type="BalancesArray" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="BalancesArray">
+		<xs:sequence>
+			<xs:element name="BSBArr" type="SubBalancesArray" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="OutstandingAmt" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RsvAmt" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrdFlr" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DynCrdFlr" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrdLmt" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OvrCrdLmt" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CrdTrsh" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="CrdTrshFxd" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ConRule" type="ConsumptionRule" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="ConRsvAmt" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="parentRef" type="Id" use="required"/>
+		<xs:attribute name="serviceRef" type="Id" use="optional"/>
+		<xs:attribute name="Resource" type="xs:string" use="required"/>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+		<!-- paretRef is the account global reference to which these balances belong -->
+		<!-- serviceRef is the account global reference to which these balances belong -->
+		<!-- Resource is the correct resource (currency or non- currency ) name for example Yen , USD etc. -->
+	</xs:complexType>
+	<xs:complexType name="SubBalancesArray">
+		<xs:sequence>
+			<xs:element name="CurBal" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VldFrm" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VldFrmDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ValTo" type="dateTime-or-zero"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ValToDtls" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GrtObj" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Cont" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UOR" type="RolloverUnit" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Frq" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="NetQnty" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<!-- Net quantity will be used for creating cycle rollover event -->
+			<xs:element name="RollData" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Subtype" type="SubBalanceType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GrtBal" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	<xs:attribute name="grtObjRef" type="xs:string" use="optional"/>
+	<xs:attribute name="prodObj" type="xs:string" use="optional"/>
+	<xs:attribute name="discObj" type="xs:string" use="optional"/>
+	</xs:complexType>
+</xs:schema>

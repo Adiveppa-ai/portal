@@ -1,0 +1,82 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="MultiDBMgr" version="15.0.1.0.0" description="MultiDBMgr" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="multi_db" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7083" dest="install.sh" mode="0744"/>
+            <file size="52140" dest="fix_data_dictionary.sql" mode="0744"/>
+         </directory>
+         <file-perms>
+            <permission mode="0744" wildcard="install.sh"/>
+            <permission mode="0744" wildcard="fix_data_dictionary.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="50152" dest="load_config_dist" mode="0744"/>
+         <file size="59392" dest="load_pin_uniqueness" mode="0744"/>
+         <file size="1422" dest="start_mdb" mode="0755"/>
+         <file size="975" dest="stop_pin_config_distribution" mode="0755"/>
+         <file size="23768" dest="multi_db_synch_dd" mode="0744"/>
+         <file size="1744" dest="start_pin_config_distribution" mode="0755"/>
+         <file size="600" dest="stop_mdb" mode="0755"/>
+         <file-perms>
+            <permission mode="0744" wildcard="load_config_dist"/>
+            <permission mode="0744" wildcard="load_pin_uniqueness"/>
+            <permission mode="0744" wildcard="multi_db_synch_dd"/>
+            <permission mode="0755" wildcard="start_pin_config_distribution"/>
+            <permission mode="0755" wildcard="stop_pin_config_distribution"/>
+            <permission mode="0755" wildcard="start_mdb"/>
+            <permission mode="0755" wildcard="stop_mdb"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="16832" dest="fm_global_search.so" mode="0644"/>
+         <file size="16704" dest="fm_global_search_stub.so" mode="0644"/>
+         <file-perms>
+            <permission mode="0644" wildcard="fm_global_search.so"/>
+            <permission mode="0644" wildcard="fm_global_search_stub.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7346" dest="pin_cnf_multidb.pl" mode="0755"/>
+            <file size="12624" dest="pin_multidb.conf" mode="0755"/>
+            <file size="11995" dest="pin_multidb_utils" mode="0755"/>
+            <file size="52585" dest="pin_multidb.pl" mode="0755"/>
+            <file size="3025" dest="pin_cmp_multidb.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_multidb.pl"/>
+            <permission mode="0755" wildcard="pin_multidb_utils"/>
+            <permission mode="0755" wildcard="pin_multidb.conf"/>
+            <permission mode="0755" wildcard="pin_cmp_multidb.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_multidb.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1032" dest="create_md_primary_init.source" mode="0744"/>
+               <file size="6197" dest="create_md_primary.source" mode="0744"/>
+               <file size="1503" dest="create_md_secondary.source" mode="0744"/>
+               <file size="12943" dest="create_md_primary_indexes.source" mode="0744"/>
+               <file size="731" dest="create_md_primary_uniqueness.source" mode="0744"/>
+               <file size="11824" dest="create_md_secondary_schema_view.source" mode="0744"/>
+               <file size="3211" dest="create_md_triggers.source" mode="0744"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0744" wildcard="create_md_primary_init.source"/>
+            <permission mode="0744" wildcard="create_md_primary_uniqueness.source"/>
+            <permission mode="0744" wildcard="create_md_primary.source"/>
+            <permission mode="0744" wildcard="create_md_primary_indexes.source"/>
+            <permission mode="0744" wildcard="create_md_secondary.source"/>
+            <permission mode="0744" wildcard="create_md_triggers.source"/>
+            <permission mode="0744" wildcard="create_md_secondary_schema_view.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="6589" dest="pin_reset_seq.jar" mode="0755"/>
+      </directory>
+   </file-map>
+</component-def>

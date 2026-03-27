@@ -1,0 +1,140 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#      This step is used to parse the rerating.reg and insert user install specific data
+#      like the database names and passwords for pipeline,jsa ,infranet and the queues.
+#      Due to the hierarchical nature of the file a push and pop mechanism is employed
+#      to arrive at the correct registry entry.
+# ---------------------------------------------------------------------------------
+# config pipeline registry
+
+open(STREAM,"$ENV{INT_HOME}/conf/rerating.reg") || die ("Could not open file. $!");
+open (backup, ">$ENV{INT_HOME}/conf/rerating.reg.ifwinst.bak") || die ("Could not open file. $!");
+@copy_this = <STREAM>;
+print backup (@copy_this);
+close (STREAM);
+close (backup);
+
+open(STREAM,"$ENV{INT_HOME}/conf/rerating.reg") || die ("Could not open file. $!");
+my $out = "";
+
+#replace database refs & stuff.
+#this is a little complicated because of the hierarchical nature of the file
+BEGIN{
+        ##############  queueing login ##############
+	$lqunque=uc($ENV{'QUE_USER'} || 'pinq');
+	$lqpwque= $ENV{'QUE_PSWD'} ;
+	chomp($lqpwque);
+	$lqsidque=$ENV{'QUE_SID'} || $ENV{'ORACLE_SID'} ;
+
+        ##############  integrate login ##############
+	$lqunint=uc($ENV{'INT_USER'} || 'integrate');
+	$lqpwint= $ENV{'INT_PSWD'} ;
+	chomp($lqpwint);
+	$lqsidint=$ENV{'DB_SID'} || $ENV{'ORACLE_SID'} ;
+
+        ##############  infranet login ##############
+	$lqunpin=uc($ENV{'INF_USER'} || 'pin');
+	$lqpwpin= $ENV{'INF_PSWD'};
+	chomp($lqpwpin);
+	$lqsidpin=$ENV{'INF_SID'} || $ENV{'ORACLE_SID'} ;
+
+        ############## Access Library ###############
+	$lqver=$ENV{'DB_LIBRARY'};
+
+        #################### OS type ####################
+        $ostype = $ENV{"OS_TYPE"};
+
+	}
+while(<STREAM>) {
+
+$ps=0; #this is reset each loop pass
+#push the registry tags into the heirtrk array
+if( m/^\s*{\s*$/ ){ $hiertrk[$hierpos]=lc $k; ++$hierpos; $ps=1;}
+elsif( m/^\s*}\s*(?:#.*)?$/ ){ pop @hiertrk; $hierpos=0 if --$hierpos<0; $ps=1;}
+if( !$ps || $hbc ){
+  if( !$ps ){ ($k=$_)=~s/#.*$//; $k=~s/\s+//g; }
+  if( join(".",@hiertrk) eq "ifw.datapool.login.module" ){
+    s{^(\s*UserName\s*=).*$}{$1 $lqunint}i;
+    s{^(\s*PassWord\s*=).*$}{$1 $lqpwint}i;
+    s{^(\s*DatabaseName\s*=).*$}{$1 $lqsidint}i;
+    s{^(\s*AccessLib\s*=).*$}{$1 $lqver}i;
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.logininfranet.module" ){
+    s{^(\s*UserName\s*=).*$}{$1 $lqunpin}i;
+    s{^(\s*PassWord\s*=).*$}{$1 $lqpwpin}i;
+    s{^(\s*DatabaseName\s*=).*$}{$1 $lqsidpin}i;
+    s{^(\s*AccessLib\s*=).*$}{$1 $lqver}i;
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.listener.module" ){
+    #old iona stuff
+    s{^(\s*NamingCxt\s*=).*$}{$1 ifwsync$ENV{"LOGNAME"}/Integrate1$ENV{"LOGNAME"}}i;
+    s{^(\s*)#\s*(ObjectId\s*=.*)$}{$1 $2}i;
+    #new queueing stuff
+    s{^(\s*QueueName\s*=).*$}{$1$ENV{"QUE_NAME"}} if $ENV{"QUE_USER"};
+    if($ostype eq "Windows"){
+      s{^(\s*QueueLibrary\s*=).*$}{$1 MSMsgQueue}i;
+      }
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.discountmodeldatamodule.module.accounts.billrun" ){
+    #these two lines prevent doubling up
+    s{^(\s*InfranetDataModule\s+=\s+ifw.DataPool.CustomerData.*)$}{# $1}i;
+    s{^(\s*ListenerDataModule\s+=\s+ifw.DataPool.Listener.*)$}{# $1}i;
+    #this one adds the lines
+    s{^(\s*)(RateplanDataModule\s*)}
+        {${1}InfranetDataModule = ifw.DataPool.CustomerData\n${1}ListenerDataModule = ifw.DataPool.Listener\n$1$2}i;
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.discountmodeldatamodule.module.accounts" ){
+    s{^(\s*)#(\s*.*)$}{$1 $2}i;
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.discountmodeldatamodule.module" ){
+    s{^(\s*InfranetDataModule\s+=\s+ifw.DataPool.CustomerData.*)$}{# $1}i;
+    s{^(\s*ListenerDataModule\s+=\s+ifw.DataPool.Listener.*)$}{# $1}i;
+    print "        VirtualTime=InfranetTime\n" unless $didpvt++;
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.loginqueue" ){
+    $sawloginque=1;
+    }
+  elsif( join(".",@hiertrk) eq "ifw.datapool.loginqueue.module" ){
+    #section was already present in file; modify if needed
+    s{^(\s*UserName\s*=).*$}{$1 $lqunque}i;
+    s{^(\s*PassWord\s*=).*$}{$1 $lqpwque}i;
+    s{^(\s*DatabaseName\s*=).*$}{$1 $lqsidque}i;
+    s{^(\s*AccessLib\s*=).*$}{$1 $lqver}i;
+    }
+  elsif( join(".",@hiertrk) eq lc("ifw.ProcessLog.Module.ITO") ){
+    s{^(\s*WriteMessageKey\s*=)}{# $1};
+    print "        WriteMessageKey  = True\n" unless $logone++;
+    }
+  elsif( join(".",@hiertrk) eq lc("ifw.Pipelines.ALL_RATE.PipelineLog.Module.ITO") ){
+    s{^(\s*WriteMessageKey\s*=)}{# $1};
+    print "        WriteMessageKey  = True\n" unless $logtwo++;
+    }
+  elsif( join(".",@hiertrk) eq lc("ifw.datapool.customerdata.module") ){
+    #if( $dotelcocfg ){
+     # print "        LoadLogins           = True\n" if m{\sListener\s};
+      #s{^(\s*LoadLogins\s+)}{# $1}i;
+      #}
+    }
+  elsif( join(".",@hiertrk) eq lc("ifw.pipelines.ALL_RATE.functions.preprocessing.functionpool.customersearch.module") ){
+    if( $dotelcocfg ){
+      s{^(\s*Offset\s*=).*}{$1 0}i;
+      }
+    }
+  }
+ $out = $out . $_;
+}
+close (STREAM);
+
+open (STREAM, ">$ENV{INT_HOME}/conf/rerating.reg") || die ("Could not open file. $!");
+print STREAM $out;
+close(STREAM);
+
+exit 0

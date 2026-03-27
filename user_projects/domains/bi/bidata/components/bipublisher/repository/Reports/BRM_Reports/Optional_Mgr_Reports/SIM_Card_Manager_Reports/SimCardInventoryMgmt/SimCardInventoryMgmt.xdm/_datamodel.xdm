@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 	"ORDER_T"."ORDER_ID",
+ "DEVICE_SIM_T"."IMSI",
+ "ORDER_T"."CREATED_T",
+ 	"ORDER_SIM_ORDERS_T"."START_SIM",
+ 	"ORDER_SIM_ORDERS_T"."START_IMSI",
+ 	"ORDER_SIM_ORDERS_T"."NETWORK_ELEMENT",
+ 	"ORDER_SIM_ORDERS_T"."QUANTITY",
+ 	"DEVICE_T"."STATE_ID" "DEVICE_STATE_ID",
+ 	"DEVICE_T"."DEVICE_ID",
+ 	"ACCOUNT_NAMEINFO_T"."OBJ_ID0" "ACCOUNT_OBJ_ID0",
+ 	"ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ 	"ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ 	"STRINGS_T"."STRING"
+ FROM
+ 	"ORDER_T" "ORDER_T",
+ 	"ORDER_SIM_ORDERS_T" "ORDER_SIM_ORDERS_T",
+ 	"DEVICE_T" "DEVICE_T",
+ "DEVICE_SIM_T" "DEVICE_SIM_T",
+ 	"ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T",
+ 	"STRINGS_T" "STRINGS_T"
+ WHERE
+ 	"DEVICE_T"."STATE_ID" = "STRINGS_T"."STRING_ID" AND
+ 	"ORDER_T"."POID_ID0" = "ORDER_SIM_ORDERS_T"."OBJ_ID0" AND
+ 	"DEVICE_T"."POID_TYPE" ='/device/sim' AND
+ "DEVICE_T"."POID_ID0" = "DEVICE_SIM_T"."OBJ_ID0" AND
+ 	"ORDER_T"."ACCOUNT_OBJ_ID0"= "ACCOUNT_NAMEINFO_T"."OBJ_ID0" AND
+ 	TO_NUMBER("DEVICE_T"."DEVICE_ID") < TO_NUMBER("ORDER_SIM_ORDERS_T"."START_SIM"+"ORDER_SIM_ORDERS_T"."QUANTITY") AND
+ 	TO_NUMBER("ORDER_SIM_ORDERS_T"."START_SIM") <= TO_NUMBER("DEVICE_T"."DEVICE_ID") AND
+ 	bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 	("ORDER_T"."CREATED_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 	"ORDER_T"."CREATED_T"<bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ "ORDER_T"."ORDER_ID" LIKE DECODE(UPPER(:PARAM_ORDER_NUMBER),'ALL','%',:PARAM_ORDER_NUMBER) AND
+ "STRINGS_T"."STRING" LIKE DECODE(:PARAM_SIM_CARD_STATUS,null,'%',:PARAM_SIM_CARD_STATUS) AND
+ "STRINGS_T"."DOMAIN" like 'config_device_state_sim' AND
+ 	"ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+ ORDER BY
+ 	"ORDER_T"."ORDER_ID" ASC,
+ 	"ACCOUNT_NAMEINFO_T"."OBJ_ID0" ASC,
+ 	"DEVICE_T"."STATE_ID" ASC,
+ 	"DEVICE_T"."DEVICE_ID" ASC]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="ORDER_ID" value="ORDER_ID" dataType="xsd:string" label="ORDER_ID" breakOrder="None" fieldOrder="1"/>
+    <element name="IMSI" value="IMSI" dataType="xsd:string" label="IMSI" breakOrder="None" fieldOrder="2"/>
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="3"/>
+    <element name="START_SIM" value="START_SIM" dataType="xsd:integer" label="START_SIM" breakOrder="None" fieldOrder="4"/>
+    <element name="START_IMSI" value="START_IMSI" dataType="xsd:integer" label="START_IMSI" breakOrder="None" fieldOrder="5"/>
+    <element name="NETWORK_ELEMENT" value="NETWORK_ELEMENT" dataType="xsd:string" label="NETWORK_ELEMENT" breakOrder="None" fieldOrder="6"/>
+    <element name="QUANTITY" value="QUANTITY" dataType="xsd:integer" label="QUANTITY" breakOrder="None" fieldOrder="7"/>
+    <element name="DEVICE_STATE_ID" value="DEVICE_STATE_ID" dataType="xsd:integer" label="DEVICE_STATE_ID" breakOrder="None" fieldOrder="8"/>
+    <element name="DEVICE_ID" value="DEVICE_ID" dataType="xsd:string" label="DEVICE_ID" breakOrder="None" fieldOrder="9"/>
+    <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="10"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="11"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="12"/>
+    <element name="STRING" value="STRING" dataType="xsd:string" label="STRING" breakOrder="None" fieldOrder="13"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_SIM_CARD_STATUS">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT 	
+	STRING
+FROM 
+	STRINGS_T
+WHERE 
+	DOMAIN LIKE 'config_device_state_sim']]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_SIM_CARD_STATUS" defaultValue="%" dataType="xsd:string">
+         <select label="Select a specific SIM card status, or select ALL to include all SIM cards." valueSet="PARAM_SIM_CARD_STATUS" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_ORDER_NUMBER" dataType="xsd:string">
+         <input label="  Enter a specific order number, or select ALL for all SIM card numbers." size="20"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter End date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

@@ -1,0 +1,1663 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="cm" version="15.0.1.0.0" description="Connection Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_sepa" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="xsd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="39150" dest="pain.007.001.02.xsd" mode="0644"/>
+               <file size="43173" dest="pain.008.001.02.xsd" mode="0644"/>
+               <file size="44938" dest="pain.001.001.03.xsd" mode="0644"/>
+               <file size="39618" dest="pain.002.001.03.xsd" mode="0644"/>
+            </directory>
+         </directory>
+         <directory dest="load_notification_event" mode="750" patchable="true">
+            <file size="20275" dest="SampleLoadUtilityHandler.pl" mode="0755"/>
+            <file size="3211" dest="EventNotificationThreshold.xsd" mode="0755"/>
+            <file size="2126" dest="SampleLoadUtilityHandler_config.values" mode="0755"/>
+            <file size="67104" dest="load_notification_event" mode="0755"/>
+         </directory>
+         <directory dest="pin_ood_handler" mode="750" patchable="true">
+            <file size="2228" dest="OODHandler_config.values" mode="0644"/>
+            <directory dest="process" mode="750" patchable="true">
+               <file size="2391" dest="pin_rerate_job_info.xsd" mode="0644"/>
+            </directory>
+         </directory>
+         <directory dest="uel" mode="750" patchable="true">
+            <file size="81141" dest="uel.jar" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="pain.001.001.03.xsd"/>
+            <permission mode="0644" wildcard="pain.002.001.03.xsd"/>
+            <permission mode="0644" wildcard="pain.007.001.02.xsd"/>
+            <permission mode="0644" wildcard="pain.008.001.02.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="uel" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="29635" dest="UELRelHandler.pl" mode="0755"/>
+            <file size="3830" dest="Infranet.properties" mode="0600"/>
+            <file size="4115" dest="template61.dtd" mode="0644"/>
+            <file size="2129" dest="UELHandler_config.values" mode="0755"/>
+            <file size="606" dest="uel" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0600" wildcard="Infranet.properties"/>
+            <permission mode="0644" wildcard="template61.dtd"/>
+            <permission mode="0755" wildcard="uel"/>
+            <permission mode="0755" wildcard="UELRelHandler.pl"/>
+            <permission mode="0755" wildcard="UELHandler_config.values"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="integrate_sync" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1287" dest="pin_validate_input" mode="0755"/>
+            <file size="710" dest="pin_event_svc_input" mode="0755"/>
+            <file size="2521" dest="pin_history_on_input" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_history_on_input"/>
+            <permission mode="0755" wildcard="pin_validate_input"/>
+            <permission mode="0755" wildcard="pin_event_svc_input"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="68608" dest="load_localized_strings" mode="0775"/>
+         <file size="67264" dest="testnap" mode="0775"/>
+         <file size="21550" dest="BillHandler" mode="0775"/>
+         <file size="10217" dest="supportInformer.pl" mode="0775"/>
+         <file size="104008" dest="pin_unlock_service" mode="0755"/>
+         <file size="367480" dest="pin_rerate" mode="0775"/>
+         <file size="148008" dest="pin_deploy" mode="0775"/>
+         <file size="13325" dest="load_brm_pricing" mode="0744"/>
+         <file size="106944" dest="load_pin_snowball_distribution" mode="0775"/>
+         <file size="218056" dest="pin_generate_analytics" mode="0775"/>
+         <file size="32864" dest="load_pin_suspense_params" mode="0775"/>
+         <file size="197408" dest="pin_apply_promotion" mode="0755"/>
+         <file size="37144" dest="load_pin_network_elements" mode="0775"/>
+         <file size="37216" dest="load_pin_suspense_edr_fld_map" mode="0775"/>
+         <file size="28048" dest="load_pin_spec_rates" mode="0775"/>
+         <file size="88352" dest="pin_iscript" mode="0755"/>
+         <file size="57264" dest="load_pin_bill_suppression" mode="0775"/>
+         <file size="111432" dest="load_pin_sub_bal_contributor" mode="0775"/>
+         <file size="24164" dest="pin_load_template" mode="0755"/>
+         <file size="52992" dest="load_pin_customer_segment" mode="0775"/>
+         <file size="89536" dest="load_config_item_tags" mode="0775"/>
+         <file size="5985" dest="pin_bus_params" mode="0755"/>
+         <file size="133824" dest="load_pin_bus_params" mode="0775"/>
+         <file size="145751" dest="pin_configure_ha" mode="0755"/>
+         <file size="53736" dest="load_usage_map" mode="0775"/>
+         <file size="111616" dest="load_config_item_types" mode="0775"/>
+         <file size="117688" dest="load_config" mode="0755"/>
+         <file size="310264" dest="pin_export_price" mode="0755"/>
+         <file size="150408" dest="pin_load_rerate_jobs" mode="0755"/>
+         <file size="206560" dest="pin_product_clear" mode="0775"/>
+         <file size="52912" dest="load_pin_payment_term" mode="0775"/>
+         <file size="3413" dest="splitPinlog" mode="0755"/>
+         <file size="49592" dest="load_pin_remittance_spec" mode="0775"/>
+         <file size="57768" dest="load_pin_excluded_logins" mode="0775"/>
+         <file size="62432" dest="load_config_provisioning_tags" mode="0775"/>
+         <file size="114712" dest="load_pin_config_auth_reauth_info" mode="0775"/>
+         <file size="197336" dest="pin_state_change" mode="0755"/>
+         <file size="22632" dest="cm" mode="0775"/>
+         <file size="85032" dest="load_pin_rtp_trim_flist" mode="0775"/>
+         <file size="132736" dest="load_pin_config_export_gl" mode="0775"/>
+         <file size="170248" dest="load_pin_business_profile" mode="0755"/>
+         <file size="85912" dest="load_pin_rerate_flds" mode="0775"/>
+         <file size="62976" dest="load_pin_glid" mode="0775"/>
+         <file size="33128" dest="load_pin_invoice_data_map" mode="0755"/>
+         <file size="28432" dest="pin_virtual_time" mode="0755"/>
+         <file size="37664" dest="pin_history_on" mode="0755"/>
+         <file size="84800" dest="load_pin_ar_taxes" mode="0775"/>
+         <file size="437" dest="stop_pje" mode="0755"/>
+         <file size="32512" dest="load_pin_notify" mode="0775"/>
+         <file size="92344" dest="load_config_business_event" mode="0775"/>
+         <file size="28016" dest="load_pin_impact_category" mode="0775"/>
+         <file size="37256" dest="load_pin_beid" mode="0775"/>
+         <file size="37816" dest="pin_remittance" mode="0755"/>
+         <file size="218824" dest="pin_monitor_balance" mode="0755"/>
+         <file size="32616" dest="load_transition_type" mode="0775"/>
+         <file size="18238" dest="parse_custom_ops_fields.pl" mode="0755"/>
+         <file size="41464" dest="load_pin_event_record_map" mode="0775"/>
+         <file size="161952" dest="dm" mode="0775"/>
+         <file size="9487" dest="pin_ctl.conf" mode="0775"/>
+         <file size="82968" dest="load_tax_supplier" mode="0755"/>
+         <file size="32176" dest="load_pin_verify" mode="0775"/>
+         <file size="32744" dest="pin_uei_deploy" mode="0755"/>
+         <file size="84608" dest="pin_mta_monitor" mode="0775"/>
+         <file size="73448" dest="load_pin_billing_segment" mode="0775"/>
+         <file size="119765" dest="pin_ctl" mode="0775"/>
+         <file size="58176" dest="load_pin_calendar" mode="0775"/>
+         <file size="45720" dest="load_pin_rum" mode="0775"/>
+         <file size="41432" dest="load_pin_remittance_flds" mode="0775"/>
+         <file size="1787" dest="install_cm" mode="0744"/>
+         <file size="37136" dest="load_pin_ach" mode="0775"/>
+         <file size="157064" dest="load_pin_config_ood_criteria" mode="0775"/>
+         <file size="20929" dest="OODHandler" mode="0755"/>
+         <file size="32768" dest="load_pin_config_business_type" mode="0775"/>
+         <file size="45576" dest="load_event_map" mode="0775"/>
+         <file size="37208" dest="load_pin_glchartaccts" mode="0775"/>
+         <file size="2528" dest="start_cm" mode="0755"/>
+         <file size="1621" dest="start_pje" mode="0755"/>
+         <file size="277008" dest="pin_ledger_report" mode="0755"/>
+         <file size="707" dest="stop_cm" mode="0755"/>
+         <file size="22632" dest="cmmp" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_ctl.conf"/>
+            <permission mode="0775" wildcard="pin_ctl"/>
+            <permission mode="0775" wildcard="dm"/>
+            <permission mode="0775" wildcard="pin_mta_monitor"/>
+            <permission mode="0775" wildcard="BillHandler"/>
+            <permission mode="0755" wildcard="OODHandler"/>
+            <permission mode="0775" wildcard="cm"/>
+            <permission mode="0744" wildcard="install_cm"/>
+            <permission mode="0744" wildcard="load_brm_pricing"/>
+            <permission mode="0755" wildcard="load_config"/>
+            <permission mode="0775" wildcard="load_config_item_tags"/>
+            <permission mode="0775" wildcard="load_config_item_types"/>
+            <permission mode="0775" wildcard="load_config_provisioning_tags"/>
+            <permission mode="0775" wildcard="load_event_map"/>
+            <permission mode="0775" wildcard="load_localized_strings"/>
+            <permission mode="0775" wildcard="load_pin_ach"/>
+            <permission mode="0775" wildcard="load_pin_ar_taxes"/>
+            <permission mode="0775" wildcard="load_pin_beid"/>
+            <permission mode="0775" wildcard="load_pin_bill_suppression"/>
+            <permission mode="0775" wildcard="load_pin_billing_segment"/>
+            <permission mode="0775" wildcard="load_pin_bus_params"/>
+            <permission mode="0755" wildcard="load_pin_business_profile"/>
+            <permission mode="0775" wildcard="load_pin_calendar"/>
+            <permission mode="0775" wildcard="load_pin_config_auth_reauth_info"/>
+            <permission mode="0775" wildcard="load_pin_config_business_type"/>
+            <permission mode="0775" wildcard="load_pin_config_export_gl"/>
+            <permission mode="0775" wildcard="load_pin_config_ood_criteria"/>
+            <permission mode="0775" wildcard="load_pin_customer_segment"/>
+            <permission mode="0775" wildcard="load_pin_event_record_map"/>
+            <permission mode="0775" wildcard="load_pin_excluded_logins"/>
+            <permission mode="0775" wildcard="load_pin_glchartaccts"/>
+            <permission mode="0775" wildcard="load_pin_glid"/>
+            <permission mode="0775" wildcard="load_pin_impact_category"/>
+            <permission mode="0755" wildcard="load_pin_invoice_data_map"/>
+            <permission mode="0775" wildcard="load_pin_network_elements"/>
+            <permission mode="0775" wildcard="load_pin_notify"/>
+            <permission mode="0775" wildcard="load_pin_payment_term"/>
+            <permission mode="0775" wildcard="load_pin_remittance_flds"/>
+            <permission mode="0775" wildcard="load_pin_remittance_spec"/>
+            <permission mode="0775" wildcard="load_pin_rerate_flds"/>
+            <permission mode="0775" wildcard="load_pin_rtp_trim_flist"/>
+            <permission mode="0775" wildcard="load_pin_rum"/>
+            <permission mode="0775" wildcard="load_pin_snowball_distribution"/>
+            <permission mode="0775" wildcard="load_pin_spec_rates"/>
+            <permission mode="0775" wildcard="load_pin_sub_bal_contributor"/>
+            <permission mode="0775" wildcard="load_pin_suspense_edr_fld_map"/>
+            <permission mode="0775" wildcard="load_pin_suspense_params"/>
+            <permission mode="0775" wildcard="load_pin_verify"/>
+            <permission mode="0755" wildcard="load_tax_supplier"/>
+            <permission mode="0775" wildcard="load_transition_type"/>
+            <permission mode="0775" wildcard="load_usage_map"/>
+            <permission mode="0775" wildcard="load_config_business_event"/>
+            <permission mode="0755" wildcard="parse_custom_ops_fields.pl"/>
+            <permission mode="0755" wildcard="pin_bus_params"/>
+            <permission mode="0755" wildcard="pin_configure_ha"/>
+            <permission mode="0775" wildcard="pin_deploy"/>
+            <permission mode="0755" wildcard="pin_export_price"/>
+            <permission mode="0755" wildcard="pin_history_on"/>
+            <permission mode="0755" wildcard="pin_iscript"/>
+            <permission mode="0755" wildcard="pin_ledger_report"/>
+            <permission mode="0755" wildcard="pin_load_rerate_jobs"/>
+            <permission mode="0755" wildcard="pin_load_template"/>
+            <permission mode="0755" wildcard="pin_monitor_balance"/>
+            <permission mode="0775" wildcard="pin_product_clear"/>
+            <permission mode="0755" wildcard="pin_remittance"/>
+            <permission mode="0775" wildcard="pin_rerate"/>
+            <permission mode="0755" wildcard="pin_state_change"/>
+            <permission mode="0755" wildcard="pin_apply_promotion"/>
+            <permission mode="0755" wildcard="pin_uei_deploy"/>
+            <permission mode="0755" wildcard="pin_unlock_service"/>
+            <permission mode="0755" wildcard="pin_virtual_time"/>
+            <permission mode="0755" wildcard="splitPinlog"/>
+            <permission mode="0755" wildcard="start_cm"/>
+            <permission mode="0755" wildcard="stop_cm"/>
+            <permission mode="0755" wildcard="start_pje"/>
+            <permission mode="0755" wildcard="stop_pje"/>
+            <permission mode="0775" wildcard="supportInformer.pl"/>
+            <permission mode="0775" wildcard="testnap"/>
+            <permission mode="0775" wildcard="pin_generate_analytics"/>
+         </file-perms>
+      </directory>
+      <directory dest="diagnostics" mode="750" patchable="true">
+         <directory dest="pin_db_alert" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="45980" dest="indexList_validation_INDEXES.conf" mode="0755"/>
+            <file size="2485" dest="auditSize_validation.pm" mode="0755"/>
+            <file size="1072" dest="eventData_OldestEventAge.sql" mode="0755"/>
+            <file size="681" dest="auditAge_validation_AuditHistoryAge.conf" mode="0755"/>
+            <file size="1799" dest="auditSize.pm" mode="0755"/>
+            <file size="2545" dest="eventData_validation.pm" mode="0755"/>
+            <file size="2561" dest="auditAge_validation.pm" mode="0755"/>
+            <file size="4382" dest="indexList_validation.pm" mode="0755"/>
+            <file size="1393" dest="indexList.pm" mode="0755"/>
+            <file size="1388" dest="triggersList.pm" mode="0755"/>
+            <file size="2805" dest="proceduresList_validation.pm" mode="0755"/>
+            <file size="1615" dest="pin_db_alert.conf" mode="0755"/>
+            <file size="2452" dest="eventData.pm" mode="0755"/>
+            <file size="1900" dest="auditAge.pm" mode="0755"/>
+            <file size="2687" dest="triggersList_validation.pm" mode="0755"/>
+            <file size="1461" dest="proceduresList.pm" mode="0755"/>
+            <file size="767" dest="proceduresList.sql" mode="0755"/>
+            <file size="735" dest="auditSize_AuditTableSize.sql" mode="0755"/>
+            <file size="3477" dest="pin_db_alert.pl" mode="0755"/>
+            <file size="673" dest="triggersList.sql" mode="0755"/>
+            <file size="485" dest="triggersList_validation_ACTIVETRIGGERS.conf" mode="0755"/>
+            <file size="7689" dest="DecisionUtility.pm" mode="0755"/>
+            <file size="1813" dest="readConfigUtility.pm" mode="0755"/>
+            <file size="1760" dest="mail_unix.pm" mode="0755"/>
+            <file size="1100" dest="indexList.sql" mode="0755"/>
+            <file size="743" dest="auditSize_validation_AuditTableSize.conf" mode="0755"/>
+            <file size="2793" dest="proceduresList_validation_PROCEDURES.conf" mode="0755"/>
+            <file size="643" dest="eventData_validation_OldestEventAge.conf" mode="0755"/>
+            <file size="914" dest="auditAge_AuditHistoryAge.sql" mode="0755"/>
+         </directory>
+         <directory dest="pin_cfg_bpdump" mode="750" patchable="true">
+            <file size="23528" dest="pin_cfg_bpdump" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="DecisionUtility.pm"/>
+            <permission mode="0755" wildcard="auditAge.pm"/>
+            <permission mode="0755" wildcard="auditAge_AuditHistoryAge.sql"/>
+            <permission mode="0755" wildcard="auditAge_validation.pm"/>
+            <permission mode="0755" wildcard="auditAge_validation_AuditHistoryAge.conf"/>
+            <permission mode="0755" wildcard="auditSize.pm"/>
+            <permission mode="0755" wildcard="auditSize_AuditTableSize.sql"/>
+            <permission mode="0755" wildcard="auditSize_validation.pm"/>
+            <permission mode="0755" wildcard="auditSize_validation_AuditTableSize.conf"/>
+            <permission mode="0755" wildcard="eventData.pm"/>
+            <permission mode="0755" wildcard="eventData_OldestEventAge.sql"/>
+            <permission mode="0755" wildcard="eventData_validation.pm"/>
+            <permission mode="0755" wildcard="eventData_validation_OldestEventAge.conf"/>
+            <permission mode="0755" wildcard="indexList.pm"/>
+            <permission mode="0755" wildcard="indexList.sql"/>
+            <permission mode="0755" wildcard="indexList_validation.pm"/>
+            <permission mode="0755" wildcard="indexList_validation_INDEXES.conf"/>
+            <permission mode="0755" wildcard="mail_unix.pm"/>
+            <permission mode="0755" wildcard="pin_db_alert.conf"/>
+            <permission mode="0755" wildcard="pin_db_alert.pl"/>
+            <permission mode="0755" wildcard="proceduresList.pm"/>
+            <permission mode="0755" wildcard="proceduresList.sql"/>
+            <permission mode="0755" wildcard="proceduresList_validation.pm"/>
+            <permission mode="0755" wildcard="proceduresList_validation_PROCEDURES.conf"/>
+            <permission mode="0755" wildcard="readConfigUtility.pm"/>
+            <permission mode="0755" wildcard="triggersList.pm"/>
+            <permission mode="0755" wildcard="triggersList.sql"/>
+            <permission mode="0755" wildcard="triggersList_validation.pm"/>
+            <permission mode="0755" wildcard="triggersList_validation_ACTIVETRIGGERS.conf"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="10760" dest="PortalTransform.jar" mode="0644"/>
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="17188" dest="storableclasstoxml.jar" mode="0644"/>
+            <file size="431766" dest="loadpricelist.jar" mode="0644"/>
+            <file size="81462" dest="pin_job_executor.jar" mode="0644"/>
+            <file size="368270" dest="sepa.jar" mode="0644"/>
+         </directory>
+         <file size="8371" dest="storableclasstoxml.jar" mode="0644"/>
+         <file size="412040" dest="loadpricelist.jar" mode="0644"/>
+         <file size="69175" dest="pin_job_executor.jar" mode="0644"/>
+         <file size="346549" dest="sepa.jar" mode="0644"/>
+         <file-perms>
+            <permission mode="0644" wildcard="PortalTransform.jar"/>
+            <permission mode="0644" wildcard="loadpricelist.jar"/>
+            <permission mode="0644" wildcard="storableclasstoxml.jar"/>
+            <permission mode="0644" wildcard="pin_job_executor.jar"/>
+            <permission mode="0644" wildcard="sepa.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="43792" dest="fm_deposit_pol.so" mode="0775"/>
+         <file size="1559856" dest="fm_ar.so" mode="0775"/>
+         <file size="48038" dest="libregex.a" mode="0755"/>
+         <file size="77736" dest="fm_device.so" mode="0775"/>
+         <file size="67672" dest="libLoadValidCustomer.so" mode="0755"/>
+         <file size="138856" dest="libloadutils.so" mode="0755"/>
+         <file size="70344" dest="fm_rate_pol.so" mode="0775"/>
+         <file size="57328" dest="fm_price_pol.so" mode="0775"/>
+         <file size="21584" dest="fm_trans_pol.so" mode="0775"/>
+         <file size="30560" dest="libLoadValidTCFAAA.so" mode="0755"/>
+         <file size="77528" dest="libLoadValidSLM.so" mode="0755"/>
+         <file size="3313920" dest="fm_subscription.so" mode="0775"/>
+         <file size="78808" dest="libLoadValidRating.so" mode="0755"/>
+         <file size="1397368" dest="fm_cust.so" mode="0775"/>
+         <file size="26072" dest="fm_installment_pol.so" mode="0775"/>
+         <file size="502728" dest="fm_deposit.so" mode="0775"/>
+         <file size="82600" dest="fm_gl.so" mode="0775"/>
+         <file size="80920" dest="fm_ifw_sync.so" mode="0755"/>
+         <file size="16704" dest="fm_gl_pol.so" mode="0775"/>
+         <file size="130816" dest="fm_notification.so" mode="0775"/>
+         <file size="25840" dest="fm_device_pol.so" mode="0775"/>
+         <file size="21688" dest="fm_ar_pol.so" mode="0775"/>
+         <file size="905680" dest="fm_pymt.so" mode="0775"/>
+         <file size="387984" dest="fm_monitor.so" mode="0775"/>
+         <file size="1571704" dest="fm_bill.so" mode="0775"/>
+         <file size="54992" dest="fm_loan_pol.so" mode="0775"/>
+         <file size="324976" dest="fm_loan.so" mode="0775"/>
+         <file size="53656" dest="fm_sdk.so" mode="0775"/>
+         <file size="17136" dest="fm_notification_pol.so" mode="0775"/>
+         <file size="1421936" dest="fm_bill_utils.so" mode="0775"/>
+         <file size="34320" dest="fm_zonemap.so" mode="0775"/>
+         <file size="941928" dest="fm_rate.so" mode="0775"/>
+         <file size="47224" dest="fm_ums.so" mode="0775"/>
+         <file size="82744" dest="fm_remit.so" mode="0775"/>
+         <file size="796592" dest="fm_act.so" mode="0775"/>
+         <file size="264648" dest="fm_rerate.so" mode="0775"/>
+         <file size="38400" dest="fm_asm.so" mode="0775"/>
+         <file size="242840" dest="fm_pymt_pol.so" mode="0775"/>
+         <file size="119888" dest="fm_bal_pol.so" mode="0775"/>
+         <file size="233672" dest="fm_contract.so" mode="0775"/>
+         <file size="78144" dest="fm_perm.so" mode="0775"/>
+         <file size="1124432" dest="fm_price.so" mode="0775"/>
+         <file size="1911416" dest="libcmpin.so" mode="0750"/>
+         <file size="30448" dest="fm_reserve_stub.so" mode="0775"/>
+         <file size="26040" dest="fm_gel.so" mode="0775"/>
+         <file size="328058" dest="libmta.a" mode="0755"/>
+         <file size="16704" dest="fm_global_search_stub.so" mode="0775"/>
+         <file size="99456" dest="fm_suspense.so" mode="0775"/>
+         <file size="16656" dest="fm_job_pol.so" mode="0775"/>
+         <file size="290688" dest="fm_subscription_pol.so" mode="0775"/>
+         <file size="124700" dest="libpsiu.a" mode="0755"/>
+         <file size="56912" dest="fm_group.so" mode="0775"/>
+         <file size="317280" dest="libLoadValidFinancial.so" mode="0755"/>
+         <file size="82252" dest="libpinsys.a" mode="0755"/>
+         <file size="323928" dest="libcm_main.so" mode="0750"/>
+         <file size="38792" dest="fm_filter_set.so" mode="0775"/>
+         <file size="139208" dest="fm_act_pol.so" mode="0775"/>
+         <file size="16704" dest="fm_stub.so" mode="0775"/>
+         <file size="261128" dest="fm_utils.so" mode="0775"/>
+         <file size="47016" dest="fm_custcare.so" mode="0775"/>
+         <file size="16512" dest="fm_remit_pol.so" mode="0775"/>
+         <file size="455256" dest="fm_bal.so" mode="0775"/>
+         <file size="25768" dest="fm_ifw_sync_pol.so" mode="0755"/>
+         <file size="145544" dest="fm_bill_pol.so" mode="0775"/>
+         <file size="184608" dest="fm_job.so" mode="0775"/>
+         <file size="43744" dest="fm_contract_pol.so" mode="0775"/>
+         <file size="66288" dest="fm_zonemap_pol.so" mode="0775"/>
+         <file size="16600" dest="fm_adu_pol.so" mode="0755"/>
+         <file size="207384" dest="fm_adu.so" mode="0755"/>
+         <file size="213664" dest="fm_inv_pol.so" mode="0775"/>
+         <file size="209296" dest="fm_offer_profile.so" mode="0775"/>
+         <file size="278632" dest="fm_installment.so" mode="0775"/>
+         <file size="503904" dest="fm_cust_pol.so" mode="0775"/>
+         <file size="235264" dest="fm_inv.so" mode="0775"/>
+         <file size="16704" dest="fm_global_search.so" mode="0775"/>
+         <file size="30448" dest="fm_reserve.so" mode="0775"/>
+         <file size="16704" dest="fm_search.so" mode="0775"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libcm_main.so"/>
+            <permission mode="0750" wildcard="libcmpin.so"/>
+            <permission mode="0755" wildcard="libmta.a"/>
+            <permission mode="0755" wildcard="libpinsys.a"/>
+            <permission mode="0755" wildcard="libpsiu.a"/>
+            <permission mode="0755" wildcard="libregex.a"/>
+            <permission mode="0775" wildcard="fm_act.so"/>
+            <permission mode="0775" wildcard="fm_act_pol.so"/>
+            <permission mode="0755" wildcard="fm_adu.so"/>
+            <permission mode="0755" wildcard="fm_adu_pol.so"/>
+            <permission mode="0775" wildcard="fm_ar.so"/>
+            <permission mode="0775" wildcard="fm_ar_pol.so"/>
+            <permission mode="0775" wildcard="fm_asm.so"/>
+            <permission mode="0775" wildcard="fm_bal.so"/>
+            <permission mode="0775" wildcard="fm_bal_pol.so"/>
+            <permission mode="0775" wildcard="fm_bill.so"/>
+            <permission mode="0775" wildcard="fm_bill_pol.so"/>
+            <permission mode="0775" wildcard="fm_bill_utils.so"/>
+            <permission mode="0775" wildcard="fm_job.so"/>
+            <permission mode="0775" wildcard="fm_job_pol.so"/>
+            <permission mode="0775" wildcard="fm_contract.so"/>
+            <permission mode="0775" wildcard="fm_contract_pol.so"/>
+            <permission mode="0775" wildcard="fm_cust.so"/>
+            <permission mode="0775" wildcard="fm_cust_pol.so"/>
+            <permission mode="0775" wildcard="fm_custcare.so"/>
+            <permission mode="0775" wildcard="fm_deposit.so"/>
+            <permission mode="0775" wildcard="fm_deposit_pol.so"/>
+            <permission mode="0775" wildcard="fm_device.so"/>
+            <permission mode="0775" wildcard="fm_device_pol.so"/>
+            <permission mode="0775" wildcard="fm_filter_set.so"/>
+            <permission mode="0775" wildcard="fm_gel.so"/>
+            <permission mode="0775" wildcard="fm_gl.so"/>
+            <permission mode="0775" wildcard="fm_gl_pol.so"/>
+            <permission mode="0775" wildcard="fm_global_search_stub.so"/>
+            <permission mode="0775" wildcard="fm_group.so"/>
+            <permission mode="0755" wildcard="fm_ifw_sync.so"/>
+            <permission mode="0755" wildcard="fm_ifw_sync_pol.so"/>
+            <permission mode="0775" wildcard="fm_installment.so"/>
+            <permission mode="0775" wildcard="fm_installment_pol.so"/>
+            <permission mode="0775" wildcard="fm_inv.so"/>
+            <permission mode="0775" wildcard="fm_inv_pol.so"/>
+            <permission mode="0775" wildcard="fm_loan.so"/>
+            <permission mode="0775" wildcard="fm_loan_pol.so"/>
+            <permission mode="0775" wildcard="fm_monitor.so"/>
+            <permission mode="0775" wildcard="fm_notification.so"/>
+            <permission mode="0775" wildcard="fm_notification_pol.so"/>
+            <permission mode="0775" wildcard="fm_offer_profile.so"/>
+            <permission mode="0775" wildcard="fm_perm.so"/>
+            <permission mode="0775" wildcard="fm_price.so"/>
+            <permission mode="0775" wildcard="fm_price_pol.so"/>
+            <permission mode="0775" wildcard="fm_pymt.so"/>
+            <permission mode="0775" wildcard="fm_pymt_pol.so"/>
+            <permission mode="0775" wildcard="fm_rate.so"/>
+            <permission mode="0775" wildcard="fm_rate_pol.so"/>
+            <permission mode="0775" wildcard="fm_remit.so"/>
+            <permission mode="0775" wildcard="fm_remit_pol.so"/>
+            <permission mode="0775" wildcard="fm_rerate.so"/>
+            <permission mode="0775" wildcard="fm_reserve_stub.so"/>
+            <permission mode="0775" wildcard="fm_sdk.so"/>
+            <permission mode="0775" wildcard="fm_stub.so"/>
+            <permission mode="0775" wildcard="fm_subscription.so"/>
+            <permission mode="0775" wildcard="fm_subscription_pol.so"/>
+            <permission mode="0775" wildcard="fm_suspense.so"/>
+            <permission mode="0775" wildcard="fm_trans_pol.so"/>
+            <permission mode="0775" wildcard="fm_ums.so"/>
+            <permission mode="0775" wildcard="fm_utils.so"/>
+            <permission mode="0775" wildcard="fm_zonemap.so"/>
+            <permission mode="0775" wildcard="fm_zonemap_pol.so"/>
+            <permission mode="0755" wildcard="libLoadValidFinancial.so"/>
+            <permission mode="0755" wildcard="libLoadValidRating.so"/>
+            <permission mode="0755" wildcard="libLoadValidSLM.so"/>
+            <permission mode="0755" wildcard="libloadutils.so"/>
+            <permission mode="0755" wildcard="libLoadValidCustomer.so"/>
+            <permission mode="0755" wildcard="libLoadValidTCFAAA.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="24805" dest="pin_cnf_pin_bill.pl" mode="0755"/>
+            <file size="8029" dest="pin_cnf_generate_analytics.pl" mode="0750"/>
+            <file size="3606" dest="pin_cnf_load_config.pl" mode="0775"/>
+            <file size="71811" dest="price_list.xsd" mode="0644"/>
+            <file size="5607" dest="pricing_admin.sce" mode="0644"/>
+            <file size="39676" dest="pin_cmp_pin_bill.pl" mode="0775"/>
+            <file size="2977" dest="pin_cmp_ecr_pci.pl" mode="0775"/>
+            <file size="36814" dest="pricing_admin.pl" mode="0755"/>
+            <file size="2560" dest="pin_cnf_credit_control.pl" mode="0775"/>
+            <file size="1901" dest="pin_cmp_credit_control.pl" mode="0775"/>
+            <file size="2758" dest="pin_cmp_adu.pl" mode="0755"/>
+            <file size="4124" dest="pin_cnf_adu.pl" mode="0755"/>
+            <file size="3145" dest="pin_cmp_pin_rerate.pl" mode="0775"/>
+            <file size="15107" dest="pin_prompts.values" mode="0750"/>
+            <file size="2551" dest="pin_cnf_sox_unlock_service.pl" mode="0775"/>
+            <file size="98627" dest="pin_cnf_cm.pl" mode="0664"/>
+            <file size="1665" dest="pin_cmp_pin_export_price.pl" mode="0755"/>
+            <file size="3587" dest="pin_cmp_storable_class_to_xml.pl" mode="0775"/>
+            <file size="3188" dest="pin_cmp_sox_unlock_service.pl" mode="0775"/>
+            <file size="2255" dest="pin_cnf_config_export.pl" mode="0755"/>
+            <file size="24214" dest="pin_prompts.pl" mode="0750"/>
+            <file size="2004" dest="pin_cmp_cm.pl" mode="0664"/>
+            <file size="874" dest="pin_offer_profile_policy_labels.xml" mode="0644"/>
+            <file size="4771" dest="pin_cnf_pin_rerate.pl" mode="0775"/>
+            <file size="8212" dest="pin_cnf_pricing_admin.pl" mode="0644"/>
+            <file size="5258" dest="pin_cmp_uei.pl" mode="0755"/>
+            <file size="1827" dest="pin_cnf_pin_cfg_bpdump.pl" mode="0755"/>
+            <file size="1069" dest="pin_crt_idx.pl" mode="0775"/>
+            <file size="1522" dest="pin_cmp_pin_cfg_bpdump.pl" mode="0755"/>
+            <file size="2513" dest="pin_cnf_ecr_pci.pl" mode="0775"/>
+            <file size="2434" dest="pin_cmp_config_export.pl" mode="0755"/>
+            <file size="2905" dest="pin_cmp_testnap.pl" mode="0755"/>
+            <file size="3686" dest="pin_cmp_load_config.pl" mode="0775"/>
+            <file size="1234" dest="timezone.cfg" mode="0755"/>
+            <file size="33865" dest="timezone_readme.txt" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="pin_cmp_cm.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_cm.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_adu.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_config_export.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_credit_control.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_ecr_pci.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_load_config.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_pin_bill.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_pin_cfg_bpdump.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_pin_export_price.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_pin_rerate.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_sox_unlock_service.pl"/>
+            <permission mode="0775" wildcard="pin_cmp_storable_class_to_xml.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_testnap.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_uei.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_pin_bill.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_adu.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_config_export.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_credit_control.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_ecr_pci.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_load_config.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_pin_cfg_bpdump.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_pin_rerate.pl"/>
+            <permission mode="0644" wildcard="pin_cnf_pricing_admin.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_sox_unlock_service.pl"/>
+            <permission mode="0775" wildcard="pin_crt_idx.pl"/>
+            <permission mode="0644" wildcard="pin_offer_profile_policy_labels.xml"/>
+            <permission mode="0644" wildcard="price_list.xsd"/>
+            <permission mode="0755" wildcard="pricing_admin.pl"/>
+            <permission mode="0644" wildcard="pricing_admin.sce"/>
+            <permission mode="0750" wildcard="pin_prompts.pl"/>
+            <permission mode="0750" wildcard="pin_prompts.values"/>
+            <permission mode="0750" wildcard="pin_cnf_generate_analytics.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="source" mode="750" patchable="true">
+         <directory dest="sys" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="fm_ifw_sync_pol" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1158" dest="fm_ifw_sync_pol_config.c" mode="0755"/>
+               <file size="1368" dest="Makefile" mode="0755"/>
+               <file size="32762" dest="fm_ifw_sync_pol_publish_event.c" mode="0755"/>
+            </directory>
+         </directory>
+         <directory dest="apps" mode="750" patchable="true">
+            <directory dest="sample" mode="750" patchable="true">
+               <file size="37320" dest="sample_act" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="fm_ifw_sync_pol_config.c"/>
+            <permission mode="0755" wildcard="fm_ifw_sync_pol_publish_event.c"/>
+            <permission mode="0755" wildcard="Makefile"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="cm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="30040" dest="cm_login_pw001.so" mode="0775"/>
+            <file size="21440" dest="cm_login_null.so" mode="0775"/>
+            <directory dest="config" mode="750" patchable="true">
+               <file size="1301" dest="default.config" mode="0644"/>
+            </directory>
+            <directory dest="intro" mode="750" patchable="true">
+               <file size="398" dest="default.intro" mode="0644"/>
+            </directory>
+            <directory dest="welcome" mode="750" patchable="true">
+               <file size="315" dest="default.welcome" mode="0644"/>
+            </directory>
+         </directory>
+         <directory dest="data" mode="750" patchable="true">
+            <directory dest="config" mode="750" patchable="true">
+               <file size="5838" dest="pin_notify_ifw_sync" mode="0755"/>
+               <directory dest="DOC1HOST" mode="750" patchable="true">
+                  <directory dest="TEMPLATE" mode="750" patchable="true">
+                     <file size="80521" dest="DOC1TTAB.ETT" mode="0644"/>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <directory dest="msgs" mode="750" patchable="true">
+            <directory dest="devicestates" mode="750" patchable="true">
+               <file size="3791" dest="device_states.en_US" mode="0644"/>
+            </directory>
+            <directory dest="system_filter_set" mode="750" patchable="true">
+               <file size="3519" dest="system_filterset_edr_field_values.en_US" mode="0644"/>
+            </directory>
+            <directory dest="newsfeed" mode="750" patchable="true">
+               <file size="15634" dest="newsfeed.en_US" mode="0755"/>
+            </directory>
+         </directory>
+         <directory dest="diagnostics" mode="750" patchable="true">
+            <directory dest="pin_adu_validate" mode="750" patchable="true">
+               <directory dest="in" mode="750" patchable="true">
+                  <file size="151" dest="input.txt" mode="0755"/>
+               </directory>
+               <file size="202560" dest="pin_adu_validate" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="cm_login_null.so"/>
+            <permission mode="0775" wildcard="cm_login_pw001.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="cm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1023" dest="init-d.pin.cm" mode="0775"/>
+            <file size="1041" dest="event_file" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="event_file"/>
+            <permission mode="0775" wildcard="init-d.pin.cm"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="cm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6088" dest="taxcodes_map" mode="0644"/>
+            <file size="1851" dest="pin_fld_mask_file" mode="0644"/>
+            <file size="2398" dest="state_file" mode="0644"/>
+            <file size="3822" dest="sample_timezone.txt" mode="0644"/>
+            <file size="981" dest="tax_supplier_map" mode="0644"/>
+            <directory dest="conf" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4640" dest="taxcodes_map" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="sample_timezone.txt"/>
+            <permission mode="0644" wildcard="state_file"/>
+            <permission mode="0644" wildcard="tax_supplier_map"/>
+            <permission mode="0644" wildcard="taxcodes_map"/>
+            <permission mode="0644" wildcard="pin_fld_mask_file"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="DOC1HOST" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="RESOURCE" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <file size="134" dest="KEYCODE.INI" mode="0644"/>
+                     <file size="75711" dest="PORTAL.LAR" mode="0644"/>
+                     <file size="123741" dest="PORTAL.EAR" mode="0644"/>
+                     <file size="14619" dest="PORTAL.LDF" mode="0644"/>
+                     <file size="23" dest="TRYMEAFP.IM" mode="0644"/>
+                     <file size="6287" dest="TRYME.ETS" mode="0644"/>
+                     <file size="38843" dest="PORTAL.EFL" mode="0644"/>
+                     <file size="40574" dest="PORTAL.LFL" mode="0644"/>
+                     <file size="6177" dest="PORTALPD.INI" mode="0644"/>
+                     <file size="4789" dest="PORTAL.IFM" mode="0644"/>
+                     <file size="12022" dest="PORTAL.EDF" mode="0644"/>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="KEYCODE.INI"/>
+            <permission mode="0644" wildcard="PORTAL.EAR"/>
+            <permission mode="0644" wildcard="PORTAL.EDF"/>
+            <permission mode="0644" wildcard="PORTAL.EFL"/>
+            <permission mode="0644" wildcard="PORTAL.IFM"/>
+            <permission mode="0644" wildcard="PORTAL.LAR"/>
+            <permission mode="0644" wildcard="PORTAL.LDF"/>
+            <permission mode="0644" wildcard="PORTAL.LFL"/>
+            <permission mode="0644" wildcard="PORTALPD.INI"/>
+            <permission mode="0644" wildcard="TRYME.ETS"/>
+            <permission mode="0644" wildcard="TRYMEAFP.IM"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="DOC1HOST" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="RUN" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <file size="29751" dest="messages.dat" mode="0644"/>
+                     <file size="361" dest="PORTALPD.CMD" mode="0644"/>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="PORTALPD.CMD"/>
+            <permission mode="0644" wildcard="messages.dat"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1600" dest="pin_config_ood_criteria.xml" mode="0644"/>
+               <file size="1223" dest="pin_network_elements" mode="0644"/>
+               <file size="602" dest="pin_payment_term.xml" mode="0644"/>
+               <file size="1164" dest="pin_config_business_type" mode="0644"/>
+               <file size="1507" dest="config_notification_delivery_methods.xml" mode="0644"/>
+               <file size="675" dest="bus_params_billing_flow.xml" mode="0644"/>
+               <file size="3389" dest="pin_invoice_data_map" mode="0644"/>
+               <file size="1387" dest="pin_config_ar_taxes.xml" mode="0644"/>
+               <file size="523" dest="pin_notify_rerate" mode="0644"/>
+               <file size="1166" dest="bus_params_notification.xml" mode="0644"/>
+               <file size="41322" dest="config_business_events.xml" mode="0644"/>
+               <file size="1205" dest="bus_params_TCF.xml" mode="0644"/>
+               <file size="961" dest="pin_tax_supplier.xml" mode="0644"/>
+               <file size="28983" dest="pin_config_rtp_trim_flist.xml" mode="0644"/>
+               <file size="661" dest="bus_params_Installment.xml" mode="0644"/>
+               <file size="1360" dest="config_note_status.xml" mode="0644"/>
+               <file size="15367" dest="config_stored_procedure.xml" mode="0644"/>
+               <file size="2409" dest="pin_suspense_params" mode="0644"/>
+               <file size="1153" dest="pin_calendar.xml" mode="0644"/>
+               <file size="1011" dest="bus_params_AAA.xml" mode="0644"/>
+               <file size="3370" dest="config_rev_rec_schedule.xml" mode="0644"/>
+               <file size="2981" dest="pin_config_export_gl.xml" mode="0775"/>
+               <file size="1550" dest="pin_config_auth_reauth_info.xml" mode="0644"/>
+               <file size="805" dest="pin_bill_suppression.xml" mode="0644"/>
+               <file size="2039" dest="config_rev_rec_map.xml" mode="0644"/>
+               <file size="7342" dest="pin_offer_profile_provisioning_tags_policy_attributes.xml" mode="0644"/>
+               <file size="2558" dest="pin_config_provisioning_tags.xml" mode="0644"/>
+               <file size="830" dest="bus_params_multi_bal.xml" mode="0644"/>
+               <file size="3076" dest="pin_verify" mode="0644"/>
+               <file size="718" dest="pin_excluded_logins.xml" mode="0644"/>
+               <file size="981" dest="config_bill_format.xml" mode="0644"/>
+               <file size="3586" dest="bus_params_subscription.xml" mode="0644"/>
+               <file size="5966" dest="events.file" mode="0644"/>
+               <file size="3135" dest="pin_slm_business_profile.xml" mode="0644"/>
+               <file size="2339" dest="pin_invoice_template.html" mode="0644"/>
+               <file size="10938" dest="config_note_type.xml" mode="0644"/>
+               <file size="1825" dest="config_loan.xml" mode="0644"/>
+               <file size="2149" dest="pin_device_state" mode="0644"/>
+               <file size="823" dest="bus_params_rerate.xml" mode="0644"/>
+               <file size="2618" dest="business_configuration.xsd" mode="0644"/>
+               <file size="4873" dest="generate_config_xml_from_opcode_spec.py" mode="0644"/>
+               <file size="2038" dest="config_taxexemption_code_map.xml" mode="0644"/>
+               <file size="1444" dest="config_product_deliverable.xml" mode="0644"/>
+               <file size="1946" dest="config_service_deliverable.xml" mode="0644"/>
+               <file size="730" dest="pin_customer_segment.xml" mode="0644"/>
+               <file size="1159" dest="pin_rerate_compare_bi.xml" mode="0644"/>
+               <file size="1391" dest="config_event_promo_tag_map.xml" mode="0644"/>
+               <file size="742" dest="bus_params_pricing.xml" mode="0644"/>
+               <file size="1495" dest="pin_rerate_flds.xml" mode="0644"/>
+               <file size="4297" dest="pin_impact_category" mode="0644"/>
+               <file size="6605" dest="config_taxcodes_map.xml" mode="0644"/>
+               <file size="802" dest="config_tax_supplier.xml" mode="0644"/>
+               <file size="1290" dest="bus_params_Invoicing.xml" mode="0644"/>
+               <file size="21269" dest="pin_notify" mode="0644"/>
+               <file size="1736" dest="pin_suspense_edr_fld_map" mode="0644"/>
+               <file size="1640" dest="config_creditor.xml" mode="0644"/>
+               <file size="1227" dest="pin_device_permit_map" mode="0644"/>
+               <file size="2053" dest="bus_params_system.xml" mode="0644"/>
+               <file size="856" dest="config_silent_days_calendar.xml" mode="0644"/>
+               <file size="1223" dest="bus_params_rating.xml" mode="0644"/>
+               <file size="1020" dest="config_bill_presentation_media.xml" mode="0644"/>
+               <file size="847" dest="bus_params_act.xml" mode="0644"/>
+               <file size="3132" dest="config_service_state_map.xml" mode="0644"/>
+               <file size="1676" dest="pin_spec_rates" mode="0644"/>
+               <file size="866" dest="config_price_tags.xml" mode="0644"/>
+               <file size="22326" dest="pin_business_profile.xml" mode="0644"/>
+               <file size="2614" dest="pin_event_record_map" mode="0644"/>
+               <file size="1774" dest="config_business_profile.xml" mode="0644"/>
+               <file size="1492" dest="bus_params_customer.xml" mode="0644"/>
+               <file size="18118" dest="config_lifecycle_states.xml" mode="0644"/>
+               <file size="613" dest="bus_params_selective_loading.xml" mode="0644"/>
+               <file size="1567" dest="pin_billing_segment.xml" mode="0644"/>
+               <file size="8278" dest="config_subscriber_preferences_map.xml" mode="0644"/>
+               <file size="1838" dest="ptransformer.config" mode="0644"/>
+               <file size="1395" dest="bus_params_collections.xml" mode="0644"/>
+               <file size="1933" dest="config_event_promo_map.xml" mode="0644"/>
+               <file size="4104" dest="bus_params_billing.xml" mode="0644"/>
+               <file size="1999" dest="bus_params_AR.xml" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="config_lifecycle_states.xml"/>
+            <permission mode="0644" wildcard="config_service_state_map.xml"/>
+            <permission mode="0644" wildcard="pin_slm_business_profile.xml"/>
+            <permission mode="0644" wildcard="bus_params_AAA.xml"/>
+            <permission mode="0644" wildcard="bus_params_collections.xml"/>
+            <permission mode="0644" wildcard="bus_params_system.xml"/>
+            <permission mode="0644" wildcard="bus_params_AR.xml"/>
+            <permission mode="0644" wildcard="bus_params_Invoicing.xml"/>
+            <permission mode="0644" wildcard="bus_params_act.xml"/>
+            <permission mode="0644" wildcard="bus_params_billing.xml"/>
+            <permission mode="0644" wildcard="bus_params_billing_flow.xml"/>
+            <permission mode="0644" wildcard="bus_params_customer.xml"/>
+            <permission mode="0644" wildcard="bus_params_multi_bal.xml"/>
+            <permission mode="0644" wildcard="bus_params_pricing.xml"/>
+            <permission mode="0644" wildcard="bus_params_rating.xml"/>
+            <permission mode="0644" wildcard="bus_params_rerate.xml"/>
+            <permission mode="0644" wildcard="bus_params_selective_loading.xml"/>
+            <permission mode="0644" wildcard="bus_params_subscription.xml"/>
+            <permission mode="0644" wildcard="bus_params_TCF.xml"/>
+            <permission mode="0644" wildcard="bus_params_Installment.xml"/>
+            <permission mode="0644" wildcard="business_configuration.xsd"/>
+            <permission mode="0644" wildcard="config_loan.xml"/>
+            <permission mode="0644" wildcard="config_tax_supplier.xml"/>
+            <permission mode="0644" wildcard="config_note_status.xml"/>
+            <permission mode="0644" wildcard="config_note_type.xml"/>
+            <permission mode="0644" wildcard="config_notification_delivery_methods.xml"/>
+            <permission mode="0644" wildcard="config_product_deliverable.xml"/>
+            <permission mode="0644" wildcard="config_event_promo_map.xml"/>
+            <permission mode="0644" wildcard="config_event_promo_tag_map.xml"/>
+            <permission mode="0644" wildcard="config_rev_rec_map.xml"/>
+            <permission mode="0644" wildcard="config_rev_rec_schedule.xml"/>
+            <permission mode="0644" wildcard="config_service_deliverable.xml"/>
+            <permission mode="0644" wildcard="config_creditor.xml"/>
+            <permission mode="0644" wildcard="config_business_profile.xml"/>
+            <permission mode="0644" wildcard="config_business_events.xml"/>
+            <permission mode="0644" wildcard="config_bill_format.xml"/>
+            <permission mode="0644" wildcard="config_bill_presentation_media.xml"/>
+            <permission mode="0644" wildcard="config_silent_days_calendar.xml"/>
+            <permission mode="0644" wildcard="config_price_tags.xml"/>
+            <permission mode="0644" wildcard="events.file"/>
+            <permission mode="0644" wildcard="pin_bill_suppression.xml"/>
+            <permission mode="0644" wildcard="pin_billing_segment.xml"/>
+            <permission mode="0644" wildcard="pin_business_profile.xml"/>
+            <permission mode="0644" wildcard="pin_calendar.xml"/>
+            <permission mode="0644" wildcard="pin_config_ar_taxes.xml"/>
+            <permission mode="0644" wildcard="pin_config_auth_reauth_info.xml"/>
+            <permission mode="0644" wildcard="pin_config_business_type"/>
+            <permission mode="0775" wildcard="pin_config_export_gl.xml"/>
+            <permission mode="0644" wildcard="pin_config_ood_criteria.xml"/>
+            <permission mode="0644" wildcard="pin_config_provisioning_tags.xml"/>
+            <permission mode="0644" wildcard="pin_config_rtp_trim_flist.xml"/>
+            <permission mode="0644" wildcard="pin_customer_segment.xml"/>
+            <permission mode="0644" wildcard="pin_device_permit_map"/>
+            <permission mode="0644" wildcard="pin_device_state"/>
+            <permission mode="0644" wildcard="pin_event_record_map"/>
+            <permission mode="0644" wildcard="pin_excluded_logins.xml"/>
+            <permission mode="0644" wildcard="pin_impact_category"/>
+            <permission mode="0644" wildcard="pin_invoice_data_map"/>
+            <permission mode="0644" wildcard="pin_invoice_template.html"/>
+            <permission mode="0644" wildcard="pin_network_elements"/>
+            <permission mode="0644" wildcard="pin_notify"/>
+            <permission mode="0644" wildcard="pin_notify_rerate"/>
+            <permission mode="0644" wildcard="pin_offer_profile_provisioning_tags_policy_attributes.xml"/>
+            <permission mode="0644" wildcard="pin_payment_term.xml"/>
+            <permission mode="0644" wildcard="pin_rerate_compare_bi.xml"/>
+            <permission mode="0644" wildcard="pin_rerate_flds.xml"/>
+            <permission mode="0644" wildcard="pin_spec_rates"/>
+            <permission mode="0644" wildcard="pin_suspense_edr_fld_map"/>
+            <permission mode="0644" wildcard="pin_suspense_params"/>
+            <permission mode="0644" wildcard="pin_tax_supplier.xml"/>
+            <permission mode="0644" wildcard="pin_verify"/>
+            <permission mode="0644" wildcard="ptransformer.config"/>
+            <permission mode="0644" wildcard="config_subscriber_preferences_map.xml"/>
+            <permission mode="0644" wildcard="config_stored_procedure.xml"/>
+            <permission mode="0644" wildcard="bus_params_notification.xml"/>
+            <permission mode="0644" wildcard="config_taxcodes_map.xml"/>
+            <permission mode="0644" wildcard="config_taxexemption_code_map.xml"/>
+            <permission mode="0644" wildcard="generate_config_xml_from_opcode_spec.py"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="pricing" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="example" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="4652" dest="pin_glchartaccts" mode="0644"/>
+                  <file size="2783" dest="config_item_tags.xml" mode="0644"/>
+                  <file size="4724" dest="pin_remittance_flds" mode="0644"/>
+                  <file size="2867" dest="config_item_types.xml" mode="0644"/>
+                  <file size="9115" dest="pin_event_map" mode="0644"/>
+                  <file size="2370" dest="pin_ach" mode="0644"/>
+                  <file size="19145" dest="pin_rum" mode="0644"/>
+                  <file size="14060" dest="pin_remittance_spec" mode="0644"/>
+                  <file size="48795" dest="pin_glid" mode="0755"/>
+                  <file size="6989" dest="pin_usage_map" mode="0644"/>
+                  <file size="30572" dest="pin_beid" mode="0644"/>
+                  <file size="4334" dest="pin_sub_bal_contributor" mode="0644"/>
+                  <file size="1780" dest="pin_transition_type" mode="0644"/>
+                  <file size="2027" dest="pin_snowball_distribution" mode="0644"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="config_item_tags.xml"/>
+            <permission mode="0644" wildcard="config_item_types.xml"/>
+            <permission mode="0644" wildcard="pin_ach"/>
+            <permission mode="0644" wildcard="pin_beid"/>
+            <permission mode="0644" wildcard="pin_event_map"/>
+            <permission mode="0644" wildcard="pin_glchartaccts"/>
+            <permission mode="0755" wildcard="pin_glid"/>
+            <permission mode="0644" wildcard="pin_remittance_flds"/>
+            <permission mode="0644" wildcard="pin_remittance_spec"/>
+            <permission mode="0644" wildcard="pin_rum"/>
+            <permission mode="0644" wildcard="pin_snowball_distribution"/>
+            <permission mode="0644" wildcard="pin_sub_bal_contributor"/>
+            <permission mode="0644" wildcard="pin_transition_type"/>
+            <permission mode="0644" wildcard="pin_usage_map"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="note" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="6767" dest="note.en_US" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="note.en_US"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="active_mediation" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3923" dest="active_mediation.ja" mode="0644"/>
+               <file size="3906" dest="active_mediation.zh_TW" mode="0644"/>
+               <file size="3904" dest="active_mediation.it" mode="0644"/>
+               <file size="3911" dest="active_mediation.ko" mode="0644"/>
+               <file size="3931" dest="active_mediation.pt_BR" mode="0644"/>
+               <file size="3921" dest="active_mediation.fr" mode="0644"/>
+               <file size="4116" dest="active_mediation.ru_RU" mode="0644"/>
+               <file size="3908" dest="active_mediation.zh" mode="0644"/>
+               <file size="4819" dest="active_mediation.en_US" mode="0644"/>
+               <file size="3913" dest="active_mediation.es" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="active_mediation.en_US"/>
+            <permission mode="0644" wildcard="active_mediation.es"/>
+            <permission mode="0644" wildcard="active_mediation.fr"/>
+            <permission mode="0644" wildcard="active_mediation.it"/>
+            <permission mode="0644" wildcard="active_mediation.ja"/>
+            <permission mode="0644" wildcard="active_mediation.ko"/>
+            <permission mode="0644" wildcard="active_mediation.pt_BR"/>
+            <permission mode="0644" wildcard="active_mediation.ru_RU"/>
+            <permission mode="0644" wildcard="active_mediation.zh"/>
+            <permission mode="0644" wildcard="active_mediation.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="apndevicestates" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3637" dest="apn_device_states.it" mode="0644"/>
+               <file size="3640" dest="apn_device_states.pt_BR" mode="0644"/>
+               <file size="3645" dest="apn_device_states.es" mode="0644"/>
+               <file size="3641" dest="apn_device_states.ja" mode="0644"/>
+               <file size="3677" dest="apn_device_states.ru_RU" mode="0644"/>
+               <file size="3633" dest="apn_device_states.en_US" mode="0644"/>
+               <file size="3633" dest="apn_device_states.fr" mode="0644"/>
+               <file size="3639" dest="apn_device_states.zh" mode="0644"/>
+               <file size="3648" dest="apn_device_states.ko" mode="0644"/>
+               <file size="3658" dest="apn_device_states.zh_TW" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="apn_device_states.en_US"/>
+            <permission mode="0644" wildcard="apn_device_states.es"/>
+            <permission mode="0644" wildcard="apn_device_states.fr"/>
+            <permission mode="0644" wildcard="apn_device_states.it"/>
+            <permission mode="0644" wildcard="apn_device_states.ja"/>
+            <permission mode="0644" wildcard="apn_device_states.ko"/>
+            <permission mode="0644" wildcard="apn_device_states.pt_BR"/>
+            <permission mode="0644" wildcard="apn_device_states.ru_RU"/>
+            <permission mode="0644" wildcard="apn_device_states.zh"/>
+            <permission mode="0644" wildcard="apn_device_states.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="businessprofile" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3959" dest="business_profile_descr.es" mode="0644"/>
+               <file size="3980" dest="business_profile_descr.fr" mode="0644"/>
+               <file size="3941" dest="business_profile_descr.pt_BR" mode="0644"/>
+               <file size="3826" dest="business_profile_descr.zh" mode="0644"/>
+               <file size="4119" dest="business_profile_descr.ru_RU" mode="0644"/>
+               <file size="3920" dest="business_profile_descr.en_US" mode="0644"/>
+               <file size="3820" dest="business_profile_descr.zh_TW" mode="0644"/>
+               <file size="3900" dest="business_profile_descr.ko" mode="0644"/>
+               <file size="3951" dest="business_profile_descr.it" mode="0644"/>
+               <file size="3980" dest="business_profile_descr.ja" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="business_profile_descr.en_US"/>
+            <permission mode="0644" wildcard="business_profile_descr.es"/>
+            <permission mode="0644" wildcard="business_profile_descr.fr"/>
+            <permission mode="0644" wildcard="business_profile_descr.it"/>
+            <permission mode="0644" wildcard="business_profile_descr.ja"/>
+            <permission mode="0644" wildcard="business_profile_descr.ko"/>
+            <permission mode="0644" wildcard="business_profile_descr.pt_BR"/>
+            <permission mode="0644" wildcard="business_profile_descr.ru_RU"/>
+            <permission mode="0644" wildcard="business_profile_descr.zh"/>
+            <permission mode="0644" wildcard="business_profile_descr.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="collections" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4096" dest="collections.it" mode="0644"/>
+               <file size="4102" dest="collections.zh_TW" mode="0644"/>
+               <file size="4100" dest="collections.ko" mode="0644"/>
+               <file size="4102" dest="collections.es" mode="0644"/>
+               <file size="4205" dest="collections.ru_RU" mode="0644"/>
+               <file size="4091" dest="collections.en_US" mode="0644"/>
+               <file size="4096" dest="collections.zh" mode="0644"/>
+               <file size="4152" dest="collections.ja" mode="0644"/>
+               <file size="4136" dest="collections.pt_BR" mode="0644"/>
+               <file size="4102" dest="collections.fr" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="collections.en_US"/>
+            <permission mode="0644" wildcard="collections.es"/>
+            <permission mode="0644" wildcard="collections.fr"/>
+            <permission mode="0644" wildcard="collections.it"/>
+            <permission mode="0644" wildcard="collections.ja"/>
+            <permission mode="0644" wildcard="collections.ko"/>
+            <permission mode="0644" wildcard="collections.pt_BR"/>
+            <permission mode="0644" wildcard="collections.ru_RU"/>
+            <permission mode="0644" wildcard="collections.zh"/>
+            <permission mode="0644" wildcard="collections.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="eradescr" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="10203" dest="era_descr.it" mode="0644"/>
+               <file size="9363" dest="era_descr.de" mode="0644"/>
+               <file size="10612" dest="era_descr.en_US" mode="0644"/>
+               <file size="15112" dest="era_descr.ru_RU" mode="0644"/>
+               <file size="10967" dest="era_descr.pt_BR" mode="0644"/>
+               <file size="11623" dest="era_descr.es" mode="0644"/>
+               <file size="11622" dest="era_descr.fr" mode="0644"/>
+               <file size="10349" dest="era_descr.zh_TW" mode="0644"/>
+               <file size="12479" dest="era_descr.ja" mode="0644"/>
+               <file size="9171" dest="era_descr.zh" mode="0644"/>
+               <file size="11263" dest="era_descr.ko" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="era_descr.de"/>
+            <permission mode="0644" wildcard="era_descr.en_US"/>
+            <permission mode="0644" wildcard="era_descr.es"/>
+            <permission mode="0644" wildcard="era_descr.fr"/>
+            <permission mode="0644" wildcard="era_descr.it"/>
+            <permission mode="0644" wildcard="era_descr.ja"/>
+            <permission mode="0644" wildcard="era_descr.ko"/>
+            <permission mode="0644" wildcard="era_descr.pt_BR"/>
+            <permission mode="0644" wildcard="era_descr.ru_RU"/>
+            <permission mode="0644" wildcard="era_descr.zh"/>
+            <permission mode="0644" wildcard="era_descr.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="errorcodes" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="32658" dest="errors.pt_BR" mode="0644"/>
+               <file size="34122" dest="errors.en_US" mode="0644"/>
+               <file size="41545" dest="errors.ru_RU" mode="0644"/>
+               <file size="27103" dest="errors.zh" mode="0644"/>
+               <file size="45380" dest="errors.ko" mode="0644"/>
+               <file size="31499" dest="errors.it" mode="0644"/>
+               <file size="32834" dest="errors.es" mode="0644"/>
+               <file size="34793" dest="errors.fr" mode="0644"/>
+               <file size="35425" dest="errors.ja" mode="0644"/>
+               <file size="17722" dest="errors.de" mode="0644"/>
+               <file size="27536" dest="errors.zh_TW" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="errors.de"/>
+            <permission mode="0644" wildcard="errors.en_US"/>
+            <permission mode="0644" wildcard="errors.es"/>
+            <permission mode="0644" wildcard="errors.fr"/>
+            <permission mode="0644" wildcard="errors.it"/>
+            <permission mode="0644" wildcard="errors.ja"/>
+            <permission mode="0644" wildcard="errors.ko"/>
+            <permission mode="0644" wildcard="errors.pt_BR"/>
+            <permission mode="0644" wildcard="errors.ru_RU"/>
+            <permission mode="0644" wildcard="errors.zh"/>
+            <permission mode="0644" wildcard="errors.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="featuresandprofilestates" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4024" dest="features_and_profiles_states.zh_TW" mode="0644"/>
+               <file size="4062" dest="features_and_profiles_states.es" mode="0644"/>
+               <file size="4060" dest="features_and_profiles_states.it" mode="0644"/>
+               <file size="4083" dest="features_and_profiles_states.pt_BR" mode="0644"/>
+               <file size="4049" dest="features_and_profiles_states.en_US" mode="0644"/>
+               <file size="4099" dest="features_and_profiles_states.fr" mode="0644"/>
+               <file size="4043" dest="features_and_profiles_states.ja" mode="0644"/>
+               <file size="4020" dest="features_and_profiles_states.zh" mode="0644"/>
+               <file size="4092" dest="features_and_profiles_states.de" mode="0644"/>
+               <file size="4295" dest="features_and_profiles_states.ru_RU" mode="0644"/>
+               <file size="4048" dest="features_and_profiles_states.ko" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="features_and_profiles_states.de"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.en_US"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.es"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.fr"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.it"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.ja"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.ko"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.pt_BR"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.ru_RU"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.zh"/>
+            <permission mode="0644" wildcard="features_and_profiles_states.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="ipdevicestates" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3682" dest="ip_device_states.fr" mode="0644"/>
+               <file size="3744" dest="ip_device_states.ru_RU" mode="0644"/>
+               <file size="3671" dest="ip_device_states.ko" mode="0644"/>
+               <file size="3708" dest="ip_device_states.pt_BR" mode="0644"/>
+               <file size="3689" dest="ip_device_states.en_US" mode="0644"/>
+               <file size="3681" dest="ip_device_states.it" mode="0644"/>
+               <file size="3712" dest="ip_device_states.zh_TW" mode="0644"/>
+               <file size="3694" dest="ip_device_states.zh" mode="0644"/>
+               <file size="3688" dest="ip_device_states.es" mode="0644"/>
+               <file size="3695" dest="ip_device_states.ja" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="ip_device_states.en_US"/>
+            <permission mode="0644" wildcard="ip_device_states.es"/>
+            <permission mode="0644" wildcard="ip_device_states.fr"/>
+            <permission mode="0644" wildcard="ip_device_states.it"/>
+            <permission mode="0644" wildcard="ip_device_states.ja"/>
+            <permission mode="0644" wildcard="ip_device_states.ko"/>
+            <permission mode="0644" wildcard="ip_device_states.pt_BR"/>
+            <permission mode="0644" wildcard="ip_device_states.ru_RU"/>
+            <permission mode="0644" wildcard="ip_device_states.zh"/>
+            <permission mode="0644" wildcard="ip_device_states.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="licenseerrors" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="10319" dest="license_error.ja" mode="0644"/>
+               <file size="13593" dest="license_error.ru_RU" mode="0644"/>
+               <file size="9714" dest="license_error.it" mode="0644"/>
+               <file size="8428" dest="license_error.zh" mode="0644"/>
+               <file size="9707" dest="license_error.es" mode="0644"/>
+               <file size="8641" dest="license_error.zh_TW" mode="0644"/>
+               <file size="9901" dest="license_error.fr" mode="0644"/>
+               <file size="9241" dest="license_error.en_US" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="license_error.en_US"/>
+            <permission mode="0644" wildcard="license_error.es"/>
+            <permission mode="0644" wildcard="license_error.fr"/>
+            <permission mode="0644" wildcard="license_error.it"/>
+            <permission mode="0644" wildcard="license_error.ja"/>
+            <permission mode="0644" wildcard="license_error.ru_RU"/>
+            <permission mode="0644" wildcard="license_error.zh"/>
+            <permission mode="0644" wildcard="license_error.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="lifecycle_states" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="0" dest="lifecycle_states.ko" mode="0644"/>
+               <file size="0" dest="lifecycle_states.es" mode="0644"/>
+               <file size="0" dest="lifecycle_states.zh" mode="0644"/>
+               <file size="3785" dest="lifecycle_states.en_US" mode="0644"/>
+               <file size="0" dest="lifecycle_states.fr" mode="0644"/>
+               <file size="0" dest="lifecycle_states.it" mode="0644"/>
+               <file size="0" dest="lifecycle_states.ja" mode="0644"/>
+               <file size="0" dest="lifecycle_states.pt_BR" mode="0644"/>
+               <file size="0" dest="lifecycle_states.zh_TW" mode="0644"/>
+               <file size="0" dest="lifecycle_states.ru_RU" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="lifecycle_states.en_US"/>
+            <permission mode="0644" wildcard="lifecycle_states.es"/>
+            <permission mode="0644" wildcard="lifecycle_states.fr"/>
+            <permission mode="0644" wildcard="lifecycle_states.it"/>
+            <permission mode="0644" wildcard="lifecycle_states.ja"/>
+            <permission mode="0644" wildcard="lifecycle_states.ko"/>
+            <permission mode="0644" wildcard="lifecycle_states.pt_BR"/>
+            <permission mode="0644" wildcard="lifecycle_states.ru_RU"/>
+            <permission mode="0644" wildcard="lifecycle_states.zh"/>
+            <permission mode="0644" wildcard="lifecycle_states.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="localedescr" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="5705" dest="locale_descr.it" mode="0644"/>
+               <file size="6309" dest="locale_descr.en_US" mode="0644"/>
+               <file size="5856" dest="locale_descr.zh" mode="0644"/>
+               <file size="6690" dest="locale_descr.ru_RU" mode="0644"/>
+               <file size="6063" dest="locale_descr.ja" mode="0644"/>
+               <file size="5761" dest="locale_descr.de" mode="0644"/>
+               <file size="5716" dest="locale_descr.fr" mode="0644"/>
+               <file size="5687" dest="locale_descr.es" mode="0644"/>
+               <file size="5746" dest="locale_descr.pt_BR" mode="0644"/>
+               <file size="5736" dest="locale_descr.zh_TW" mode="0644"/>
+               <file size="5853" dest="locale_descr.ko" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="locale_descr.de"/>
+            <permission mode="0644" wildcard="locale_descr.en_US"/>
+            <permission mode="0644" wildcard="locale_descr.es"/>
+            <permission mode="0644" wildcard="locale_descr.fr"/>
+            <permission mode="0644" wildcard="locale_descr.it"/>
+            <permission mode="0644" wildcard="locale_descr.ja"/>
+            <permission mode="0644" wildcard="locale_descr.ko"/>
+            <permission mode="0644" wildcard="locale_descr.pt_BR"/>
+            <permission mode="0644" wildcard="locale_descr.ru_RU"/>
+            <permission mode="0644" wildcard="locale_descr.zh"/>
+            <permission mode="0644" wildcard="locale_descr.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="numcategories" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3378" dest="num_categories.ru_RU" mode="0644"/>
+               <file size="3367" dest="num_categories.fr" mode="0644"/>
+               <file size="3359" dest="num_categories.en_US" mode="0644"/>
+               <file size="3349" dest="num_categories.ko" mode="0644"/>
+               <file size="3356" dest="num_categories.zh" mode="0644"/>
+               <file size="3352" dest="num_categories.es" mode="0644"/>
+               <file size="3354" dest="num_categories.ja" mode="0644"/>
+               <file size="3357" dest="num_categories.it" mode="0644"/>
+               <file size="3372" dest="num_categories.pt_BR" mode="0644"/>
+               <file size="3365" dest="num_categories.zh_TW" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="num_categories.en_US"/>
+            <permission mode="0644" wildcard="num_categories.es"/>
+            <permission mode="0644" wildcard="num_categories.fr"/>
+            <permission mode="0644" wildcard="num_categories.it"/>
+            <permission mode="0644" wildcard="num_categories.ja"/>
+            <permission mode="0644" wildcard="num_categories.ko"/>
+            <permission mode="0644" wildcard="num_categories.pt_BR"/>
+            <permission mode="0644" wildcard="num_categories.ru_RU"/>
+            <permission mode="0644" wildcard="num_categories.zh"/>
+            <permission mode="0644" wildcard="num_categories.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="numdevicestates" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3725" dest="num_device_states.ru_RU" mode="0644"/>
+               <file size="4235" dest="num_device_states.pt_BR" mode="0644"/>
+               <file size="4204" dest="num_device_states.es" mode="0644"/>
+               <file size="4182" dest="num_device_states.ja" mode="0644"/>
+               <file size="4165" dest="num_device_states.zh" mode="0644"/>
+               <file size="4202" dest="num_device_states.zh_TW" mode="0644"/>
+               <file size="4173" dest="num_device_states.ko" mode="0644"/>
+               <file size="4175" dest="num_device_states.en_US" mode="0644"/>
+               <file size="4231" dest="num_device_states.fr" mode="0644"/>
+               <file size="4224" dest="num_device_states.it" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="num_device_states.en_US"/>
+            <permission mode="0644" wildcard="num_device_states.es"/>
+            <permission mode="0644" wildcard="num_device_states.fr"/>
+            <permission mode="0644" wildcard="num_device_states.it"/>
+            <permission mode="0644" wildcard="num_device_states.ja"/>
+            <permission mode="0644" wildcard="num_device_states.ko"/>
+            <permission mode="0644" wildcard="num_device_states.pt_BR"/>
+            <permission mode="0644" wildcard="num_device_states.ru_RU"/>
+            <permission mode="0644" wildcard="num_device_states.zh"/>
+            <permission mode="0644" wildcard="num_device_states.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="numvanities" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3405" dest="num_vanities.fr" mode="0644"/>
+               <file size="3407" dest="num_vanities.ja" mode="0644"/>
+               <file size="3417" dest="num_vanities.ru_RU" mode="0644"/>
+               <file size="3408" dest="num_vanities.it" mode="0644"/>
+               <file size="3408" dest="num_vanities.es" mode="0644"/>
+               <file size="3428" dest="num_vanities.pt_BR" mode="0644"/>
+               <file size="3421" dest="num_vanities.zh_TW" mode="0644"/>
+               <file size="3416" dest="num_vanities.en_US" mode="0644"/>
+               <file size="3415" dest="num_vanities.zh" mode="0644"/>
+               <file size="3405" dest="num_vanities.ko" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="num_vanities.en_US"/>
+            <permission mode="0644" wildcard="num_vanities.es"/>
+            <permission mode="0644" wildcard="num_vanities.fr"/>
+            <permission mode="0644" wildcard="num_vanities.it"/>
+            <permission mode="0644" wildcard="num_vanities.ja"/>
+            <permission mode="0644" wildcard="num_vanities.ko"/>
+            <permission mode="0644" wildcard="num_vanities.pt_BR"/>
+            <permission mode="0644" wildcard="num_vanities.ru_RU"/>
+            <permission mode="0644" wildcard="num_vanities.zh"/>
+            <permission mode="0644" wildcard="num_vanities.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="paymentchannel" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3823" dest="payment_channel.pt_BR" mode="0644"/>
+               <file size="3776" dest="payment_channel.zh_TW" mode="0644"/>
+               <file size="3770" dest="payment_channel.ko" mode="0644"/>
+               <file size="3772" dest="payment_channel.zh" mode="0644"/>
+               <file size="3800" dest="payment_channel.ru_RU" mode="0644"/>
+               <file size="3779" dest="payment_channel.en_US" mode="0644"/>
+               <file size="3774" dest="payment_channel.es" mode="0644"/>
+               <file size="3802" dest="payment_channel.ja" mode="0644"/>
+               <file size="3794" dest="payment_channel.it" mode="0644"/>
+               <file size="3772" dest="payment_channel.fr" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="payment_channel.en_US"/>
+            <permission mode="0644" wildcard="payment_channel.es"/>
+            <permission mode="0644" wildcard="payment_channel.fr"/>
+            <permission mode="0644" wildcard="payment_channel.it"/>
+            <permission mode="0644" wildcard="payment_channel.ja"/>
+            <permission mode="0644" wildcard="payment_channel.ko"/>
+            <permission mode="0644" wildcard="payment_channel.pt_BR"/>
+            <permission mode="0644" wildcard="payment_channel.ru_RU"/>
+            <permission mode="0644" wildcard="payment_channel.zh"/>
+            <permission mode="0644" wildcard="payment_channel.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="reasoncodes" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="25556" dest="reasons.es" mode="0644"/>
+               <file size="27763" dest="reasons.en_US" mode="0644"/>
+               <file size="24816" dest="reasons.ko" mode="0644"/>
+               <file size="23625" dest="reasons.zh_TW" mode="0644"/>
+               <file size="23608" dest="reasons.zh" mode="0644"/>
+               <file size="19843" dest="reasons.de" mode="0644"/>
+               <file size="26061" dest="reasons.ja" mode="0644"/>
+               <file size="25457" dest="reasons.fr" mode="0644"/>
+               <file size="30250" dest="reasons.ru_RU" mode="0644"/>
+               <file size="25123" dest="reasons.pt_BR" mode="0644"/>
+               <file size="25568" dest="reasons.it" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="reasons.de"/>
+            <permission mode="0644" wildcard="reasons.en_US"/>
+            <permission mode="0644" wildcard="reasons.es"/>
+            <permission mode="0644" wildcard="reasons.fr"/>
+            <permission mode="0644" wildcard="reasons.it"/>
+            <permission mode="0644" wildcard="reasons.ja"/>
+            <permission mode="0644" wildcard="reasons.ko"/>
+            <permission mode="0644" wildcard="reasons.pt_BR"/>
+            <permission mode="0644" wildcard="reasons.ru_RU"/>
+            <permission mode="0644" wildcard="reasons.zh"/>
+            <permission mode="0644" wildcard="reasons.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="revenueassurance" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4192" dest="ra_alert_message.ru_RU" mode="0644"/>
+               <file size="4007" dest="ra_alert_message.en_US" mode="0644"/>
+               <file size="4034" dest="ra_alert_message.es" mode="0644"/>
+               <file size="4006" dest="ra_alert_message.fr" mode="0644"/>
+               <file size="4013" dest="ra_alert_message.it" mode="0644"/>
+               <file size="4011" dest="ra_alert_message.ko" mode="0644"/>
+               <file size="4050" dest="ra_alert_message.pt_BR" mode="0644"/>
+               <file size="3970" dest="ra_alert_message.zh" mode="0644"/>
+               <file size="3976" dest="ra_alert_message.zh_TW" mode="0644"/>
+               <file size="4073" dest="ra_alert_message.ja" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="ra_alert_message.en_US"/>
+            <permission mode="0644" wildcard="ra_alert_message.es"/>
+            <permission mode="0644" wildcard="ra_alert_message.fr"/>
+            <permission mode="0644" wildcard="ra_alert_message.it"/>
+            <permission mode="0644" wildcard="ra_alert_message.ja"/>
+            <permission mode="0644" wildcard="ra_alert_message.ko"/>
+            <permission mode="0644" wildcard="ra_alert_message.pt_BR"/>
+            <permission mode="0644" wildcard="ra_alert_message.ru_RU"/>
+            <permission mode="0644" wildcard="ra_alert_message.zh"/>
+            <permission mode="0644" wildcard="ra_alert_message.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="simcardtypes" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3359" dest="sim_card_types.ja" mode="0644"/>
+               <file size="3373" dest="sim_card_types.zh_TW" mode="0644"/>
+               <file size="3372" dest="sim_card_types.pt_BR" mode="0644"/>
+               <file size="3362" dest="sim_card_types.en_US" mode="0644"/>
+               <file size="3391" dest="sim_card_types.ru_RU" mode="0644"/>
+               <file size="3350" dest="sim_card_types.es" mode="0644"/>
+               <file size="3355" dest="sim_card_types.ko" mode="0644"/>
+               <file size="3360" dest="sim_card_types.zh" mode="0644"/>
+               <file size="3360" dest="sim_card_types.fr" mode="0644"/>
+               <file size="3350" dest="sim_card_types.it" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="sim_card_types.en_US"/>
+            <permission mode="0644" wildcard="sim_card_types.es"/>
+            <permission mode="0644" wildcard="sim_card_types.fr"/>
+            <permission mode="0644" wildcard="sim_card_types.it"/>
+            <permission mode="0644" wildcard="sim_card_types.ja"/>
+            <permission mode="0644" wildcard="sim_card_types.ko"/>
+            <permission mode="0644" wildcard="sim_card_types.pt_BR"/>
+            <permission mode="0644" wildcard="sim_card_types.ru_RU"/>
+            <permission mode="0644" wildcard="sim_card_types.zh"/>
+            <permission mode="0644" wildcard="sim_card_types.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="msgs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="simdevicestates" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="3821" dest="sim_device_states.pt_BR" mode="0644"/>
+               <file size="3814" dest="sim_device_states.zh_TW" mode="0644"/>
+               <file size="3795" dest="sim_device_states.zh" mode="0644"/>
+               <file size="3793" dest="sim_device_states.it" mode="0644"/>
+               <file size="3908" dest="sim_device_states.ru_RU" mode="0644"/>
+               <file size="3799" dest="sim_device_states.en_US" mode="0644"/>
+               <file size="3797" dest="sim_device_states.es" mode="0644"/>
+               <file size="3803" dest="sim_device_states.ja" mode="0644"/>
+               <file size="3797" dest="sim_device_states.ko" mode="0644"/>
+               <file size="3796" dest="sim_device_states.fr" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="sim_device_states.en_US"/>
+            <permission mode="0644" wildcard="sim_device_states.es"/>
+            <permission mode="0644" wildcard="sim_device_states.fr"/>
+            <permission mode="0644" wildcard="sim_device_states.it"/>
+            <permission mode="0644" wildcard="sim_device_states.ja"/>
+            <permission mode="0644" wildcard="sim_device_states.ko"/>
+            <permission mode="0644" wildcard="sim_device_states.pt_BR"/>
+            <permission mode="0644" wildcard="sim_device_states.ru_RU"/>
+            <permission mode="0644" wildcard="sim_device_states.zh"/>
+            <permission mode="0644" wildcard="sim_device_states.zh_TW"/>
+         </file-perms>
+      </directory>
+      <directory dest="xsd" mode="750" patchable="true">
+         <file size="6699" dest="config_rev_rec_schedule.xsd" mode="644"/>
+         <file size="1755" dest="bus_params_Installment.xsd" mode="644"/>
+         <file size="15871" dest="bus_params_rating.xsl" mode="644"/>
+         <file size="5855" dest="bus_params_to_system.xsl" mode="644"/>
+         <file size="5149" dest="config_loan.xsd" mode="644"/>
+         <file size="2573" dest="bus_params_selective_loading.xsl" mode="644"/>
+         <file size="10678" dest="bus_params_AR.xsd" mode="644"/>
+         <file size="1569" dest="PinConvertWholesaleInput.xsd" mode="644"/>
+         <file size="6507" dest="bus_params_system.xsd" mode="644"/>
+         <file size="1627" dest="bus_params_TCF.xsd" mode="644"/>
+         <file size="2298" dest="config_note_type.xsd" mode="644"/>
+         <file size="2150" dest="pin_config_ood_criteria.xsd" mode="644"/>
+         <file size="9236" dest="bus_params_multi_bal.xsl" mode="644"/>
+         <file size="4105" dest="bus_params_rerate.xsd" mode="644"/>
+         <file size="4504" dest="bus_params_to_customer.xsl" mode="644"/>
+         <file size="1645" dest="pin_payment_term.xsd" mode="644"/>
+         <file size="6761" dest="bus_params_multi_bal.xsd" mode="644"/>
+         <file size="1263" dest="pin_rerate_flds.xsd" mode="644"/>
+         <file size="2360" dest="pin_calendar.xsd" mode="644"/>
+         <file size="7590" dest="bus_params_to_rating.xsl" mode="644"/>
+         <file size="4406" dest="config_rev_rec_map.xsd" mode="644"/>
+         <file size="2244" dest="pin_tax_supplier.xsd" mode="644"/>
+         <file size="4072" dest="bus_params_to_pricing.xsl" mode="644"/>
+         <file size="2834" dest="pin_config_auth_reauth_info.xsd" mode="644"/>
+         <file size="2341" dest="bus_params_to_notification.xsl" mode="644"/>
+         <file size="2393" dest="bus_params_collections.xsd" mode="644"/>
+         <file size="2970" dest="bus_params_collections.xsl" mode="644"/>
+         <file size="1694" dest="config_bill_format.xsd" mode="644"/>
+         <file size="3243" dest="config_business_events.xsd" mode="644"/>
+         <file size="21467" dest="bus_params_subscription.xsd" mode="644"/>
+         <file size="4846" dest="config_creditor.xsd" mode="644"/>
+         <file size="3326" dest="bus_params_conf.xsd" mode="644"/>
+         <file size="1303" dest="pin_config_ar_taxes.xsd" mode="644"/>
+         <file size="2570" dest="config_event_promo_tag_map.xsd" mode="644"/>
+         <file size="16713" dest="bus_params_to_subscription.xsl" mode="644"/>
+         <file size="1499" dest="config_item_tags.xsd" mode="644"/>
+         <file size="3909" dest="bus_params_to_rerate.xsl" mode="644"/>
+         <file size="1962" dest="config_service_state_map.xsd" mode="644"/>
+         <file size="3493" dest="bus_params_billing_flow.xsl" mode="644"/>
+         <file size="5159" dest="bus_params_act.xsd" mode="0644"/>
+         <file size="2689" dest="config_calendar.xsd" mode="644"/>
+         <file size="3815" dest="config_tax_supplier.xsd" mode="644"/>
+         <file size="3431" dest="config_maxlength_validate.xsd" mode="644"/>
+         <file size="2229" dest="StorableClassToXML.xsd" mode="0644"/>
+         <file size="2582" dest="bus_params_billing_flow.xsd" mode="644"/>
+         <file size="36968" dest="bus_params_subscription.xsl" mode="644"/>
+         <file size="2827" dest="config_event_promo_map.xsd" mode="644"/>
+         <file size="4792" dest="BRMCTypes.xsd" mode="644"/>
+         <file size="7693" dest="pin_config_export_gl.xsd" mode="0775"/>
+         <file size="4480" dest="config_lifecycle_states.xsd" mode="644"/>
+         <file size="2938" dest="bus_params_to_collections.xsl" mode="644"/>
+         <file size="3760" dest="config_business_profile.xsd" mode="644"/>
+         <file size="1701" dest="config_note_status.xsd" mode="644"/>
+         <file size="1795" dest="bus_params_selective_loading.xsd" mode="644"/>
+         <file size="8729" dest="bus_params_to_Invoicing.xsl" mode="644"/>
+         <file size="5691" dest="bus_params_pricing.xsl" mode="644"/>
+         <file size="2574" dest="bus_params_to_AAA.xsl" mode="644"/>
+         <file size="2598" dest="bus_params_Installment.xsl" mode="644"/>
+         <file size="3773" dest="bus_params_customer.xsd" mode="644"/>
+         <file size="14521" dest="PinTypes.xsd" mode="0644"/>
+         <file size="6267" dest="bus_params_to_multi_bal.xsl" mode="644"/>
+         <file size="2476" dest="pin_config_provisioning_tags.xsd" mode="644"/>
+         <file size="6378" dest="bus_params_customer.xsl" mode="644"/>
+         <file size="20887" dest="bus_params_AR.xsl" mode="644"/>
+         <file size="6476" dest="bus_params_act.xsl" mode="0644"/>
+         <file size="2840" dest="config_subscriber_preferences_map.xsd" mode="644"/>
+         <file size="1838" dest="pin_excluded_logins.xsd" mode="644"/>
+         <file size="59637" dest="bus_params_billing.xsl" mode="644"/>
+         <file size="39732" dest="bus_params_billing.xsd" mode="644"/>
+         <file size="9591" dest="bus_params_to_AR.xsl" mode="644"/>
+         <file size="16243" dest="bus_params_Invoicing.xsl" mode="644"/>
+         <file size="9115" dest="bus_params_Invoicing.xsd" mode="644"/>
+         <file size="1368" dest="PinCorrBillFileInput.xsd" mode="644"/>
+         <file size="1553" dest="bus_params_AAA.xsd" mode="644"/>
+         <file size="3323" dest="bus_params_pricing.xsd" mode="644"/>
+         <file size="15132" dest="brm_gl_data.xsd" mode="0775"/>
+         <file size="10571" dest="bus_params_system.xsl" mode="644"/>
+         <file size="7086" dest="bus_params_rerate.xsl" mode="644"/>
+         <file size="1952" dest="config_item_types.xsd" mode="644"/>
+         <file size="3611" dest="bus_params_to_act.xsl" mode="0644"/>
+         <file size="2632" dest="bus_params_to_TCF.xsl" mode="644"/>
+         <file size="1365" dest="bus_params_to_selective_loading.xsl" mode="644"/>
+         <file size="8484" dest="bus_params_rating.xsd" mode="644"/>
+         <file size="1773" dest="bus_params_notification.xsd" mode="644"/>
+         <file size="2834" dest="bus_params_AAA.xsl" mode="644"/>
+         <file size="3132" dest="config_stored_procedure.xsd" mode="644"/>
+         <file size="1717" dest="config_bill_presentation_media.xsd" mode="644"/>
+         <file size="31574" dest="bus_params_to_billing.xsl" mode="644"/>
+         <file size="2729" dest="PinBillRunControl.xsd" mode="644"/>
+         <file size="20666" dest="config_object.xsd" mode="0644"/>
+         <file size="3408" dest="pin_bus_params.xsd" mode="644"/>
+         <file size="5008" dest="pin_billing_segment.xsd" mode="644"/>
+         <file size="2857" dest="bus_params_TCF.xsl" mode="644"/>
+         <file size="7851" dest="pin_business_profile.xsd" mode="644"/>
+         <file size="2414" dest="bus_params_notification.xsl" mode="644"/>
+         <file size="4370" dest="config_lifecycle_states.xsl" mode="644"/>
+         <file size="339" dest="PinTransforms.xsl" mode="0644"/>
+         <file size="1778" dest="pin_bill_suppression.xsd" mode="644"/>
+         <file size="1848" dest="pin_customer_segment.xsd" mode="644"/>
+         <file size="1785" dest="pin_config_rtp_trim_flist.xsd" mode="644"/>
+         <file size="2736" dest="config_delivery_methods.xsd" mode="644"/>
+         <file size="2554" dest="bus_params_to_billing_flow.xsl" mode="644"/>
+         <file-perms>
+            <permission mode="644" wildcard="config_lifecycle_states.xsd"/>
+            <permission mode="644" wildcard="config_service_state_map.xsd"/>
+            <permission mode="644" wildcard="config_lifecycle_states.xsl"/>
+            <permission mode="644" wildcard="BRMCTypes.xsd"/>
+            <permission mode="644" wildcard="PinBillRunControl.xsd"/>
+            <permission mode="644" wildcard="PinCorrBillFileInput.xsd"/>
+            <permission mode="644" wildcard="PinConvertWholesaleInput.xsd"/>
+            <permission mode="0644" wildcard="PinTransforms.xsl"/>
+            <permission mode="0644" wildcard="PinTypes.xsd"/>
+            <permission mode="0644" wildcard="StorableClassToXML.xsd"/>
+            <permission mode="0775" wildcard="brm_gl_data.xsd"/>
+            <permission mode="644" wildcard="bus_params_AAA.xsd"/>
+            <permission mode="644" wildcard="bus_params_AAA.xsl"/>
+            <permission mode="644" wildcard="bus_params_collections.xsd"/>
+            <permission mode="644" wildcard="bus_params_collections.xsl"/>
+            <permission mode="644" wildcard="bus_params_system.xsd"/>
+            <permission mode="644" wildcard="bus_params_system.xsl"/>
+            <permission mode="644" wildcard="bus_params_AR.xsd"/>
+            <permission mode="644" wildcard="bus_params_AR.xsl"/>
+            <permission mode="644" wildcard="bus_params_Invoicing.xsd"/>
+            <permission mode="644" wildcard="bus_params_Invoicing.xsl"/>
+            <permission mode="0644" wildcard="bus_params_act.xsd"/>
+            <permission mode="0644" wildcard="bus_params_act.xsl"/>
+            <permission mode="644" wildcard="bus_params_billing.xsd"/>
+            <permission mode="644" wildcard="bus_params_billing.xsl"/>
+            <permission mode="644" wildcard="bus_params_billing_flow.xsd"/>
+            <permission mode="644" wildcard="bus_params_billing_flow.xsl"/>
+            <permission mode="644" wildcard="bus_params_conf.xsd"/>
+            <permission mode="644" wildcard="bus_params_customer.xsd"/>
+            <permission mode="644" wildcard="bus_params_customer.xsl"/>
+            <permission mode="644" wildcard="bus_params_multi_bal.xsd"/>
+            <permission mode="644" wildcard="bus_params_multi_bal.xsl"/>
+            <permission mode="644" wildcard="bus_params_pricing.xsd"/>
+            <permission mode="644" wildcard="bus_params_pricing.xsl"/>
+            <permission mode="644" wildcard="bus_params_rating.xsd"/>
+            <permission mode="644" wildcard="bus_params_rating.xsl"/>
+            <permission mode="644" wildcard="bus_params_rerate.xsd"/>
+            <permission mode="644" wildcard="bus_params_rerate.xsl"/>
+            <permission mode="644" wildcard="bus_params_selective_loading.xsd"/>
+            <permission mode="644" wildcard="bus_params_selective_loading.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_selective_loading.xsl"/>
+            <permission mode="644" wildcard="bus_params_subscription.xsd"/>
+            <permission mode="644" wildcard="bus_params_subscription.xsl"/>
+            <permission mode="644" wildcard="bus_params_TCF.xsd"/>
+            <permission mode="644" wildcard="bus_params_TCF.xsl"/>
+            <permission mode="644" wildcard="bus_params_Installment.xsd"/>
+            <permission mode="644" wildcard="bus_params_Installment.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_AAA.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_collections.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_system.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_AR.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_Invoicing.xsl"/>
+            <permission mode="0644" wildcard="bus_params_to_act.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_act.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_billing.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_billing_flow.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_customer.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_multi_bal.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_pricing.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_rating.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_rerate.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_subscription.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_TCF.xsl"/>
+            <permission mode="644" wildcard="config_creditor.xsd"/>
+            <permission mode="644" wildcard="config_event_promo_map.xsd"/>
+            <permission mode="644" wildcard="config_event_promo_tag_map.xsd"/>
+            <permission mode="644" wildcard="config_item_tags.xsd"/>
+            <permission mode="644" wildcard="config_item_types.xsd"/>
+            <permission mode="644" wildcard="config_calendar.xsd"/>
+            <permission mode="644" wildcard="config_loan.xsd"/>
+            <permission mode="644" wildcard="config_note_status.xsd"/>
+            <permission mode="644" wildcard="config_note_type.xsd"/>
+            <permission mode="644" wildcard="config_delivery_methods.xsd"/>
+            <permission mode="0644" wildcard="config_object.xsd"/>
+            <permission mode="644" wildcard="config_rev_rec_map.xsd"/>
+            <permission mode="644" wildcard="config_tax_supplier.xsd"/>
+            <permission mode="644" wildcard="config_subscriber_preferences_map.xsd"/>
+            <permission mode="644" wildcard="config_business_profile.xsd"/>
+            <permission mode="644" wildcard="config_business_events.xsd"/>
+            <permission mode="644" wildcard="config_bill_format.xsd"/>
+            <permission mode="644" wildcard="config_bill_presentation_media.xsd"/>
+            <permission mode="644" wildcard="config_rev_rec_schedule.xsd"/>
+            <permission mode="644" wildcard="pin_bill_suppression.xsd"/>
+            <permission mode="644" wildcard="pin_billing_segment.xsd"/>
+            <permission mode="644" wildcard="pin_bus_params.xsd"/>
+            <permission mode="644" wildcard="pin_business_profile.xsd"/>
+            <permission mode="644" wildcard="pin_calendar.xsd"/>
+            <permission mode="644" wildcard="pin_config_ar_taxes.xsd"/>
+            <permission mode="644" wildcard="pin_config_auth_reauth_info.xsd"/>
+            <permission mode="0775" wildcard="pin_config_export_gl.xsd"/>
+            <permission mode="644" wildcard="pin_config_ood_criteria.xsd"/>
+            <permission mode="644" wildcard="pin_config_provisioning_tags.xsd"/>
+            <permission mode="644" wildcard="pin_config_rtp_trim_flist.xsd"/>
+            <permission mode="644" wildcard="pin_customer_segment.xsd"/>
+            <permission mode="644" wildcard="pin_excluded_logins.xsd"/>
+            <permission mode="644" wildcard="pin_payment_term.xsd"/>
+            <permission mode="644" wildcard="pin_rerate_flds.xsd"/>
+            <permission mode="644" wildcard="pin_tax_supplier.xsd"/>
+            <permission mode="644" wildcard="config_stored_procedure.xsd"/>
+            <permission mode="644" wildcard="bus_params_notification.xsd"/>
+            <permission mode="644" wildcard="bus_params_notification.xsl"/>
+            <permission mode="644" wildcard="bus_params_to_notification.xsl"/>
+            <permission mode="644" wildcard="config_maxlength_validate.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1390" dest="post_modular_oracle.sql" mode="0664"/>
+               <file size="2285" dest="pre_modular_oracle.sql" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="post_modular_oracle.sql"/>
+            <permission mode="0664" wildcard="pre_modular_oracle.sql"/>
+         </file-perms>
+      </directory>
+   </file-map>
+   <variables>
+      <product-variable name="EAI_PORT" value="11970" type="number" helpid="" publish="true"/>
+   </variables>
+</component-def>

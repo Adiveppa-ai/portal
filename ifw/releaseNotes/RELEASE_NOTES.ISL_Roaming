@@ -1,0 +1,148 @@
+ISL_Roaming
+----------------------------------------------------------------------------------------
+Module Release Notes
+----------------------------------------------------------------------------------------
+$RCSfile: RELEASE_NOTES.ISL_Roaming $
+$Revision: /cgbubrm_7.5.0.pipeline/4 $
+$Author: arcmisra $
+$Date: 2013/11/12 10:44:24 $
+========================================================================================
+Actual Version : 10015 7.5.0.7 / 09-Sep-2013 /Archan
+Notes          :
+----------------
+Introduction of the sample iScript ISC_GetCamelFlag.isc and ISC_OverrideRateTag.isc  as well
+as the modification of the existing iscript ISC_NRTRDE_EventSplit.isc as a part of Portugal
+Telecom ECR
+Solved CO      : bug17417803
+========================================================================================
+Actual Version : 10014 7.5.0.2 / 28-Aug-2012 /Santanu
+Notes          :
+----------------
+Propagation of the bugs 14073478,14200673,14282419,14379875 
+Solved CO      : bug14547813
+========================================================================================
+Actual Version : 10013 7.5.0.2 / 15-Jun-2012 /kkisalay
+Notes          :
+----------------
+SQL SYNTAX ERROR IN UPDATETAPINFO SCRIPT
+Solved CO      : bug14200673
+========================================================================================
+Actual Version : 10012 7.4.0.14 / 07-Jun-2012 /kkisalay
+Notes          :
+----------------
+ECR: RAP 1.5 SUPPORT
+Solved CO      : bug14105685
+========================================================================================
+Actual Version : 10011 7.4.0.6 / 18-Aug-2010 /mvenkate
+Notes          :
+----------------
+PROPAGATION OF 9264825 CORRECT VALUE FOR EDR FIELD 'DETAIL.ASS_GSMW_EXT.SS_PACKET.RECORD_TYPE'
+Solved CO      : bug9657672 
+========================================================================================
+Actual Version : 10010 7.4.0.5 / 07-Jul-2010 /shthomas
+Notes          :
+----------------
+PROPAGATION OF FIXES IN 7.3.1 TO 7.4 AS UNINOR IS UPGRADING TO 7.4
+Solved CO      : bug9831530
+========================================================================================
+Actual Version : 10009 7.4.0.5.0 / 01-Jul-2010 /shthomas
+Notest:
+---------------
+Following IRule and data file was introduced to achieve HUR requirement.
+1.IRL_HUR_ServiceSetting.irl 
+2.IRL_HUR_ServiceSetting.data 
+Solved CO      : bug9859888
+========================================================================================
+Actual Version : 10008 7.4.1 / 02-Nov-2008 /amadhuka
+Notest:
+---------------
+Following new iScripts have been introduced for NRTRDE .
+1.ISC_NRTRDE_ErrorReport.isc
+2.ISC_NRTRDE_EventSplit.isc
+Solved CO      : bug8937725
+========================================================================================
+Actual Version : 10007 7.4 / 05-Nov-2008 /cprabhak
+Notes          :
+----------------
+The iScript file  ISC_MiscOutCollect.isc is modified to set the chargeType to "01" 
+Solved CO      : bug6513000
+========================================================================================
+Actual Version : 10006 7.3.2 / 19-Aug-2008 /amadhuka
+Notes          :
+----------------
+The iScript file  ISC_MiscOutCollect.isc is modified to fix the ChargedItem issue in the generated TAPOUT file.
+Solved CO      : bug7335112
+========================================================================================
+Actual Version : 10005 7.3.1 / 12-July-2007 /kmahunta
+
+Notes          :
+----------------
+The iScript file  ISC_MiscOutCollect.isc modified to fix the UTC offset issue on TAP3-Output file 
+
+Solved co      : bug6181045
+========================================================================================
+Actual Version : 10004 7.3 / 30-May-2006 /amisra
+
+Notes          :
+----------------
+Following new IScripts have been introduced for roaming.
+1. ISC_MiscOutCollect.isc
+2. ISC_ConsolidatedCP.isc
+
+Solved co      : PRSF00216029
+----------------
+========================================================================================
+Actual Version : 10003 7.3 / 05-May-2006 /rjohn
+
+Notes          :
+----------------
+Following new IRules have been introduced for roaming.
+1. IRL_HomeRoamSplitting.irl 
+2. IRL_RoamPartner_EventSplitting.irl 
+
+Solved co      : PRSF00209571 
+----------------
+========================================================================================
+Actual Version : 10002 7.3 / 03-May-2006 /kirank
+
+Notes          :
+----------------
+Following new iScripts have been introduced for roaming.
+1. ISC_OverrideSuspenseParams.isc
+2. ISC_DupRAPRecords.isc
+
+Solved co      : PRSF00204906
+----------------
+========================================================================================
+
+Actual Version : 10001 7.3 / 22-Apr-2006 /amisra
+----------------
+
+Notes          :
+----------------
+Following new iScripts have been introduced for roaming.
+1. ISC_RemoveASSCBD.isc
+2. ISC_RemoveCP.isc
+3. ISC_RollbackSettlement.isc
+4. ISC_UsageClassSetting.isc 
+5. IRL_SettlementSplitting.irl
+
+Solved co      : PRSF00192620
+----------------
+========================================================================================
+
+Actual Version : 10000 7.3 / 27-Mar-2006 /amisra 
+----------------
+
+Notes          : 
+----------------
+Introduce ISC_ApplyTax.isc for reprice pipeline
+
+Known Problems :
+----------------
+
+Solved PRs/CRs : PRSF00192599
+----------------
+
+Open PRs/CRs   :
+----------------

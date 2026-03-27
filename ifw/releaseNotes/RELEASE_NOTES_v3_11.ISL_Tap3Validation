@@ -1,0 +1,84 @@
+========================================================================================
+ISL_Tap3Validation_v3_11
+----------------------------------------------------------------------------------------
+Module Release Notes
+----------------------------------------------------------------------------------------
+========================================================================================
+
+Release        : 7.3.1
+Date           : 04-Oct-2007
+ChangeOrder    : bug6457917
+Title          : P-6369437 TAP3.11 INGRAMMAR ISSUES WITH MAPPING IN HEADER AND DETAIL
+Description    : INGRAMMAR ISSUES WITH MAPPING IN HEADER AND DETAIL
+
+========================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 05-Dec-2006
+ChangeOrder    : PRSF00236241
+Title          : TAP3.11 Validation COs - Set 1(propagation of PRSF00231564)
+Description    : TAP3.11 Validation of HSCSD indicator,SMS Destination number and
+                 Network Access Identifier.
+
+========================================================================================
+Release        : New_Pipeline_Velocity
+Date           : 21-Aug-2006
+ChangeOrder    : PRSF00229454
+Title          : SCM TAP3-Ph2: Validation of totalChargeRefund for TAP3.11 files incorrect
+Description    : Propagated the Changes of Pipeline_7.2_Patch.
+========================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 18-Aug-2006
+ChangeOrder    : PRSF00143840
+Title          : QF-TAP3.10-validation of TD57 -specifications( TAP input grammar)
+Description    : Charge Detail group is validated as per TD57
+
+========================================================================================
+========================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 08-Aug-2006
+ChangeOrder    : PRSF00165666
+Title          : QF::TAP3.10-validation of TD57 -specifications( TAP input grammar)
+Description    : The TAP input file which,has no Discounting group present and batch
+                 contains discounts.
+
+========================================================================================
+========================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 04-Aug-2006
+ChangeOrder    : PRSF00205328
+Title          : "CO to track the Roaming CO's need to be propagated to DaVinci"
+Description    : Propagated the Changes of Pipeline_7.2_Patch.
+
+========================================================================================
+========================================================================================
+
+Release        : New_Pipeline_Velocity
+Date           : 26-jul-2006
+ChangeOrder    : PRSF00225702
+Title          : "TAP3 changes for DaVinci"
+Description    : SCM TAP3: iScript ISC_TapDetailValidation_v3_11.isc has errors
+
+========================================================================================
+========================================================================================
+
+Release        : New_Pipeline_Velocity 
+Date           : 04-May-2006
+ChangeOrder    : PRSF00207274
+Title          : "TAP3 changes for DaVinci"
+Description    : Added a new validation to check that currency is present if charge
+                 is not zero
+
+========================================================================================
+========================================================================================
+
+Release        : New_Pipeline_Velocity 
+Date           : 20-Jan-2006
+ChangeOrder    : PRSF00190327
+Title          : TAP 3.11 Propagation work
+Description    : Propagation of TAP3.11 work from 7.0_EBF stream.
+
+========================================================================================

@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# @(#)% %
+#
+# Copyright (c) 2001, 2021, Oracle and/or its affiliates. All rights reserved.
+#       This material is the confidential property of Oracle Corporation
+#       or its licensors and may be used, reproduced, stored
+#       or transmitted only in accordance with a valid Oracle license
+#       or sublicense agreement.
+#
+# Whan using 32bit Java to execute pin_rel, add the location of Oracle DB 32 bit client 
+# libraries and uncomment the below line.
+# ORA_CLIENT_LIB_PATH= < Location of 32 bit Oracle DB client libraries >
+
+# Oracle DB 12cR2 ships with ojdbc8.jar.
+# pin_rel should be used with Java 8 or above. 
+OJDBCJAR=ojdbc8.jar
+
+REL_CLIENT_LIBS=${ORA_CLIENT_LIB_PATH}
+REL_LIBS=${REL_CLIENT_LIBS}:${PIN_HOME}/lib64:${PIN_HOME}/lib
+
+uname=`uname`
+if [ "$uname" = "SunOS" -o "$uname" = "Linux" ];
+then
+    if [ "$LD_LIBRARY_PATH" = "" ];
+    then
+          LD_LIBRARY_PATH=${REL_LIBS}
+    else
+          LD_LIBRARY_PATH=${REL_LIBS}:${LD_LIBRARY_PATH}
+    fi
+    export LD_LIBRARY_PATH
+fi
+#The location of ojdbc8.jar varies for full DB client and Oracle Intstant client
+
+$JAVA_HOME/bin/java -XX:+UseCompilerSafepoints -classpath $JAVA_HOME/lib/rt.jar:${ORACLE_HOME}/jdbc/lib/${OJDBCJAR}:${ORACLE_HOME}/lib/${OJDBCJAR}:/home/pin/opt/portal/BRM/jars/pcm.jar:/home/pin/opt/portal/BRM/jars/pcmext.jar:/home/pin/opt/portal/BRM/jars/oraclepki.jar:/home/pin/opt/portal/BRM/jars/osdt_cert.jar:/home/pin/opt/portal/BRM/jars/osdt_core.jar:/home/pin/opt/portal/BRM/jars/rel.jar:. -mx256m -Duser.language=en -Duser.region=US com.portal.rel.Rel $@
+

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	attributeFormDefault="unqualified" 
+	elementFormDefault="qualified" 
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:complexType name="GLReportConfigurationType">
+   <xs:sequence>
+      	<xs:element name="SourceSystemID" minOccurs = "1" maxOccurs = "1" >
+	 <xs:simpleType>
+	  <xs:restriction base = "xs:string">
+	   <xs:minLength value = "1" /> 
+	   <xs:whiteSpace value="collapse"/>
+	  </xs:restriction>
+	 </xs:simpleType>
+	</xs:element>
+      	<xs:element name="OutputDirectory" minOccurs = "1" maxOccurs = "1" >
+	 <xs:simpleType>
+	  <xs:restriction base = "xs:string">
+	   <xs:minLength value = "1" /> 
+	   <xs:whiteSpace value="collapse"/>
+	  </xs:restriction>
+	 </xs:simpleType>
+	</xs:element>
+      	<xs:element name="FileNamePrefix" minOccurs = "0" maxOccurs = "1" >
+	 <xs:simpleType>
+	  <xs:restriction base = "xs:string">
+	   <xs:whiteSpace value="collapse"/>
+	  </xs:restriction>
+	 </xs:simpleType>
+	</xs:element>
+      	<xs:element name="ReportInitialStartDate" minOccurs = "0" maxOccurs = "1">
+      	<xs:complexType>
+         <xs:sequence>
+       	  <xs:element name="Segment" minOccurs = "1" maxOccurs = "unbounded">
+           <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="Year" minOccurs = "1" maxOccurs = "1">
+		 <xs:simpleType>
+		  <xs:restriction base="xs:positiveInteger">
+		   <xs:whiteSpace value="collapse"/>
+		   <xs:minInclusive value="1900"/>
+		   <xs:maxInclusive value="9999"/>
+		  </xs:restriction>
+		 </xs:simpleType>
+		</xs:element>
+            	<xs:element name="Month" minOccurs = "1" maxOccurs = "1" >
+		 <xs:simpleType>
+		  <xs:restriction base="xs:gMonth">
+		   <xs:whiteSpace value="collapse"/>
+		  </xs:restriction>
+		 </xs:simpleType>
+		</xs:element>
+            	<xs:element name="Day" minOccurs = "1" maxOccurs = "1" >
+		 <xs:simpleType>
+		   <xs:restriction base="xs:gDay">
+		    <xs:minInclusive value="---01"/>
+		     <xs:maxInclusive value="---31"/>
+		     <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		   </xs:simpleType>
+		  </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" use = "required" >
+	     <xs:simpleType>
+	       <xs:restriction base = "xs:string" >
+	        <xs:minLength value = "1" />
+	      </xs:restriction>
+	     </xs:simpleType>
+	    </xs:attribute>
+           </xs:complexType>
+          </xs:element>
+         </xs:sequence>
+      	</xs:complexType>
+      	</xs:element>
+      	<xs:element name="SegmentList">
+      	<xs:complexType>
+         <xs:sequence>
+       	 <xs:element name="Segment" minOccurs = "1" maxOccurs = "unbounded" >
+         <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="Frequency" minOccurs = "1" maxOccurs = "1" >
+		 <xs:simpleType>
+		  <xs:restriction base = "xs:string" >
+		   <xs:whiteSpace value="collapse"/>
+		   <xs:enumeration value = "Daily" />
+		   <xs:enumeration value = "Weekly" />
+		   <xs:enumeration value = "Monthly" />
+		   <xs:enumeration value = "Yearly" />
+		   <xs:enumeration value = "Specific Dates" />
+		  </xs:restriction>
+		 </xs:simpleType>
+		</xs:element>
+            	<xs:element name="Day" minOccurs = "0" maxOccurs = "1">
+		 <xs:simpleType>
+		  <xs:restriction base = "xs:string" >
+		   <xs:whiteSpace value="collapse"/>
+		   <xs:enumeration value = "Sunday" />
+		   <xs:enumeration value = "Monday" />
+		   <xs:enumeration value = "Tuesday" />
+		   <xs:enumeration value = "Wednesday" />
+		   <xs:enumeration value = "Thursday" />
+		   <xs:enumeration value = "Friday" />
+		   <xs:enumeration value = "Saturday" />
+		  </xs:restriction>
+		 </xs:simpleType>
+		</xs:element>
+            	<xs:element name="DayOfMonth" minOccurs = "0" maxOccurs = "1" >
+		 <xs:simpleType>
+		   <xs:restriction base="xs:gDay">
+		    <xs:minInclusive value="---01"/>
+		     <xs:maxInclusive value="---31"/>
+		     <xs:whiteSpace value="collapse"/>
+		    </xs:restriction>
+		   </xs:simpleType>
+		  </xs:element>
+            	<xs:element name="Date" minOccurs = "0" maxOccurs = "unbounded" >
+         	 <xs:complexType>
+               	  <xs:sequence>
+               	   <xs:element name="DayOfMonth" >
+		    <xs:simpleType>
+		      <xs:restriction base="xs:gDay">
+		       <xs:minInclusive value="---01"/>
+		        <xs:maxInclusive value="---31"/>
+		        <xs:whiteSpace value="collapse"/>
+		       </xs:restriction>
+		      </xs:simpleType>
+		     </xs:element>
+               	   <xs:element name="Month" type = "xs:gMonth" />
+                  </xs:sequence>
+            	 </xs:complexType>
+            	</xs:element>
+            	<xs:element name="RevenueTypeList" minOccurs = "1" maxOccurs = "1" >
+             	 <xs:complexType>
+		  <xs:sequence>
+               	   <xs:element name="RevenueType" minOccurs = "1" maxOccurs = "unbounded">
+		    <xs:simpleType>
+		     <xs:restriction base = "xs:string" >
+		      <xs:whiteSpace value="collapse"/>
+		      <xs:enumeration value = "Billed" />
+		      <xs:enumeration value = "Billed earned" />
+		      <xs:enumeration value = "Previously billed earned" />
+		      <xs:enumeration value = "Billed unearned" />
+		      <xs:enumeration value = "Unbilled" />
+		      <xs:enumeration value = "Unbilled earned" />
+		      <xs:enumeration value = "Unbilled unearned" />
+		      <xs:enumeration value = "Earned" />	
+		     </xs:restriction>
+		    </xs:simpleType>
+		   </xs:element>
+		  </xs:sequence>
+            	 </xs:complexType>
+            	</xs:element>
+            	<xs:element name="ReportLevel" maxOccurs = "1" >
+		 <xs:simpleType>
+		  <xs:restriction base = "xs:string" >
+		   <xs:whiteSpace value="collapse"/>
+		   <xs:enumeration value = "Summary" />
+		   <xs:enumeration value = "Detailed" />
+		  </xs:restriction>
+		 </xs:simpleType>
+		 </xs:element>
+            	<xs:element name="ResourceType" maxOccurs = "1" >
+		 <xs:simpleType>
+		  <xs:restriction base = "xs:string" >
+		   <xs:whiteSpace value="collapse"/>
+		   <xs:enumeration value = "Monetary" />
+		   <xs:enumeration value = "Non-monetary" />
+		   <xs:enumeration value = "All" />
+       	          </xs:restriction>
+		 </xs:simpleType>
+		 </xs:element>
+		<xs:choice minOccurs = "0" >
+            	<xs:element name="ExcludeNonMonetary">
+            	 <xs:complexType>
+                  <xs:sequence>
+               	   <xs:element name = "ResourceID" minOccurs= "0" maxOccurs="unbounded" >
+		    <xs:simpleType>
+	             <xs:restriction base="xs:unsignedInt">
+		      <xs:whiteSpace value="collapse"/>
+		     </xs:restriction>
+		    </xs:simpleType>
+		   </xs:element>
+                  </xs:sequence>
+            	 </xs:complexType>
+            	</xs:element>
+            	<xs:element name="IncludeNonMonetary">
+            	 <xs:complexType>
+                  <xs:sequence>
+               	   <xs:element name = "ResourceID" minOccurs="0" maxOccurs="unbounded" >
+		    <xs:simpleType>
+	             <xs:restriction base="xs:unsignedInt">
+		      <xs:whiteSpace value="collapse"/>
+		     </xs:restriction>
+		    </xs:simpleType>
+		   </xs:element>
+                  </xs:sequence>
+            	 </xs:complexType>
+            	</xs:element>
+		</xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" use="required" >
+   	     <xs:simpleType>
+	      <xs:restriction base = "xs:string" >
+	       <xs:minLength value = "1" />
+       	      </xs:restriction>
+	     </xs:simpleType>
+	    </xs:attribute>
+         </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+   </xs:sequence>
+</xs:complexType>
+</xs:schema>

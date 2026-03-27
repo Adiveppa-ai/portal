@@ -1,0 +1,61 @@
+#!/bin/sh
+
+PIN_HOME=/home/pin/opt/portal/BRM
+PIN_LOG_DIR=/home/pin/opt/portal/BRM/var
+PIN_LOG=/home/pin/opt/portal/BRM/var
+
+FILE="$PIN_HOME/setup/pin_setup.values"
+
+while read LINE
+do
+ if [[ "$LINE" =~ "NO_PINSETUP" ]]
+  then
+  echo $LINE;
+  value="$(cut -d'=' -f2 <<<"$LINE")"
+  value1="$(cut -d';' -f1 <<<"$value")"
+  NO_PINSETUP=$value1
+ fi
+ if [[ "$LINE" =~ "CUSTOM_PINSETUP" ]]
+  then
+  echo $LINE;
+  value="$(cut -d'=' -f2 <<<"$LINE")"
+  value1="$(cut -d';' -f1 <<<"$value")"
+  CUSTOM_PINSETUP=$value1
+ fi
+done < $FILE
+
+count="$(grep -o DM_KAFKA $FILE | wc -l)"
+if [ $count == 0 ]
+ then
+    echo "adding DM_KAFKA entries "
+    echo '
+%DM_KAFKA = %DM_generic;
+$DM_KAFKA{'location'} = "\$\{PIN_HOME\}/sys/dm_kafka";
+$DM_KAFKA{'pin_cnf_location'} = "$PIN_HOME/sys/dm_kafka";
+$DM_KAFKA{'db_num'}   = "0.0.9.6";
+$DM_KAFKA{'port'}     = "12010";
+$DM_KAFKA{'hostname'} = "$HOSTNAME";
+' >> $FILE
+fi
+
+if [ $NO_PINSETUP == '0' -a $CUSTOM_PINSETUP == '1' ]
+ then
+  echo 'Running pin_setup for optional managers'
+PATH=$PIN_HOME/bin:$PIN_HOME/lib:$PATH
+LD_LIBRARY_PATH=$PIN_HOME/lib64:$PIN_HOME/lib:$LD_LIBRARY_PATH
+PERL5LIB=$PERL5LIB:$PIN_HOME/lib:$PERL_HOME
+SHLIB_PATH=$SHLIB_PATH:$PIN_HOME/lib64:$PIN_HOME/lib
+LIBRARYEXTENSION=.so
+LIBRARYPREFIX=lib
+JAVA_HOME=$JAVA_HOME
+BRM_WALLET=$PIN_HOME/wallet/client
+BRM_CONF_WALLET=$PIN_HOME/wallet/client
+export PIN_HOME PIN_LOG_DIR PIN_LOG PATH LD_LIBRARY_PATH PERL5LIB SHLIB_PATH LIBRARYEXTENSION LIBRARYPREFIX JAVA_HOME BRM_WALLET BRM_CONF_WALLET
+  cd $PIN_HOME/setup;./pin_setup
+else
+ echo 'Skipping pin_setup.....' 
+fi
+
+sed 's/$NO_PINSETUP.*/$NO_PINSETUP = 0;/g' $FILE > $FILE.temp && mv $FILE.temp $FILE
+sed 's/$CUSTOM_PINSETUP.*/$CUSTOM_PINSETUP = 0;/g' $FILE > $FILE.temp && mv $FILE.temp $FILE
+

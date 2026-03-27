@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2011, 2016, Oracle and/or its affiliates. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="CorrBillConfigurationType">
+                <xs:choice id="BillingInfoChoice">
+			<xs:element name="Accounts" type="businessConfig:AccountNoType" maxOccurs="unbounded"/>
+			<xs:element name="Bills" type="businessConfig:BillNoType" maxOccurs="unbounded"/>
+                  </xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="AccountNoType">
+		<xs:sequence>
+                	<xs:element name="AccountNo" type="xs:string" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="BillNoType">
+		<xs:sequence>
+                	<xs:element name="BillNo" type="xs:string" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

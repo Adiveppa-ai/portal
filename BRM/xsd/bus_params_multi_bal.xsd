@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"	
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2022, Oracle and/or its affiliates.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsMultiBalType">
+		<xs:sequence>
+
+			<xs:element name="SortValidityBy">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					When consuming validity-based sub-balances,
+				 	this parameter decides the default consumption
+					rule. Possible values are EST (1), LST(2), EET (3),
+					LET (4), ESTLET (5), ESTEET(6),  LSTEET (7),
+					LSTLET (8), EETEST (9), EETLST (10), LETEST (11), LETLST (12).
+					</xs:documentation>
+				</xs:annotation>
+
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="EST"/>
+						<xs:enumeration value="LST"/>
+						<xs:enumeration value="EET"/>
+						<xs:enumeration value="LET"/>
+						<xs:enumeration value="ESTLET"/>
+						<xs:enumeration value="ESTEET"/>
+						<xs:enumeration value="LSTEET"/>
+						<xs:enumeration value="LSTLET"/>
+						<xs:enumeration value="EETEST"/>
+						<xs:enumeration value="EETLST"/>
+						<xs:enumeration value="LETEST"/>
+						<xs:enumeration value="LETLST"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RestrictResourceValidityToOffer">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					This parameter decides if the validity of resource valid
+					from first usage has to be restricted by the validity
+					of the product or discount granting the resource.
+					FALSE (0) disabled.
+					TRUE (1) enabled.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="FALSE"/>
+						<xs:enumeration value="TRUE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="BalanceMonitoring">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                        Enable/Disable Balance Monitoring . The parameter values can be 0 (disabled
+), 1 (enabled). Default is 0 (disabled).
+                                        </xs:documentation>
+                                </xs:annotation>
+				<xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:enumeration value="disabled"/>
+                                                <xs:enumeration value="enabled"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+				
+			<xs:element name="LockConcurrency">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					Indicates the concurrency of object 
+					locking. Possible values are normal(0)
+					to lock the account object and high(1) 
+					to have more concurrency of locking 
+					with greater granularity in terms of 
+					which balance group to lock. Default
+					is high(1). 
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="normal"/>
+						<xs:enumeration value="high"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CreditThresholdChecking"> 
+				<xs:annotation> 
+					<xs:documentation xml:lang="en"> 
+					Enable/Disable credit threshold checking during offline 
+					processing.  The parameter values can be: 
+					0 (disabled), 
+					1 (enabledOffline). 
+					Default is 0 (disabled).  We may want additional 
+					values in the future (i.e. enabledRealtime, enabled, etc.) 
+				</xs:documentation> 
+				</xs:annotation> 
+				<xs:simpleType> 
+					<xs:restriction base="xs:string"> 
+						<xs:whiteSpace value="collapse"/> 
+						<xs:enumeration value="disabled"/> 
+						<xs:enumeration value="enabledOffline"/> 
+					</xs:restriction> 
+				</xs:simpleType> 
+			</xs:element> 
+ 			<xs:element name="ConsumeSubType">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                        Order of Loan or Main Balance Consumption
+                                        processing.  The parameter values can be:
+                                        main (0),
+                                        loan (1).
+                                        Default is main balance(0). We may want additional
+                                        values in the future (i.e. loan, etc.)
+                                </xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:enumeration value="main"/>
+                                                <xs:enumeration value="loan"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+			<xs:element name="SkipBalMonitorImpact" minOccurs="0" maxOccurs="1"> 
+				<xs:annotation> 
+					<xs:documentation xml:lang="en"> 
+					Allows Balance Monitor Impact to skip during OBG 
+					monitor create/update/delete events processing.
+					The parameter values can be: 
+					0 (disabled, default impact monitor bal), 
+					1 (Skip Monitor Impact during OBG create/update event), 
+					2 (Skip Monitor Impact during OBG delete event), 
+					3 (Skip Monitor Impact during OBG create/update/delete event). 
+				</xs:documentation> 
+				</xs:annotation> 
+				<xs:simpleType> 
+					<xs:restriction base="xs:string"> 
+						<xs:whiteSpace value="collapse"/> 
+						<xs:enumeration value="0"/> 
+						<xs:enumeration value="1"/> 
+						<xs:enumeration value="2"/> 
+						<xs:enumeration value="3"/> 
+					</xs:restriction> 
+				</xs:simpleType> 
+			</xs:element> 
+
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+

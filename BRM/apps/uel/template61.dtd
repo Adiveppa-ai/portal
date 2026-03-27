@@ -1,0 +1,107 @@
+<!ELEMENT template (version?,
+		    name,
+		    start_line,
+		    loading_controls,
+		    file_type?,
+		    file_format,
+		    comment_line_prefix?,
+		    global_record_info,
+		    global_field_info,
+		    records)>
+		<!ELEMENT version (#PCDATA)>
+		<!ELEMENT name (#PCDATA)>
+		<!ELEMENT start_line (#PCDATA)>
+
+		<!ELEMENT loading_controls ANY>
+			<!ATTLIST loading_controls group_by CDATA #REQUIRED>
+		<!ELEMENT file_type (#PCDATA)>
+		<!ELEMENT file_format (#PCDATA)>
+		<!ELEMENT comment_line_prefix ANY>
+
+		<!ELEMENT global_record_info (record_delimiter?,
+					      discard_prefix?,
+					      record_type_locator?,
+					      record_length_locator?,
+					      ignore_record_types?,
+					      record_length?)>
+			<!ELEMENT record_delimiter ANY>
+			<!ELEMENT discard_prefix ANY>
+			<!ELEMENT record_type_locator ANY>
+				<!ATTLIST record_type_locator name CDATA #IMPLIED>
+				<!ATTLIST record_type_locator position CDATA #IMPLIED>
+				<!ATTLIST record_type_locator start CDATA #IMPLIED>
+				<!ATTLIST record_type_locator end CDATA #IMPLIED>
+			<!ELEMENT record_length_locator ANY>
+				<!ATTLIST record_length_locator name CDATA #IMPLIED>
+				<!ATTLIST record_length_locator position CDATA #IMPLIED>
+				<!ATTLIST record_length_locator start CDATA #IMPLIED>
+				<!ATTLIST record_length_locator end CDATA #IMPLIED>
+			<!ELEMENT ignore_record_types (ignore_record_type*)>
+				<!ELEMENT ignore_record_type (#PCDATA)>
+			<!ELEMENT record_length (#PCDATA)>
+			
+		<!ELEMENT global_field_info (trim_white_space?,
+					     padding_char?,
+					     field_delimiter?,
+					     justification?,
+					     attribute_value_separator?,
+					     consecutive_delimiters_is_one?,
+					     literal_indicator?,
+					     missing_field_indicator?)>
+			<!ELEMENT trim_white_space (#PCDATA)>
+			<!ELEMENT padding_char (#PCDATA)>
+			<!ELEMENT field_delimiter ANY>
+			<!ELEMENT justification (#PCDATA)>
+			<!ELEMENT attribute_value_separator ANY>
+			<!ELEMENT consecutive_delimiters_is_one (#PCDATA)>
+			<!ELEMENT literal_indicator ANY>
+			<!ELEMENT missing_field_indicator ANY>
+
+		<!ELEMENT records (record*)>
+			<!ELEMENT record (field_definitions?,
+					  user_mapping_info?,
+					  event_mapping_info?,
+					  filters?,
+					  checks?)>
+				<!ATTLIST record name CDATA #REQUIRED>
+				<!ATTLIST record type CDATA #IMPLIED>
+				<!ATTLIST record record_length CDATA #IMPLIED>
+				<!ATTLIST record event_class CDATA #IMPLIED>
+				<!ATTLIST record service_class CDATA #IMPLIED>
+				<!ATTLIST record event_opcode_name CDATA #IMPLIED>
+				<!ATTLIST record event_opcode_num CDATA #IMPLIED>
+				<!ATTLIST record user_info_opcode_name CDATA #IMPLIED>
+				<!ATTLIST record user_info_opcode_num CDATA #IMPLIED>
+			    <!ELEMENT field_definitions (field*)>
+				<!ELEMENT field (field*)>
+					<!ATTLIST field name CDATA #IMPLIED>
+					<!ATTLIST field start CDATA #IMPLIED>
+					<!ATTLIST field end CDATA #IMPLIED>
+					<!ATTLIST field position CDATA #IMPLIED>
+					<!ATTLIST field data_type CDATA #IMPLIED>
+					<!ATTLIST field override_value CDATA #IMPLIED>
+					<!ATTLIST field default_value CDATA #IMPLIED>
+					<!ATTLIST field date_format_string CDATA #IMPLIED>
+					<!ATTLIST field inf_data_type CDATA #IMPLIED>
+					<!ATTLIST field inf_data_type_num CDATA #IMPLIED>
+					<!ATTLIST field inf_field_name CDATA #IMPLIED>
+					<!ATTLIST field inf_field_num CDATA #IMPLIED>
+					<!ATTLIST field elem_num CDATA #IMPLIED>
+					<!ATTLIST field elem_position CDATA #IMPLIED>
+		
+			    <!ELEMENT user_mapping_info (field*)>
+			    <!ELEMENT event_mapping_info (field*)>
+			    <!ELEMENT filters (filter*)>
+				<!ELEMENT filter (regexp, infix_regexp?)>
+				   <!ATTLIST filter name CDATA #REQUIRED>
+				   <!ATTLIST filter discard CDATA #REQUIRED>
+				   <!ATTLIST filter log CDATA #REQUIRED>
+					<!ELEMENT regexp ANY>
+					<!ELEMENT infix_regexp ANY>
+			    <!ELEMENT checks (check*)>
+					<!ELEMENT check (#PCDATA)>
+						<!ATTLIST check name CDATA #REQUIRED>
+						<!ATTLIST check type CDATA #REQUIRED>
+						<!ATTLIST check expr CDATA #REQUIRED>
+						<!ATTLIST check field_name CDATA #IMPLIED>
+						<!ATTLIST check field_pos CDATA #REQUIRED>

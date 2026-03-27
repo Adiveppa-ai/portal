@@ -1,0 +1,61 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_COLLECTIONS_RESCHEDULE_ACTION" visibility="public" transaction="required" component="fm_collections" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc> Reschedules a collections action </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The action poid</Doc>
+        <ClassRef>obj://collections_action</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_ACCOUNT_OBJ" use="optional" mode="complete">
+        <Doc> The account poid</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Poid name="PIN_FLD_USERID" use="optional" mode="complete">
+        <Doc> The account poid (i.e. The login account poid)</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Timestamp name="PIN_FLD_DUE_T" use="required">
+        <Doc> The new due date for the action</Doc>
+      </Timestamp>
+      <Int name="PIN_FLD_DAYS" use="optional">
+        <Doc> The slipdays for the following actions.Three options PIN_FLD_DAYS=0
+				( or non-existant), won't touch the following actions.PIN_FLD_DAYS&gt;0, The actual number
+				of days to slip the following actions.PIN_FLD_DAYS less than 0 
+				cancel the following actions</Doc>
+      </Int>
+      <String name="PIN_FLD_PROGRAM_NAME" use="optional" maxlen="255">
+        <Doc> The program name</Doc>
+      </String>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The action poid</Doc>
+        <ClassRef>obj://collections_action</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

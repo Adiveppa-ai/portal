@@ -1,0 +1,184 @@
+//==============================================================================
+//
+//      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: 
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module can be used to map the EDR fields with their
+//   correct values in TAP standard while writing a TAP file. These fields will
+//   be mapped based on TAP 3.10 standard.
+//   This script has to be modified by the user as per his requirements and his 
+//   values.
+//
+//------------------------------------------------------------------------------
+//
+// Revision 1.0  2003/12/10 jithendranath
+// Initial rev.
+//
+//==============================================================================
+
+Bool debug;
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;	// true;
+
+  if (debug)
+  {
+    logStdout("Begin\n");
+  }
+
+}
+
+//==============================================================================
+// Function declarations
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// init()
+//------------------------------------------------------------------------------
+function init
+{
+  if (debug)
+  {
+    logStdout("init()\n");
+  }
+}
+
+//------------------------------------------------------------------------------
+// mapEDRtoTAPCP()
+//
+// This function will be used to map fields from EDR to TAP standard value
+// for charge packet.
+//------------------------------------------------------------------------------
+function mapEDRtoTAPCP
+{
+	if (debug)
+	{
+		logStdout("mapEDRtoTAPCP()\n");
+	}
+
+       Long acbCount = edrNumDatablocks( DETAIL.ASS_CBD );
+       Long CPcount	= edrNumDatablocks( DETAIL.ASS_CBD.CP, 0 );
+       Long currentCPidx = 0;
+       Long currentACBidx = 0;
+ 
+       for (currentACBidx = 0; acbCount > currentACBidx; currentACBidx = currentACBidx + 1)
+       {
+         for (currentCPidx = 0; CPcount > currentCPidx; currentCPidx = currentCPidx + 1)
+         {
+           //Map Day Category
+           if ( edrString(DETAIL.ASS_CBD.CP.DAY_CODE, currentACBidx , currentCPidx)  == "Weekday" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_CODE, currentACBidx , currentCPidx)  = "N" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.DAY_CODE, currentACBidx , currentCPidx)  == "Weekend" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_CODE, currentACBidx , currentCPidx)  = "P" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.DAY_CODE, currentACBidx , currentCPidx)  == "Alldays" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_CODE, currentACBidx , currentCPidx)  = "I" ;
+	   }
+
+           //Map Time Band
+           if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20012" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "O" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20021" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "I" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20031" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "P" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20032" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "O" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20033" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "O" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20001" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "P" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20002" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "S" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20003" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "S" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20004" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.DAY_TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "S" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  == "20011" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.TIME_INTERVAL_CODE, currentACBidx , currentCPidx)  = "P" ;
+	   }
+
+           //Map Charged Item
+           if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "DUR" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "D" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "SND" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "V" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "REC" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "W" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "EVT" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "E" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "AIR" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "D" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "TOL" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "D" ;
+	   }
+           else if ( edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  == "OCC" )
+	   {
+           	edrString(DETAIL.ASS_CBD.CP.RUM, currentACBidx , currentCPidx)  = "F" ;
+	   }
+
+         } // End for currentCPidx
+       } // End For currentACBidx 
+}  //End mapEDRtoTAPCP
+
+//==============================================================================
+// Process Detail EDR record
+//==============================================================================
+function onDetailEdr
+{
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+  init();
+
+  //----------------------------------------------------------------------------
+  // Start Mapping EDR fields to TAP standard values for Charge Packet.
+  //----------------------------------------------------------------------------
+  mapEDRtoTAPCP();
+
+} // end onDetailEdr

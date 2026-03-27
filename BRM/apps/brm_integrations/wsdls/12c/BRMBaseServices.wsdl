@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BASE" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_SEARCH.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_READ_OBJ.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_READ_FLDS.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_SEARCH_inmsg">
+        <part element="brm:PCM_OP_SEARCH_inputFlist" name="PCM_OP_SEARCH_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SEARCH_outmsg">
+        <part element="brm:PCM_OP_SEARCH_outputFlist" name="PCM_OP_SEARCH_outputFlist"/>
+    </message>
+    <message name="PCM_OP_READ_OBJ_inmsg">
+        <part element="brm:PCM_OP_READ_OBJ_inputFlist" name="PCM_OP_READ_OBJ_inputFlist"/>
+    </message>
+    <message name="PCM_OP_READ_OBJ_outmsg">
+        <part element="brm:PCM_OP_READ_OBJ_outputFlist" name="PCM_OP_READ_OBJ_outputFlist"/>
+    </message>
+    <message name="PCM_OP_READ_FLDS_inmsg">
+        <part element="brm:PCM_OP_READ_FLDS_inputFlist" name="PCM_OP_READ_FLDS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_READ_FLDS_outmsg">
+        <part element="brm:PCM_OP_READ_FLDS_outputFlist" name="PCM_OP_READ_FLDS_outputFlist"/>
+    </message>
+    <portType name="BRMBASEService_ptt">
+        <operation name="PCM_OP_SEARCH">
+            <input message="brm:PCM_OP_SEARCH_inmsg" name="PCM_OP_SEARCH_Request"/>
+            <output message="brm:PCM_OP_SEARCH_outmsg" name="PCM_OP_SEARCH_Response"/>
+        </operation>
+        <operation name="PCM_OP_READ_OBJ">
+            <input message="brm:PCM_OP_READ_OBJ_inmsg" name="PCM_OP_READ_OBJ_Request"/>
+            <output message="brm:PCM_OP_READ_OBJ_outmsg" name="PCM_OP_READ_OBJ_Response"/>
+        </operation>
+        <operation name="PCM_OP_READ_FLDS">
+            <input message="brm:PCM_OP_READ_FLDS_inmsg" name="PCM_OP_READ_FLDS_Request"/>
+            <output message="brm:PCM_OP_READ_FLDS_outmsg" name="PCM_OP_READ_FLDS_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMBASEService_plt">
+        <plt:role name="BRMBASEService_role">
+            <plt:portType name="brm:BRMBASEService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

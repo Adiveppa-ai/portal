@@ -1,0 +1,108 @@
+#!/bin/sh
+###########################################################################
+#
+# $Header: install_vob/install_common/Unix/install/pin_setup_template.sh /cgbubrm_mainbrm.portalbase/7 2018/07/26 02:46:56 mkothari Exp $
+# 
+# Copyright (c) 1997, 2024, Oracle and/or its affiliates. 
+#
+#    This material is the confidential property of Oracle Corporation
+#    or its licensors and may be used, reproduced, stored
+#    or transmitted only in accordance with a valid Oracle license or
+#    sublicense agreement.
+#########################################################################
+
+#================================================
+# This env variable will spew out a lot of verbose
+# logging info into the log file.  To turn it off,
+# comment out this line
+#================================================
+
+DEBUG=1
+
+
+PLATFORM=`uname`
+VERSION=15.0
+PINHOME=/home/pin/opt/portal/BRM
+PERL_PROGRAM=/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+PERL_DIRECTORY=`echo $PERL_PROGRAM | sed 's/\/perl$//'`
+PINUSER=pin
+
+echo " "
+
+# Check to see if <Infanet dir>/bin is in the PATH
+
+MYPATH=`echo $PATH | grep $PINHOME/bin`
+
+if [ "$MYPATH" = "" ]; then
+       echo "The PATH variable does not contain $PINHOME/bin ." |tee -a $LOG
+       echo "Please update your PATH variable." |tee -a $LOG
+       echo "Exiting this script.\n" | tee -a $LOG
+   exit 1
+fi
+
+echo "PATH variable IS O.K..."
+
+# Check to see if <Infanet dir>/lib is in the LD_LIBRARY_PATH
+
+VARNAME="LD_LIBRARY_PATH"
+MYLDPATH=`echo $LD_LIBRARY_PATH | grep $PINHOME/lib`
+
+if [ "$MYLDPATH" = "" ]; then
+      echo "The $VARNAME variable does not contain $PINHOME/lib ." |tee -a $LOG
+      echo "Please update your $VARNAME variable." |tee -a $LOG
+      echo "Exiting this script.\n" | tee -a $LOG
+   exit 1
+fi
+
+
+echo "$VARNAME variable IS O.K...\n"
+
+USER=`/usr/bin/whoami`
+GROUP=`groups | grep pin`
+
+if [ "$USER" != "$PINUSER" ]; then
+   echo "Change your username to $PINUSER and restart the script.\n" | tee -a $LOG
+   echo "currently, you are $USER.\n" | tee -a $LOG
+   exit 1 
+fi
+
+echo "You are the $PINUSER user" | tee -a $LOG 
+
+echo "Starting setup.\n"
+
+# Modify the needed configuration files.
+
+#../bin/perl create_confs.pl
+
+# Call the perl script for configuring portal
+# cd to the scripts directory.  Assume that this script is in 
+# $PIN_CONF_INFRANET_BASE/setup and being run from there.
+
+cd ./scripts
+
+if [ "$DEBUG" = "1" ]; then
+        $PERL_PROGRAM pin_setup.pl $1 $2 $3 $4 $5 $6 $7 $8 $9
+else
+        $PERL_PROGRAM pin_setup.pl $1 $2 $3 $4 $5 $6 $7 $8 $9 >> $PIN_HOME/setup/pin_setup.log 2>>$PIN_HOME/setup/pin_setup.log
+fi
+
+status=$?
+
+if [ $status -ne 0 ]
+then
+        # Portal install was not successful
+        if [ "$DEBUG" = "1" ]; then
+            echo
+            echo "You may view errors in pin_setup.log"
+        else
+            echo "You may view errors in $PIN_HOME/setup/pin_setup.log"
+        fi
+        if [ ! -z ${DOCKER} ] && [ ${DOCKER} -eq 1 ];
+        then
+            if [ -f "/oms_logs/tmp.out" ];
+            then
+                cat /oms_logs/tmp.out
+            fi
+        fi
+        exit 1
+fi

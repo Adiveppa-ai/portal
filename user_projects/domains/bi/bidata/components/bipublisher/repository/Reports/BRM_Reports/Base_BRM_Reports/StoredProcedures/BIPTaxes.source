@@ -1,0 +1,75 @@
+---
+---     Copyright (c) 2008 Oracle. All rights reserved.
+---     This material is the confidential property of Oracle Corporation
+---     or its licensors and may be used, reproduced, stored
+---     or transmitted only in accordance with a valid Oracle license or
+---     sublicense agreement.
+---
+create or replace PACKAGE BIP_TAXES
+AS
+   FUNCTION GET_JURISDICTION (
+      pjurisdiction       IN   VARCHAR2,
+      pjurisdictiontype   IN   VARCHAR2
+   )
+      RETURN VARCHAR2;
+END;
+/
+
+create or replace
+PACKAGE BODY BIP_TAXES
+AS
+   FUNCTION GET_JURISDICTION (
+      pjurisdiction       IN   VARCHAR2,
+      pjurisdictiontype   IN   VARCHAR2
+   )
+      RETURN VARCHAR2
+   IS
+      outputjusridiction   VARCHAR2 (512);
+      inputjusridiction    VARCHAR2 (512);
+      val_index            INTEGER;
+      del_pos              INTEGER;
+      next_del_pos         INTEGER;
+      del                  CHAR:=';';
+   BEGIN
+       --- "event_tax_jurisdictions_t"."TYPE" has following values
+      --- Federal (0), State (1), County (2), City (3), Secondary County (4),
+      --- Secondary City (5), Territory (6), Secondary State (7) and District (8).
+      IF pjurisdictiontype = 'FEDERAL' THEN
+         val_index := 1;
+      ELSIF pjurisdictiontype = 'STATE' THEN
+         val_index := 2;
+      ELSIF pjurisdictiontype = 'COUNTY' THEN
+         val_index := 3;
+      ELSIF pjurisdictiontype = 'CITY' THEN
+         val_index := 4;
+      END IF;
+      
+      inputjusridiction := del || pjurisdiction || del ;
+      
+      del_pos := instr(inputjusridiction, del, 1, val_index)+1;
+      next_del_pos := instr(inputjusridiction, del, 1, val_index+1);
+      
+      IF del_pos = 0 or next_del_pos = 0 THEN 
+            IF pjurisdictiontype = 'FEDERAL'  THEN
+                   RETURN 'UNKNOWN COUNTRY';
+            ELSE 
+                   RETURN 'UNKNOWN ' || pjurisdictiontype;
+            END IF;
+     END IF;
+     
+     outputjusridiction := SUBSTR(inputjusridiction, del_pos, (next_del_pos)-del_pos);
+
+     outputjusridiction := TRIM (outputjusridiction);
+
+      IF outputjusridiction = '' OR outputjusridiction is NULL THEN 
+            IF pjurisdictiontype = 'FEDERAL'  THEN
+                   RETURN 'UNKNOWN COUNTRY';
+            ELSE 
+                   RETURN 'UNKNOWN ' || pjurisdictiontype;
+            END IF;
+     END IF;
+
+          RETURN outputjusridiction;
+   END GET_JURISDICTION;
+END BIP_TAXES;
+/

@@ -1,0 +1,11 @@
+#
+PCM_OP_BILL_DEBIT
+# number of field entries allocated 8, used 8
+0 PIN_FLD_POID           POID [0] $APD
+0 PIN_FLD_PROGRAM_NAME    STR [0] "opcode_laod"
+0 PIN_FLD_DESCR           STR [0] "Batch event for $L"
+0 PIN_FLD_START_T      TSTAMP [0] $T
+0 PIN_FLD_END_T        TSTAMP [0] $T
+0 PIN_FLD_DEBIT         ARRAY [840] allocated 2, used 2
+1     PIN_FLD_TYPE           ENUM [0] 882
+1     PIN_FLD_BAL_OPERAND  DECIMAL [0] 99.00

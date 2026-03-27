@@ -1,0 +1,33 @@
+//==============================================================================
+//
+// Copyright (c) 2008, 2009, Oracle and/or its affiliates.All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//-------------------------------------------------------------------------------
+// ISC_SwapChargingIdAndChainReference.isc
+//-------------------------------------------------------------------------------
+//
+
+function onDetailEdr
+{
+  Long blockIndex = 0;
+
+  if ( edrNumDatablocks(DETAIL.ASS_GPRS_EXT) > 0 )
+  {
+    String chainReference = edrString(DETAIL.CHAIN_REFERENCE);
+
+    edrString(DETAIL.CHAIN_REFERENCE) = longToStr(decimalToLong(edrDecimal(DETAIL.ASS_GPRS_EXT.CHARGING_ID, 0)));
+    if ( edrNumDatablocks(DETAIL.ASS_GSMW_EXT) > 0 )
+    {
+      for (blockIndex = 0; blockIndex < edrNumDatablocks(DETAIL.ASS_GSMW_EXT.BS_PACKET, 0); blockIndex = blockIndex + 1)
+      {
+        edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHAIN_REFERENCE, 0, blockIndex) = longToStr(decimalToLong(edrDecimal(DETAIL.ASS_GPRS_EXT.CHARGING_ID, 0)));
+      }
+    }
+
+    edrDecimal(DETAIL.ASS_GPRS_EXT.CHARGING_ID, 0) = strToDecimal(chainReference);
+  }
+}

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+    targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+ Copyright (c) 2005, 2022, Oracle and/or its affiliates. All rights reserved.
+      This material is the confidential property of Oracle Corporation or its
+      licensors and may be used, reproduced, stored or transmitted only in   
+      accordance with a valid Oracle license or sublicense agreement.        
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="BusParamsSubscriptionType">
+    <xs:sequence>
+
+      <xs:element name="DiscountBasedOnContractDaysFeature" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to enable contract days counter feature. This needs to be set to 1 if the accounts contain the resource contract days counter.Set this parameter to 0 if the account does not contain the resource contract days counter.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="BestPricing" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to enable or disable best pricing feature. 1 means enabled.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+
+      <xs:element name="RolloverTransfer" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to enable or disable rollover transfer feature.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="AutomatedMonitorSetup" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to enable or disable automated monitor setup. Affects processing logic.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="BillTimeDiscountWhen" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+           Parameter to indicate time to apply discount during billing. This discount could be applied either at each accounting cycle time or at the billing cycle time (i.e in the last accounting cycle in the case of multi-month billing cycle). The posible values are 0 (apply discount at each accounting cycle) and 1 (apply discount at billing cycle time). Default is 0. 
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+        <xs:element name="ProductLevelValidation" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to enable or disable product level validation during Deal Dependency checks.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+        <xs:element name="MaxServicesToSearch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to configure the number of services to search in at a time during the retrieval of purchased offerings for a billinfo by the opcode PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS. Default is 5. Increasing the value might cause the select statement to fail, depending on the length of the poids involved in the search. 
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+	<xs:element name="CancelFullDiscountImmediate" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to enable or disable immediate cancellation of discount with proration setting of FULL. The posible values are 0(set end date to cycle end) and 1 (set end date and cancel the discount immediately). Default is 0.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="TailormadeProductsSearch" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to disable the search for tailormade products during the application of cycle fees. This parameter should be disabled only if advanced customization of products has not been used.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="CancelledOfferingsSearch" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+           Parameter to disable the search for cancelled offerings during billing. 
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="AllowBackdateNoRerate" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+           Parameter to allow backdating beyond the number of billing cycles specified in the cm pin.conf entry 'fm_subs num_billing_cycles', but without creating  the auto-rerate job. The possible values are 0 (Do not allow backdating beyond 'num_billing_cycles') and 1 (Allow backdating beyond 'num_billing_cycles' without creating auto-rerate job). Default is 0. 
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="SubsDis74BackDateValidations" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to disable the backdated validations in 7.4. The possible values are 0 and 1. Default is 0.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="TransferScheduledActions" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to trigger policy opcode PCM_OP_SUBSCRIPTION_POL_POST_TRANSFER_SUBSCRIPTION which will transfer /schedule objects to new account. The possible values are 0 (Do not trigger policy opcode) and 1 (Trigger policy opcode). Default is 0.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="TransferRerateRequests" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to disable creating rerate requests as part of subscription transfer. Default is 1(enabled). If disabled rerate requests will not be created as part of OOB subscription transfer
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="EventAdjustmentsDuringCancellation">
+        <xs:annotation>
+	  <xs:documentation xml:lang="en">
+Parameter to allow accounting for event adjustments on cycle fees while calculating the refund during product inactivation or cancellation. The possible values are 0 (Do not consider event adjustments on the cycle fees while calculating refund) and 1 (Consider event adjustments on the cycle fees and refund based on original charge minus adjustments). Default is 0."
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="MultiplePlan" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+	   Parameter to return multiple instances of the plan purchased. The posible values are 0(Return a single instance of the plan purchased) and 1(Return all the instances of the plan purchased). Default is set to 0.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      
+      <xs:element name="UsePrioritySubscriptionFees" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+	    Parameter to make subscription charging use product priority while applying cycle fees (/event/billing/product/fee/cycle) during billing/deal purchase/cancel. This does not take care of discount priority or refunds due to any other operations like inactivations for now. MTA utilities like pin_cycle_fees does not support product prioritization when used with -defer_cancel or -cancel. This may impact performance if large number of offers are present, hence use judiciously. Possible values are 0 (do not use the priority) and 1 (use priority).
+	  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+
+      <xs:element name="RecreateDuringSubscriptionTransfer" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		If this parameter is true then objects will be recreated in a cease+reprovide model. Tranfer across the schemas is possible only if this parameter is true.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="CreateTwoEventsInFirstCycle" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to create two events if the product end date is set in the first cycle. If this parameter is enabled, then there will be a charge for full cycle and then there will be a refund from product end to end of the cycle.By default this parameter will be disabled.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="ApplyProrationRules" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Parameter to indicate whether proration rules need to be applied when purchase or cancellation occur exactly on cycle boundaries. By default this parameter is disabled and proration rules will not be applied in such cases. If enabled the rules will be applied.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="TimestampRounding" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Rounds timestamps of purchased products and discounts. can have 2 values: 1(round timestamp) and (0 do not round timestamp)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="GetRatePlanFromCache" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		During purchase product BRM will try to fetch all the rate plans available for the product from cache. If the RATE_PLANS are huge then it will cause performance issue during purchase product. If this parameter is disabled then BRM will not fetch RATE_PLANS thus increasing performance during purchase product which might impact billing performance. Default value is enabled
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="ApplyValidityDiscountRules">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Parameter to indicate whether discount validity rules need to be applied. Parameter values can be 0 (default) indicates discount validity rules will not be applied if the discount purchase/cancel happens exactly on cycle boundaries, value 0x01(decimal value 1) indicates rules will be applied in all cases, value 0x02(decimal value 2) indicates force reversal of charges if the cancel happens on the same date of discount purchase irrespactive of rules configured. Values can be clubbed(added) together to achieve multiple functionality.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    
+      <xs:element name="CreateRerateJobDuringCancel">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+               Auto create rerate jobs during product cancellation for NCR resources.Parameter values can be 0 means no rerate job will be created and 1 means rerate job will be created.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="DefaultZoneMapName">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Default zonemap name used for location based operations.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+        <xs:element name="MaxRetryCount">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to configure the maximum retry count to be considered before sending an error in case of the rental failure. Default value is 0.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+	
+	<xs:element name="ApplyChargeOnInactiveOrCancelProduct" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+               Parameter to apply charge on a product even if the product is in inactive or cancelled state based on the configuration set on product charging behavior from PDC. Default value is disabled by default. 
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="LoanRepaymentPercent">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to configure the percentage going towards loan repayment in case of underpayment, It ranges from 0 to 100, 0 being No amount goes towards loan and 100 being entire amount. Default value is 100
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="100"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+        <xs:element name="ApplyRolloverBeforeCycleFees">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Parameter to control whether to call PCM_OP_SUBSCRIPTION_CYCLE_ROLLOVER during PCM_OP_SUBSCRIPTION_CYCLE_FORWARD opcode. The Default value is disabled (0) by default. If enabled (1) , cycle_rollover will be called.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+        <xs:element name="ServiceTransferEnabled">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Parameter to control whether the service transfer feature is enabled. The default value is enabled (1). If disabled (0), the service transfer feature will not be allowed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+	<xs:element name="AutomatedGroupSharingSetup">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+                Parameter to control whether to Automatic Sharing for DSG or PSG is enabled. The Default value is disabled (0) by default. For DSG value (1) , PSG value (2), For both DSG and PSG value 3.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+        <xs:element name="BackdateTriggerAutoRerate">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+               Parameters to control auto-rerate job objects used by pin_rerate. The default value is disabled (0) indicates rerate object is not automatically created for backdated actions that could cause the need for rerating. If enabled (1), the auto-rerate feature is automatically created.The application pin_rerate can look for these objects and use them to determine which events need rerating and how far back to go.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+    
+      <xs:element name="ReduceLoanBalDuringRecovery">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Parameter to configure if loan balance should be reduced during recovery. Default value is 0 (disabled)
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="1"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="NumBillingCycles">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+	    Specifies the maximum number of billing cycles allowed between the current time and the backdated event time of a backdated operation.The default is 1 billing cycle
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="1"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="EventFetchSize">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+	   Size used for step search while searching events in rerating/rebilling This value can be changed as per the required number of events to be searched. Default Value is 10000
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="10000"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+        <xs:element name="PropagateDiscount">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Enable immediate propagation of shared discount when a new discount is added/deleted to the group or a member subscribes/unsubscribes to the group. By default, it is disabled. Set the value to enabled(1) to enable.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+        <xs:element name="RateChange">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		Enables or disables the enhanced rate change management feature. If this feature is enabled then rate changes for cycle events in the middle of the cycle will be handled according to old and new rates prorated. If disabled only the old rate will be applied.Default value is disabled(0) for enhanced rate change management feature. To enable enhanced rate change management feature set the value to enabled(1).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="KeepCancelledProductsOrDiscounts">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+	   Specifies whether to keep canceled products and discounts. Default Value is Enabled (1), keeps the canceled products and discounts. If disabled (0), Deletes the canceled products and discounts. If the canceled products and discounts are deleted, then rerating will not work.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="CdcLineCancelDayInclude">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+          Parameter that decides whether the day on which the Line was created be counted to decrement contract day Default value of line_cancel_day_include is configured as 1
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="1"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="CdcLineCreateDayInclude">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+         Parameter that decides whether the day on which the Line was created be counted to increment contract days Default value of cdc_line_create_day_include is configured as 1
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="1"/>
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="TimestampRoundingDuringApplyLoan" type="businessConfig:switch">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		      Rounds timestamps of loan sub-balance bucket during apply loan. can have 2 values: 1(round timestamp) and (0 do not round timestamp). By default it is 0(disabled).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="DeleteSharingGroupDuringTermination" type="businessConfig:switch" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+		      Parameter to control if sharing group member or sharing group should be deleted during account/service termination. can have 2 values: 1(enabled means delete) and 0 (disabled do not delete). By default it is 0(disabled).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+    </xs:sequence>
+  </xs:complexType>
+
+
+</xs:schema>

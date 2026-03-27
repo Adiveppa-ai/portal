@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BusinessConfiguration
+	xmlns="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.portal.com/schemas/BusinessConfig BusinessConfiguration.xsd"> 
+
+	<!-- Sample input file for pin_bill_accts containing parameters for bill run management -->
+	<!-- Modify according to guidelines -->
+	<BillRunConfiguration> 
+
+		<!-- List of DOMs for this bill run -->
+		<DOMList>
+			<DOM>---25</DOM>
+			<DOM>---26</DOM>
+			<DOM>---27</DOM>
+		</DOMList>
+		<!-- List of billing segments for this bill run -->
+		<BillSegmentList>
+			<BillSegment>210</BillSegment>
+			<BillSegment>310</BillSegment>
+		</BillSegmentList>
+
+		<!-- List of adjustment values for this bill run -->
+		<DueDateAdjustment Length="2"></DueDateAdjustment> 
+
+		<DueDateAdjustment Length="10">  
+			<PaymentTerm>3</PaymentTerm> 
+			<PaymentTerm>6</PaymentTerm> 
+		</DueDateAdjustment> 
+
+		<!-- List of Billinfo to be billed -->
+		<BillingList>
+			<Account>1210</Account>
+			<Billinfo>2341</Billinfo>
+		</BillingList>
+
+		<BillingList>
+                        <Account>2101</Account>
+                        <Billinfo>23411</Billinfo>
+                </BillingList>
+
+
+	</BillRunConfiguration> 
+
+</BusinessConfiguration>

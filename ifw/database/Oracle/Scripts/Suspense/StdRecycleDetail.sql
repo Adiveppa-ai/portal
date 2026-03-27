@@ -1,0 +1,1 @@
+SELECT b.poid_id0, b.pipeline_name, r.recycle_mode, '', b.batch_id, b.suspended_from_batch_id, b.recycle_key, e.edr_buf FROM suspended_usage_t b, susp_usage_edr_buf e, susp_usage_recycle_t r WHERE b.poid_id0 = e.obj_id0 AND b.recycle_obj_id0 = r.obj_id0 AND b.recycle_obj_id0 = ${RECYCLE_JOB_ID} AND NVL(b.pipeline_category,'NULL') = ${PIPELINE_CATEGORY} ORDER BY b.poid_id0

@@ -1,0 +1,189 @@
+#!/bin/sh
+
+
+#####################################
+# 1. remove unwanted stuff
+#####################################
+umask 77             # only user can read the wallet
+unset ORA_SEC_WLT
+
+#####################################
+# 2. identify where this script lives
+#####################################
+TOOLNAME=$0
+mypwd="`pwd`"
+case ${TOOLNAME} in
+  /*)  TOOLDIR=`dirname "${TOOLNAME}"` ;;
+   *)  TOOLDIR=`dirname "${mypwd}/${TOOLNAME}"` ;;
+esac
+
+TOOLHOME=`cd "${TOOLDIR}/.." ; pwd`
+TOOLROOT=`cd "${TOOLHOME}/.." ; pwd`
+
+#####################################
+# 3. locate JRE
+#####################################
+if [ ! -z "$ORACLE_HOME" -a -f "$ORACLE_HOME/jdk/bin/java" ]; then
+    JAVA_HOME=$ORACLE_HOME/jdk
+    export JAVA_HOME
+elif [ -z "$JAVA_HOME" ]; then
+  if [ -f "$TOOLHOME/jdk/bin/java" ]; then
+    JAVA_HOME=$TOOLHOME/jdk
+    export JAVA_HOME
+  elif [ -f "$TOOLHOME/jdk/jre/bin/java" ]; then
+    JAVA_HOME=$TOOLHOME/jdk/jre
+    export JAVA_HOME
+  else
+    echo "ERROR: No Java"
+    echo '$ORACLE_HOME/jdk or $TOOLHOME/jdk or $TOOLHOME/jdk/jre or $JAVA_HOME should point to valid Java runtime'
+    exit 1
+  fi
+elif [ ! -f "$JAVA_HOME/bin/java" ]; then
+    echo "ERROR: No Java"
+    echo '$JAVA_HOME should point to valid Java runtime'
+    exit 1
+fi
+
+#####################################
+# 3. locate Jars
+#####################################
+if [ -d "$TOOLROOT/oracle_common" ]; then
+  MW_MOD=$TOOLROOT/oracle_common/modules
+  PKILOC=${MW_MOD}/oracle.pki
+  RSALOC=${MW_MOD}/oracle.rsa
+  OJLIB=$TOOLROOT/jlib
+elif [ ! -z "$SRCHOME" ]; then
+  PROD_DIST=$SRCHOME/crypto/jlib
+  PKILOC=$PROD_DIST/pki/lib
+  RSALOC=$PROD_DIST/rsa
+elif [ ! -z "$ORACLE_HOME" -a -d "$ORACLE_HOME" ]; then
+  OJLIB=$ORACLE_HOME/jlib
+  PKILOC=$OJLIB
+  RSALOC=$OJLIB
+else
+  OJLIB=$TOOLHOME/jlib
+  PKILOC=$OJLIB
+  RSALOC=$OJLIB
+fi
+
+#PKI=$PKILOC/oraclepki.jar
+#RSA=$RSALOC/cryptoj.jar
+
+PKI=${PIN_HOME}/jars/oraclepki.jar
+RSA=${PIN_HOME}/jars/cryptoj.jar
+
+# Get the platform
+PLATFORM=`uname`
+
+# Some platforms may need other JVM environment variables set
+# or unset as appropriate.Commenting it due to bug 31649818
+#case $PLATFORM in "AIX")
+  #JAVA_COMPILER=NONE
+  #export JAVA_COMPILER
+#esac
+
+# Linux platform uses native threads.
+SET_DEFAULT=YES
+case $PLATFORM in
+"Linux")
+  SET_DEFAULT=NO
+  THREADS_FLAG=native
+  export THREADS_FLAG
+  ;;
+esac
+case $SET_DEFAULT in
+"YES")
+#  we only use green threads for the other platforms
+  THREADS_TYPE=green_threads
+  export THREADS_TYPE
+  ;;
+esac
+
+# Set the shared library path for JNI shared libraries
+# A few platforms use an environment variable other than LD_LIBRARY_PATH
+SET_DEFAULT_VAR=YES
+SLLIBDIRNAME=lib
+
+# for Sparc64, HP-PA, HPI invoke java with -d64 option to run in 64-bit mode.
+JAVAMODE=
+# for specific platforms reset variables and set others as needed.
+case $PLATFORM in
+"HP-UX") JAVAMODE=-d64 ;;
+"AIX")
+  SET_DEFAULT_VAR=NO
+  LIBPATH=$TOOLHOME/$SLLIBDIRNAME:$TOOLHOME/network/$SLLIBDIRNAME:$LIBPATH
+  export LIBPATH
+  ;;
+"SunOS")
+  PLATFORM_ARCH=`uname -p`
+  case $PLATFORM_ARCH in
+  "sparc") JAVAMODE="-d64 -XX:+IgnoreUnrecognizedVMOptions" ;;
+  "i386") JAVAMODE="-d64 -XX:+IgnoreUnrecognizedVMOptions" ;;
+  esac
+  ;;
+esac
+
+# if still selected, set the default variable name:LD_LIBRARY_PATH.
+if [ $SET_DEFAULT_VAR = YES ]
+then
+  if [ "$LD_LIBRARY_PATH" ]
+  then
+    LD_LIBRARY_PATH=$TOOLHOME/$SLLIBDIRNAME:$TOOLHOME/network/$SLLIBDIRNAME:$LD_LIBRARY_PATH
+  else
+    LD_LIBRARY_PATH=$TOOLHOME/$SLLIBDIRNAME:$TOOLHOME/network/$SLLIBDIRNAME
+  fi
+  export LD_LIBRARY_PATH
+fi
+
+# If any of the args is equal to "-fips140_mode" then assume FIPS 140 mode.
+FIPS140_MODE_FLAG=FALSE
+for arg in "$@"
+do
+  if [ "X$arg" = X-fips140_mode ]; then
+    FIPS140_MODE_FLAG=TRUE
+  fi
+done
+
+################################################
+# Check if FIPS mode is enabled via config file
+################################################
+
+if [ $FIPS140_MODE_FLAG = FALSE ]; then
+    if [ -n "$FIPS_HOME" ]; then
+        FIPS_FILE_PATH=$FIPS_HOME/fips.ora
+    elif [ -n "$ORACLE_HOME" ]; then
+        FIPS_FILE_PATH=$ORACLE_HOME/ldap/admin/fips.ora
+    fi
+
+    if [ -f "$FIPS_FILE_PATH" ]; then
+        while read line
+        do
+            string1=$(echo $line | cut -d'=' -f1)
+            string2=$(echo $line | cut -d'=' -f2)
+            if [ "$string1" = "FIPS_140" ] && [ "$string2" = "TRUE" ] ; then
+                FIPS140_MODE_FLAG=TRUE
+                break
+            fi
+        done < $FIPS_FILE_PATH
+    fi
+fi
+
+if [ $FIPS140_MODE_FLAG = FALSE ]; then
+  # Check if FIPS 140 mode is enabled via the Java Security property.
+  JCE_MODE=`$JAVA_HOME/bin/java $JAVAMODE -cp "$PKI" oracle.security.pki.TransitionMode`
+  if [ "$JCE_MODE" = fips140 ]; then
+    FIPS140_MODE_FLAG=TRUE
+  fi
+fi
+
+if [ $FIPS140_MODE_FLAG = TRUE ]; then
+  # Use the set of RSA BSAFE Crypto-J JARs that are required for FIPS 140.
+  RSA="$RSALOC/cryptojce.jar:$RSALOC/cryptojcommon.jar:$RSALOC/jcmFIPS.jar"
+fi
+
+if [ "$CODECOV" = TRUE ]
+then
+  $JAVA_HOME/bin/java $JAVAMODE -Xms64m -Xmx512m -cp "$PKI:$RSA:$EMMA_JAR" oracle.security.pki.textui.OraclePKITextUI "$@"
+else
+  $JAVA_HOME/bin/java $JAVAMODE -Xms64m -Xmx512m -cp "$PKI:$RSA" oracle.security.pki.textui.OraclePKITextUI "$@"
+fi

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2005, 2016, Oracle and/or its affiliates. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in 
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsRerateType">
+		<xs:sequence>
+			
+			<xs:element name="BatchRatingPipeline" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable Indicates whether usage rating through the pipeline rating engine is enabled or disabled . The parameter values can be 0 (disabled), 1 (enabled).Default is 0 (disabled).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="ECERating" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable Indicates whether usage rating through the ECE rating engine is enabled or disabled . The parameter values can be 0 (disabled), 1 (enabled).Default is 0 (disabled).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="LineManagement" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Rerate job creation will consider line transfer cases when enabled.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="AllocateReratingAdjustments" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                This parameter indicates that the item adjustments which are created by the rerating process will be allocated to billable items. The parameter has two values: 0 - do not make allocatioin during rerating (default), or 1 - make allocation during rerating.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="ApplyDeferredTaxDuringRerating" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                This parameter indicates that deferred taxation should be applied during rerating . The parameter has two values: 0 - do not apply deferred taxes during rerating (default), or 1 -  apply deferred taxes during rerating.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+			<xs:element name="OfferEligibilitySelectionMode">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                              This parameter indicates that period based rerating should be applied for ECE events. The parameter has two values: 0 - consider endtime based for ECE events during rerating (default), or 1 -  consider period based during rerating.
+
+
+                                        </xs:documentation>
+                                </xs:annotation>
+				<xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="endtime"/>
+                                                <xs:enumeration value="timeperiod"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

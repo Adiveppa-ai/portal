@@ -1,0 +1,216 @@
+//==============================================================================
+//
+// Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_UpdateTapInfo_Tapin.isc
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module is used to update the incoming tap info for use in Stop Return RAP Generation.
+//
+//------------------------------------------------------------------------------
+
+
+Long dbHandle;
+
+use IXT_Db;
+
+
+String sender;
+String recipient;
+String seqGenKey;
+Long seqNo;
+Long specVersionNum;
+Long releaseVersion;
+
+
+//------------------------------------------
+// updateTapInfo()
+// Reads the fields from TAP Header and populates the ifw_tapinfo table. 
+// This information is later used to generate Stop Rap.
+//-----------------------------------------
+function updateTapInfo
+{
+  if ( dbHandle == INVALID_CONNECTION)
+  {
+    scriptUsable(false);
+    return;
+  }
+
+  if ( dbBeginTransaction(dbHandle) == false ) 
+  { 
+    scriptUsable(false);
+    logPipeline("Error: Failed to begin a new transaction: " + dbError()); 
+  }
+  
+  String sqlStmt = "Select Count(*) As Count From IFW_TAPINFO Where SENDER = '" + sender + "' And RECIPIENT = '" + recipient + "' And SEQ_GEN_KEY = '" + seqGenKey + "'";
+  Long resHandle = dbExecute(dbHandle, sqlStmt);
+  if (resHandle == INVALID_RESULT)
+  {
+    scriptUsable(false);
+    logPipeline("Error: dbExecute() failed: " + dbError());
+  }
+  else
+  {
+	  Long count = 0;
+	  dbNextRow(resHandle, count);
+	  if (count >= 1) //record for this operator is already there, update the record
+	  {
+		//Check if the existing max sequence number in table is less than current sequence number
+		dbCloseResult(resHandle);
+		sqlStmt = "Select MAX(LastSeqNumber) As MaxSeqNumber From IFW_TAPINFO Where SENDER = '" + sender + "' And RECIPIENT = '" + recipient + "' And SEQ_GEN_KEY = '" + seqGenKey + "'";
+		resHandle = dbExecute(dbHandle, sqlStmt);
+		Long maxSeqNumber = 0;
+		dbNextRow(resHandle, maxSeqNumber);
+		dbCloseResult(resHandle);
+		if(maxSeqNumber < seqNo)
+		{
+			sqlStmt = "Update IFW_TAPINFO Set LastSeqNumber ="+longToStr(seqNo)+", SpecificationVersion =" + longToStr(specVersionNum) + ", ReleaseVersion = " + longToStr(releaseVersion) + " , LASTSTOPRAPDATE = SYSDATE, TapFileDate = SYSDATE Where SENDER = '" + sender + "' And RECIPIENT = '" + recipient + "' And SEQ_GEN_KEY = '" + seqGenKey + "'";
+			resHandle = dbExecute(dbHandle, sqlStmt);
+                        if ( resHandle == INVALID_RESULT )
+                        {
+                          scriptUsable(false);
+                          logPipeline( "ERROR: dbExecute() failed: " + dbError() );
+                        }
+
+		}
+	  }
+	  else  //record for this operator is not there, insert new record
+	  {              
+		sqlStmt = "Insert Into IFW_TAPINFO(Sender, Recipient, SEQ_GEN_KEY, LastSeqNumber , SpecificationVersion, ReleaseVersion, TapFileDate,LASTSTOPRAPDATE) Values('" + sender + "', '" + recipient + "', '" + seqGenKey + "', " + longToStr(seqNo) + ", " + longToStr(specVersionNum) + ", " + longToStr(releaseVersion) + ", SYSDATE, SYSDATE)";
+		dbCloseResult(resHandle);
+
+	    resHandle = dbExecute(dbHandle, sqlStmt);
+	  }
+
+	  if ( resHandle == INVALID_RESULT )
+	  { 
+	    scriptUsable(false);
+		logPipeline("Error: dbExecute() failed: " + dbError());
+	  }
+	  else
+	  {
+		dbCloseResult(resHandle);
+	  } 
+  }
+	
+	if ( dbCommitTransaction(dbHandle) == false )
+    {
+	   scriptUsable(false);
+       logPipeline("Error: dbCommitTransaction() failed: " + dbError());
+    } 
+ 
+}//end fnx updateTapInfo
+
+
+function onStopEdr
+{
+  if ( dbCloseConnection(dbHandle) == false )
+  {
+    logPipeline("Error: dbCloseConnection() failed: " + dbError());
+  }
+
+  dbHandle = INVALID_CONNECTION;
+}
+
+
+function onHeaderEdr
+{
+  if ( dbHandle == INVALID_CONNECTION)
+  {
+    scriptUsable(false);
+    return;
+  }
+
+  seqNo = -1;
+  specVersionNum = -1;
+  releaseVersion = -1;
+  
+  sender = edrString(HEADER.SENDER);
+  recipient = edrString(HEADER.RECIPIENT);
+  seqNo = edrLong(HEADER.SEQUENCE_NUMBER);
+  seqGenKey = edrString(HEADER.SEQ_GEN_KEY);
+  specVersionNum = edrLong(HEADER.SPECIFICATION_VERSION_NUMBER);
+  releaseVersion = edrLong(HEADER.RELEASE_VERSION);
+
+  if (strLength(recipient) <= 0)
+  {
+    logPipeline("Error: Could not update ifw_tapinfo. No RECIPIENT field in header");
+	return;
+  }
+  if (strLength(sender) <= 0)
+  {
+    logPipeline("Error: Could not update ifw_tapinfo. No SENDER field in header");
+	return;
+  }
+  if (strLength(seqGenKey) <= 0)
+  {
+    logPipeline("Error: Could not update ifw_tapinfo. No SEQ_GEN_KEY field in header");
+	return;
+  }
+  if (seqNo == -1)
+  {
+    logPipeline("Error: Could not update ifw_tapinfo. No SEQUENCE_NUMBER field in header");
+	return;
+  }
+  if (specVersionNum == -1)
+  {
+    logPipeline("Error: Could not update ifw_tapinfo. No SPECIFICATION_VERSION_NUMBER field in header");
+	return;
+  }
+  if (releaseVersion == -1)
+  {
+    logPipeline("Error: Could not update ifw_tapinfo. No RELEASE_VERSION field in header");
+	return;
+  }
+  updateTapInfo();
+  
+}  //END onHeaderEdr
+
+
+function BEGIN
+{
+  dbHandle = INVALID_CONNECTION;
+
+  if ( dbDataConnection( reg.DatabaseConnection + ".Module" ) != true )
+  {
+    logPipeline("Error: Could not open database connection.");
+    scriptUsable(false);
+  }
+  else
+  {
+    dbHandle = dbConnection();
+    if ( dbHandle == INVALID_CONNECTION )
+    {
+      logPipeline("Error: dbConnection() failed: " + dbError());
+      scriptUsable(false);
+    }    
+  }
+} //end BEGIN
+
+
+function onStartEdr
+{
+  if (dbHandle != INVALID_CONNECTION)
+  {
+    return;
+  }
+
+  if ( dbDataConnection( reg.DatabaseConnection + ".Module" ) != true )
+  {
+    logPipeline("Error: Could not open database connection.");
+  }
+  else
+  {
+    dbHandle = dbConnection();
+    if ( dbHandle == INVALID_CONNECTION )
+    {
+      logPipeline("Error: dbConnection() failed: " + dbError());
+    }
+  }
+}
+

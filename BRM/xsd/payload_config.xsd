@@ -1,0 +1,3038 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="qualified">
+		   
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+		Schema definition for business_events config object.
+	</xs:documentation>
+  </xs:annotation>
+		   
+  <xs:include schemaLocation="PinTypes.xsd"/>
+  <xs:element name="PayloadConfig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PublisherDefs" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Publisher" minOccurs="1">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="DB" type="xs:string" use="required" />
+                      <xs:attribute name="Format" type="xs:string" use="required" />
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ConditionDefs" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReratingCondition">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NotExpression">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="BooleanExpression">
+                            <xs:complexType>
+                              <xs:attribute name="PinFld" type="xs:string" use="required" />
+                              <xs:attribute name="Value" type="xs:string" use="required" />
+                              <xs:attribute name="Operator" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ElementDefs" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Logins">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LineAccount">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LineDevices">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LineProfiles">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LineServices">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LineBalanceGroups">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Products">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Discounts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BalImpacts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SubBalImpacts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SubBalAudits">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BillInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="UseOnlyElement" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BalInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CycleEndBillInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="UseOnlyElement" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Services">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ActgInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="JobBatches">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BalanceExpiryInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+	      	    </xs:element>
+	            <xs:element name="ExtendedInfo">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Field">
+                            <xs:complexType>
+                              <xs:attribute name="PinFld" type="xs:string" use="required" />
+                              <xs:attribute name="Tag" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Source" type="xs:string" use="required" />
+                        <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+	          </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductExpiryInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ServiceLifeStateChangeExpiryInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+	      </xs:element>
+              <xs:element name="RenewalDueInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RenewalInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BillDueInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CollActionDueInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="InstallmentDueInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BalGrpInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AccountClosed">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="UseOnlyElement" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductSetValidity">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DiscountSetValidity">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SetValidityDetails">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="UseOnlyElement" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TailorMadeProductInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ExtendedInfo">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Field">
+                            <xs:complexType>
+                              <xs:attribute name="PinFld" type="xs:string" use="required" />
+                              <xs:attribute name="Tag" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TransferBalanceGroups">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PayInfoOld">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="UseOnlyElement" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PayInfoNew">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="UseOnlyElement" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Payment">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReversalTransIdInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReversalInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PaymentReasons">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Bills">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Refund">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CashInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CheckInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="PinFld" type="xs:string" use="required" />
+                  <xs:attribute name="DataFrom" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EventDefs" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustCreate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="EndEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CustDelete">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BalanceExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+		</xs:element>
+		<xs:element name="BillInfoUpdate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PostBalanceExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+	      <xs:element name="ServiceLifeStateChangeExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PostServiceLifeStateChangeExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+		</xs:element>
+		<xs:element name="PostProductExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SubscriptionRenewalDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+		</xs:element>
+		<xs:element name="PostSubscriptionRenewalDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SubscriptionRenewal">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RentalFailure">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+	      <xs:element name="TemporaryLimit">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+	      <xs:element name="TemporaryLimitExpiry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BillDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+		</xs:element>
+		<xs:element name="PostBillDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CollectionsActionDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+		</xs:element>
+		<xs:element name="PostCollectionsActionDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="InstallmentDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PostInstallmentDue">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductPurchase">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductInfoChange">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductCancel">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DiscountPurchase">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DiscountCancel">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AccountStatusUpdate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductStatusUpdate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductModify">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ProductSetValidity">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DiscountStatusUpdate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DiscountModify">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DiscountSetValidity">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CreateGroupSharingDiscounts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyGroupSharingDiscounts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeleteGroupSharingDiscounts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CreateGroupSharingCharges">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyGroupSharingCharges">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeleteGroupSharingCharges">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CreateGroupSharingProfiles">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyGroupSharingProfiles">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeleteGroupSharingProfiles">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AddBillInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyBillInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AddBalanceGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyBalanceGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyMappingTable">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AddOrderedBalanceGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyOrderedBalanceGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeleteOrderedBalanceGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CreateProfile">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyProfile">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeleteProfile">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="UpdateServices">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeviceReplace">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ServiceLogin">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BillNow">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BillDelay">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="EventAdjustment">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ResourceAdjustment">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CycleForward">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="EndEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CycleRollover">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="EndEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="OpenNewActgCycle">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="EndEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PartialBilling">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="EndEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Purchase">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RecycleRequest">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ResubmitBatchRequest">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifySubBalValidity">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LineTransfer">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="HoldCDRProcessing">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ResumeCDRProcessing">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MigrateAcct">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MigrateSource">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MigrateDestination">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="UpdateLogicalPartition">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PrepareToRerate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Rerating">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="EndEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReratingCompleted">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CreateGroupSharingMonitors">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyGroupSharingMonitors">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DeleteGroupSharingMonitors">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TailorMadeProductCreate">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TailorMadeProductModify">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyAccountNumber">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ServiceBalanceGroupTransfer">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BestPricing">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PayinfoChange">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Attribute">
+                      <xs:complexType>
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="OnEvent" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="Refund">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Payment">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="FailedPayment">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="Reversal">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Field">
+                      <xs:complexType>
+                        <xs:attribute name="PinFld" type="xs:string" use="required" />
+                        <xs:attribute name="Tag" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SubElement">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Source" type="xs:string" use="required" />
+                  <xs:attribute name="Tag" type="xs:string" use="required" />
+                  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+                </xs:complexType>
+		</xs:element>
+              <xs:element name="CreateGroupSharingProducts">
+                <xs:complexType>
+          	  <xs:sequence>
+            	    <xs:element name="Attribute">
+              		<xs:complexType>
+                	<xs:attribute name="Tag" type="xs:string" use="required" />
+                	<xs:attribute name="Value" type="xs:decimal" use="required" />
+              	        </xs:complexType>
+            	    </xs:element>
+            	    <xs:element maxOccurs="unbounded" name="Field">
+              		<xs:complexType>
+                	<xs:attribute name="PinFld" type="xs:string" use="required" />
+                	<xs:attribute name="Tag" type="xs:string" use="required" />
+              	    </xs:complexType>
+            	    </xs:element>
+          	  </xs:sequence>
+          	<xs:attribute name="Source" type="xs:string" use="required" />
+          	<xs:attribute name="Tag" type="xs:string" use="required" />
+          	<xs:attribute name="StartEvent" type="xs:string" use="required" />
+        	</xs:complexType>
+              </xs:element>
+              <xs:element name="ModifyGroupSharingProducts">
+        	<xs:complexType>
+          	  <xs:sequence>
+            	    <xs:element name="Attribute">
+              	        <xs:complexType>
+                	<xs:attribute name="Tag" type="xs:string" use="required" />
+                	<xs:attribute name="Value" type="xs:decimal" use="required" />
+              		</xs:complexType>
+            	    </xs:element>
+            	    <xs:element maxOccurs="unbounded" name="Field">
+              		<xs:complexType>
+                	<xs:attribute name="PinFld" type="xs:string" use="required" />
+                	<xs:attribute name="Tag" type="xs:string" use="required" />
+              	    	</xs:complexType>
+            	    </xs:element>
+          	  </xs:sequence>
+          	  <xs:attribute name="Source" type="xs:string" use="required" />
+          	  <xs:attribute name="Tag" type="xs:string" use="required" />
+          	  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+        	</xs:complexType>
+              </xs:element>
+	      <xs:element name="DeleteGroupSharingProducts">
+		<xs:complexType>
+          	  <xs:sequence>
+            	    <xs:element name="Attribute">
+              	      <xs:complexType>
+                	<xs:attribute name="Tag" type="xs:string" use="required" />
+                	<xs:attribute name="Value" type="xs:decimal" use="required" />
+              	      </xs:complexType>
+            	    </xs:element>
+            	    <xs:element maxOccurs="unbounded" name="Field">
+              		<xs:complexType>
+                	<xs:attribute name="PinFld" type="xs:string" use="required" />
+                	<xs:attribute name="Tag" type="xs:string" use="required" />
+              		</xs:complexType>
+            	    </xs:element>
+          	  </xs:sequence>
+          	  <xs:attribute name="Source" type="xs:string" use="required" />
+          	  <xs:attribute name="Tag" type="xs:string" use="required" />
+          	  <xs:attribute name="StartEvent" type="xs:string" use="required" />
+        	</xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+	</xs:sequence>
+	  <xs:attribute name="configName" type="xs:string" default="/config/business_events" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

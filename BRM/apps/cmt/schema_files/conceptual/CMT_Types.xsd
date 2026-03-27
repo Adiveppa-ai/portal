@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="Poid">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Id">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Address">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="City">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="90"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Country">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EmailAddr">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1023"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="State">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="90"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Zip">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ServiceType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DebitNum">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Value">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Name">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NetworkElement">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- CH: Checking SV: Saving CO: Corporate -->
+	<xs:simpleType name="BankAccountType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CH"/>
+			<xs:enumeration value="SV"/>
+			<xs:enumeration value="CO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- A: Active I: Inactive C: Closed -->
+	<xs:simpleType name="BillinfoStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="C"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- CC: CreditCard DD: DirectDebit INV: Invoice NPC: NonPayingChild -->
+        <xs:simpleType name="PayType">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="CC"/>
+                        <xs:enumeration value="DD"/>
+                        <xs:enumeration value="INV"/>
+                        <xs:enumeration value="NPC"/>
+                </xs:restriction>
+        </xs:simpleType>
+	<!-- A: Active I: Inactive -->
+	<xs:simpleType name="BillingStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="I"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- CO: Cycle Open CC: Cycle Closed -->
+	<xs:simpleType name="BillingState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CO"/>
+			<xs:enumeration value="CC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Con: Consumer Bus: Business -->
+	<xs:simpleType name="BusinessType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="B"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- I: Open Item B: Balance Forward -->
+        <xs:simpleType name="ActgType">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="I"/>
+                        <xs:enumeration value="B"/>
+                </xs:restriction>
+        </xs:simpleType>
+	<!-- E: Email P: Post F: Fax -->
+	<xs:simpleType name="DeliveryPrefer">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="E"/>
+			<xs:enumeration value="P"/>
+			<xs:enumeration value="F"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- H: Home W: Work P: Portable F: Fox PG: Pager PO: Pop S: Support -->
+	<xs:simpleType name="PhoneType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="H"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="P"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="PG"/>
+			<xs:enumeration value="PP"/>
+			<xs:enumeration value="S"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- A: Active I: Inactive CX: Cancelled -->
+	<xs:simpleType name="ProductsStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="CX"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- A: Active I: Inactive -->
+	<xs:simpleType name="SubscriberStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="I"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- A: Active I: Inactive S: Suspended -->
+	<xs:simpleType name="ServiceStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="S"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--    FED => Fedral , STT => State , CNT => County , CIT => City, (Secondary)SCN =>  County, SCI => City  SST => State-->
+	<xs:simpleType name="ExemptionsType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FED"/>
+			<xs:enumeration value="STT"/>
+			<xs:enumeration value="CNT"/>
+			<xs:enumeration value="CIT"/>
+			<xs:enumeration value="SCN"/>
+			<xs:enumeration value="SCI"/>
+			<xs:enumeration value="SST"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RolloverUnit">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Daily"/>
+			<xs:enumeration value="Monthly"/>
+			<xs:enumeration value="Weekly"/>
+			<xs:enumeration value="Yearly"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BillingSegment">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RetailCust"/>
+			<xs:enumeration value="WholeSaleCust"/>
+		</xs:restriction>
+	</xs:simpleType>
+        <!-- Y: True N: False -->
+	<xs:simpleType name="YesOrNo">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Y"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+        <xs:simpleType name="FiasId">
+                <xs:restriction base="xs:string">
+                        <xs:maxLength value="60"/>
+                </xs:restriction>
+        </xs:simpleType>
+
+        <xs:simpleType name="DeliveryDescr">
+                <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="InvInstr">
+                <xs:restriction base="xs:string">
+                        <xs:maxLength value="1023"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="PromotionName">
+                <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="ConsumptionRule">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="UN"/>
+                        <xs:enumeration value="EST"/>
+                        <xs:enumeration value="LST"/>
+                        <xs:enumeration value="EET"/>
+                        <xs:enumeration value="LET"/>
+                        <xs:enumeration value="ESTLET"/>
+                        <xs:enumeration value="ESTEET"/>
+                        <xs:enumeration value="LSTEET"/>
+                        <xs:enumeration value="LSTLET"/>
+                        <xs:enumeration value="EETEST"/>
+                        <xs:enumeration value="EETLST"/>
+                        <xs:enumeration value="LETEST"/>
+                        <xs:enumeration value="LETLST"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="CardType">
+                <xs:restriction base="xs:integer">
+                        <xs:enumeration value="CARD"/>
+                        <xs:enumeration value="VISA"/>
+                        <xs:enumeration value="MASTERCARD"/>
+                        <xs:enumeration value="AMERICANEXPRESS"/>
+                        <xs:enumeration value="OPTIMA"/>
+                        <xs:enumeration value="DISCOVERYCARD"/>
+                        <xs:enumeration value="DINERSCLUB"/>
+                        <xs:enumeration value="CARTEBLANCHE"/>
+                        <xs:enumeration value="JCB"/>
+                        <xs:enumeration value="SWITCH"/>
+                        <xs:enumeration value="UNKNOWN"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="AutoGSDiscHierarchy">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="H_DSG"/>
+                        <xs:enumeration value="PR_DSG"/>
+                </xs:restriction>
+        </xs:simpleType>
+        <xs:simpleType name="AutoGSProdHierarchy">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="H_PSG"/>
+                        <xs:enumeration value="PR_PSG"/>
+                </xs:restriction>
+        </xs:simpleType>
+	<xs:simpleType name="Event">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+        <xs:simpleType name="SubBalanceType">
+                <xs:restriction base="xs:string">
+                        <xs:enumeration value="MAIN"/>
+                        <xs:enumeration value="LOAN"/>
+                </xs:restriction>
+        </xs:simpleType>
+</xs:schema>

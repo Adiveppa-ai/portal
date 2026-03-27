@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SUBSCRIPTION" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_PURCHASE_DEAL.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_CHANGE_DEAL.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SET_PRODINFO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT.xsd"/>
+	    <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_ORDERED_BALGRP.xsd"/>
+	    <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SET_BUNDLE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_inputFlist" name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_outputFlist" name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_inputFlist" name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_outputFlist" name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CHANGE_DEAL_inputFlist" name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CHANGE_DEAL_outputFlist" name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_inputFlist" name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_outputFlist" name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_PRODINFO_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_PRODINFO_inputFlist" name="PCM_OP_SUBSCRIPTION_SET_PRODINFO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_PRODINFO_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_PRODINFO_outputFlist" name="PCM_OP_SUBSCRIPTION_SET_PRODINFO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_inputFlist" name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_outputFlist" name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_inputFlist" name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_outputFlist" name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_inputFlist" name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_outputFlist" name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_inputFlist" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_outputFlist" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_inputFlist" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_outputFlist" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_inputFlist" name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_outputFlist" name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_BUNDLE_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_BUNDLE_inputFlist" name="PCM_OP_SUBSCRIPTION_SET_BUNDLE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SET_BUNDLE_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SET_BUNDLE_outputFlist" name="PCM_OP_SUBSCRIPTION_SET_BUNDLE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_inputFlist" name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_outputFlist" name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_inputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_outputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_inputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_outputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_inputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_outputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_inmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_inputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_outputFlist" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_inmsg">
+        <part element="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_inputFlist" name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_inputFlist"/>
+    </message>
+    <message name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_outmsg">
+        <part element="brm:PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_outputFlist" name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_outputFlist"/>
+    </message>
+    <portType name="BRMSUBSCRIPTIONService_ptt">
+        <operation name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION">
+            <input message="brm:PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_inmsg" name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_outmsg" name="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL">
+            <input message="brm:PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_inmsg" name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_outmsg" name="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL">
+            <input message="brm:PCM_OP_SUBSCRIPTION_CHANGE_DEAL_inmsg" name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_CHANGE_DEAL_outmsg" name="PCM_OP_SUBSCRIPTION_CHANGE_DEAL_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_inmsg" name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_outmsg" name="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SET_PRODINFO">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SET_PRODINFO_inmsg" name="PCM_OP_SUBSCRIPTION_SET_PRODINFO_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SET_PRODINFO_outmsg" name="PCM_OP_SUBSCRIPTION_SET_PRODINFO_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT">
+            <input message="brm:PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_inmsg" name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_outmsg" name="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT">
+            <input message="brm:PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_inmsg" name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_outmsg" name="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT_Response"/>
+        </operation>
+	<operation name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP">
+            <input message="brm:PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_inmsg" name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_outmsg" name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_inmsg" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_outmsg" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_inmsg" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_outmsg" name="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS">
+            <input message="brm:PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_inmsg" name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_outmsg" name="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SET_BUNDLE">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SET_BUNDLE_inmsg" name="PCM_OP_SUBSCRIPTION_SET_BUNDLE_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SET_BUNDLE_outmsg" name="PCM_OP_SUBSCRIPTION_SET_BUNDLE_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION">
+            <input message="brm:PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_inmsg" name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_outmsg" name="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_inmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_outmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_inmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_outmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_inmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_outmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_inmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_outmsg" name="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER">
+            <input message="brm:PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_inmsg" name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_Request"/>
+            <output message="brm:PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_outmsg" name="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMSUBSCRIPTIONService_plt">
+        <plt:role name="BRMSUBSCRIPTIONService_role">
+            <plt:portType name="brm:BRMSUBSCRIPTIONService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

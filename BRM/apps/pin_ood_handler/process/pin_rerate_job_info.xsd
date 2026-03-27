@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema
+    targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            Copyright (c) 2006 - 2007 Oracle. All rights reserved.
+            This material is the confidential property of Oracle Corporation or its
+            subsidiaries or licensors and may be used, reproduced, stored or transmitted
+            only in accordance with a valid Oracle license or sublicense agreement.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleType name="timetype">
+        <xs:restriction base="xs:unsignedLong" />
+    </xs:simpleType>
+
+    <xs:simpleType name="stringtype">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+
+    <xs:complexType name="crtype">
+        <xs:sequence>
+            <xs:element name="CN" type="businessConfig:stringtype" />
+            <xs:element name="BG" type="businessConfig:stringtype" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="accttype">
+        <xs:sequence>
+            <xs:element name="A" type="businessConfig:stringtype" />
+            <xs:element name="S" type="businessConfig:stringtype" />
+            <xs:element name="CT"  minOccurs="1" maxOccurs="unbounded" type="businessConfig:crtype" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="jobtype">
+        <xs:sequence>
+            <xs:element name="RerateStartTime" type="businessConfig:timetype"></xs:element>
+            <xs:element name="ACC" maxOccurs="unbounded" type="businessConfig:accttype" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="rerateJobInfotype">
+        <xs:sequence>
+            <xs:element name="RerateJob" minOccurs="1" maxOccurs="1" type="businessConfig:jobtype"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+<xs:element name="RerateJobInfoConfiguration" type="businessConfig:rerateJobInfotype">
+    <xs:unique name="jobname">
+      <xs:selector xpath="businessConfig:RerateJob"/>
+      <xs:field xpath="businessConfig:jobtype"/>
+
+    </xs:unique>
+</xs:element>
+
+</xs:schema>
+

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<RULEMAP>
+    <RULESET name="CustomGroup" class="CustomChecks">
+        <RULE name="CheckPerlExists" method="checkPerl"/>
+    </RULESET>
+</RULEMAP>
+

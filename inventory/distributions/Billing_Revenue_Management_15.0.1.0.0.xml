@@ -1,0 +1,202 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<distribution name="Billing Revenue Management" version="15.0.1.0.0" xmlns:ns2="http://xmlns.oracle.com/cie/gdr/dei" xmlns:ns3="http://xmlns.oracle.com/cie/gdr/nfo" xmlns:ns4="http://xmlns.oracle.com/cie/gdr/rgy" xmlns="http://xmlns.oracle.com/cie/gdr/dbd">
+   <feature-set-group name="CORE.fw" display-name="CORE" visible="false">
+      <feature-set visible="false" selected="true" name="CORE" version="15.0.1.0.0"/>
+      <feature-set visible="false" selected="true" name="nginst_core" version="13.9.4.0.1"/>
+      <feature-set visible="false" selected="true" name="jrf_presoTools_core" version="12.2.1.4.0"/>
+      <feature-set visible="false" selected="true" name="opatch" version="13.9.4.2.15"/>
+   </feature-set-group>
+   <feature-set-group name="upg.fw" display-name="Upgrade Manager Framework">
+      <feature-set visible="true" selected="false" name="upgrade" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="upgrade_pipeline" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="cm.fw" display-name="Connection Manager Framework">
+      <feature-set visible="true" selected="false" name="cm" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="cm_proxy" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="cmmp" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="dm.fw" display-name="Data Manager Framework">
+      <feature-set visible="true" selected="false" name="dm_oracle" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="dm_invoice" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="dm_provisioning" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="dm_kafka" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="dm_email" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="sample" display-name="Sample">
+      <feature-set visible="true" selected="false" name="Sample" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="bc.fw" display-name="Batch Controller">
+      <feature-set visible="true" selected="false" name="batch_controller" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="bi.fw" display-name="BillingAndInvoicing">
+      <feature-set visible="true" selected="false" name="BillingAndInvoicing" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="op.fw" display-name="Optional Managers">
+      <feature-set visible="true" selected="false" name="AccountMigrationMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRMServicesFrameworkMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRM_SDK" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="cmt" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="CollectionsMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="ContentMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="EAI_FrameworkMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="eet" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="GPRSMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="GSMMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="InventoryMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="IPAddressMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="JCA_Adapter" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="LDAPMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="MultiDBMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="NumberMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="PaymentechMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="PartitionUpg" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="PerfMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="RevAssuranceMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="RatedEventLoader" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="SIMMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="SMSSettlement_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="SuspenseMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="VertexMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="VoucherMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="WebServiceMgr" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="brmbr.fw" display-name="Base Reports">
+      <feature-set visible="true" selected="false" name="Base_BRM_Reports" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="brmor.fw" display-name="Optional Manager Reports">
+      <feature-set visible="true" selected="false" name="MultiDB_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Collections_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Content_Manager_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="GPRS_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Number_Manager_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Revenue_Assurance_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Roaming_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="SIM_Card_Manager_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="SMS_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Suspense_Reports" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Voucher_Reports" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="brmi.fw" display-name="BRM Invoices">
+      <feature-set visible="true" selected="false" name="BRMInvoices_Consumer" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRMInvoices_Consumer_Correction" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRMInvoices_Consumer_Replacement" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRMInvoices_Corporate" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRMInvoices_Corp_Correction" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="BRMInvoices_Corp_Replacement" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="pipeline.fw" display-name="Pipeline Manager Framework">
+      <feature-set visible="true" selected="false" name="pipeline" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <feature-set-group name="pipelineop.fw" display-name="Pipeline Optional Managers">
+      <feature-set visible="true" selected="false" name="CIBERRoamingMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Interconnect" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Pipeline_ConfMgr" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="Pipeline_PDK" version="15.0.1.0.0"/>
+      <feature-set visible="true" selected="false" name="TAPRoaming" version="15.0.1.0.0"/>
+   </feature-set-group>
+   <install-type name="Complete" external-name="Complete">
+      <feature-set selected="true" name="cm" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="cm_proxy" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="cmmp" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="dm_oracle" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="dm_invoice" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="dm_provisioning" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="dm_kafka" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="dm_email" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Sample" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="batch_controller" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BillingAndInvoicing" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="AccountMigrationMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMServicesFrameworkMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRM_SDK" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="ContentMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="cmt" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="CollectionsMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="EAI_FrameworkMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="eet" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="GPRSMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="GSMMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="InventoryMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="IPAddressMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="JCA_Adapter" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="LDAPMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="MultiDBMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="NumberMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="PartitionUpg" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="PaymentechMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="RevAssuranceMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="PerfMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="RatedEventLoader" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="SIMMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="SMSSettlement_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="SuspenseMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="VertexMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="VoucherMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="WebServiceMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Base_BRM_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Collections_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Content_Manager_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="GPRS_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="MultiDB_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Number_Manager_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Revenue_Assurance_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Roaming_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="SIM_Card_Manager_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="SMS_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Suspense_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Voucher_Reports" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMInvoices_Consumer" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMInvoices_Consumer_Correction" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMInvoices_Consumer_Replacement" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMInvoices_Corporate" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMInvoices_Corp_Correction" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BRMInvoices_Corp_Replacement" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="pipeline" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="CIBERRoamingMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Interconnect" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Pipeline_ConfMgr" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="Pipeline_PDK" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="TAPRoaming" version="15.0.1.0.0"/>
+   </install-type>
+   <install-type name="Typical" default="true" external-name="Typical">
+      <feature-set selected="true" name="cm" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="dm_oracle" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="batch_controller" version="15.0.1.0.0"/>
+      <feature-set selected="true" name="BillingAndInvoicing" version="15.0.1.0.0"/>
+   </install-type>
+   <install-type name="Custom" custom="true" external-name="Custom"/>
+   <directory-map>
+      <root-mapping>
+         <symbol>root.symbol</symbol>
+      </root-mapping>
+      <mapping directory="BRM">
+         <symbol>brm.symbol</symbol>
+      </mapping>
+      <mapping directory="ifw">
+         <symbol>ifw.symbol</symbol>
+      </mapping>
+      <mapping directory="oui">
+         <symbol>oracle.nginst.core.symbol</symbol>
+         <symbol>oracle.nginst.common.symbol</symbol>
+      </mapping>
+      <mapping directory="oracle_common">
+         <symbol>thirdparty.symbol</symbol>
+         <symbol>oracle.nginst.thirdparty.symbol</symbol>
+         <symbol>help.common.symbol</symbol>
+         <symbol>oracle.bali.jewt.dir</symbol>
+         <symbol>jewt.symbol</symbol>
+         <symbol>glcm.logging.symbol</symbol>
+         <symbol>oracle.glcm.comdev.symbol</symbol>
+         <symbol>oracle.glcm.dependency.symbol</symbol>
+         <symbol>oracle.glcm.xmldh.symbol</symbol>
+         <symbol>oracle.glcm.wizard.symbol</symbol>
+         <symbol>rdbms.jrf.common.symbol</symbol>
+         <symbol>jrf.symbol</symbol>
+         <symbol>wls.common.symbol</symbol>
+      </mapping>
+      <mapping directory="OPatch">
+         <symbol>oracle.swd.opatch.symbol</symbol>
+         <symbol>oracle.glcm.opatch.common.api.symbol</symbol>
+      </mapping>
+   </directory-map>
+</distribution>

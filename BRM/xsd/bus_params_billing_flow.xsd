@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"	
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2004 - 2006 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsBillingFlowType">
+		<xs:sequence>
+
+			<xs:element name="BillingFlowDiscount">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					Parameter values can be 0 (flow for discount is undefined), 1 (discount_parents should be billed before members), 2 (members_discount should be billed before parents).
+					</xs:documentation>
+				</xs:annotation>
+
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="undefined"/>
+						<xs:enumeration value="discountParentsFirst"/>
+						<xs:enumeration value="memberDiscountFirst"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="BillingFlowSponsorship">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					Parameter values can be 0 (flow for sponsorship is undefined), 1 (sponsors should be billed before sponsorees), 2 (sponsorees should be billed before sponsors).
+					</xs:documentation>
+				</xs:annotation>
+
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="undefined"/>
+						<xs:enumeration value="sponsorsFirst"/>
+						<xs:enumeration value="sponsoreesFirst"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="BillingFlowSkipCheckForCyclicDSG" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					Parameter values can be 0 (flow for cyclic DSG check is enabled, default behaviour), 1 (cyclic DSG check is disabled).
+					</xs:documentation>
+				</xs:annotation>
+
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="disabled"/>
+						<xs:enumeration value="enabled"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
+

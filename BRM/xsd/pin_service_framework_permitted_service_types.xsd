@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/PortalXMLSchema"
+           xmlns="http://www.portal.com/PortalXMLSchema"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+        <xs:element name="ServiceFrameworkPermittedTypesConfiguration">
+                <xs:complexType>
+                        <xs:sequence>
+                                <xs:element name="PermittedServiceTypesList"
+                                            type="PermittedServiceTypesListType"/>
+                        </xs:sequence>
+                </xs:complexType>
+        </xs:element>
+        <xs:element name="ProvisioningMode">
+                <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                                <xs:enumeration value="1"/>
+                                <xs:enumeration value="0"/>
+                        </xs:restriction>
+                </xs:simpleType>
+        </xs:element>
+        <xs:complexType name="PermittedServiceTypesType">
+                <xs:all>
+                        <xs:element name="ServiceType" type="xs:string"/>
+                        <xs:element name="ConfigTypeProvisioningDetails"
+                                    type="xs:string"/>
+                        <xs:element name="ConfigTypeServiceOrderState"
+                                    type="xs:string"/>
+                        <xs:element ref="ProvisioningMode"/>
+                </xs:all>
+        </xs:complexType>
+        <xs:complexType name="PermittedServiceTypesListType">
+                <xs:sequence>
+                        <xs:element name="PermittedServiceTypes"
+                                    type="PermittedServiceTypesType"
+                                    maxOccurs="unbounded"/>
+                </xs:sequence>
+        </xs:complexType>
+</xs:schema>

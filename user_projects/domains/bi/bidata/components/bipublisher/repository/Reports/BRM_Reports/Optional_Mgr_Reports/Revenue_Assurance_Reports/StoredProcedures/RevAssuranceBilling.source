@@ -1,0 +1,408 @@
+--
+-- Copyright (c) 2008, 2013, Oracle and/or its affiliates. 
+-- All rights reserved. 
+--
+--     This material is the confidential property of Oracle Corporation
+--     or licensors and may be used, reproduced, stored or transmitted
+--     only in accordance with a valid Oracle license or sublicense agreement.
+--
+
+create or replace
+PACKAGE RABilling AS
+TYPE refcursor IS REF CURSOR;
+
+FUNCTION RABillingSummary(
+              psplitmethod IN NUMBER,
+              pbillingmethod IN VARCHAR2,
+	      pcontrolpoint IN VARCHAR2,
+              pdomstart IN NUMBER,
+              pdomend IN NUMBER,
+              pbillingsegstart IN NUMBER,
+              pbillingsegend IN NUMBER,
+              pstartdate IN VARCHAR2,
+              penddate IN VARCHAR2) RETURN RABilling.refcursor;
+
+
+FUNCTION RABillingDetail(
+              pBillingMethod IN VARCHAR2,
+              pDomStart IN NUMBER,
+              pDomEnd IN NUMBER,
+              pBillingSegStart IN NUMBER,
+              pBillingSegEnd IN NUMBER,
+              pStartDate IN VARCHAR2,
+              pEndDate IN VARCHAR2) RETURN RABilling.refcursor;
+END;
+/
+
+
+create or replace
+PACKAGE BODY  RABilling AS
+
+FUNCTION RABillingSummary(
+              psplitmethod IN NUMBER,
+              pbillingmethod IN VARCHAR2,
+              pcontrolpoint IN VARCHAR2,
+              pdomstart IN NUMBER,
+              pdomend IN NUMBER,
+              pbillingsegstart IN NUMBER,
+              pbillingsegend IN NUMBER,
+              pstartdate IN VARCHAR2,
+              penddate IN VARCHAR2) RETURN RABilling.refcursor IS
+                      l_cursor RABilling.refcursor;
+
+      BillingMethod           VARCHAR(200):=NULL;
+      MyQuery                 VARCHAR(5000):=NULL;
+      VersionId               NUMBER := 0;
+      INVALID_SEGMENT_RANGE   EXCEPTION;
+      INVALID_DOM_RANGE       EXCEPTION;
+      INVALID_METHOD	      EXCEPTION;
+  BEGIN
+  IF ( pcontrolpoint = 'NONE') THEN
+    IF (psplitmethod = 1 ) THEN
+        IF ( pbillingsegstart > pbillingsegend ) THEN
+              RAISE INVALID_SEGMENT_RANGE;
+        END IF; -- IF ( pbillingsegstart > pbillingsegend ) THEN
+        IF ( pdomstart > pdomend ) THEN
+              RAISE INVALID_DOM_RANGE;
+        END IF; -- IF ( pdomstart > pdomend ) THEN
+    END IF; -- IF (psplitmethod = 1 ) THEN
+  
+      IF ( psplitmethod = 0 ) THEN
+          VersionId := 1;
+      ELSE
+          VersionId := 3;
+      END IF; -- IF ( psplitmethod = 0 ) THEN
+
+      IF(psplitmethod = 0 ) THEN
+  
+          IF pBillingMethod = 'Auto-Trigger' or
+             pBillingMethod = 'Bill-Now' or
+             pBillingMethod = 'Bill-ON-DEMAND'
+             or pBillingMethod = 'All Out of Cycle Bills' then
+               RAISE INVALID_METHOD;
+          END IF; -- IF pBillingMethod = 'Auto-Trigger' or
+  
+          IF ( pBillingMethod = 'ALL' ) then
+            BillingMethod := '''pin_bill_accts''';
+          ELSE
+             BillingMethod := '''' || pBillingMethod || '''';
+          END IF; -- IF ( pBillingMethod = 'ALL' ) then
+  
+          MyQuery := 'SELECT "PROC_AUD_T"."PROCESS_START" PROCESS_START,
+                "PROC_AUD_T"."VERSION_ID" VERSION_ID,
+                "PROC_AUD_T"."PROCESS_NAME" PROCESS_NAME,
+                "PROC_AUD_T"."SUCCESSRECORDS" SUCCESSRECORDS,
+                "PROC_AUD_T"."FAILRECORDS" FAILRECORDS,
+                "PROC_AUD_BILL_T"."TOTAL_REVENUE" TOTAL_REVENUE,
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS" ACCOUNT_FAIL_STATUS,
+                NULL AS BILL_SEG_NAME,
+                NULL AS ATCG_DOM,
+                NULL AS ITEM_TYPE,
+                NULL AS ITEM_TOTAL,
+                NULL AS SERVICE_TYPE,
+                NULL AS REVENUE_ANTICIPATED,
+                NULL AS PROC_AUD_T_POID_ID0,
+                NULL AS BILL_REVENUES_T_REC_ID,
+                NULL AS BILL_SUPPRESS_T_REC_ID,
+                NULL AS BILL_SUPPRESS_T_REC_ID2,
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0" ACCOUNT_OBJ_ID0
+          FROM("PROC_AUD_T" "PROC_AUD_T"
+                INNER JOIN "PROC_AUD_BILL_T" "PROC_AUD_BILL_T"
+                    ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_T"."OBJ_ID0") LEFT
+                OUTER JOIN "PROC_AUD_BILL_ERR_ACCT_T" "PROC_AUD_BILL_ERR_ACCT_T"
+                    ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_ERR_ACCT_T"."OBJ_ID0"
+          WHERE
+                 ("PROC_AUD_T"."PROCESS_START" >= bipext.infstrtotimet('''||pstartdate||''',   2)
+                 AND "PROC_AUD_T"."PROCESS_START" <= bipext.infstrtotimet('''||penddate||''',   2))
+                 AND TRIM("PROC_AUD_T"."PROCESS_NAME") in ('|| BillingMethod ||')
+                 AND "PROC_AUD_T"."VERSION_ID" = '|| VersionId ||'
+                 AND bipext.infCheckDates('''||pstartdate||''', '''||penddate||''') = 1
+          ORDER BY
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0"';
+      ELSE -- IF(psplitmethod = 0 ) THEN
+  
+        IF ( pBillingMethod =  'ALL' ) THEN
+           BillingMethod := '''Auto-Trigger''' || ',' || '''Bill-Now''' || ',' || '''Bill-ON-DEMAND''' || ',' || '''pin_bill_accts''';
+        ELSIF ( pBillingMethod =  'All Out of Cycle Bills' ) THEN
+           BillingMethod := '''Auto-Trigger''' || ',' || '''Bill-Now''' || ',' || '''Bill-ON-DEMAND''';
+        ELSE
+           BillingMethod := '''' || pBillingMethod || '''';
+        END IF; -- IF ( pBillingMethod =  'ALL' ) THEN
+  
+        MyQuery := 'SELECT
+              NULL AS TOTAL_REVENUE,
+              "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME" BILL_SEG_NAME,
+              "PROC_AUD_BILL_T"."ATCG_DOM" ATCG_DOM,
+              "PROC_AUD_BILL_REVENUES_T"."ITEM_TYPE" ITEM_TYPE,
+              NVL("PROC_AUD_BILL_SEGMENTS_T"."FAILRECORDS", 0) FAILRECORDS,
+              NVL("PROC_AUD_BILL_REVENUES_T"."ITEM_TOTAL", 0) ITEM_TOTAL,
+              "PROC_AUD_BILL_REVENUES_T"."SERVICE_TYPE" SERVICE_TYPE,
+              NVL("PROC_AUD_BILL_SUPPRESS_T"."REVENUE_ANTICIPATED", 0) REVENUE_ANTICIPATED,
+              "PROC_AUD_T"."PROCESS_START" PROCESS_START,
+              "PROC_AUD_T"."VERSION_ID" VERSION_ID,
+              "PROC_AUD_T"."PROCESS_NAME" PROCESS_NAME,
+              "PROC_AUD_T"."POID_ID0" PROC_AUD_T_POID_ID0,
+              "PROC_AUD_BILL_REVENUES_T"."REC_ID" BILL_REVENUES_T_REC_ID,
+              "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0" BILL_REVENUES_T_OBJ_ID0,
+              NVL("PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0", 0) BILL_SUPPRESS_T_OBJ_ID0,
+              NVL("PROC_AUD_BILL_SEGMENTS_T"."SUCCESSRECORDS", 0) SUCCESSRECORDS,
+              "PROC_AUD_BILL_SUPPRESS_T"."REC_ID" BILL_SUPPRESS_T_REC_ID,
+              "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2" BILL_SUPPRESS_T_REC_ID2,
+              "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS" ACCOUNT_FAIL_STATUS,
+              "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0" ACCOUNT_OBJ_ID0
+        FROM(((("PROC_AUD_T" "PROC_AUD_T"
+              INNER JOIN "PROC_AUD_BILL_T" "PROC_AUD_BILL_T"
+                  ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_T"."OBJ_ID0") 
+              LEFT OUTER JOIN "PROC_AUD_BILL_SEGMENTS_T" "PROC_AUD_BILL_SEGMENTS_T"
+                  ON "PROC_AUD_BILL_T"."OBJ_ID0" = "PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0")
+              LEFT OUTER JOIN "PROC_AUD_BILL_ERR_ACCT_T" "PROC_AUD_BILL_ERR_ACCT_T"
+                  ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_ERR_ACCT_T"."OBJ_ID0"
+		     AND "PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_ERR_ACCT_T"."REC_ID2")
+              LEFT OUTER JOIN "PROC_AUD_BILL_REVENUES_T" "PROC_AUD_BILL_REVENUES_T"
+                  ON ("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0") AND
+                     ("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_REVENUES_T"."REC_ID2"))
+              LEFT OUTER JOIN "PROC_AUD_BILL_SUPPRESS_T" "PROC_AUD_BILL_SUPPRESS_T"
+                  ON ("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0") AND
+                     ("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2")
+       WHERE
+              ("PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME" >= '|| pbillingsegstart ||'
+               AND "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME" <= '|| pbillingsegend ||')
+               AND ("PROC_AUD_T"."PROCESS_START" >= bipext.infstrtotimet('''|| pstartdate ||''',   2)
+               AND "PROC_AUD_T"."PROCESS_START" <= (bipext.infstrtotimet('''|| penddate   ||''',   2) - 1))
+               AND "PROC_AUD_T"."VERSION_ID" = '|| VersionId ||'
+               AND("PROC_AUD_BILL_T"."ATCG_DOM" >= '|| pdomstart ||'
+               AND "PROC_AUD_BILL_T"."ATCG_DOM" <= '|| pdomend ||')
+               AND "PROC_AUD_T"."PROCESS_NAME" in ( '||BillingMethod ||')
+               AND bipext.infCheckDates('''||pstartdate||''', '''||penddate||''') = 1
+       ORDER BY
+              "PROC_AUD_BILL_T"."ATCG_DOM",
+              "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME",
+              "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+              "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0",
+              "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0",
+              "PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0",
+              "PROC_AUD_BILL_SUPPRESS_T"."REC_ID",
+              "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2",
+              "PROC_AUD_BILL_REVENUES_T"."REC_ID",
+              "PROC_AUD_BILL_REVENUES_T"."ITEM_TYPE",
+              "PROC_AUD_T"."POID_ID0" DESC';
+      END IF; -- IF(psplitmethod = 0 ) THEN
+    ELSE -- IF ( pcontrolpoint = 'NONE') THEN
+          MyQuery := 'SELECT "PROC_AUD_T"."PROCESS_START" PROCESS_START,
+                "PROC_AUD_T"."VERSION_ID" VERSION_ID,
+                "PROC_AUD_T"."PROCESS_NAME" PROCESS_NAME,
+                "PROC_AUD_T"."SUCCESSRECORDS" SUCCESSRECORDS,
+                "PROC_AUD_T"."FAILRECORDS" FAILRECORDS,
+                DECODE(''' || pcontrolpoint || ''', ''pin_collect'', "PROC_AUD_BILL_T"."REVENUE_COLLECTED",
+                                                  ''pin_cycle_fees'', "PROC_AUD_BILL_T"."REVENUE_COLLECTED", 
+                                                  "PROC_AUD_BILL_T"."TOTAL_REVENUE") TOTAL_REVENUE,
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS" ACCOUNT_FAIL_STATUS,
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0" ACCOUNT_OBJ_ID0
+          FROM("PROC_AUD_T" "PROC_AUD_T"
+                INNER JOIN "PROC_AUD_BILL_T" "PROC_AUD_BILL_T"
+                    ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_T"."OBJ_ID0") LEFT
+                OUTER JOIN "PROC_AUD_BILL_ERR_ACCT_T" "PROC_AUD_BILL_ERR_ACCT_T"
+                    ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_ERR_ACCT_T"."OBJ_ID0"
+          WHERE
+                 ("PROC_AUD_T"."PROCESS_START" >= bipext.infstrtotimet('''||pstartdate||''',   2)
+                 AND "PROC_AUD_T"."PROCESS_START" <= bipext.infstrtotimet('''||penddate||''',   2))
+                 AND TRIM("PROC_AUD_T"."PROCESS_NAME") in ('''|| pcontrolpoint ||''')
+                 AND "PROC_AUD_T"."VERSION_ID" = 3
+                 AND bipext.infCheckDates('''||pstartdate||''', '''||penddate||''') = 1
+          ORDER BY
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+                "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0"';    
+   END IF; -- IF ( pcontrolpoint = 'NONE') THEN
+
+    OPEN l_cursor FOR
+         MyQuery;
+
+	if (l_cursor is null)	then
+	OPEN l_cursor FOR
+	SELECT
+                    "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME",
+                    "PROC_AUD_BILL_T"."ATCG_DOM",
+                    "PROC_AUD_BILL_REVENUES_T"."ITEM_TYPE",
+                    NVL("PROC_AUD_BILL_SEGMENTS_T"."FAILRECORDS", 0) FAILRECORDS,
+                    NVL("PROC_AUD_BILL_REVENUES_T"."ITEM_TOTAL", 0) ITEM_TOTAL,
+                    "PROC_AUD_BILL_REVENUES_T"."SERVICE_TYPE",
+                    NVL("PROC_AUD_BILL_SUPPRESS_T"."REVENUE_ANTICIPATED", 0) REVENUE_ANTICIPATED,
+                    NVL("PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0", 0) BILL_SUPPRESS_T_OBJ_ID0,
+                    "PROC_AUD_T"."PROCESS_START",
+                    "PROC_AUD_T"."VERSION_ID",
+                    "PROC_AUD_T"."PROCESS_NAME",
+                    "PROC_AUD_T"."POID_ID0",
+                    "PROC_AUD_BILL_REVENUES_T"."REC_ID" BILL_REVENUES_T_REC_ID,
+                    NVL("PROC_AUD_BILL_SEGMENTS_T"."SUCCESSRECORDS", 0) SUCCESSRECORDS,
+                    "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0" BILL_REVENUES_T_OBJ_ID0,
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID"  BILL_SUPPRESS_T_REC_ID,
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2" BILL_SUPPRESS_T_REC_ID2,
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0" BILL_ERR_ACCT_T_ACT_OBJ_ID0
+              FROM(((("PROC_AUD_T" "PROC_AUD_T"
+                    INNER JOIN "PROC_AUD_BILL_T" "PROC_AUD_BILL_T"
+                         ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_T"."OBJ_ID0")
+                    INNER JOIN "PROC_AUD_BILL_SEGMENTS_T" "PROC_AUD_BILL_SEGMENTS_T"
+                         ON "PROC_AUD_BILL_T"."OBJ_ID0" = "PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0")
+                    LEFT OUTER JOIN "PROC_AUD_BILL_ERR_ACCT_T" "PROC_AUD_BILL_ERR_ACCT_T"
+                         ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_ERR_ACCT_T"."OBJ_ID0"
+			 AND "PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_ERR_ACCT_T"."REC_ID2")
+                    LEFT OUTER JOIN "PROC_AUD_BILL_REVENUES_T" "PROC_AUD_BILL_REVENUES_T"
+                         ON("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0")
+                         AND("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_REVENUES_T"."REC_ID2"))
+                    LEFT OUTER JOIN "PROC_AUD_BILL_SUPPRESS_T" "PROC_AUD_BILL_SUPPRESS_T"
+                        ON("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0")
+                        AND("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2");
+	end if;
+    RETURN l_cursor;
+
+  EXCEPTION
+   WHEN INVALID_SEGMENT_RANGE THEN
+        RAISE_APPLICATION_ERROR (-20001, 'Not a valid Segment Range');
+   WHEN INVALID_DOM_RANGE THEN
+        RAISE_APPLICATION_ERROR (-20002, 'Not a valid Dom Range');
+   WHEN INVALID_METHOD THEN
+        RAISE_APPLICATION_ERROR (-20003,'For Split Method 0, Billing method can only be Regular, Trial or All');
+     return l_cursor;
+END rabillingsummary;
+
+FUNCTION RABillingDetail(
+              pBillingMethod IN VARCHAR2,
+              pDomStart IN NUMBER,
+              pDomEnd IN NUMBER,
+              pBillingSegStart IN NUMBER,
+              pBillingSegEnd IN NUMBER,
+              pStartDate IN VARCHAR2,
+              pEndDate IN VARCHAR2) RETURN RABilling.refcursor IS
+                      l_cursor RABilling.refcursor;
+
+      BillingMethod     VARCHAR(200):=NULL;
+      MyQuery           VARCHAR(5000):=NULL;
+      INVALID_SEGMENT_RANGE   EXCEPTION;
+      INVALID_DOM_RANGE       EXCEPTION;
+  BEGIN
+      IF ( pbillingsegstart > pbillingsegend ) THEN
+            RAISE INVALID_SEGMENT_RANGE;
+      END IF;
+      IF ( pdomstart > pdomend ) THEN
+            RAISE INVALID_DOM_RANGE;
+      END IF;
+      IF ( pBillingMethod =  'ALL' ) THEN
+         BillingMethod := '''Auto-Trigger''' || ',' || '''Bill-Now''' || ',' || '''Bill-ON-DEMAND''' || ',' || '''pin_bill_accts''';
+      ELSIF ( pBillingMethod =  'All Out of Cycle Bills' ) THEN
+         BillingMethod := '''Auto-Trigger''' || ',' || '''Bill-Now''' || ',' || '''Bill-ON-DEMAND''';
+      ELSE
+         BillingMethod :=  '''' || pBillingMethod || '''';
+      END IF;
+      MyQuery := 'SELECT
+                    "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME",
+                    "PROC_AUD_BILL_T"."ATCG_DOM",
+                    "PROC_AUD_BILL_REVENUES_T"."ITEM_TYPE",
+                    NVL("PROC_AUD_BILL_SEGMENTS_T"."FAILRECORDS", 0) FAILRECORDS,
+                    NVL("PROC_AUD_BILL_REVENUES_T"."ITEM_TOTAL", 0) ITEM_TOTAL,
+                    "PROC_AUD_BILL_REVENUES_T"."SERVICE_TYPE",
+                    NVL("PROC_AUD_BILL_SUPPRESS_T"."REVENUE_ANTICIPATED", 0) REVENUE_ANTICIPATED,
+                    NVL("PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0", 0) BILL_SUPPRESS_T_OBJ_ID0,
+                    "PROC_AUD_T"."PROCESS_START",
+                    "PROC_AUD_T"."VERSION_ID",
+                    "PROC_AUD_T"."PROCESS_NAME",
+                    "PROC_AUD_T"."POID_ID0",
+                    "PROC_AUD_BILL_REVENUES_T"."REC_ID" BILL_REVENUES_T_REC_ID,
+                    NVL("PROC_AUD_BILL_SEGMENTS_T"."SUCCESSRECORDS", 0) SUCCESSRECORDS,
+                    "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0" BILL_REVENUES_T_OBJ_ID0,
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID"  BILL_SUPPRESS_T_REC_ID,
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2" BILL_SUPPRESS_T_REC_ID2,
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0" BILL_ERR_ACCT_T_ACT_OBJ_ID0
+              FROM(((("PROC_AUD_T" "PROC_AUD_T"
+                    INNER JOIN "PROC_AUD_BILL_T" "PROC_AUD_BILL_T"
+                         ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_T"."OBJ_ID0")
+                    INNER JOIN "PROC_AUD_BILL_SEGMENTS_T" "PROC_AUD_BILL_SEGMENTS_T"
+                         ON "PROC_AUD_BILL_T"."OBJ_ID0" = "PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0")
+                    LEFT OUTER JOIN "PROC_AUD_BILL_ERR_ACCT_T" "PROC_AUD_BILL_ERR_ACCT_T"
+                         ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_ERR_ACCT_T"."OBJ_ID0"
+			 AND "PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_ERR_ACCT_T"."REC_ID2")
+                    LEFT OUTER JOIN "PROC_AUD_BILL_REVENUES_T" "PROC_AUD_BILL_REVENUES_T"
+                         ON("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0")
+                         AND("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_REVENUES_T"."REC_ID2"))
+                    LEFT OUTER JOIN "PROC_AUD_BILL_SUPPRESS_T" "PROC_AUD_BILL_SUPPRESS_T"
+                        ON("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0")
+                        AND("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2")
+              WHERE
+
+                    ("PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME" >=' || nvl(pBillingSegStart,0) ||'
+                     AND "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME" <= '|| nvl(pBillingSegEnd,0) ||')
+                      AND("PROC_AUD_T"."PROCESS_START" >= bipext.infstrtotimet('''|| pStartDate ||''',   2)
+                     AND "PROC_AUD_T"."PROCESS_START" <= bipext.infstrtotimet('''|| pEndDate ||''',   2) )
+                     AND("PROC_AUD_BILL_T"."ATCG_DOM" >= '|| nvl(pDomStart,0) ||'
+                     AND "PROC_AUD_BILL_T"."ATCG_DOM" <= '|| nvl(pDomEnd,0) ||')
+                     AND "PROC_AUD_T"."VERSION_ID" = 3
+                     AND("PROC_AUD_T"."PROCESS_NAME" in ( '|| BillingMethod ||')
+                     AND bipext.infCheckDates('''||pstartdate||''', '''||penddate||''')  = 1)
+              ORDER BY "PROC_AUD_BILL_T"."ATCG_DOM",
+                    "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME",
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0",
+                    "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0",
+                    "PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0",
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID",
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2",
+                    "PROC_AUD_BILL_REVENUES_T"."REC_ID",
+                    "PROC_AUD_BILL_REVENUES_T"."ITEM_TYPE"';
+
+
+    OPEN l_cursor FOR
+         MyQuery;
+	
+	if (l_cursor is null)	then
+	OPEN l_cursor FOR
+	SELECT
+                    "PROC_AUD_BILL_SEGMENTS_T"."BILL_SEG_NAME",
+                    "PROC_AUD_BILL_T"."ATCG_DOM",
+                    "PROC_AUD_BILL_REVENUES_T"."ITEM_TYPE",
+                    NVL("PROC_AUD_BILL_SEGMENTS_T"."FAILRECORDS", 0) FAILRECORDS,
+                    NVL("PROC_AUD_BILL_REVENUES_T"."ITEM_TOTAL", 0) ITEM_TOTAL,
+                    "PROC_AUD_BILL_REVENUES_T"."SERVICE_TYPE",
+                    NVL("PROC_AUD_BILL_SUPPRESS_T"."REVENUE_ANTICIPATED", 0) REVENUE_ANTICIPATED,
+                    NVL("PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0", 0) BILL_SUPPRESS_T_OBJ_ID0,
+                    "PROC_AUD_T"."PROCESS_START",
+                    "PROC_AUD_T"."VERSION_ID",
+                    "PROC_AUD_T"."PROCESS_NAME",
+                    "PROC_AUD_T"."POID_ID0",
+                    "PROC_AUD_BILL_REVENUES_T"."REC_ID" BILL_REVENUES_T_REC_ID,
+                    NVL("PROC_AUD_BILL_SEGMENTS_T"."SUCCESSRECORDS", 0) SUCCESSRECORDS,
+                    "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0" BILL_REVENUES_T_OBJ_ID0,
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID"  BILL_SUPPRESS_T_REC_ID,
+                    "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2" BILL_SUPPRESS_T_REC_ID2,
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_FAIL_STATUS",
+                    "PROC_AUD_BILL_ERR_ACCT_T"."ACCOUNT_OBJ_ID0" BILL_ERR_ACCT_T_ACT_OBJ_ID0
+              FROM(((("PROC_AUD_T" "PROC_AUD_T"
+                    INNER JOIN "PROC_AUD_BILL_T" "PROC_AUD_BILL_T"
+                         ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_T"."OBJ_ID0")
+                    INNER JOIN "PROC_AUD_BILL_SEGMENTS_T" "PROC_AUD_BILL_SEGMENTS_T"
+                         ON "PROC_AUD_BILL_T"."OBJ_ID0" = "PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0")
+                    LEFT OUTER JOIN "PROC_AUD_BILL_ERR_ACCT_T" "PROC_AUD_BILL_ERR_ACCT_T"
+                         ON "PROC_AUD_T"."POID_ID0" = "PROC_AUD_BILL_ERR_ACCT_T"."OBJ_ID0"
+			 AND "PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_ERR_ACCT_T"."REC_ID2")
+                    LEFT OUTER JOIN "PROC_AUD_BILL_REVENUES_T" "PROC_AUD_BILL_REVENUES_T"
+                         ON("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_REVENUES_T"."OBJ_ID0")
+                         AND("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_REVENUES_T"."REC_ID2"))
+                    LEFT OUTER JOIN "PROC_AUD_BILL_SUPPRESS_T" "PROC_AUD_BILL_SUPPRESS_T"
+                        ON("PROC_AUD_BILL_SEGMENTS_T"."OBJ_ID0" = "PROC_AUD_BILL_SUPPRESS_T"."OBJ_ID0")
+                        AND("PROC_AUD_BILL_SEGMENTS_T"."REC_ID" = "PROC_AUD_BILL_SUPPRESS_T"."REC_ID2");
+	end if;	
+
+    RETURN l_cursor;
+
+  EXCEPTION
+   WHEN INVALID_SEGMENT_RANGE THEN
+        RAISE_APPLICATION_ERROR (-20001, 'Not a valid Segment Range');
+   WHEN INVALID_DOM_RANGE THEN
+        RAISE_APPLICATION_ERROR (-20002, 'Not a valid Dom Range');	
+
+     return l_cursor;
+END RABillingDetail;
+
+END RABilling;
+/

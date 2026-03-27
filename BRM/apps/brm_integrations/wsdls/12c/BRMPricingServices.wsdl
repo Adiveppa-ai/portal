@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PRICING" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_PRICE_COMMIT_PRODUCT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_PRICE_SET_PRICE_LIST.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_PRICE_COMMIT_DISCOUNT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_PRICE_GET_PRICE_LIST.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_PRICE_COMMIT_PRODUCT_inmsg">
+        <part element="brm:PCM_OP_PRICE_COMMIT_PRODUCT_inputFlist" name="PCM_OP_PRICE_COMMIT_PRODUCT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_COMMIT_PRODUCT_outmsg">
+        <part element="brm:PCM_OP_PRICE_COMMIT_PRODUCT_outputFlist" name="PCM_OP_PRICE_COMMIT_PRODUCT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_SET_PRICE_LIST_inmsg">
+        <part element="brm:PCM_OP_PRICE_SET_PRICE_LIST_inputFlist" name="PCM_OP_PRICE_SET_PRICE_LIST_inputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_SET_PRICE_LIST_outmsg">
+        <part element="brm:PCM_OP_PRICE_SET_PRICE_LIST_outputFlist" name="PCM_OP_PRICE_SET_PRICE_LIST_outputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_COMMIT_DISCOUNT_inmsg">
+        <part element="brm:PCM_OP_PRICE_COMMIT_DISCOUNT_inputFlist" name="PCM_OP_PRICE_COMMIT_DISCOUNT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_COMMIT_DISCOUNT_outmsg">
+        <part element="brm:PCM_OP_PRICE_COMMIT_DISCOUNT_outputFlist" name="PCM_OP_PRICE_COMMIT_DISCOUNT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_GET_PRICE_LIST_inmsg">
+        <part element="brm:PCM_OP_PRICE_GET_PRICE_LIST_inputFlist" name="PCM_OP_PRICE_GET_PRICE_LIST_inputFlist"/>
+    </message>
+    <message name="PCM_OP_PRICE_GET_PRICE_LIST_outmsg">
+        <part element="brm:PCM_OP_PRICE_GET_PRICE_LIST_outputFlist" name="PCM_OP_PRICE_GET_PRICE_LIST_outputFlist"/>
+    </message>
+    <portType name="BRMPRICINGService_ptt">
+        <operation name="PCM_OP_PRICE_COMMIT_PRODUCT">
+            <input message="brm:PCM_OP_PRICE_COMMIT_PRODUCT_inmsg" name="PCM_OP_PRICE_COMMIT_PRODUCT_Request"/>
+            <output message="brm:PCM_OP_PRICE_COMMIT_PRODUCT_outmsg" name="PCM_OP_PRICE_COMMIT_PRODUCT_Response"/>
+        </operation>
+        <operation name="PCM_OP_PRICE_SET_PRICE_LIST">
+            <input message="brm:PCM_OP_PRICE_SET_PRICE_LIST_inmsg" name="PCM_OP_PRICE_SET_PRICE_LIST_Request"/>
+            <output message="brm:PCM_OP_PRICE_SET_PRICE_LIST_outmsg" name="PCM_OP_PRICE_SET_PRICE_LIST_Response"/>
+        </operation>
+        <operation name="PCM_OP_PRICE_COMMIT_DISCOUNT">
+            <input message="brm:PCM_OP_PRICE_COMMIT_DISCOUNT_inmsg" name="PCM_OP_PRICE_COMMIT_DISCOUNT_Request"/>
+            <output message="brm:PCM_OP_PRICE_COMMIT_DISCOUNT_outmsg" name="PCM_OP_PRICE_COMMIT_DISCOUNT_Response"/>
+        </operation>
+        <operation name="PCM_OP_PRICE_GET_PRICE_LIST">
+            <input message="brm:PCM_OP_PRICE_GET_PRICE_LIST_inmsg" name="PCM_OP_PRICE_GET_PRICE_LIST_Request"/>
+            <output message="brm:PCM_OP_PRICE_GET_PRICE_LIST_outmsg" name="PCM_OP_PRICE_GET_PRICE_LIST_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMPRICINGService_plt">
+        <plt:role name="BRMPRICINGService_role">
+            <plt:portType name="brm:BRMPRICINGService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

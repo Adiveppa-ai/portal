@@ -1,0 +1,89 @@
+################################################################################
+# $Id: frameApiSource.src,v 1.9 2001/08/31 15:14:37 bt Exp $
+#
+# Default settings for Framework API
+################################################################################
+
+##################################################################
+# compiler settings
+##################################################################
+# supported compiler versions:
+#
+#   LINUX:    NAME=GCC     VERSION=2952  (default)
+#   LINUX:    NAME=EGCS    VERSION=112
+#
+#   SOLARIS:  NAME=SUNPRO  VERSION=52    (default)
+#   SOLARIS:  NAME=SUNPRO  VERSION=42
+#   SOLARIS:  NAME=GCC     VERSION=2952
+#
+#   HPUX:     NAME=ACC32   VERSION=313   (default)
+#
+#   AIX:      NAME=IBMCC   VERSION=500   (default)
+#   AIX:      NAME=IBMCC   VERSION=366
+#
+# if a value is set to none, the default value will be used
+
+CFG_COMP_NAME=none
+
+CFG_COMP_VERSION=none
+
+CFG_COMP_EXE=none
+
+##################################################################
+# alternative framework root path settings
+#
+# if the value is set to none, the default value will be used
+
+CFG_FRAMEWORK_ROOT=none
+
+##################################################################
+# Rogue Wave settings
+
+CFG_RW_PATH=${BUILD_ROOT}/rwWorkspace
+
+##################################################################
+# java settings
+
+CFG_JDK_PATH=none
+
+##################################################################
+# Iona orbix settings
+
+CFG_ORBIX_USED=none
+
+CFG_CORBA_HOME=none
+
+CFG_CORBA_CXX=none
+
+CFG_CORBA_CXXLIB=none
+
+CFG_CORBA_SHLIB=none
+
+CFG_CORBA_DEFLIB=none
+
+##################################################################
+# purify and quantify settings
+
+CFG_PURE_PATH=none
+
+CFG_PURE_VERSION=none
+
+##################################################################
+# InstallAnywhere settings
+
+CFG_INST_ANYWHERE_BIN=none
+
+##################################################################
+# Oracle settings
+
+CFG_ORACLE_HOME=none
+
+CFG_NLS_LANG=AMERICAN_AMERICA.WE8ISO8859P9
+
+##################################################################
+# perl and browser settings
+
+CFG_INT_PERL_LIB=${BUILD_ROOT}/tools/PerlLib
+
+CFG_INT_BROWSER_HOME=${BUILD_ROOT}/tools/Browser
+

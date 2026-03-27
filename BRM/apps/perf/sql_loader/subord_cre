@@ -1,0 +1,298 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+#############################################################
+# Copyright (c) 1997, 2010, Oracle and/or its affiliates. All rights reserved. 
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+######################################################################
+## subord_cre - creates 1 level of subordinate accounts
+require "../db_conf.pm";
+
+#---------------------------------------------------------------------
+# pinaft outputs create_t (today), actg_next_t, actg_future_t and 
+# actg_dom. Note that if today is 29-31 then actg_dom, actg_next_t and 
+# actg_future_t will be auto adjusted to 1st.
+#---------------------------------------------------------------------
+$PINAFT_OUTPUT=`./pinaft`;
+($CONF_CREATE_T,$CONF_ACTG_DOM,$CONF_ACTG_NEXT_T,$CONF_ACTG_FUTURE_T,
+   $CONF_DATE_STRG ) = split (' ',$PINAFT_OUTPUT,99);
+
+$CONF_NUM_PARENTS=1111; # number of parents per thread , subords evenly divided
+
+$CONF_NUM_ACNT=100000;  # number accounts to process per thread for 100%
+$CONF_BEG_ID0=1000000;  # first login id to process
+$CONF_NUM_THREADS=10;    
+$RESIDENCE_TYPE = 0; # 0 - convergent, 1 - RT, 2 -batch
+                     # only one type could be processed in time
+
+$CONF_DEBUG=false;
+$CONF_COMMIT_FREQ=10;
+
+$CONF_DATE_STR="'$CONF_DATE_STRG'";
+#--------------------------------------------
+# end of configuration section
+#--------------------------------------------
+
+# test if more parents than accounts
+if ($CONF_NUM_ACNT < $CONF_NUM_PARENTS)
+{
+  print("Exiting: More parents than accounts\n");
+  exit(0);
+}
+
+#=============================================================================
+
+$sqlout="";
+
+$current_thread=$CONF_NUM_THREADS;
+$start_seq_no=$CONF_BEG_ID0;
+$currtime1 = time();
+
+# get db value for new group
+$sqlcommand =<<SQL;
+  set pagesize 0
+  select poid_db from account_t where poid_id0=1;
+SQL
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+($db_no)=split (' ',$sqlout,99);
+
+$family_size = int $CONF_NUM_ACNT/$CONF_NUM_PARENTS;
+
+while ( $current_thread > 0 ) {
+#--------------------------------------
+$sqlcmnd_array[$current_thread] =<<SQL;
+DECLARE 
+  commit_cnt NUMBER;
+  i NUMBER;
+  curr_blgrp_id0 NUMBER;
+  curr_blnfo_id NUMBER;
+  memb_no NUMBER;
+  rec_no NUMBER;
+  par_id0 NUMBER;
+  par_db NUMBER;
+  curr_db NUMBER;
+  pay_type NUMBER;
+  payinfo_obj NUMBER;
+  item_id0 NUMBER;
+  chd_count NUMBER;
+  sub_id0 NUMBER;
+  bill1_par_id NUMBER;
+  bill2_par_id NUMBER;
+  bill1_chd_id NUMBER;
+  bill2_chd_id NUMBER;
+  login1 VARCHAR2(255);
+  login11 VARCHAR2(255);
+
+cursor bills is
+        select poid_id0 from bill_t
+                where billinfo_obj_id0 = curr_blnfo_id order by poid_id0;
+BEGIN
+  commit_cnt := 0;
+
+  FOR i IN 0..${CONF_NUM_ACNT}-1 LOOP
+    login1 := '${USER_PREFIX}' || TO_CHAR($start_seq_no + i);
+    login11 :=  login1 || '_service';
+-- assumption that billinfo poid = account poid such created by sql_loader
+    SELECT bal_grp_obj_id0 INTO curr_blgrp_id0 FROM service_t where ( login = login1
+      or login = login11 ) and object_cache_type = ${RESIDENCE_TYPE} and rownum < 2;
+    SELECT POID_DB, BILLINFO_OBJ_ID0 INTO curr_db, curr_blnfo_id from bal_grp_t where poid_id0 = curr_blgrp_id0;
+    memb_no := MOD(i,${family_size});
+    IF (memb_no=0) THEN	
+-- <<start parent account>>
+      IF (i < (${CONF_NUM_PARENTS} * ${family_size})) THEN
+--    complete group
+        chd_count := ${family_size}-1;
+      ELSE
+--    partial group
+        chd_count := MOD(${CONF_NUM_ACNT},${CONF_NUM_PARENTS}) - 1;
+      END IF;
+-- we do nothing for parent account/assume one billinfo here per residence type
+      par_id0 := curr_blnfo_id; 
+      par_db := curr_db;
+-- update billinfo as parent
+      UPDATE billinfo_t SET
+	PARENT_FLAGS=chd_count
+      WHERE POID_ID0=curr_blnfo_id;
+-- save parent bill id
+-- for config items > 0 should be 2 bills, but we store only first
+        open bills;
+        fetch bills into bill1_par_id;
+       IF ( ${CONFIG_ITEMS} > 0 ) THEN
+        fetch bills into bill2_par_id;
+       END IF;
+        close bills;
+
+-- <<end parent account>>
+    ELSE
+-- <<start subordinate account>>
+
+-- get payinfo poid value for deletion from payinfo_{cc/inv}_t
+      SELECT pay_type,payinfo_obj_id0 INTO pay_type, payinfo_obj
+	  FROM billinfo_t WHERE poid_id0=curr_blnfo_id;
+
+-- set subord payinfo poid entry
+  sub_id0:=payinfo_obj;
+
+  rec_no:=memb_no-1;
+
+        open bills;
+        fetch bills into bill1_chd_id;
+       IF ( ${CONFIG_ITEMS} > 0 ) THEN
+        fetch bills into bill2_chd_id;
+       END IF;
+        close bills;
+-- Process child tables:
+--
+-- delete subord from cc/inv payinfo table
+      IF (pay_type=10003) THEN
+        DELETE FROM payinfo_cc_t WHERE OBJ_ID0=payinfo_obj;
+      ELSE
+        DELETE FROM payinfo_inv_t WHERE OBJ_ID0=payinfo_obj;
+      END IF;
+
+
+-- update billinfo as subord
+      UPDATE billinfo_t SET
+	MOD_T=${CONF_CREATE_T},
+	PAY_TYPE=10007,
+	AR_BILLINFO_OBJ_DB=par_db,
+	AR_BILLINFO_OBJ_ID0=par_id0,
+	PARENT_BILLINFO_OBJ_DB=par_db,
+        PARENT_BILLINFO_OBJ_TYPE = POID_TYPE,
+        PARENT_BILLINFO_OBJ_REV = POID_REV,
+	PARENT_BILLINFO_OBJ_ID0=par_id0
+      WHERE POID_ID0=curr_blnfo_id;
+
+-- update item_t and bill_t as subord
+-- update all records for current account       
+
+      UPDATE item_t SET
+	AR_BILLINFO_OBJ_DB=par_db,
+	AR_BILLINFO_OBJ_ID0=par_id0,
+	AR_BILL_OBJ_DB=par_db,
+	AR_BILL_OBJ_ID0 = bill1_par_id
+      WHERE BILLINFO_OBJ_ID0=curr_blnfo_id and bill_obj_id0 = bill1_chd_id;
+
+      UPDATE bill_t SET
+	AR_BILLINFO_OBJ_DB=par_db,
+	AR_BILLINFO_OBJ_ID0=par_id0,
+	PARENT_BILLINFO_OBJ_DB=par_db,
+        PARENT_BILLINFO_OBJ_TYPE = BILLINFO_OBJ_TYPE,
+        PARENT_BILLINFO_OBJ_REV = BILLINFO_OBJ_REV,
+	PARENT_BILLINFO_OBJ_ID0=par_id0,
+        PARENT_DB = par_db,
+        PARENT_ID0 = bill1_par_id,
+        PARENT_TYPE = '/bill',
+        PARENT_REV = 1
+      WHERE poid_id0 = bill1_chd_id;
+
+       IF ( ${CONFIG_ITEMS} > 0 ) THEN
+        UPDATE item_t SET
+	  AR_BILLINFO_OBJ_DB=par_db,
+          AR_BILLINFO_OBJ_ID0=par_id0,
+	  AR_BILL_OBJ_DB=par_db,
+          AR_BILL_OBJ_ID0 = bill2_par_id
+        WHERE BILLINFO_OBJ_ID0=curr_blnfo_id and bill_obj_id0 = bill2_chd_id;
+
+      UPDATE bill_t SET
+	AR_BILLINFO_OBJ_DB=par_db,
+        AR_BILLINFO_OBJ_ID0=par_id0,
+        PARENT_BILLINFO_OBJ_DB=par_db,
+        PARENT_BILLINFO_OBJ_TYPE = BILLINFO_OBJ_TYPE,
+        PARENT_BILLINFO_OBJ_REV = BILLINFO_OBJ_REV,
+        PARENT_BILLINFO_OBJ_ID0=par_id0,
+        PARENT_DB = par_db,
+        PARENT_ID0 = bill2_par_id,
+        PARENT_TYPE = '/bill',
+        PARENT_REV = 1
+      WHERE poid_id0 = bill2_chd_id;
+       END IF;
+
+
+-- update payinfo entry as subord
+      UPDATE payinfo_t SET
+	POID_TYPE='/payinfo/subord'
+      WHERE POID_ID0=sub_id0;
+-- <<end subordinate account>>
+    END IF;
+  commit_cnt := commit_cnt + 1;
+  IF (commit_cnt = ${CONF_COMMIT_FREQ}) THEN
+	  commit_cnt := 0;
+	  commit;
+  END IF;
+END LOOP;
+END;
+/
+SQL
+
+$current_thread=$current_thread - 1;
+$start_seq_no=$start_seq_no + $CONF_NUM_ACNT;
+# end of while
+}
+
+#  end of while
+##################################################
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+{
+if ( $^O =~ /win/i )
+{
+# special code for Windows 
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+	print $sqlout;
+}
+else
+{
+$procid[$current_thread] = fork();
+#--------------------------------------
+#  child process
+#--------------------------------------
+if ( $procid[$current_thread] == 0 ) {
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+
+print $sqlout;
+exit;    # this terminates child process
+}
+# this is a parent process
+}
+
+$current_thread=$current_thread + 1;
+}
+if (!( $^O =~ /win/i ))
+{
+#
+# waiting while all processes were completed
+#
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+ {
+  waitpid ($procid[$current_thread], 0 );
+  $current_thread=$current_thread + 1;
+ }
+}
+
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$spares = $CONF_NUM_ACNT%$CONF_NUM_PARENTS;
+$family_size = $family_size-1;
+print "***************************************************************\n";
+printf " $CONF_NUM_PARENTS parent(s) with $family_size children \n";
+if ($spares!=0){
+$spares=$spares-1;
+printf "  plus 1 spare parent with $spares children\n";
+}
+printf " for each of $CONF_THREADS threads \n";
+printf " were created in %d h %d min %d sec.\n",
+	   $ehours,$emin,$esec;
+print "***************************************************************\n";
+
+1;
+
+
+
+
+

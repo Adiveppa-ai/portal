@@ -1,0 +1,259 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_Hyperlinked_Invoice_Report_Data_Source">
+   <description>
+      <![CDATA[BRM_Hyperlinked_Index_Data_Model]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="BRM_Hyperlinked_Index_Data_Set" type="complex">
+         <sql>
+            <![CDATA[select	 "INVOICE_T"."POID_ID0" as "OBJ_ID0",
+	 "INVOICE_T"."STATUS" as "STATUS",
+	 "INVOICE_T"."CREATED_T" as "CREATED_T",
+	 "INVOICE_T"."BILL_NO" as "BILL_NO",
+	 "ACCOUNT_T"."ACCOUNT_NO" as "ACCOUNT_NO",
+	 "BILLINFO_T"."PARENT_FLAGS" as "PARENT_FLAGS",
+	 "ACCOUNT_NAMEINFO_T"."OBJ_ID0" as "OBJ_ID0_1",
+	 "ACCOUNT_T"."POID_ID0" as "POID_ID0",
+	 "ACCOUNT_NAMEINFO_T"."CITY" as "CITY",
+	 "ACCOUNT_NAMEINFO_T"."ADDRESS" as "ADDRESS",
+	 "ACCOUNT_NAMEINFO_T"."COUNTRY" as "COUNTRY",
+	 "ACCOUNT_NAMEINFO_T"."FIRST_NAME" as "FIRST_NAME",
+	 "ACCOUNT_NAMEINFO_T"."LAST_NAME" as "LAST_NAME",
+	 "ACCOUNT_NAMEINFO_T"."STATE" as "STATE",
+	 "ACCOUNT_NAMEINFO_T"."ZIP" as "ZIP",
+	 "BILL_T"."INVOICE_OBJ_ID0" as "INVOICE_OBJ_ID0",
+	 "BILL_T"."CURRENCY_OPER" as "CURRENCY_OPER",
+	 "BILL_T"."CURRENCY" as "CURRENCY",
+	 "BILL_T"."CURRENT_TOTAL" as "CURRENT_TOTAL",
+	 "BILL_T"."DUE_T" as "DUE_T",
+	 "BILL_T"."END_T" as "END_T",
+	 "BILL_T"."NAME" as "NAME",
+	 "BILL_T"."PREVIOUS_TOTAL" as "PREVIOUS_TOTAL",
+	 "BILL_T"."START_T" as "START_T",
+	 "BILL_T"."SUBORDS_TOTAL" as "SUBORDS_TOTAL",
+	 "BILL_T"."DUE" as "DUE",
+	 "BILL_T"."ADJUSTED" as "ADJUSTED",
+	 "BILL_T"."DISPUTED" as "DISPUTED",
+	 "BILL_T"."TOTAL_DUE" as "TOTAL_DUE",
+	 "BILL_T"."RECVD" as "RECVD",
+	 "BILL_T"."TRANSFERRED" as "TRANSFERRED" 
+ from	"BILL_T" "BILL_T",
+	"ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T",
+	"BILLINFO_T" "BILLINFO_T",
+	"INVOICE_T" "INVOICE_T",
+	"ACCOUNT_T" "ACCOUNT_T" 
+ where   "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"
+ and	 "INVOICE_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0"
+ and	 "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ and	 "INVOICE_T"."POID_ID0"="BILL_T"."INVOICE_OBJ_ID0"
+  and 	 "INVOICE_T"."POID_ID0" <=:p_Inv_MAX_POID 
+   and	 "INVOICE_T"."STATUS" =:p_Inv_Status 
+   and	 "INVOICE_T"."CREATED_T" < :p_Inv_End_t
+
+order by PARENT_FLAGS desc]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="ROW_SET" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="ROW_SET">
+            <group name="ROW" label="ROW" source="BRM_Hyperlinked_Index_Data_Set">
+               <element name="OBJ_ID0" value="OBJ_ID0" label="OBJ_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="1"/>
+               <element name="STATUS" value="STATUS" label="STATUS" dataType="xsd:integer" breakOrder="" fieldOrder="2"/>
+               <element name="CREATED_T" value="CREATED_T" label="CREATED_T" dataType="xsd:integer" breakOrder="" fieldOrder="3"/>
+               <element name="BILL_NO" value="BILL_NO" label="BILL_NO" dataType="xsd:string" breakOrder="" fieldOrder="4"/>
+               <element name="ACCOUNT_NO" value="ACCOUNT_NO" label="ACCOUNT_NO" dataType="xsd:string" breakOrder="" fieldOrder="5"/>
+               <element name="PARENT_FLAGS" value="PARENT_FLAGS" label="PARENT_FLAGS" dataType="xsd:integer" breakOrder="" fieldOrder="6"/>
+               <element name="OBJ_ID0_1" value="OBJ_ID0_1" label="OBJ_ID0_1" dataType="xsd:integer" breakOrder="" fieldOrder="7"/>
+               <element name="POID_ID0" value="POID_ID0" label="POID_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="8"/>
+               <element name="CITY" value="CITY" label="CITY" dataType="xsd:string" breakOrder="" fieldOrder="9"/>
+               <element name="ADDRESS" value="ADDRESS" label="ADDRESS" dataType="xsd:string" breakOrder="" fieldOrder="10"/>
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="11"/>
+               <element name="FIRST_NAME" value="FIRST_NAME" label="FIRST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="12"/>
+               <element name="LAST_NAME" value="LAST_NAME" label="LAST_NAME" dataType="xsd:string" breakOrder="" fieldOrder="13"/>
+               <element name="STATE" value="STATE" label="STATE" dataType="xsd:string" breakOrder="" fieldOrder="14"/>
+               <element name="ZIP" value="ZIP" label="ZIP" dataType="xsd:string" breakOrder="" fieldOrder="15"/>
+               <element name="INVOICE_OBJ_ID0" value="INVOICE_OBJ_ID0" label="INVOICE_OBJ_ID0" dataType="xsd:integer" breakOrder="" fieldOrder="16"/>
+               <element name="CURRENCY_OPER" value="CURRENCY_OPER" label="CURRENCY_OPER" dataType="xsd:integer" breakOrder="" fieldOrder="17"/>
+               <element name="CURRENCY" value="CURRENCY" label="CURRENCY" dataType="xsd:integer" breakOrder="" fieldOrder="18"/>
+               <element name="CURRENT_TOTAL" value="CURRENT_TOTAL" label="CURRENT_TOTAL" dataType="xsd:integer" breakOrder="" fieldOrder="19"/>
+               <element name="DUE_T" value="DUE_T" label="DUE_T" dataType="xsd:integer" breakOrder="" fieldOrder="20"/>
+               <element name="END_T" value="END_T" label="END_T" dataType="xsd:integer" breakOrder="" fieldOrder="21"/>
+               <element name="NAME" value="NAME" label="NAME" dataType="xsd:string" breakOrder="" fieldOrder="22"/>
+               <element name="PREVIOUS_TOTAL" value="PREVIOUS_TOTAL" label="PREVIOUS_TOTAL" dataType="xsd:integer" breakOrder="" fieldOrder="23"/>
+               <element name="START_T" value="START_T" label="START_T" dataType="xsd:integer" breakOrder="" fieldOrder="24"/>
+               <element name="SUBORDS_TOTAL" value="SUBORDS_TOTAL" label="SUBORDS_TOTAL" dataType="xsd:integer" breakOrder="" fieldOrder="25"/>
+               <element name="DUE" value="DUE" label="DUE" dataType="xsd:integer" breakOrder="" fieldOrder="26"/>
+               <element name="ADJUSTED" value="ADJUSTED" label="ADJUSTED" dataType="xsd:integer" breakOrder="" fieldOrder="27"/>
+               <element name="DISPUTED" value="DISPUTED" label="DISPUTED" dataType="xsd:integer" breakOrder="" fieldOrder="28"/>
+               <element name="TOTAL_DUE" value="TOTAL_DUE" label="TOTAL_DUE" dataType="xsd:integer" breakOrder="" fieldOrder="29"/>
+               <element name="RECVD" value="RECVD" label="RECVD" dataType="xsd:integer" breakOrder="" fieldOrder="30"/>
+               <element name="TRANSFERRED" value="TRANSFERRED" label="TRANSFERRED" dataType="xsd:integer" breakOrder="" fieldOrder="31"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets/>
+   <parameters>
+      <parameter name="p_Inv_Status" defaultValue="1" dataType="xsd:integer" rowPlacement="1">
+         <input label="Invoice Status (0=Pending, 1=Generated, etc,)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_Type" defaultValue="2" dataType="xsd:integer" rowPlacement="1">
+         <input label="Invoice Type (0=Consumer,1=Corp,2=both)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_End_t" defaultValue="2147483647" dataType="xsd:integer" rowPlacement="2">
+         <input label="Invoices generated before this time (1/19/2038)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_Start_t" defaultValue="0" dataType="xsd:integer" rowPlacement="2">
+         <input label="Invoices generated after this time (1/1/1970)" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_MIN_POID" defaultValue="1" dataType="xsd:integer" rowPlacement="3">
+         <input label="Minimum Invoice POID ID" size="20"/>
+      </parameter>
+      <parameter name="p_Inv_MAX_POID" defaultValue="999999999" dataType="xsd:integer" rowPlacement="3">
+         <input label="Maximum Invoice POID ID" size="20"/>
+      </parameter>
+   </parameters>
+   <bursting>
+      <burst name="BRM_Hyperlinked_Index_Bursting_Query" enabled="true">
+         <property name="BURSTING_NODE" value="/ROW_SET/LIST_ROW/ROW/BILL_NO"/>
+         <property name="DELIVERY_KEY" value="/ROW_SET/LIST_ROW/ROW/OBJ_ID0"/>
+         <dataSet>
+            <sql>
+               <![CDATA[-- /invoice 10001 paytype - Delivery option = Email
+select  "INVOICE_T"."POID_ID0" as "KEY",
+        "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE",
+        'en-US' as "LOCALE",
+        'PDF' as "OUTPUT_FORMAT",
+        'EMAIL' as "DEL_CHANNEL",
+        'America/Los_Angeles' as "TIMEZONE",
+        'GREGORIAN' as "CALENDAR",
+        "INVOICE_T"."POID_ID0" as "OUTPUT_NAME",
+        'true' as "SAVE_OUTPUT",
+        "PAYINFO_INV_T"."DELIVERY_DESCR" as "PARAMETER1",
+        '' as "PARAMETER2",
+        'BIP' as "PARAMETER3",
+        "INVOICE_T"."TEMPLATE_NAME" ||  ' Invoice for Account ' || "ACCOUNT_T"."ACCOUNT_NO" || ' Bill No ' || "INVOICE_T"."BILL_NO" as "PARAMETER4",
+        'Please find the attached invoice' as "PARAMETER5",
+        'true' as "PARAMETER6",
+        '' as "PARAMETER7",
+        '' as PARAMETER8
+
+ from	"INVOICE_T","PAYINFO_T","PAYINFO_INV_T","ACCOUNT_T","BILLINFO_T" 
+
+ where             "BILLINFO_T"."PAYINFO_OBJ_ID0"="PAYINFO_T"."POID_ID0"
+        and        "PAYINFO_T"."POID_ID0"="PAYINFO_INV_T"."OBJ_ID0"
+        and        "INVOICE_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0"
+        and        "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"           
+        and        "INVOICE_T"."STATUS" = :p_Inv_Status 
+        and        "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t 
+        and        "INVOICE_T"."CREATED_T" < :p_Inv_End_t 
+        and        "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+        and        "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+        and        "INVOICE_T"."POID_TYPE" != '/invoice/trial'
+        and        "BILLINFO_T"."PAY_TYPE" = '10001'
+        and        "PAYINFO_INV_T"."DELIVERY_PREFER"=0
+    
+UNION ALL
+
+-- /invoice 10001 paytype  - Delivery option = FTP 
+
+select  "INVOICE_T"."POID_ID0" as "KEY",
+       'protoindex' as "TEMPLATE",
+        'en-US' as "LOCALE",
+        'PDF' as "OUTPUT_FORMAT",
+        'FTP' as "DEL_CHANNEL",
+        'America/Los_Angeles' as "TIMEZONE",
+        'GREGORIAN' as "CALENDAR",
+        "INVOICE_T"."POID_ID0" as "OUTPUT_NAME",
+        'true' as "SAVE_OUTPUT",
+        '__FTP_SERVERNAME__' as "PARAMETER1",
+        '' as "PARAMETER2",
+        '' as "PARAMETER3",
+        '__FTP_REMOTE_DIRECTORY__' as "PARAMETER4",
+        "INVOICE_T"."POID_ID0" ||  '_Index.pdf' as "PARAMETER5",
+        'false' as "PARAMETER6",
+        '' as "PARAMETER7",
+        '' as PARAMETER8
+
+ from	"INVOICE_T","PAYINFO_T","PAYINFO_INV_T","ACCOUNT_T","BILLINFO_T"
+
+ where             "BILLINFO_T"."PAYINFO_OBJ_ID0"="PAYINFO_T"."POID_ID0"
+        and        "PAYINFO_T"."POID_ID0"="PAYINFO_INV_T"."OBJ_ID0"
+        and        "INVOICE_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0"
+        and        "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"           
+        and        "INVOICE_T"."STATUS" = :p_Inv_Status 
+        and        "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t 
+        and        "INVOICE_T"."CREATED_T" < :p_Inv_End_t 
+        and        "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+        and        "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+        and        "INVOICE_T"."POID_TYPE" != '/invoice/trial'
+        and        "BILLINFO_T"."PAY_TYPE" = '10001'
+        and        "PAYINFO_INV_T"."DELIVERY_PREFER"!=0
+          
+UNION ALL
+
+-- Subords that were not split/stitched
+-- Non Invoice/non subord paytype
+-- /invoice/trial 10001 paytype 
+-- -> Delivery option = None
+
+select  "INVOICE_T"."POID_ID0" as "KEY",
+        "INVOICE_T"."TEMPLATE_NAME" as "TEMPLATE",
+        'en-US' as "LOCALE",
+        'PDF' as "OUTPUT_FORMAT",
+         'FTP' as "DEL_CHANNEL",
+        'America/Los_Angeles' as "TIMEZONE",
+        'GREGORIAN' as "CALENDAR",
+        "INVOICE_T"."POID_ID0" as "OUTPUT_NAME",
+        'true' as "SAVE_OUTPUT",
+        '__FTP_SERVERNAME__' as "PARAMETER1",
+        '' as "PARAMETER2",
+        '' as "PARAMETER3",
+        '__FTP_REMOTE_DIRECTORY__' as "PARAMETER4",
+        "INVOICE_T"."POID_ID0" ||  '_Subord.pdf' as "PARAMETER5",
+        'false' as "PARAMETER6",
+        '' as "PARAMETER7",
+        '' as PARAMETER8
+
+ from	"INVOICE_T", "BILLINFO_T"
+
+ where             "INVOICE_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0"
+        and        "INVOICE_T"."STATUS" = :p_Inv_Status 
+        and        "INVOICE_T"."CREATED_T" >= :p_Inv_Start_t 
+        and        "INVOICE_T"."CREATED_T" < :p_Inv_End_t 
+        and        "INVOICE_T"."POID_ID0" >= :p_Inv_MIN_POID
+        and        "INVOICE_T"."POID_ID0" <= :p_Inv_MAX_POID
+
+        and        (    (        "BILLINFO_T"."PAY_TYPE" = '10007' 
+                          and    "INVOICE_T"."CHECK_SPLIT_FLAGS" = '0'
+                        )
+                     or ("BILLINFO_T"."PAY_TYPE" NOT IN (10001,10007)
+                        )
+                     or (       "INVOICE_T"."POID_TYPE" = '/invoice/trial'
+                         and    "BILLINFO_T"."PAY_TYPE" = '10001'
+                        )
+                   )
+
+           
+order by "TEMPLATE" desc]]>
+            </sql>
+         </dataSet>
+      </burst>
+   </bursting>
+   <display>
+      <layouts>
+         <layout name="BRM_Hyperlinked_Index_Data_Set" left="285px" top="28px"/>
+         <layout name="ROW_SET" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

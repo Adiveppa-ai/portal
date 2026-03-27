@@ -1,0 +1,4 @@
+load_pin_beid /opt/portal/6.0/sys/data/pricing/example/pin_beid_netflow
+load_pin_spec_rates /opt/portal/6.0/sys/data/config/pin_spec_rates_netflow
+load_pin_spec_impact_category /opt/portal/6.0/sys/data/config/pin_spec_impact_category_netflow
+/opt/portal/6.0/bin/perl /opt/portal/6.0/setup/scripts/load_pin_plist.pl /opt/portal/6.0/setup/scripts/netflow_price_list.flist

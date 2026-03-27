@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema targetNamespace="http://www.portal.com/PortalXMLSchema" 
+            xmlns="http://www.portal.com/PortalXMLSchema"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+  <xsd:annotation>
+    <xsd:documentation>
+ Copyright (c) 2013, 2014, Oracle and/or its affiliates. All rights reserved.
+        This material is the confidential property of Oracle Corporation or its
+        licensors and may be used, reproduced, stored or transmitted only in
+        accordance with a valid Oracle license or sublicense agreement.
+    </xsd:documentation>
+  </xsd:annotation> 
+
+  <xsd:element name="EdrFieldMappingConfiguration">
+     <xsd:complexType>
+         <xsd:choice minOccurs="1" maxOccurs="1">
+             <xsd:element name="edr_field_mapping">
+                 <xsd:complexType>
+                     <xsd:sequence>
+                         <xsd:element name="f" maxOccurs="unbounded">
+	                     <xsd:complexType>
+                                 <xsd:attribute name="id">
+                                     <xsd:simpleType>
+                                         <xsd:restriction base="xsd:string">
+                                             <xsd:pattern value="([0-9.b])+"/>
+                                         </xsd:restriction>
+                                     </xsd:simpleType>
+                                 </xsd:attribute>
+                                 <xsd:attribute name="name" type="xsd:string"/>
+                                 <xsd:attribute name="type" >
+                                     <xsd:simpleType>
+                                         <xsd:restriction base="xsd:integer">
+                                             <xsd:enumeration value="1"/>
+                                             <xsd:enumeration value="2"/>
+                                             <xsd:enumeration value="4"/>
+                                             <xsd:enumeration value="8"/>
+                                             <xsd:enumeration value="32"/>
+                                         </xsd:restriction>
+                                     </xsd:simpleType>
+                                 </xsd:attribute>
+	                     </xsd:complexType>
+                         </xsd:element>
+                     </xsd:sequence>
+                     <xsd:attribute name="name" type="xsd:string"/>
+                 </xsd:complexType>
+             </xsd:element>
+         </xsd:choice>
+     </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

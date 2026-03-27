@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IFW xsi:noNamespaceSchemaLocation="LoadIfwConfig.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<RecordSet>
+<IFW_RUMGROUP_LNK/>
+</RecordSet>
+
+
+<RecordSet>
+<IFW_SERVICE/>
+</RecordSet>
+
+
+<RecordSet>
+<IFW_ALIAS_MAP REFERENCE="RUM"/>
+</RecordSet>
+
+</IFW>

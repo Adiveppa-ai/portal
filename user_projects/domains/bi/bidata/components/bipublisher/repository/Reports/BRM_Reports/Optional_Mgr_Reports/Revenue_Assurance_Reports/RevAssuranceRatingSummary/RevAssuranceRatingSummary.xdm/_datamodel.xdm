@@ -1,0 +1,89 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="simple">
+         <sql>
+            <![CDATA[select RARating.RARatingSummary(
+ :pStartDate, :pEndDate, :pTransStartDate,
+ :pTransEndDate, :pFlowType, :pControlPoint,
+ :pServiceType, :pBatchTypeStart, :pBatchTypeEnd) Q1 from dual]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q2" type="complex">
+         <sql>
+            <![CDATA[SELECT DISTINCT(COUNTRY) FROM account_nameinfo_t WHERE COUNTRY IS NOT NULL]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="RevAssuranceRatingSummary" uniqueRowName="false">
+      <nodeList name="Q1"/>
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="G_2" label="G_2" source="Q2">
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="1"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="lovServiceType">
+         <nvPairs>
+            <nvPair label="EMAIL" value="EMAIL"/>
+            <nvPair label="FAX " value="FAX"/>
+            <nvPair label="GPRS" value="GPRS"/>
+            <nvPair label="GSM" value="GSM"/>
+            <nvPair label="SMS" value="SMS"/>
+            <nvPair label="TEL" value="TEL"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="pStartDate" dataType="xsd:date">
+         <date label="Enter Load Start Date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="pEndDate" dataType="xsd:date">
+         <date label="Enter Load End Date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="pTransStartDate" dataType="xsd:date">
+         <date label="Enter Transaction Start Date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="pTransEndDate" dataType="xsd:date">
+         <date label="Enter Transaction End Date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="pFlowType" dataType="xsd:string">
+         <input label="Include Rating Flow Details [Can Be ':' Separated Values]." size="100" multiple="true"/>
+      </parameter>
+      <parameter name="pControlPoint" dataType="xsd:string">
+         <input label="Include Control Point [Can Be ':' Separated Values]." size="100" multiple="true"/>
+      </parameter>
+      <parameter name="pServiceType" dataType="xsd:string">
+         <select label="Include Service Type Details" valueSet="lovServiceType" multiple="true" all="false" allValue="lov"/>
+      </parameter>
+      <parameter name="pBatchTypeStart" dataType="xsd:float">
+         <input label="Include Batch Type Start Range."/>
+      </parameter>
+      <parameter name="pBatchTypeEnd" dataType="xsd:float">
+         <input label="Include Batch Type End Range."/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q1" left="5px" top="28px"/>
+         <layout name="Q2" left="285px" top="28px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

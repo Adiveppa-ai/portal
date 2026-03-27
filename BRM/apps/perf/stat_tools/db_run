@@ -1,0 +1,123 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+# Copyright (c) 1997, 2015, Oracle and/or its affiliates. All rights reserved.
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+# This file is used by the pin_init*.pl scripts which are run during Infranet
+# installation.
+#
+#
+use Getopt::Std;
+require "../db_conf.pm";
+
+($ME = $0) =~ s,.*/,,;
+
+#
+# Parse command line flags.
+# r - count number of rows
+# p - db performance
+# a - table analyze
+# s - allocated spaces
+# h - print help (usage)
+#
+getopts('hsarpf:') || &usage("");
+if (defined $opt_h) {
+	&usage("");
+}
+
+	if (!(defined $opt_s || defined $opt_r || defined $opt_a ||defined $opt_p)) {
+	&usage("");
+}
+
+$datafile = "data.lst";
+if (defined $opt_f) {
+	$datafile = $opt_f;
+}
+
+if (defined $opt_r) {
+$user="public";
+$result_file="dbcheck.lst";
+$sqlcommand = <<END
+spool dbcheck.lst;
+-- set echo on
+-- print result
+\@pin_profile.sql
+END
+;
+}
+
+if (defined $opt_p) {
+$user="system";
+$result_file="dbcheck.lst";
+$sqlcommand = <<END
+-- set echo on
+-- print result
+\@dbperf.sql
+END
+;
+}
+
+if (defined $opt_a) {
+$user="public";
+$result_file="dbcheck.lst";
+$sqlcommand = <<END
+-- collect statistics
+\@analyze_pin.sql
+END
+;
+
+	exec_sqlcommand($user,$CONF_DBNAME,$sqlcommand);
+$sqlcommand = <<END
+spool dbcheck.lst;
+-- set echo on
+-- print result
+\@pin_tables_stats.sql
+END
+;
+}
+
+if (defined $opt_s) {
+$user="system";
+$result_file="dbspaces.lst";
+$sqlcommand = <<END
+-- set echo on
+-- print result
+\@space_report.sql
+END
+;
+}
+
+	exec_sqlcommand($user,$CONF_DBNAME,$sqlcommand);
+	if (defined $opt_a) {
+	stat_process ($result_file, $datafile);
+	} else {
+	unlink "$datafile";
+	`$MOVE $result_file $datafile`;
+	}
+
+################################################################################
+# usage:  Print usage message and exit.
+#
+################################################################################
+sub usage {
+	print(<STDERR>,
+		@_);
+
+	print(<STDERR>,
+		"Usage: $ME [options] \n");
+	print(<STDERR>,
+		"    -r       count number of rows in tables\n");
+	print(<STDERR>,
+		"    -a       obtain allocated space by tables\n");
+	print(<STDERR>,
+		"    -s       obtain allocated space by tablespaces\n");
+	print(<STDERR>,
+		"    -p       display DB performance\n");
+	print(<STDERR>,
+		"    -h       this message\n");
+
+	exit 1;
+	}
+
+

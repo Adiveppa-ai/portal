@@ -1,0 +1,148 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+#
+#	@(#)$Id: pin_close_items.pl /cgbubrm_mainbrm.portalbase/2 2017/09/18 05:00:30 mkothari Exp $
+#       
+# Copyright (c) 2015, 2017, Oracle and/or its affiliates. All rights reserved.
+#       
+#       This material is the confidential property of Oracle Corporation or its
+#       licensors and may be used, reproduced, stored or transmitted only in
+#       accordance with a valid Oracle license or sublicense agreement.
+#
+
+# Utility to Close all Open Items for the BillInfo which has AutClose Feature enabled. 
+use lib "$ENV{PIN_HOME}/apps/partition_utils";
+use aes;
+use strict;
+use warnings;
+
+our %MAIN_DB;
+our $COMMIT_BUNDLE_SIZE;
+
+my $in_progress_msg     = "This process may take several minutes to complete. Please do not abort this process!\nIn progress...\n";
+my $command_success_msg = "\nCommand completed successfully .\n";
+my $look_into_log_msg   = "\nLook into pin_close_items.log for detail error messages\n";
+
+(my $me = $0) =~ s,.*/,,;
+my $help=
+"Usage: $me [-h for help]
+	< This utility Closes all the open Items for the Billinfo which is mapped to a Business Profile having Name/Value Pair AutoClose_Billed_Items/Yes
+";
+
+#
+# Required for parsing command line options.
+#
+use Getopt::Std;
+
+our ($opt_h, $opt_o, $opt_c, $opt_p, $opt_b, $opt_f);
+#
+# Get the input options
+#
+getopts('ho:c:pbf') || handle_invalid_syntax();
+#
+# Exit if help is expected.
+#
+if (defined $opt_h) {
+	print $help;
+	exit(0);
+}
+require "partition_utils.values";
+
+#
+# Call close_items();
+#
+close_items();
+#
+# execute sql command supplied in the arg
+# It is called first to load procedure auto_close_open_items DB.
+#
+sub exe_sql {
+        my $cmd            = shift(@_);
+        my $status         = 0;
+        my $exitcode       = 0;
+        my $sqlshell       = "";
+        my $tmpfile        = "pinitemtmp.sql";
+        my $logfile        = "pin_close_items.log";
+
+        #=======================================================
+        # Open file for Logging
+        #========================================================
+        open(my $logfilehdl, ">>$logfile") ||
+        die "$me: cannot open $logfile\n";
+        #=======================================================
+        # Create a temporary file with the sql input.
+        #========================================================
+        open(my $tmpfilehdl, ">$tmpfile") ||
+        die "$me: cannot create $tmpfile\n";
+        print $tmpfilehdl "set serveroutput on size 1000000\nset linesize 200\n";
+        print $tmpfilehdl "$cmd";
+        print $tmpfilehdl "\nexit;\n";
+        close($tmpfilehdl);
+
+	if(defined $MAIN_DB{'password'}){
+        	if ($MAIN_DB{password} =~ m/^\&aes\|/ || $MAIN_DB{password} =~ m/^\&ozt\|/) {
+                	$ENV{DB_PASSWORD} = aes::psiu_perl_decrypt_pw($MAIN_DB{'password'});
+        	} else {
+                	$ENV{DB_PASSWORD} = $MAIN_DB{'password'};
+        	}
+	}
+
+        $sqlshell = "sqlplus ".
+                        "/@"."$MAIN_DB{'alias'}";
+
+        delete($ENV{DB_PASSWORD});
+
+        #===========================================================
+        # SQLPLUS gives a zero status back if the
+        # user/passwd is wrong. So, instead of using system(),
+        # we need to capture the output
+        # of SQLPLUS and parse it to see if there was an error.
+        #===========================================================
+        my $sqlout = `$sqlshell < $tmpfile`;
+        $exitcode = $?;
+        $status = ($? >> 8);
+	
+        unlink "$tmpfile";
+
+        #
+        # Log the output
+        #
+        print $logfilehdl "$sqlout";
+        close($logfilehdl);
+	return $status;
+}
+
+
+#
+# This procedure will search for any errors return from oracle
+#
+sub handle_invalid_syntax {
+	print "$look_into_log_msg \n";
+        print "$help\n";
+	exit(0);
+}
+
+#
+# This procedure first loads stored procedure auto_close_open_items in DB
+# and later calls stored procedure to close open Items.
+#
+sub close_items {
+print "Auto close Past Cycle Items\n";
+print "$in_progress_msg \n";
+#load stored procedure 
+my $status = &exe_sql("@./sql_utils/oracle/pin_close_items.plb");
+if($status ){
+	print "Error while processing request \n";
+	print "$look_into_log_msg \n";
+	exit(0);
+}
+
+
+#call stored procedure with COMMIT_BUNDLE_SIZE read from partition_utils.values"
+$status = &exe_sql("EXEC auto_close_open_items ($COMMIT_BUNDLE_SIZE)", 0);
+if($status ){
+	print "Error while processing request \n";
+	print "$look_into_log_msg \n";
+	exit(0);
+}
+print $command_success_msg;
+}

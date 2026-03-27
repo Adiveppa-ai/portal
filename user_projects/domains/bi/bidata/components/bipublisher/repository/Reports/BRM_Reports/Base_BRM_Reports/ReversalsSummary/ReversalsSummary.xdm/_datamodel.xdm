@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q2" type="complex">
+         <sql>
+            <![CDATA[SELECT DISTINCT(COUNTRY) FROM account_nameinfo_t WHERE COUNTRY IS NOT NULL]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q1" type="simple">
+         <sql>
+            <![CDATA[SELECT REVERSALSSUMMARY.GET_REVERSALS_SUMMARY(:PARAM_ACCOUNT_STATUS, :PARAM_PAYMENT_REVERSAL_TYPE, :PARAM_COUNTRY, :PARAM_STATE, :PARAM_START_DATE, :PARAM_END_DATE) Q1 FROM DUAL]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="ReversalsSummary_report" uniqueRowName="false">
+      <nodeList name="Q1"/>
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="G_2" label="G_2" source="Q2">
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="1"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="ACCOUNT_STATUS_LOV">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="PAYMENT_REVERSAL_LOV">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FRENCH DIRECT DEBIT" value="10004"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="SMART CARD" value="10006"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+            <nvPair label="SEPA" value="10018"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="COUNTRY_LOV">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="STATE_LOV">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is NOT NULL]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_ACCOUNT_STATUS" dataType="xsd:float">
+         <select label="Select a specific account status, or select  ALL to include all accounts" valueSet="ACCOUNT_STATUS_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_PAYMENT_REVERSAL_TYPE" dataType="xsd:float">
+         <select label="Select a specific payment reversal type, or select ALL to include all payment reversal types" valueSet="PAYMENT_REVERSAL_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries" valueSet="COUNTRY_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STATE" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states" valueSet="STATE_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date and time (MM/DD/YYYY hh:mm:ss)" size="25" format="MM/dd/yyyy HH:mm:ss"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date and time (MM/DD/YYYY hh:mm:ss)" size="25" format="MM/dd/yyyy HH:mm:ss"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q2" left="275px" top="39px"/>
+         <layout name="Q1" left="555px" top="0px"/>
+         <layout name="DATA_DS" left="14px" top="262px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

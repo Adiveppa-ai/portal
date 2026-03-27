@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/schemas/BusinessConfig" targetNamespace="http://www.portal.com/schemas/BusinessConfig" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+Copyright (c) 2005 - 2006 Oracle. All rights reserved.
+This material is the confidential property of Oracle Corporation or its licensors and may be used, reproduced, stored or transmitted only in accordance with a valid Oracle license or sublicense agreement.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="ChannelConfig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Channel" type="ChannelType" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:complexType name="ChannelType">
+    <xs:sequence>
+      <xs:element name="ConsumersArray" type="ConsumersArrayType"/>
+      <xs:element name="SuppliersArray" type="SuppliersArrayType"/>
+    </xs:sequence>
+    <xs:attribute name="FldChannelId" type="FldChannelIdType" use="required"/>
+    <xs:attribute name="FldFamilyId" type="FldFamilyIdType" use="required"/>
+    <xs:attribute name="FldOrder" type="FldOrderType" use="required"/>
+    <xs:attribute name="FldMultithread" type="FldMultithreadType" use="required"/>
+    <xs:attribute name="FldName" type="FldNameType" use="optional"/>
+  </xs:complexType>
+  
+  <xs:simpleType name="FldChannelIdType">
+    <xs:restriction base="xs:integer">
+      <xs:minExclusive value="0"/>
+      <xs:maxExclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="FldFamilyIdType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FldOrderType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FldMultithreadType">
+    <xs:restriction base="xs:integer">
+      <xs:pattern value='[0-1]{1}'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="FldNameType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ConsumersArrayType">
+    <xs:sequence>
+      <xs:element name="FldConsumerObj" type="FldConsumerObjType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FldConsumerObjType">
+      <xs:attribute name="FldDatabase" type="FldDatabaseType" use="required"/>
+      <xs:attribute name="FldPushOpcode" type="FldPushOpcodeType" use="required"/>
+      <xs:attribute name="FldConsumerName" type="FldConsumerNameType" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="FldPushOpcodeType">
+    <xs:restriction base="xs:integer">
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FldDatabaseType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:pattern value='[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FldConsumerNameType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:pattern value='[/][A-Za-z_0-9]+'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SuppliersArrayType">
+    <xs:sequence>
+      <xs:element name="FldSupplierObj" type="FldSupplierObjType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FldSupplierObjType">
+      <xs:attribute name="FldDatabase" type="FldDatabaseType" use="required"/>
+      <xs:attribute name="FldSupplierName" type="FldSupplierNameType" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="FldSupplierNameType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:pattern value='[/][A-Za-z_0-9/]+'/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

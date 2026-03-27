@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IFW xsi:noNamespaceSchemaLocation="LoadIfwConfig.xsd"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RecordSet>
+    <IFW_MODEL_SELECTOR TYPE="P"/>
+    <IFW_SELECTOR_RULE_LNK/>
+  </RecordSet>
+  <RecordSet>
+    <IFW_SELECTOR_DETAIL/>
+  </RecordSet>
+</IFW>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/PortalXMLSchema" xmlns="http://www.portal.com/PortalXMLSchema"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:element name="EventNotification">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element name="POID" type="xs:string"/>
+	<xs:element name="EVENT" type="EVENTType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+    <xs:complexType name="EVENTType">
+      <xs:sequence>
+	      <xs:element name="POID" type="xs:string" />
+	      <xs:element name="NAME" type="xs:string" />
+	      <xs:element name="ACCOUNT_OBJ" type="xs:string" />
+	      <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0" />
+	      <xs:element name="START_T" type="xs:string" minOccurs="0" />
+	      <xs:element name="END_T" type="xs:string" minOccurs="0" />
+	      <xs:element name="WHEN_T" type="xs:string" minOccurs="0" />
+	      <xs:element name="TIMEZONE_ID" type="xs:string" minOccurs="0" />
+              <xs:element name="SYS_DESCR" type="xs:string" minOccurs="0" />
+	      <xs:element name="INHERITED_INFO" type="INHERITED_INFOType" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+	    <xs:attribute name="elem" type="xs:int" />
+    </xs:complexType>
+
+	<xs:complexType name="INHERITED_INFOType">
+	  <xs:sequence>
+		    <xs:element name="BALANCES" type="BALANCESType" minOccurs="0" maxOccurs="unbounded"/>
+		    <xs:element name="THRESHOLDS" type="THRESHOLDSType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+	    <xs:attribute name="elem" type="xs:int" />
+    </xs:complexType>
+   
+      <xs:complexType name="BALANCESType">
+	<xs:sequence>
+	  <xs:element name="AMOUNT" type="xs:string" />
+	  <xs:element name="RESOURCE_ID" type="xs:string" />
+	  <xs:element name="CURRENT_BAL" type="xs:string" minOccurs="0" />
+	  <xs:element name="BAL_GRP_OBJ" type="xs:string" />
+	  <xs:element name="PERCENT" type="xs:string" minOccurs="0" />
+	  <xs:element name="SOURCE_OBJ" type="xs:string" minOccurs="0" />
+	  <xs:element name="ALERT_TYPE" type="xs:string" minOccurs="0" />
+	  <xs:element name="MONITOR_TYPE" type="xs:string" minOccurs="0" />
+	  <xs:element name="REASON" type="xs:string" minOccurs="0" />
+	  <xs:element name="CREDIT_FLOOR" type="xs:string" />
+	  <xs:element name="CREDIT_LIMIT" type="xs:string" />
+	  <xs:element name="CREDIT_THRESHOLDS" type="xs:string" />
+	  <xs:element name="CREDIT_THRESHOLDS_FIXED" type="xs:string" />
+	  <xs:element name="EVENT_TYPE" type="xs:string" />
+	  <xs:element name="CALLING_NUMBER" type="xs:string" />
+	  <xs:element name="CALLED_NUMBER" type="xs:string" />
+	</xs:sequence>
+	<xs:attribute name="elem" type="xs:int" />
+      </xs:complexType>
+
+      <xs:complexType name="THRESHOLDSType">
+	<xs:sequence>
+	  <xs:element name="CREDIT_THRESHOLDS" type="xs:string" />
+	  <xs:element name="ALERT_TYPE" type="xs:string" />
+	  <xs:element name="REASON" type="xs:string" />
+	  <xs:element name="INFO" type="xs:string" minOccurs="0" />
+	  <xs:element name="AMOUNT" type="xs:string" minOccurs="0" />
+	</xs:sequence>
+	<xs:attribute name="elem" type="xs:int" />
+    </xs:complexType>
+
+</xs:schema>

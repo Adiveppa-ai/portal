@@ -1,0 +1,132 @@
+/**************************************************************************
+ *
+ * $Id: //spro/rel2016.1/rw/functor/list/RWTCallbackList0.cc#1 $
+ *
+ * Copyright (c) 1996-2016 Rogue Wave Software, Inc.  All Rights Reserved.
+ * 
+ * This computer software is owned by Rogue Wave Software, Inc. and is
+ * protected by U.S. copyright laws and other laws and by international
+ * treaties.  This computer software is furnished by Rogue Wave Software, Inc.
+ * pursuant to a written license agreement and may be used, copied, transmitted,
+ * and stored only in accordance with the terms of such license agreement and
+ * with the inclusion of the above copyright notice.  This computer software or
+ * any other copies thereof may not be provided or otherwise made available to
+ * any other person.
+ * 
+ * U.S. Government Restricted Rights.  This computer software: (a) was
+ * developed at private expense and is in all respects the proprietary
+ * information of Rogue Wave Software, Inc.; (b) was not developed with
+ * government funds; (c) is a trade secret of Rogue Wave Software, Inc. for all
+ * purposes of the Freedom of Information Act; and (d) is a commercial item and
+ * thus, pursuant to Section 12.212 of the Federal Acquisition Regulations (FAR)
+ * and DFAR Supplement Section 227.7202, Government's use, duplication or
+ * disclosure of the computer software is subject to the restrictions set forth
+ * by Rogue Wave Software, Inc.
+ *
+ *************************************************************************/
+
+#include <rw/functor/list/RWTCallbackList0.h>
+
+template <class Mutex>
+RWTCallbackList0<Mutex>::RWTCallbackList0(Mutex& ref)
+    : RWTCallbackListBase<Mutex>(ref)
+{
+}
+
+template <class Mutex>
+RWTCallbackList0<Mutex>::~RWTCallbackList0(void)
+{
+}
+
+template <class Mutex>
+RWTCallbackList0<Mutex>&
+RWTCallbackList0<Mutex>::operator=(const RWTCallbackList0<Mutex>& s)
+{
+    // USAGE ERROR - Mutex must be locked when this member is called!
+    RW_ASSERT((BaseType::mutex()).isAcquired());
+
+    if (&s != this) {
+        // prevent updates while we are copying
+        RWTLockGuard<Mutex> guard(s.mutex());
+
+        addList_      = s.addList_;
+        removeList_   = s.removeList_;
+        currentList_  = s.currentList_;
+    }
+
+    return *this;
+}
+
+template <class Mutex>
+void
+RWTCallbackList0<Mutex>::add(const RWFunctor0& f, RWCallbackScope s)
+{
+    // USAGE ERROR - Mutex must be locked when this member is called!
+    RW_ASSERT((BaseType::mutex()).isAcquired());
+
+    addList_.append(RWCallbackElem0(f, s));
+}
+
+template <class Mutex>
+void
+RWTCallbackList0<Mutex>::operator()(void)
+{
+    // Clients of this class are responsible for providing synchronization
+    // for this member - only one thread should execute this function
+    // at one time!
+
+    // USAGE ERROR - Mutex must be unlocked when calling this member!
+    RW_ASSERT(!(BaseType::mutex()).isAcquired());
+
+    // Update the list first.
+    update();
+
+    // For each elem in the list, invoke the functor, and remove
+    // the item if the flag is RW_CALL_ONCE.
+    RWTValSlist<RWCallbackElem0>::iterator iter = currentList_.begin();
+    while (iter != currentList_.end()) {
+        RWCallbackElem0 current = *iter;
+
+        if (RW_CALL_ONCE == current.scope()) {
+            iter = currentList_.erase(iter);
+        }
+        else {
+            ++iter;
+        }
+
+        current();
+    }
+}
+
+template <class Mutex>
+void
+RWTCallbackList0<Mutex>::remove(const RWFunctor0& functor)
+{
+    // USAGE ERROR - Mutex must be locked when this member is called!
+    RW_ASSERT((BaseType::mutex()).isAcquired());
+
+    removeList_.append(RWCallbackElem0(functor));
+}
+
+template <class Mutex>
+void
+RWTCallbackList0<Mutex>::update(void)
+{
+    // Lock to prevent changes to the update lists
+    RWTLockGuard<Mutex> guard(BaseType::mutex());
+
+    // Do additions first then removals
+    // (in case an entry was added and removed since the last update)
+
+    // Update from add list...
+    while (!addList_.isEmpty()) {
+        RWCallbackElem0 current = addList_.removeFirst();
+        currentList_.append(current);
+    }
+
+    // Update from remove list
+    while (!removeList_.isEmpty()) {
+        RWCallbackElem0 current = removeList_.removeFirst();
+        currentList_.removeAll(current);
+    }
+}

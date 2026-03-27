@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2006, 2016, Oracle and/or its affiliates. All rights reserved.
+                        This material is the confidential property of Oracle Corporation or its
+                        licensors and may be used, reproduced, stored or transmitted only in
+                        accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="ProvisioningTagConfigurationType">
+	<xs:sequence>
+	<xs:element name="ProvisioningTagList">
+	<xs:complexType>
+	<xs:sequence>
+	<xs:element name="ProvisioningTag" maxOccurs="unbounded">
+		<xs:complexType>
+		<xs:sequence>
+		<xs:element name="PermittedTypes" minOccurs="0" maxOccurs="unbounded">
+			<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="businessConfig:ptDescrType" />
+			</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="OpcodeList" minOccurs="0" maxOccurs="unbounded">
+			<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OpcodeName" type="xs:string" />
+				<xs:element name="OpcodeNumber" type="xs:string" />
+				<xs:element name="OpcodeMode" type="xs:string" />
+				<xs:element name="OpcodeParamsList" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+					<xs:sequence>
+						<xs:element name="OpcodeParamName" type="xs:string" />
+						<xs:element name="OpcodeParamValue" type="xs:string" />
+					</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="255"/>
+					<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	</xs:sequence>
+	</xs:complexType>
+	</xs:element>
+	</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="ptDescrType">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+			<xs:maxLength value="255" />
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

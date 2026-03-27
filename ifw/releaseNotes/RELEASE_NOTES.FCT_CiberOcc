@@ -1,0 +1,79 @@
+========================================================================================
+FCT_CiberOcc
+----------------------------------------------------------------------------------------
+Module Release Notes 
+----------------------------------------------------------------------------------------
+
+========================================================================================
+
+Module Version: 10006  6.7_FP2  05-May-2004
+PRSF00108146:   NT build problem: Modify build spec and LIBNAME to MAKE_STR2(LIBNAME)
+		
+================================================================================
+
+Module Version: 10005  6.7_FP2  06-Apr-2004
+PRSF00102782:   Propagation of PRSF00059402. 
+                Changed message definition ERR_NETWORKMODEL_NOT_FOUND to remove
+                duplicate definitions
+
+========================================================================================
+
+Module Version: 10004  Apollo  23-SEP-2003  jithendr
+PRSF00064129:   Adding namespaces to roaming plugins - Propagation from 6.5_SP2
+
+========================================================================================
+
+Module Version: 10003  6.5_SP2  02-JUL-2003  sraut
+PRSF00047972:   Adding namespaces to roaming plugins
+
+========================================================================================
+
+Module Version: 10002  6.5_SP2  01-May-2003
+PRSF00039598:   Changes due to BAS::RegisteredObject::registryUpdate
+                interface change
+
+==============================================================================
+
+Actual Version : 10001 / Date : 10-APR-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00037466 Adding DAT_InterConnect lib to FCT_CiberOcc
+
+New Features   :
+----------------
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================
+
+Actual Version : 10000 / Date : 11-Mar-2003
+----------------
+
+Notes          :
+----------------
+ - PRSF00034102 This is a new Plugin to support CIBER OCC record creation.
+
+New Features   :
+----------------
+
+ - Support for CIBER OCC record creation.
+
+Known Problems :
+----------------
+
+Solved PRs/CRs :
+----------------
+
+Open PRs/CRs   :
+----------------
+
+========================================================================================

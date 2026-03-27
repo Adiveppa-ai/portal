@@ -1,0 +1,1540 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+#=======================================================================
+#  $Header: install_vob/install_common/Unix/install/pin_oracle_functions.pl /cgbubrm_mainbrm.portalbase/12 2018/07/06 04:47:52 njuturu Exp $
+#
+#  @(#)%Portal Version: pin_oracle_functions.pl:PortalBase7.3.1Int:1:2007-Aug-17 09:57:36 %
+#
+# Copyright (c) 1999, 2018, Oracle and/or its affiliates. All rights reserved.
+#
+#    This material is the confidential property of Oracle Corporation
+#    or its licensors and may be used, reproduced, stored
+#    or transmitted only in accordance with a valid Oracle license or
+#    sublicense agreement.
+#
+# Portal installation helper functions specific to Oracle
+#
+#=============================================================
+
+use Env qw(NLS_LANG);
+use aes;
+
+#=============================================================
+#
+#  This function Executes a SQL statement. This assumes that
+#  the username, password, and Alias have already been verified.
+#
+#  Arguments:
+#    $Statement - Statement to execute
+#    bOutputStatement - Display the statement
+#    bOutputResult - Display the resulting output
+#    %DB- Associative array for db
+#
+#  Returns:Return value of plus80 command
+#=============================================================
+sub ExecuteSQL_Statement {
+  local( $Statement ) = shift( @_ );
+  local( $bOutputStatement ) = shift( @_ );
+  local( $bOutputResult ) = shift( @_ );
+  local( %DB ) = @_;
+  local( $SQLShell );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.sql";
+  local( $ReadIn );
+  local( $Tmp );
+  local( $tmpSize );
+
+  if($ENABLE_ENCRYPTION eq "Yes") { 
+     &decrypt_pwd();
+  }
+  
+  
+  $Tmp=$Statement;
+  $Tmp=~s{(?<!\\)(\$[a-zA-Z0-9_]+(?:{.*?})?)}{eval $1}gse;
+  $Tmp=~s{\\\$}{\$}gs;
+
+  if ( $Tmp ) {
+    $Statement = $Tmp;
+  }
+  open(  TMPFILE, ">$tmpFile") || die "$ME: cannot create $tmpFile\n";
+  print( TMPFILE "\n\n\n" );
+  print( TMPFILE "$Statement" );
+  print( TMPFILE "\nexit;\n" );
+  close( TMPFILE );
+
+  $tmpSize = -s $tmpFile;
+  if ($tmpSize <= 0){
+    &Output( fpLogFile, "cannot write to $tmpFile\n") ;
+	die "cannot write to $tmpFile\n";
+  }
+
+  if((defined($ENV{PRIMARY_SCHEMA_USERNAME_TEMP}) && $ENV{PRIMARY_SCHEMA_USERNAME_TEMP} eq "1") &&
+    (defined($ENV{DOCKER}) && $ENV{DOCKER} eq "1")) {
+    $sqlshell = "$SQLSCRIPT_EXECUTABLE -s ".$DB{"user"}."/".$DB{"password"}."@".$DB{alias};
+  } else {
+    $sqlshell = "$SQLSCRIPT_EXECUTABLE -s /@".$DB{alias};
+  }
+
+  $return = &ExecuteShell_Piped( $PIN_TEMP_DIR."/tmp.out", FALSE, $sqlshell, "< \"$tmpFile\"" );
+  if ( $bOutputStatement eq TRUE ) {
+    &Output( fpLogFile, $IDS_SQLSTATEMENT, $Statement );
+  }
+  if ( $bOutputResult eq TRUE ) {
+    $Statement = "";
+    open( TMPFILE, "<".$PIN_TEMP_DIR."/tmp.out") || die "$ME: cannot read tmp.out file\n";
+    while ( $ReadIn = <TMPFILE> ) {
+      $Statement = $Statement.$ReadIn;
+    }
+    close( TMPFILE );
+    &Output( fpLogFile, $IDS_SQLRESULTS, $Statement );
+  }
+  return $return;
+
+}
+
+
+#=============================================================
+#  This function verifies the username & password for a given
+#  Alias. If there is an error, it exits with a given error.
+#
+#  Arguments:
+#    $LoginType - type of database user - either "system" or "portal"
+#    %DB        - Associative array for db
+#
+#  Returns : 0 if successful, exits otherwise
+#=============================================================
+sub VerifyLogin {
+  local( $LoginType ) = shift( @_ );  # either "system" or "portal"
+  local( %DB ) = @_;
+  local( $result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+  local( $CharacterSet ) = "UNKNOWN";
+  local( $Partitioning ) = "True";
+  local( $Error );
+
+  
+  if ( $LoginType =~ /system/i )
+  {
+    $DB{'user'} = $DB{'system_user'};
+    $DB{'password'} = $DB{'system_password'};
+  }
+  
+  if($ENABLE_ENCRYPTION eq "Yes") { 
+     &decrypt_pwd();
+  }
+
+  $result = &ExecuteSQL_Statement( "", FALSE, FALSE, %DB );
+
+  if ( !( $result eq "0" ) )  # UNABLE TO LOGIN TO DATABASE #
+  {
+    open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+    while( $ReadString = <TMPFILE> ) {
+      if ( $ReadString =~ /ORA-([\d]*):.*/ ) {
+        $Error = $1;
+        last;
+      }
+    }
+    if ( $Error eq "12154" ) {
+      &Output( STDOUT, $IDS_TNSNAME_INVALID, $DB{"alias"} );
+      &Output( fpLogFile, $IDS_TNSNAME_INVALID, $DB{"alias"} );
+      exit( 2 );
+    } elsif ( $Error eq "01017" ) {
+        if ( $LoginType =~ /system/i )
+        {
+          &Output( STDOUT, $IDS_INVALID_USERNAME_SYSTEM, $DB{"user"}, "****", $DB{"alias"} );
+          &Output( fpLogFile, $IDS_INVALID_USERNAME_SYSTEM, $DB{"user"}, "****", $DB{"alias"} );
+        }
+        else
+        {
+          &Output( STDOUT, $IDS_INVALID_USERNAME, $DB{"user"}, "****", $DB{"alias"} );
+          &Output( fpLogFile, $IDS_INVALID_USERNAME, $DB{"user"}, "****", $DB{"alias"} );
+        }
+      exit( 2 );
+    } elsif ( $Error eq "12224" ) {
+      &Output( STDERR, $IDS_NO_TNS_LISTENER, $DB{"alias"} );
+      &Output( fpLogFile, $IDS_NO_TNS_LISTENER, $DB{"alias"} );
+      exit( 2 );
+    } else {
+      if ( $^O =~ /win/i ) {
+        $ErrorMsg = $IDS_UNKNOWN_DB_CONNECT_ERROR_NT;
+      }
+      else {
+        $ErrorMsg = $IDS_UNKNOWN_DB_CONNECT_ERROR_UNIX;
+      }
+      &Output( STDERR, $ErrorMsg, $DB{"user"}, "****", $DB{"alias"}, $NLS_LANG, $Error );
+      &Output( fpLogFile, $ErrorMsg, $DB{"user"}, "****", $DB{"alias"}, $NLS_LANG, $Error );
+      exit( 2 );
+    }
+    close( TMPFILE );
+  }
+  else {
+    if($ENV{DOCKER} eq "1") {
+        $result = &ExecuteSQL_Statement( "set heading off\nselect value from v\\\$option where parameter = 'Partitioning';", FALSE, FALSE, %DB );
+        if ( $result eq "0" ) {
+                open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+                while( $ReadString = <TMPFILE> ) {
+                        if ( $ReadString =~ /False/i ) {
+                        $Partitioning = "No";
+                        }
+                }
+                if($Partitioning eq "No") {
+                        my $pin_setup_value = `grep 'ENABLE_PARTITION' $PIN_HOME/setup/pin_setup.values`;
+                        my @b = split("\"",$pin_setup_value);
+                        my @c = split("\"",$b[1]);
+
+			if($c[0] =~ /Yes/i) {
+                                print "Partitioning is disabled at database\n";
+                                exit(2 );
+                        }
+                }
+        }
+        $result = &ExecuteSQL_Statement( "set heading off\nselect value from v\\\$nls_parameters where parameter = 'NLS_CHARACTERSET';", FALSE, FALSE, %DB );
+
+        if ( $result eq "0" ) {
+                open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+                while( $ReadString = <TMPFILE> ) {
+                        if ( $ReadString =~ /AL32UTF8/i ) {
+                                $CharacterSet = "AL32UTF8";
+                        } elsif ( $ReadString =~ /UTF8/i ) {
+                                $CharacterSet = "UTF8";
+                        }
+                }
+
+                if ( $CharacterSet =~ "UNKNOWN" ) {
+                        &Output( STDERR, $IDS_CHARSET_INCORRECT, $CharacterSet, $DM_ORACLE{'sm_charset'} );
+                        &Output( fpLogFile, $IDS_CHARSET_INCORRECT, $CharacterSet, $DM_ORACLE{'sm_charset'} );
+                        exit( 2 );
+                } else {
+                        if ( $CharacterSet !~ /$DM_ORACLE{'sm_charset'}/i ) {
+                        &Output( STDERR, $IDS_CHARSET_INCORRECT, $CharacterSet, $DM_ORACLE{'sm_charset'} );
+                        &Output( fpLogFile, $IDS_CHARSET_INCORRECT, $CharacterSet, $DM_ORACLE{'sm_charset'} );
+                        exit( 2 );
+                        }
+
+                        if ( ( $NLS_LANG !~ /$CharacterSet/i ) &&
+                           ( ( $CharacterSet =~ /(UTF8|AL32UTF8)/ ) ) ) {
+                                $ErrorMsg = $IDS_NLS_LANG_INCORRECT_UNIX;
+                                &Output( STDERR, $ErrorMsg, $CharacterSet, $NLS_LANG );
+                                &Output( fpLogFile, $ErrorMsg, $CharacterSet, $NLS_LANG );
+                                exit( 2 );
+                        }
+                }
+        }
+    }
+  }
+
+  return 0;  # CONNECTED TO THE DATABASE SUCCESSFULLY #
+}
+
+
+#=============================================================
+#
+#  This function verifies if a given table is present in the database,
+#  by checking in user_tables
+#
+#  Arguments:
+#    %TableName - String containing the table name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfTable {
+  local( $TableName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $TableName=uc($TableName);
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select table_name from user_tables where table_name='$TableName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+    # Incase of any DB errors, this check will satisfy.
+    if ( $ReadString =~ m/ERROR/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if certain tables are present in the
+#  database.
+#
+#  Arguments:
+#    %DB - Associative array for db
+#
+#  Returns: 0 if empty, -1 if the tables are present.
+#=============================================================
+sub VerifyPresenceOfData {
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = &ExecuteSQL_Statement(
+    "select table_name from user_tables;", FALSE, FALSE, %DB );
+
+  $Result = -1;
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  return $Result;
+}
+
+# get count(*) from the given table
+sub getCountFromTable {
+  local( $TableName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $TableName=uc($TableName);
+  &ExecuteSQL_Statement(
+    "select count(*) from $TableName;", TRUE, TRUE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  `cp $tmpFile /oms/setup`;
+  while( $ReadString = <TMPFILE> ) {
+    chomp $ReadString;
+    $ReadString =~ s/^\s+|\s+$//g;
+    if ( $ReadString =~ m/^[0-9]+$/ ) {
+      return $ReadString;
+    }
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      last;
+    }
+ }
+  return 0;
+}
+
+#===============================================================
+#
+#  This function fetches the Patch Number from the BRM_PS_T.
+#
+#  Arguments:
+#    %DB - Associative array for db
+#
+#  Returns: Patch Number in success, 0 incase of data not exists
+#================================================================
+sub FetchPatchNumber {
+  local( $TableName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  local( $Query ) = "select PATCH_NUMBER from ".$TableName." where rownum<2;";
+  &ExecuteSQL_Statement($Query, TRUE, TRUE, %DB );
+
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    chomp $ReadString;
+    $ReadString =~ s/^\s+|\s+$//g;
+    if ( $ReadString =~ m/^[0-9]+$/ ) {
+      return $ReadString;
+    }
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      last;
+    }
+ }
+  return 0;
+}
+
+#===============================================================
+#
+#  This function fetches the Stream Number from the BRM_PS_T.
+#
+#  Arguments:
+#    %DB - Associative array for db
+#
+#  Returns: Stream Number in success, 0 incase of data not exists
+#================================================================
+sub FetchStreamNumber {
+  local( %DB ) = @_;
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  &ExecuteSQL_Statement(
+    "select STREAM from BRM_PS_T where rownum<2;", TRUE, TRUE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    chomp $ReadString;
+    $ReadString =~ s/^\s+|\s+$//g;
+    if ( $ReadString =~ m/^[0-9]+$/ ) {
+      return $ReadString;
+    }
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      last;
+    }
+ }
+  return 0;
+}
+
+#=============================================================
+#
+#  This function fetches the fieldname for the given array name.
+#
+#  Arguments:
+#    Column Name
+#    Class Name
+#    Array Name
+#    %DB - Associative array for db
+#
+#  Returns: 1 in success, 0 incase of column not exists
+#=============================================================
+sub FetchFieldNameFromArray {
+  local( $ColumnName ) = shift ( @_ );
+  local( $ClassName ) = shift ( @_ );
+  local( $ClassArrayName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+  my $Result = 1;
+  $ColumnName =~ s/obj_id0/obj/g;
+  $ColumnName = ':'.$ColumnName;
+
+  my $query = "select field_name from dd_objects_fields_t where OBJ_ID0=(select obj_id0 from dd_objects_t where lower(name) = lower('$ClassName')) and lower(sm_item_name) = lower('$ColumnName') and parent_element_id = (select rec_id from dd_objects_fields_t where obj_id0 =(select obj_id0 from dd_objects_t where lower(name) = lower('$ClassName')) and upper(field_name) = upper('$ClassArrayName'));";
+  &ExecuteSQL_Statement(
+    $query, FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function fetches the fieldname for the given columnname.
+#
+#  Arguments:
+#    %DB - Associative array for db
+#
+#  Returns: Fieldname in success, Empty string incase of column not exists
+#=============================================================
+sub FetchFieldName {
+  local( $ColumnName ) = shift ( @_ );
+  local( $ClassName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $ColumnName =~ s/obj_id0/obj/g;
+  $ColumnName =~ s/obj_db/obj/g;
+  $ColumnName = ':'.$ColumnName;
+  &ExecuteSQL_Statement(
+    "select field_name from dd_objects_fields_t where lower(sm_item_name) = lower('$ColumnName') and obj_id0 in (select obj_id0 from dd_objects_t where lower(name)=lower('$ClassName') and rownum<2);", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+     if(index($ReadString,'PIN_FLD') != -1) {
+         chomp $ReadString;
+         return $ReadString;
+     }
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      last;
+    }
+  }
+  return "";
+}
+
+#=============================================================
+#
+#  This function verifies if a given field is present in the database,
+#  by checking both the 'dd_objects_field_t' and 'dd_fields_t' tables.
+#
+#  Arguments:
+#    %FieldName - String containing the field name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfField {
+  local( $FieldName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select field_name from dd_objects_fields_t where field_name like '$FieldName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  if ( $Result == -1 )
+  {
+    return $Result;
+  }
+
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select field_name from dd_fields_t where field_name like '$FieldName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if a given field is present in the database,
+#  by checking both the 'dd_objects_field_t' using dd_objects_t tables.
+#
+#  Arguments:
+#    %FieldName - String containing the field name
+#    %ClassName - String containing the Class name
+#    %DB - Associative array for db
+#  
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfFieldInDD {
+  local( $FieldName ) = shift ( @_ );
+  local( $ClassName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+  
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select field_name from dd_objects_fields_t where lower(field_name) like lower('$FieldName') and obj_id0 in (select obj_id0 from dd_objects_t where lower(name)=lower('$ClassName') and rownum<2);", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  return $Result;
+}
+
+
+#=============================================================
+#
+#  This function verifies if a given field is present in the database
+#  at 0th level by checking both the 'dd_objects_field_t' 
+#  using dd_objects_t tables.
+#
+#  Arguments:
+#    %FieldName - String containing the field name
+#    %ClassName - String containing the Class name
+#    %DB - Associative array for db
+#  
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfFieldInDD_HigherLevel {
+  local( $FieldName ) = shift ( @_ );
+  local( $ClassName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = -1;
+
+  &ExecuteSQL_Statement(
+    "select field_name from dd_objects_fields_t where lower(field_name) like lower('$FieldName') and obj_id0 in (select obj_id0 from dd_objects_t where lower(name)=lower('$ClassName') and rownum<2) and PARENT_ELEMENT_ID in (select REC_ID from dd_objects_fields_t where obj_id0 in (select obj_id0 from dd_objects_t where lower(name)=lower('$ClassName') and rownum<2)
+    and PARENT_ELEMENT_ID = 0);", FALSE, FALSE, %DB );
+
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if a given field is present in the database,
+#  by checking mentioned tables.
+#
+#  Arguments:
+#    %FieldName - String containing the field name
+#    %TableName - String containing the table name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfFieldName {
+  local( $FieldName ) = shift ( @_ );
+  local( $TableName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    #"select field_name from '$TableName' where field_name = '$FieldName';", FALSE, FALSE, %DB );
+    #"select $FieldName from $TableName where rownum <2;", FALSE, FALSE, %DB );
+    "select column_name from user_tab_columns where table_name = upper('$TableName') and column_name = upper('$FieldName');", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  return $Result;
+}
+#=============================================================
+#
+#  This function verifies if a given object is present in the database,
+#  by checking 'dd_fields_t' tables.
+#
+#  Arguments:
+#    %ObjectName - String containing the Object name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfObject {
+  local( $ObjectName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = -1;
+
+
+
+  &ExecuteSQL_Statement(
+    "select name from dd_objects_t where name = '$ObjectName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  if ( $Result == -1 )
+  {
+    return $Result;
+  }
+}
+#=============================================================
+#
+#  This function verifies if a given index is present in the database,
+#  by checking in user_indexes
+#
+#  Arguments:
+#    %IndexName - String containing the index name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfIndex {
+  local( $IndexName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = -1;
+  
+  &ExecuteSQL_Statement(
+    "select index_name from user_indexes where index_name='$IndexName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if a given type is present in the database,
+#  by checking in user_types
+#
+#  Arguments:
+#    %TypeName - String containing the index name
+#    %DBUserName - String containing the DB UserName
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfType {
+  local( $TypeName ) = shift ( @_ );
+  local( $DBUserName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+  local( $Statement ) = "select type_name from all_types where owner = upper('$DBUserName') and type_name = upper('$TypeName');";
+
+  $Result = -1;
+  $Statement = 
+  &ExecuteSQL_Statement($Statement, FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+    # Incase of any DB errors, this check will satisfy.
+    if ( $ReadString =~ m/ERROR/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+
+#=============================================================
+#
+#  This function verifies if a given column is present for the table 
+#  in the database, by checking in all_tab_columns
+#
+#  Arguments:
+#    %TableName - String containing the Table name
+#    %ColumnName - String containing the Column name
+#    %DBUserName - String containing the DB UserName
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the column is present.
+#=============================================================
+sub VerifyPresenceOfColumn {
+  local( $TableName ) = shift ( @_ );
+  local( $ColumnName ) = shift ( @_ );
+  local( $DBUserName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+  local( $Statement ) = "select column_name from all_tab_columns where owner = upper('$DBUserName') and table_name = upper('$TableName') and column_name = upper('$ColumnName');";
+
+  $Result = -1;
+  $Statement =
+  &ExecuteSQL_Statement($Statement, FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+    # Incase of any DB errors, this check will satisfy.
+    if ( $ReadString =~ m/ERROR/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function first lists all the tables in the database
+#  then drops them.
+#
+#  Arguments:
+#    %DB - Associative array for db
+#
+#  Returns: result of ExecuteSQL_Statement.
+#=============================================================
+sub DropAllTables {
+  local( %DB ) = @_;
+  local( $Statement ) = "";
+  local( $ReadString ) = "";
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  $Statement = "select table_name from user_tables where  table_name != 'WALLET_FILE_STORAGE_T' and (table_name like '%*_T' escape '*' or table_name like '%*_BUF' escape '*' or table_name like 'CONFIG_TEMPLATE_ISCRIPT');";
+  $Result = &ExecuteSQL_Statement( $Statement, TRUE, TRUE, %DB );
+
+  open( TMPFILE, "<$tmpFile" ) || die "$ME: cannot read $tmpFile\n";
+  $Statement = "";
+  while( $ReadString = <TMPFILE> ) {
+    chop( $ReadString );
+    if ( ! ( ( $ReadString =~ /^TABLE_NAME/i ) ||
+             ( $ReadString =~ /^-+/i ) ||
+             ( $ReadString =~ /rows selected/i ) ||
+             ( $ReadString =~ /^Executing/i ) ||
+             ( $ReadString eq "" ) ) ) {
+      $Statement = $Statement."drop table $ReadString;\n";
+    }
+  }
+  close( TMPFILE );
+  $Result = &ExecuteSQL_Statement( $Statement, TRUE, TRUE, %DB );
+}
+
+#=============================================================
+#
+#  This function wipes all the objects associated with a used
+#  USE WITH GREAT CARE !!!
+#
+#  Arguments:
+#    %DB - Associative array for db
+#
+#  Returns: result of ExecuteSQL_Statement.
+#=============================================================
+sub DropTheWorld {
+  local( %DB ) = @_;
+  local( $Statement ) = "";
+  local( $ReadString ) = "";
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  $Statement = "set pagesize 50000;\nselect OBJECT_TYPE, OBJECT_NAME from user_objects;";
+  $Result = &ExecuteSQL_Statement( $Statement, TRUE, TRUE, %DB );
+
+  open( TMPFILE, "<$tmpFile" ) || die "$ME: cannot read $tmpFile\n";
+  $Statement = "";
+  while( $ReadString = <TMPFILE> ) {
+    chop( $ReadString );
+    if ( ! ( ( $ReadString =~ /^OBJECT_TYPE/i ) ||
+             ( $ReadString =~ /^-+/i ) ||
+             ( $ReadString =~ /^OBJECT_NAME/i ) ||
+             ( $ReadString eq "" ) ) ) {
+      $ReadString = $ReadString." ".<TMPFILE>;
+      chop( $ReadString );
+      $ReadString =~ s/([^\s]*)\s+([^\s]*)\s*//;
+      $Statement = $Statement."\n"."DROP $1 $2;";
+    }
+  }
+  close( TMPFILE );
+  print $Result = &ExecuteSQL_Statement( $Statement, TRUE, TRUE, %DB );
+}
+
+#==============================================================
+#  This function drops the sequences we care about for the objects
+#  and the poids in the database.
+#
+#  Arguments :
+#    %DB - Associative array for db
+#
+#  Returns result of ExecuteSQL_Statement
+#==============================================================
+sub DropSequences {
+  local ( %DB ) = @_;
+  local ( $Statement );
+  local ( $ReadString ) = "";
+  local ( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+
+  #
+  # Verify if the sequences we care about are already there...
+  # if they are, drop them and recreate them.
+  #
+  $Statement = "select sequence_name from user_sequences;";
+  $Result = &ExecuteSQL_Statement( $Statement, TRUE, TRUE, %DB );
+
+  open ( TMPFILE, "<$tmpFile" ) || die "$ME: cannot read $tmpFile\n";
+  $Statement = "";
+  while( $ReadString = <TMPFILE> ) {
+    chop ( $ReadString );
+    if ( ( ! (( $ReadString =~ /^SEQUENCE_NAME/i ) ||
+              ( $ReadString =~ /^-+/i ) ||
+              ( $ReadString =~ /^\d rows selected/i ) ||
+              ( $ReadString eq "" ) ) )
+           && (( $ReadString =~ /^OBJ_IDS/i ) ||
+              ( $ReadString =~ /^POID_IDS/i ) ) ) {
+      $Statement = $Statement."drop sequence $ReadString;\n";
+    }
+  }
+  close( TMPFILE );
+  $Result = &ExecuteSQL_Statement( $Statement, TRUE, TRUE, %DB );
+
+}
+
+#=============================================================
+#
+# This function resets the sequences to a specified value
+#
+# Arguments:
+#   $Value = Value to set the obj_ids sequence to
+#   %DB = Associative array for the DB
+#
+# Returns
+#   the value returned by ExecuteSQL_Statement
+#=============================================================
+sub ResetSequence {
+  local( $Value ) = shift( @_ );
+  local( %DB ) = @_;
+
+  &ExecuteSQL_Statement( <<END
+drop sequence obj_ids;
+create sequence obj_ids start with $Value;
+END
+			 , TRUE
+                         , TRUE
+			 ,%DB );
+}
+
+
+#=============================================================
+#  This function creates the Oracle tablespaces and user
+#  needed for Portal, and grants the necessary permissions.
+#
+#  Arguments:
+#    %DB- Associative array for db
+#
+#  Returns:Return value of plus80 command
+#=============================================================
+sub InitializeDatabase
+{
+	local ( %DB ) = @_;
+	my ( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+	my ( $Path ) = "";
+	my ( $TablespaceFile );
+	my ( $Statement );
+	my ( $Result );
+	my ( $User ) = $DB{'user'};
+	my ( $Password ) = $DB{'password'};
+
+	#
+	# First, set $Path = the actual system location for the tablespaces.
+	# This is a full pathname, on the machine where the Oracle Server is located.
+	#
+	$Statement = "set heading off;\nset feedback off;\nselect FILE_NAME from  dba_data_files where TABLESPACE_NAME = 'SYSTEM';";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $Statement, TRUE, TRUE, %DB );
+	if ( $Result eq "0" )
+	{
+		open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+		while( $ReadString = <TMPFILE> )
+		{
+			if ( $ReadString !~ /^Executing|^\s*NAME\s*$|^\s*$|^-+$/ )
+			{
+				$Path = $ReadString;
+				chop( $Path );
+				last;
+			}
+		}
+	}
+
+	# Remove the filename from the full pathname.
+	$Path =~ s/(.*)(\/|\\).*/$1/;
+
+	# Switch any back slashes to forward slashes.
+        $Path =~ s/\\\\/\//g;
+        $Path =~ s/\\/\//g;
+
+	$DB{'initialize_Path'} = $Path;
+
+	# Specify "system" as the database user when calling CheckForErrors
+	$DB{'initialize_Login'} = "system";
+
+	#
+	# Next, call the SQL commands to create and configure the tablespaces.
+	#
+	print "  Creating Portal tablespaces ... this may take a few minutes";
+	print "\n  Creating main tablespace      '$DB{'tables_group'}'";
+	$DB{'initialize_Size'} = "600M";
+	$TablespaceFile = "$Path/$DB{'tables_group'}.dbf";
+	$DB{'initialize_TablespaceFile'} = $TablespaceFile;
+	$DB{'initialize_Statement'} = "create tablespace $DB{'tables_group'} datafile '$TablespaceFile' size $DB{'initialize_Size'} reuse autoextend on next 100M extent management local segment space management manual;";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Creating index tablespace     '$DB{'indexes_group'}'";
+	$DB{'initialize_Size'} = "400M";
+	$TablespaceFile = "$Path/$DB{'indexes_group'}.dbf";
+	$DB{'initialize_TablespaceFile'} = $TablespaceFile;
+	$DB{'initialize_Statement'} = "create tablespace $DB{'indexes_group'} datafile '$TablespaceFile' size $DB{'initialize_Size'} reuse autoextend on next 100M extent management local segment space management manual;";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Creating temporary tablespace 'PINTEMP'";
+	$DB{'initialize_Size'} = "100M";
+	$TablespaceFile = "$Path/PINTEMP.dbf";
+	$DB{'initialize_TablespaceFile'} = $TablespaceFile;
+	$DB{'initialize_Statement'} = "create tablespace PINTEMP datafile '$TablespaceFile' size $DB{'initialize_Size'} reuse autoextend on next 100M extent management local segment space management manual;";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Creating '$DB{'user'}' user";
+	if($ENABLE_ENCRYPTION eq "Yes") { 
+	   &decrypt_pwd();
+	}
+	$DB{'initialize_Statement'} = "create user $DB{'user'} identified by $DB{'password'};";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Granting '$DB{'user'}' correct permissions";
+	$DB{'initialize_Statement'} = "grant resource, connect to $DB{'user'};";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+        print "\n  Granting UNLIMITED TABLESPACE to '$DB{'user'}' ";
+        $DB{'initialize_Statement'} = "grant unlimited tablespace to $DB{'user'};";
+        $Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+        &CheckForErrors ( $tmpFile, %DB );
+
+        print "\n  Granting create synonym to '$DB{'user'}' ";
+        $DB{'initialize_Statement'} = "grant create synonym to $DB{'user'};";
+        $Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+        &CheckForErrors ( $tmpFile, %DB );
+
+        print "\n  Granting DBMS_LOCK to '$DB{'user'}' ";
+        $DB{'initialize_Statement'} = "grant execute on dbms_lock to $DB{'user'};";
+        $Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+        &CheckForErrors ( $tmpFile, %DB );
+
+        print "\n  Granting dbms_aq to '$DB{'user'}' ";
+        $DB{'initialize_Statement'} = "grant execute on dbms_aq to $DB{'user'};";
+        $Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+        &CheckForErrors ( $tmpFile, %DB );
+
+        print "\n  Granting dbms_aqadm to '$DB{'user'}' ";
+        $DB{'initialize_Statement'} = "grant execute on dbms_aqadm to $DB{'user'};";
+        $Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+        &CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Altering '$DB{'user'}' user default tablespace";
+	$DB{'initialize_Statement'} = "alter user $DB{'user'} default tablespace $DB{'tables_group'};";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $DB{'initialize_Statement'}, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Altering '$DB{'user'}' user temporary tablespace";
+	$DB{'initialize_Statement'} = "alter user $DB{'user'} temporary tablespace PINTEMP;";
+	$Result = &ExecuteSQL_Statement_AsSystem_sysdba( $Statement, TRUE, TRUE, %DB );
+	&CheckForErrors ( $tmpFile, %DB );
+
+	print "\n  Finished creating the Portal tablespaces\n";
+	print "  Continuing to Configure the database\n";
+}
+
+
+#=============================================================
+#  This function Executes a SQL statement as the system user.  It assumes
+#  that the username, password, and Alias have already been verified.
+#
+#  Arguments:
+#    $Statement - Statement to execute
+#    bOutputStatement - Display the statement
+#    bOutputResult - Display the resulting output
+#    %DB- Associative array for db
+#
+#  Returns:Return value of plus80 command
+#=============================================================
+sub ExecuteSQL_Statement_AsSystem {
+	local( $Statement ) = shift( @_ );
+	local( $bOutputStatement ) = shift( @_ );
+	local( $bOutputResult ) = shift( @_ );
+	local( %DB ) = @_;
+
+	$DB{'user'} = $DB{'system_user'};
+	$DB{'password'} = $DB{'system_password'};
+
+	if($ENABLE_ENCRYPTION eq "Yes") { 
+	   &decrypt_pwd();
+	}
+
+	
+	return &ExecuteSQL_Statement( $Statement, $bOutputStatement, $bOutputResult, %DB );
+}
+
+
+#=============================================================
+#  This function looks for Oracle Errors in the output from a SQL statement,
+#  which is passed to this function as the argument '$tmpFile'.
+#
+#  If no errors are found, 0 is returned.
+#  For MINOR errors, an error message or warning might be displayed.
+#  For MAJOR errors, an error message will be displayed, then the function exits.
+#
+#  Arguments:
+#    $tmpFile  - file which contains the SQL statement output
+#    %DB       - local copy of %DB.
+#                This might include the following temporary entries:
+#         $DB{'initialize_Path'}         - location of new database on SQLserver Server machine
+#	      $DB{'initialize_Size'}         - total size (MB) of new database
+#	      $DB{'initialize_DatabaseName'} - name of the new database
+#	      $DB{'initialize_Statement'}    - SQL statement called
+#	      $DB{'initialize_Login'}        - either "system" or "portal"
+#
+#  Returns:  0 if no errors
+#            1 if minor error
+#            exit(2) if major error
+#=============================================================
+sub CheckForErrors {
+	local ( $tmpFile ) = shift( @_ );
+	local ( %DB ) = @_;
+	local ( $ShowMinorErrors ) = "NO";  # EITHER 'YES' OR 'NO'
+	local ( $ReadString );
+	local ( $Error ) = "NONE";  # 1st Oracle error found
+	local ( $Errors ) = "";     # ALL Oracle errors found
+	local ( $ErrorMsg );
+	local ( $Result );
+	
+	if ( $DB{'initialize_Login'} =~ /system/i )
+	{
+		$DB{'user'} = $DB{'system_user'};
+		$DB{'password'} = $DB{'system_password'};
+	}
+
+	if($ENABLE_ENCRYPTION eq "Yes") { 
+	   &decrypt_pwd();
+	}
+
+	
+	#
+	# Check for any Oracle errors in the SQL statement output file
+	#
+	open( TMPFILE2, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+	while( $ReadString = <TMPFILE2> )
+	{
+		if ( $ReadString =~ /ORA-([\d]*):.*/ )
+		{
+			if ( $Error eq "NONE" )
+			{
+				$Error = $1;
+				$Errors = $1;
+			}
+			else
+			{
+				$Errors = "$Errors $1";
+			}
+		}
+	}
+	close( TMPFILE2 );
+
+
+	#
+	# If no Oracle errors, then return now
+	#
+	if ( $Error eq "NONE" )
+	{
+		return 0;
+	}
+
+
+	#
+	# Process any Oracle errors found in the SQL statement output file
+	#
+	if ( $Error eq "12154" )
+	{
+		&Output( STDOUT, $IDS_TNSNAME_INVALID, $DB{'alias'} );
+		&Output( fpLogFile, $IDS_TNSNAME_INVALID, $DB{'alias'} );
+		exit( 2 );
+	}
+	elsif ( $Error eq "01017" )
+	{
+		&Output( STDOUT, $IDS_INVALID_USERNAME, $DB{'user'}, "****" );
+		&Output( fpLogFile, $IDS_INVALID_USERNAME, $DB{'user'}, "****" );
+		exit( 2 );
+	}
+	elsif ( $Error eq "12224" )
+	{
+		&Output( STDERR, $IDS_NO_TNS_LISTENER, $DB{'alias'} );
+		&Output( fpLogFile, $IDS_NO_TNS_LISTENER, $DB{'alias'} );
+		exit( 2 );
+	}
+	elsif ( $Error eq "01917" )
+	{
+		#
+		# MINOR ERROR
+		#
+		if ( $ShowMinorErrors =~ /yes/i )
+		{
+			&Output( STDOUT, $IDS_ORACLE_ERROR, $DB{'user'}, "****", $DB{'alias'}, $DB{'initialize_Statement'}, $ReadString );
+			&Output( fpLogFile, $IDS_ORACLE_ERROR, $DB{'user'}, "****", $DB{'alias'}, $DB{'initialize_Statement'}, $ReadString );
+		}
+		return 1;
+	}
+	elsif ( ( $Error eq "01119" ) || ( $Error eq "027040" ) )
+	{
+		#
+		# MAJOR ERROR - NOT ENOUGH DISK SPACE IN THE CHOSEN DIRECTORY
+		#               OR UNABLE TO CREATE THE DATABASE FOR ANOTHER REASON.
+		#
+		# [ ORA-01119: error in creating database file <tablespace_full_pathname> ]
+		#
+		&Output( STDOUT, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'},
+			$DB{'initialize_Statement'}, $ReadString, $DB{'initialize_Path'}, $DB{'initialize_Size'}, $DB{'initialize_DatabaseName'} );
+		&Output( fpLogFile, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'},
+			$DB{'initialize_Statement'}, $ReadString, $DB{'initialize_Path'}, $DB{'initialize_Size'}, $DB{'initialize_DatabaseName'} );
+
+		exit( 2 );
+	}
+	elsif ( ( $Error eq "19510" ) || ( $Error eq "27059" ) || ( $Error eq "19502" ) || ( $Error eq "27072" ) )
+	{
+		#
+		# MAJOR ERROR - NOT ENOUGH DISK SPACE IN THE CHOSEN DIRECTORY
+		#               OR UNABLE TO CREATE THE DATABASE FOR ANOTHER REASON.
+		#
+		# [ ORA-19510: failed to set size of <number_of_blocks> blocks for file ]
+		#
+		&Output( STDOUT, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'},
+			$DB{'initialize_Statement'}, $ReadString, $DB{'initialize_Path'}, $DB{'initialize_Size'}, $DB{'Initialize_TablespaceFile'} );
+		&Output( fpLogFile, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'},
+			$DB{'initialize_Statement'}, $ReadString, $DB{'initialize_Path'}, $DB{'initialize_Size'}, $DB{'Initialize_TablespaceFile'} );
+
+		exit( 2 );
+	}
+	elsif ( $Error eq "01543" )
+	{
+		#
+		# MINOR ERROR
+		#
+		# [ ORA-01543: tablespace '<tablespace_name>' already exists ]
+		#
+		if ( $ShowMinorErrors =~ /yes/i )
+		{
+			&Output( STDOUT, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'}, $DB{'initialize_Statement'}, $ReadString );
+			&Output( fpLogFile, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'}, $DB{'initialize_Statement'}, $ReadString );
+		}
+		else
+		{
+			print "  (already exists)"
+		}
+		return 1;
+	}
+	elsif ( $Error eq "01920" )
+	{
+		#
+		# MINOR ERROR
+		#
+		# [ ORA-01920: user name 'pin' conflicts with another user or role name ]
+		#
+		if ( $ShowMinorErrors =~ /yes/i )
+		{
+			&Output( STDOUT, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'}, $DB{'initialize_Statement'}, $ReadString );
+			&Output( fpLogFile, $IDS_ORACLE_ERROR_CREATING_TABLESPACE, $DB{'user'}, "****", $DB{'alias'}, $DB{'initialize_Statement'}, $ReadString );
+		}
+		return 1;
+	}
+	else
+	{
+		#
+		# UNKNOWN ERROR
+		#
+		if ( $^O =~ /win/i )
+		{
+			$ErrorMsg = $IDS_UNKNOWN_DB_CONNECT_ERROR_NT;
+		}
+		else
+		{
+			$ErrorMsg = $IDS_UNKNOWN_DB_CONNECT_ERROR_UNIX;
+		}
+		&Output( STDERR, $ErrorMsg, $DB{"user"}, "****", $DB{"alias"}, $NLS_LANG, $Error );
+		&Output( fpLogFile, $ErrorMsg, $DB{"user"}, "****", $DB{"alias"}, $NLS_LANG, $Error );
+		exit( 2 );
+	}
+
+}
+
+
+sub decrypt_pwd {
+
+  if ( $DB{"password"} =~ /\&aes/) {
+     $DB{"password"} = psiu_perl_decrypt_pw($DB{"password"});    
+  }
+}
+
+#=============================================================
+#
+#  This function verifies if a given view is present in the database,
+#  by checking in user_views
+#
+#  Arguments:
+#    %ViewName - String containing the view name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the view is present.
+#=============================================================
+sub VerifyPresenceOfView{
+  local( $ViewName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $ViewName=uc($ViewName);
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select view_name from user_views where view_name='$ViewName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function executes SQL statements as sysdba.
+#  Please give SYSDBA privileges to "$DB{'system_user'}" 
+#  to use this function.
+#
+#=============================================================
+sub ExecuteSQL_Statement_AsSystem_sysdba {
+        local( $Statement ) = shift( @_ );
+        local( $bOutputStatement ) = shift( @_ );
+        local( $bOutputResult ) = shift( @_ );
+        local( %DB ) = @_;
+
+        $DB{'user'} = $DB{'system_user'};
+	$DB{'password'} = $DB{'system_password'};
+
+        if($ENABLE_ENCRYPTION eq "Yes") {
+           &decrypt_pwd();
+        }
+
+
+        return &ExecuteSQL_Statement_sysdba( $Statement, $bOutputStatement, $bOutputResult, %DB );
+}
+
+#=============================================================
+#
+#  This functionis  executed by
+#  ExecuteSQL_Statement_AsSystem_sysdba().
+#
+#=============================================================
+sub ExecuteSQL_Statement_sysdba {
+  local( $Statement ) = shift( @_ );
+  local( $bOutputStatement ) = shift( @_ );
+  local( $bOutputResult ) = shift( @_ );
+  local( %DB ) = @_;
+  local( $SQLShell );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.sql";
+  local( $ReadIn );
+  local( $Tmp );
+  local( $tmpSize );
+
+  if($ENABLE_ENCRYPTION eq "Yes") {
+     &decrypt_pwd();
+  }
+
+  $Tmp=$Statement;
+  $Tmp=~s{(?<!\\)(\$[a-zA-Z0-9_]+(?:{.*?})?)}{eval $1}gse;
+  $Tmp=~s{\\\$}{\$}gs;
+
+  if ( $Tmp ) {
+    $Statement = $Tmp;
+  }
+  open(  TMPFILE, ">$tmpFile") || die "$ME: cannot create $tmpFile\n";
+  print( TMPFILE "\n\n\n" );
+  print( TMPFILE "$Statement" );
+  print( TMPFILE "\nexit;\n" );
+  close( TMPFILE );
+
+
+  $tmpSize = -s $tmpFile;
+  if ($tmpSize <= 0){
+    &Output( fpLogFile, "cannot write to $tmpFile\n") ;
+        die "cannot write to $tmpFile\n";
+  }
+ my $is_sysdba="as sysdba";
+ if($IS_DBA eq "No") {
+	$is_sysdba="";
+  }
+  $sqlshell = "$SQLSCRIPT_EXECUTABLE -s /@".$DB{alias}." $is_sysdba";
+  $return = &ExecuteShell_Piped( $PIN_TEMP_DIR."/tmp.out", FALSE, $sqlshell, "< \"$tmpFile\"" );
+  if ( $bOutputStatement eq TRUE ) {
+    &Output( fpLogFile, $IDS_SQLSTATEMENT, $Statement );
+  }
+  if ( $bOutputResult eq TRUE ) {
+    $Statement = "";
+    open( TMPFILE, "<".$PIN_TEMP_DIR."/tmp.out") || die "$ME: cannot read tmp.out file\n";
+    while ( $ReadIn = <TMPFILE> ) {
+      $Statement = $Statement.$ReadIn;
+    }
+    close( TMPFILE );
+    &Output( fpLogFile, $IDS_SQLRESULTS, $Statement );
+  }
+  return $return;
+}
+
+#=============================================================
+#
+#  This function verifies if a given user is present in the database,
+#  by checking in all_users
+#
+#  Arguments:
+#    %User - String containing the user name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the user is present.
+#=============================================================
+sub VerifyPresenceOfUser {
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $User=uc($DB{'user'});
+  $Result = -1;
+  &ExecuteSQL_Statement_AsSystem_sysdba(
+    "select USERNAME from all_users where USERNAME = '$User';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if a given package present in the database,
+#
+#  Arguments:
+#    %PackageName - String containing the package name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the package is present.
+#=============================================================
+sub VerifyPresenceOfPackage {
+  local( $PackageName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $TableName=uc($PackageName);
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select object_name from user_objects where object_type = 'PACKAGE' and object_name='$PackageName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if a given sequence is present in the database,
+#  by checking in data_t
+#
+#  Arguments:
+#    %SequenceName - String containing the sequence name
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfSequenceData {
+  local( $SequenceName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $SequenceName=uc($SequenceName);
+  $Result = -1;
+  &ExecuteSQL_Statement(
+    "select name from data_t where name='$SequenceName';", FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+#=============================================================
+#
+#  This function verifies if a given object is present in the database,
+#  by checking in user_objects
+#
+#  Arguments:
+#    %ObjectName - String containing the object name
+#    %DBUserName - String containing the DB UserName
+#    %DB - Associative array for db
+#
+#  Returns: 0 if not found, -1 if the field is present.
+#=============================================================
+sub VerifyPresenceOfObjectInDB {
+  local( $ObjectName ) = shift ( @_ );
+  local( $DBUserName ) = shift ( @_ );
+  local( %DB ) = @_;
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+  local( $Statement ) = "select object_name from all_objects where owner = upper('$DBUserName') and object_name = upper('$ObjectName');";
+
+  $Result = -1;
+  $Statement =
+  &ExecuteSQL_Statement($Statement, FALSE, FALSE, %DB );
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    if ( $ReadString =~ m/no\s+rows\s+selected/ ) {
+      $Result = 0;
+      last;
+    }
+    # Incase of any DB errors, this check will satisfy.
+    if ( $ReadString =~ m/ERROR/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+
+  return $Result;
+}
+
+
+#=============================================================
+#
+#  This function verifies if tmp.out has any ERROR.
+#  Arguments:
+#	No Arguments
+#
+#  Returns: 0 if ERROR found, -1 if no ERROR found in tmp.out.
+#=============================================================
+
+sub VerifyPresenceOfError {
+  local( $Result );
+  local( $tmpFile ) = $PIN_TEMP_DIR."/tmp.out";
+  local( $ReadString );
+
+  $Result = -1;
+  open( TMPFILE, "<$tmpFile " ) || die "$ME: cannot read $tmpFile\n";
+  while( $ReadString = <TMPFILE> ) {
+    # Incase of any DB errors, this check will satisfy.
+    if ( $ReadString =~ m/ERROR/ ) {
+      $Result = 0;
+      last;
+    }
+  }
+  close( TMPFILE );
+  return $Result;
+}
+
+#=============================================================
+#  Need to return for "require" statement
+#=============================================================
+1;

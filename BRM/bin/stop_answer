@@ -1,0 +1,54 @@
+#!/bin/sh
+# continuus file information --- %full_filespec: stop_answer.sh~4.1.3:shsrc:1 %
+#
+#  @(#) %full_filespec: stop_answer.sh~4.1.3:shsrc:1 %
+#
+#      Copyright (c) 1998 - 2006 Oracle. All rights reserved.
+#
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+
+
+VERSION=15.0
+PATH=/usr/bin:/bin
+
+PINDIR=/home/pin/opt/portal/BRM
+LOGDIR=/home/pin/opt/portal/BRM/var/dm_fusa
+
+ANSDIR=${PINDIR}/apps/fusa_server
+S_PID=${LOGDIR}/answer_s.pid
+B_PID=${LOGDIR}/answer_b.pid
+ 
+me=$0
+
+if [ ! -f ${S_PID} ]; then
+	echo "${me}: ERROR: no answer_s.pid file: ${S_PID}"
+        exit 1
+fi       
+
+if [ ! -f ${B_PID} ]; then
+	echo "${me}: ERROR: no answer_b.pid file: ${B_PID}"
+        exit 1
+fi       
+
+kill `cat ${S_PID}`
+rc=$?
+if [ ${rc} -ne 0 ]; then
+	echo "${me}: ERROR: kill answer_s `cat ${S_PID}` FAILED"
+	exit ${rc}
+else
+	rm ${S_PID}
+fi
+
+kill `cat ${B_PID}`
+rc=$?
+if [ ${rc} -ne 0 ]; then
+	echo "${me}: ERROR: kill answer_s `cat ${B_PID}` FAILED"
+	exit ${rc}
+else
+	rm ${B_PID}
+fi
+
+exit 0

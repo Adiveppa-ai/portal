@@ -1,0 +1,53 @@
+#
+PCM_OP_TERM_IP_DIALUP_STOP_ACCOUNTING
+# number of field entries allocated 26, used 26
+0 PIN_FLD_POID           POID [0] 0.0.0.1 $ST -1 0
+0 PIN_FLD_PROGRAM_NAME    STR [0] "radius"
+0 PIN_FLD_TERMSERV_ID     STR [0] "125.$R(1,256)"
+0 PIN_FLD_TERMSERV_PORT    STR [0] "50"
+0 PIN_FLD_DELAY_TIME      INT [0] 2000
+0 PIN_FLD_NETWORK         STR [0] "my-network"
+0 PIN_FLD_TIMEZONE        INT [0] 0
+0 PIN_FLD_LOGIN           STR [0] "$L"
+0 PIN_FLD_TRANS_ID        STR [0] "$U"
+0 PIN_FLD_ARGS          ARRAY [0] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "User-Name"
+1     PIN_FLD_VALUE           STR [0] "$L"
+0 PIN_FLD_ARGS          ARRAY [1] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Status-Type"
+1     PIN_FLD_VALUE           STR [0] "Stop"
+0 PIN_FLD_ARGS          ARRAY [2] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "NAS-Port"
+1     PIN_FLD_VALUE           STR [0] "50"
+0 PIN_FLD_ARGS          ARRAY [3] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "NAS-Identifier"
+1     PIN_FLD_VALUE           STR [0] "Should_Pass1"
+0 PIN_FLD_ARGS          ARRAY [4] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Session-Id"
+1     PIN_FLD_VALUE           STR [0] "$R(10000,55555)"
+0 PIN_FLD_ARGS          ARRAY [5] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Delay-Time"
+1     PIN_FLD_VALUE           STR [0] "2000"
+0 PIN_FLD_ARGS          ARRAY [6] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Input-Octets"
+1     PIN_FLD_VALUE           STR [0] "789"
+0 PIN_FLD_ARGS          ARRAY [7] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Output-Octets"
+1     PIN_FLD_VALUE           STR [0] "789"
+0 PIN_FLD_ARGS          ARRAY [8] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Input-Packets"
+1     PIN_FLD_VALUE           STR [0] "789"
+0 PIN_FLD_ARGS          ARRAY [9] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Acct-Output-Packets"
+1     PIN_FLD_VALUE           STR [0] "789"
+0 PIN_FLD_ARGS          ARRAY [10] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Pseudo-Request-Source"
+1     PIN_FLD_VALUE           STR [0] "156.151.37.183"
+0 PIN_FLD_ARGS          ARRAY [11] allocated 2, used 2
+1     PIN_FLD_NAME            STR [0] "Pseudo-Request-Type"
+1     PIN_FLD_VALUE           STR [0] "Accounting-Request"
+0 PIN_FLD_ELAPSED_TIME TSTAMP [0] (0) <null>
+0 PIN_FLD_BYTES_IN        INT [0] 789
+0 PIN_FLD_BYTES_OUT       INT [0] 789
+0 PIN_FLD_PACKETS_IN      INT [0] 789
+0 PIN_FLD_PACKETS_OUT     INT [0] 789

@@ -1,0 +1,28 @@
+continuus file information --- %full_filespec: BenchNotes.txt~3:ascii:1 %
+1. To run Netflow refer to Netflow_Readme.txt.
+
+2. To create Oracle client side just create ORACLE_HOME and copy from Oracle server 4 directory: bin, lib, sqlplus, ocommon.
+
+3. To prevent session duplication during IPT benchmark, after each simrad session run:
+
+    sqlplus > delete event_t where poid_id0 in ( select obj_id0 from event_session_ipt_call_t);
+    sqlplus > delete event_session_ipt_call_t;
+    sqlplus > commit;
+
+4. After creating accounts with prepaid calling card enter amount on these cards by :
+
+    sqlplus > update account_balances_t set current_bal = -200000;
+    sqlplus > commit;
+
+5. Using "config" file in TSM we can filter out any incoming messages. To ignore any START operation we should create the following entry in "config":
+
+    ack_acct_start {
+      type=mod+null
+      check {
+	Pseudo-Request-Type = Accounting-Request
+	Acct-Status-Type = Start
+	}
+      action = ack
+      }
+
+6. Use sql_check.pl simultaneously with benchmark to find which SQls were performed and their basic performance parameters.

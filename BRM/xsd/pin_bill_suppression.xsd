@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation>
+			Copyright (c) 2004 - 2006 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+	
+	<xs:complexType name="BillSuppressionConfigurationType">
+	<xs:sequence>
+	<xs:element name="CustomerSegmentList">
+		<xs:complexType>
+		<xs:sequence>
+		<xs:element name="CustomerSegment" maxOccurs="unbounded">
+			<xs:complexType>
+			<xs:sequence>
+			<xs:element name="MinBillAmount">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:whiteSpace value="collapse"/>
+						<xs:fractionDigits value="2"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MaxSuppressionCycles">
+				<xs:simpleType>
+					<xs:restriction base="xs:positiveInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			</xs:sequence>
+				<xs:attribute name="ID" type="xs:nonNegativeInteger" use="required">
+			</xs:attribute>
+			</xs:complexType>
+		</xs:element>
+		</xs:sequence>
+		</xs:complexType>
+		<xs:unique name="uniqueCustomerSegmentID">
+			<xs:selector xpath=".//businessConfig:CustomerSegment"/>
+			<xs:field xpath="./@ID"/>
+		</xs:unique>
+	</xs:element>
+	</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

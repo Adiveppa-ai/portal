@@ -1,0 +1,155 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ bipext.INFSTRTOTIMET(:StartDate, 2) START_DATE,
+ 	 bipext.INFSTRTOTIMET(:EndDate, 2)-1 END_DATE,
+ "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0" PRODUCT_OBJ_ID0,
+ "PRODUCT_T"."NAME" PRODUCT_NAME,
+ "EVENT_T"."POID_TYPE" "EVENT_TYPE",
+ "ACCOUNT_NAMEINFO_T"."COUNTRY" COUNTRY,
+ "ACCOUNT_NAMEINFO_T"."STATE" STATE,
+ "EVENT_T"."END_T" "END_T",
+ "PRODUCT_T"."END_T" "PRO_END_T"
+
+ FROM ((("PRODUCT_T" "PRODUCT_T" INNER JOIN "PURCHASED_PRODUCT_T" "PURCHASED_PRODUCT_T" ON "PRODUCT_T"."POID_ID0"="PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0")
+ INNER JOIN "EVENT_BILLING_PRODUCT_T" "EVENT_BILLING_PRODUCT_T" ON "PURCHASED_PRODUCT_T"."POID_ID0" = "EVENT_BILLING_PRODUCT_T"."OFFERING_OBJ_ID0")
+ 	 INNER JOIN "EVENT_T" "EVENT_T" ON "EVENT_T"."POID_ID0" = "EVENT_BILLING_PRODUCT_T"."OBJ_ID0" AND "PURCHASED_PRODUCT_T"."ACCOUNT_OBJ_ID0"="EVENT_T"."ACCOUNT_OBJ_ID0")
+ 	 INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ WHERE
+ bipext.infCheckDates(:StartDate, :EndDate) = 1
+ AND "EVENT_T"."POID_DB">0
+ AND ("EVENT_T"."POID_TYPE"=N'/event/billing/product/action/cancel' OR "EVENT_T"."POID_TYPE"=N'/event/billing/product/action/purchase')
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:param_State,"ACCOUNT_NAMEINFO_T"."STATE")
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:param_Country,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+ AND "EVENT_T"."END_T"<=bipext.INFSTRTOTIMET(:EndDate, 2)-1
+ AND "PRODUCT_T"."NAME" LIKE NVL(:param_ProductName,"PRODUCT_T"."NAME")
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND "EVENT_T"."ACCOUNT_OBJ_ID0">1
+ ORDER BY "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE", "PRODUCT_T"."NAME", "EVENT_T"."POID_TYPE", "EVENT_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q2" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "EVENT_T"."POID_TYPE", "EVENT_CUSTOMER_STATUSES_T"."STATUS" EVENT_STATUS,
+ "EVENT_CUSTOMER_STATUSES_T"."REC_ID" REC_ID1,
+ "Pre_EVENT_CUSTOMER_STATUSES_T"."REC_ID", "EVENT_T"."SYS_DESCR",
+ "EVENT_T"."POID_ID0", "EVENT_T"."END_T" "EVENT_END_T",
+ "EVENT_T"."ACCOUNT_OBJ_ID0", "EVENT_T"."POID_DB",
+ "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0" Q2_PRODUCT_OBJ_ID0,
+ "PURCHASED_PRODUCT_T"."STATUS" PRODUCT_STATUS
+ FROM ((("PURCHASED_PRODUCT_T" "PURCHASED_PRODUCT_T" INNER JOIN "EVENT_T" "EVENT_T" ON "PURCHASED_PRODUCT_T"."ACCOUNT_OBJ_ID0" = "EVENT_T"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "EVENT_CUSTOMER_STATUSES_T" "EVENT_CUSTOMER_STATUSES_T" ON "EVENT_T"."POID_ID0" =
+ "EVENT_CUSTOMER_STATUSES_T"."OBJ_ID0")
+ INNER JOIN "EVENT_CUSTOMER_STATUSES_T" "Pre_EVENT_CUSTOMER_STATUSES_T" ON "EVENT_CUSTOMER_STATUSES_T"."OBJ_ID0" =
+ "Pre_EVENT_CUSTOMER_STATUSES_T"."OBJ_ID0")
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "EVENT_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ WHERE
+ bipext.infCheckDates(:StartDate, :EndDate) = 1
+ AND "EVENT_T"."POID_DB" >
+ 0
+ AND "EVENT_CUSTOMER_STATUSES_T"."STATUS" <>
+ 10103
+ AND "EVENT_CUSTOMER_STATUSES_T"."REC_ID" = 1
+ AND "Pre_EVENT_CUSTOMER_STATUSES_T"."STATUS" <>
+ 0
+ AND "Pre_EVENT_CUSTOMER_STATUSES_T"."STATUS" <>
+ 10103
+ AND "Pre_EVENT_CUSTOMER_STATUSES_T"."REC_ID" = 0
+ AND "EVENT_T"."SYS_DESCR" = N'Set Status (srvc)'
+ AND "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0" = :PRODUCT_OBJ_ID0
+ AND "EVENT_T"."END_T" <= bipext.INFSTRTOTIMET(:EndDate, 2)-1
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE :STATE
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE :COUNTRY
+ AND "EVENT_T"."POID_TYPE" = N'/event/customer/status'
+ AND "EVENT_T"."ACCOUNT_OBJ_ID0" >
+ 1		
+ AND "EVENT_T"."SERVICE_OBJ_ID0" = "PURCHASED_PRODUCT_T"."SERVICE_OBJ_ID0"
+ ORDER BY "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0", "EVENT_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="productSubscription">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="START_DATE" value="START_DATE" dataType="xsd:string" label="START_DATE" breakOrder="None" fieldOrder="null"/>
+    <element name="END_DATE" value="END_DATE" dataType="xsd:string" label="END_DATE" breakOrder="None" fieldOrder="null"/>
+    <element name="PRODUCT_NAME" value="PRODUCT_NAME" dataType="xsd:string" label="PRODUCT_NAME" breakOrder="None" fieldOrder="null"/>
+    <element name="COUNTRY_NAME" value="COUNTRY" dataType="xsd:string" label="COUNTRY_NAME" breakOrder="None" fieldOrder="null"/>
+    <element name="STATE_NAME" value="STATE" dataType="xsd:string" label="STATE_NAME" breakOrder="None" fieldOrder="null"/>
+    <element name="PRODUCT_OBJ_ID0" value="PRODUCT_OBJ_ID0" dataType="xsd:string" label="PRODUCT_OBJ_ID0" breakOrder="None" fieldOrder="null"/>
+    <element name="EVENT_TYPE" value="EVENT_TYPE" dataType="xsd:string" label="EVENT_TYPE" breakOrder="None" fieldOrder="null"/>
+    <element name="END_T" value="END_T" dataType="xsd:string" label="END_T" breakOrder="None" fieldOrder="null"/>
+    <element name="PRO_END_T" value="PRO_END_T" dataType="xsd:string" label="PRO_END_T" breakOrder="None" fieldOrder="null"/>
+    <group name="Q2" source="Q2" label="Q2">
+      <element name="EVENT_STATUS" value="EVENT_STATUS" dataType="xsd:integer" label="EVENT_STATUS" breakOrder="None" fieldOrder="2"/>
+      <element name="PRODUCT_STATUS" value="PRODUCT_STATUS" dataType="xsd:integer" label="PRODUCT_STATUS" breakOrder="None" fieldOrder="11"/>
+      <element name="POID_TYPE" value="POID_TYPE" dataType="xsd:string" label="POID_TYPE" breakOrder="None" fieldOrder="1"/>
+      <element name="REC_ID1" value="REC_ID1" dataType="xsd:integer" label="REC_ID1" breakOrder="None" fieldOrder="3"/>
+      <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="4"/>
+      <element name="SYS_DESCR" value="SYS_DESCR" dataType="xsd:string" label="SYS_DESCR" breakOrder="None" fieldOrder="5"/>
+      <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="6"/>
+      <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="8"/>
+      <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="9"/>
+      <element name="Q2_PRODUCT_OBJ_ID0" value="Q2_PRODUCT_OBJ_ID0" dataType="xsd:integer" label="Q2_PRODUCT_OBJ_ID0" breakOrder="None" fieldOrder="10"/>
+      <element name="EVENT_END_T" value="EVENT_END_T" dataType="xsd:integer" label="EVENT_END_T" breakOrder="None" fieldOrder="7"/>
+    </group>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_PRODUCTNAME">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select name from product_t]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="param_ProductName" dataType="xsd:string">
+         <select label="Enter or select a specific product name, or select ALL to include all products " valueSet="LOV_PRODUCTNAME" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="StartDate" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY) " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="EndDate" dataType="xsd:date">
+         <date label="Enter End date (MM/DD/YYYY) " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="param_State" dataType="xsd:string">
+         <select label=" Enter a specific state or select ALL to include all states " valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_Country" dataType="xsd:string">
+         <select label="Enter a specific country or select ALL to include all countries" valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="productSubscription" left="28px" top="14px"/><layout name="Q2" left="495px" top="69px"/><layout name="Q1" left="249px" top="66px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+<groupLink name="link1" parentGroup="Q1" childGroup="Q2"/>
+</groupLinks>
+</display>
+</dataModel>

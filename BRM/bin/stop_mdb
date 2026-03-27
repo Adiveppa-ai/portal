@@ -1,0 +1,23 @@
+#!/bin/sh
+# continuus file information --- %full_filespec: stop_mdb.sh~2:shsrc:1 %
+#
+#  @(#) %full_filespec: stop_mdb.sh~2:shsrc:1 %
+#
+# Copyright (c) 2003-2006 Oracle. All rights reserved.
+# 
+# This material is the confidential property of Oracle Corporation
+# or its licensors and may be used, reproduced, stored or transmitted
+# only in accordance with a valid Oracle license or sublicense agreement.
+#
+#
+
+VERSION=15.0
+PATH=/usr/bin:/bin
+
+PINDIR=/home/pin/opt/portal/BRM
+
+cd ${PINDIR}/bin ;
+  if [ -f "./stop_pin_config_distribution" ]; then ./stop_pin_config_distribution;fi
+
+# get rc from cm stopup
+exit $?

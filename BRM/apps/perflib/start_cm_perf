@@ -1,0 +1,158 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------#
+# SCRIPT: start_cm_perf
+#
+# DESCRIPTION:
+#
+# Simple script to start the CM using the performance profiling library. This
+# is an alternative to using the generic 'start_it' script.
+#
+# INFORMATION:
+#
+# BRM Performance Tracing ...
+#
+# REVISION:
+#
+# $Revision: 1.1 $
+# $Author: pin $
+# $Date: 2014/08/22 13:43:08 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# abort - Exit with error message
+#------------------------------------------------------------------------------#
+abort()
+{
+   echo "ERROR : $CMD - $@" >&2
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# usage - Exit with usage message
+#------------------------------------------------------------------------------#
+usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-d<dir>] [-n]
+
+where :  -d<dir>  Defines the directory containing configuration files (and
+                  where the <cmd> will be launched from). By default it is the
+                  directory where '$CMD' is located.
+         -n       Don't start with Perflib (like normal start_cm)
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+CMD=$(basename $0)
+VERSION=7.5
+PATH=/usr/bin:/bin:.
+
+#
+# Main directories and files ...
+#
+PINDIR=$PIN_HOME
+LOGDIR=$PIN_LOG_DIR/cm
+CM=cm
+CMDIR=$PINDIR/sys/cm
+CMLOG=$LOGDIR/cm.log
+CMPID=$LOGDIR/cm.pid
+
+#
+# Default options ...
+#
+PERFLIB=Y
+PERFLIB_DIR=$(pwd)
+
+#
+# Get options ...
+#
+while getopts "hd:n" OPTION
+do
+   case "$OPTION" in
+   d)  PERFLIB_DIR=$OPTARG
+       [ -d "$PERFLIB_DIR" ] || abort "directory '$PERFLIB_DIR' doesn't exist"
+       ;;
+   n)  PERFLIB=N;;  # Don't start with Perflib
+   h)  usage
+       ;;
+   \?) usage
+       ;;
+   :)  echo "Option '$OPTARG' requires an argument" >&2
+       usage
+       ;;
+   *)  break
+       ;;
+   esac
+done
+shift $((OPTIND - 1))
+
+#
+# If Perflib is enabled, we'll use a different cm process name. Also 
+# check Perflib-specific settings ...
+#
+if [ $PERFLIB = Y ]
+then
+   CM=cm_perflib
+   EXT="$LIBRARYEXTENSION"
+   [ -n "$EXT" ] || abort "LIBRARYEXTENSION is not set"
+   [ -r "$PERFLIB_DIR/perf.env" ] || abort "no 'perf.env' file in '$PERFLIB_DIR'"
+fi
+
+#
+# Check pin.conf exists ...
+#
+if [ \( ! -r  $CMDIR/pin.conf \) -a \( ! -r /etc/pin.conf \) ]
+then
+   abort "no pin.conf for cm in '$CMDIR' or '/etc'!"
+fi       
+
+#
+# Make symbolic link for program to start ...
+#
+if [ ! -x $CMDIR/$CM ]
+then
+   ln -s $PIN_HOME/bin/cm $CMDIR/$CM
+   [ -x $CMDIR/$CM ] || abort "executable '$CMDIR/$CM' not found!"
+fi       
+
+#
+# Make log directory (if needed) and save any old log files ..
+#
+if [ ! -d $LOGDIR ]
+then
+   mkdir -p $LOGDIR
+   [ $? -eq 0 ] || abort "failed making log directory '$LOGDIR'" 
+fi       
+
+for f in $LOGDIR/cm.log $LOGDIR/cm.pinlog
+do
+   if [ -s $f ]
+   then
+      mv $f $f.$(date +"%Y%m%d%H%M%S")
+   fi
+done
+
+
+#
+# OK, now start ...
+#
+(
+   cd $CMDIR
+   printf "started $CM at...\n$(date)\n" >>$CMLOG
+   if [ "$PERFLIB" = Y ]
+   then
+      export PERFLIB_HOME=$PERFLIB_DIR
+      . $PERFLIB_DIR/perf.env
+      export LD_PRELOAD=$PERFLIB_HOME/libperflib$EXT
+   fi
+   $CM >>$CMLOG 2>&1 &
+   unset LD_PRELOAD
+   printf "$!\n" >$CMPID
+   chmod 664 $CMLOG
+   chmod 664 $CMPID
+)
+exit $?
+

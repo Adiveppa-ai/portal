@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CUST" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_CUST_UPDATE_SERVICES.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_CREATE_PROFILE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_COMMIT_CUSTOMER.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_SET_STATUS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_UPDATE_CUSTOMER.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_MODIFY_PROFILE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_DELETE_PAYINFO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_MODIFY_CUSTOMER.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_DELETE_ACCT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_DELETE_PROFILE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_GET_NOTE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_SET_NOTE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_GET_NEWSFEED.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_SET_TAXINFO.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_FIND_PROFILE.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_SET_BAL_GRP.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_CUST_CHANGE_BUSINESS_PROFILE.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_CUST_UPDATE_SERVICES_inmsg">
+        <part element="brm:PCM_OP_CUST_UPDATE_SERVICES_inputFlist" name="PCM_OP_CUST_UPDATE_SERVICES_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_UPDATE_SERVICES_outmsg">
+        <part element="brm:PCM_OP_CUST_UPDATE_SERVICES_outputFlist" name="PCM_OP_CUST_UPDATE_SERVICES_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_CREATE_PROFILE_inmsg">
+        <part element="brm:PCM_OP_CUST_CREATE_PROFILE_inputFlist" name="PCM_OP_CUST_CREATE_PROFILE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_CREATE_PROFILE_outmsg">
+        <part element="brm:PCM_OP_CUST_CREATE_PROFILE_outputFlist" name="PCM_OP_CUST_CREATE_PROFILE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_COMMIT_CUSTOMER_inmsg">
+        <part element="brm:PCM_OP_CUST_COMMIT_CUSTOMER_inputFlist" name="PCM_OP_CUST_COMMIT_CUSTOMER_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_COMMIT_CUSTOMER_outmsg">
+        <part element="brm:PCM_OP_CUST_COMMIT_CUSTOMER_outputFlist" name="PCM_OP_CUST_COMMIT_CUSTOMER_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_STATUS_inmsg">
+        <part element="brm:PCM_OP_CUST_SET_STATUS_inputFlist" name="PCM_OP_CUST_SET_STATUS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_STATUS_outmsg">
+        <part element="brm:PCM_OP_CUST_SET_STATUS_outputFlist" name="PCM_OP_CUST_SET_STATUS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_UPDATE_CUSTOMER_inmsg">
+        <part element="brm:PCM_OP_CUST_UPDATE_CUSTOMER_inputFlist" name="PCM_OP_CUST_UPDATE_CUSTOMER_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_UPDATE_CUSTOMER_outmsg">
+        <part element="brm:PCM_OP_CUST_UPDATE_CUSTOMER_outputFlist" name="PCM_OP_CUST_UPDATE_CUSTOMER_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_MODIFY_PROFILE_inmsg">
+        <part element="brm:PCM_OP_CUST_MODIFY_PROFILE_inputFlist" name="PCM_OP_CUST_MODIFY_PROFILE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_MODIFY_PROFILE_outmsg">
+        <part element="brm:PCM_OP_CUST_MODIFY_PROFILE_outputFlist" name="PCM_OP_CUST_MODIFY_PROFILE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_DELETE_PAYINFO_inmsg">
+        <part element="brm:PCM_OP_CUST_DELETE_PAYINFO_inputFlist" name="PCM_OP_CUST_DELETE_PAYINFO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_DELETE_PAYINFO_outmsg">
+        <part element="brm:PCM_OP_CUST_DELETE_PAYINFO_outputFlist" name="PCM_OP_CUST_DELETE_PAYINFO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_MODIFY_CUSTOMER_inmsg">
+        <part element="brm:PCM_OP_CUST_MODIFY_CUSTOMER_inputFlist" name="PCM_OP_CUST_MODIFY_CUSTOMER_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_MODIFY_CUSTOMER_outmsg">
+        <part element="brm:PCM_OP_CUST_MODIFY_CUSTOMER_outputFlist" name="PCM_OP_CUST_MODIFY_CUSTOMER_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_DELETE_ACCT_inmsg">
+        <part element="brm:PCM_OP_CUST_DELETE_ACCT_inputFlist" name="PCM_OP_CUST_DELETE_ACCT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_DELETE_ACCT_outmsg">
+        <part element="brm:PCM_OP_CUST_DELETE_ACCT_outputFlist" name="PCM_OP_CUST_DELETE_ACCT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_DELETE_PROFILE_inmsg">
+        <part element="brm:PCM_OP_CUST_DELETE_PROFILE_inputFlist" name="PCM_OP_CUST_DELETE_PROFILE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_DELETE_PROFILE_outmsg">
+        <part element="brm:PCM_OP_CUST_DELETE_PROFILE_outputFlist" name="PCM_OP_CUST_DELETE_PROFILE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_GET_NEWSFEED_inmsg">
+        <part element="brm:PCM_OP_CUST_GET_NEWSFEED_inputFlist" name="PCM_OP_CUST_GET_NEWSFEED_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_GET_NEWSFEED_outmsg">
+        <part element="brm:PCM_OP_CUST_GET_NEWSFEED_outputFlist" name="PCM_OP_CUST_GET_NEWSFEED_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_GET_NOTE_inmsg">
+        <part element="brm:PCM_OP_CUST_GET_NOTE_inputFlist" name="PCM_OP_CUST_GET_NOTE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_GET_NOTE_outmsg">
+        <part element="brm:PCM_OP_CUST_GET_NOTE_outputFlist" name="PCM_OP_CUST_GET_NOTE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_NOTE_inmsg">
+        <part element="brm:PCM_OP_CUST_SET_NOTE_inputFlist" name="PCM_OP_CUST_SET_NOTE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_NOTE_outmsg">
+        <part element="brm:PCM_OP_CUST_SET_NOTE_outputFlist" name="PCM_OP_CUST_SET_NOTE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_TAXINFO_inmsg">
+        <part element="brm:PCM_OP_CUST_SET_TAXINFO_inputFlist" name="PCM_OP_CUST_SET_TAXINFO_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_TAXINFO_outmsg">
+        <part element="brm:PCM_OP_CUST_SET_TAXINFO_outputFlist" name="PCM_OP_CUST_SET_TAXINFO_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_FIND_PROFILE_inmsg">
+        <part element="brm:PCM_OP_CUST_FIND_PROFILE_inputFlist" name="PCM_OP_CUST_FIND_PROFILE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_FIND_PROFILE_outmsg">
+        <part element="brm:PCM_OP_CUST_FIND_PROFILE_outputFlist" name="PCM_OP_CUST_FIND_PROFILE_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_BAL_GRP_inmsg">
+        <part element="brm:PCM_OP_CUST_SET_BAL_GRP_inputFlist" name="PCM_OP_CUST_SET_BAL_GRP_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_SET_BAL_GRP_outmsg">
+        <part element="brm:PCM_OP_CUST_SET_BAL_GRP_outputFlist" name="PCM_OP_CUST_SET_BAL_GRP_outputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_inmsg">
+        <part element="brm:PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_inputFlist" name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_inputFlist"/>
+    </message>
+    <message name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_outmsg">
+        <part element="brm:PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_outputFlist" name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_outputFlist"/>
+    </message>
+    <portType name="BRMCUSTService_ptt">
+        <operation name="PCM_OP_CUST_UPDATE_SERVICES">
+            <input message="brm:PCM_OP_CUST_UPDATE_SERVICES_inmsg" name="PCM_OP_CUST_UPDATE_SERVICES_Request"/>
+            <output message="brm:PCM_OP_CUST_UPDATE_SERVICES_outmsg" name="PCM_OP_CUST_UPDATE_SERVICES_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_CREATE_PROFILE">
+            <input message="brm:PCM_OP_CUST_CREATE_PROFILE_inmsg" name="PCM_OP_CUST_CREATE_PROFILE_Request"/>
+            <output message="brm:PCM_OP_CUST_CREATE_PROFILE_outmsg" name="PCM_OP_CUST_CREATE_PROFILE_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_COMMIT_CUSTOMER">
+            <input message="brm:PCM_OP_CUST_COMMIT_CUSTOMER_inmsg" name="PCM_OP_CUST_COMMIT_CUSTOMER_Request"/>
+            <output message="brm:PCM_OP_CUST_COMMIT_CUSTOMER_outmsg" name="PCM_OP_CUST_COMMIT_CUSTOMER_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_SET_STATUS">
+            <input message="brm:PCM_OP_CUST_SET_STATUS_inmsg" name="PCM_OP_CUST_SET_STATUS_Request"/>
+            <output message="brm:PCM_OP_CUST_SET_STATUS_outmsg" name="PCM_OP_CUST_SET_STATUS_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_UPDATE_CUSTOMER">
+            <input message="brm:PCM_OP_CUST_UPDATE_CUSTOMER_inmsg" name="PCM_OP_CUST_UPDATE_CUSTOMER_Request"/>
+            <output message="brm:PCM_OP_CUST_UPDATE_CUSTOMER_outmsg" name="PCM_OP_CUST_UPDATE_CUSTOMER_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_MODIFY_PROFILE">
+            <input message="brm:PCM_OP_CUST_MODIFY_PROFILE_inmsg" name="PCM_OP_CUST_MODIFY_PROFILE_Request"/>
+            <output message="brm:PCM_OP_CUST_MODIFY_PROFILE_outmsg" name="PCM_OP_CUST_MODIFY_PROFILE_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_DELETE_PAYINFO">
+            <input message="brm:PCM_OP_CUST_DELETE_PAYINFO_inmsg" name="PCM_OP_CUST_DELETE_PAYINFO_Request"/>
+            <output message="brm:PCM_OP_CUST_DELETE_PAYINFO_outmsg" name="PCM_OP_CUST_DELETE_PAYINFO_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_MODIFY_CUSTOMER">
+            <input message="brm:PCM_OP_CUST_MODIFY_CUSTOMER_inmsg" name="PCM_OP_CUST_MODIFY_CUSTOMER_Request"/>
+            <output message="brm:PCM_OP_CUST_MODIFY_CUSTOMER_outmsg" name="PCM_OP_CUST_MODIFY_CUSTOMER_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_DELETE_ACCT">
+            <input message="brm:PCM_OP_CUST_DELETE_ACCT_inmsg" name="PCM_OP_CUST_DELETE_ACCT_Request"/>
+            <output message="brm:PCM_OP_CUST_DELETE_ACCT_outmsg" name="PCM_OP_CUST_DELETE_ACCT_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_DELETE_PROFILE">
+            <input message="brm:PCM_OP_CUST_DELETE_PROFILE_inmsg" name="PCM_OP_CUST_DELETE_PROFILE_Request"/>
+            <output message="brm:PCM_OP_CUST_DELETE_PROFILE_outmsg" name="PCM_OP_CUST_DELETE_PROFILE_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_GET_NEWSFEED">
+            <input message="brm:PCM_OP_CUST_GET_NEWSFEED_inmsg" name="PCM_OP_CUST_GET_NEWSFEED_Request"/>
+            <output message="brm:PCM_OP_CUST_GET_NEWSFEED_outmsg" name="PCM_OP_CUST_GET_NEWSFEED_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_GET_NOTE">
+            <input message="brm:PCM_OP_CUST_GET_NOTE_inmsg" name="PCM_OP_CUST_GET_NOTE_Request"/>
+            <output message="brm:PCM_OP_CUST_GET_NOTE_outmsg" name="PCM_OP_CUST_GET_NOTE_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_SET_NOTE">
+            <input message="brm:PCM_OP_CUST_SET_NOTE_inmsg" name="PCM_OP_CUST_SET_NOTE_Request"/>
+            <output message="brm:PCM_OP_CUST_SET_NOTE_outmsg" name="PCM_OP_CUST_SET_NOTE_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_SET_TAXINFO">
+            <input message="brm:PCM_OP_CUST_SET_TAXINFO_inmsg" name="PCM_OP_CUST_SET_TAXINFO_Request"/>
+            <output message="brm:PCM_OP_CUST_SET_TAXINFO_outmsg" name="PCM_OP_CUST_SET_TAXINFO_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_FIND_PROFILE">
+            <input message="brm:PCM_OP_CUST_FIND_PROFILE_inmsg" name="PCM_OP_CUST_FIND_PROFILE_Request"/>
+            <output message="brm:PCM_OP_CUST_FIND_PROFILE_outmsg" name="PCM_OP_CUST_FIND_PROFILE_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_SET_BAL_GRP">
+            <input message="brm:PCM_OP_CUST_SET_BAL_GRP_inmsg" name="PCM_OP_CUST_SET_BAL_GRP_Request"/>
+            <output message="brm:PCM_OP_CUST_SET_BAL_GRP_outmsg" name="PCM_OP_CUST_SET_BAL_GRP_Response"/>
+        </operation>
+        <operation name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE">
+            <input message="brm:PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_inmsg" name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_Request"/>
+            <output message="brm:PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_outmsg" name="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMCUSTService_plt">
+        <plt:role name="BRMCUSTService_role">
+            <plt:portType name="brm:BRMCUSTService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="CMT_Types.xsd"/>
+	<xs:include schemaLocation="promotionExtensions.xsd"/>
+	<xs:complexType name="promotionServiceLevelType">
+		<xs:complexContent>
+			<xs:extension base="promotionExtensionType">
+				<xs:sequence>
+					<xs:element name="FldServiceLvlPromsStatus" type="ServiceStatus" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldLabel" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldReferenceCount" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ServiceLevelPromotionArray" type="ServiceLevelPromotionArrayType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ServiceLevelPromotionArrayType">
+		<xs:sequence>
+			<xs:element name="FldName" type="Name" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldValue" type="Value" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldValidTo" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldValidFrom" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+	<xs:element name="PromotionServiceLevelExtension" type="promotionServiceLevelType" substitutionGroup="PromotionExtension"/>
+</xs:schema>

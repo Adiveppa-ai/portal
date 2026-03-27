@@ -1,0 +1,35 @@
+#! /bin/python
+import os
+from datetime import datetime
+
+current_time = datetime.now()
+formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
+pin_logs = os.getenv("PIN_LOG_DIR")
+
+#Open the Memory.pid file
+try:
+  f = open(pin_logs+"/brm_service_monitor/memory.pid","r")
+except Exception as e:
+  raise e
+
+#Read the PID of the active Memory Monitor process
+try:
+  pid = int(f.read())
+except Exception as e:
+  raise e
+
+#Stop the Memory Monitor
+try:
+  log_file = open(pin_logs+"/brm_service_monitor/memory.log","a")
+  log_file.write("\n" + formatted_time + " " +"    STOPPED    ".center(150,'#')+"\n")
+  log_file.close()
+  os.kill(pid,15)
+  os.remove(pin_logs+"/brm_service_monitor/memory.pid")
+except Exception as e:
+  raise Exception("The Process doesn't exist!!!")
+
+try:
+  print("Stopped Memory Monitor",pid)
+except Exception as e:
+  raise e
+

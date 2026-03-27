@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AR" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_ACCT_BILLS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_ACCT_BAL_SUMMARY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_BILL_ADJUSTMENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_ACTION_ITEMS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_ITEM_ADJUSTMENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_BAL_SUMMARY.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_ACCOUNT_ADJUSTMENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_EVENT_ADJUSTMENT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_RESOURCE_AGGREGATION.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_BILLS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_BILL_ITEMS.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_AR_GET_ACCT_ACTION_ITEMS.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_AR_GET_ACCT_BILLS_inmsg">
+        <part element="brm:PCM_OP_AR_GET_ACCT_BILLS_inputFlist" name="PCM_OP_AR_GET_ACCT_BILLS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACCT_BILLS_outmsg">
+        <part element="brm:PCM_OP_AR_GET_ACCT_BILLS_outputFlist" name="PCM_OP_AR_GET_ACCT_BILLS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY_inmsg">
+        <part element="brm:PCM_OP_AR_GET_ACCT_BAL_SUMMARY_inputFlist" name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY_outmsg">
+        <part element="brm:PCM_OP_AR_GET_ACCT_BAL_SUMMARY_outputFlist" name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_BILL_ADJUSTMENT_inmsg">
+        <part element="brm:PCM_OP_AR_BILL_ADJUSTMENT_inputFlist" name="PCM_OP_AR_BILL_ADJUSTMENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_BILL_ADJUSTMENT_outmsg">
+        <part element="brm:PCM_OP_AR_BILL_ADJUSTMENT_outputFlist" name="PCM_OP_AR_BILL_ADJUSTMENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACTION_ITEMS_inmsg">
+        <part element="brm:PCM_OP_AR_GET_ACTION_ITEMS_inputFlist" name="PCM_OP_AR_GET_ACTION_ITEMS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACTION_ITEMS_outmsg">
+        <part element="brm:PCM_OP_AR_GET_ACTION_ITEMS_outputFlist" name="PCM_OP_AR_GET_ACTION_ITEMS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_ITEM_ADJUSTMENT_inmsg">
+        <part element="brm:PCM_OP_AR_ITEM_ADJUSTMENT_inputFlist" name="PCM_OP_AR_ITEM_ADJUSTMENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_ITEM_ADJUSTMENT_outmsg">
+        <part element="brm:PCM_OP_AR_ITEM_ADJUSTMENT_outputFlist" name="PCM_OP_AR_ITEM_ADJUSTMENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_BAL_SUMMARY_inmsg">
+        <part element="brm:PCM_OP_AR_GET_BAL_SUMMARY_inputFlist" name="PCM_OP_AR_GET_BAL_SUMMARY_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_BAL_SUMMARY_outmsg">
+        <part element="brm:PCM_OP_AR_GET_BAL_SUMMARY_outputFlist" name="PCM_OP_AR_GET_BAL_SUMMARY_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_ACCOUNT_ADJUSTMENT_inmsg">
+        <part element="brm:PCM_OP_AR_ACCOUNT_ADJUSTMENT_inputFlist" name="PCM_OP_AR_ACCOUNT_ADJUSTMENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_ACCOUNT_ADJUSTMENT_outmsg">
+        <part element="brm:PCM_OP_AR_ACCOUNT_ADJUSTMENT_outputFlist" name="PCM_OP_AR_ACCOUNT_ADJUSTMENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_EVENT_ADJUSTMENT_inmsg">
+        <part element="brm:PCM_OP_AR_EVENT_ADJUSTMENT_inputFlist" name="PCM_OP_AR_EVENT_ADJUSTMENT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_EVENT_ADJUSTMENT_outmsg">
+        <part element="brm:PCM_OP_AR_EVENT_ADJUSTMENT_outputFlist" name="PCM_OP_AR_EVENT_ADJUSTMENT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_RESOURCE_AGGREGATION_inmsg">
+        <part element="brm:PCM_OP_AR_RESOURCE_AGGREGATION_inputFlist" name="PCM_OP_AR_RESOURCE_AGGREGATION_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_RESOURCE_AGGREGATION_outmsg">
+        <part element="brm:PCM_OP_AR_RESOURCE_AGGREGATION_outputFlist" name="PCM_OP_AR_RESOURCE_AGGREGATION_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_BILLS_inmsg">
+        <part element="brm:PCM_OP_AR_GET_BILLS_inputFlist" name="PCM_OP_AR_GET_BILLS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_BILLS_outmsg">
+        <part element="brm:PCM_OP_AR_GET_BILLS_outputFlist" name="PCM_OP_AR_GET_BILLS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_BILL_ITEMS_inmsg">
+        <part element="brm:PCM_OP_AR_GET_BILL_ITEMS_inputFlist" name="PCM_OP_AR_GET_BILL_ITEMS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_BILL_ITEMS_outmsg">
+        <part element="brm:PCM_OP_AR_GET_BILL_ITEMS_outputFlist" name="PCM_OP_AR_GET_BILL_ITEMS_outputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS_inmsg">
+        <part element="brm:PCM_OP_AR_GET_ACCT_ACTION_ITEMS_inputFlist" name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS_inputFlist"/>
+    </message>
+    <message name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS_outmsg">
+        <part element="brm:PCM_OP_AR_GET_ACCT_ACTION_ITEMS_outputFlist" name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS_outputFlist"/>
+    </message>
+    <portType name="BRMARService_ptt">
+        <operation name="PCM_OP_AR_GET_ACCT_BILLS">
+            <input message="brm:PCM_OP_AR_GET_ACCT_BILLS_inmsg" name="PCM_OP_AR_GET_ACCT_BILLS_Request"/>
+            <output message="brm:PCM_OP_AR_GET_ACCT_BILLS_outmsg" name="PCM_OP_AR_GET_ACCT_BILLS_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY">
+            <input message="brm:PCM_OP_AR_GET_ACCT_BAL_SUMMARY_inmsg" name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY_Request"/>
+            <output message="brm:PCM_OP_AR_GET_ACCT_BAL_SUMMARY_outmsg" name="PCM_OP_AR_GET_ACCT_BAL_SUMMARY_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_BILL_ADJUSTMENT">
+            <input message="brm:PCM_OP_AR_BILL_ADJUSTMENT_inmsg" name="PCM_OP_AR_BILL_ADJUSTMENT_Request"/>
+            <output message="brm:PCM_OP_AR_BILL_ADJUSTMENT_outmsg" name="PCM_OP_AR_BILL_ADJUSTMENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_GET_ACTION_ITEMS">
+            <input message="brm:PCM_OP_AR_GET_ACTION_ITEMS_inmsg" name="PCM_OP_AR_GET_ACTION_ITEMS_Request"/>
+            <output message="brm:PCM_OP_AR_GET_ACTION_ITEMS_outmsg" name="PCM_OP_AR_GET_ACTION_ITEMS_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_ITEM_ADJUSTMENT">
+            <input message="brm:PCM_OP_AR_ITEM_ADJUSTMENT_inmsg" name="PCM_OP_AR_ITEM_ADJUSTMENT_Request"/>
+            <output message="brm:PCM_OP_AR_ITEM_ADJUSTMENT_outmsg" name="PCM_OP_AR_ITEM_ADJUSTMENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_GET_BAL_SUMMARY">
+            <input message="brm:PCM_OP_AR_GET_BAL_SUMMARY_inmsg" name="PCM_OP_AR_GET_BAL_SUMMARY_Request"/>
+            <output message="brm:PCM_OP_AR_GET_BAL_SUMMARY_outmsg" name="PCM_OP_AR_GET_BAL_SUMMARY_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_ACCOUNT_ADJUSTMENT">
+            <input message="brm:PCM_OP_AR_ACCOUNT_ADJUSTMENT_inmsg" name="PCM_OP_AR_ACCOUNT_ADJUSTMENT_Request"/>
+            <output message="brm:PCM_OP_AR_ACCOUNT_ADJUSTMENT_outmsg" name="PCM_OP_AR_ACCOUNT_ADJUSTMENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_EVENT_ADJUSTMENT">
+            <input message="brm:PCM_OP_AR_EVENT_ADJUSTMENT_inmsg" name="PCM_OP_AR_EVENT_ADJUSTMENT_Request"/>
+            <output message="brm:PCM_OP_AR_EVENT_ADJUSTMENT_outmsg" name="PCM_OP_AR_EVENT_ADJUSTMENT_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_RESOURCE_AGGREGATION">
+            <input message="brm:PCM_OP_AR_RESOURCE_AGGREGATION_inmsg" name="PCM_OP_AR_RESOURCE_AGGREGATION_Request"/>
+            <output message="brm:PCM_OP_AR_RESOURCE_AGGREGATION_outmsg" name="PCM_OP_AR_RESOURCE_AGGREGATION_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_GET_BILLS">
+            <input message="brm:PCM_OP_AR_GET_BILLS_inmsg" name="PCM_OP_AR_GET_BILLS_Request"/>
+            <output message="brm:PCM_OP_AR_GET_BILLS_outmsg" name="PCM_OP_AR_GET_BILLS_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_GET_BILL_ITEMS">
+            <input message="brm:PCM_OP_AR_GET_BILL_ITEMS_inmsg" name="PCM_OP_AR_GET_BILL_ITEMS_Request"/>
+            <output message="brm:PCM_OP_AR_GET_BILL_ITEMS_outmsg" name="PCM_OP_AR_GET_BILL_ITEMS_Response"/>
+        </operation>
+        <operation name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS">
+            <input message="brm:PCM_OP_AR_GET_ACCT_ACTION_ITEMS_inmsg" name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS_Request"/>
+            <output message="brm:PCM_OP_AR_GET_ACCT_ACTION_ITEMS_outmsg" name="PCM_OP_AR_GET_ACCT_ACTION_ITEMS_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMARService_plt">
+        <plt:role name="BRMARService_role">
+            <plt:portType name="brm:BRMARService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="payinfoExtensions.xsd"/>
+	<xs:complexType name="payinfoDebitCardType">
+		<xs:complexContent>
+			<xs:extension base="payinfoExtensionType">
+				<xs:sequence>
+					<xs:element name="FldAddress" type="Address" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldCity" type="City" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldState" type="State" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldZip" type="Zip" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldCountry" type="Country" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldBankNo" minOccurs="1"/>
+					<xs:element name="FldDebitNum" type="DebitNum" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldBankAccountType" type="BankAccountType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldMandateStatus" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldDdActivationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldManReceivedDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldName" type="Name" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldFiasId" type="FiasId" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="payinfoDebitCardExtension" type="payinfoDebitCardType" substitutionGroup="payinfoExtension"/>
+</xs:schema>

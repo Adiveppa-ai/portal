@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.portal.com/schemas/BusinessConfig"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2011, Oracle and/or its affiliates. All rights reserved. 
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+	
+	<!-- set relative path to your xsd here -->
+	<xs:include schemaLocation="../../xsd/PinBillRunControl.xsd"/>
+	<xs:include schemaLocation="../../xsd/PinCorrBillFileInput.xsd"/>
+	<xs:include schemaLocation="../../xsd/PinConvertWholesaleInput.xsd"/>
+
+	<xs:element name="BusinessConfiguration" type="BusinessConfigurationType"/>
+
+	<xs:complexType name="BusinessConfigurationType">
+		<xs:choice>
+			<xs:element name="BillRunConfiguration" type="BillRunConfigurationType"/>
+			<xs:element name="CorrBillConfiguration" type="CorrBillConfigurationType"/>
+			<xs:element name="ConvertWholesaleConfiguration" type="ConvertWholesaleConfigurationType"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

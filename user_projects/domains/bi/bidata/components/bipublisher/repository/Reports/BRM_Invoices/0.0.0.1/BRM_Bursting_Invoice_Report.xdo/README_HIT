@@ -1,0 +1,88 @@
+# Copyright (c) 2014, 2015, Oracle and/or its affiliates. All rights reserved.
+#
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+
+Files for HIT (Hyperlinked Invoice Template) invoice mode:
+
+1. Stored Procedure to be loaded to BRM database:
+	a. /apps/pin_inv_doc_gen/invoice_bursting_HIT.plb
+
+2. Data Model to be loaded to the BIP server
+
+	a. <repository>/Reports/BRM_Invoices/0.0.0.1/0.0.0.1.xdm
+
+3. HIT .rtf templates to be loaded to BIP server
+
+	a. <repository>/Reports/BRM_Invoices/0.0.0.1/BRM_Bursting_Invoice_Report.xdo/BRM_Corporate_Correction_Invoice_HIT.rtf
+	b. <repository>/Reports/BRM_Invoices/0.0.0.1/BRM_Bursting_Invoice_Report.xdo/BRM_Corporate_Invoice_HIT.rtf
+	c. <repository>/Reports/BRM_Invoices/0.0.0.1/BRM_Bursting_Invoice_Report.xdo/BRM_Corporate_Replacement_Invoice_HIT.rtf
+
+4. Edit <repository>/Reports/BRM_Invoices/0.0.0.1/BRM_Bursting_Invoice_Report.xdo/xdo.cfg to add the hyperlink path prefix
+
+Detailed Steps :
+
+1. Backup all your files and Configuration
+
+2. Load the HIT stored procedure
+	1. go to BRM machine - $PIN_HOME/apps/pin_inv_doc_gen
+	2. sql <credentials>
+	3. at the sql prompt do - @invoice_bursting_HIT.plb;
+	4. commit;
+	5. quit;
+
+3. Set the HIT data model
+	1. In the BIP server go to the repository directory
+	2. cd to Reports/BRM_Invoices/0.0.0.1/0.0.0.1.xdm
+	3. copy _datamod.xdm to _datamodel.xdm.ORIG
+	4. copy _datamodel_HIT.xdm _datamodel.xdm
+	5. either edit this file OR go to BIP server and edit on the GUI to set parameters like your data source, FTP server, FTP directory etc.
+
+4. Set the HIT .rtf templates
+	1. In the BIP server go to the repository directory
+	2. cd to Reports/BRM_Invoices/0.0.0.1/BRM_Bursting_Invoice_Report.xdo	
+	3. copy BRM_Corporate_Correction_Invoice.rtf  to BRM_Corporate_Correction_Invoice.rtf.ORIG
+	4. copy BRM_Corporate_Invoice.rtf  to BRM_Corporate_Invoice.rtf.ORIG
+	5. copy BRM_Corporate_Replacement_Invoice.rtf  to BRM_Corporate_Replacement_Invoice.rtf.ORIG
+	
+	6. copy BRM_Corporate_Correction_Invoice_HIT.rtf  to BRM_Corporate_Correction_Invoice.rtf
+	7. copy BRM_Corporate_Invoice_HIT.rtf  to BRM_Corporate_Invoice.rtf
+	8. copy BRM_Corporate_Replacement_Invoice_HIT.rtf  to BRM_Corporate_Replacement_Invoice.rtf
+	(alternately you can load these HIT .rtf template from the catalog page of the BIP server)
+
+	
+5. Edit xdo.cfg file
+	1. In the BIP server go to the repository directory
+	2. cd to Reports/BRM_Invoices/0.0.0.1/BRM_Bursting_Invoice_Report.xdo	
+	3. Edit the file xdo.cfg and replace __FTP_REMOTE_DIRECTORY__ with your FTP destination directory 
+	
+
+6. Restart BIP server
+
+
+Notes: HIT mode will use FTP delivery to create the pdf files. 
+	We have to do this because the hyperlinks have to point to 
+	local files and not links inside BIP server which will not be portable.
+
+	Also Viewing the PDFs should be done from the ftp directory and 
+	NOT from the BIP server.  Viewing from the BIP server can be done 
+	for individual invoices but cannot click on the hyperlink links 
+	for the subord invoices. You have to go to the job of the subords 
+	and view the invoices. 
+
+	If you are packaging the pdfs and viewing in another machine you
+	might have to copy these files in the same directory structure
+	as the source. Or alternatively you can edit the xdo.cfg to give
+	the final directory path that will be used in the end.
+
+	For HIT to produce the split pdfs and hyperlinks you need have the
+	thresholds set in the /config/business_param and  run
+ 	normal invoicing with -hierarchy flag 
+		- pin_inv_accts -verbose -hierarchy
+		- pin_inv_accts -verbose -pay_type 10001
+	trial invoicing with the -paytype parameter
+		- pin_trial_bill_accts -start xxx -end yyy -pay_type 10007
+		- pin_trial_bill_accts -start xxx -end yyy -pay_type 10001
+

@@ -1,0 +1,22 @@
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Wed Dec 31 17:36:20 2025
+Version 19.25.0.0.0
+
+Copyright (c) 1982, 2024, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.25.0.0.0
+
+SQL> 
+Package created.
+
+
+Package body created.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.25.0.0.0

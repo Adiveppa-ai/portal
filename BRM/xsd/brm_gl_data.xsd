@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           attributeFormDefault="unqualified" 
+           elementFormDefault="qualified" 
+           targetNamespace="http://www.portal.com/schemas/GLSync" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:element name="GeneralLedgerReport">
+          <xs:complexType mixed="true">
+            <xs:sequence>
+              <xs:element name="SourceSystemID" minOccurs="1" maxOccurs="1">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse"/>
+			</xs:restriction>
+		</xs:simpleType>
+	      </xs:element>
+              <xs:element name="ReportID" minOccurs="1" maxOccurs="1">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse"/>
+			</xs:restriction>
+		</xs:simpleType>
+	      </xs:element>
+              <xs:element name="RevenueType" minOccurs="1" maxOccurs="1">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			<xs:enumeration value="Billed"/>
+			<xs:enumeration value="Unbilled"/>
+			<xs:enumeration value="Billed earned"/>
+			<xs:enumeration value="Billed unearned"/>
+			<xs:enumeration value="Unbilled earned"/>
+			<xs:enumeration value="Unbilled unearned"/>
+			<xs:enumeration value="Prior billed earned"/>
+			<xs:enumeration value="Earned"/>
+			<xs:enumeration value="Aggregate"/>		
+			<xs:enumeration value="Preview Aggregate"/>
+			</xs:restriction>
+		</xs:simpleType>
+	      </xs:element>
+              <xs:element name="BRM_GL_Segment" minOccurs="1" maxOccurs="1">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:whiteSpace value="collapse"/>
+			</xs:restriction>
+		</xs:simpleType>
+	      </xs:element>
+              <xs:element name="ReportCreatedTime" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Year">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="1970"/>
+				<xs:maxInclusive value="9999"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+	   	    </xs:element>
+                    <xs:element name="Month">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="01"/>
+				<xs:maxInclusive value="12"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+	   	    </xs:element>
+                    <xs:element name="Day">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="01"/>
+				<xs:maxInclusive value="31"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+	   	    </xs:element>
+                    <xs:element name="Hours" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="23"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Minutes" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="59"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Seconds" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="59"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PeriodStartTime" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Year">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="1970"/>
+				<xs:maxInclusive value="9999"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Month">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="01"/>
+				<xs:maxInclusive value="12"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Day" maxOccurs="1">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="01"/>
+				<xs:maxInclusive value="31"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Hours" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="23"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Minutes" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="59"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Seconds" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="59"/>
+				</xs:restriction>
+			</xs:simpleType>
+                  </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PeriodEndTime">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Year" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="1970"/>
+				<xs:maxInclusive value="9999"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Month">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="01"/>
+				<xs:maxInclusive value="12"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Day">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:minInclusive value="01"/>
+				<xs:maxInclusive value="31"/>
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Hours" >
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="23"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Minutes">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="59"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="Seconds">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+				<xs:whiteSpace value="collapse"/>
+				<xs:minInclusive value="0"/>
+				<xs:maxInclusive value="59"/>
+				</xs:restriction>
+			</xs:simpleType>
+                  </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RevenueAmounts" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType mixed="true">
+                  <xs:sequence>
+                    <xs:element name="ResourceId" minOccurs="1" maxOccurs="1">
+			<xs:simpleType>
+				<xs:restriction base="xs:unsignedInt">
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+	    	    </xs:element>
+                    <xs:element name="BRM_GL_ID" minOccurs="1" maxOccurs="1">
+			<xs:simpleType>
+				<xs:restriction base="xs:unsignedInt">
+				<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		    </xs:element>
+                    <xs:element name="ARGrossAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ARDiscountAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ARNetAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ARTaxAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OffsetGrossAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OffsetDiscountAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OffsetNetAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OffsetTaxAccount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Credit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                          <xs:element name="Debit" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="element" type="xs:integer" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+      	  <xs:attribute name="targetNamespace" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+</xs:schema>

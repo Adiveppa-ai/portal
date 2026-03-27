@@ -1,0 +1,298 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="dm_oracle" version="15.0.1.0.0" description="Data Manager Oracle" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="161952" dest="dm_oracle" mode="0755"/>
+         <file size="2537" dest="opgen" mode="0755"/>
+         <file size="52675" dest="partition_utils" mode="0755"/>
+         <file size="796" dest="stop_dm_oracle" mode="0755"/>
+         <file size="3435" dest="fldgen" mode="0755"/>
+         <file size="2351" dest="start_dm_oracle" mode="0755"/>
+         <file size="4475" dest="pin_close_items" mode="0755"/>
+         <file size="161952" dest="dm" mode="0755"/>
+         <file size="14624" dest="create_journal.pl" mode="0755"/>
+         <file size="1813" dest="install_dm_oracle" mode="0744"/>
+         <file-perms>
+            <permission mode="0755" wildcard="dm"/>
+            <permission mode="0755" wildcard="opgen"/>
+            <permission mode="0755" wildcard="fldgen"/>
+            <permission mode="0755" wildcard="dbPasswd"/>
+            <permission mode="0755" wildcard="create_journal.pl"/>
+            <permission mode="0755" wildcard="start_dm_oracle"/>
+            <permission mode="0755" wildcard="stop_dm_oracle"/>
+            <permission mode="0744" wildcard="install_dm_oracle"/>
+            <permission mode="0755" wildcard="partition_utils"/>
+            <permission mode="0755" wildcard="pin_close_items"/>
+            <permission mode="0755" wildcard="dm_oracle"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2792" dest="object_auditing.pl" mode="0755"/>
+            <file size="2793" dest="pin_cmp_virtual_col.pl" mode="0755"/>
+            <file size="15107" dest="pin_prompts.values" mode="0750"/>
+            <file size="24214" dest="pin_prompts.pl" mode="0750"/>
+            <file size="16581" dest="pin_cmp_dm_oracle.pl" mode="0664"/>
+            <file size="11375" dest="pin_cnf_dm_db.pl" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="pin_cmp_dm_oracle.pl"/>
+            <permission mode="0664" wildcard="pin_cnf_dm_db.pl"/>
+            <permission mode="0750" wildcard="pin_prompts.pl"/>
+            <permission mode="0750" wildcard="pin_prompts.values"/>
+            <permission mode="0755" wildcard="pin_cmp_virtual_col.pl"/>
+            <permission mode="0755" wildcard="object_auditing.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="554547" dest="init_objects_global.source" mode="0644"/>
+               <file size="2938376" dest="dd_objects.source" mode="0644"/>
+               <file size="2009147" dest="init_objects_config_maxlength.source" mode="0644"/>
+               <file size="25572" dest="7.3Patch_7.3.1_dd_objects_export_gl.source" mode="0644"/>
+               <file size="73338" dest="init_objects.source" mode="0644"/>
+               <file size="3363" dest="7.3_7.3Patch_dd_objects_billinfo.source" mode="0644"/>
+               <file size="70022" dest="init_objects_config_role.source" mode="0644"/>
+               <file size="8353" dest="7.3Patch_7.3.1_dd_objects_gl_process_audit.source" mode="0644"/>
+               <file size="5320" dest="create_indexes_audit_tables_oracle.source" mode="0664"/>
+               <file size="38593" dest="create_missing_indexes_73.sql" mode="0644"/>
+               <file size="3538" dest="create_views.source" mode="0644"/>
+            </directory>
+         </directory>
+         <directory dest="data" mode="750" patchable="true">
+            <directory dest="config" mode="750" patchable="true">
+               <file size="2339" dest="pin_invoice_template.html" mode="0644"/>
+            </directory>
+         </directory>
+         <directory dest="dm_oracle" mode="750" patchable="true">
+            <file size="1191024" dest="dm_oracle19c.so" mode="0755"/>
+            <file size="3092" dest="aq_event_map" mode="0755"/>
+            <directory dest="data" mode="750" patchable="true">
+               <file size="8501" dest="create_dd_UTF8.source" mode="0644"/>
+               <file size="8501" dest="create_dd_AL32UTF8.source" mode="0644"/>
+               <file size="10545" dest="create_indexes_base_audit_tables_oracle.source" mode="0644"/>
+               <file size="5320" dest="create_indexes_audit_tables_oracle.source" mode="0644"/>
+               <file size="5214" dest="create_view_secondary_schema.source" mode="0755"/>
+               <file size="2239" dest="create_dd_views.source" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="init_objects.source"/>
+            <permission mode="0644" wildcard="init_objects_global.source"/>
+            <permission mode="0644" wildcard="init_objects_config_maxlength.source"/>
+            <permission mode="0644" wildcard="init_objects_config_role.source"/>
+            <permission mode="0644" wildcard="dd_objects.source"/>
+            <permission mode="0644" wildcard="7.3_7.3Patch_dd_objects_billinfo.source"/>
+            <permission mode="0644" wildcard="7.3Patch_7.3.1_dd_objects_export_gl.source"/>
+            <permission mode="0644" wildcard="7.3Patch_7.3.1_dd_objects_gl_process_audit.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2017" dest="device_framework_primary_schema_75ps4.sql" mode="0755"/>
+               <file size="1975" dest="device_framework_secondary_schema_75ps4.sql" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="device_framework_primary_schema_75ps4.sql"/>
+            <permission mode="0755" wildcard="device_framework_secondary_schema_75ps4.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="stylesheets" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="19061" dest="sample3.xsl" mode="0644"/>
+                  <file size="13966" dest="sample2.xsl" mode="0644"/>
+                  <file size="16289" dest="sample2.html" mode="0644"/>
+                  <file size="18291" dest="sample1.xsl" mode="0644"/>
+                  <file size="13057" dest="sample1.html" mode="0644"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="sample1.xsl"/>
+            <permission mode="0644" wildcard="sample1.html"/>
+            <permission mode="0644" wildcard="sample2.xsl"/>
+            <permission mode="0644" wildcard="sample3.xsl"/>
+            <permission mode="0644" wildcard="sample2.html"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1047" dest="init-d.pin.dm_oracle" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="init-d.pin.dm_oracle"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="2662" dest="create_get_fields.plb" mode="0644"/>
+               <file size="2151" dest="job_rerate_procedures_oracle.plb" mode="0644"/>
+               <file size="2060" dest="drop_tables.source" mode="0644"/>
+               <file size="1335" dest="create_actlogin_unlockservice_procedures.plb" mode="0755"/>
+               <file size="10351" dest="create_pkg_journal_UTF8.plb" mode="0644"/>
+               <file size="2950" dest="upgrade_data_seq.source" mode="0755"/>
+               <file size="3095" dest="create_analytics_procedures_UTF8.plb" mode="0644"/>
+               <file size="746" dest="update_disable_compact_event.sql" mode="0644"/>
+               <file size="26898" dest="create_global_class_indexes.source" mode="0644"/>
+               <file size="2040" dest="create_event_essential_nonpartition.source" mode="0644"/>
+               <file size="1069" dest="grant_permissions_oracle.plb" mode="0644"/>
+               <file size="8799" dest="create_pkg_pin_sequence_oracle.plb" mode="0644"/>
+               <file size="2693" dest="update_compact_event.sql" mode="0644"/>
+               <file size="19816" dest="drop_indexes.source" mode="0644"/>
+               <file size="6680" dest="create_tax_procedures_UTF8.plb" mode="0644"/>
+               <file size="105622" dest="create_indexes.source" mode="0644"/>
+               <file size="91016" dest="create_procedures_AL32UTF8.plb" mode="0644"/>
+               <file size="2913" dest="drop_snapshots.source" mode="0644"/>
+               <file size="10351" dest="create_pkg_journal_AL32UTF8.plb" mode="0644"/>
+               <file size="433" dest="job_rerate_procedures_pkg_oracle.plb" mode="0644"/>
+               <file size="6680" dest="create_tax_procedures_AL32UTF8.plb" mode="0644"/>
+               <file size="2316" dest="create_event_essential_partition.source" mode="0644"/>
+               <file size="3095" dest="create_analytics_procedures_AL32UTF8.plb" mode="0644"/>
+               <file size="91016" dest="create_procedures_UTF8.plb" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="create_indexes.source"/>
+            <permission mode="0644" wildcard="create_global_class_indexes.source"/>
+            <permission mode="0644" wildcard="create_event_essential_nonpartition.source"/>
+            <permission mode="0644" wildcard="create_event_essential_partition.source"/>
+            <permission mode="0644" wildcard="drop_indexes.source"/>
+            <permission mode="0644" wildcard="drop_tables.source"/>
+            <permission mode="0644" wildcard="drop_snapshots.source"/>
+            <permission mode="0644" wildcard="create_get_fields.plb"/>
+            <permission mode="0644" wildcard="update_compact_event.sql"/>
+            <permission mode="0644" wildcard="update_disable_compact_event.sql"/>
+            <permission mode="0755" wildcard="create_actlogin_unlockservice_procedures.plb"/>
+            <permission mode="0755" wildcard="upgrade_data_seq.source"/>
+            <permission mode="0644" wildcard="create_pkg_pin_sequence_oracle.plb"/>
+            <permission mode="0644" wildcard="grant_permissions_oracle.plb"/>
+            <permission mode="0644" wildcard="create_analytics_procedures_UTF8.plb"/>
+            <permission mode="0644" wildcard="create_analytics_procedures_AL32UTF8.plb"/>
+            <permission mode="0644" wildcard="create_procedures_UTF8.plb"/>
+            <permission mode="0644" wildcard="create_procedures_AL32UTF8.plb"/>
+            <permission mode="0644" wildcard="create_tax_procedures_UTF8.plb"/>
+            <permission mode="0644" wildcard="create_tax_procedures_AL32UTF8.plb"/>
+            <permission mode="0644" wildcard="create_pkg_journal_UTF8.plb"/>
+            <permission mode="0644" wildcard="create_pkg_journal_AL32UTF8.plb"/>
+            <permission mode="0644" wildcard="job_rerate_procedures_oracle.plb"/>
+            <permission mode="0644" wildcard="job_rerate_procedures_pkg_oracle.plb"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="archive" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="oracle" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="57058" dest="purge_audit_tables.pl" mode="0775"/>
+               <file size="667" dest="purge_audit_tables.conf" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="purge_audit_tables.pl"/>
+            <permission mode="0755" wildcard="purge_audit_tables.conf"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="pin_publish_aq" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="489" dest="drop_aq_queue.sql" mode="0755"/>
+            <file size="1089" dest="create_receive_event.sql" mode="0755"/>
+            <file size="2518" dest="create_aq_queue.sql" mode="0755"/>
+            <file size="1054" dest="event_detail_report.sql" mode="0755"/>
+            <file size="3995" dest="create_acct_aq_pkg.sql" mode="0755"/>
+            <file size="15683" dest="create_acct_aq_pkb.sql" mode="0755"/>
+            <file size="3068" dest="create_send_event.sql" mode="0755"/>
+            <file size="985" dest="event_summary_report.sql" mode="0755"/>
+            <file size="901" dest="create_aq_queue.conf" mode="0755"/>
+            <file size="14316" dest="pin_publish_aq_oracle.pl" mode="0755"/>
+         </directory>
+         <directory dest="pin_virtual_columns" mode="750" patchable="true">
+            <file size="1852" dest="pin_virtual_gen" mode="0775"/>
+            <directory dest="oracle" mode="750" patchable="true">
+               <file size="2293" dest="create_pkg_pin_virtual_columns.plb" mode="0664"/>
+            </directory>
+         </directory>
+         <directory dest="partition_utils" mode="750" patchable="true">
+            <directory dest="sql_utils" mode="750" patchable="true">
+               <directory dest="oracle" mode="750" patchable="true">
+                  <file size="42315" dest="partition_utils.plb" mode="0664"/>
+                  <file size="876" dest="pin_close_items.plb" mode="0664"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="create_aq_queue.conf"/>
+            <permission mode="0755" wildcard="create_acct_aq_pkg.sql"/>
+            <permission mode="0755" wildcard="create_acct_aq_pkb.sql"/>
+            <permission mode="0755" wildcard="create_receive_event.sql"/>
+            <permission mode="0755" wildcard="create_send_event.sql"/>
+            <permission mode="0755" wildcard="drop_aq_queue.sql"/>
+            <permission mode="0755" wildcard="create_aq_queue.sql"/>
+            <permission mode="0755" wildcard="event_detail_report.sql"/>
+            <permission mode="0755" wildcard="event_summary_report.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="partition_utils" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6111" dest="partition_utils.values" mode="0755"/>
+            <file size="7033" dest="partition_utils.resources" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="partition_utils.resources"/>
+            <permission mode="0755" wildcard="partition_utils.values"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="2651024" dest="libnzsdk.so" mode="0750"/>
+         <file size="68944" dest="libpcmext.so" mode="0750"/>
+         <file size="613640" dest="libportal.so" mode="0750"/>
+         <file size="653408" dest="libpcmcpp60.so" mode="0750"/>
+         <file size="21464" dest="libpin_crypt4dm.so" mode="0750"/>
+         <file size="952760" dest="libBAS.so" mode="0750"/>
+         <file size="496848" dest="libdmpin.so" mode="0750"/>
+         <file size="62984" dest="libpin_crypt_aes4dm.so" mode="0750"/>
+         <file-perms>
+            <permission mode="0750" wildcard="libpin_crypt4dm.so"/>
+            <permission mode="0750" wildcard="libpcmext.so"/>
+            <permission mode="0750" wildcard="libportal.so"/>
+            <permission mode="0750" wildcard="libdmpin.so"/>
+            <permission mode="0750" wildcard="libpcmext.so"/>
+            <permission mode="0750" wildcard="libpin_crypt_aes4dm.so"/>
+            <permission mode="0750" wildcard="libpin_crypt4dm.so"/>
+            <permission mode="0750" wildcard="libnzsdk.so"/>
+            <permission mode="0750" wildcard="libBAS.so"/>
+            <permission mode="0750" wildcard="libpcmcpp60.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="54923" dest="virtualcolumns.jar" mode="0664"/>
+      </directory>
+   </file-map>
+   <variables>
+      <product-variable name="SYS_HOSTNAME" type="string" helpid="" publish="true"/>
+      <product-variable name="SYS_PORT" value="1521" type="number" helpid="" publish="true"/>
+      <product-variable name="SYS_DBALIAS" type="string" helpid="" publish="true"/>
+      <product-variable name="SYS_USERNAME" type="string" helpid="" publish="true"/>
+      <product-variable name="SYS_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="SYS_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="STORAGE_MODEL_NUM" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="TABLE_GROUP" type="string" helpid="" publish="true"/>
+      <product-variable name="INDEX_GROUP" type="string" helpid="" publish="true"/>
+      <product-variable name="PARTITION_EVENT_TABLE" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="PARTITION_FIX" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="PARTITION_DETAILS" value="journal,journal_master,user_activity,newsfeed,sepa" type="string" helpid="" publish="true"/>
+      <product-variable name="DROP_TABLES" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="CHAR_SET" value="" type="string" helpid="" publish="true"/>
+      <product-variable name="DB_VERSION" value="" type="string" helpid="" publish="true"/>
+      <product-variable name="DB_NUMBER" value="0.0.0.1" type="string" helpid="" publish="true"/>
+      <product-variable name="DB_SERVICE" value="" type="string" helpid="" publish="true"/>
+      <product-variable name="IS_PRIMARY_DB" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="MULTIDB_PRIMARY_DBALIAS" type="string" helpid="" publish="true"/>
+      <product-variable name="MULTIDB_PRIMARY_DBUSER" type="string" helpid="" publish="true"/>
+      <product-variable name="MULTIDB_PRIMARY_DBPASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="MULTIDB_PRIMARY_DBPASSWD_ENC" type="string" secure="true" helpid="" publish="false"/>
+   </variables>
+</component-def>

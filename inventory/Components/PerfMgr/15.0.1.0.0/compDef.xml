@@ -1,0 +1,228 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="PerfMgr" version="15.0.1.0.0" description="Performance Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6188" dest="pin_cnf_perf.pl" mode="0775"/>
+            <file size="1620" dest="pin_cmp_perf.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_cmp_perf.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_perf.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="perf" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="simtools" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="952" dest="admin_load.control" mode="0755"/>
+               <file size="51" dest="admin_load.verify" mode="0755"/>
+               <file size="53312" dest="test_loopback" mode="0755"/>
+               <file size="88752" dest="admin_load" mode="0755"/>
+               <file size="2199" dest="simdiam.conf" mode="0755"/>
+               <file size="1359" dest="process-sessload" mode="0755"/>
+               <file size="95880" dest="opcode_load" mode="0755"/>
+               <file size="21955" dest="dictionary.xml" mode="0755"/>
+               <file size="64800" dest="perf_mgr" mode="0755"/>
+               <file size="2575" dest="opcode_load.control" mode="0755"/>
+               <file size="43360" dest="connect_load" mode="0755"/>
+               <file size="62672" dest="sessload" mode="0755"/>
+               <file size="468" dest="admin_load.mix" mode="0755"/>
+               <file size="1856" dest="process-opcode_load" mode="0755"/>
+               <file size="110232" dest="pin_bill_accts_perf" mode="0755"/>
+               <file size="110520" dest="simdiam" mode="0755"/>
+               <file size="934" dest="opcode_load.control.ipt_stop_accounting" mode="0755"/>
+               <file size="1018" dest="opcode_load.control.load_session" mode="0755"/>
+               <file size="1368" dest="process-connect_load" mode="0755"/>
+               <file size="48" dest="admin_load.bal" mode="0755"/>
+               <file size="425" dest="opcode_load.control.bal_impact" mode="0755"/>
+               <file size="28432" dest="pin_virtual_time" mode="0755"/>
+               <file size="575" dest="opcode_load.control.ipt_authorize" mode="0755"/>
+               <file size="2561" dest="process-admin_load" mode="0755"/>
+               <file size="265944" dest="pin_collect_perf" mode="0755"/>
+               <file size="2989" dest="pin.conf.stress" mode="0755"/>
+               <file size="62474" dest="stress_test" mode="0755"/>
+               <file size="51392" dest="zonemap_loader" mode="0755"/>
+               <file size="222" dest="opcode_load.control.ipt_authenticate" mode="0755"/>
+               <file size="75584" dest="pin_loader" mode="0755"/>
+               <file size="1842" dest="process-simdiam" mode="0755"/>
+               <file size="2579" dest="opcode_load.control.stop_accounting" mode="0755"/>
+               <file size="1359" dest="process-pin_loader" mode="0755"/>
+            </directory>
+            <file size="6982" dest="db_conf.pm" mode="0755"/>
+            <file size="2219" dest="ms_conf.pm" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="admin_load"/>
+            <permission mode="0755" wildcard="admin_load.bal"/>
+            <permission mode="0755" wildcard="admin_load.control"/>
+            <permission mode="0755" wildcard="admin_load.mix"/>
+            <permission mode="0755" wildcard="admin_load.verify"/>
+            <permission mode="0755" wildcard="connect_load"/>
+            <permission mode="0755" wildcard="dictionary"/>
+            <permission mode="0755" wildcard="opcode_load"/>
+            <permission mode="0755" wildcard="opcode_load.control"/>
+            <permission mode="0755" wildcard="opcode_load.control.bal_impact"/>
+            <permission mode="0755" wildcard="opcode_load.control.ipt_authenticate"/>
+            <permission mode="0755" wildcard="opcode_load.control.ipt_authorize"/>
+            <permission mode="0755" wildcard="opcode_load.control.ipt_stop_accounting"/>
+            <permission mode="0755" wildcard="opcode_load.control.load_session"/>
+            <permission mode="0755" wildcard="opcode_load.control.stop_accounting"/>
+            <permission mode="0755" wildcard="perf_mgr"/>
+            <permission mode="0755" wildcard="pin.conf.stress"/>
+            <permission mode="0755" wildcard="pin_bill_accts_perf"/>
+            <permission mode="0755" wildcard="pin_collect_perf"/>
+            <permission mode="0755" wildcard="pin_loader"/>
+            <permission mode="0755" wildcard="pin_virtual_time"/>
+            <permission mode="0755" wildcard="process-admin_load"/>
+            <permission mode="0755" wildcard="process-connect_load"/>
+            <permission mode="0755" wildcard="process-opcode_load"/>
+            <permission mode="0755" wildcard="process-pin_loader"/>
+            <permission mode="0755" wildcard="process-sessload"/>
+            <permission mode="0755" wildcard="rad_tester"/>
+            <permission mode="0755" wildcard="sessload"/>
+            <permission mode="0755" wildcard="stress_test"/>
+            <permission mode="0755" wildcard="test.dat"/>
+            <permission mode="0755" wildcard="test_loopback"/>
+            <permission mode="0755" wildcard="zonemap_loader"/>
+            <permission mode="0755" wildcard="dictionary.xml"/>
+            <permission mode="0755" wildcard="process-simdiam"/>
+            <permission mode="0755" wildcard="simdiam"/>
+            <permission mode="0755" wildcard="simdiam.conf"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="perf" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="sql_loader" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4048" dest="msdb_update.pl" mode="0755"/>
+               <file size="20226" dest="ms_ldacnts.sql" mode="0755"/>
+               <file size="8755" dest="subord_cre" mode="0755"/>
+               <file size="13813" dest="sqlsessload" mode="0755"/>
+               <file size="1004" dest="ms_updcnts.sql" mode="0755"/>
+               <file size="7676" dest="README" mode="0755"/>
+               <file size="4302" dest="updcnts.sql" mode="0755"/>
+               <file size="7984" dest="create_multidb" mode="0755"/>
+               <file size="10134" dest="ms_sessload.pl" mode="0755"/>
+               <file size="537" dest="debug.sql" mode="0755"/>
+               <file size="13426" dest="mycreate" mode="0755"/>
+               <file size="11155" dest="msdb_create.pl" mode="0755"/>
+               <file size="52567" dest="ldacnts.sql" mode="0755"/>
+               <file size="4535" dest="dump_file" mode="0755"/>
+               <file size="23080" dest="pinaft" mode="0755"/>
+               <file size="7704" dest="ms_subord_cre.pl" mode="0755"/>
+               <file size="5270" dest="update" mode="0755"/>
+               <file size="6945" dest="ms_create_multidb.pl" mode="0755"/>
+               <file size="4962" dest="ms_dump_file.pl" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="create_multidb"/>
+            <permission mode="0755" wildcard="debug.sql"/>
+            <permission mode="0755" wildcard="dump_file"/>
+            <permission mode="0755" wildcard="ldacnts.sql"/>
+            <permission mode="0755" wildcard="ms_create_multidb.pl"/>
+            <permission mode="0755" wildcard="ms_dump_file.pl"/>
+            <permission mode="0755" wildcard="ms_ldacnts.sql"/>
+            <permission mode="0755" wildcard="ms_sessload.pl"/>
+            <permission mode="0755" wildcard="ms_subord_cre.pl"/>
+            <permission mode="0755" wildcard="ms_updcnts.sql"/>
+            <permission mode="0755" wildcard="msdb_create.pl"/>
+            <permission mode="0755" wildcard="msdb_update.pl"/>
+            <permission mode="0755" wildcard="mycreate"/>
+            <permission mode="0755" wildcard="pinaft"/>
+            <permission mode="0755" wildcard="README"/>
+            <permission mode="0755" wildcard="sqlsessload"/>
+            <permission mode="0755" wildcard="subord_cre"/>
+            <permission mode="0755" wildcard="update"/>
+            <permission mode="0755" wildcard="updcnts.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="perf" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="stat_tools" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1263" dest="ms_spaces.sql" mode="0755"/>
+               <file size="4538" dest="space_report.sql" mode="0755"/>
+               <file size="1791" dest="README" mode="0755"/>
+               <file size="470" dest="pin_tables_stats.sql" mode="0755"/>
+               <file size="1552" dest="analyze_pin.sql" mode="0755"/>
+               <file size="844" dest="ms_perf.sql" mode="0755"/>
+               <file size="1042" dest="ms_analyze.sql" mode="0755"/>
+               <file size="973" dest="ms_tables_stats.sql" mode="0755"/>
+               <file size="1762" dest="msdb_stat.pl" mode="0755"/>
+               <file size="12874" dest="dbperf.sql" mode="0755"/>
+               <file size="3296" dest="pin_profile.sql" mode="0755"/>
+               <file size="2469" dest="db_run" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="analyze_pin.sql"/>
+            <permission mode="0755" wildcard="db_run"/>
+            <permission mode="0755" wildcard="dbperf.sql"/>
+            <permission mode="0755" wildcard="ms_analyze.sql"/>
+            <permission mode="0755" wildcard="ms_perf.sql"/>
+            <permission mode="0755" wildcard="ms_spaces.sql"/>
+            <permission mode="0755" wildcard="ms_tables_stats.sql"/>
+            <permission mode="0755" wildcard="msdb_stat.pl"/>
+            <permission mode="0755" wildcard="pin_profile.sql"/>
+            <permission mode="0755" wildcard="pin_tables_stats.sql"/>
+            <permission mode="0755" wildcard="README"/>
+            <permission mode="0755" wildcard="space_report.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="perf" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="unsupported" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1132" dest="admin_load.control" mode="0755"/>
+               <file size="4938" dest="callrecord" mode="0755"/>
+               <file size="56" dest="start_collector" mode="0755"/>
+               <file size="76944" dest="BenchmarkExtended.xml" mode="0755"/>
+               <file size="8632" dest="sqlpurchase.pl" mode="0755"/>
+               <file size="15730" dest="sql_check.pl" mode="0755"/>
+               <file size="2257" dest="ipttest.dat" mode="0755"/>
+               <file size="6086" dest="db_update_template" mode="0755"/>
+               <file size="2797" dest="README" mode="0755"/>
+               <file size="370" dest="setup_netflow" mode="0755"/>
+               <file size="1332" dest="initdemo.ora" mode="0755"/>
+               <file size="1738" dest="createrolls.sql" mode="0755"/>
+               <file size="13571" dest="pin_integrate_cdr.pl" mode="0755"/>
+               <file size="47469" dest="Benchmark.xml" mode="0755"/>
+               <file size="2138" dest="Netflow_Readme.txt" mode="0755"/>
+               <file size="71323" dest="netflow_price_list.flist" mode="0755"/>
+               <file size="1176" dest="t1.crt" mode="0755"/>
+               <file size="1109" dest="BenchNotes.txt" mode="0755"/>
+               <file size="1995" dest="simradIPT.config" mode="0755"/>
+               <file size="1850" dest="gen_collect" mode="0755"/>
+               <file size="2201" dest="createdemo.sql" mode="0755"/>
+               <file size="3605" dest="attach_netflow_ipaddrs" mode="0755"/>
+               <file size="25093" dest="pin_rel_test.pl" mode="0755"/>
+               <file size="1052" dest="createdemoSS7.sql" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="admin_load.control"/>
+            <permission mode="0755" wildcard="attach_netflow_ipaddrs"/>
+            <permission mode="0755" wildcard="Benchmark.xml"/>
+            <permission mode="0755" wildcard="BenchmarkExtended.xml"/>
+            <permission mode="0755" wildcard="BenchNotes.txt"/>
+            <permission mode="0755" wildcard="callrecord"/>
+            <permission mode="0755" wildcard="createdemo.sql"/>
+            <permission mode="0755" wildcard="createdemoSS7.sql"/>
+            <permission mode="0755" wildcard="createrolls.sql"/>
+            <permission mode="0755" wildcard="db_update_template"/>
+            <permission mode="0755" wildcard="gen_collect"/>
+            <permission mode="0755" wildcard="initdemo.ora"/>
+            <permission mode="0755" wildcard="ipttest.dat"/>
+            <permission mode="0755" wildcard="netflow_price_list.flist"/>
+            <permission mode="0755" wildcard="Netflow_Readme.txt"/>
+            <permission mode="0755" wildcard="pin_integrate_cdr.pl"/>
+            <permission mode="0755" wildcard="pin_rel_test.pl"/>
+            <permission mode="0755" wildcard="README"/>
+            <permission mode="0755" wildcard="setup_netflow"/>
+            <permission mode="0755" wildcard="simradIPT.config"/>
+            <permission mode="0755" wildcard="sql_check.pl"/>
+            <permission mode="0755" wildcard="sqlpurchase.pl"/>
+            <permission mode="0755" wildcard="start_collector"/>
+            <permission mode="0755" wildcard="t1.crt"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

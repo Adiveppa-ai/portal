@@ -1,0 +1,84 @@
+                           REL Monitor               
+                           ===========
+
+Introduction
+------------
+
+In order to determine how one should go about tuning REL, it is
+necessary to know how long each of REL's phases actually takes
+and to accumulate this information for a significantly large
+number of runs to avoid misleading results relating to other
+external factors. The RELMonitor package aims to provide some
+(currently very simple) tools to aid this task.
+
+The package comprises:
+
+1. install_rel_monitor.plb - A small collection of tables and
+   a trigger on BATCH_T to collect REL statistics based on the
+   status changes which REL records.
+
+2. show_rel_monitor.plb - A simple script to show the contents
+   of the tables which collect REL performance data in detail.
+   Each loading stage for every file (according to filters) will
+   be shown.
+
+3. show_rel_summary.plb - A summary script which shows the data
+   in a summary format in configurable window sizes and for configurable
+   time periods. Time windows can be in minutes, hours, days, months,
+   or years.
+
+4. clean_monitor_data.plb - Script to clean the REL monitoring data from the BRM 
+   database.
+
+5. rel_monitor_proc.plb - REL Monitor reporting procedures
+
+
+
+
+Installation
+------------
+
+1. REL Monitor
+
+
+   The installation script creates the following objects in
+   the BRM database:
+
+      rel_status_t (table, configuration, static)
+         Contains a list of REL status codes with descriptions
+         (used to define valid REL statuses). Actually this
+         table isn't used - it should be a foreign key on the
+         rel_tracking_change_t table, but isn't!
+
+      rel_tracking_change_t (table, configuration, static)
+         Defines the REL status changes that will be tracked.
+         Each row defines from/to statuses and an associated
+         description to associate with the change.
+
+      rel_monitor_detail_t (table, dynamic)
+         Stores the timestamp of each REL status change. This
+         information is used to calculate the elapsed time of
+         particular REL stages.
+         
+      rel_monitor_summary_t (table, dynamic)
+         Stores the final results of all state changes which
+         we are tracking. This is effectively the table which
+         collects all the results we're interested in.
+
+      rel_monitor_cumulative_t (table, dynamic)
+         Stores cumulative statistics of REL loading data. The
+         numbers are effectively counters which will increase
+         indefinitely.
+
+      monitor_rel_status_change (trigger)
+         Trigger which fires on each REL status change and
+         tracks the status change with an appropriate timestamp.
+         The rel_tracking_change_t table configuration is also
+         examined so that any desired status changes have their
+         elapsed times calculated and stored.
+
+      rel_monitor (package)
+         Package containing stored procedures for purging obsolete
+         monitor data as well as functions to report on the data
+         in summarized or detail format.
+

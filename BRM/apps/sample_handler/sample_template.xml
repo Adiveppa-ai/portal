@@ -1,0 +1,192 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE template SYSTEM "template61.dtd">
+
+<!--
+ Copyright (c) 2000, 2009, Oracle and/or its affiliates. All rights reserved. 
+      This material is the confidential property of Oracle Corporation
+      or its licensors and may be used, reproduced, stored
+      or transmitted only in accordance with a valid Oracle license
+      or sublicense agreement.
+-->
+
+<template>
+	<version>6.1</version>
+	<name>SampleTemplate</name>
+	<start_line>1</start_line>
+	<loading_controls group_by="none"></loading_controls>
+	<file_type>Text</file_type>
+	<file_format>Fixed-Width</file_format>
+	<global_record_info>
+		<!-- if the record_type_locator is defined, then the type defn
+		     is mandatory for each record defn.  The type defn should
+		     be skipped if there is only one type of data record defined.
+		     If type is not defined, then the first record is treated as
+		     the header if the header record definition exists; the last
+		     record is treated as the trailer if the trailer record
+		     definition exists.
+		  -->
+		<record_delimiter></record_delimiter>
+		<ignore_record_types></ignore_record_types>
+	
+	</global_record_info>
+	
+	<global_field_info>
+		<!-- trim_white_space can only be true or false -->
+		<trim_white_space>true</trim_white_space>
+		<!-- justification can only be left, right or center,
+		     default to left
+		-->
+		<justification>left</justification>
+		<missing_field_indicator>none</missing_field_indicator>
+	</global_field_info>
+	
+	<records>
+		<!-- name must be "header" for header record defn.
+		   - record_length is mandatory if it was not defined at the file level.
+		   - in this example, a field defn for position "1" cannot be made
+		     because the "record_id" field defined at the file level above
+		     occupies that position in all records.
+		-->
+		<record name="header" 
+		record_length="30">
+		
+		<field_definitions>
+			<!-- name may be generated,
+			to be over-writable by user
+			- position = order of start position,
+			not to be set by user
+			- start > 0 && > any other field's end
+			- end > start && <= record_length.
+			- default_value will be used if the record doesn't have
+			a value set in it for this attribute.
+			- note that reference fields should not be defined in
+			header and trailer records.
+			-->
+			<field name="A" 
+				position="0" 
+				start="1" 
+				end="6">
+			</field>
+			<field name="B" 
+				position="1" 
+				start="7" 
+				end="12">
+			</field>
+			<field name="C" 
+				position="2" 
+				start="13" 
+				end="18">
+			</field>
+			<field name="D" 
+				position="3" 
+				start="19" 
+				end="24">
+			</field>
+			<field name="E" 
+				position="4" 
+				start="25" 
+				end="30">
+			</field>
+		</field_definitions>		
+	</record>
+	
+	<!-- event_class is mandatory
+	- service_class is mandatory
+	- event_opcode_name is mandatory
+	- event_opcode_num is mandatory
+	- user_info_opcode_name is mandatory
+	- user_info_opcode_num is mandatory
+	-->
+	<record name="data record" 
+		record_length="59" 
+		event_class="/event/delayed/session" 
+		service_class="/service/ip" 
+		event_opcode_name="PCM_OP_ACT_USAGE" 
+		event_opcode_num="163" 
+		user_info_opcode_name="PCM_OP_ACT_FIND" 
+		user_info_opcode_num="159">
+		
+		<field_definitions><field name="A" position="0" start="1" end="1"></field><field name="B" position="1" start="2" end="28"></field><field name="C" position="2" start="29" end="55"></field><field name="D" position="3" start="56" end="57"></field><field name="E" position="4" start="58" end="59"></field></field_definitions>
+		
+		<user_mapping_info>
+			<field position="0" 
+				inf_data_type="StrField" 
+				inf_data_type_num="5" 
+				inf_field_name="FldLogin" 
+				inf_field_num="92">
+			</field>
+		</user_mapping_info>
+		
+		<event_mapping_info>
+			<field inf_data_type="SubStructField" 
+				inf_data_type_num="10" 
+				inf_field_name="FldEvent" 
+				inf_field_num="123">				
+					<field position="1" 
+						inf_data_type="TStampField" 
+						inf_data_type_num="8" 
+						inf_field_name="FldStartT" 
+						inf_field_num="61" 
+						data_type="ascii_str">
+					</field>
+					<field position="2" 
+						inf_data_type="TStampField" 
+						inf_data_type_num="8" 
+						inf_field_name="FldEndT" 
+						inf_field_num="62" 
+						data_type="ascii_str">
+					</field>
+					<field position="3" 
+						inf_data_type="DecimalField" 
+						inf_data_type_num="14" 
+						inf_field_name="FldMinQuantity" 
+						inf_field_num="2205" 
+						data_type="bcd_int">
+					</field>
+					<field position="4" 
+						inf_data_type="DecimalField" 
+						inf_data_type_num="14" 
+						inf_field_name="FldNetQuantity" 
+						inf_field_num="2209" 
+						data_type="bcd_int">
+					</field>
+				</field>
+			</event_mapping_info>
+			
+			<filters><filter name="sample_filter" discard="yes" log="no"><regexp><![CDATA[($4 < 10)]]></regexp><infix_regexp><![CDATA[(D < 10)]]></infix_regexp></filter></filters>
+			
+		</record>
+		
+		<!-- name must be "trailer" for trailer record defn -->
+		<record name="trailer" 
+			record_length="30">
+                        <field_definitions>
+                                <field name="A"
+                                        position="0"
+                                        start="1"
+                                        end="6">
+                                </field>
+                                <field name="B"
+                                        position="1"
+                                        start="7"
+                                        end="12">
+                                </field>
+                                <field name="C"
+                                        position="2"
+                                        start="13"
+                                        end="18">
+                                </field>
+                                <field name="D"
+                                        position="3"
+                                        start="19"
+                                        end="24">
+                                </field>
+                                <field name="E"
+                                        position="4"
+                                        start="25"
+                                        end="30">
+                                </field>
+                        </field_definitions>
+		</record>
+	</records>
+</template>

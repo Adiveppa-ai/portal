@@ -1,0 +1,306 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="Revenue_Assurance_Reports" version="15.0.1.0.0" description="Revenue Assurance Reports" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="root.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceBillingDetail" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceBillingDetail.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="3823" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="23144" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceBillingDetail" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceBillingDetail.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="188730" dest="RevAssuranceBillingDetail_en_US.rtf" mode="0755"/>
+                                             <file size="5230" dest="RevAssuranceBillingDetail.rtf.png" mode="0755"/>
+                                             <file size="1434" dest="_report.xdo" mode="0755"/>
+                                             <file size="570" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="RevAssuranceBillingDetail_en_US.rtf"/>
+            <permission mode="0755" wildcard="RevAssuranceBillingDetail.rtf.png"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceRatingDetail" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceRatingDetail.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="5006" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="5736" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceRatingDetail" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceRatingDetail.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="927237" dest="RevAssuranceRatingDetail_en_US.rtf" mode="0755"/>
+                                             <file size="4052" dest="RevAssuranceRatingDetail.rtf.png" mode="0755"/>
+                                             <file size="1427" dest="_report.xdo" mode="0755"/>
+                                             <file size="570" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="RevAssuranceRatingDetail_en_US.rtf"/>
+            <permission mode="0755" wildcard="RevAssuranceRatingDetail.rtf.png"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceBillingSummary" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceBillingSummary.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="5052" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="2331" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceBillingSummary" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceBillingSummary.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="273391" dest="RevAssuranceBillingSummary_en_US.rtf" mode="0755"/>
+                                             <file size="4285" dest="RevAssuranceBillingSummary.rtf.png" mode="0755"/>
+                                             <file size="1439" dest="_report.xdo" mode="0755"/>
+                                             <file size="570" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="RevAssuranceBillingSummary_en_US.rtf"/>
+            <permission mode="0755" wildcard="RevAssuranceBillingSummary.rtf.png"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceRatingSummary" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceRatingSummary.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="4205" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="12884" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="RevAssuranceRatingSummary" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="RevAssuranceRatingSummary.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="585411" dest="RevAssuranceRatingSummary_en_US.rtf" mode="0755"/>
+                                             <file size="4419" dest="RevAssuranceRatingSummary.rtf.png" mode="0755"/>
+                                             <file size="1434" dest="_report.xdo" mode="0755"/>
+                                             <file size="570" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="RevAssuranceRatingSummary_en_US.rtf"/>
+            <permission mode="0755" wildcard="RevAssuranceRatingSummary.rtf.png"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Revenue_Assurance_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="StoredProcedures" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <file size="179664" dest="RevAssuranceRating.source" mode="0755"/>
+                                          <file size="22615" dest="RevAssuranceBilling.source" mode="0755"/>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="*.source"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

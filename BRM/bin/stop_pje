@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Copyright (c) 2020, Oracle and/or its affiliates. All rights reserved.
+#
+#
+#
+VERSION=15.0
+
+LOGDIR=/home/pin/opt/portal/BRM/var/pin_job_executor
+JSPID=${LOGDIR}/pje.pid
+
+me=$0
+
+if [ ! -f ${JSPID} ]; then
+	echo "${me}: ERROR: no pid file: ${JSPID}, cannot kill \"${JS}\""
+        exit 1
+fi
+
+kill `cat ${JSPID}`
+rc=$?
+if [ ${rc} -ne 0 ]; then
+	echo "${me}: ERROR: kill ${JS} `cat ${JSPID}` FAILED"
+	exit ${rc}
+else
+	rm ${JSPID}
+fi
+
+exit 0

@@ -1,0 +1,199 @@
+#!/bin/sh
+
+INT_HOME=$IFW_HOME
+#change this if you like
+for aa in \
+        conf/wireless.reg  \
+        samples/wireless/wireless.reg  \
+        ; do
+  if [ -r "$INT_HOME/$aa" ] ; then
+    regfile="$aa"
+    break
+  fi
+done
+
+retrymax=30
+if [ "a$IFW_RETRY_MAX" != a ] ; then
+  retrymax="0$IFW_RETRY_MAX"
+fi
+
+retrysleep=5
+if [ "a$IFW_RETRY_SLEEP" != a ] ; then
+  retrysleep="0$IFW_RETRY_SLEEP"
+fi
+
+extlog=""
+if [ "a$IFW_REGFILE" != a ] ; then
+  regfile="$IFW_REGFILE"
+  extlog=__`echo $regfile | /bin/sed 's|//*|__|g'`
+fi
+
+if [ "a$regfile" = "a" ] ; then
+  echo "** ERROR: no regfile found; aborting"
+  exit 42
+fi
+if [ -r "$INT_HOME/$regfile" ] ; then
+  regfile="$INT_HOME/$regfile"
+fi
+if [ ! -r "$regfile" ] ; then
+  echo "** ERROR: regfile \"$regfile\" does not exist; aborting"
+  exit 41
+fi
+echo "** $0: NOTE: using IFW regfile $regfile"
+
+logfname=$INT_HOME/IFW$extlog.LOG
+pidfname=$INT_HOME/IFW$extlog.PID
+
+#subshell for convenience + hide file not found errors
+/bin/cat $pidfname 2>/dev/null | (
+while read ifwpid ; do 
+  if echo "$ifwpid" | /bin/grep '^[0-9]' ; then
+    if /bin/ps -eaf | /bin/grep "^ *$LOGNAME  *$ifwpid .*/ifw" | /bin/grep -v grep ; then
+      echo "** ifw appears to already be running (see above line); not gonna try a start."
+      exit 33
+    fi
+  fi
+done
+#if we got here, no other processes- flush the list
+/bin/rm -f $pidfname
+exit 0
+) 2>/dev/null || exit 33
+
+
+if [ "a$PIN_TOPDIR" = "a" ] ; then
+	PIN_TOPDIR=$HOME
+fi
+
+if [ "a$INT_HOME" = "a" ] ; then
+        INT_HOME=$IFW_HOME
+fi
+
+if [ -r "$INT_HOME/core" ] ;then
+  echo "** $0: WARNING: ifw corefile $INT_HOME/core"
+fi
+if [ -r "$regfile.lock" ] ;then
+  echo "** $0: ERROR: $regfile.lock EXISTS; remove to restart"
+  exit 30
+fi
+
+umemextrabin=""
+if [ -x /usr/lib/libumem.so ] ; then
+  #more?
+  umemextrabin="bin/ifw_nomalloc64"
+fi
+
+#take a guess at which one to use; reorder this list, if you like
+for cc in \
+	bin/ifw.purify \
+	bin/ifw.quantify \
+	bin/ifw.purecov \
+	bin/ifw.covered \
+	bin/ifw64_debug_covered \
+	bin/ifw_debug_covered \
+	bin/ifw64_dbg_covered \
+	bin/ifw_dbg_covered \
+	bin/ifw64_debug_purified \
+	bin/ifw_debug_purified \
+	bin/ifw64_dbg_purified \
+	bin/ifw_dbg_purified \
+	$umemextrabin	\
+	bin/ifw64_dbg \
+	bin/ifw_dbg \
+	bin/ifw.debug \
+	bin/ifw64_purified \
+	bin/ifw64 \
+	bin/ifw \
+	; do
+  if [ -x "$INT_HOME/$cc" ] ; then
+    ifw="$cc"
+    export ifw
+    break
+  fi
+done
+if [ "a$ifw" = "a" ] ;then
+  echo "** $0: ERROR: COULD NOT FIND IFW EXECUTABLE TO RUN"
+  exit 31
+fi
+echo "** $0: NOTE: using IFW exec $INT_HOME/$ifw"
+
+ifwldpreload="$LD_PRELOAD"
+if [ -x /usr/lib/libumem.so -a "a$ifw" = "a$umemextrabin" ] ; then
+  ifwldpreload="libumem.so $LD_PRELOAD"
+  echo "** $0: NOTE: using LD_PRELOAD=libumem.so $LD_PRELOAD"
+fi
+
+/bin/mv -f $logfname $logfname.`/bin/date +'%y%m%d%H%M%S'` 2>/dev/null
+
+if [ "a$IT_DOMAIN_NAME" != "a" -a "a$NO_IONA_ENV" = "a" ] ; then
+  echo "** $0: flushing iona listener ref (if stuck)"
+  echo "poa remove ListenerPOA$LOGNAME" | itadmin >$logfname 2>&1
+fi
+
+  LD_LIBRARY_PATH=$INT_HOME/lib:$LD_LIBRARY_PATH
+  LD_LIBRARY_PATH_64=$INT_HOME/lib:$LD_LIBRARY_PATH_64
+  SHLIB_PATH=$INT_HOME/lib:$SHLIB_PATH
+  LIBPATH=$INT_HOME/lib:$LIBPATH
+  export LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH_64
+  export SHLIB_PATH
+  export LIBPATH
+
+echo "** $0: starting ifw into background..." 
+(
+echo "** $0: NOTE: using IFW exec $INT_HOME/$ifw"
+echo "** $0: NOTE: using IFW regfile $regfile"
+if [ "a$ifwldpreload" != "a" ] ; then
+  echo "** $0: NOTE: using LD_PRELOAD=libumem.so $LD_PRELOAD"
+fi
+LD_PRELOAD="$ifwldpreload $LD_PRELOAD" cd $INT_HOME && exec $ifw -r "$regfile"
+) >>$logfname 2>&1 &
+ifwpid=$!
+
+#we'll check for multiples + such
+echo "$ifwpid" >>$pidfname
+
+echo "** $0: IFW OUTPUT LOGFILE IS $logfname"
+echo "** $0: IFW PID IS $ifwpid"
+#echo "** waiting 5 seconds for ifw subshell to spawn"
+#sleep 5
+
+k=0
+ec=99
+st=0
+while /bin/ps -eaf | /bin/grep "^ *$LOGNAME  *$ifwpid " | /bin/grep -v grep ; do
+  k=`/usr/bin/expr 1 + $k`
+  if [ "a$NO_SYNCED_TIMEOUT" = "a" -a $k -gt $retrymax ]  ; then
+    #comment out or set NO_SYNCED_TIMEOUT 1 if you don't want it to abort
+    echo "** IFW CHECK TIMEOUT."
+    ec=66
+    st=to
+    break
+  elif /bin/grep -i "start.*process" $logfname >/dev/null ; then
+    echo "** IFW STARTED SUCCESSFULLY!"
+    ec=0
+    st=ok
+    break
+  elif /bin/grep -i " integrate .* finished " $logfname >/dev/null ; then
+    echo "** IFW DID NOT START."
+    st=no
+    break
+  fi
+  echo "** ifw still initializing on try $k; waiting $retrysleep seconds..." 
+  /bin/sleep $retrysleep
+done
+
+if [ "$st" = 0 ] ; then
+  if /bin/grep -i "start.*process" $logfname >/dev/null ; then
+    echo "** IFW STARTED SUCCESSFULLY!"
+  else
+    echo "** IFW DID NOT START."
+  fi
+fi
+
+echo "** current outputlog contents:"
+/bin/cat $logfname
+if [ -r "$INT_HOME/core" ] ;then
+  echo "** $0: WARNING: ifw corefile $INT_HOME/core"
+fi
+echo "** $0: ((end))"
+exit $ec

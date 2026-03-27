@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel xmlns="http://xmlns.oracle.com/oxp/xmlp" version="2.0" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[NCGL%20query]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="NCGL" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "LEDGER_REPORT_ACCTS_T"."CR_AR_NET_AMT", 
+  "LEDGER_REPORT_ACCTS_T"."DB_AR_NET_AMT", 
+  "LEDGER_REPORT_ACCTS_T"."AR_NET_GL_ACCT", 
+  gl.get_gl_account_type("LEDGER_REPORT_ACCTS_T"."AR_NET_GL_ACCT") AS "net_account_type", 
+  "LEDGER_REPORT_ACCTS_T"."DB_AR_TAX_AMT", 
+  "LEDGER_REPORT_ACCTS_T"."CR_AR_TAX_AMT", 
+  "LEDGER_REPORT_ACCTS_T"."AR_TAX_GL_ACCT", 
+  gl.get_gl_account_type("LEDGER_REPORT_ACCTS_T"."AR_TAX_GL_ACCT") AS "tax_account_type" , 
+  "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID", 
+  gl.get_resource_details(resource_id) AS "resource_name", 
+  decode(greatest(resource_id,999),999,'Y','N') AS "Currency_type" 
+FROM 
+  (SELECT "POID_ID0" 
+  FROM 
+    (SELECT "LEDGER_REPORT_T"."POID_ID0" 
+    FROM "LEDGER_REPORT_T" 
+    WHERE 
+      
+      
+      
+      TYPE IN (256, 512) 
+    ORDER BY "LEDGER_REPORT_T"."CREATED_T" DESC 
+    ) 
+  WHERE rownum <= 1 
+  ) "LEDGER_REPORT_T", 
+  "LEDGER_REPORT_ACCTS_T" 
+WHERE "LEDGER_REPORT_T"."POID_ID0" = "LEDGER_REPORT_ACCTS_T"."OBJ_ID0" order by "resource_name"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output rootName="DATA_DS" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="G_1" label="G_1" source="NCGL">
+               <element name="CR_AR_NET_AMT" value="CR_AR_NET_AMT" label="CR_AR_NET_AMT" dataType="xsd:double" breakOrder="" fieldOrder="1"/>
+               <element name="DB_AR_NET_AMT" value="DB_AR_NET_AMT" label="DB_AR_NET_AMT" dataType="xsd:double" breakOrder="" fieldOrder="2"/>
+               <element name="AR_NET_GL_ACCT" value="AR_NET_GL_ACCT" label="AR_NET_GL_ACCT" dataType="xsd:string" breakOrder="" fieldOrder="3"/>
+               <element name="net_account_type" value="net_account_type" label="net_account_type" dataType="xsd:double" breakOrder="" fieldOrder="4"/>
+               <element name="DB_AR_TAX_AMT" value="DB_AR_TAX_AMT" label="DB_AR_TAX_AMT" dataType="xsd:double" breakOrder="" fieldOrder="5"/>
+               <element name="CR_AR_TAX_AMT" value="CR_AR_TAX_AMT" label="CR_AR_TAX_AMT" dataType="xsd:double" breakOrder="" fieldOrder="6"/>
+               <element name="AR_TAX_GL_ACCT" value="AR_TAX_GL_ACCT" label="AR_TAX_GL_ACCT" dataType="xsd:string" breakOrder="" fieldOrder="7"/>
+               <element name="tax_account_type" value="tax_account_type" label="tax_account_type" dataType="xsd:double" breakOrder="" fieldOrder="8"/>
+               <element name="RESOURCE_ID" value="RESOURCE_ID" label="RESOURCE_ID" dataType="xsd:double" breakOrder="" fieldOrder="9"/>
+               <element name="resource_name" value="resource_name" label="resource_name" dataType="xsd:string" breakOrder="" fieldOrder="10"/>
+               <element name="Currency_type" value="Currency_type" label="Currency_type" dataType="xsd:string" breakOrder="" fieldOrder="11"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_DATE_RANGE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT 
+      to_char((to_date('01/01/1970', 'mm/dd/yy') + (start_t/ 86400)),'DD/MON/YYYY') || ' ' || '-' || ' ' || to_char((to_date('01/01/1970', 'mm/dd/yy') + (end_t/ 86400)),'DD/MON/YYYY')
+FROM
+  (SELECT DISTINCT start_t ,
+    end_t
+  FROM ledger_report_t lrt
+  WHERE type IN (256,512)
+  ORDER BY start_t,
+    end_t DESC
+  ) ledger_report
+WHERE rownum < = 100]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_RANGE_DATE" dataType="xsd:string" rowPlacement="1">
+         <select label="Select Report Period :" valueSet="LOV_DATE_RANGE" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+      <layouts>
+         <layout name="NCGL" left="286px" top="32px"/>
+         <layout name="DATA_DS" left="0px" top="32px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

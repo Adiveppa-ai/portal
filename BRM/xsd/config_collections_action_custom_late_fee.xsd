@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    Schema definition for collections action custom late_fee config object.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="PinTypes.xsd"/>
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ConfigObject" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID" type="PinPoid" minOccurs="0"/>
+              <xs:element name="ACCOUNT_OBJ" type="PinPoid" minOccurs="0"/>
+              <xs:element name="DESCR" type="xs:string" minOccurs="0"/>
+              <xs:element name="HOSTNAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="VALUE" type="xs:string" minOccurs="0"/>
+              <xs:element name="VERSION" type="xs:string" minOccurs="0"/>
+              <xs:element name="CONFIG_ACTION_INFO" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ACTION_DESCR" type="xs:string" minOccurs="0" />
+                    <xs:element name="ACTION_NAME" type="xs:string" minOccurs="0" />
+                    <xs:element name="ACTION_TYPE" type="xs:string" minOccurs="1" />
+                    <xs:element name="OPCODE" type="xs:integer" minOccurs="0" />
+                    <xs:element name="TARGET_ACTION" minOccurs="0">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:enumeration value="0" />
+                                <xs:enumeration value="1" />
+                                <xs:enumeration value="2" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="TEMPLATE_NAME" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LATE_FEE_INFO" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="AMOUNT" type="xs:decimal" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="CURRENCY" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="OPTIONS" minOccurs="0" maxOccurs="1" >
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:enumeration value="0" />
+                                <xs:enumeration value="1" />
+                                <xs:enumeration value="2" />
+                                <xs:enumeration value="3" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="PERCENT" type="xs:decimal" minOccurs="0" maxOccurs="1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="configName" type="xs:string" default="/config/collections/action/custom/late_fee" />
+      <xs:attribute name="configMode" type="xs:string" default="replace" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

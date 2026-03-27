@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<HOST>
+  <SYSTEM>
+    <CPU>
+      <SPEED VALUE="300" UNIT="Mhz"/>
+    </CPU>
+    <MEMORY>
+      <PHYSICAL_MEMORY VALUE="1024" UNIT="MB"/>
+      <AVAILABLE_MEMORY VALUE="512" UNIT="MB"/>
+      <SWAP_SIZE VALUE="250" UNIT="MB" />
+    </MEMORY>
+  </SYSTEM> 
+</HOST>
+

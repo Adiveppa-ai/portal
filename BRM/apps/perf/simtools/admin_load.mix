@@ -1,0 +1,7 @@
+OP-find-cust                   36 op-find-acct
+OP-update-cust-addr            08 op-find-acct,op-update-addr
+OP-find-event                  10 op-find-acct,op-find-event
+OP-find-bill                   15 op-find-acct,op-find-bill
+OP-update-bill-info            08 op-find-acct,op-update-bill-info,op-find-bill
+OP-find-bill-dialup            15 op-find-acct,op-find-bill,op-find-dialup-event
+OP-find-usage-update-bill-info  08 op-find-acct,op-update-addr,op-find-event

@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# @(#)stop_pin_channel_export.sh 1.0 99/12/14
+#
+#      Copyright (c) 1998 - 2006 Oracle. All rights reserved.
+#
+#      This material is the confidential property of Oracle Corporation or
+#      its licensors and may be used, reproduced, stored or transmitted only 
+#      in accordance with a valid Oracle license or sublicense agreement.
+#
+
+#
+# stop_pin_channel_export
+#
+
+VERSION=15.0
+PCEDIR=/home/pin/opt/portal/BRM/apps/exportapps
+LOGDIR=/home/pin/opt/portal/BRM/var/exportapps
+
+PATH=/usr/bin:/bin
+
+PCE=${PCEDIR}/pin_channel_export
+
+PCEPID=${LOGDIR}/pin_channel_export.pid
+
+me=`basename $0`
+
+if [ ! -f ${PCEPID} ]; then
+	echo "${me}: ERROR: no pid file, cannot kill `basename \"${PCE}\"`"
+        exit 1
+fi       
+
+kill `cat ${PCEPID}` > /dev/null 2>&1
+rc=$?
+if [ ${rc} -ne 0 ]; then
+	echo "${me}: ERROR: kill `basename ${PCE}` `cat ${PCEPID}` FAILED"
+	exit ${rc}
+else
+	rm ${PCEPID}
+fi
+
+exit 0

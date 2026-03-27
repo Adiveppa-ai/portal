@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2006, 2019, Oracle and/or its affiliates. All rights reserved.
+                        This material is the confidential property of Oracle Corporation
+                        or its licensors and may be used, reproduced, stored or transmitted
+                        only in accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsInvoicingType">
+		<xs:sequence>
+			
+			<xs:element name="ADSTTaxHandle" type="businessConfig:switchinv">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable ADST Tax handling Feature for Invoicing. 
+						Parameter values can be 0 (disable), 1 (enable). Default is 0 (disabled).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+
+			<xs:element name="ThresholdSubordsSummary">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Threshold for number of subordinates for summary invoices.
+						(0=default(no split invoices for hierarchy))
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+			<xs:element name="ThresholdSubordsDetail">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Threshold for number of subordinates for detail invoice.
+						(0=default(no split invoices for hierarchy))
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+			<xs:element name="SubARItemsIncluded" type="businessConfig:switchinv">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Indicates whether Subordinate account invoice includes AR items or not.
+						(0- default , AR items not included and 1 - AR items included)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        
+			<xs:element name="PromotionDetailDisplay">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+                                        	Indicates whether promotion details should be shown on the invoice.
+                                        	(1- default , show promotion details for non-wholesale accounts, 0 - Do not show promotion details, 2- show promotions details for wholesale as wells as non-wholesale accounts)
+                                	</xs:documentation>
+                        	</xs:annotation>
+                        </xs:element>
+
+			<xs:element name="EnableInvoicingIntegration" type="businessConfig:switchinv">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+                                        	Enable/Disable BRM-BIP integration for final invoice document generation.
+                                        	Parameter values can be 0 (disable), 1 (enable). Default is 0 (disabled).
+                                	</xs:documentation>
+                        	</xs:annotation>
+                        </xs:element>
+			
+			<xs:element name="InvoiceStorageType">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+                                        	Format of invoice which needs to be stored in BRM database.
+                                        	Parameter values can be 0 (flist), 1 (xml). Default is 0 (flist).
+                                	</xs:documentation>
+                        	</xs:annotation>
+				<xs:simpleType>
+                        		<xs:restriction base="xs:nonNegativeInteger">
+                                		<xs:whiteSpace value="collapse"/>
+                                	</xs:restriction>
+                        	</xs:simpleType>	
+                        </xs:element>
+			<xs:element name="InOperatorSize">
+                        	<xs:annotation>
+                                	<xs:documentation xml:lang="en">
+						IN operator size in sql statement limited by string length. 
+                                        	Parameter values can be based on database capacity. Default value is 500. It cannot be more than 500 but can be less than 500. 
+                                	</xs:documentation>
+                        	</xs:annotation>
+				<xs:simpleType>
+                                        <xs:restriction base="xs:nonNegativeInteger">
+                                                <xs:whiteSpace value="collapse"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+
+                        <xs:element name="DropExtraSeqDiscEvents" type="businessConfig:switchinv">
+                                <xs:annotation>
+                                       <xs:documentation xml:lang="en">
+                                                Indicates whether to drop from the invoice the events related to non-relevant discounts when a discount is being purchased or cancelled during sequential discounting.
+                                                (1- Drop non-relevant sequential discounting events, and 0 - default, Do not drop non-relevant sequential discounting events)
+                                       </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        
+                        <xs:element name="IncludeExtendedAttr" type="businessConfig:switchinv">
+                                <xs:annotation>
+                                       <xs:documentation xml:lang="en">
+                                                Indicates whether to include custom event attributes, pricing information, etc. in the invoice".
+                                                (1- Include extra base and customized fields, and 0 - default, Do not extra base and customized fields)
+                                       </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="ARItemsInCorrectiveInvoice" type="businessConfig:switchinv">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Indicates whether to include AR items only in its corresponding Corrective Invoice
+						(0- default , AR items are displayed in regular invoice if Corrective invoice is not generated and 1 - AR items included only in its Corrective Invoice)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="InvEventFetchSize">
+					<xs:annotation>
+							<xs:documentation xml:lang="en">
+									Size used for step search while searching events. This value can be changed as per the required number of events to be searched.
+									Default Value is 10000
+							</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+							<xs:restriction base="xs:nonNegativeInteger">
+									<xs:whiteSpace value="collapse"/>
+							</xs:restriction>
+					</xs:simpleType>
+           		 </xs:element>
+
+			<xs:element name="InvItemFetchSize">
+					<xs:annotation>
+							<xs:documentation xml:lang="en">
+									Size used for step search while searching items. This value can be changed as per the required number of items to be searched.
+									Default Value is 10000
+							</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+							<xs:restriction base="xs:nonNegativeInteger">
+									<xs:whiteSpace value="collapse"/>
+							</xs:restriction>
+					</xs:simpleType>
+            		</xs:element>
+
+			<xs:element name="EventCache" type="businessConfig:switchinv">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+					Enables or disables the event cache for the PIN_FLD_BAL_IMPACTS array. You can save the cache space for invoicing by turning off this entry.The value for this entry can be.	
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DisableFilterItemByPruneTime" type="businessConfig:switchinv" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Indicates whether to filter invoice items by pruning time
+						(disabled - default , items are filtered by pruning time , enabled - items are not filtered by pruning time)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>                        
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="switchinv">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enabled"/>
+			<xs:enumeration value="disabled"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

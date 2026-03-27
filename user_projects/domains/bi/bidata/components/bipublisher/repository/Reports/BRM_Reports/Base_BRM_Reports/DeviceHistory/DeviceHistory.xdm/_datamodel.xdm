@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 					"EVENT_DEVICE_T"."DEVICE_OBJ_ID0",
+ 					"EVENT_DEVICE_T"."DEVICE_OBJ_TYPE",
+ 					"EVENT_T"."END_T",
+ 					"DEVICE_T"."DEVICE_ID",
+ 					"DEVICE_T"."POID_TYPE",
+ 					"EVENT_DEVICE_STATE_T"."DEVICE_NEW_STATE",
+ 					"STRINGS_T"."STRING"
+ 				 FROM
+ 					(("EVENT_T" "EVENT_T" INNER JOIN "EVENT_DEVICE_STATE_T" "EVENT_DEVICE_STATE_T" ON
+ 					 "EVENT_T"."POID_ID0"="EVENT_DEVICE_STATE_T"."OBJ_ID0") INNER JOIN
+ 					 "EVENT_DEVICE_T" "EVENT_DEVICE_T" ON
+ 					 "EVENT_DEVICE_STATE_T"."OBJ_ID0"="EVENT_DEVICE_T"."OBJ_ID0") INNER JOIN
+ 					 "DEVICE_T" "DEVICE_T" ON
+ 					 "EVENT_DEVICE_T"."DEVICE_OBJ_ID0"="DEVICE_T"."POID_ID0"
+ 					 INNER JOIN "STRINGS_T" ON ("EVENT_DEVICE_STATE_T"."DEVICE_NEW_STATE" = "STRINGS_T"."STRING_ID")
+ 				WHERE
+ 					"DEVICE_T"."DEVICE_ID" LIKE DECODE(UPPER(:PARAM_DEVICE_ID),'ALL', '%',:PARAM_DEVICE_ID) AND
+ 					"DEVICE_T"."POID_TYPE" LIKE DECODE(:PARAM_DEVICE_TYPE,null, '%',:PARAM_DEVICE_TYPE) AND
+ 					bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 					("EVENT_T"."END_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 	 "EVENT_T"."END_T"<=bipext.infstrtotimet(:PARAM_END_DATE,2)-1) AND
+ 					"STRINGS_T"."DOMAIN" like DECODE(:PARAM_DEVICE_TYPE, null, 'config_device_state_%', 'config_device_state_'||SUBSTR(:PARAM_DEVICE_TYPE,9)) AND
+ 					SUBSTR("EVENT_DEVICE_T"."DEVICE_OBJ_TYPE",9) = SUBSTR("STRINGS_T"."DOMAIN",21)
+ 			 ORDER BY
+ 					"EVENT_DEVICE_T"."DEVICE_OBJ_TYPE",
+ 					"DEVICE_T"."DEVICE_ID", "EVENT_T"."END_T"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="DEVICE_OBJ_ID0" value="DEVICE_OBJ_ID0" dataType="xsd:integer" label="DEVICE_OBJ_ID0" breakOrder="None" fieldOrder="1"/>
+    <element name="DEVICE_OBJ_TYPE" value="DEVICE_OBJ_TYPE" dataType="xsd:string" label="DEVICE_OBJ_TYPE" breakOrder="None" fieldOrder="2"/>
+    <element name="END_T" value="END_T" dataType="xsd:integer" label="END_T" breakOrder="None" fieldOrder="3"/>
+    <element name="DEVICE_ID" value="DEVICE_ID" dataType="xsd:string" label="DEVICE_ID" breakOrder="None" fieldOrder="4"/>
+    <element name="POID_TYPE" value="POID_TYPE" dataType="xsd:string" label="POID_TYPE" breakOrder="None" fieldOrder="5"/>
+    <element name="DEVICE_NEW_STATE" value="DEVICE_NEW_STATE" dataType="xsd:integer" label="DEVICE_NEW_STATE" breakOrder="None" fieldOrder="6"/>
+    <element name="STRING" value="STRING" dataType="xsd:string" label="STRING" breakOrder="None" fieldOrder="7"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_DEVICE_TYPE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT 
+	DISTINCT POID_TYPE
+FROM 
+	DEVICE_T]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_DEVICE_TYPE" defaultValue="%" dataType="xsd:string">
+         <select label=" Enter a specific device type, or select ALL for all devices. " valueSet="PARAM_DEVICE_TYPE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_DEVICE_ID" defaultValue="ALL" dataType="xsd:string">
+         <input label=" Enter a specific device ID, or select ALL to include all devices." size="30"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="DATA_DS" left="28px" top="14px"/><layout name="Q1" left="274px" top="17px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

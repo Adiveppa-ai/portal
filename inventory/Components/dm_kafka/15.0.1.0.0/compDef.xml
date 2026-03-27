@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="dm_kafka" version="15.0.1.0.0" description="dm_kafka" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="819" dest="stop_dm_kafka" mode="0755"/>
+         <file size="3111" dest="start_dm_kafka" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_dm_kafka"/>
+            <permission mode="0755" wildcard="stop_dm_kafka"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="41861" dest="dm_kafka.jar" mode="0664"/>
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="52197" dest="dm_kafka.jar" mode="0664"/>
+            <file size="64233" dest="js.jar"/>
+         </directory>
+         <file size="67780" dest="slf4j-api-2.0.11.jar" mode="0664"/>
+         <file size="578125" dest="jackson-core-2.16.2.jar" mode="0664"/>
+         <file size="342535" dest="log4j-api-2.23.1.jar" mode="0664"/>
+         <file size="78481" dest="jackson-annotations-2.16.2.jar" mode="0664"/>
+         <file size="52129" dest="js.jar"/>
+         <file size="22600" dest="log4j-slf4j-impl-2.23.1.jar" mode="0664"/>
+         <file size="1901886" dest="log4j-core-2.23.1.jar" mode="0664"/>
+         <file size="1638583" dest="jackson-databind-2.16.2.jar" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="dm_kafka.jar"/>
+            <permission mode="0664" wildcard="jackson-core-2.16.2.jar"/>
+            <permission mode="0664" wildcard="jackson-annotations-2.16.2.jar"/>
+            <permission mode="0664" wildcard="jackson-databind-2.16.2.jar"/>
+            <permission mode="0664" wildcard="log4j-api-2.23.1.jar"/>
+            <permission mode="0664" wildcard="log4j-core-2.23.1.jar"/>
+            <permission mode="0664" wildcard="log4j-slf4j-impl-2.23.1.jar"/>
+            <permission mode="0664" wildcard="slf4j-api-2.0.11.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="904" dest="pin_cnf_dm_kafka.pl" mode="0755"/>
+            <file size="7510" dest="pin_cmp_dm_kafka.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cmp_dm_kafka.pl"/>
+            <permission mode="0755" wildcard="pin_cnf_dm_kafka.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_kafka" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7295" dest="dm_kafka_config.xml" mode="0644"/>
+            <file size="1028" dest="log4j2.xml" mode="0644"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="dm_kafka_config.xml"/>
+            <permission mode="0644" wildcard="log4j2.xml"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

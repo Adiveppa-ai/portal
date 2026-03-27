@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			Copyright (c) 2004 - 2006 Oracle. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamConfigurationType">
+	<xs:sequence>
+	
+	<xs:element name="BusParamConfigurationList">
+	<xs:complexType>
+	<xs:sequence>
+		
+		<xs:element name="ParamClass" maxOccurs="unbounded">
+		<xs:complexType>
+		<xs:sequence>
+			
+			<xs:element name="Param" maxOccurs="unbounded">
+			<xs:complexType>
+			<xs:sequence>
+				
+				<xs:element name="Name">
+					<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="Desc">
+					<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="1024"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="Type">
+					<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="INT"/>
+						<xs:enumeration value="UINT"/>
+						<xs:enumeration value="ENUM"/>
+						<xs:enumeration value="NUM"/>
+						<xs:enumeration value="STR"/>
+						<xs:enumeration value="POID"/>
+						<xs:enumeration value="TSTAMP"/>
+						<xs:enumeration value="OBJ"/>
+						<xs:enumeration value="BINSTR"/>
+						<xs:enumeration value="DECIMAL"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="Value">
+					<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="1024"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+			</xs:sequence>
+			</xs:complexType>
+			</xs:element>
+
+		</xs:sequence>
+
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="255"/>
+					<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			
+			<xs:attribute name="desc" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+
+		</xs:complexType>
+
+			<xs:unique name="uniqueParamName">
+				<xs:selector xpath=".//businessConfig:Param"/>
+				<xs:field xpath="businessConfig:Name"/>
+			</xs:unique>
+
+		</xs:element>
+
+	</xs:sequence>
+	</xs:complexType>
+	
+		<xs:unique name="uniqueParamClassName">
+			<xs:selector xpath=".//businessConfig:ParamClass"/>
+			<xs:field xpath="./@name"/>
+		</xs:unique>
+
+	</xs:element>
+
+	</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

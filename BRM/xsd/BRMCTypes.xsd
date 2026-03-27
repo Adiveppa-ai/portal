@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2007, 2021, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema 
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    This file contains definitions and validations for various PIN_FLDs for BRM Cloud ported objects.
+    Where applicable, to be included in config XSD schemas. 
+    Please add new ones in alphabetical order.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:simpleType name="PinStringRequired">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:pattern value="[\S\s]*\S+[\S\s]*" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinText60Required">
+    <xs:restriction base="PinStringRequired">
+      <xs:maxLength value="60"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinText90Required">
+    <xs:restriction base="PinStringRequired">
+      <xs:maxLength value="90"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinTextRequired">
+    <xs:restriction base="PinStringRequired">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinTextLong">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1023"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinText">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinText90">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="90"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinText60">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="60"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinTextShort">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="30"/>
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinJurisdictionTypes">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="7" />
+      <xs:enumeration value="8" />
+      <xs:enumeration value="9" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- =========================================
+       The AMOUNT field is to be treated as a:
+       0-percentage; 1-fixed amount
+       ========================================= 
+  -->
+  <xs:simpleType name="PinApplyModes">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- =========================================
+       bus_params tax rule can only have 2 PARAMS
+       ========================================= 
+  -->
+  <xs:simpleType name="PinParamIndexTL">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- =========================================
+       The types of tax package type supported
+       0-Simple; 1-Complex.
+       ========================================= 
+  -->
+  <xs:simpleType name="PinTaxPKGType">
+    <xs:restriction base="xs:integer">
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinRuleTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Std" />
+      <xs:enumeration value="Tax" />
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

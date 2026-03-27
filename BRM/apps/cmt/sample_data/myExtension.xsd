@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="serviceExtensions.xsd"/>
+	<xs:complexType name="serviceTelcoGSMType">
+		<xs:complexContent>
+			<xs:extension base="serviceExtensionType">
+				<xs:sequence>
+					<xs:element name="FldBearerService" type="xs:string"/>
+					<xs:element name="FldIMEI" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="serviceTelcoGSMlExtension" type="serviceTelcoGSMType" substitutionGroup="serviceExtension"/>
+</xs:schema>

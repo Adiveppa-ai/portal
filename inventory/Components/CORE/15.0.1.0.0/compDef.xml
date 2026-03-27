@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="CORE" version="15.0.1.0.0" description="CORE" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="root.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <file size="362532" dest="BRMScreens.jar"/>
+         <directory dest="scripts" mode="750" patchable="true">
+            <file size="1474" dest="createPackages.sql" mode="0755"/>
+            <file size="540" dest="grant.sql" mode="0755"/>
+         </directory>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <file size="26484" dest="BRMActions.jar"/>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <file size="129656" dest="helpset_pt_BR.jar"/>
+         <file size="143393" dest="helpset_ja.jar"/>
+         <file size="134225" dest="helpset_zh_CN.jar"/>
+         <file size="135447" dest="helpset_zh_TW.jar"/>
+         <file size="129556" dest="helpset_es.jar"/>
+         <file size="131613" dest="helpset.jar"/>
+         <file size="136674" dest="helpset_ko.jar"/>
+         <file size="129152" dest="helpset_fr.jar"/>
+         <file size="146699" dest="helpset_ru_RU.jar"/>
+         <file size="127810" dest="helpset_it.jar"/>
+      </directory>
+      <directory dest="oui" mode="750" patchable="true">
+         <directory dest="bin" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="10" dest="pinrev" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="pinrev"/>
+         </file-perms>
+      </directory>
+      <directory dest="oui" mode="750" patchable="true">
+         <directory dest="bin" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="4398" dest="postInstallUpdatePinrev.pl" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="postInstallUpdatePinrev.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="6054" dest="postInstallReplace.pl" mode="0750"/>
+         </directory>
+         <file-perms>
+            <permission mode="0750" wildcard="postInstallReplace.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="BRM" mode="750" patchable="true">
+         <directory dest="setup" mode="750" patchable="true">
+            <file size="1700" dest="runPinSetup" mode="0755"/>
+         </directory>
+      </directory>
+   </file-map>
+   <file-map symbol="oracle.nginst.core.symbol" source="filegroup2.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="brm" mode="750" patchable="true">
+         <directory dest="prereq" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="269" dest="knowledgesrc.xml" mode="0640"/>
+            <file size="310" dest="refhost.xml" mode="0640"/>
+            <file size="1132" dest="db_server_prereq.xml" mode="0640"/>
+            <file size="145" dest="prerequisite.properties" mode="0640"/>
+            <file size="195" dest="db_server_rulemap.xml" mode="0640"/>
+            <file size="5554" dest="prereq.jar" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0640" wildcard="db_server_prereq.xml"/>
+            <permission mode="0640" wildcard="db_server_rulemap.xml"/>
+            <permission mode="0640" wildcard="knowledgesrc.xml"/>
+            <permission mode="0640" wildcard="prerequisite.properties"/>
+            <permission mode="0640" wildcard="refhost.xml"/>
+         </file-perms>
+      </directory>
+   </file-map>
+   <variables>
+      <product-variable name="BRM_THIRDPARTY_LIBRARIES" type="string" helpid="" publish="true"/>
+      <product-variable name="OJDBC" type="string" helpid="" publish="true"/>
+      <product-variable name="BRM_VERSION" value="15.0.1.0.0" type="string" helpid="" publish="true"/>
+      <product-variable name="OVERLAY" value="false" type="boolean" helpid="" publish="true"/>
+      <product-variable name="SSL" value="true" type="boolean" helpid="" publish="true"/>
+      <product-variable name="IS_UPGRADE" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="IS_PIPE_UPGRADE" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="IS_DBA" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_MODE" value="1" type="number" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_TRUSTSTORE_TYPE" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_KEYSTORE_TYPE" value="0" type="number" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_TRUSTSTORE_LOC" type="string" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_TRUSTSTORE_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_KEYSTORE_LOC" type="string" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_KEYSTORE_PASSWD" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_TRUSTSTORE_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="DB_SSL_KEYSTORE_PASSWD_ENC" type="string" secure="true" helpid="" publish="true"/>
+      <product-variable name="OS_TYPE" value="Linux" type="string" helpid="" publish="false"/>
+      <product-variable name="PRIMARY_DB_INDEX" value="1" type="number" helpid="" publish="false"/>
+      <product-variable name="SECONDARY_DB_INDEX" value="2" type="number" helpid="" publish="false"/>
+      <product-variable name="PIN_PERL_VERSION" value="5.38.2" type="string" helpid="" publish="false"/>
+   </variables>
+</component-def>

@@ -1,0 +1,5 @@
+<?xml version="1.0" standalone="yes" ?>
+<!-- Copyright (c) 1999, 2025, Oracle. All rights reserved. -->
+<!-- Do not modify the contents of this file by hand. -->
+<ohmd:MAKE_LIST xmlns:ohmd="make_desc.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="make_desc.xsd make_desc.xsd">
+</ohmd:MAKE_LIST>

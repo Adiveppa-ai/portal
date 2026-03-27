@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q2" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 							 COUNT (distinct "EVENT_T"."POID_ID0") CAN_DUE_TO_ACT_CLOS
+ 							FROM
+ 							 ((("PRODUCT_T" "PRODUCT_T"
+ 								 INNER JOIN "PURCHASED_PRODUCT_T" "PURCHASED_PRODUCT_T"
+ 								 ON "PRODUCT_T"."POID_ID0" = "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0")
+ 							 INNER JOIN "EVENT_T" "EVENT_T"
+ 								 ON "PURCHASED_PRODUCT_T"."SERVICE_OBJ_ID0" = "EVENT_T"."SERVICE_OBJ_ID0")
+ 							 INNER JOIN "EVENT_T" "SubEVENT_T"
+ 								 ON "EVENT_T"."ACCOUNT_OBJ_ID0" = "SubEVENT_T"."ACCOUNT_OBJ_ID0")
+ 							 INNER JOIN "EVENT_CUSTOMER_STATUSES_T" "EVENT_CUSTOMER_STATUSES_T"
+ 								 ON "SubEVENT_T"."POID_ID0" = "EVENT_CUSTOMER_STATUSES_T"."OBJ_ID0"
+ 							WHERE "EVENT_T"."POID_DB" >
+ 0
+ 							 AND "SubEVENT_T"."POID_TYPE" = N'/event/customer/status'
+ 							 AND "SubEVENT_T"."SERVICE_OBJ_ID0" = 0
+ 							 AND "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0" = :PROD_OBJ
+ 							 AND ("EVENT_T"."END_T" >= bipext.INFSTRTOTIMET(:StartDate, 2)
+ 								 AND "EVENT_T"."END_T" <= bipext.INFSTRTOTIMET(:EndDate, 2)-1)
+ 							 AND ( "SubEVENT_T"."END_T" >= bipext.INFSTRTOTIMET(:StartDate, 2)
+ 							 AND "SubEVENT_T"."END_T" <= bipext.INFSTRTOTIMET(:EndDate, 2)-1
+ 							 )
+ 							 AND "EVENT_T"."POID_TYPE" = N'/event/billing/product/action/cancel'
+ 							 AND "EVENT_CUSTOMER_STATUSES_T"."STATUS" = 10103
+ 							 AND "EVENT_CUSTOMER_STATUSES_T"."REC_ID" = 1
+ 							 AND ( "PURCHASED_PRODUCT_T"."USAGE_END_T" >= bipext.INFSTRTOTIMET(:StartDate, 2)
+ 							 AND "PURCHASED_PRODUCT_T"."USAGE_END_T" <= bipext.INFSTRTOTIMET(:EndDate, 2)-1
+ 							 )
+ 							 AND "EVENT_T"."ACCOUNT_OBJ_ID0" >
+ 1
+ 								 AND substr("EVENT_T"."SYS_DESCR",instr("EVENT_T"."SYS_DESCR",':')+2) = "PRODUCT_T"."NAME"
+ 								 AND "EVENT_T"."CREATED_T" >= ("SubEVENT_T"."CREATED_T"-5)
+ 								 AND "EVENT_T"."CREATED_T" <= ("SubEVENT_T"."CREATED_T"+20)
+ 							 	 AND bipext.infCheckDates(:StartDate, :EndDate) = 1]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT COUNT (DISTINCT "EVENT_T"."POID_ID0") TOTAL_CANCEL_COUNT,
+ "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0" PROD_OBJ,"PRODUCT_T"."NAME" PRODUCT_NAME
+ FROM 							 ("PRODUCT_T" "PRODUCT_T"
+ 								 INNER JOIN "PURCHASED_PRODUCT_T" "PURCHASED_PRODUCT_T"
+ 								 ON "PRODUCT_T"."POID_ID0" = "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0")
+ 							 INNER JOIN "EVENT_T" "EVENT_T"
+ 								 ON "PURCHASED_PRODUCT_T"."ACCOUNT_OBJ_ID0" ="EVENT_T"."ACCOUNT_OBJ_ID0"
+ 							WHERE
+ 							 "EVENT_T"."POID_DB" >
+ 0
+ 							 AND "EVENT_T"."POID_TYPE" = N'/event/billing/product/action/cancel'
+ 							 AND ( "EVENT_T"."END_T" >= bipext.INFSTRTOTIMET(:StartDate, 2)
+ 							 AND "EVENT_T"."END_T" <= bipext.INFSTRTOTIMET(:EndDate, 2)-1
+ 							 )
+ 							 AND "PRODUCT_T"."NAME" LIKE NVL(:param_ProductName,"PRODUCT_T"."NAME")
+ 							 AND "EVENT_T"."ACCOUNT_OBJ_ID0" >
+ 1
+ 								 AND substr("EVENT_T"."SYS_DESCR",instr("EVENT_T"."SYS_DESCR",':')+2) = "PRODUCT_T"."NAME"
+ 							 	 AND bipext.infCheckDates(:StartDate, :EndDate) = 1
+ 							GROUP BY
+ "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0",
+ "PRODUCT_T"."NAME"
+ ORDER BY
+ 							 "PURCHASED_PRODUCT_T"."PRODUCT_OBJ_ID0",
+ "PRODUCT_T"."NAME"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DSN">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="TOTAL_CANCEL_COUNT" value="TOTAL_CANCEL_COUNT" dataType="xsd:integer" label="TOTAL_CANCEL_COUNT" breakOrder="None" fieldOrder="1"/>
+    <element name="PROD_OBJ" value="PROD_OBJ" dataType="xsd:integer" label="PROD_OBJ" breakOrder="None" fieldOrder="2"/>
+    <element name="PRODUCT_NAME" value="PRODUCT_NAME" dataType="xsd:string" label="PRODUCT_NAME" breakOrder="None" fieldOrder="3"/>
+    <group name="Q2" source="Q2" label="Q2">
+      <element name="CAN_DUE_TO_ACT_CLOS" value="CAN_DUE_TO_ACT_CLOS" dataType="xsd:string" label="CAN_DUE_TO_ACT_CLOS" breakOrder="None" fieldOrder="null"/>
+    </group>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_PRODUCTNAME">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select name from product_t]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="param_ProductName" dataType="xsd:string">
+         <select label=" Enter or select a specific product name, or select ALL to include all products  " valueSet="LOV_PRODUCTNAME" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="StartDate" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)" size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="EndDate" dataType="xsd:date">
+         <date label="Enter End date (MM/DD/YYYY)" size="30" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="DATA_DSN" left="28px" top="14px"/><layout name="Q1" left="226px" top="201px"/><layout name="Q2" left="495px" top="69px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+<groupLink name="link" parentGroup="Q1" childGroup="Q2"/>
+</groupLinks>
+</display>
+</dataModel>

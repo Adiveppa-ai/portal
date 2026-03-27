@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q2" type="complex">
+         <sql>
+            <![CDATA[SELECT DISTINCT(COUNTRY) FROM account_nameinfo_t WHERE COUNTRY IS NOT NULL]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q1" type="simple">
+         <sql>
+            <![CDATA[select NCMULTIPLE_PERIOD.GET_PEROID_DATA(:param_Country,:param_State,
+ :param_BillingType,:param_PeriodType, :M_StartDate, :W_StartDate) Q1 from dual]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="DATA" uniqueRowName="false">
+      <nodeList name="Q1"/>
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="G_2" label="G_2" source="Q2">
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="1"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="YESNO">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="BillType">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="SUBORDINATE" value="10007"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="WEEK_MONTH">
+         <nvPairs>
+            <nvPair label="WEEKS" value="WEEK"/>
+            <nvPair label="MONTHS" value="MONTH"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="M_StartDate" dataType="xsd:date">
+         <date label="If Time Period is MONTHS, enter monthly start date (MM/YYYY). " size="30" format="MM/yyyy"/>
+      </parameter>
+      <parameter name="W_StartDate" dataType="xsd:date">
+         <date label="If Time Period is WEEKS, enter weekly start date (MM/DD/YYYY). " size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="param_Country" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries. " valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_State" dataType="xsd:string">
+         <select label=" Enter a specific state, or select ALL to include all states.  " valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_BillingType" dataType="xsd:string">
+         <select label="Select a type of billing, or select ALL to include all types of billing. " valueSet="BillType" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_StateDetails" dataType="xsd:string">
+         <select label="Include state-level details?" valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_Charts" dataType="xsd:string">
+         <select label="Include charts? " valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_PeriodType" dataType="xsd:string">
+         <select label=" Select a time period." valueSet="WEEK_MONTH" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q2" left="436px" top="28px"/>
+         <layout name="Q1" left="716px" top="0px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

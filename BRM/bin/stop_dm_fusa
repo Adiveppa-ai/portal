@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+#  @(#) %full_filespec: stop_dm_fusa.sh~3.1.4:shsrc:1 %
+#
+#      Copyright (c) 1998 - 2006 Oracle. All rights reserved.
+#
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+
+#
+# stop_dm_fusa
+#
+# run this BEFORE stopping the underlying database (if any)
+#
+VERSION=15.0
+PATH=/usr/bin:/bin
+
+QM=dm_fusa
+LOGDIR=/home/pin/opt/portal/BRM/var/dm_fusa
+QMPID=${LOGDIR}/dm_fusa.pid
+
+me=$0
+
+if [ ! -f ${QMPID} ]; then
+	echo "${me}: ERROR: no pid file: ${QMPID}, cannot kill \"${QM}\""
+        exit 1
+fi       
+
+kill -QUIT `cat ${QMPID}`
+rc=$?
+if [ ${rc} -ne 0 ]; then
+	echo "${me}: ERROR: kill ${QM} `cat ${QMPID}` FAILED"
+	exit ${rc}
+else
+	rm ${QMPID}
+fi
+
+#
+# fusamux addition
+if [ -f ${LOGDIR}/fusamux.pid ]; then
+	kill `cat ${LOGDIR}/fusamux.pid`
+	rc=$?
+	if [ ${rc} -ne 0 ]; then
+		echo "${me}: ERROR: kill fusamux `cat ${QMPID}` FAILED: ${rc}"
+	fi
+	rm ${LOGDIR}/fusamux.pid
+fi
+
+exit 0

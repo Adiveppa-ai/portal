@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BusinessConfiguration
+	xmlns="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.portal.com/schemas/BusinessConfig BusinessConfiguration.xsd"> 
+
+	<!-- Sample input file for pin_cust_convert_wholesale_hierarchy containing parameters for converting a regular hirarchy into a wholesale hierarchy -->
+	<!-- Modify according to guidelines -->
+	<ConvertWholesaleConfiguration> 
+		<!-- List of Billinfo's to be converted -->
+                <Billinfo>
+                        <BillinfoId>311038</BillinfoId>
+			<Account>1210</Account>
+                </Billinfo>
+                <Billinfo>
+                        <BillinfoId>304210</BillinfoId>
+			<Account>1423</Account>
+                </Billinfo>
+	
+		<!-- List of Business profiles to be converted
+		<BusinessTypeArray>
+                        <BusinessProfile>311039</BusinessProfile>
+			<BusinessProfileName>CorporateAutoSharingGroupType</BusinessProfileName>
+                </BusinessTypeArray>
+		<BusinessTypeArray>
+                        <BusinessProfileName>WholesaleBilling</BusinessProfileName>
+                </BusinessTypeArray>
+		<BusinessTypeArray>
+                        <BusinessProfile>311122</BusinessProfile>
+                </BusinessTypeArray> -->
+
+	</ConvertWholesaleConfiguration> 
+</BusinessConfiguration>

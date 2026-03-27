@@ -1,0 +1,54 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_PYMT_UPDATE_SEPA_REQUEST" visibility="internal" transaction="required" component="fm_pymt" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc>
+	This opcode is introduced to update /sepa/dd /sepa/ct or /sepa/dd/reversal object on request.
+	The opcode takes in information about status, payment info id or message id about the sepa object that needs to be changed.
+	It returns the poid of the updated  object.
+  </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc> Poid of the sepa object that needs to be updated.</Doc>
+        <ClassRef>obj://sepa</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_PYMT_INFO_ID" use="optional" maxlen="255">
+        <Doc> Contains the new payment info Id that the sepa object needs to contain.</Doc>
+      </String>
+      <String name="PIN_FLD_MSG_ID" use="optional" maxlen="255">
+        <Doc> The message id which the sepa object needs to be updated with.</Doc>
+      </String>
+      <String name="PIN_FLD_STATUS" use="optional" maxlen="255">
+        <Doc> New status of the sepa object.</Doc>
+      </String>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Poid of the /sepa object updated. Could be /sepa/dd /sepa/ct or /sepa/dd/rev object.</Doc>
+        <ClassRef>obj://sepa</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

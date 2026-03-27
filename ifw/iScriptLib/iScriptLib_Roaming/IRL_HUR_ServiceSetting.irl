@@ -1,0 +1,48 @@
+//===============================================================================
+//
+// Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//
+//===============================================================================
+// Block: IRL_HUR_ServiceSetting.irl
+//-------------------------------------------------------------------------------
+// Module Description:
+//
+//   This module should be used for supporting HUR report.
+//
+//   This IRule will map the desired values of record type {C,S,P,T} based
+//   on the HUR requirement using the TAP's record type information and
+//   configured SMS interworking condition for SMS.
+//
+//   Attention: the rulesets within the ".data"-file
+//   have to be used in a well defined order, to avoid
+//   that one rules overrides another if this is not
+//   wanted!
+//
+//===============================================================================
+//
+//
+// Responsible: Shinto Thomas
+//
+// $RCSfile: IRL_HUR_ServiceSetting.irl $
+// $Revision: /cgbubrm_7.3.2.pipeline/1 $
+// $Author: shthomas $
+// $Date: 2010/07/12 06:23:19 $
+// $Locker:  $
+//
+//
+//===============================================================================
+RULE: HUR_ServiceSetting
+SOURCE: File
+FILE: ./iScriptLib/iScriptLib_Roaming/IRL_HUR_ServiceSetting.data
+
+INIT_SCRIPT:
+
+CONDITION:
+edrString(DETAIL.RECORD_TYPE) =~ "${1}";
+
+RESULT:
+edrString(DETAIL.BASIC_SERVICE) = edrString(DETAIL.BASIC_SERVICE) + " " + "${2}";

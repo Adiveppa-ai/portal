@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="payinfoExtensions.xsd"/>
+	<xs:complexType name="payinfoDebitCardType">
+		<xs:complexContent>
+			<xs:extension base="payinfoExtensionType">
+				<xs:sequence>
+					<xs:element name="Add" type="Address" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Cty" type="City" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Stt" type="State" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Zip" type="Zip" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Cntr" type="Country" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="BN" minOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="30"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="DbtNum" type="DebitNum" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="BnkActTp" type="BankAccountType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="MSta" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DActDt" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="MRcvDt" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Nm" type="Name" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FId" type="FiasId" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="payDDExtn" type="payinfoDebitCardType" substitutionGroup="payExtn"/>
+</xs:schema>

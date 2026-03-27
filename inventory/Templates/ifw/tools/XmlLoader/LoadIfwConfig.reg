@@ -1,0 +1,35 @@
+LoadIfwConfig
+{
+  LogMessageTable
+  {
+    MessageFilePath   = ./
+    MessageFileSuffix = .msg
+  }
+
+  ProcessLog
+  {
+    FilePath          = ./log
+    FileName          = LoadIfwConfig
+    FileSuffix        = .log
+    WriteMessageKey   = True
+  }
+
+  DataPool
+    {
+      Database
+      {
+        ModuleName = DbInterface
+        Module
+        {
+          # Common
+          DatabaseName = BRM
+          UserName     = integrate
+          AccessLib    = oci231
+        }
+      }
+    }
+
+  XMLCustomizationFile = CustomConfig.xml
+  LoadDataFromDB = True
+  RowFetchSize = 100
+}

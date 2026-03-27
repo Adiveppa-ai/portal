@@ -1,0 +1,99 @@
+#
+#	@(#)% %
+#  
+# Copyright (c) 1996, 2018, Oracle and/or its affiliates. All rights reserved.
+#  
+#	This material is the confidential property of Oracle Corporation or its
+#	licensors and may be used, reproduced, stored or transmitted only in
+#	accordance with a valid Oracle license or sublicense agreement.
+#
+ 
+#===============================================================================
+#  partition_utils Error Codes
+#
+#  10001 to 10099: Portal reserved range
+#===============================================================================
+10001 Invalid limit set for start_date (Realtime) in partition_utils.values. 
+10002 Invalid limit set for start_date (Delayed) in partition_utils.values.  
+10003 Invalid limit set for daily_quantity (Realtime) in partition_utils.values. 
+10004 Invalid limit set for weekly_quantity (Realtime) in partition_utils.values.   
+10005 Invalid limit set for monthly_quantity (Realtime) in partition_utils.values.  
+10006 Invalid limit set for daily_quantity (Delayed) in partition_utils.values.  
+10007 Invalid limit set for weekly_quantity Delayed) in partition_utils.values.   
+10008 Invalid limit set for monthly_quantity (Delayed) in partition_utils.values.  
+10009 Invalid limit set for daily_width (Realtime) in partition_utils.values.    
+10010 Invalid limit set for weekly_width (Realtime) in partition_utils.values.   
+10011 Invalid limit set for monthly_width (Realtime) in partition_utils.values.   
+10012 Invalid limit set for daily_quantity (Delayed) in partition_utils.values.   
+10013 Invalid limit set for weekly_quantity (Delayed) in partition_utils.values.   
+10014 Invalid limit set for monthly_quantity (Delayed) in partition_utils.values.     
+10015 Invalid limit set for older_than (Realtime) in partition_utils.values.       
+10016 Invalid limit set for older_than (Delayed) in partition_utils.values.     
+10017 The start date given must be more than tomorrow and less than the limit referenced above.
+10018 The quantity provided must be less than the limit referenced above.
+10019 The width provided must be less than the limit referenced above.
+10020 You can only remove partitions which are older than number of days referenced above.
+10021 Invalid command-line arguments.
+10022 The start date provided is greater than the end date provided.
+10023 The width value must be greater than zero.  (The default is "1".)
+10024 The type provided is not supported.
+10025 The start date provided is not in the valid format: MMDDYYYY
+10026 The end date provided is not in the valid format: MMDDYYYY
+10027 The type provided must be in [realtime, delayed, prepaid].
+10028 The unit provided must be in [day, week, month].
+10029 The quantity provided must be greater than zero.
+10030 The storable-class name provided is not valid.
+10031 Invalid limit set for PURGE_THRESHOLD in partition_utils.values.
+10032 Invalid limit set for Number of processes in partition_utils.values.
+10033 Invalid limit set for MAX_DEL_REC in partition_utils.values.
+10034 Invalid limit set for MAX_DEL_REC_CHUNK in partition_utils.values.
+10035 The storable-class name provided is not valid base class.
+10036 Delayed partition type is not supported for non-event classes.
+10037 Only one storable-class name is allowed.
+10038 Prepaid partition type is not supported for non-event classes.
+10039 Invalid limit set for start_date (Prepaid) in partition_utils.values.
+10040 Invalid limit set for daily_quantity (Prepaid) in partition_utils.values.
+10041 Invalid limit set for weekly_quantity (Prepaid) in partition_utils.values.
+10042 Invalid limit set for monthly_quantity (Prepaid) in partition_utils.values.
+10043 Invalid limit set for daily_width (Prepaid) in partition_utils.values.
+10044 Invalid limit set for weekly_width (Prepaid) in partition_utils.values.
+10045 Invalid limit set for monthly_width (Prepaid) in partition_utils.values.
+10046 Invalid limit set for older_than (Prepaid) in partition_utils.values.
+
+#===============================================================================
+#  pin_partitioning Error Codes
+#
+#  -20001 to -20099: Portal reserved range
+#===============================================================================
+-20001 Partitioning is not enabled in the Infranet database.  This is not a supported configuration.
+-20002 Realtime events are going into the spill-over partition.  Stop Infranet and add sufficient realtime partitions using the -f option.
+-20003 The start date lies within the currently active partition. Use the above proposed start date or stop your Infranet and use the -f option to perfom this operation.
+-20004 There is already an instance of partition_utils running against the Infranet database.
+-20005 One or more partitions with a future date were found to contain records.  This is not a supported configuration.
+-20006 The start date should be greater than tomorrow.
+-20007 The current active partition was attempted to be removed.
+-20008 One or more partitions were found to be out of sync with the reference table.  The update operation needs to split the active partition.  Stop Infranet and use update operation with the -f option.
+-20009 No event tables exists in database for this class.
+-20010 The start date lies within the current active partition. Use the above proposed start date or stop delayed event loading and use the -f option to perfom this operation.
+-20011 One or more partitions were found to be out of sync with the reference table.  The update operation needs to split the active partition.  Stop delayed event loading and use the update operation with the -f option. 
+-20012 Events are going into the spill-over partition for delayed events.  Stop delayed event loading and add sufficient delayed partitions using the -f option.
+-20013 No action is required due to non-existence of purge event(s).
+-20014 Unable to perform the operation as the user doesn't hold the DBA privilege.
+-20015 Incomplete purge operation to be continued.
+-20016 The percentage volume of purgeable poids not surpass the PURGE_THRESHOLD(%) mark.
+-20017 Basic spill over partition does not exist.
+-20018 Does not have function for purge logic.
+-20019 Some indexes are partitioned and some are not.
+-20020 Invalid class name
+-20021 Start and/or End dates are greater than install date.
+-20022 Data exists in the range in which back dated partitions are to be created.
+-20023 Start date is greater than End date.
+-20024 Start POID is greater thatn End poid.
+-20025 Back dated partition to be dropped not empty.
+-20026 Delayed partitions not enabled for the given class.
+-20027 Prepaid partitions already enabled.
+-20028 Prepaid partitions not enabled for the given class.
+-20029 You are in SpillOver Partition for prepaid.
+-20030 The start date lies within the current active partition. Use the above proposed start date or stop prepaid event loading and use the -f option to perfom this operation.
+-20031 Prepaid partitions cannot be enabled when business parameter prepaid_partition_set is 0.
+-20099 An Oracle error was encountered.

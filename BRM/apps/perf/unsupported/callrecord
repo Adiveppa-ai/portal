@@ -1,0 +1,156 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+
+# Description
+#
+# CallRecord infile outfile [variable overrides]
+#
+# CallRecord creates Netflow aggregation files (*.cr) based on input from a template file (*.crt).
+
+# File Format
+#       comment = /^(#.*)|( *)$/
+#       set variable = /^\s*varname\s*=\s*\(valuelist\)\s*$/
+#       varname = /\w+/
+#       valuelist = /(\w+)( \w+)*/
+
+# Set some global type defaults
+$period = "1";	# The period id of the file
+$records = 20;	# The number of CallRecord records in the file
+
+# Fetch the input parameters
+#
+if (! @ARGV) {
+	print "usage: $0 [-flags] infile [future?: starttime stoptime]\n";
+	print "\t", "flags = -p period\t", 	"set the period for the file (default = $period)\n";
+	print "\t", "      = -r records\t", 	"set the number of records in this file (default = $records)\n";
+	print "\t", "      = -d\t", 	"print debug output\n";
+	
+	exit;
+	}
+
+#
+# Initialize Variables
+#
+while (@ARGV[0] =~ /^-/) {
+	if (@ARGV[0] =~ /-d/) { $debug = 1 }
+	if (@ARGV[0] =~ /-p/) { $period = @ARGV[1]; shift @ARGV; }
+	if (@ARGV[0] =~ /-r/) { $records = @ARGV[1] ; shift @ARGV; }
+
+	shift @ARGV;
+	}
+($infile, $outfile, $starttime, $stoptime) = @ARGV;
+
+open (INFILE, "<$infile.crt") || die "Couldn't open $infile.crt: $!\n";
+# open (OUTFILE, ">$outfile") || die "Couldn't open $outfile due to error: $!\n";
+
+while ($line = <INFILE>) {
+	print $line if $debug;
+	chop $line;
+
+	if ($line =~ /^#/) { }
+
+	# SET VARIABLE COMMAND
+	#
+	elsif ($line =~ /^\s*(\S+)\s*=\s*\(\s*(\S+.*)\).*$/) { 
+		SetVariable (*varlist, $1, $2); print "--- SET\n" if $debug; }
+
+	# BLANK LINE
+	#
+	elsif ($line =~ /^\s*$/) { }
+
+	# Unknown sort of line
+	#
+	else { print "$line\n\t*** ERROR: line unparsable\n"; }
+
+
+} # while $line
+
+if ($debug) {
+	# Print the variables and their values
+	#
+	foreach $key (keys %varlist) {
+		print "** $key:\n";
+		print "\t*** ", join ("\n\t*** ", split (/\s+/, $varlist{$key})), "\n";
+		}
+	}
+# print "** ", join "\n** ", %varlist, "\n" if $debug;
+
+
+HeaderRecord (*varlist, $period, $records);
+
+foreach $reccount (1..$records) {
+	DataRecord (*varlist);
+	}
+
+#########################################################################################
+# DataRecord
+#########################################################################################
+sub DataRecord {
+	local (*varlist) = @_;
+	
+	# Set Defaults
+	#
+	$dur = 30;	# Duration of the flows in seconds
+	local ($src, $dst, $sport, $dport, $proto, $tos, $pack, $byt, $flow, $fStamp, $lStamp, $totA) = 
+		("", "", "5", "5", "5", "5", "5", "5", "1", time-$dur, time, 4135);
+	
+	# Get values based on template file
+	#
+	GetVarValue ("CR-address", *varlist, *src);
+	GetVarValue ("CR-address", *varlist, *dst);
+	GetVarValue ("CR-tos", *varlist, *tos);
+	GetVarValue ("CR-packets", *varlist, *pack);
+	GetVarValue ("CR-bytes", *varlist, *byt);
+	$dur = ""; GetVarValue ("CR-duration", *varlist, *dur); $lStamp = $fStamp + $dur if $dur;
+	GetVarValue ("CR-totalActiveTime", *varlist, *totA);
+
+	print "$src|$dst|$sport|$dport|$proto|$tos|$pack|$byt|$flow|$fStamp|$lStamp|$totA", "\n";
+
+} # Data Record
+
+#########################################################################################
+# HeaderRecord
+#########################################################################################
+sub HeaderRecord {
+	local (*varlist, $period, $flen) = @_;
+	
+	# Set up default values
+	#
+	$dur = 30*60;	# number of seconds from STARTTIME to ENDTIME
+	local($src, $fmt, $agg, $per, $stm, $etm, $flw, $ms, $recs) = 
+		("127.222.12.1", "A", "CallRecord", "1", time-$dur, time, "1", "0", $flen);
+
+	# Override the defaults in a selective sort of way
+	GetVarValue ("CRH-source", *varlist, *src);
+	$per = $period if $period;
+	
+	print "SOURCE $src|FORMAT $fmt|AGGREGATION $agg|",
+		"PERIOD $per|STARTTIME $stm|ENDTIME $etm|FLOWS $flw|MISSED $ms|RECORDS $recs\n";
+
+} # HeaderRecord
+
+#########################################################################################
+# GetVarValue
+#########################################################################################
+sub GetVarValue {
+	local ($varname, *varlist, *outval) = @_;
+	local (@vals) = split (/\s+/, $varlist{$varname});
+
+	local ($idx) = int(rand($#vals+1));	# get a random array index
+	$outval = @vals[$idx] if @vals;		# set the value, if there is variable value
+
+} # GetVarValue
+
+#########################################################################################
+# SetVariable 
+#########################################################################################
+sub SetVariable {
+	local (*varlist, $name, $valuelist) = @_;
+	$varlist{$name} = $valuelist;
+} # SetVariable
+

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2007, 2012, Oracle and/or its affiliates. All rights reserved. 
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+
+<xs:schema
+  targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns="http://www.oracle.com/schemas/BusinessConfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified">
+
+  <xs:include schemaLocation="PinTypes.xsd" />
+
+  <xs:annotation>
+    <xs:documentation  xml:lang="en">
+ Copyright (c) 2005, 2012, Oracle and/or its affiliates. All rights reserved. 
+       This material is the confidential property of Oracle Corporation or its
+       licensors and may be used, reproduced, stored or transmitted only in
+       accordance with a valid Oracle license or sublicense agreement.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+
+       <xs:sequence>
+         <xs:element name="ConfigObject" minOccurs="1" maxOccurs="unbounded">
+           <xs:complexType>
+             <xs:sequence>
+
+               <xs:element name="DESCR" type="xs:string" minOccurs="0" />
+               <xs:element name="NAME" type="xs:string" minOccurs="1" />
+
+               <xs:element name="PERMITTED_SERVICE_TYPES" minOccurs="1"  maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="SERVICE_TYPE" type="PinServiceObjType" minOccurs="1" maxOccurs="1" />
+                    </xs:all>
+                    <xs:attribute name="elem" type="xs:int" />
+                  </xs:complexType>
+               </xs:element>
+
+               <xs:element name="STATES" minOccurs="1"  maxOccurs="unbounded">
+                 <xs:complexType>
+                   <xs:sequence>
+                     <xs:element name="INITIAL_STATE" type="xs:int" minOccurs="1" />
+                     <xs:element name="SERVICE_STATE_EXPIRATION_T" type="xs:int" minOccurs="1" />
+                     <xs:element name="STATE_ID" type="LifecycleState" minOccurs="1" />
+                     <xs:element name="STATE_NAME" type="xs:string" minOccurs="1" />
+                     <xs:element name="STRING_ID" type="xs:int" minOccurs="1" />
+                     <xs:element name="STR_VERSION" type="xs:int" minOccurs="1" />
+
+                     <xs:element name="RULES" minOccurs="0" maxOccurs="unbounded">
+                       <xs:complexType>
+                         <xs:sequence >
+                           <xs:element name="MODULE" type="xs:string"  minOccurs="1"  maxOccurs="1" />
+                           <xs:element name="NAME" type="xs:string"  minOccurs="1"  maxOccurs="1" />
+                           <xs:element name="VALUE" type="xs:string"  minOccurs="1"  maxOccurs="1" />
+                         </xs:sequence>
+                         <xs:attribute name="elem" type="xs:int" />
+                       </xs:complexType>
+                     </xs:element>
+                     <xs:element name="TRANSITIONS" minOccurs="0"  maxOccurs="unbounded">
+                       <xs:complexType>
+                         <xs:sequence>
+                          <xs:element name="DEFAULT_FLAG" type="xs:int" minOccurs="1"  maxOccurs="1" />
+                          <xs:element name="NEXT_STATE" type="xs:int" minOccurs="1"  maxOccurs="1" />
+                          <xs:element name="POST_OPCODE" type="xs:int" minOccurs="1"  maxOccurs="1" />
+                          <xs:element name="PRE_OPCODE" type="xs:int" minOccurs="1"  maxOccurs="1" />
+                         </xs:sequence>
+                         <xs:attribute name="elem" type="xs:int" />
+                       </xs:complexType>
+                     </xs:element>
+
+                   </xs:sequence>
+                   <xs:attribute name="elem" type="xs:int" />
+                 </xs:complexType>
+               </xs:element>
+
+             </xs:sequence>
+           </xs:complexType>
+         </xs:element>
+
+       </xs:sequence>
+       <xs:attribute name="configName" type="xs:string" default="/config/lifecycle_states" />
+
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

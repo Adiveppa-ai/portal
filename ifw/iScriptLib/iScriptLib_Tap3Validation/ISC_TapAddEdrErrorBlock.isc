@@ -1,0 +1,1672 @@
+//==============================================================================
+//
+//      Copyright (c) 1996 - 2007 Oracle. All rights reserved.
+//
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_TapAddErrorBlock
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module is used to add ASS_TAP3_ERR block in DETAIL block.
+//   This module should be used after TAP3_VAL rules are applied.
+//
+//------------------------------------------------------------------------------
+//
+// Revision 1.0  2004/01/30 mliu
+// added onInvalidDetailEdr checking and fixed the incorrect severity value
+//
+// Revision 1.0  2004/01/30 Prem 
+// Initial rev.
+//
+//==============================================================================
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+
+Bool    debug;
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;        // true;
+
+  if (debug)
+  {
+    logStdout("Begin\n");
+  }
+
+}
+
+//------------------------------------------------------------------------------
+// init()
+//------------------------------------------------------------------------------
+function init
+{
+  if (debug)
+  {
+    logStdout("init()\n");
+  }
+}
+
+//------------------------------------------------------------------------------
+// addTap3ErrBlock()
+//
+// This function will be used to add the TAP3 error block
+//------------------------------------------------------------------------------
+
+function Bool addTap3ErrBlock(Long idx,String severity, String errorCode, String tag, String depth)
+{
+    if(debug)
+    {
+      logStdout("addTap3ErrBlock(" + longToStr(idx) + "," + severity + "," + errorCode + "," + tag + "," + depth + ") \n");
+    }
+    Long sev=0;
+    if(severity == "warning")
+    {
+       sev = 1;
+    }
+    if(severity == "minor")
+    {
+       sev = 2;
+    }
+    if(severity == "severe")
+    {
+       sev = 3;
+    }
+    if(severity == "critical")
+    {
+       sev = 4;
+    }
+    if( edrAddDatablock(DETAIL.ASS_TAP3_ERR) == true)
+    {
+      edrString(DETAIL.ASS_TAP3_ERR.RECORD_TYPE, idx) = "670";
+      edrLong(DETAIL.ASS_TAP3_ERR.RECORD_NUMBER, idx) = edrLong(DETAIL.RECORD_NUMBER);
+      edrLong(DETAIL.ASS_TAP3_ERR.ERROR_SEVERITY, idx) = sev;
+      edrString(DETAIL.ASS_TAP3_ERR.TAP3_ERROR_CODE,idx) = errorCode;
+      edrString(DETAIL.ASS_TAP3_ERR.TAP3_ERROR_APPLICATION_TAG, idx) = tag;
+      edrString(DETAIL.ASS_TAP3_ERR.TAP3_ERROR_DEPTH, idx) = depth;
+      return true;
+    }  
+    else
+    {
+      logStdout( "ERROR edrAddDatablock failed for edr :" + longToStr(edrLong(DETAIL.RECORD_NUMBER)));
+      return false;
+    }
+}    
+
+function checkEdrErrors
+{
+  
+  if (debug)
+  {
+    logStdout("checkEdrErrors \n");
+  }
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+  init();
+
+  String paramList[]; 
+  Long paramCount; 
+  Long Tap3MaxParamCount = 7; 
+  Long i = 0;
+  Long index = 0;
+  for ( i = 0; i < edrNumErrors() ; i = i+1 ) 
+  { 
+    if (edrGetError(i) == "ERR_TAP3_RET") 
+    { 
+      paramCount = edrGetErrorParameters(i, paramList); 
+      if (paramCount != Tap3MaxParamCount) 
+      { 
+        logStdout( "ERROR " + longToStr(i) + ": " + edrGetError(i) + ", has missing parameters\n" ); 
+      }
+      index = edrNumDatablocks(DETAIL.ASS_TAP3_ERR);
+      if(paramList[6] == "TAP3.B_NUMBERING_PLAN")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_B_NUMBERING_PLAN";
+	}
+      }	
+      if(strStartsWith(paramList[6], "TAP3.BASIC_SERVICE"))
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_BASIC_SERVICE";
+	}
+      }
+      if(paramList[6] == "TAP3.BASIC_SERVICE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_BASIC_SERVICE_SYNTAX";
+        }
+      }
+      if(paramList[6] == "TAP3.B_TYPE_OF_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_B_TYPE_OF_NUMBER";
+	}
+      }
+      if(paramList[6] == "TAP3.CALL_COMPLETION_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CALL_COMPLETION_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.MESSAGE_STATUS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_MESSAGE_STATUS_OOR";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.CHARGED_AMOUNT_VALUE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_CHARGED_AMOUNT_VALUE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.DAY_CODE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_DAY_CODE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.GRANTED_DISCOUNT_AMOUNT_VALUE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_GRANTED_DISCOUNT_AMOUNT_VALUE";
+	}
+      }
+      if(strStartsWith(paramList[6], "TAP3.ASS_CBD.CP.IMPACT_CATEGORY"))
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_IMPACT_CATEGORY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.ROUNDED_QUANTITY_VALUE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_ROUNDED_QUANTITY_VALUE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.RUM")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_RUM";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.RUM_SYNTAX")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_RUM_SYNTAX";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.RUM_OOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_RUM_OOR";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.TIME_INTERVAL_CODE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_TIME_INTERVAL_CODE";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.SERVICE_LEVEL")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_SERVICE_LEVEL";
+	}
+      }
+      if(strStartsWith(paramList[6], "TAP3.ASS_GSMW_EXT.CELL_ID"))
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_CELL_ID";
+	}
+      }
+      if(strStartsWith(paramList[6], "TAP3.ASS_GSMW_EXT.LOCATION_AREA_INDICATOR"))
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_LOCATION_AREA_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.MS_CLASS_MARK")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_MS_CLASS_MARK";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.SS_PACKET.ACTION_CODE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_SS_PACKET_ACTION_CODE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.SS_PACKET.SS_ACTION_CODE")    
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_SS_PACKET_SS_ACTION_CODE";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.SS_PACKET.USSD_ACTION_CODE")  
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_SS_PACKET_USSD_ACTION_CODE";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE_CURRENCY_SYNTAX") 
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_ADVISED_CHARGE_CURRENCY_SYNTAX";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.SERVICE_USED_LIST.ADVISED_CHARGE_CURRENCY_OOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_ADVISED_CHARGE_CURRENCY_OOR";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.SS_PACKET.SS_EVENT")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_SS_PACKET_SS_EVENT";
+	}
+      }
+      if(paramList[6] == "TAP3.B_MODIFICATION_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_B_MODIFICATION_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.PORT_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_PORT_NUMBER";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.PORT_NUMBER_SYNTAX")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_PORT_NUMBER_SYNTAX";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.PORT_NUMBER_OOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_PORT_NUMBER_OOR";
+        }
+      }
+      if(paramList[6] == "TAP3.SOURCE_NETWORK_TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_SOURCE_NETWORK_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.CONNECT_TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CONNECT_TYPE";
+        }
+      }
+      if(paramList[6] == "TAP3.CHARGING_START_TIMESTAMP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CHARGING_START_TIMESTAMP";
+	}
+      }
+      if(paramList[6] == "TAP3.CALL_EVENT_START_TIMESTAMP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CALL_EVENT_START_TIMESTAMP";
+        }
+      }
+      if(paramList[6] == "TAP3.DESTINATION_NETWORK")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_DESTINATION_NETWORK";
+	}
+      }
+      if(paramList[6] == "TAP3.UTC_TIME_OFFSET")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_UTC_TIME_OFFSET";
+	}
+      }
+      if(paramList[6] == "TAP3.C_MODIFICATION_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_C_MODIFICATION_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.C_NUMBERING_PLAN")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_C_NUMBERING_PLAN";
+	}
+      }
+      if(paramList[6] == "TAP3.C_TYPE_OF_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_C_TYPE_OF_NUMBER";
+	}
+      }
+      if(paramList[6] == "TAP3.WHOLESALE_CHARGED_TAX_RATE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_WHOLESALE_CHARGED_TAX_RATE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.PDP_TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_PDP_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.BASIC_DUAL_SERVICE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_BASIC_DUAL_SERVICE";
+	}
+      }
+      if(paramList[6] == "TAP3.CHARGING_END_TIMESTAMP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CHARGING_END_TIMESTAMP";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_VAS_EXT.VAS_CODE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_VAS_EXT_VAS_CODE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.NETWORK_INITIATED_PDP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_NETWORK_INITIATED_PDP";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.CHARGING_ID")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_CHARGING_ID";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.LOCATION_AREA_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_LOCATION_AREA_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.CELL_ID")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_CELL_ID";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.SERVICE_KEY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_SERVICE_KEY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.MS_CLASS_MARK")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_MS_CLASS_MARK";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_REFERENCE_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_REFERENCE_NUMBER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.DEFAULT_CALL_HANDLING_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_DEFAULT_CALL_HANDLING_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_REQUESTED_DELAY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_REQUESTED_DELAY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_REQUESTED_MEAN_THROUGHPUT")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_REQUESTED_MEAN_THROUGHPUT";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_REQUESTED_PEAK_THROUGHPUT")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_REQUESTED_PEAK_THROUGHPUT";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_REQUESTED_PRECEDENCE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_REQUESTED_PRECEDENCE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_REQUESTED_RELIABILITY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_REQUESTED_RELIABILITY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_USED_DELAY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_USED_DELAY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_USED_MEAN_THROUGHPUT")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_USED_MEAN_THROUGHPUT";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_USED_PRECEDENCE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_USED_PRECEDENCE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_USED_PEAK_THROUGHPUT")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_USED_PEAK_THROUGHPUT";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.QOS_USED_RELIABILITY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_QOS_USED_RELIABILITY";
+	}
+      }
+      if(strStartsWith(paramList[6], "TAP3.ASS_GPRS_EXT.PORT_NUMBER"))
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_PORT_NUMBER";
+        }
+      }
+      if(paramList[6] == "TAP3.USAGE_DIRECTION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_USAGE_DIRECTION";
+	}
+      }
+      if(paramList[6] == "TAP3.QOS_REQUESTED")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_QOS_REQUESTED";
+	}
+      }
+      if(paramList[6] == "TAP3.QOS_USED")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_QOS_USED";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.CHARGING_START_TIMESTAMP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CBD_CP_CHARGING_START_TIMESTAMP";
+        }
+      }
+      if(paramList[6] == "TAP3.SOURCE_NETWORK")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_SOURCE_NETWORK";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CBD.CP.CHARGEABLE_QUANTITY_VALUE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERROR_TAP3_ASS_CBD_CP_CHARGEABLE_QUANTITY_VALUE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.SERVING_PARTIES_INFO.PROVIDER_NAME")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_SERVING_PARTIES_INFO_PROVIDER_NAME";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.SERVICE_USAGE.LCS_REQUEST_TIMESTAMP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_SERVICE_USAGE_LCS_REQUEST_TIMESTAMP";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.ORIGINATING_SWITCH_IDENTIFICATION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_ORIGINATING_SWITCH_IDENTIFICATION";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.ORIGINATING_SWITCH_IDENTIFICATION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_ORIGINATING_SWITCH_IDENTIFICATION";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.TERMINATING_SWITCH_IDENTIFICATION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_TERMINATING_SWITCH_IDENTIFICATION";
+	}
+      }
+      if(paramList[6] == "TAP3.CONNECT_SUB_TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CONNECT_SUB_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.MSC_ADDRESS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_MSC_ADDRESS";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_SERVER_ADDRESS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_SERVER_ADDRESS";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.TRACKING_CUST_INFO.EQUIPMENT.TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_TRACKING_CUST_INFO_EQUIPMENT_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.TRACKING_CUST_INFO.EQUIPMENT.IDENTIFIER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_TRACKING_CUST_INFO_EQUIPMENT_IDENTIFIER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.TRACKED_CUST_INFO.EQUIPMENT.TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_TRACKED_CUST_INFO_EQUIPMENT_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.TRACKED_CUST_INFO.EQUIPMENT.IDENTIFIER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_TRACKED_CUST_INFO_EQUIPMENT_IDENTIFIER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.CHARGED_PARTY_INFO.EQUIPMENT.TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_CHARGED_PARTY_INFO_EQUIPMENT_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.CHARGED_PARTY_INFO.EQUIPMENT.IDENTIFIER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_CHARGED_PARTY_INFO_EQUIPMENT_IDENTIFIER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.SERVICE_LEVEL.CAMEL_SERVICE_LEVEL")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "TAP3_ASS_CAMEL_EXT_SERVICE_LEVEL_CAMEL_SERVICE_LEVEL";
+	}
+      }
+      if(paramList[6] == "TAP3.CONNECT_TYPE.CALL_TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CONNECT_TYPE_CALL_TYPE";
+        }
+      }
+      if(paramList[6] == "TAP3.CALL_EVENT_DETAIL_TIMESTAMP")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CALL_EVENT_DETAIL_TIMESTAMP";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_SERVICE_USED.SERVICE_KEY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_SERVICE_USED_SERVICE_KEY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_CALL_REFERENCE.CAMEL_REFERENCE_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_CALL_REFERENCE_CAMEL_REFERENCE_NUMBER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_INITIATED_CF_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_INITIATED_CF_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_MODIFICATION_LIST")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_MODIFICATION_LIST";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_MODIFICATION_LIST")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_MODIFICATION_LIST";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.CAMEL_REFERENCE_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_CAMEL_REFERENCE_NUMBER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.DEST_GSMW_NUMBER_ORIGINAL")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_DEST_GSMW_NUMBER_ORIGINAL";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.DEST_GSMW_NUMBER_ORIGINAL_OOR") 
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_DEST_GSMW_NUMBER_ORIGINAL_OOR";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.MSC_ADDRESS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_MSC_ADDRESS";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.SERVER_ADDRESS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_SERVER_ADDRESS";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CAMEL_EXT.SERVICE_KEY2")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CAMEL_EXT_SERVICE_KEY2";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.CHARGED_PARTY_INFO.EQUIPMENT.TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_CHARGED_PARTY_INFO_EQUIPMENT_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.FRAUD_MONITOR_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_FRAUD_MONITOR_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.HEADER.RAP_FILE_SEQ_NO")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_HEADER_RAP_FILE_SEQ_NO";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.TOTAL_TRANSACTION_DURATION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_TOTAL_TRANSACTION_DURATION";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_CONT_EXT.TRANSACTION_STATUS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_CONT_EXT_TRANSACTION_STATUS";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.A_NUMBER_USER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_A_NUMBER_USER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.DIALED_DIGITS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_DIALED_DIGITS";
+        }
+      }
+      if(paramList[6] == "TAP3.DETAIL.RAP_FILE_SEQ_NO")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_DETAIL_RAP_FILE_SEQ_NO";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.SERVICE_USAGE.AGE_OF_LOCATION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_SERVICE_USAGE_AGE_OF_LOCATION";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.SERVICE_USAGE.LCS_TRANS_STATUS")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_SERVICE_USAGE_LCS_TRANS_STATUS";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.SERVICE_USAGE.POSITIONING_METHOD")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_SERVICE_USAGE_POSITIONING_METHOD";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.SERVICE_USAGE.RESPONSE_TIME_CATEGORY")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_SERVICE_USAGE_RESPONSE_TIME_CATEGORY";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.TRACKED_CUST_INFO.EQUIPMENT.TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_TRACKED_CUST_INFO_EQUIPMENT_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_LOCN_EXT.TRACKING_CUST_INFO.EQUIPMENT.TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_LOCN_EXT_TRACKING_CUST_INFO_EQUIPMENT_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.CALLED_COUNTRY_CODE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CALLED_COUNTRY_CODE";
+	}
+      }
+      if(paramList[6] == "TAP3.CONNECT_SUB_TYPE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_CONNECT_SUB_TYPE";
+	}
+      }
+      if(paramList[6] == "TAP3.LONG_DURATION_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_LONG_DURATION_INDICATOR";
+	}
+      }
+      if(paramList[6] == "TAP3.WHOLESALE_CHARGED_TAX_VALUE")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_WHOLESALE_CHARGED_TAX_VALUE";
+        }
+      }
+      if(paramList[6] == "TAP3.TOTAL_CALL_EVENT_DURATION")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_TOTAL_CALL_EVENT_DURATION";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GSMW_EXT.DEVICE_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GSMW_EXT_DEVICE_NUMBER";
+	}
+      }
+      if(paramList[6] == "TAP3.ASS_GPRS_EXT.DEVICE_NUMBER")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_ASS_GPRS_EXT_DEVICE_NUMBER";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_ROAMING_EXT.HSCSD_INDICATOR_SYNTAX")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_HSCSD_INDICATOR_SYNTAX";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_ROAMING_EXT.HSCSD_INDICATOR_OOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_HSCSD_INDICATOR_OOR";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_ROAMING_EXT.SMS_DESTINATION_NUMBER_SYNTAX")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_SMS_DEST_NUMBER_SYNTAX";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_ROAMING_EXT.SMS_DESTINATION_NUMBER_OOR")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_SMS_DEST_NUMBER_OOR";
+        }
+      }
+      if(paramList[6] == "TAP3.ASS_ROAMING_EXT.NETWORKACCESS_IDEN_SYNTAX")
+      {
+        if(addTap3ErrBlock(index,paramList[0],paramList[1],paramList[2],paramList[3]) == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_TAP3_NETWORKACCESS_IDEN_SYNTAX";
+        }
+      }
+    }
+    else if (edrGetError(i) == "ERR_INPUT_MAPPING_FAILED") 
+    { 
+
+      edrString(DETAIL.ERROR_REJECT_TYPE) = "ERR_TAP3_RET";
+      edrSetIsValidDetail(false);
+
+      index = edrNumDatablocks(DETAIL.ASS_TAP3_ERR);
+
+      paramCount = edrGetErrorParameters(i, paramList); 
+      if(paramList[0] == "LOCAL_TIME_STAMP")
+      {
+        if(addTap3ErrBlock(index,"severe","10","16","3") == true )
+	{
+           edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_LOCAL_TIME_STAMP";
+	}
+      }	
+      if(paramList[0] == "ABSOLUTE_AMOUNT")
+      {
+        if(addTap3ErrBlock(index,"severe","10","93","8") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_ABSOLUTE_AMOUNT";
+        }
+      }
+      if(paramList[0] == "ADVISED_CHARGE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","349","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_ADVISED_CHARGE";
+        }
+      }
+      if(paramList[0] == "AGE_OF_LOCATION")
+      {
+        if(addTap3ErrBlock(index,"severe","10","396","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_AGE_OF_LOCATION";
+        }
+      }
+      if(paramList[0] == "AIUR_REQUESTED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","34","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_AIUR_REQUESTED";
+        }
+      }
+      if(paramList[0] == "CALLED_NUM_ANALYSIS_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","247","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CALLED_NUM_ANALYSIS_CODE";
+        }
+      }
+      if(paramList[0] == "CALL_EVENT_DETAIL_COUNT")
+      {
+        if(addTap3ErrBlock(index,"severe","10","43","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CALL_EVENT_DETAIL_COUNT";
+        }
+      }
+      if(paramList[0] == "CALL_TYPE_LEVEL")
+      {
+        if(addTap3ErrBlock(index,"severe","10","255","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CALL_TYPE_LEVEL";
+        }
+      }
+      if(paramList[0] == "CAMEL_INITIATED_CF_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","52","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CAMEL_INITIATED_CF_INDICATOR";
+        }
+      }
+      if(paramList[0] == "CAMEL_MODIFICATION")
+      {
+        if(addTap3ErrBlock(index,"severe","10","53","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CAMEL_MODIFICATION";
+        }
+      }
+      if(paramList[0] == "CAMEL_SERVICE_KEY")
+      {
+        if(addTap3ErrBlock(index,"severe","10","55","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CAMEL_SERVICE_KEY";
+        }
+      }
+      if(paramList[0] == "CAMEL_SERVICE_LEVEL")
+      {
+        if(addTap3ErrBlock(index,"severe","10","56","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CAMEL_SERVICE_LEVEL";
+        }
+      }
+      if(paramList[0] == "CAUSE_FOR_TERM")
+      {
+        if(addTap3ErrBlock(index,"severe","10","58","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CAUSE_FOR_TERM";
+        }
+      }
+      if(paramList[0] == "CELL_ID")
+      {
+        if(addTap3ErrBlock(index,"severe","10","59","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CELL_ID";
+        }
+      }
+      if(paramList[0] == "CHANNEL_CODING")
+      {
+        if(addTap3ErrBlock(index,"severe","10","60","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHANNEL_CODING";
+        }
+      }
+      if(paramList[0] == "CHARGE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","62","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHARGE";
+        }
+      }
+      if(paramList[0] == "CHARGEABLE_UNITS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","65","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHARGEABLE_UNITS";
+        }
+      }
+      if(paramList[0] == "CHARGED_PARTY_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","305","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHARGED_PARTY_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "CHARGED_PARTY_STATUS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","67","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHARGED_PARTY_STATUS";
+        }
+      }
+      if(paramList[0] == "CHARGED_UNITS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","68","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHARGED_UNITS";
+        }
+      }
+      if(paramList[0] == "CHARGE_REFUND_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","344","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CHARGE_REFUND_INDICATOR";
+        }
+      }
+      if(paramList[0] == "CLIR_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","75","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CLIR_INDICATOR";
+        }
+      }
+      if(paramList[0] == "CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","105","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CODE";
+        }
+      }
+      if(paramList[0] == "COMMISSION")
+      {
+        if(addTap3ErrBlock(index,"severe","10","350","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_COMMISSION";
+        }
+      }
+      if(paramList[0] == "CONTENT_CHARGING_POINT")
+      {
+        if(addTap3ErrBlock(index,"severe","10","345","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CONTENT_CHARGING_POINT";
+        }
+      }
+      if(paramList[0] == "CONTENT_PROVIDER_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","291","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CONTENT_PROVIDER_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "CONT_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","336","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CONT_CODE";
+        }
+      }
+      if(paramList[0] == "CONT_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","337","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CONT_TYPE";
+        }
+      }
+      if(paramList[0] == "CUSTOMER_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","363","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_CUSTOMER_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "DATA_VOLUME")
+      {
+        if(addTap3ErrBlock(index,"severe","10","81","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_DATA_VOLUME";
+        }
+      }
+      if(paramList[0] == "DATA_VOLUME_INCOMING")
+      {
+        if(addTap3ErrBlock(index,"severe","10","250","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_DATA_VOLUME_INCOMING";
+        }
+      }
+      if(paramList[0] == "DATA_VOLUME_OUTGOING")
+      {
+        if(addTap3ErrBlock(index,"severe","10","251","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_DATA_VOLUME_OUTGOING";
+        }
+      }
+      if(paramList[0] == "DATA_VOLUME_REFERENCE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","82","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_DATA_VOLUME_REFERENCE";
+        }
+      }
+      if(paramList[0] == "DEFAULT_CALL_HANDLING_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","87","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_DEFAULT_CALL_HANDLING_INDICATOR";
+        }
+      }
+      if(paramList[0] == "DISCOUNT_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","91","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_DISCOUNT_CODE";
+        }
+      }
+      if(paramList[0] == "EQUIPMENT_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","322","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_EQUIPMENT_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "EXCHANGE_RATE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","104","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_EXCHANGE_RATE";
+        }
+      }
+      if(paramList[0] == "FNUR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","111","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_FNUR";
+        }
+      }
+      if(paramList[0] == "HOME_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","311","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_HOME_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "HORIZONTAL_ACCURACY_DELIVERED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","392","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_HORIZONTAL_ACCURACY_DELIVERED";
+        }
+      }
+      if(paramList[0] == "HORIZONTAL_ACCURACY_REQUESTED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","385","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_HORIZONTAL_ACCURACY_REQUESTED";
+        }
+      }
+      if(paramList[0] == "INITIATING_PARTY")
+      {
+        if(addTap3ErrBlock(index,"severe","10","130","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_INITIATING_PARTY";
+        }
+      }
+      if(paramList[0] == "ISP_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","293","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_ISP_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "LATITUDE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","134","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_LATITUDE";
+        }
+      }
+      if(paramList[0] == "LCS_TRANSACTION_STATUS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","391","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_LCS_TRANSACTION_STATUS";
+        }
+      }
+      if(paramList[0] == "LOCATION_AREA")
+      {
+        if(addTap3ErrBlock(index,"severe","10","136","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_LOCATION_AREA";
+        }
+      }
+      if(paramList[0] == "LOCATION_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","315","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_LOCATION_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "LONGITUDE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","139","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_LONGITUDE";
+        }
+      }
+      if(paramList[0] == "MESSAGE_DESCRIPTION_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","141","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_MESSAGE_DESCRIPTION_CODE";
+        }
+      }
+      if(paramList[0] == "MESSAGE_STATUS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","144","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_MESSAGE_STATUS";
+        }
+      }
+      if(paramList[0] == "MESSAGE_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","145","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_MESSAGE_TYPE";
+        }
+      }
+      if(paramList[0] == "MOBILE_STATION_CLASS_MARK")
+      {
+        if(addTap3ErrBlock(index,"severe","10","148","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_MOBILE_STATION_CLASS_MARK";
+        }
+      }
+      if(paramList[0] == "MULTI_RATE_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","154","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_MULTI_RATE_INDICATOR";
+        }
+      }
+      if(paramList[0] == "NETWORK_ID_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","331","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_NETWORK_ID_TYPE";
+        }
+      }
+      if(paramList[0] == "NETWORK_INIT_PDP_CONTEXT")
+      {
+        if(addTap3ErrBlock(index,"severe","10","245","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_NETWORK_INIT_PDP_CONTEXT";
+        }
+      }
+      if(paramList[0] == "NETWORK_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","157","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_NETWORK_TYPE";
+        }
+      }
+      if(paramList[0] == "NUMBER_OF_CHANNELS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","161","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_NUMBER_OF_CHANNELS";
+        }
+      }
+      if(paramList[0] == "NUMBER_OF_CHANNELS_USED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","252","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_NUMBER_OF_CHANNELS_USED";
+        }
+      }
+      if(paramList[0] == "NUMBER_OF_DECIMAL_PLACES")
+      {
+        if(addTap3ErrBlock(index,"severe","10","159","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_NUMBER_OF_DECIMAL_PLACES";
+        }
+      }
+      if(paramList[0] == "OBJECT_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","281","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_OBJECT_TYPE";
+        }
+      }
+      if(paramList[0] == "PAID_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","346","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_PAID_INDICATOR";
+        }
+      }
+      if(paramList[0] == "PAYMENT_METHOD")
+      {
+        if(addTap3ErrBlock(index,"severe","10","347","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_PAYMENT_METHOD";
+        }
+      }
+      if(paramList[0] == "PDP_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","168","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_PDP_TYPE";
+        }
+      }
+      if(paramList[0] == "POSITIONING_METHOD")
+      {
+        if(addTap3ErrBlock(index,"severe","10","395","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_POSITIONING_METHOD";
+        }
+      }
+      if(paramList[0] == "PRIORITY_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","170","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_PRIORITY_CODE";
+        }
+      }
+      if(paramList[0] == "QOS_INTEGER")
+      {
+        if(addTap3ErrBlock(index,"severe","10","171","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_QOS_INTEGER";
+        }
+      }
+      if(paramList[0] == "RADIO_CHANNEL_REQUESTED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","179","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_RADIO_CHANNEL_REQUESTED";
+        }
+      }
+      if(paramList[0] == "RADIO_CHANNEL_USED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","180","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_RADIO_CHANNEL_USED";
+        }
+      }
+      if(paramList[0] == "REC_ENTITY_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","184","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_REC_ENTITY_CODE";
+        }
+      }
+      if(paramList[0] == "REC_ENTITY_TYPE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","186","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_REC_ENTITY_TYPE";
+        }
+      }
+      if(paramList[0] == "RELEASE_VERSION_NUMBER")
+      {
+        if(addTap3ErrBlock(index,"severe","10","189","2") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_RELEASE_VERSION_NUMBER";
+        }
+      }
+      if(paramList[0] == "RESPONSE_TIME")
+      {
+        if(addTap3ErrBlock(index,"severe","10","394","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_RESPONSE_TIME";
+        }
+      }
+      if(paramList[0] == "RESPONSE_TIME_CATEGORY")
+      {
+        if(addTap3ErrBlock(index,"severe","10","387","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_RESPONSE_TIME_CATEGORY";
+        }
+      }
+      if(paramList[0] == "SPECIFICATION_VERSION_NUMBER")
+      {
+        if(addTap3ErrBlock(index,"severe","10","201","2") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_SPECIFICATION_VERSION_NUMBER";
+        }
+      }
+      if(paramList[0] == "SPEECH_VERSION_REQUESTED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","202","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_SPEECH_VERSION_REQUESTED";
+        }
+      }
+      if(paramList[0] == "SPEECH_VERSION_USED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","203","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_SPEECH_VERSION_USED";
+        }
+      }
+      if(paramList[0] == "SUPPL_SERVICE_ACTION_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","208","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_SUPPL_SERVICE_ACTION_CODE";
+        }
+      }
+      if(paramList[0] == "TAP_DECIMAL_PLACES")
+      {
+        if(addTap3ErrBlock(index,"severe","10","244","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TAP_DECIMAL_PLACES";
+        }
+      }
+      if(paramList[0] == "TAXABLE_AMOUNT")
+      {
+        if(addTap3ErrBlock(index,"severe","10","398","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TAXABLE_AMOUNT";
+        }
+      }
+      if(paramList[0] == "TAX_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","212","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TAX_CODE";
+        }
+      }
+      if(paramList[0] == "TAX_VALUE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","397","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TAX_VALUE";
+        }
+      }
+      if(paramList[0] == "TOTAL_CALL_EVENT_DURATION")
+      {
+        if(addTap3ErrBlock(index,"severe","10","223","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TOTAL_CALL_EVENT_DURATION";
+        }
+      }
+      if(paramList[0] == "TOTAL_DATA_VOLUME")
+      {
+        if(addTap3ErrBlock(index,"severe","10","343","3") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TOTAL_DATA_VOLUME";
+        }
+      }
+      if(paramList[0] == "TRACKING_FREQUENCY")
+      {
+        if(addTap3ErrBlock(index,"severe","10","389","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TRACKING_FREQUENCY";
+        }
+      }
+      if(paramList[0] == "TRACKING_PERIOD")
+      {
+        if(addTap3ErrBlock(index,"severe","10","388","7") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TRACKING_PERIOD";
+        }
+      }
+      if(paramList[0] == "TRANSACTION_STATUS")
+      {
+        if(addTap3ErrBlock(index,"severe","10","303","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TRANSACTION_STATUS";
+        }
+      }
+      if(paramList[0] == "TRANSPARENCY_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","228","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TRANSPARENCY_INDICATOR";
+        }
+      }
+      if(paramList[0] == "TRANS_DESCR_SUPP")
+      {
+        if(addTap3ErrBlock(index,"severe","10","338","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TRANS_DESCR_SUPP";
+        }
+      }
+      if(paramList[0] == "TYPE_OF_CONTROLLING_NODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","229","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_TYPE_OF_CONTROLLING_NODE";
+        }
+      }
+      if(paramList[0] == "USER_PROTOCOL_INDICATOR")
+      {
+        if(addTap3ErrBlock(index,"severe","10","280","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_USER_PROTOCOL_INDICATOR";
+        }
+      }
+      if(paramList[0] == "UTC_TIME_OFFSET_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","232","5") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_UTC_TIME_OFFSET_CODE";
+        }
+      }
+      if(paramList[0] == "VAS_CODE")
+      {
+        if(addTap3ErrBlock(index,"severe","10","237","4") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_VAS_CODE";
+        }
+      }
+      if(paramList[0] == "VERTICAL_ACCURACY_DELIVERED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","393","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_VERTICAL_ACCURACY_DELIVERED";
+        }
+      }
+      if(paramList[0] == "VERTICAL_ACCURACY_REQUESTED")
+      {
+        if(addTap3ErrBlock(index,"severe","10","386","6") == true )
+        {
+          edrString(DETAIL.ASS_TAP3_ERR.ERROR_NAME, index) = "ERR_INPUT_MAPPING_FAILED_VERTICAL_ACCURACY_REQUESTED";
+        }
+      }
+    }
+  }
+}  
+
+//==============================================================================
+// Process Detail EDR record
+//==============================================================================
+function onDetailEdr
+{
+  if (debug)
+  {
+    logStdout("onDetailEdr \n");
+  }
+  checkEdrErrors();
+}
+function onInvalidDetailEdr
+{
+  if (debug)
+  {
+    logStdout("onInvalidDetailEdr \n");
+  }
+  checkEdrErrors();
+}

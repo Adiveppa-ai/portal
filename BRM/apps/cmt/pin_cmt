@@ -1,0 +1,88 @@
+
+#=======================================================================================
+#
+# Copyright (c) 2004, 2018, Oracle and/or its affiliates. All rights reserved.
+#  
+#  This material is the confidential property of Oracle Corporation
+#  or its licensors and may be used, reproduced, stored or transmitted
+#  only in accordance with a valid Oracle license or sublicense agreement.
+#
+#=======================================================================================
+
+
+#=======================================================================================
+#
+#  The Common Migration Tool(CMT) is a command-line application. As comand-line 
+#  argument, pin_cmt should be followed by any one of the following options as 
+#  the mode of operation.
+#
+#  Usage :
+#
+#     pin_cmt [-import -file <Subscriber/Balances XML_input_data_file> <stage_id> ] | 
+#             [-recovery load <batch_id>] | [ -deploy DOM <stage_id> ] |
+#             [-import_custom -file <Custom_class XML_input_data_file> <stage_id> ]
+#
+#     Options are:
+#
+#     1) Import   - This option imports the data into Infranet system. The contents of 
+#		    input file decide whether it is subscriber data (initial load) or 
+#		    balance data (billing data) or custom class data. 
+#
+#     2) Deploy   - This option performs the conversion of hidden data to active data 
+#		    (i.e. from staging to production area). 
+#
+#     3) Recovery - Recovery with load option allows user to load the data into Infranet 
+#		    starting from load processing step. In case of process failure in 
+# 		    loading step, this option allows user to process after corrective 
+# 		    action.
+#
+#=======================================================================================
+
+if [ "$1" != "-deploy_ece" -a "$1" != "-apply_cycle_fees" ]
+then
+/bin/java -Dfile.encoding=utf-8 -cp "/home/pin/opt/portal/BRM/apps/cmt/cmt.jar:/u01/app/oracle/product/19c/db_home/jdbc/lib/ojdbc8.jar:/u01/app/oracle/product/19c/db_home/lib/ojdbc8.jar:/home/pin/opt/portal/BRM/jars/pcm.jar:/home/pin/opt/portal/BRM/jars/pcmext.jar:/home/pin/opt/portal/BRM/jars/oraclepki.jar:/home/pin/opt/portal/BRM/jars/osdt_cert.jar:/home/pin/opt/portal/BRM/jars/osdt_core.jar:/home/pin/opt/portal/BRM/apps/cmt" com.portal.cmt.Cmt $1 $2 $3 $4 $5 $6 $7 $8 $9
+fi
+
+#
+# Get the value of the config entry "infranet.cmt.deploy.opcode" from Infranet.properties.
+# If it is "true" then invoke the cmt_mta_cycle_fees app.
+# Get the value of the config entry "infranet.cmt.uselegacybalances" from Infranet.properties.
+# and pass the value to cmt_mta_cycle_fees as a parameter.
+#
+
+IS_DEPLOY_OPCODE_CALLED=` grep "^ *infranet.cmt.deploy.opcode *= *true" Infranet.properties`
+IS_USE_LEGACY_BALANCES=` grep "^ *infranet.cmt.uselegacybalances *= *true" Infranet.properties`
+
+#
+#Get the Target DB Number
+#
+TARGET_DB=` grep "infranet.cmt.targetdbnumber" Infranet.properties | cut -d = -f 2 | cut -d . -f 4`
+
+balance_trueup=$IS_USE_LEGACY_BALANCES
+cycle_forward=$IS_DEPLOY_OPCODE_CALLED
+
+if [ "$IS_DEPLOY_OPCODE_CALLED" ]
+then
+        if [ "$1" = "-deploy" -o "$1" = "-apply_cycle_fees" ]
+        then
+                if [ "$balance_trueup" ]
+                then
+                        echo "Applying Cycle Fees: deploy, with balance_trueup........."
+                        $PIN_HOME/apps/cmt/cmt_mta_deploy -verbose -stage_id  $3  -cycle_dom $2 -balance_trueup -cycle_forward -target_db $TARGET_DB
+                else
+                        echo "Applying Cycle Fees: deploy, without balance_trueup........."
+                        $PIN_HOME/apps/cmt/cmt_mta_deploy -verbose -stage_id  $3  -cycle_dom $2 -cycle_forward -target_db $TARGET_DB
+                fi
+        elif [ "$1" = "-deploy_ece" ]
+        then
+                if [ "$balance_trueup" ]
+                then
+                        echo "Applying Cycle Fees: deploy_ece, with balance_trueup........."
+                        $PIN_HOME/apps/cmt/cmt_mta_deploy -verbose -stage_id  $3  -cycle_dom $2 -balance_trueup -cycle_forward -deploy_ece -target_db $TARGET_DB
+                else
+                        echo "Applying Cycle Fees: deploy_ece, without balance_trueup........."
+                        $PIN_HOME/apps/cmt/cmt_mta_deploy -verbose -stage_id  $3  -cycle_dom $2 -cycle_forward -deploy_ece -target_db $TARGET_DB
+                fi
+        fi
+fi
+

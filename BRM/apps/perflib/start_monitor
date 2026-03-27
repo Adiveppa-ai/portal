@@ -1,0 +1,292 @@
+#!/bin/bash
+#------------------------------------------------------------------------------#
+# SCRIPT: start_monitor
+#
+# DESCRIPTION:
+#
+# Script to start the PerflibMonitorDaemon for one or more Perflib data files
+# (i.e. Perflib-enabled applications). This just starts up a JVM which will
+# register the necessary monitors to allow JMX monitoring and control of those
+# applications.
+#
+# INFORMATION:
+#
+# BRM Performance Tracing ...
+#
+# REVISION:
+#
+# $Revision: 1.4 $
+# $Author: ri-user-1 $
+# $Date: 2023/08/30 17:49:07 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# usage - usage message
+#------------------------------------------------------------------------------#
+usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-h] [-a32|64] [-f<pidfile>] [-p<JMX port>] [-l<logfile>] [-D] [-s] [-P<HTTP port>]
+                    [-b<backlog>] [-t<threads] <fname>,<name> ...
+
+where :  -h               This help message
+
+         -a32|64          The size of the architecture (32/64-bit). The default is ${DEF_BITS}-bit.
+
+         -S<freq>         Sleep time for debug mode - the monitor will print statistics every <freq> seconds (when debug is
+                          enabled in log4j configuration).
+
+         -D               To enable DM Oracle metrics for shared memory, front-end and back-end.
+
+         -f<pidfile>      Alternative PID file. The default is '$DEF_PIDFILE'.
+
+         -p<port>         Port number for JMX. The default is $DEF_JMX_PORT.
+
+         -P<port>         Port number for HTTP. If provided, an HTTP server will be started to listen on that port for path "/metrics".
+
+         -s               Use password protection to connect (the users and passwords must be defined in '$DEF_PWDF').
+
+         -b<backlog>      Set the permissible connection backlog for the server (default is 0 - i.e. OS dependent)
+
+         -t<threads>      Set the number of threads for the HTTP server (default is 1)
+
+         <fname>,<aname>  The Perflib data files to monitor (one or more). The <fname> should be the filename of data file and the
+                          <aname> (separated by a comma) is the name which is used to expose this via JMX.
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Function     : is_running
+#
+# Description  : Function to check whether a particular process is running. It
+#                uses the PID and (optionally) a name to check.
+#
+# Input        : pid    Process ID
+#                name   Optional name to check
+#
+# Output       : None
+#
+# Return       : 0 if running, 1 if not
+#------------------------------------------------------------------------------#
+is_running()
+{
+typeset pid=$1
+typeset name=$2
+typeset rv=
+
+   if [ -z "$pid" ]
+   then
+      return 1
+   fi
+
+   if [ -n "$name" ]
+   then
+      rv=$(ps -fp $pid | head -2 | tail -1 | grep "$name")
+   else
+      rv=$(ps -fp $pid | head -2 | tail -1)
+   fi
+
+   case "$rv" in
+   *${pid}*) return 0;; # Running OK
+   *)        return 1;; # Not running
+   esac
+}
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+#
+# Defaults ...
+#
+CMD=start_monitor
+DEF_32BIT_JAVA="/usr/jdk/jdk1.6.0_29"
+DEF_PIDFILE=monitor.pid
+DEF_JMX_PORT=1617
+DEF_BITS=64
+DEF_PWDF=monitor.password
+
+#
+# Derive hostname ...
+#
+HN=$(hostname)
+DN=$(domainname)
+if [ -n "$DN" -a "$DN" != "(none)" ]
+then
+   HOST=${HN}.${DN}
+else
+   HOST=${HN}
+fi
+
+#
+# Globals ...
+#
+JMX_PORT=$DEF_JMX_PORT
+HTTP_PORT=
+BITS=$DEF_BITS
+PIDFILE=$DEF_PIDFILE
+SLEEP_TIME=
+PWDF=$DEF_PWDF
+AUTHENTICATE=false
+CONNECTION_BACKLOG=
+NUM_THREADS=
+
+#
+# Parse command-line options ...
+#
+while getopts "ha:Dp:P:f:sS:b:t:" OPTION
+do
+   case "$OPTION" in
+   h)    usage;;
+   a)    BITS=$OPTARG
+         if [ "$BITS" != "32" -a "$BITS" != "64" ]
+         then
+            printf "ERROR: -a option must be 32 or 64\n" >&2
+            usage
+         fi
+         ;;
+   D)    export ENABLE_PROCESS_METRICS="true";;
+   f)    PIDFILE=$OPTARG;;
+   S)    if [ "$OPTARG" -le 1 ]
+         then
+            printf "ERROR: -S option must be >= 1\n" >&2
+            usage
+         fi
+         SLEEP_TIME="-s $OPTARG"
+         ;;
+   b)    if [ "$OPTARG" -le 1 ]
+         then
+            printf "ERROR: -b option must be >= 1\n" >&2
+            usage
+         fi
+         CONNECTION_BACKLOG="-b $OPTARG"
+         ;;
+   t)    if [ "$OPTARG" -le 1 ]
+         then
+            printf "ERROR: -t option must be >= 1\n" >&2
+            usage
+         fi
+         NUM_THREADS="-t $OPTARG"
+         ;;
+   p)    JMX_PORT=$OPTARG;;
+   P)    HTTP_PORT="-p $OPTARG";;
+   s)    if [ ! -r "$PWDF" ]
+         then
+            printf "ERROR: password file '$PWDF' not found\n" >&2
+            exit 1
+         fi
+         AUTHENTICATE=true
+         ;;
+   \?)   echo "Unknown option ..." >&2
+         usage;;
+   :)    echo "Option '$OPTARG' requires an argument" >&2
+         usage;;
+   *)    break;;
+   esac
+done
+shift $((OPTIND - 1))
+
+[ $# -ge 1 ] || usage
+
+#
+# Build file specification into options for the Java program ...
+#
+FILE_SPEC=
+for F in $@
+do
+   if [ -n "$FILE_SPEC" ]
+   then
+      FILE_SPEC="$FILE_SPEC -f ${F}"
+   else
+      FILE_SPEC="-f ${F}"
+   fi
+done
+
+#
+# Work out where libraries will be and set the LD_LIBRARY_PATH appropriately.
+# For build-testing, they'll be in local directories. For normal Perflib
+# deployment everything will be in $PERFLIB_HOME.
+#
+if [ -n "$PERFLIB_HOME" ]
+then
+   LIB_DIR=$PERFLIB_HOME
+   ADD_TO_PATH=$LIB_DIR
+else
+   LIB_DIR="$(pwd)"
+   ADD_TO_PATH=$LIB_DIR:../../lib
+fi
+
+if [ "$BITS" = "32" ]
+then
+   if [ -n "$LD_LIBRARY_PATH" ]
+   then
+      LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ADD_TO_PATH}
+   else
+      LD_LIBRARY_PATH=${ADD_TO_PATH}
+   fi
+else
+   if [ -n "$LD_LIBRARY_PATH_64" ]
+   then
+      LD_LIBRARY_PATH_64=${LD_LIBRARY_PATH_64}:${ADD_TO_PATH}
+   else
+      LD_LIBRARY_PATH_64=${ADD_TO_PATH}
+   fi
+fi
+
+#
+# Execute application ... We check it it's already running from the PID file.
+# We only allow one monitor at a time.
+#
+if [ -e "$PIDFILE" ]
+then
+   PID=$(cat $PIDFILE)
+   if is_running $PID
+   then
+      printf "ERROR: process[$PID] is already running\n"
+      exit 1
+   else
+      printf "WARNING: process[$PID] looks as though it died - restarting it\n"
+   fi
+fi
+
+#
+# See if we need password authentication.
+#
+if [ $AUTHENTICATE = true ]
+then
+   OPTS="$OPTS -Dcom.sun.management.jmxremote.password.file=$PWDF"
+fi
+
+#
+# Choose appropriate Java for 32-bit/64-bit
+#
+if [ $BITS -eq 32 ]
+then
+   JAVA=$DEF_32BIT_JAVA/bin/java
+   JAVA_HOME=$DEF_32BIT_JAVA
+else
+   JAVA="java"
+fi
+
+#
+# Setup class path ...
+#
+JDBC_JARS=${ORACLE_HOME}/ucp/lib/ucp.jar:${ORACLE_HOME}/jdbc/lib/ojdbc8.jar
+BRM_JARS_DIR=$PIN_HOME/jars
+CLASSPATH=".:${JDBC_JARS}:${LIB_DIR}/perflib.jar"
+for J in $(ls $BRM_JARS_DIR/log4j*.jar 2>/dev/null)
+do
+    CLASSPATH=${CLASSPATH}:$J
+done
+
+$JAVA -cp ${CLASSPATH} \
+      -DPERFLIB_LOG_BASE=${PIN_LOG_DIR}/perflib/perflib \
+      -Dcom.sun.management.jmxremote \
+      -Dcom.sun.management.jmxremote.port=$JMX_PORT \
+      -Dcom.sun.management.jmxremote.authenticate=$AUTHENTICATE \
+      -Dcom.sun.management.jmxremote.ssl=false \
+      -Djava.rmi.server.hostname=$HOSTNAME $OPTS \
+      com.oracle.perflib.PerflibMonitorDaemon \
+         $SLEEP_TIME $HTTP_PORT $CONNECTION_BACKLOG $NUM_THREADS $FILE_SPEC &
+
+printf "$!\n" >$PIDFILE

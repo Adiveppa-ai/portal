@@ -1,0 +1,103 @@
+#
+# @(#)pin.conf.stress 1.2 99/04/09
+#
+#============================================================================
+#
+#  This file should contain possible pin.conf entries that would
+#  normally be used for Performance Manager     +
+#  NAP section pin.conf +
+#  pin_billd section for running billing programs
+#============================================================================
+- perfmgr host localhost
+- perfmgr iterations 1
+- perfmgr users 600999
+- perfmgr offset 600000
+- perfmgr time_run 50
+#- perfmgr simrad 2
+#- perfmgr connect_load 2
+#- perfmgr admin_load 2
+#- perfmgr sessload 2
+#- perfmgr opcode_load 2
+#- perfmgr pin_loader 2
+#- perfmgr  bill_accts 1
+- perfmgr pin_collect    1
+####################################
+- bill_accts1 cm_name localhost
+- bill_accts1 batch 250
+- bill_accts1 date 0216144599
+- bill_accts1 target 5
+- bill_accts1 threads 5    
+- pin_collect1 cm_name localhost
+- pin_collect1 batch 50
+- pin_collect1 target 500
+- pin_collect1 date 0216144599
+- pin_collect1 threads 5    
+####################################
+- pin_loader1 target 0.5
+- pin_loader1 threads 3
+- pin_loader1 cm_name localhost
+- pin_loader1 plan Basic
+- pin_loader1 credit_card enabled
+- pin_loader2 target 3
+- pin_loader2 threads 3
+- pin_loader2 cm_name localhost
+- pin_loader2 plan Basic
+- pin_loader2 credit_card enabled
+####################################
+- connect_load1 target 58
+- connect_load1 threads 8
+- connect_load1 cm_name localhost
+- connect_load2 target 58
+- connect_load2 threads 8
+- connect_load2 cm_name localhost
+####################################
+- admin_load1 target 200
+- admin_load1 verification_type PCM_OP_ACT_LOGIN
+- admin_load1 threads 12
+- admin_load1 cm_name localhost
+- admin_load2 target 200
+- admin_load2 threads 12
+- admin_load2 cm_name localhost
+- admin_load2 verification_type PCM_OP_ACT_LOGIN
+####################################
+- opcode_load1 target 0
+- opcode_load1 threads 12
+- opcode_load1 cm_name localhost
+- opcode_load2 target 0
+- opcode_load2 threads 12
+- opcode_load2 cm_name localhost
+####################################
+- sessload1 target 85
+- sessload1 threads 9
+- sessload1 cm_name localhost
+- sessload2 target 85
+- sessload2 threads 9
+- sessload2 cm_name localhost
+
+#============================================================================
+#
+#  application
+#
+#============================================================================
+
+- nap   cm_ptr        ip localhost 11960
+- -     userid         0.0.0.0  /service/admin_client 0
+
+- nap   login_type     1
+- nap   login_name     root.0.0.0.1
+- nap   login_pw       password
+
+- -     pin_beid_file  ./pin_beid
+- nap   timezone       +28800   #secons +west/-east of GMT
+
+#============================================================================
+- pin_billd     logfile         ./default.pinlog
+- pin_billd     loglevel        1
+
+- pin_billd     merchant        test
+
+- pin_billd     children   8
+- pin_billd     per_batch   500
+
+- pin_billd     minimum         0.01
+

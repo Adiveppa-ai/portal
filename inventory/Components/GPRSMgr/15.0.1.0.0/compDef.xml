@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="GPRSMgr" version="15.0.1.0.0" description="GPRS Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="91823" dest="dd_objects_telco_gprs.source" mode="0664"/>
+               <file size="773" dest="drop_tables_telco_gprs.source" mode="0664"/>
+               <file size="1952" dest="create_indexes_telco_gprs.source" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="*.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1995" dest="pin_telco_service_order_state_gprs" mode="0664"/>
+               <file size="2598" dest="pin_telco_tags_gprs" mode="0664"/>
+               <file size="1829" dest="pin_telco_provisioning_gprs" mode="0664"/>
+               <file size="8922" dest="pin_event_map_telco_gprs" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="pin_telco_provisioning_gprs"/>
+            <permission mode="0664" wildcard="pin_event_map_telco_gprs"/>
+            <permission mode="0664" wildcard="pin_telco_service_order_state_gprs"/>
+            <permission mode="0664" wildcard="pin_telco_tags_gprs"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="16832" dest="fm_tcf_gprs.so" mode="0755"/>
+         <file size="16400" dest="fm_tcf_gprs_pol.so" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="fm_tcf_gprs.so"/>
+            <permission mode="0755" wildcard="fm_tcf_gprs_pol.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="2385" dest="pin_cnf_gprs_30.pl" mode="0775"/>
+            <file size="8497" dest="pin_cmp_gprs_30.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="*.pl"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

@@ -1,0 +1,374 @@
+//==============================================================================
+//
+// Copyright (c) 2009, Oracle and/or its affiliates. All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_NRTRDE_ErrorReport.isc
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module is used to generate the NRTRDE error report.
+//
+//------------------------------------------------------------------------------
+
+String transId;
+String streamName;
+
+Long recNo;
+String recType;
+String headerErrorCodeList;
+Bool errorOccured;
+
+Long dbHandle;
+
+use IXT_Db;
+
+function onStartEdr
+{
+  if (dbHandle != INVALID_CONNECTION)
+  {
+    return;
+  }
+
+  if ( dbDataConnection( reg.DatabaseConnection + ".Module" ) != true )
+  {
+    logPipeline("Error: Could not open database connection.");
+    //logStdout("Error: Could not open database connection.");
+  }
+  else
+  {
+    dbHandle = dbConnection(); 
+    if ( dbHandle == INVALID_CONNECTION ) 
+    { 
+      logPipeline("Error: dbConnection() failed: " + dbError()); 
+      //logStdout("Error: dbConnection() failed: " + dbError()); 
+    } 
+  }
+}
+
+function onStopEdr
+{
+  if ( dbCloseConnection(dbHandle) == false )
+  {
+    logPipeline("Error: dbCloseConnection() failed: " + dbError());
+    //logStdout("Error: dbCloseConnection() failed: " + dbError());
+  }
+
+  dbHandle = INVALID_CONNECTION;
+}
+
+function onBeginTransaction
+{
+  if ( dbHandle == INVALID_CONNECTION )
+  {
+    return;
+  }
+  errorOccured = false;
+
+  transId = longToStr(decimalToLong(edrDecimal(INTERNAL.TRANSACTION_ID)));
+  streamName = edrString(INTERNAL.STREAM_NAME);
+
+  //logStdout("Transaction Id: " + transId + "\n");
+  //logStdout("Stream Name: " + streamName + "\n");
+
+  if ( dbBeginTransaction(dbHandle) == false ) 
+  { 
+    errorOccured = true;
+    logPipeline("Error: Failed to begin a new transaction: " + dbError()); 
+    //logStdout("Error: Failed to begin a new transaction: " + dbError()); 
+  }  
+}
+
+String sender;
+String recipient;
+Long seqNo;
+
+function populateErrors
+{
+  if ( dbHandle == INVALID_CONNECTION or errorOccured )
+  {
+    return;
+  }
+
+  String paramList[];
+  Long i;
+  String errorCodeList = "";
+
+  for (i = 0; i < edrNumErrors(); i = i + 1)
+  {
+    //logStdout("Error: " + edrGetError(i) + "\n");
+    if (edrGetError(i) == "ERR_TAP3_SEVERE" or edrGetError(i) == "ERR_TAP3_FATAL" or edrGetError(i) == "ERR_TAP3_WARNING")
+    {
+      arrayClear(paramList);
+      Long paramCount = edrGetErrorParameters(i, paramList);
+
+      if (errorCodeList == "")
+      {
+        errorCodeList = paramList[2];
+      }
+      else
+      {
+        errorCodeList = errorCodeList + "," + paramList[2];
+      }
+    }
+  }
+
+  //logStdout("ErrorCodeList: " + errorCodeList + "\n");
+
+  if (recType == "010")
+  {
+    headerErrorCodeList = errorCodeList;
+    return;
+  }
+  else if (recType == "090" and headerErrorCodeList != "")
+  {
+    if (errorCodeList != "")
+    {
+      errorCodeList = headerErrorCodeList + "," + errorCodeList;
+    }
+    else
+    {
+      errorCodeList = headerErrorCodeList;
+    }
+  }
+
+  if (errorCodeList != "")
+  {
+    String sqlStmt = "Select Count(*) As Count From NRTRDE_ERRORS Where FILENAME = '" + streamName + "' And RECORDNUMBER = " + longToStr(recNo) + " And RECORDTYPE = '" + recType + "'";
+    Long resHandle = dbExecute(dbHandle, sqlStmt);
+    if (resHandle == INVALID_RESULT)
+    {
+      errorOccured = true;
+      logPipeline("Error: dbExecute() failed: " + dbError());
+      //logStdout("Error: dbExecute() failed: " + dbError());
+    }
+    else
+    {
+      Long count = 0;
+      dbNextRow(resHandle, count);
+      if (count >= 1)
+      {
+        sqlStmt = "Update NRTRDE_ERRORS Set SENDER = '" + sender + "', ERRORCODELIST = '" + errorCodeList + "', ERRORREPORTED = 'N' Where FILENAME = '" + streamName + "' And RECORDNUMBER = " + longToStr(recNo) + " And RECORDTYPE = '" + recType + "'";
+      }
+      else
+      {
+        sqlStmt = "Insert Into NRTRDE_ERRORS(FILENAME, RECORDNUMBER, RECORDTYPE, ERRORCODELIST, SENDER) Values('" + streamName + "', " + longToStr(recNo) + ", '" + recType + "', '" + errorCodeList + "', '" + sender + "')";
+      }
+      dbCloseResult(resHandle);
+
+      resHandle = dbExecute(dbHandle, sqlStmt);
+      if ( resHandle == INVALID_RESULT )
+      {
+        errorOccured = true;
+        logPipeline("Error: dbExecute() failed: " + dbError());
+        //logStdout("Error: dbExecute() failed: " + dbError());
+      }
+      else
+      {
+        dbCloseResult(resHandle);
+      }
+    }
+  }
+}
+
+function onDetailEdr
+{
+  if ( dbHandle == INVALID_CONNECTION or errorOccured )
+  {
+    return;
+  }
+
+  recNo = recNo + 1;
+  switch(edrString(DETAIL.RECORD_TYPE))
+  {
+    case "021": recType = "MOC";   break;
+    case "031": recType = "MTC";   break;
+    case "040": recType = "GPRS";  break;
+    case "042": recType = "GPRS";  break;
+    default:    recType = "OTHER"; break;
+  }
+
+  populateErrors();
+}
+
+function onInvalidDetailEdr
+{
+  if ( dbHandle == INVALID_CONNECTION or errorOccured )
+  {
+    return;
+  }
+
+  recNo = recNo + 1;
+  switch(edrString(DETAIL.RECORD_TYPE))
+  {
+    case "021": recType = "MOC";   break;
+    case "031": recType = "MTC";   break;
+    case "040": recType = "GPRS";  break;
+    case "042": recType = "GPRS";  break;
+    default:    recType = "OTHER"; break;
+  }
+
+  populateErrors();
+}
+
+function onTrailerEdr
+{
+  if ( dbHandle == INVALID_CONNECTION or errorOccured )
+  {
+    return;
+  }
+
+  recNo = 0;
+  recType = "090";
+
+  populateErrors();
+}
+
+function onHeaderEdr
+{
+  if ( dbHandle == INVALID_CONNECTION or errorOccured )
+  {
+    return;
+  }
+
+  recNo = 0;
+  recType = "010";
+  headerErrorCodeList = "";
+
+  sender = edrString(HEADER.SENDER);
+  recipient = edrString(HEADER.RECIPIENT);
+  seqNo = edrLong(HEADER.SEQUENCE_NUMBER);
+
+  if (strLength(recipient) <= 0)
+  {
+    recipient = "[NO_RECIPIENT]";
+  }
+  if (strLength(sender) <= 0)
+  {
+    sender = "[NO_SENDER]";
+  }
+
+  String sqlStmt = "Select Count(*) As Count From NRTRDE_FILES Where FILENAME = '" + streamName + "'";
+  Long resHandle = dbExecute(dbHandle, sqlStmt);
+  if (resHandle == INVALID_RESULT)
+  {
+    errorOccured = true;
+    logPipeline("Error: dbExecute() failed: " + dbError());
+    //logStdout("Error: dbExecute() failed: " + dbError());
+  }
+  else
+  {
+    Long count = 0;
+    dbNextRow(resHandle, count);
+    if (count >= 1)
+    {
+      sqlStmt = "Update NRTRDE_FILES Set SENDER = '" + sender + "', RECIPIENT = '" + recipient + "', SEQNO = " + longToStr(seqNo) + ", FILEPROCESSEDTIME = SYSDATE, FILEDELIVERYREPORTED = 'N' Where FILENAME = '" + streamName + "'";
+    }
+    else
+    {
+      sqlStmt = "Insert Into NRTRDE_FILES(FILENAME, SENDER, RECIPIENT, SEQNO) Values ('" + streamName + "','" + sender + "','"+ recipient + "'," + longToStr(seqNo) + ")";
+    }
+    dbCloseResult(resHandle);
+
+    resHandle = dbExecute(dbHandle, sqlStmt);
+    if ( resHandle == INVALID_RESULT )
+    {
+      errorOccured = true;
+      logPipeline("Error: dbExecute() failed: " + dbError());
+      //logStdout("Error: dbExecute() failed: " + dbError());
+    }
+    else
+    {
+      dbCloseResult(resHandle);
+    }
+  }
+
+  populateErrors();
+}
+
+function Bool onPrepareCommit
+{
+  //logStdout("onPrepareCommit called...\n");
+  if ( dbHandle == INVALID_CONNECTION or errorOccured )
+  {
+    return false;
+  }
+
+  return true;
+}
+
+function onEndTransaction
+{
+  if ( dbHandle == INVALID_CONNECTION )
+  {
+    return;
+  }
+
+  if ( errorOccured )
+  {
+    if ( dbRollbackTransaction(dbHandle) == false )
+    {
+      logPipeline("Error: dbRollbackTransaction() failed: " + dbError());
+      //logStdout("Error: dbRollbackTransaction() failed: " + dbError());
+    }
+  }
+  else
+  {
+    if ( dbCommitTransaction(dbHandle) == false )
+    {
+      logPipeline("Error: dbCommitTransaction() failed: " + dbError());
+      //logStdout("Error: dbCommitTransaction() failed: " + dbError());
+    }
+  }
+}
+
+function BEGIN
+{
+  dbHandle = INVALID_CONNECTION;
+
+  if ( dbDataConnection( reg.DatabaseConnection + ".Module" ) != true )
+  {
+    logPipeline("Error: Could not open database connection.");
+    //logStdout("Error: Could not open database connection.");
+    scriptUsable(false);
+  }
+  else
+  {
+    dbHandle = dbConnection();
+    if ( dbHandle == INVALID_CONNECTION )
+    {
+      logPipeline("Error: dbConnection() failed: " + dbError());
+      //logStdout("Error: dbConnection() failed: " + dbError());
+      scriptUsable(false);
+    }
+    else
+    {
+      String sqlStmt1 = "Select Count(*) As Count From NRTRDE_FILES";
+      String sqlStmt2 = "Select Count(*) As Count From NRTRDE_ERRORS";
+      Long resHandle1 = dbExecute(dbHandle, sqlStmt1);
+      Long resHandle2 = dbExecute(dbHandle, sqlStmt2);
+
+      if (resHandle1 == INVALID_RESULT or resHandle2 == INVALID_RESULT)
+      {
+        logPipeline("Error: Table NRTRDE_FILES or NRTRDE_ERRORS does not exist: " + dbError());
+        //logStdout("Error: Table NRTRDE_FILES or NRTRDE_ERRORS does not exist: " + dbError());
+        scriptUsable(false);
+
+        if (resHandle1 != INVALID_RESULT)
+        {
+          dbCloseResult(resHandle1);
+        }
+        if (resHandle2 != INVALID_RESULT)
+        {
+          dbCloseResult(resHandle2);
+        }
+
+        dbCloseConnection(dbHandle);
+        dbHandle = INVALID_CONNECTION;
+      }
+    }
+  }
+}

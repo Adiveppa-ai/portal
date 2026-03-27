@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2016, Oracle and/or its affiliates. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+	
+	<xs:complexType name="PaymentTermConfigurationType">
+	<xs:sequence>
+	<xs:element name="PaymentTerms">
+		<xs:complexType>
+		<xs:sequence>
+		<xs:element name="PaymentTerm" maxOccurs="unbounded">
+			<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="businessConfig:ptDescType">
+					<xs:attribute name="ID" type="xs:positiveInteger" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
+		</xs:sequence>
+		</xs:complexType>
+                <xs:unique name="uniquePaymentTermID">
+                       <xs:selector xpath=".//businessConfig:PaymentTerm"/>
+                       <xs:field xpath="./@ID"/>
+                </xs:unique>
+	</xs:element>
+	</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="ptDescType">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse"/>
+			<xs:maxLength value="512"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

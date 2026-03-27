@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+#
+#  @(#) %full_filespec: start_dm_kafka.sh~5:shsrc:1 %
+#
+# Copyright (c) 2021, 2023 Oracle and/or its affiliates.
+# or its licensors and may be used, # reproduced, stored or transmitted only in accordance with a valid Oracle license or sublicense
+# agreement.
+#
+# start_dm_kafka
+#
+#
+VERSION=15.0
+
+PINDIR=/home/pin/opt/portal/BRM
+LOGDIR=/home/pin/opt/portal/BRM/var/dm_kafka
+
+DM_KAFKA_DIR=${PINDIR}/sys/dm_kafka
+DM_KAFKA_LOG=${LOGDIR}/dm_kafka.log
+DM_KAFKA_PID=${LOGDIR}/dm_kafka.pid
+
+if [ -r ${DM_KAFKA_PID} ]; then
+  /bin/ps -f -p `cat ${DM_KAFKA_PID}` | grep dm_kafka > /dev/null
+  if [ $? -eq 0 ]; then
+        echo "ERROR: dm_kafka is already running"
+        exit 1
+  fi
+fi
+
+# does the propreties file for the Java Server
+if [ ! -r  ${DM_KAFKA_DIR}/Infranet.properties ]; then
+		echo "HELP: no Infranet.properties for dm_kafka in \"${DM_KAFKA_DIR}\"!"
+		exit 1
+fi
+
+
+# Check if the KAFKA_HOME environment variable is set
+if [ -z  ${KAFKA_HOME} ]; then
+		echo "HELP: KAFKA_HOME environment variable not set!"
+		exit 1
+fi
+
+if [ ! -d  ${LOGDIR} ]; then
+	mkdir -p ${LOGDIR}
+	if [ $? -ne 0 ]; then
+		echo "HELP: problem making LOGDIR \"${LOGDIR}\"!"
+		exit 1
+	fi
+fi
+
+# Set JAR_DIR to be the full pathname of the dir where the
+# jar files are located
+JAR_DIR=${PINDIR}/jars
+
+# Jar Versions
+KAFKA_CLIENT_VERSION="3.6.1"
+LOG4J_VERSION="2.23.1"
+SLF4J_VERSION="2.0.11"
+JACKSON_VERSION="2.16.2"
+
+# Apache Kafka Jars
+KAFKA_CLIENT_JAR="${KAFKA_HOME}/libs/kafka-clients-${KAFKA_CLIENT_VERSION}.jar"
+LOG4J_API_JAR="${JAR_DIR}/log4j-api-${LOG4J_VERSION}.jar"
+LOG4J_CORE_JAR="${JAR_DIR}/log4j-core-${LOG4J_VERSION}.jar"
+SLF4J_LOG4J_BRIDGE="${JAR_DIR}/log4j-slf4j-impl-${LOG4J_VERSION}.jar"
+SLF4J_API_JAR="${JAR_DIR}/slf4j-api-${SLF4J_VERSION}.jar"
+
+# Apache Kafka Classpath
+KAFKA_JARS="${KAFKA_CLIENT_JAR}:${LOG4J_API_JAR}:${LOG4J_CORE_JAR}:${SLF4J_LOG4J_BRIDGE}:${SLF4J_API_JAR}"
+
+# Jackson JSON JARS
+JACKSON_CORE_JAR="${JAR_DIR}/jackson-core-${JACKSON_VERSION}.jar"
+JACKSON_ANNOTATIONS_JAR="${JAR_DIR}/jackson-annotations-${JACKSON_VERSION}.jar"
+JACKSON_DATABIND_JAR="${JAR_DIR}/jackson-databind-${JACKSON_VERSION}.jar"
+
+# Jackson JSON jars classpath
+JACKSON_JARS="${JACKSON_CORE_JAR}:${JACKSON_ANNOTATIONS_JAR}:${JACKSON_DATABIND_JAR}"
+
+# SSL Security Jars
+SSL_SECURITY_JARS="${JAR_DIR}/oraclepki.jar:${JAR_DIR}/osdt_cert.jar:${JAR_DIR}/osdt_core.jar"
+
+# BRM Core Jars
+BRM_CORE_JARS="${JAR_DIR}/js.jar:${JAR_DIR}/pcm.jar:${JAR_DIR}/pcmext.jar"
+
+CLASSPATH=".:${JAR_DIR}/dm_kafka.jar:${BRM_CORE_JARS}:${SSL_SECURITY_JARS}:${KAFKA_JARS}:${JACKSON_JARS}"
+
+export CLASSPATH
+
+JAVA=${JAVA_HOME}/bin/java
+
+# XXX ought to save old log file, or check for > some-size...
+( cd ${DM_KAFKA_DIR} ;
+  echo "started dm_kafka at..." >> ${DM_KAFKA_LOG}
+  echo "CLASSPATH :[${CLASSPATH}] " >> ${DM_KAFKA_LOG}
+  date >> ${DM_KAFKA_LOG}
+	echo "$JAVA -Ddm_kafka=1 -mx33554432 -ms33554432 -ss1m com.portal.js.JSMain" >> ${DM_KAFKA_LOG}
+	$JAVA -Ddm_kafka=1 -mx33554432 -ms33554432 -ss1m com.portal.js.JSMain >> ${DM_KAFKA_LOG} 2>&1 &
+  echo $! > ${DM_KAFKA_PID} ;
+  chmod 640 ${DM_KAFKA_LOG} ;
+  chmod 640 ${DM_KAFKA_PID} )
+
+# get rc from cm startup
+exit $?

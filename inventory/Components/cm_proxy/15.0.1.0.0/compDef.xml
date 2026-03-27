@@ -1,0 +1,35 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="cm_proxy" version="15.0.1.0.0" description="Connection Manager Proxy" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1750" dest="pin_cmp_cm_proxy.pl" mode="0755"/>
+            <file size="3246" dest="pin_cnf_cm_proxy.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_cnf_cm_proxy.pl"/>
+            <permission mode="0755" wildcard="pin_cmp_cm_proxy.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="1914" dest="install_cm_proxy" mode="0744"/>
+         <file size="1555" dest="start_cm_proxy" mode="0755"/>
+         <file size="889" dest="stop_cm_proxy" mode="0755"/>
+         <file size="577640" dest="cm_proxy" mode="0775"/>
+         <file-perms>
+            <permission mode="0775" wildcard="cm_proxy"/>
+            <permission mode="0755" wildcard="start_cm_proxy"/>
+            <permission mode="0755" wildcard="stop_cm_proxy"/>
+            <permission mode="0744" wildcard="install_cm_proxy"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="cm_proxy" mode="750" patchable="true">
+            <file size="1147" dest="init-d.pin.cm_proxy" mode="0775"/>
+         </directory>
+      </directory>
+   </file-map>
+   <variables>
+      <product-variable name="CMP_PORT" value="11953" type="number" helpid="" publish="true"/>
+   </variables>
+</component-def>

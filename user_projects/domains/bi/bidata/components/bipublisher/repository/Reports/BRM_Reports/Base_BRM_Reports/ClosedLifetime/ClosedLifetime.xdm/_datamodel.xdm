@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="as_are"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ (floor("ACCOUNT_T"."LAST_STATUS_T"/86400) - floor("ACCOUNT_T"."CREATED_T"/86400)) +1 DAY_OVERDUE,
+ "ACCOUNT_T"."LAST_STATUS_T", "ACCOUNT_T"."CREATED_T",
+ "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE",
+ "ACCOUNT_T"."POID_ID0", "ACCOUNT_NAMEINFO_T"."REC_ID",
+ "ACCOUNT_T"."STATUS", "ACCOUNT_T"."POID_DB", "BILLINFO_T"."PAY_TYPE"
+ FROM ("ACCOUNT_T" "ACCOUNT_T" INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0" =
+ "ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "ACCOUNT_T"."POID_ID0" =
+ "BILLINFO_T"."ACCOUNT_OBJ_ID0"
+ WHERE bipext.infCheckDates(:StartDate, :EndDate) = 1
+ AND "ACCOUNT_T"."POID_DB" >
+ 0
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+ AND "ACCOUNT_T"."STATUS" = 10103
+ AND "ACCOUNT_T"."POID_ID0" >
+ 1
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY" LIKE NVL(:param_Country,"ACCOUNT_NAMEINFO_T"."COUNTRY")
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(:param_State,"ACCOUNT_NAMEINFO_T"."STATE")
+ AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(:param_BillingType,"BILLINFO_T"."PAY_TYPE")
+ AND ("ACCOUNT_T"."LAST_STATUS_T" >= bipext.infstrtotimet(:StartDate,2)
+ AND "ACCOUNT_T"."LAST_STATUS_T" <= bipext.infstrtotimet(:EndDate,2)-1
+ )
+ AND nvl(:OffsetDays,-1) >=0 AND nvl(:OffsetDays,367) <= 366
+ AND nvl(:Period1Days,0) >=1 AND nvl(:Period1Days,367) <= 366
+ AND nvl(:Period2Days,0) >=1 AND nvl(:Period2Days,367) <= 366
+ AND nvl(:Period3Days,0) >=1 AND nvl(:Period3Days,367) <= 366
+ ORDER BY "ACCOUNT_NAMEINFO_T"."COUNTRY", "ACCOUNT_NAMEINFO_T"."STATE"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="DAY_OVERDUE" value="DAY_OVERDUE" dataType="xsd:integer" label="DAY_OVERDUE" breakOrder="None" fieldOrder="1"/>
+    <element name="LAST_STATUS_T" value="LAST_STATUS_T" dataType="xsd:integer" label="LAST_STATUS_T" breakOrder="None" fieldOrder="2"/>
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="3"/>
+    <element name="COUNTRY" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="4"/>
+    <element name="STATE" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="5"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="6"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="7"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="8"/>
+    <element name="POID_DB" value="POID_DB" dataType="xsd:integer" label="POID_DB" breakOrder="None" fieldOrder="9"/>
+    <element name="PAY_TYPE" value="PAY_TYPE" dataType="xsd:integer" label="PAY_TYPE" breakOrder="None" fieldOrder="10"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="YESNO">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="BillType">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="SUBORDINATE" value="10007"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(state) from account_nameinfo_t where state is not null]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[select distinct(country) from account_nameinfo_t where country is not null]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="OffsetDays" dataType="xsd:integer">
+         <input label="Enter the number of days an account must have been open to be counted in period 1. Please specify a Number value between 0 and 366."/>
+      </parameter>
+      <parameter name="Period1Days" dataType="xsd:integer">
+         <input label="Enter the length, in days, for period 1. Please specify a Number value between 1 and 366."/>
+      </parameter>
+      <parameter name="Period2Days" dataType="xsd:integer">
+         <input label="Enter the length, in days, for period 2.Please specify a Number value between 1 and 366."/>
+      </parameter>
+      <parameter name="Period3Days" dataType="xsd:integer">
+         <input label="Enter the length, in days, for period 3.Please specify a Number value between 1 and 366. "/>
+      </parameter>
+      <parameter name="StartDate" dataType="xsd:date">
+         <date label="Enter start date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="EndDate" dataType="xsd:date">
+         <date label="Enter end date (MM/DD/YYYY)." size="30" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="param_Country" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries. " valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_State" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states. " valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_BillingType" dataType="xsd:string">
+         <select label="Select a type of billing, or select ALL to include all types of billing. " valueSet="BillType" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_StateDetails" dataType="xsd:string">
+         <select label="Include state-level details? " valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_Charts" dataType="xsd:string">
+         <select label="Include charts? " valueSet="YESNO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

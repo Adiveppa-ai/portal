@@ -1,0 +1,1154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<price_list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="price_list.xsd" version="7.2">
+<plan_list status="active" type="new">
+<plan_list_name>CSR</plan_list_name>
+<plan_name>Basic Content Plan</plan_name>
+<plan_name>Premium Content Plan</plan_name>
+<plan_name>RemittancePlan</plan_name>
+</plan_list>
+<plan_list status="active" type="new">
+<plan_list_name>Content Plan</plan_list_name>
+<plan_name>Basic Content Plan</plan_name>
+<plan_name>Premium Content Plan</plan_name>
+</plan_list>
+<plan_list status="active" type="new">
+<plan_list_name>admintool</plan_list_name>
+<plan_name>Basic Content Plan</plan_name>
+<plan_name>Premium Content Plan</plan_name>
+<plan_name>RemittancePlan</plan_name>
+</plan_list>
+<plan ondemand_billing="no">
+<plan_name>Basic Content Plan</plan_name>
+<credit_limit>
+<resource_id>840</resource_id>
+<limit>500.0</limit>
+<thresholds>85</thresholds>
+<floor>0.0</floor>
+</credit_limit>
+<credit_limit>
+<resource_id>1000093</resource_id>
+<limit>10000.0</limit>
+<floor>0.0</floor>
+</credit_limit>
+<service_deal>
+<service_name>/service/content</service_name>
+<deal_name>Basic Content Deal</deal_name>
+<bal_info_index>0</bal_info_index>
+<subscription_index>0</subscription_index>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Premium Content Plan</plan_name>
+<credit_limit>
+<resource_id>840</resource_id>
+<limit>1000.0</limit>
+<thresholds>85</thresholds>
+<floor>0.0</floor>
+</credit_limit>
+<credit_limit>
+<resource_id>1000094</resource_id>
+<limit>10000.0</limit>
+<floor>0.0</floor>
+</credit_limit>
+<service_deal>
+<service_name>/service/content</service_name>
+<deal_name>Premium Content Deal</deal_name>
+<bal_info_index>0</bal_info_index>
+<subscription_index>0</subscription_index>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>RemittancePlan</plan_name>
+<deal_name>RemittanceDeal</deal_name>
+</plan>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Basic Content Deal</deal_name>
+<permitted>/service/content</permitted>
+<deal_product status="active">
+<product_name>Basic Content Package</product_name>
+<product_code>Basic Content Package</product_code>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Games Deal</deal_name>
+<permitted>/service/content</permitted>
+<deal_product status="active">
+<product_name>Games Package</product_name>
+<product_code>Games Package</product_code>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Premium Content Deal</deal_name>
+<permitted>/service/content</permitted>
+<deal_product status="active">
+<product_name>Premium Content Package</product_name>
+<product_code>Premium Content Package</product_code>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>RemittanceDeal</deal_name>
+<permitted>/account</permitted>
+<deal_product status="active">
+<product_name>RemittanceProduct</product_name>
+<product_code>RemittanceProduct</product_code>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Reward Games Deal</deal_name>
+<permitted>/service/content</permitted>
+<deal_product status="active">
+<product_name>Reward Games Package</product_name>
+<product_code>Reward Games Package</product_code>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen Deal</deal_name>
+<permitted>/service/content</permitted>
+<deal_product status="active">
+<product_name>Teen Package</product_name>
+<product_code>Teen Package</product_code>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<product type="subscription" partial="no">
+<product_name>Basic Content Package</product_name>
+<product_code>Basic Content Package</product_code>
+<priority>0.0</priority>
+<permitted>/service/content</permitted>
+<provisioning>ContentPackage</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/activity/content</event_type>
+<rum_name>Content_Usage</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>BasicContentPlan</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>EVENT.PIN_FLD_CONTENT_INFO.PIN_FLD_CONTENT_CATEGORY_NAME</field_name>
+</column>
+<value_range>
+<value>Alerts</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>Directory</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>FodorsHotels</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>FunFacts</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Horoscopes</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Icons</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>InstantMessaging</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>Jokes</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Lottery</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>MCommerce</value>
+<rate_plan_name>MCommerce</rate_plan_name>
+<impact_category>M_Commerce</impact_category>
+</value_range>
+<value_range>
+<value>Messaging</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Movies</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>News</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>RingTones</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>Sports</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Stocks</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Traffic</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Weather</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>ZagatsRestaurants</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>PremiumContent</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Premium Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="resource_quantity">
+<description>Premuin Rate - 5 Free and each additional @0.50c</description>
+<step_resource_id>1000094</step_resource_id>
+<quantity_tier>
+<step_max>5.0</step_max>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>1000094</resource_id>
+<impact_category>Premium_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+<quantity_tier>
+<step_min>5.0</step_min>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Premium_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.5</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>BasicContent</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Basic Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="resource_quantity">
+<description>Basic contentw/300 free and @.10c each additional</description>
+<step_resource_id>1000093</step_resource_id>
+<quantity_tier>
+<step_max>300.0</step_max>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>1000093</resource_id>
+<impact_category>Standard_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+<quantity_tier>
+<step_min>300.0</step_min>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Standard_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.1</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>MCommerce</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>MCommerceTier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>MCommerce Fixed Rate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$4.95 per month for 300 Basic and 5 premium transactions</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>4.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/cycle/fold</event_type>
+<rum_name>Fold</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>Fold</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>PIN_FLD_FOLD.PIN_FLD_RESOURCE_ID</field_name>
+</column>
+<value_range>
+<value>1000093</value>
+<rate_plan_name>Cycle End Fold</rate_plan_name>
+<impact_category>default</impact_category>
+</value_range>
+<value_range>
+<value>1000094</value>
+<rate_plan_name>Cycle End Fold</rate_plan_name>
+<impact_category>default</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Cycle End Fold</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/cycle/fold</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Cycle End Fold Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Cycle End Fold Rate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>1000093</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-1.0</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none">
+<resource_id>1000094</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Default System Product</product_name>
+<product_code>Default System Product</product_code>
+<priority>0.0</priority>
+<description>Global rates container</description>
+<purchase_max>1.0</purchase_max>
+<purchase_min>1.0</purchase_min>
+<own_max>1.0</own_max>
+<own_min>1.0</own_min>
+</product>
+<product type="subscription" partial="no">
+<product_name>Games Package</product_name>
+<product_code>Games Package</product_code>
+<priority>0.0</priority>
+<permitted>/service/content</permitted>
+<provisioning>Games</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$1.95 per month for unlimited access to all games</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/activity/content</event_type>
+<rum_name>Content_Usage</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>Games Plan</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>EVENT.PIN_FLD_CONTENT_INFO.PIN_FLD_CONTENT_CATEGORY_NAME</field_name>
+</column>
+<value_range>
+<value>Hearts</value>
+<rate_plan_name>Games Plan</rate_plan_name>
+<impact_category>Games_$1.95_category</impact_category>
+</value_range>
+<value_range>
+<value>InteractiveChess</value>
+<rate_plan_name>Games Plan</rate_plan_name>
+<impact_category>Games_$.95_category</impact_category>
+</value_range>
+<value_range>
+<value>SKT</value>
+<rate_plan_name>Games Plan</rate_plan_name>
+<impact_category>Games_$1.95_category</impact_category>
+</value_range>
+<value_range>
+<value>Solitaire</value>
+<rate_plan_name>Games Plan</rate_plan_name>
+<impact_category>Games_$1.95_category</impact_category>
+</value_range>
+<value_range>
+<value>Trivia</value>
+<rate_plan_name>Games Plan</rate_plan_name>
+<impact_category>Games_$.50_category</impact_category>
+</value_range>
+<value_range>
+<value>VirtualGolf</value>
+<rate_plan_name>Games Plan</rate_plan_name>
+<impact_category>Games_$.05_category</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Games Plan</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Games Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Games Rate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="hour" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Games_$1.95_category</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.95</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Games_$.05_category</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.05</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Games_$.50_category</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.5</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Games_$.95_category</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Premium Content Package</product_name>
+<product_code>Premium Content Package</product_code>
+<priority>0.0</priority>
+<permitted>/service/content</permitted>
+<provisioning>ContentPackage</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/activity/content</event_type>
+<rum_name>Content_Usage</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>BasicContentPlan</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>EVENT.PIN_FLD_CONTENT_INFO.PIN_FLD_CONTENT_CATEGORY_NAME</field_name>
+</column>
+<value_range>
+<value>Alerts</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>Directory</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>FodorsHotels</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>FunFacts</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Horoscopes</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Icons</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>InstantMessaging</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>Jokes</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Lottery</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>MCommerce</value>
+<rate_plan_name>MCommerce</rate_plan_name>
+<impact_category>M_Commerce</impact_category>
+</value_range>
+<value_range>
+<value>Messaging</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Movies</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>News</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>RingTones</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+<value_range>
+<value>Sports</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Stocks</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Traffic</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>Weather</value>
+<rate_plan_name>BasicContent</rate_plan_name>
+<impact_category>Standard_Content</impact_category>
+</value_range>
+<value_range>
+<value>ZagatsRestaurants</value>
+<rate_plan_name>PremiumContent</rate_plan_name>
+<impact_category>Premium_Content</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>PremiumContent</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Premium Free Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="resource_quantity">
+<description>Premium Rate - 10 free</description>
+<step_resource_id>1000094</step_resource_id>
+<quantity_tier>
+<step_max>10.0</step_max>
+<balance_impact scaled_unit="none">
+<resource_id>1000094</resource_id>
+<impact_category>Premium_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+<quantity_tier>
+<step_min>10.0</step_min>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Premium_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.4</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>BasicContent</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Basic Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="resource_quantity">
+<description>Basic contentw/300 free and @.10c each additional</description>
+<step_resource_id>1000093</step_resource_id>
+<quantity_tier>
+<step_max>300.0</step_max>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>1000093</resource_id>
+<impact_category>Standard_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+<quantity_tier>
+<step_min>300.0</step_min>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Standard_Content</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.1</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>MCommerce</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>MCommerce</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>MCommerce Fixed Rate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>M_Commerce</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$9.95 per month for 300 Basic and 10 premium transactions</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>9.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/cycle/fold</event_type>
+<rum_name>Fold</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>Fold Plan</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>PIN_FLD_FOLD.PIN_FLD_RESOURCE_ID</field_name>
+</column>
+<value_range>
+<value>1000093</value>
+<rate_plan_name>Cycle Fold Event</rate_plan_name>
+<impact_category>*</impact_category>
+</value_range>
+<value_range>
+<value>1000094</value>
+<rate_plan_name>Cycle Fold Event</rate_plan_name>
+<impact_category>*</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Cycle Fold Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/cycle/fold</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Cycle Fold Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Cycle Fold Rate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>1000094</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-1.0</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none">
+<resource_id>1000093</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>RemittanceProduct</product_name>
+<product_code>RemittanceProduct</product_code>
+<priority>0.0</priority>
+<description>Remittance Product</description>
+<permitted>/account</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/remittance</event_type>
+<rum_name>Usage Size</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Remittance Event</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Remittance Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/remittance</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Remittance</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Remittance Fixed Rate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-0.2</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Reward Games Package</product_name>
+<product_code>Reward Games Package</product_code>
+<priority>0.0</priority>
+<permitted>/service/content</permitted>
+<provisioning>RewardGamesPackage</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$1.95 per month for unlimited access and 100 game tokens</description>
+<step_resource_id>1000092</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.95</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none">
+<resource_id>1000092</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-100.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/activity/content</event_type>
+<rum_name>Content_Usage</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>Reward Games Plan</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>EVENT.PIN_FLD_CONTENT_INFO.PIN_FLD_CONTENT_CATEGORY_NAME</field_name>
+</column>
+<value_range>
+<value>BlackJack</value>
+<rate_plan_name>Reward Games Plan</rate_plan_name>
+<impact_category>Reward_Games</impact_category>
+</value_range>
+<value_range>
+<value>Poker</value>
+<rate_plan_name>Reward Games Plan</rate_plan_name>
+<impact_category>Reward_Games</impact_category>
+</value_range>
+<value_range>
+<value>Slots</value>
+<rate_plan_name>Reward Games Plan</rate_plan_name>
+<impact_category>Reward_Games</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Reward Games Plan</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Rewards Game Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="resource_quantity">
+<description>Bet Based Usage</description>
+<step_resource_id>1000092</step_resource_id>
+<quantity_tier>
+<step_max>0.0</step_max>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>1000092</resource_id>
+<impact_category>Reward_Games</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+<quantity_tier>
+<step_min>0.0</step_min>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Reward_Games</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.01</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Teen Package</product_name>
+<product_code>Teen Package</product_code>
+<priority>0.0</priority>
+<permitted>/service/content</permitted>
+<provisioning>TeenPackage</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly Cycle Forward Event</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Tier</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$2.95  per month for unlimited access</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>2.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="event" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/activity/content</event_type>
+<rum_name>Content_Usage</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>TeenPlan</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>EVENT.PIN_FLD_CONTENT_INFO.PIN_FLD_CONTENT_CATEGORY_NAME</field_name>
+</column>
+<value_range>
+<value>ChatRooms</value>
+<rate_plan_name>TeenPlan</rate_plan_name>
+<impact_category>ChatRooms</impact_category>
+</value_range>
+<value_range>
+<value>LocalTeenEvents</value>
+<rate_plan_name>TeenPlan</rate_plan_name>
+<impact_category>Local_Teen_Events</impact_category>
+</value_range>
+<value_range>
+<value>Music</value>
+<rate_plan_name>TeenPlan</rate_plan_name>
+<impact_category>Music</impact_category>
+</value_range>
+<value_range>
+<value>PhotoSharing</value>
+<rate_plan_name>TeenPlan</rate_plan_name>
+<impact_category>PhotoSharing</impact_category>
+</value_range>
+<value_range>
+<value>TeenEvents</value>
+<rate_plan_name>TeenPlan</rate_plan_name>
+<impact_category>Teen_Events</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>TeenPlan</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/activity/content</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>TeenPlan</rate_tier_name>
+<priority>0.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>TeenRate</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Music</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Teen_Events</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.1</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>Local_Teen_Events</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.15</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="hour" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>ChatRooms</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.95</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>PhotoSharing</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+</price_list>

@@ -1,0 +1,247 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="BRMInvoices_Consumer" version="15.0.1.0.0" description="BRMInvoices Consumer" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="root.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="BRM_Bursting_Invoice_Report.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="655" dest="xdo.cfg" mode="0755"/>
+                                       <file size="3898" dest="README_HIT" mode="0755"/>
+                                       <file size="1684448" dest="BRM_Consumer_Invoice.rtf" mode="0755"/>
+                                       <file size="3488" dest="_report.xdo" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRM_Consumer_Invoice.rtf"/>
+            <permission mode="0755" wildcard="BRM_Consumer_Invoice.rtf.png"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+            <permission mode="0755" wildcard="README_HIT"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="ViewInvoiceReport.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="564" dest="xdo.cfg" mode="0755"/>
+                                       <file size="1684448" dest="BRM_Consumer_Invoice_en_US.rtf" mode="0755"/>
+                                       <file size="2547" dest="_report.xdo" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRM_Consumer_Invoice_en_US.rtf"/>
+            <permission mode="0755" wildcard="BRM_Consumer_Invoice.rtf.png"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="0.0.0.1.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="11374" dest="_datamodel.xdm" mode="0755"/>
+                                       <file size="7694" dest="_datamodel_HIT.xdm" mode="0755"/>
+                                       <file size="27386" dest="sample.xml" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel_HIT.xdm"/>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="BRM_Hyperlinked_Index_Data_Model.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="13680" dest="_datamodel.xdm" mode="0755"/>
+                                       <file size="4649" dest="sample.xml" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="BRM_Hyperlinked_Index_Report.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="568" dest="xdo.cfg" mode="0755"/>
+                                       <file size="660202" dest="BRM_Hyperlinked_Invoice_en_US.rtf" mode="0755"/>
+                                       <file size="1481" dest="_report.xdo" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRM_Hyperlinked_Invoice_en_US.rtf"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="BRM_Hyperlinked_Invoice_Data_Model.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="10644" dest="_datamodel.xdm" mode="0755"/>
+                                       <file size="27386" dest="sample.xml" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="ViewInvoiceDataModel.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="1884" dest="_datamodel.xdm" mode="0755"/>
+                                       <file size="27386" dest="sample.xml" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Invoices" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="0.0.0.1" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="BRM_Hyperlinked_Invoice_Report.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <file size="568" dest="xdo.cfg" mode="0755"/>
+                                       <file size="2757" dest="Hyperlinked_invoice_bursting.plb" mode="0755"/>
+                                       <file size="872" dest="README_Hyperlinked_Invoice" mode="0755"/>
+                                       <file size="1684448" dest="BRM_Consumer_Invoice.rtf" mode="0755"/>
+                                       <file size="1712" dest="_report.xdo" mode="0755"/>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRM_Consumer_Invoice.rtf"/>
+            <permission mode="0755" wildcard="Hyperlinked_invoice_bursting.plb"/>
+            <permission mode="0755" wildcard="README_Hyperlinked_Invoice"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

@@ -1,0 +1,59 @@
+#!/bin/sh
+# continuus file information --- %full_filespec: start_mdb.sh~2:shsrc:1 %
+#
+#  @(#) %full_filespec: start_mdb.sh~2:shsrc:1 %
+#
+# Copyright (c) 2003-2006 Oracle. All rights reserved.
+# 
+# This material is the confidential property of Oracle Corporation
+# or its licensors and may be used, reproduced, stored or transmitted
+# only in accordance with a valid Oracle license or sublicense agreement.
+#
+#
+
+VERSION=15.0
+PATH=/usr/bin:/bin
+
+PINDIR=/home/pin/opt/portal/BRM
+LOGDIR=/home/pin/opt/portal/BRM/var
+
+START_LIST="pin_config_distribution"
+
+
+if [ -d ${LOGDIR} ]; then
+        for d in ${START_LIST} ; do
+                if [ -f "${LOGDIR}/${d}/${d}.log" ]; then
+                        any="y"
+                fi
+                if [ -f "${LOGDIR}/${d}/${d}.pinlog" ]; then
+                        any="y"
+                fi
+        done
+fi
+
+
+if [ "${any}" ]; then
+        echo "do you wish to remove the log and pinlog files?\c"
+        read ans
+        case ${ans} in
+        y|Y)    echo "removing old log files...\c"
+                rm -rf ${LOGDIR}/*/*log*
+                echo "done"
+                ;;
+        n|N)    echo "leaving log files alone"
+                ;;
+        q|Q)    exit 0
+                ;;
+        *)     echo "eh? [y/n/q]"
+                exit 0
+                ;;
+        esac
+fi
+
+for d in ${START_LIST} ; do
+	if [ -f "${PINDIR}/bin/start_${d}" ];then
+		( cd ${PINDIR}/bin ; ./start_${d} )
+	fi
+done
+
+exit $?

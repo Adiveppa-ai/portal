@@ -1,0 +1,2 @@
+#!/bin/sh
+/home/pin/opt/portal/Thirdparty/jdk1.8.0_401/bin/java -cp "/home/pin/opt/portal/BRM/jars/storableclasstoxml.jar:/home/pin/opt/portal/BRM/jars/pcm.jar:/home/pin/opt/portal/BRM/jars/pcmext.jar:/home/pin/opt/portal/BRM/jars/oraclepki.jar:/home/pin/opt/portal/BRM/jars/osdt_cert.jar:/home/pin/opt/portal/BRM/jars/osdt_core.jar:/home/pin/opt/portal/BRM/apps/storable_class_to_xml" com.portal.storableclasstoxml.StorableClassToXML "$@"

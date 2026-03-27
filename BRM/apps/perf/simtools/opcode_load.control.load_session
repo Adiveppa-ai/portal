@@ -1,0 +1,22 @@
+#
+PCM_OP_ACT_LOAD_SESSION
+# number of field entries allocated 8, used 8
+0 PIN_FLD_POID           POID [0] $APD
+0 PIN_FLD_SERVICE_OBJ    POID [0] $SPD
+0 PIN_FLD_PROGRAM_NAME    STR [0] "opcode_load"
+0 PIN_FLD_DESCR           STR [0] "Batch event for $L"
+0 PIN_FLD_START_T      TSTAMP [0] $T
+0 PIN_FLD_END_T        TSTAMP [0] $T+3600
+0 PIN_FLD_OBJ_TYPE        STR [0] "/dialup"
+0 PIN_FLD_INHERITED_INFO SUBSTRUCT [0] allocated 1, used 1
+1     PIN_FLD_DIALUP       SUBSTRUCT [0] allocated 10, used 10
+2         PIN_FLD_TERMSERV_ID     STR [0] "0.0.$R(1,16).$R(1,16)"
+2         PIN_FLD_TERMSERV_PORT    STR [0] "$R(1,36)"
+2         PIN_FLD_LOGIN           STR [0] "$L"
+2         PIN_FLD_TRANS_ID        STR [0] "$L"
+2         PIN_FLD_TIMEZONE        INT [0] 0
+2         PIN_FLD_STATUS         ENUM [0] 1
+2         PIN_FLD_BYTES_IN        INT [0] $R(7890,7890)
+2         PIN_FLD_BYTES_OUT       INT [0] $R(100,999)
+2         PIN_FLD_PACKETS_IN      INT [0] $R(100,999)
+2         PIN_FLD_PACKETS_OUT     INT [0] $R(100,999)

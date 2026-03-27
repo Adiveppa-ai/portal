@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="AccountMigrationMgr" version="15.0.1.0.0" description="Account Migration Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="amt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="868" dest="pin_amt_test" mode="0775"/>
+            <file size="1614" dest="account_search.cfg" mode="0644"/>
+            <directory dest="com" mode="750" patchable="true">
+               <directory dest="portal" mode="750" patchable="true">
+                  <directory dest="amt" mode="750" patchable="true">
+                     <file size="277" dest="custom_account_search.properties" mode="0644"/>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="account_search.cfg"/>
+            <permission mode="0775" wildcard="pin_amt_test"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="1809" dest="pin_amt_install.conf" mode="0664"/>
+            <file size="21889" dest="pin_amt_install.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="pin_amt_install.conf"/>
+            <permission mode="0775" wildcard="pin_amt_install.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="904" dest="pin_amt" mode="0775"/>
+         <file size="417" dest="run_lpu" mode="0755"/>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_amt"/>
+            <permission mode="0755" wildcard="run_lpu"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="amt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="51468" dest="create_amt_mv_pkb.sql" mode="0664"/>
+               <file size="2233" dest="create_generate_poid_type_map.sql" mode="0664"/>
+               <file size="28558" dest="create_amt_rerate_pkb.sql" mode="0664"/>
+               <file size="1714" dest="create_update_uniqueness_table.sql" mode="0664"/>
+               <file size="7142" dest="create_compare_record.sql" mode="0664"/>
+               <file size="25214" dest="create_amt_indexes.source" mode="0664"/>
+               <file size="6988" dest="create_amt_mv_pkg.sql" mode="0664"/>
+               <file size="2803" dest="create_cleanup_instance.sql" mode="0664"/>
+               <file size="814" dest="create_amt_controller_schema.sql" mode="0664"/>
+               <file size="4227" dest="create_amt_mover_schema.sql" mode="0664"/>
+               <file size="1955" dest="create_db_link.sql" mode="0664"/>
+               <file size="5561" dest="create_account_profile.sql" mode="0664"/>
+               <file size="3039" dest="create_grant_amt_permissions.sql" mode="0664"/>
+               <file size="3921" dest="create_amt_group_search_pkg.sql" mode="0664"/>
+               <file size="182" dest="create_amt_rerate_pkg.sql" mode="0664"/>
+               <file size="19762" dest="create_amt_group_search_pkb.sql" mode="0664"/>
+               <file size="9372" dest="create_generate_amt_metadata.sql" mode="0664"/>
+            </directory>
+            <file size="2355" dest="Infranet.properties" mode="0600"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="create_account_profile.sql"/>
+            <permission mode="0664" wildcard="create_amt_controller_schema.sql"/>
+            <permission mode="0664" wildcard="create_amt_group_search_pkb.sql"/>
+            <permission mode="0664" wildcard="create_amt_group_search_pkg.sql"/>
+            <permission mode="0664" wildcard="create_amt_mover_schema.sql"/>
+            <permission mode="0664" wildcard="create_amt_mv_pkb.sql"/>
+            <permission mode="0664" wildcard="create_amt_mv_pkg.sql"/>
+            <permission mode="0664" wildcard="create_amt_rerate_pkb.sql"/>
+            <permission mode="0664" wildcard="create_amt_rerate_pkg.sql"/>
+            <permission mode="0664" wildcard="create_cleanup_instance.sql"/>
+            <permission mode="0664" wildcard="create_compare_record.sql"/>
+            <permission mode="0664" wildcard="create_db_link.sql"/>
+            <permission mode="0664" wildcard="create_generate_amt_metadata.sql"/>
+            <permission mode="0664" wildcard="create_generate_poid_type_map.sql"/>
+            <permission mode="0664" wildcard="create_update_uniqueness_table.sql"/>
+            <permission mode="0664" wildcard="create_amt_indexes.source"/>
+            <permission mode="0664" wildcard="create_grant_amt_permissions.sql"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="7421" dest="spamt.jar" mode="0644"/>
+         <directory dest="sign" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="16342" dest="spamt.jar" mode="0644"/>
+            <file size="151625" dest="amt.jar" mode="0644"/>
+         </directory>
+         <file size="136612" dest="amt.jar" mode="0644"/>
+         <file-perms>
+            <permission mode="0644" wildcard="amt.jar"/>
+            <permission mode="0644" wildcard="spamt.jar"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

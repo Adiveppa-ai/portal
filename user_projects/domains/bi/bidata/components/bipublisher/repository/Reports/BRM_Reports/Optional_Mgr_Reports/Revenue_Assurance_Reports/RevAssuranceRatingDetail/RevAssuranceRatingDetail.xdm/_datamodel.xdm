@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="simple">
+         <sql>
+            <![CDATA[select RARating.RARatingDetail(
+ :paramStartDate, :paramEndDate, :paramTransStartDate,
+ :paramTransEndDate, :paramFlowType, :paramControlPoint,
+ :paramServiceType, :paramBatchID, :paramReportType,
+ :paramSuccess, :paramFailed, :paramWrittenOff, :paramRaScope) Q1 from dual]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q2" type="complex">
+         <sql>
+            <![CDATA[SELECT DISTINCT(COUNTRY) FROM account_nameinfo_t WHERE COUNTRY IS NOT NULL]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" rootName="RevAssuranceRatingDetail" uniqueRowName="false">
+      <nodeList name="Q1"/>
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+            <group name="G_2" label="G_2" source="Q2">
+               <element name="COUNTRY" value="COUNTRY" label="COUNTRY" dataType="xsd:string" breakOrder="" fieldOrder="1"/>
+            </group>
+         </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="lovDynamicData">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="lovScope">
+         <nvPairs>
+            <nvPair label="Batch Rating" value="Batch Rating"/>
+            <nvPair label="Rerating" value="Rerating"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="paramStartDate" dataType="xsd:date">
+         <date label="Enter Load Start Date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="paramEndDate" dataType="xsd:date">
+         <date label="Enter Load End Date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="paramTransStartDate" dataType="xsd:date">
+         <date label="Enter Transaction Start Date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="paramTransEndDate" dataType="xsd:date">
+         <date label="Enter Transaction End Date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="paramFlowType" dataType="xsd:string">
+         <input label="Include Rating Flow Details."/>
+      </parameter>
+      <parameter name="paramControlPoint" dataType="xsd:string">
+         <input label="Include Control Point."/>
+      </parameter>
+      <parameter name="paramServiceType" dataType="xsd:string">
+         <input label="Include Service Type Details."/>
+      </parameter>
+      <parameter name="paramBatchID" dataType="xsd:string">
+         <input label=" Include Batch ID Details."/>
+      </parameter>
+      <parameter name="paramSuccess" dataType="xsd:string">
+         <input label="Successful Records [Applicable Only When Dynamic Data Is Selected To YES]." size="25"/>
+      </parameter>
+      <parameter name="paramFailed" dataType="xsd:string">
+         <input label=" Failed Records [Applicable Only When Dynamic Data Is Selected To YES]."/>
+      </parameter>
+      <parameter name="paramWrittenOff" dataType="xsd:string">
+         <input label="Written Off Records [Applicable Only When Dynamic Data Is Selected To YES]."/>
+      </parameter>
+      <parameter name="paramReportType" dataType="xsd:string">
+         <select label="Dynamic Data." valueSet="lovDynamicData" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="paramRaScope" dataType="xsd:string">
+         <select label="Revenue Assurance Scope [Applicable Only When Dynamic Data Is Selected To YES]." valueSet="lovScope" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <layouts>
+         <layout name="Q1" left="5px" top="28px"/>
+         <layout name="Q2" left="274px" top="44px"/>
+         <layout name="DATA_DS" left="5px" top="28px"/>
+      </layouts>
+      <groupLinks/>
+   </display>
+</dataModel>

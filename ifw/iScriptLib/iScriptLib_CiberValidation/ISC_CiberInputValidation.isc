@@ -1,0 +1,2046 @@
+//==============================================================================
+//
+//      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_CiberInputValidation 
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module can be used to map the EDR container fields into the associate
+//   ciber container to be used by the output grammar.
+//
+//------------------------------------------------------------------------------
+// $Log: ISC_CiberInputValidation.isc,v $
+// Revision 1.1  2003/02/21 njalel 
+// Initial import of CiberInputValidation script.
+//
+//==============================================================================
+
+//==============================================================================
+// Constant Variables
+//==============================================================================
+
+Bool debug;
+
+String	batchcontents;
+String	currencyType;
+String	returnIndicator;
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;
+  //debug = true;
+}
+   
+//==============================================================================
+// Function declarations
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// init()
+//------------------------------------------------------------------------------
+function init
+{
+  if ( debug )
+    logStdout("init()\n");
+
+  batchcontents = "UNDEFINED";
+  currencyType = "UNDEFINED";
+  returnIndicator = "UNDEFINED";
+}
+
+//------------------------------------------------------------------------------
+// validateReturnCode()
+// Perform cross field validations between Return Code and Batch Return 
+// Indicator.
+//------------------------------------------------------------------------------
+function validateReturnCode
+{
+  if (debug)
+    logStdout("validateReturnCode()\n");
+
+  if(edrString(DETAIL.ASS_CIBER_EXT.RETURN_CODE, 0) == "0" and 
+       returnIndicator == "2" )  {
+    edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+    edrAddError("ERR_CIBER_RET",3,"4","18","044",
+		"CIBER25.ASS_CIBER_EXT.RETURN_CODE");
+  }
+
+  if(edrString(DETAIL.ASS_CIBER_EXT.RETURN_CODE, 0) != "0" and 
+       returnIndicator == "1" )  {
+    edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+    edrAddError("ERR_CIBER_RET",3,"4","18","046",
+		"CIBER25.ASS_CIBER_EXT.RETURN_CODE");
+  }
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateAge(long recordType)
+// Ensure that the CIBER record is not older than the permitted date.
+//------------------------------------------------------------------------------
+function validateAge(Long recordType) 
+{
+  Date currentDate = sysdate();
+  Long thirtyDays  = 2592000; //Thirty days in seconds
+  Long sixityDays  = 5184000; //Sixity days in seconds
+  Long nintyDays  = 7776000;  //Ninty days in seconds
+
+  if (debug)
+    logStdout("validateAge()\n");
+
+  Date callDate = edrDate(DETAIL.ASS_CIBER_EXT.CALL_DATE,  0);
+
+  if (recordType == 10 or 
+      recordType == 20 or
+      recordType == 22) {
+    if ( returnIndicator == "1" and 
+       dateDiff(currentDate, callDate) > thirtyDays ) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","10","007",
+		"CIBER25.ASS_CIBER_EXT.CALL_DATE");
+    }
+    if ( callDate > currentDate ) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","17","007",
+		"CIBER25.ASS_CIBER_EXT.CALL_DATE");
+    }
+
+    if ( returnIndicator == "2" and 
+       dateDiff( currentDate, callDate) > sixityDays ) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"5","13","045",
+		"CIBER25.ASS_CIBER_EXT.CALL_DATE");
+    }
+  }
+
+  if (recordType == 11 or 
+      recordType == 30 or
+      recordType == 32 or
+      recordType == 42 
+      ) {
+    if ( returnIndicator == "1" and
+       dateDiff( currentDate, callDate) > sixityDays ) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","10","007",
+		"CIBER25.ASS_CIBER_EXT.CALL_DATE");
+    }
+    if ( callDate > currentDate ) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","17","007",
+		"CIBER25.ASS_CIBER_EXT.CALL_DATE");
+    }
+
+    if ( returnIndicator == "2" and
+       dateDiff( currentDate, callDate) > nintyDays ) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"5","13","045",
+		"CIBER25.ASS_CIBER_EXT.CALL_DATE");
+    }
+  }
+
+  if (recordType == 50 or 
+      recordType == 52 ) {
+    Date occEndDate = edrDate(DETAIL.ASS_CIBER_EXT.OCC_END_DATE, 0);
+    Date occStartDate = edrDate(DETAIL.ASS_CIBER_EXT.OCC_START_DATE, 0);
+    Date recordCreationDate = edrDate(DETAIL.ASS_CIBER_EXT.RECORD_CREATE_DATE, 0);
+    
+    if ( returnIndicator == "1" and
+       dateDiff(currentDate, occEndDate) > thirtyDays) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","10","207",
+		"CIBER25.ASS_CIBER_EXT.OCC_END_DATE");
+    }
+    if (occStartDate > occEndDate) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","25","207",
+		"CIBER25.ASS_CIBER_EXT.OCC_END_DATE");
+    }
+    if (recordCreationDate > currentDate) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"4","17","208",
+		"CIBER25.ASS_CIBER_EXT.OCC_END_DATE");
+    }
+
+    if ( returnIndicator == "2" and
+       dateDiff(currentDate , occEndDate) > sixityDays) {
+       edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+       edrAddError("ERR_CIBER_RET",3,"5","13","045",
+		"CIBER25.ASS_CIBER_EXT.OCC_END_DATE");
+    }
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateESNIMEI(); 
+// Validate the electronic serila number.
+//------------------------------------------------------------------------------
+function validateESNIMEI
+{
+
+  if (debug)
+    logStdout("validateESNIMEI()\n");
+
+  // Get the ESN/IMEI Indicator
+  if (edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI_INDICATOR, 0) == "0" and 
+     // edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0) != "0000000000000000000") 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0)) != 0){
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","105","CIBER25.ASS_CIBER_EXT.ESN_IMEI");
+  }
+  else if (edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI_INDICATOR, 0) == "1" and
+      //strSubstr(edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0), 0, 11) == "00000000000") 
+      strToLong(strSubstr(edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0), 0, 11)) == 0) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID); 
+      edrAddError("ERR_CIBER_RET",3,"4","06","105","CIBER25.ASS_CIBER_EXT.ESN_IMEI");
+  }
+  else if (edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI_INDICATOR, 0) == "2" and
+   //   strSubstr(edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0), 0, 16) == "0000000000000000") 
+      strToLong(strSubstr(edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0), 0, 16)) == 0) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID); 
+      edrAddError("ERR_CIBER_RET",3,"4","07","105","CIBER25.ASS_CIBER_EXT.ESN_IMEI");
+  }
+  else if (edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI_INDICATOR, 0) == "3" and
+     // edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0) == "0000000000000000000") 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.ESN_IMEI, 0)) == 0){
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID); 
+      edrAddError("ERR_CIBER_RET",3,"4","07","105","CIBER25.ASS_CIBER_EXT.ESN_IMEI");
+  }
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateTLDN_NO(); 
+// Perform cross field validations between the TLDN number and the TLDN
+// number length.
+//------------------------------------------------------------------------------
+function validateTLDN_NO
+{
+
+  if (debug)
+    logStdout("validateTLDN_NO()\n");
+
+  // Get the TLDN length
+  if ((edrLong(DETAIL.ASS_CIBER_EXT.TLDN_NO_LENGTH, 0) == 0 and 
+       strToLong(edrString(DETAIL.ASS_CIBER_EXT.TLDN_NO, 0)) != 0)  or
+       (edrLong(DETAIL.ASS_CIBER_EXT.TLDN_NO_LENGTH, 0) > 0 and 
+        strToLong(edrString(DETAIL.ASS_CIBER_EXT.TLDN_NO, 0)) <= 0)) {
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","07","111","CIBER25.ASS_CIBER_EXT.TLDN_NO");
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateAirTimeRateCharge(); 
+// Validate the air tim echarge, rate period and multi rate period.
+//------------------------------------------------------------------------------
+function validateAirTimeRateCharge
+{
+
+  if (debug)
+    logStdout("validateAirTimeRateCharge()\n");
+
+  // Get the special features used 
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "F") >= 0) and 
+       edrDecimal(DETAIL.ASS_CIBER_EXT.AIR_CHARGE, 0) != 0.00) {
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","07","026","CIBER25.ASS_CIBER_EXT.AIR_CHARGE");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "F") >= 0) and 
+       dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.AIR_CONNECT_TIME, 0), "%H%M%S") 
+		!= "000000") {
+
+logStdout ("TESTTT" + dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.AIR_CONNECT_TIME, 0), "%H%M%S") + "\n");
+
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","07","022","CIBER25.ASS_CIBER_EXT.AIR_CONNECT_TIME");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "F") >= 0) and 
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_MULTIRATE_PERIOD, 0) != "0") {
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","06","025","CIBER25.ASS_CIBER_EXT.AIR_MULTIRATE_PERIOD");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "F") >= 0) and 
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_RATE_PERIOD, 0) != "00") {
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","06","024","CIBER25.ASS_CIBER_EXT.AIR_RATE_PERIOD");
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateOtherChargeNo1(); 
+// Perform cross field validation between Other Charge 1 and Other Charge 1
+// indicator.
+//------------------------------------------------------------------------------
+function validateOtherChargeNo1
+{
+  if (debug)
+    logStdout("validateOtherChargeNo1()\n");
+
+  // Get other charge no 1 indicator 
+  if (edrString(DETAIL.ASS_CIBER_EXT.OTHER_CHARGE_1_INDICATOR, 0) == "00" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.OTHER_CHARGE_1, 0) != 0.00) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","114","CIBER25.ASS_CIBER_EXT.OTHER_CHARGE_1");
+
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateFraudIndicator(); 
+// Perform cross field validation between Fraud Indicator and Fraud Sub Indicator
+// 
+//------------------------------------------------------------------------------
+function validateFraudIndicator
+{
+  if (debug)
+    logStdout("validateFraudIndicator()\n");
+
+  // Get other charge no 1 indicator 
+  if (edrString(DETAIL.ASS_CIBER_EXT.FRAUD_INDICATOR, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.FRAUD_SUB_INDICATOR, 0) != "0") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","206","CIBER25.ASS_CIBER_EXT.FRAUD_INDICATOR");
+  }
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateToll(); 
+// Validate cross field validations for toll charge, toll rate period, toll
+// rating point and special features used.
+//------------------------------------------------------------------------------
+function validateToll
+{
+  if (debug)
+    logStdout("validateToll()\n");
+
+  // Get other charge no 1 indicator 
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATE_CLASS, 0) == "0") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","032","CIBER25.ASS_CIBER_EXT.TOLL_RATE_CLASS");
+  }
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATE_PERIOD, 0) == "00") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","030","CIBER25.ASS_CIBER_EXT.TOLL_RATE_PERIOD");
+  }
+
+  if (edrLong(DETAIL.ASS_CIBER_EXT.TOLL_RATING_POINT_LENGTH, 0) == 0 and
+      edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATING_POINT, 0) != "0000000000") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","120","CIBER25.ASS_CIBER_EXT.TOLL_RATE_POINT");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "J") >= 0) and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","034","CIBER25.ASS_CIBER_EXT.TOLL_CHARGE");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "K") >= 0) and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","034","CIBER25.ASS_CIBER_EXT.TOLL_CHARGE");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateToll_20(); 
+// Perform cross field level validations for CIBER 20 record. Validate toll 
+// charge, toll rate class, toll rate period and toll tariff desc. 
+//------------------------------------------------------------------------------
+function validateToll_20
+{
+  if (debug)
+    logStdout("validateToll_20()\n");
+
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATE_CLASS, 0) == "0") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","032","CIBER25.ASS_CIBER_EXT.TOLL_RATE_CLASS");
+  }
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATE_PERIOD, 0) == "00") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","030","CIBER25.ASS_CIBER_EXT.TOLL_RATE_PERIOD");
+  }
+
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) != 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.TOLL_TARIFF_DESC, 0) == "00") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","029","CIBER25.ASS_CIBER_EXT.TOLL_TARIFF_DESC");
+  }
+  return ;
+}
+
+
+//------------------------------------------------------------------------------
+// validateChargeNoIndicator_32(); 
+// Perform cross field validation between charge no indicator and special 
+// feature used.
+//------------------------------------------------------------------------------
+function validateChargeNoIndicator_32
+{
+  if (debug)
+    logStdout("validateChargeNoIndicator_32()\n");
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "15" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "19" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "20" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "21" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "22" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "23" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "24" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "25" ) 
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","064","CIBER25.ASS_CIBER_EXT.CHARGE_NO_1_IND");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "15" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "19" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "20" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "21" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "22" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "23" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "24" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "25" ) 
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","071","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_IND");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "15" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "19" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "20" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "21" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "22" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "23" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "24" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "25" ) 
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","078","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_IND");
+  }
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "15" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "19" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "20" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "21" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "22" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "23" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "24" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "25" ) 
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","085","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_IND");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateChargeNo2(Long recordType); 
+// Cross field validation between:
+//    Charge No 2
+//    Charge No 2 Indicator
+//    Charge No 2 Connect Time
+//    Charge No 2 Elapsed Time
+//    Charge No 2 Chargeable Time
+//    Charge No 2 Rate Period
+//    Charge No 2 Multi Rate Period
+//    Charge No 2 Surcharge Ind
+//------------------------------------------------------------------------------
+function validateChargeNo2(Long recordType) 
+{
+  if (debug)
+    logStdout("validateChargeNo2()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2, 0) != 0.00 ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2, 0) == 0.00 ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","077","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_CHARGEABLE_TIME, 0) != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_CHARGEABLE_TIME, 0) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","073","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_CHARGEABLE_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_CONNECT_TIME, 0), "%H%M%S") != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_CONNECT_TIME, 0)) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","072","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_CONNECT_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_ELAPSED_TIME, 0) != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_ELAPSED_TIME, 0) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","074","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_ELAPSED_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_MULTIRATE_PERIOD, 0) != "0" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_MULTIRATE_PERIOD, 0) == "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","076","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_MULTIRATE_PERIOD");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_RATE_PERIOD, 0) != "00" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_RATE_PERIOD, 0) == "00" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","075","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_RATE_PERIOD");
+  }
+  
+  if(recordType == 32 or recordType == 42) {
+    if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) != "0" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","096","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND");
+    }
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateChargeNo3(Long RecordType); 
+// Cross field validation between:
+//    Charge No 3
+//    Charge No 3 Indicator
+//    Charge No 3 Connect Time
+//    Charge No 3 Elapsed Time
+//    Charge No 3 Chargeable Time
+//    Charge No 3 Rate Period
+//    Charge No 3 Multi Rate Period
+//    Charge No 3 Surcharge Ind
+//------------------------------------------------------------------------------
+function validateChargeNo3(Long recordType) 
+{
+  if (debug)
+    logStdout("validateChargeNo3()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3,0) != 0.00 ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3,0) == 0.00 ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","084","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_CHARGEABLE_TIME,0) != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_CHARGEABLE_TIME,0) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","080","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_CHARGEABLE_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_CONNECT_TIME,0), "%H%M%S") != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_CONNECT_TIME,0)) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","079","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_CONNECT_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_ELAPSED_TIME,0) != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_ELAPSED_TIME,0) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","081","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_ELAPSED_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_MULTIRATE_PERIOD,0) != "0" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_MULTIRATE_PERIOD,0) == "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","083","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_MULTIRATE_PERIOD");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_RATE_PERIOD,0) != "00" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_RATE_PERIOD,0) == "00" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","082","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_RATE_PERIOD");
+  }
+
+  if(recordType == 32 or recordType == 42) {
+    if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND,0) != "0" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND,0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND,0) == "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","097","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND");
+    }
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateChargeNo4(Long recordType); 
+// Cross field validation between:
+//    Charge No 4
+//    Charge No 4 Indicator
+//    Charge No 4 Connect Time
+//    Charge No 4 Elapsed Time
+//    Charge No 4 Chargeable Time
+//    Charge No 4 Rate Period
+//    Charge No 4 Multi Rate Period
+//    Charge No 4 Surcharge Ind
+//------------------------------------------------------------------------------
+function validateChargeNo4(Long recordType) 
+{
+  if (debug)
+    logStdout("validateChargeNo4()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4, 0) != 0.00 ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4, 0) == 0.00 ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","091","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_CHARGEABLE_TIME, 0) != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_CHARGEABLE_TIME, 0) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","087","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_CHARGEABLE_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_CONNECT_TIME, 0), "%H%M%S") != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_CONNECT_TIME, 0)) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","086","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_CONNECT_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_ELAPSED_TIME, 0) != "000000" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_ELAPSED_TIME, 0) == "000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","088","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_ELAPSED_TIME");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_MULTIRATE_PERIOD, 0) != "0" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_MULTIRATE_PERIOD, 0) == "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","090","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_MULTIRATE_PERIOD");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_RATE_PERIOD, 0) != "00" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_RATE_PERIOD, 0) == "00" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","089","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_RATE_PERIOD");
+  }
+
+  if(recordType == 32 or recordType == 42) {
+    if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) == "00" and
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) != "0" ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0)) > 0 and 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","098","CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND");
+    }
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateOCCCharge(Long recordType); 
+// Cross Validation between 
+//    OCC Charge
+//    OCC Start Date
+//    OCC End Date
+//    OCC Interval Indicator
+//    OCC Record Use Indicator
+//------------------------------------------------------------------------------
+function validateOCCCharge(Long recordType) 
+{
+  if (debug)
+    logStdout("validateOCCCharge()\n");
+
+  if ((edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) == 0.00 and
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.OCC_START_DATE, 0),"%y%m%d") != "000000" )) {
+
+      if (recordType == 52){
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+        //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+        edrAddError("ERR_CIBER_RET",3,"4","07","051","CIBER25.ASS_CIBER_EXT.OCC_START_DATE");
+      }
+
+      if (recordType == 50){
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+        //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+        edrAddError("ERR_CIBER_RET",3,"4","07","007","CIBER25.ASS_CIBER_EXT.OCC_START_DATE");
+      }
+  }
+
+  if ((edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) == 0.00 and
+      dateToStr(edrDate(DETAIL.ASS_CIBER_EXT.OCC_END_DATE, 0),"%y%m%d") != "000000" )) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","207","CIBER25.ASS_CIBER_EXT.OCC_END_DATE");
+  }
+
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) == 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.OCC_INTERVAL_INDICATOR, 0) != "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","210",
+		"CIBER25.ASS_CIBER_EXT.OCC_INTERVAL_INDICATOR");
+  }
+
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) == 0.00 and
+      edrString(DETAIL.ASS_CIBER_EXT.RECORD_USE_INDICATOR, 0) != "0" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","056",
+		"CIBER25.ASS_CIBER_EXT.RECORD_USE_INDICATOR");
+  }
+// TODO LOOK INTO THIS AGAIN
+//  if ((edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) == 0.00 and
+//      strToLong(edrString(DETAIL.ASS_CIBER_EXT.OCC_DESCRIPTION, 0) != 0 )) or
+//      (edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) != 0.00 and 
+//      strToLong(edrString(DETAIL.ASS_CIBER_EXT.OCC_DESCRIPTION, 0) == 0 )))
+//      {
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+//      edrAddError("ERR_CIBER_RET",3,"4","07","041","CIBER25.ASS_CIBER_EXT.OCC_DESCRIPTION");
+//  }
+
+  return;
+
+}
+
+
+//------------------------------------------------------------------------------
+// validateMobileIdNumber(); 
+// Cross validation between 
+//     MIN/ESN APP Indicator
+//     Mobile Id No length
+//     Mobile Id No
+//------------------------------------------------------------------------------
+function validateMobileIdNumber
+{
+  if (debug)
+    logStdout("validateMobileIdNumber()\n");
+
+  if (edrLong(DETAIL.ASS_CIBER_EXT.MOBILE_ID_NO_LENGTH, 0) == 0 and
+      edrString(DETAIL.ASS_CIBER_EXT.MIN_ESN_APP_INDICATOR, 0) == "3" and
+      edrString(DETAIL.ASS_CIBER_EXT.MOBILE_ID_NO, 0) != "0000000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","005","CIBER25.ASS_CIBER_EXT.MOBILE_ID_NUMBER");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.MIN_ESN_APP_INDICATOR, 0) == "1" or 
+      edrString(DETAIL.ASS_CIBER_EXT.MIN_ESN_APP_INDICATOR, 0) == "2" ) and
+      edrString(DETAIL.ASS_CIBER_EXT.MOBILE_ID_NO, 0) == "0000000000" ){
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","005","CIBER25.ASS_CIBER_EXT.MOBILE_ID_NUMBER");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateESNNumber(); 
+// Cross validation between ESN and MIN/ESN APP Indicator
+//------------------------------------------------------------------------------
+function validateESNNumber
+{
+  if (debug)
+    logStdout("validateESNNumber()\n");
+
+  if (edrString(DETAIL.ASS_CIBER_EXT.MIN_ESN_APP_INDICATOR, 0) == "1" and
+      edrString(DETAIL.ASS_CIBER_EXT.ELECTRONIC_SERIAL_NO, 0) == "00000000000" ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","006","CIBER25.ASS_CIBER_EXT.ELECTRONIC_SERIAL_NO");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.MIN_ESN_APP_INDICATOR, 0) == "2" or 
+      edrString(DETAIL.ASS_CIBER_EXT.MIN_ESN_APP_INDICATOR, 0) == "3" ) and
+      edrString(DETAIL.ASS_CIBER_EXT.ELECTRONIC_SERIAL_NO, 0) != "00000000000" ){
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","006","CIBER25.ASS_CIBER_EXT.ELECTRONIC_SERIAL_NO");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateMiscSurcharge(); 
+// Perform cross field validations between Misc surcharge desc. and
+// Misc. surcharge.
+//------------------------------------------------------------------------------
+function validateMiscSurcharge
+{
+  if (debug)
+    logStdout("validateMiscSurcharge()\n");
+
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) == "0" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) != 0.00 ) or
+      (edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) != "0" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) == 0.00))
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","059","CIBER25.ASS_CIBER_EXT.MISC_SURCHARGE");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateMiscSurchargeDesc(); 
+// Cross field validations between Special Features Used and Misc Surcharge Desc.
+//------------------------------------------------------------------------------
+function validateMiscSurchargeDesc
+{
+  if (debug)
+    logStdout("validateMiscSurchargeDesc()\n");
+
+
+    if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "F") >= 0) and
+       (edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) != "A" or 
+       edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) != "B" or 
+       edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) != "D" or 
+       edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) != "E" or 
+       edrString(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE_DESC, 0) != "F" )) 
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","062","CIBER25.ASS_CIBER_EXT.MISC_SURCHARGE_DESCR");
+  }
+
+  return;
+}
+
+
+//------------------------------------------------------------------------------
+// validateSSUCharge(); 
+// Cross field validation between Special Features Used and SSU charge.
+// 
+//------------------------------------------------------------------------------
+function validateSSUCharge
+{
+
+  if (debug)
+    logStdout("validateSSUCharge()\n");
+
+  // Get the special features used 
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED,0 ), "F") >= 0) and 
+       edrDecimal(DETAIL.ASS_CIBER_EXT.SSU_CHARGE, 0) != 0.00) {
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","07","026","CIBER25.ASS_CIBER_EXT.SSU_CHARGE");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateSpecialFeaturesUsed(); 
+// Cross field validations between
+//     Special Features Used
+//     SSU Charge
+//     Toll Charge
+//------------------------------------------------------------------------------
+function validateSpecialFeaturesUsed
+{
+
+  if (debug)
+    logStdout("validateSpecialFeaturesUsed()\n");
+
+  
+  if (edrDecimal(DETAIL.ASS_CIBER_EXT.SSU_CHARGE, 0) == 0.00 and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) == 0.00 and 
+      ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0), "TU") >= 0) or
+      (strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0), "UT") >= 0))) {
+   
+        edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";   
+	//edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+	edrAddError("ERR_CIBER_RET",3,"4","06","018",
+		"CIBER25.ASS_CIBER_EXT.SPECIAL_FEATURES_USED");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateChargeNo1(); 
+// Cross field validation between
+//    Charge No 1 Indicator
+//    Charge No 1
+//------------------------------------------------------------------------------
+function validateChargeNo1
+{
+  if (debug)
+    logStdout("validateChargeNo1()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) == "00" and
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1, 0) != 0.00 ) or 
+      strToLong(edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0)) > 0 and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1, 0) == 0.00 ) {
+      
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","070","CIBER25.ASS_CIBER_EXT.CHARGE_NO_1");
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateChargeNoIndicator_30(); 
+// Cross field validation for CIBER Record 30 between
+//     Special Feature Used
+//     Charge No (1,2,3,4) Indicator
+//------------------------------------------------------------------------------
+function validateChargeNoIndicator_30
+{
+  if (debug)
+    logStdout("validateChargeNoIndicator_30()\n");
+
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "03" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "04" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "05" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "06" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "08" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "09" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) != "11" )
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","064","CIBER25.ASS_CIBER_EXT.CHARGE_NO_1_IND");
+  }
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "03" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "04" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "05" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "06" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "08" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "09" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_IND, 0) != "11" )
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","071","CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_IND");
+  }
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "03" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "04" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "05" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "06" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "08" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "09" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_IND, 0) != "11" )
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","078","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_IND");
+  }
+  if ((strSearch(edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0), "T") >= 0) and
+      (edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "03" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "04" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "05" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "06" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "08" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "09" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_IND, 0) != "11" )
+      ) {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","085","CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_IND");
+  }
+
+
+  return ;
+}
+
+//------------------------------------------------------------------------------
+// validateChargeNo1SurgInd()
+// Cross field validation between
+//     Surcharge Indicator
+//     Total State Tax
+//     Total Local Tax
+//     Misc. Surcharge
+//------------------------------------------------------------------------------
+function validateChargeNo1SurgInd
+{
+  if (debug)
+    logStdout("validateChargeNo1SurgInd()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "1" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","095",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "2" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","095",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "4" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","095",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_1_SURCHARGE_IND");
+  }
+
+  return ;
+}
+
+//------------------------------------------------------------------------------
+// validateChargeNo2SurgInd()
+// Cross field validation between
+//     Surcharge Indicator
+//     Total State Tax
+//     Total Local Tax
+//     Misc. Surcharge
+//------------------------------------------------------------------------------
+function validateChargeNo2SurgInd
+{
+  if (debug)
+    logStdout("validateChargeNo2SurgInd()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "1" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","096",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "2" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","096",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "4" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","096",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_2_SURCHARGE_IND");
+  }
+
+  return ;
+}
+
+//------------------------------------------------------------------------------
+// validateChargeNo3SurgInd()
+//------------------------------------------------------------------------------
+function validateChargeNo3SurgInd
+{
+  if (debug)
+    logStdout("validateChargeNo3SurgInd()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "1" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","097",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "2" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","097",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "4" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","097",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_3_SURCHARGE_IND");
+  }
+
+  return ;
+}
+
+
+//------------------------------------------------------------------------------
+// validateChargeNo4SurgInd()
+//------------------------------------------------------------------------------
+function validateChargeNo4SurgInd
+{
+  if (debug)
+    logStdout("validateChargeNo3SurgInd()\n");
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "1" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","098",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "2" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "3" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","098",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND");
+  }
+
+  if ((edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "4" or 
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "5" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "6" or
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND, 0) == "7" ) and 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) == 0.00)
+      {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","06","098",
+		"CIBER25.ASS_CIBER_EXT.CHARGE_NO_4_SURCHARGE_IND");
+  }
+
+  return ;
+}
+
+
+//------------------------------------------------------------------------------
+// validateTotalCharges(Long recordType)
+// Ensure that the total charges in the CIBER record equal the sum of all the
+// charges within the record.
+//------------------------------------------------------------------------------
+function validateTotalCharges(Long recordType) 
+{
+  Decimal sumOfCharges=0.00;
+
+  if (debug)
+    logStdout("validateTotalCharges()\n");
+
+  if (recordType == 10) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.SSU_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+  if (recordType == 20) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.SSU_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  if (recordType == 11) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  if (recordType == 30) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  if (recordType == 50) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  if (recordType == 22) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.AIR_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.OTHER_CHARGE_1, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  if (recordType == 32 or recordType == 42) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.OTHER_CHARGE_1, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_2, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_3, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_4, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  if (recordType == 52) {
+   sumOfCharges =  edrDecimal(DETAIL.ASS_CIBER_EXT.OTHER_CHARGE_1, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_STATE_TAX, 0) +
+		   edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_LOCAL_TAX, 0);
+
+    if (edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) != 
+        sumOfCharges)
+    {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","07","009",
+		"CIBER25.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX");
+    }
+  }
+
+  return;
+
+} 
+
+//------------------------------------------------------------------------------
+// validateCiber22Record() 
+//------------------------------------------------------------------------------
+function validateCiber22Record
+{
+
+  if (debug)
+    logStdout("validateCiber22Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+     validateReturnCode();
+  }
+  
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(22);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateESNIMEI();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTLDN_NO();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAirTimeRateCharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateOtherChargeNo1();
+  }
+  
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(22);
+  }
+ 
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateToll();
+  }
+
+  return ;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber32Record() 
+//------------------------------------------------------------------------------
+function validateCiber32Record
+{
+
+  if (debug)
+    logStdout("validateCiber32Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(32);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateESNIMEI();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTLDN_NO();
+  }
+ 
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateOtherChargeNo1();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNoIndicator_32();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo2(32);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo3(32);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo4(32);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(32);
+  }
+
+  return ;
+}
+
+
+//------------------------------------------------------------------------------
+// validateCiber42Record() 
+//------------------------------------------------------------------------------
+function validateCiber42Record
+{
+
+  if (debug)
+    logStdout("validateCiber42Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(42);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateESNIMEI();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateOtherChargeNo1();
+  }
+ 
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo2(42);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo3(42);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo4(42);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(42);
+  }
+
+  return ;
+}
+
+
+//------------------------------------------------------------------------------
+// validateCiber52Record() 
+//------------------------------------------------------------------------------
+function validateCiber52Record
+{
+
+  if (debug)
+    logStdout("validateCiber52Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(52);
+  }
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateOtherChargeNo1();
+  }
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateOCCCharge(52);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(52);
+  }
+
+  return ;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber10Record() 
+//------------------------------------------------------------------------------
+function validateCiber10Record
+{
+
+  if (debug)
+    logStdout("validateCiber10Record()\n");
+  
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(10);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateSSUCharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(10);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMiscSurcharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMiscSurchargeDesc();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateSpecialFeaturesUsed();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber11Record() 
+//------------------------------------------------------------------------------
+function validateCiber11Record
+{
+
+  if (debug)
+    logStdout("validateCiber11Record()\n");
+ 
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(11);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo1();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo1SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo2(11);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo2SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo3(11);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo3SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo4(11);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo4SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(11);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber20Record() 
+//------------------------------------------------------------------------------
+function validateCiber20Record
+{
+
+  if (debug)
+    logStdout("validateCiber20Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(20);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateSSUCharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMiscSurcharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMiscSurchargeDesc();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateSpecialFeaturesUsed();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateToll_20();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(20);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber30Record() 
+//------------------------------------------------------------------------------
+function validateCiber30Record
+{
+
+  if (debug)
+    logStdout("validateCiber30Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(30);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo1();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMiscSurcharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNoIndicator_30();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo1SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo2(30);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo2SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo3(30);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo3SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo4(30);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateChargeNo4SurgInd();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(30);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber50Record() 
+//------------------------------------------------------------------------------
+function validateCiber50Record
+{
+
+  if (debug)
+    logStdout("validateCiber50Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(50);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateOCCCharge(50);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMiscSurcharge();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateTotalCharges(50);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  return;
+}
+
+//------------------------------------------------------------------------------
+// validateCiber70Record() 
+//------------------------------------------------------------------------------
+function validateCiber70Record
+{
+
+  if (debug)
+    logStdout("validateCiber70Record()\n");
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateReturnCode();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateAge(70);
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateMobileIdNumber();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateESNNumber();
+  }
+
+  if (edrString( DETAIL.ERROR_REJECT_TYPE ) == ""){
+    validateFraudIndicator();
+  }
+
+  return;
+}
+
+//==============================================================================
+// Adding Infranet Billing Record to Basic Detail Record
+//==============================================================================
+function onHeaderEdr
+{
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+  init();
+//  string	batchcontents;
+// string	currencyType;
+  batchcontents = edrString(HEADER.BATCH_CONTENTS);
+  if (edrString(HEADER.CIBER_RECORD_TYPE) == "01"){
+    returnIndicator = edrString(HEADER.RETURN_INDICATOR);
+  }
+  currencyType = edrString(HEADER.CURRENCY);
+
+}
+
+//==============================================================================
+// Adding Infranet Billing Record to Basic Detail Record
+//==============================================================================
+function onDetailEdr
+{
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+//  init();
+
+  //---------------------------------------------------------------------------
+  // get the CIBER record 
+  //---------------------------------------------------------------------------
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "22") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber22Record();
+    }
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "32") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber32Record();
+    }
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "42") {
+    if (batchcontents == "1") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","092",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber42Record();
+    }
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "52") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber52Record();
+    }
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "10") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber10Record();
+    }
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "11") {
+    if (batchcontents == "1") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","092",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber11Record();
+    }
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "20") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber20Record();
+    } 
+  }
+
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "30") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber30Record();
+    }
+  }
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "50") {
+    if (batchcontents == "2") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","19","093",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber50Record();
+    }
+  }
+  else if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "70") {
+    if (batchcontents == "2" or batchcontents == "1") {
+      edrString( DETAIL.ERROR_REJECT_TYPE ) = "ERR_CIBER_RET";
+      //edrAddError("ERR_CIBER_RET",3,retCode,retReason,fieldID,ruleID);
+      edrAddError("ERR_CIBER_RET",3,"4","20","200",
+		"CIBER25.ASS_CIBER_EXT.CIBER_RECORD_TYPE");
+    }
+    else {
+      validateCiber70Record();
+    }
+  }
+
+} // end onDetailEdr + end iScript

@@ -1,0 +1,598 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------#
+# SCRIPT: compare_perflib_runs
+#
+# DESCRIPTION:
+#
+# Compares two Perflib trace files and reports the differences (as a percentage
+# improvement or worsening)
+#
+# INFORMATION:
+#
+# BRM Performance Testing ...
+#
+# REVISION:
+#
+# $Revision: 1.7 $
+# $Author: pin $
+# $Date: 2015/01/13 16:49:42 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# Usage - Exit with usage message
+#------------------------------------------------------------------------------#
+usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-h] [-r] [-s] [-c|C] [-f<filter>] [-a<alist>] [-d] [-l<level>] <f1> <f2>
+
+where :  -h          This help message
+         -f<filter>  Filter string (see 'perf_parse' for information). If you
+                     use '-r' make sure you remove 'PCM_OP_' from your filter!
+         -c|C        Show 'contribution' - this is an estimate of how much a
+                     particular opcode contributes to the difference in
+                     total execution time of each top-level opcode. If the -C
+                     is provided, the calculation will use the average time.
+         -r          Remove 'PCM_OP_' from opcode names .. 
+         -s          Include source-code line references
+         -a<alist>   Additional attributes to add to report. The list of valid
+                     values is '$VALID_ATTRIBUTES' and must be separated by
+                     commas.
+         -d          Show absolute difference between values rather than a
+                     percentage change.
+         -l<level>   Allow the level to report and compare (e.g. 1 would only
+                     compare top-level opcodes).
+
+         f1          First Perflib log file to compare
+         f2          Second Perflib log file to compare
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+VALID_ATTRIBUTES="tot pct exe err avg min max rec"
+VERSION=7.5
+CMD=$(basename $0)
+PARSE_OPTS=-D   # This produces the old 'dot' format which is easier to parse
+ATTR_LIST=
+ABS_DIFF=N
+LEVEL=0
+SHOW_CONTRIBUTION=
+HAS_SOURCE=N
+FILTER=
+
+#
+# Check options ...
+#
+while getopts "hcCrsf:a:dl:" OPTION
+do
+   case "$OPTION" in
+   h)    usage;;
+   f)    PARSE_OPTS="$PARSE_OPTS -f$OPTARG"
+         FILTER="$OPTARG"
+         ;;
+   r)    PARSE_OPTS="$PARSE_OPTS -r";;
+   s)    PARSE_OPTS="$PARSE_OPTS -S"
+         HAS_SOURCE=Y
+         ;;
+   d)    ABS_DIFF=Y;;
+   c)    SHOW_CONTRIBUTION=c;;
+   C)    SHOW_CONTRIBUTION=C;;
+   l)    LEVEL="$OPTARG";;
+   a)    for ATTR in $(echo "$OPTARG" | tr "[A-Z]," "[a-z] " 2>/dev/null)
+         do
+            VALID=N
+            for VALID_ATTR in $VALID_ATTRIBUTES
+            do
+               if [ $ATTR = $VALID_ATTR ]
+               then
+                  ATTR_LIST="$ATTR_LIST $ATTR"
+                  VALID=Y
+               fi
+            done 
+            if [ "$VALID" = "N" ]
+            then
+               printf "ERROR: attribute [$ATTR] is not valid\n" >&2
+               printf "Please choose from: $VALID_ATTRIBUTES\n" >&2
+               exit 1
+            fi
+         done
+         ;;
+   \?)   echo "Unknown option ..." >&2
+         usage;;
+   :)    echo "Option '$OPTARG' requires an argument" >&2
+         usage;;
+   *)    break;;
+   esac
+done
+shift $((OPTIND - 1))
+
+[ $# -eq 2 ] || usage
+FILE1=$1
+FILE2=$2
+
+if [ ! -r "$FILE1" ]
+then
+   printf "ERROR: file '$FILE1' not found\n" >&2
+   exit 1
+fi
+
+if [ ! -r "$FILE2" ]
+then
+   printf "ERROR: file '$FILE2' not found\n" >&2
+   exit 1
+fi
+
+TMP1=$$.$CMD.tmp1
+TMP2=$$.$CMD.tmp2
+trap 'rm -f $TMP1 $TMP2' 0 1 2 3 15
+
+#
+# Generate first report ...
+#
+printf "Generating Perflib report for $FILE1 ..." >&2
+OUTPUT=$(perf_parse -s${LEVEL} $PARSE_OPTS $FILE1 2>&1 >$TMP1)
+if [ $? -ne 0 ]
+then
+   printf "\n"
+   printf "ERROR: failed executing 'perf_parse' for file '$FILE1'\n" >&2
+   if [ -n "$OUTPUT" ]
+   then
+      printf "perf_parse output:\n\n" >&2
+      printf "$OUTPUT\n\n" >&2
+   fi
+   exit 1
+fi
+printf " done\n" >&2
+
+#
+# Generate second report ...
+#
+printf "Generating Perflib report for $FILE2 ..." >&2
+OUTPUT=$(perf_parse -s${LEVEL} $PARSE_OPTS $FILE2 2>&1 >$TMP2)
+if [ $? -ne 0 ]
+then
+   printf "\n"
+   printf "ERROR: failed executing 'perf_parse' for file '$FILE2'\n" >&2
+   if [ -n "$OUTPUT" ]
+   then
+      printf "perf_parse output:\n\n" >&2
+      printf "$OUTPUT\n\n" >&2
+   fi
+   exit 1
+fi
+printf " done\n" >&2
+
+#
+# Compare the two reports ...
+#
+printf "Comparing reports ...\n\n" >&2
+
+perl -e '
+#------------------------------------------------------------------------------#
+# calc_diff_pct
+#------------------------------------------------------------------------------#
+sub calc_diff_pct {
+   my ($o, $n) = @_;
+   if ($o == 0) {
+      return 0.0;
+   } else {
+      return 100.0 * ( ($n / $o) -1.0 );
+   }
+}
+
+#
+# Attribute descriptions, lengths, formatting definitions etc.
+#
+my %attr_descr = (
+   "opn" => { name => "Opcode Path", hfmt => "%-*.*s", fmt => "%s",      len => 11, },
+   "tot" => { name => "Total",       hfmt => "%12s",   fmt => "%12.6f",  len => 12, },
+   "pct" => { name => "Percent",     hfmt => "%10s",   fmt => "(%8.2f)", len => 10, },
+   "exe" => { name => "Calls",       hfmt => "%8s",    fmt => "%8d",     len => 8,  },
+   "err" => { name => "Errors",      hfmt => "%8s",    fmt => "%8d",     len => 8,  },
+   "avg" => { name => "Average",     hfmt => "%12s",   fmt => "%12.6f",  len => 12, },
+   "min" => { name => "Minimum",     hfmt => "%12s",   fmt => "%12.6f",  len => 12, },
+   "max" => { name => "Maximum",     hfmt => "%12s",   fmt => "%12.6f",  len => 12, },
+   "rec" => { name => "Records",     hfmt => "%10s",   fmt => "%10d",    len => 10, },
+   "dif" => { name => "%Change",     hfmt => "%10s",   fmt => "(%8.2f)", len => 10, },
+   "con" => { name => "%Contr.",     hfmt => "%8s",    fmt => "(%6.2f)", len => 8,  },
+);
+
+my %f1 = ();
+my %f2 = ();
+
+my $file1 = "$ARGV[0]";
+my $file2 = "$ARGV[1]";
+my $abs_diff = ($ARGV[2] =~ /Y/i) ? 1 : 0;
+my $show_contribution = 0;
+$show_contribution = 1 if ($ARGV[3] eq "c");
+$show_contribution = 2 if ($ARGV[3] eq "C");
+my $has_source = "$ARGV[4]" eq "Y" ? 1 : 0;
+my $attributes = "$ARGV[5]"; $attributes =~ s/^\s*//g; $attributes =~ s/\s*$//g;
+my @attr_list = split (/\s+/, $attributes);
+my $filter = "$ARGV[6]";
+
+#
+# Parse the first report ...
+#
+my $get = 0;
+open (F, "<$file1") or die ("failed opening [$file1]");
+while (<F>) {
+   chomp;
+   $get = 1 if (/Full-path opcode call summary/);
+   $get = 0 if (/Single opcode call summary/);
+   if (($get && $has_source == 0 &&
+        /^(\S+)\s+([0-9.]+) \s*([\d.]+)\s+(\d+)\s+(\d+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/) ||
+       ($get && $has_source == 1 &&
+        /^(\S+)\s+(\S+)\s+([0-9.]+) \s*([\d.]+)\s+(\d+)\s+(\d+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/) )
+   {
+      my ($p, $tot_t, $src, $pct, $calls, $errors, $avg, $min, $max, $recs);
+      if ($has_source) {
+         ($p, $src, $tot_t, $pct, $calls, $errors, $avg, $min, $max, $recs) = ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+         $src =~ s/\[/-/g;
+         $src =~ s/\]//g;
+         $p .= "-$src";
+      } else {
+         ($p, $tot_t, $pct, $calls, $errors, $avg, $min, $max, $recs) = ($1, $2, $3, $4, $5, $6, $7, $8);
+         $p =~ s/;/-/g;
+      }
+      $f1{$p}{otot} = $tot_t;
+      $f1{$p}{opct} = $pct;
+      $f1{$p}{oexe} = $calls;
+      $f1{$p}{oerr} = $errors;
+      $f1{$p}{oavg} = $avg;
+      $f1{$p}{omin} = $min;
+      $f1{$p}{omax} = $max;
+      $f1{$p}{orec} = $recs;
+   }
+}
+close(F);
+
+#
+# Parse the second report ...
+#
+my $get = 0;
+open (F, "<$file2") or die ("failed opening [$file2]");
+while (<F>) {
+   chomp;
+   $get = 1 if (/Full-path opcode call summary/);
+   $get = 0 if (/Single opcode call summary/);
+   if (($get && $has_source == 0 &&
+        /^(\S+)\s+([0-9.]+) \s*([\d.]+)\s+(\d+)\s+(\d+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/) ||
+       ($get && $has_source == 1 &&
+        /^(\S+)\s+(\S+)\s+([0-9.]+) \s*([\d.]+)\s+(\d+)\s+(\d+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/) )
+   {
+      my ($p, $tot_t, $src, $pct, $calls, $errors, $avg, $min, $max, $recs);
+      if ($has_source) {
+         ($p, $src, $tot_t, $pct, $calls, $errors, $avg, $min, $max, $recs) = ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+         $src =~ s/\[/-/g;
+         $src =~ s/\]//g;
+         $p .= "-$src";
+      } else {
+         ($p, $tot_t, $pct, $calls, $errors, $avg, $min, $max, $recs) = ($1, $2, $3, $4, $5, $6, $7, $8);
+         $p =~ s/;/-/g;
+      }
+      $f2{$p}{ntot} = $tot_t;
+      $f2{$p}{npct} = $pct;
+      $f2{$p}{nexe} = $calls;
+      $f2{$p}{nerr} = $errors;
+      $f2{$p}{navg} = $avg;
+      $f2{$p}{nmin} = $min;
+      $f2{$p}{nmax} = $max;
+      $f2{$p}{nrec} = $recs;
+   }
+}
+close (F);
+
+#
+# Now, merge the two hashes togther... 
+# 
+foreach my $p (keys %f2) {
+   if (!defined ($f1{$p})) {
+      $f1{$p}{otot} = 0.0;
+      $f1{$p}{opct} = 0.0;
+      $f1{$p}{oexe} = 0;
+      $f1{$p}{oerr} = 0;
+      $f1{$p}{oavg} = 0.0;
+      $f1{$p}{omin} = 0.0;
+      $f1{$p}{omax} = 0.0;
+      $f1{$p}{orec} = 0;
+   }
+   $f1{$p}{ntot} = $f2{$p}{ntot};
+   $f1{$p}{npct} = $f2{$p}{npct};
+   $f1{$p}{nexe} = $f2{$p}{nexe};
+   $f1{$p}{nerr} = $f2{$p}{nerr};
+   $f1{$p}{navg} = $f2{$p}{navg};
+   $f1{$p}{nmin} = $f2{$p}{nmin};
+   $f1{$p}{nmax} = $f2{$p}{nmax};
+   $f1{$p}{nrec} = $f2{$p}{nrec};
+}
+
+#
+# We will now calculate the average time differences for the top-level
+# opcodes - these will be used to calculate the 'contribution' of each
+# opcode to the difference. Note that top-level may not be the real
+# top-level in the case of filtering (we mean the top-level that is
+# filtered in this case).
+#
+if ($show_contribution) {
+   my $diff = 0.0;
+   my %differences = ();
+   my $type = ($show_contribution == 1) ? "tot" : "avg";
+          
+   foreach my $p (keys %f1) {
+      my @b = split (/-/, $p);
+      my $ops = shift(@b);
+
+      my $filt = $filter;
+      if ($filter eq "") {
+         my @a = split (/[.]/, $ops);
+         $filt = $a[0];
+      }
+
+      if ($filt eq $p) {
+         my $oval = $f1{$p}{"o$type"};
+         my $nval = $f1{$p}{"n$type"};
+         my $diff = $nval - $oval;
+         $differences{$filt} = $diff;
+      }
+   }
+
+   #
+   # Now calculate the percentage contribution ...
+   #
+   foreach my $p (sort keys %f1) {
+      my $oval = $f1{$p}{"o$type"};
+      my $nval = $f1{$p}{"n$type"};
+      my $diff = $nval - $oval;
+      my $con = 0.0;
+
+      foreach my $op (keys %differences) {
+         if ($p eq $op || $p =~ /^${op}\..*/) {
+            if ($differences{$op} != 0.0) {
+               $con = 100.0 * $diff / $differences{$op};
+               last;
+            }
+         }
+      }
+      $f1{$p}{con} = $con;
+   }
+}
+
+#
+# Calculate the maximum opcode length ...
+#
+# BILL_MAKE_BILL.ACT_USAGE;fm_bill_utils_bill.c;3081
+# or
+# BILL_MAKE_BILL.ACT_USAGE
+#
+my $indent = "|  ";
+my $indent_len = length($indent);
+my $opn_len = 0;
+my $len = 0;
+foreach my $p (keys %f1) {
+   my @b = split (/-/, $p);
+   my $ops = shift(@b);
+   my $src = join (";", @b);
+   my @a = split (/[.]/, $ops);
+   my $lvl = scalar(@a) - 1;
+   my $l = ($lvl * $indent_len) + length($a[$lvl]);
+   $l += length(" ($src)") if ($src);
+   $opn_len = $l if ($l > $opn_len);
+}
+
+#
+#
+# Print header columns and calculate the underline string on the way ...
+#
+my $under = "";
+
+#
+# Opcode name ...
+#
+$len = $attr_descr{opn}{len};
+printf "%-*.*s     ", $opn_len, $opn_len, $attr_descr{opn}{name};
+$under .= ("-" x $len);
+$under .= (" " x ($opn_len - $attr_descr{opn}{len} + 5));
+
+#
+# Calls ...
+#
+$len = $attr_descr{exe}{len};
+printf $attr_descr{exe}{hfmt}, $attr_descr{exe}{name};
+$under .= ("-" x $len);
+printf " -> ";
+$under .= (" " x 4);
+printf $attr_descr{exe}{hfmt}, $attr_descr{exe}{name};
+$under .= ("-" x $len);
+printf "  ";
+$under .= (" " x 2);
+
+if ($abs_diff) {
+   $len = $attr_descr{exe}{len} + 2;   # space for ()
+   printf "%*s", $len, "Difference";
+} else {
+   $len = $attr_descr{dif}{len};
+   printf $attr_descr{dif}{hfmt}, $attr_descr{dif}{name};
+}
+$under .= ("-" x $len);
+
+#
+# Total ... unless custom attributes are provided ...
+#
+if (scalar(@attr_list) <= 0) {
+   printf "  ";
+   $under .= (" " x 2);
+
+   $len = $attr_descr{tot}{len};
+   printf $attr_descr{tot}{hfmt}, $attr_descr{tot}{name};
+   $under .= ("-" x $len);
+   printf " -> ";
+   $under .= (" " x 4);
+   printf $attr_descr{tot}{hfmt}, $attr_descr{tot}{name};
+   $under .= ("-" x $len);
+   printf "  ";
+   $under .= (" " x 2);
+
+   if ($abs_diff) {
+      $len = $attr_descr{tot}{len} + 2;   # space for ()
+      printf "%*s", $len, "Difference";
+   } else {
+      $len = $attr_descr{dif}{len};
+      printf $attr_descr{dif}{hfmt}, $attr_descr{dif}{name};
+   }
+   $under .= ("-" x $len);
+
+   #
+   # Contribution ...
+   #
+   if ($show_contribution) {
+      printf "  ";
+      $under .= (" " x 2);
+
+      $len = $attr_descr{con}{len};
+      printf $attr_descr{con}{hfmt}, $attr_descr{con}{name};
+
+      $under .= ("-" x $len);
+   }
+}
+
+#
+# Custom attribute(s) ...
+#
+foreach my $attr (@attr_list) {
+   printf "  ";
+   $under .= (" " x 2);
+
+   $len = $attr_descr{$attr}{len};
+   printf $attr_descr{$attr}{hfmt}, $attr_descr{$attr}{name};
+   $under .= ("-" x $len);
+   printf " -> ";
+   $under .= (" " x 4);
+   printf $attr_descr{$attr}{hfmt}, $attr_descr{$attr}{name};
+   $under .= ("-" x $len);
+   printf "  ";
+   $under .= (" " x 2);
+
+   if ($abs_diff) {
+      $len = $attr_descr{$attr}{len} + 2;   # space for ()
+      printf "%*s", $len, "Difference";
+   } else {
+      $len = $attr_descr{dif}{len};
+      printf $attr_descr{dif}{hfmt}, $attr_descr{dif}{name};
+   }
+   $under .= ("-" x $len);
+
+   #
+   # Contribution (if configure and total)...
+   #
+   if ($show_contribution && $attr eq "tot") {
+      printf "  ";
+      $under .= (" " x 2);
+
+      $len = $attr_descr{con}{len};
+      printf $attr_descr{con}{hfmt}, $attr_descr{con}{name};
+
+      $under .= ("-" x $len);
+   }
+}
+
+printf "\n";
+printf "$under\n";
+
+#
+# Now run through the data and print it all out...
+#
+foreach my $p (sort keys %f1) {
+   my @b = split (/-/, $p);
+   my $ops = shift(@b);
+   my $src = join (";", @b);
+   my @a = split (/[.]/, $ops);
+   my $lvl = scalar(@a) - 1;
+   my $istr = $indent x $lvl;
+
+   #
+   # Opcode name 
+   #
+   printf "%-*.*s  :  ", $opn_len, $opn_len, $istr . $a[$lvl] . ($src ? " ($src)" : "");
+
+   #
+   # Calls
+   #
+   printf $attr_descr{exe}{fmt}, $f1{$p}{oexe};  # Old value
+   printf " -> ";
+   printf $attr_descr{exe}{fmt}, $f1{$p}{nexe};  # New value
+
+   printf "  ";
+
+   if ($abs_diff) {
+      my $diff = $f1{$p}{nexe} - $f1{$p}{oexe};
+      printf "($attr_descr{exe}{fmt})", $diff;
+   } else {
+      my $pct = calc_diff_pct ($f1{$p}{oexe}, $f1{$p}{nexe});
+      printf $attr_descr{dif}{fmt}, $pct;
+   }
+
+   #
+   # Total
+   #
+   if (scalar(@attr_list) <= 0) {
+      printf "  ";
+
+      printf $attr_descr{tot}{fmt}, $f1{$p}{otot};  # Old value
+      printf " -> ";
+      printf $attr_descr{tot}{fmt}, $f1{$p}{ntot};  # New value
+
+      printf "  ";
+
+      if ($abs_diff) {
+         my $diff = $f1{$p}{ntot} - $f1{$p}{otot};
+         printf "($attr_descr{tot}{fmt})", $diff;
+      } else {
+         my $pct = calc_diff_pct ($f1{$p}{otot}, $f1{$p}{ntot});
+         printf $attr_descr{dif}{fmt}, $pct;
+      }
+
+      #
+      # Contribution ...
+      #
+      if ($show_contribution) {
+         printf "  ";
+         printf $attr_descr{con}{fmt}, $f1{$p}{con};
+      }
+   }
+
+   #
+   # Custom attributes ...
+   #
+   foreach my $attr (@attr_list) {
+      printf "  ";
+      printf $attr_descr{$attr}{fmt}, $f1{$p}{"o$attr"};  # Old value
+      printf " -> ";
+      printf $attr_descr{$attr}{fmt}, $f1{$p}{"n$attr"};  # New value
+
+      printf "  ";
+
+      if ($abs_diff) {
+         my $diff = $f1{$p}{"n$attr"} - $f1{$p}{"o$attr"};
+         printf "($attr_descr{$attr}{fmt})", $diff;
+      } else {
+         my $pct = calc_diff_pct ($f1{$p}{"o$attr"}, $f1{$p}{"n$attr"});
+         printf $attr_descr{dif}{fmt}, $pct;
+      }
+
+      #
+      # Contribution ...
+      #
+      if ($show_contribution && $attr eq "tot") {
+         printf "  ";
+         printf $attr_descr{con}{fmt}, $f1{$p}{con};
+      }
+   }
+   printf "\n";
+}
+
+' $TMP1 $TMP2 "$ABS_DIFF" "$SHOW_CONTRIBUTION" "$HAS_SOURCE" "$ATTR_LIST" "$FILTER"
+exit 0

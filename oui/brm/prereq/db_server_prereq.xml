@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<PREREQUISITETESTS >
+ 
+    <PREREQUISITESET NAME="perl">
+        <PREREQUISITEREF NAME="CheckPerlExists" SEVERITY="Error"/>
+    </PREREQUISITESET>
+
+    <PREREQUISITESET NAME="portal">
+        <PREREQUISITEREF NAME="CheckPerlExists" SEVERITY="Error"/>
+    </PREREQUISITESET>
+
+    <PREREQUISITE NAME="CheckPerlExists" EXTERNALNAME="Checking perl is installed on the OS." EXTERNALNAMEID="Checking perl is installed on the OS." SEVERITY="Error">
+        <DESCRIPTION TEXT="Checking perl version is greater than 5.28.1 ." TEXTID="Checking perl version is greater than 5.28.1 ."/>
+        <PROBLEM TEXT="perl needs to be greater than 5.28.1 ." TEXTID="perl needs to be greater than 5.28.1 ."/>
+        <RULESETREF NAME="CustomGroup" RULE="CheckPerlExists" FILE="refhost.xml" RESULTS_FILE="install_rule_results.xml"/>    
+        <RECOMMENDATION TEXT="Install perl on the OS." TEXTID="Install perl on the OS."/>
+        <INFORMATION TEXT="Check perl version is greater than 5.28.1 ." TEXTID="Check perl version is greater than 5.28.1 ."/>
+    </PREREQUISITE>
+
+</PREREQUISITETESTS>
+

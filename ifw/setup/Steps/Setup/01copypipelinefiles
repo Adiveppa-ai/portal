@@ -1,0 +1,32 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#      This step will delete any existing pipeline directory,and then copy the downloaded
+#      version to the user specified target dir.
+# ---------------------------------------------------------------------------------
+$sourceDir = $ENV{INSTALL_DIR};
+$destDir = $ENV{INT_HOME};
+
+if($ENV{'OS_TYPE'} ne "Windows") {
+  $cmd = "rm -rf $destDir";
+  system($cmd);
+  $cmd = "cp -r $sourceDir $destDir";
+  system($cmd);
+  $cmd = "chmod -R 0755 $destDir";
+  system($cmd);
+}
+else {
+  $cmd = "rmdir /S /Q \"$destDir\" ";
+  system($cmd);
+  $cmd = "xcopy /E /Y /I /Q \"$sourceDir\" \"$destDir\" ";
+  system($cmd);
+}
+
+exit 0;

@@ -1,0 +1,1 @@
+/home/pin/opt/portal/Thirdparty/jdk1.8.0_401/bin/java -cp "/home/pin/opt/portal/BRM/jars/eai.jar:/home/pin/opt/portal/BRM/jars/pcm.jar:/home/pin/opt/portal/BRM/jars/pcmext.jar:/home/pin/opt/portal/BRM/jars/js.jar:/home/pin/opt/portal/BRM/sys/eai_js" com.portal.eai.ConfigMerge $1 $2 $3 $4 $5 $6 $7 $8 $9

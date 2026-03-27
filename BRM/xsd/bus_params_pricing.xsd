@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+        <xs:annotation>
+                <xs:documentation xml:lang="en">
+ Copyright (c) 2005, 2016, Oracle and/or its affiliates. All rights reserved.
+                        This material is the confidential property of Oracle Corporation or its
+                        licensors and may be used, reproduced, stored or transmitted only in
+                        accordance with a valid Oracle license or sublicense agreement.
+                </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType name="BusParamsPricingType">
+                <xs:sequence>
+                        <xs:element name="PriceDesignCenterInst" type="businessConfig:switch">
+                        <xs:annotation>
+                                <xs:documentation xml:lang="en">
+					This parameter decides if the PDC
+                                	is enabled. When enabled by setting
+                                	to 1, it would allow user to edit the
+                                	names of various pricing objects like
+                                	planlist, plan, deal, sponsorship.
+                                	Default value is 0 which disables this feature.
+                                </xs:documentation>
+                        </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CacheReferencesAtStart" type="businessConfig:switch">
+                        <xs:annotation>
+                                <xs:documentation xml:lang="en">
+				This parameter specifies whether to store objects referenced by price objects in memory in the CM cache when the CM starts. Objects referenced by price objects include BEIDs, GLIDs, tax suppliers, event types, service types, and RUMs. The value for this entry can be 0(The CM caches objects that are referenced by price objectsin the CM cache every time a price list is committed.) or 1((Default) The CM caches objects that are referenced by price objects one time when the CM starts.)
+                                </xs:documentation>
+                        </xs:annotation>
+                        </xs:element>
+                        <xs:element name="LogPriceChangeEvent" type="businessConfig:switch">
+                        <xs:annotation>
+                                <xs:documentation xml:lang="en">
+				This parameter specifies event creation and logging for price object changes. Price object changes include changes to products, deals, and  plans. Logging such events creates an audit trail that is useful if you need to look up previous versions of a price object. The value for this entry can be: 0 = (Default) Do not create events when price object changes  are made, thus saving storage space. 1 = Create and log an event for each changed price object.
+                                </xs:documentation>
+                        </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+        </xs:complexType>
+</xs:schema>
+

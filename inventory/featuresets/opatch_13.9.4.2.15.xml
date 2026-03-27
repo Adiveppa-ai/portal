@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<ns4:feature-set-def name="opatch" version="13.9.4.2.15" display-name="OPatch" display-name-key="featureset.display.name" description-key="featureset.description" singleton="true" xmlns="http://xmlns.oracle.com/cie/gdr/dei" xmlns:ns2="http://xmlns.oracle.com/cie/gdr/nfo" xmlns:ns3="http://xmlns.oracle.com/cie/gdr/rgy" xmlns:ns4="http://xmlns.oracle.com/cie/gdr/ftr">
+   <ns4:components constraint="choice">
+      <ns4:component optional="true" name="oracle.swd.opatch" version="13.9.4.2.15"/>
+      <ns4:component optional="true" name="oracle.swd.opatch" version="13.9.4.2.14"/>
+      <ns4:component optional="true" name="oracle.swd.opatch" version="13.9.4.2.13"/>
+      <ns4:component name="oracle.swd.opatch" version="13.9.4.2.12"/>
+   </ns4:components>
+   <ns4:compatibility>
+      <ns4:feature name="opatch" reciprocal="true">
+         <ns4:version-range min="13.1.0.0.0" min-inclusive="true" max="13.9.4.2.15" max-inclusive="false"/>
+      </ns4:feature>
+   </ns4:compatibility>
+   <ns4:dependencies>
+      <ns4:requires name="nginst_core" version="13.9.4.0.1">
+         <ns4:version-range min="13.6.0.0.0" min-inclusive="true" max="13.9.4.0.1" max-inclusive="true"/>
+      </ns4:requires>
+   </ns4:dependencies>
+</ns4:feature-set-def>

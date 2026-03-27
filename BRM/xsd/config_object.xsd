@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+================================================================================
+ Copyright (c) 2011, 2021, Oracle and/or its affiliates. All rights reserved.
+This material is the confidential property of Oracle Corporation or its
+licensors and may be used, reproduced, stored or transmitted only in
+accordance with a valid Oracle license or sublicense agreement.
+================================================================================
+-->
+<xs:schema targetNamespace="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns="http://www.oracle.com/schemas/BusinessConfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+    Schema definition for config object.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="PinTypes.xsd"/>
+
+  <xs:element name="ObjectList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ConfigObject" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="POID" type="PinPoid" minOccurs="0"/>
+              <xs:element name="ACCOUNT_OBJ" type="PinPoid" minOccurs="0"/>
+              <xs:element name="DESCR" type="xs:string" minOccurs="0"/>
+              <xs:element name="HOSTNAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+	      <xs:element name="CODE" type="xs:string" minOccurs="0" />	
+	      <xs:element name="PERMITTED" type="xs:string" minOccurs="0" />	
+              <xs:element name="PROGRAM_NAME" type="xs:string" minOccurs="0"/>
+              <xs:element name="VALUE" type="xs:string" minOccurs="0"/>
+              <xs:element name="VERSION" type="xs:string" minOccurs="0"/>
+              <xs:choice>
+                <xs:element name="BALANCES" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="APPLY_MODE" type="PinBeidApplyMode"
+                                  minOccurs="0"/>
+                      <xs:element name="BEID_STR_CODE" type="xs:string"
+                                  minOccurs="0"/>
+                      <xs:element name="CONSUMPTION_RULE" type="PinBeidConsRule"
+                                  minOccurs="0"/>
+                      <xs:element name="ENABLE_EXPIRY_NOTIFICATION" type="xs:integer"
+								  minOccurs="0"/>
+                      <xs:element name="NAME" type="xs:string" minOccurs="1"/>
+                      <xs:element name="STATUS" type="PinBeidStatus"
+                                  minOccurs="0"/>
+                      <xs:element name="SYMBOL" type="xs:string" minOccurs="0"/>
+                      <xs:element name="VALIDITY_IN_DAYS" type="xs:integer" minOccurs="0"/>
+                      <xs:element name="RULES" minOccurs="0"
+                                  maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="EVENT_TYPE" type="PinEventObjType"
+                                        minOccurs="1"/>
+                            <xs:element name="PROCESSING_STAGE"
+                                        type="PinBeidProcStage" minOccurs="1"/>
+                            <xs:element name="ROUNDING" type="xs:integer"
+                                        minOccurs="1"/>
+                            <xs:element name="ROUNDING_MODE"
+                                        type="PinBeidRoundMode" minOccurs="0"/>
+                            <xs:element name="TOLERANCE_AMOUNT_MAX"
+                                        type="xs:decimal" minOccurs="1"/>
+                            <xs:element name="TOLERANCE_AMOUNT_MIN"
+                                        type="xs:decimal" minOccurs="1"/>
+                            <xs:element name="TOLERANCE_PERCENT"
+                                        type="xs:decimal" minOccurs="1"/>
+                          </xs:sequence>
+                          <xs:attribute name="elem"
+                                        type="xs:nonNegativeInteger"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="elem" type="xs:nonNegativeInteger"/>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="RUM_MAP" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="EVENT_TYPE" type="PinEventObjType"
+                                  minOccurs="0"/>
+                      <xs:element name="CANDIDATE_RUMS" minOccurs="0"
+                                  maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="QUANTITY_EXPR"
+                                        type="PinRumExpression" minOccurs="1"/>
+                            <xs:element name="RUM_NAME" type="xs:string"
+                                        minOccurs="1"/>
+                            <xs:element name="UNIT" type="PinRateUnit"
+                                        minOccurs="1"/>
+                          </xs:sequence>
+                          <xs:attribute name="elem"
+                                        type="xs:nonNegativeInteger"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="elem" type="xs:nonNegativeInteger"/>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="IMPACT_CATEGORIES" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="IMPACT_CATEGORY" type="xs:string"
+                                  minOccurs="0"/>
+                      <xs:element name="RATE_CATEGORY" type="xs:string"
+                                  minOccurs="0"/>
+                      <xs:element name="SERVICE_TYPE" type="PinServiceObjType"
+                                  minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:attribute name="elem" type="xs:nonNegativeInteger"/>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ITEM_TAGS" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="EVENT_TYPE" type="PinEventObjType"
+                                  minOccurs="1"/>
+                      <xs:element name="ITEM_TAG" type="xs:string"
+                                  minOccurs="1"/>
+                      <xs:element name="SERVICE_TYPE" type="PinServiceObjType"
+                                  minOccurs="1"/>
+                    </xs:sequence>
+                    <xs:attribute name="elem" type="xs:nonNegativeInteger"/>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ITEM_TYPES" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="DESCR" type="xs:string"
+                                  minOccurs="1"/>
+                      <xs:element name="ITEM_SUB_TYPE" type="xs:string"
+                                  minOccurs="0"/>
+                      <xs:element name="ITEM_TAG" type="xs:string"
+                                  minOccurs="1"/>
+                      <xs:element name="ITEM_TYPE" type="PinItemObjType"
+                                  minOccurs="1"/>
+                      <xs:element name="PRECREATE" type="xs:boolean"
+                                  minOccurs="1"/>
+                      <xs:element name="TYPE" type="PinItemType"
+                                  minOccurs="1"/>
+                    </xs:sequence>
+                    <xs:attribute name="elem" type="xs:nonNegativeInteger"/>
+                  </xs:complexType>
+                </xs:element>
+		<xs:element name="ENTITLEMENTS" minOccurs="0" maxOccurs="unbounded">
+		 <xs:complexType>
+		  <xs:sequence>
+		    <xs:element name="DESCR" type="xs:string" 
+				minOccurs="0" />
+		    <xs:element name="PERMITTED" type="xs:string" 
+				maxOccurs="1" minOccurs="1" />
+		    <xs:element name="NAME" type="xs:string" 
+				maxOccurs="1" minOccurs="1" />
+		    <xs:element name="REVENUE_GLID" type="xs:int" 
+				maxOccurs="1" minOccurs="1" />
+		     <xs:element name="RBIS" minOccurs="1" maxOccurs="unbounded">
+		       <xs:complexType>
+		         <xs:sequence>
+		      	   <xs:element name="NAME" type="xs:string" 
+					maxOccurs="1" minOccurs="1" />
+		           <xs:element name="AMOUNT" type="xs:decimal" 
+					minOccurs="1" maxOccurs="1" />
+		           <xs:element name="CURRENCY" type="xs:int" 
+					maxOccurs="1" minOccurs="1" />
+		           <xs:element name="TIME_UNIT" 
+					maxOccurs="1" minOccurs="0" >
+		             <xs:simpleType>
+			       <xs:restriction base="xs:integer">
+			         <xs:enumeration value="1" /> 
+			       </xs:restriction>
+		             </xs:simpleType>
+		           </xs:element>
+		           <xs:element name="TIME_VALUE" type="xs:int" 
+					maxOccurs="1" minOccurs="0" />
+		           <xs:element name="SCALABLE_FLAG" 
+					maxOccurs="1" minOccurs="0" >
+		             <xs:simpleType>
+			       <xs:restriction base="xs:integer">
+			         <xs:enumeration value="0" />
+			         <xs:enumeration value="1" />
+			       </xs:restriction>
+			     </xs:simpleType>
+		           </xs:element>
+		           <xs:element name="MILESTONE_FLAG" 
+					maxOccurs="1" minOccurs="0" >
+		             <xs:simpleType>
+			       <xs:restriction base="xs:integer">
+			         <xs:enumeration value="0" />
+			         <xs:enumeration value="1" />
+			       </xs:restriction>
+		             </xs:simpleType>
+		           </xs:element>
+		           <xs:element name="RATE_RBI_INFO" 
+					minOccurs="0" maxOccurs="1">
+		             <xs:complexType>
+			       <xs:sequence>
+			         <xs:element name="RESOURCE_ID" type="xs:positiveInteger" 
+						maxOccurs="1" minOccurs="1" />
+			         <xs:element name="QUANTITY" type="xs:decimal" 
+						maxOccurs="1" minOccurs="1" />
+			       </xs:sequence>
+			       <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		             </xs:complexType>
+		           </xs:element>
+		         </xs:sequence>
+		         <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		       </xs:complexType>
+		     </xs:element>
+		     <xs:element name="ALLOWANCE_INFO" minOccurs="0" maxOccurs="1">
+		       <xs:complexType>
+		         <xs:sequence>
+		           <xs:element name="RESOURCE_ID" type="xs:positiveInteger" 
+					maxOccurs="1" minOccurs="1" />
+		           <xs:element name="ALLOWANCE_UOM" type="xs:string" 
+					maxOccurs="1" minOccurs="0" />
+		           <xs:element name="START_DETAILS" type="xs:int" 
+					maxOccurs="1" minOccurs="0" />
+		           <xs:element name="END_DETAILS" type="xs:int" 
+					maxOccurs="1" minOccurs="0" />
+		           <xs:element name="ALLOWANCE_VALUE" type="xs:decimal" 
+					maxOccurs="1" minOccurs="0" />
+		         </xs:sequence>
+		         <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		       </xs:complexType>
+		     </xs:element>
+		     <xs:element name="ALLOWANCE_RECURRING_INFO" 
+				minOccurs="0" maxOccurs="1">
+		       <xs:complexType>
+		         <xs:sequence>
+			   <xs:element name="SUBSCRIPTION_CYCLE_TYPE" minOccurs="1">
+			     <xs:simpleType>
+			       <xs:restriction base="xs:integer">
+			         <xs:enumeration value="1" />
+			         <xs:enumeration value="2" />
+			         <xs:enumeration value="3" />
+			         <xs:enumeration value="4" />
+			         <xs:enumeration value="5" />
+			       </xs:restriction>
+		             </xs:simpleType>
+		           </xs:element>
+		         </xs:sequence>
+		         <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		       </xs:complexType>
+		     </xs:element>
+		     <xs:element name="FEATURE_INFO" 
+				minOccurs="0" maxOccurs="1">
+		       <xs:complexType>
+		         <xs:sequence>
+		           <xs:element name="VALUE" type="xs:string" 
+					maxOccurs="1" minOccurs="0" />
+		         </xs:sequence>
+		         <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		       </xs:complexType>
+		     </xs:element>
+		   </xs:sequence>
+		   <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		 </xs:complexType>
+	       </xs:element>
+	       <xs:element name="PRODUCT_DELIVERABLE_INFO" 
+				minOccurs="0" maxOccurs="1">
+		 <xs:complexType>
+		   <xs:sequence>
+		     <xs:element name="TYPE" minOccurs="1">
+		       <xs:simpleType>
+		         <xs:restriction base="xs:integer">
+			   <xs:enumeration value="0" />
+			   <xs:enumeration value="1" />
+		         </xs:restriction>
+		       </xs:simpleType>
+		     </xs:element>
+		     <xs:element name="REVENUE_GLID" type="xs:int" 
+				maxOccurs="1" minOccurs="1" />
+		     <xs:element name="RBIS" minOccurs="1" maxOccurs="unbounded">
+		       <xs:complexType>
+		         <xs:sequence>
+		           <xs:element name="NAME" type="xs:string" 
+					maxOccurs="1" minOccurs="1" />
+		           <xs:element name="AMOUNT" type="xs:decimal" 
+					minOccurs="1" maxOccurs="1" />
+		           <xs:element name="CURRENCY" type="xs:int" 
+					maxOccurs="1" minOccurs="1" />
+		           <xs:element name="TIME_UNIT" 
+					maxOccurs="1" minOccurs="0" >
+		             <xs:simpleType>
+		               <xs:restriction base="xs:integer">
+			         <xs:enumeration value="1" />
+		               </xs:restriction>
+		             </xs:simpleType>
+		           </xs:element>
+		           <xs:element name="TIME_VALUE" type="xs:int" 
+					maxOccurs="1" minOccurs="0" />
+		           <xs:element name="SCALABLE_FLAG" 
+					maxOccurs="1" minOccurs="0" >
+		             <xs:simpleType>
+			       <xs:restriction base="xs:integer">
+			         <xs:enumeration value="0" />
+			         <xs:enumeration value="1" />
+			       </xs:restriction>
+		             </xs:simpleType>
+		           </xs:element>
+		           <xs:element name=" MILESTONE_FLAG" 
+					maxOccurs="1" minOccurs="0" >
+		             <xs:simpleType>
+		               <xs:restriction base="xs:integer">
+			         <xs:enumeration value="0" />
+			         <xs:enumeration value="1" />
+			       </xs:restriction>
+		             </xs:simpleType>
+		           </xs:element>
+		           <xs:element name="RATE_RBI_INFO" 
+					minOccurs="0" maxOccurs="unbounded">
+			     <xs:complexType>
+		               <xs:sequence>
+		                 <xs:element name="RESOURCE_ID" type="xs:positiveInteger" 
+						maxOccurs="1" minOccurs="1" />
+		                 <xs:element name="QUANTITY" type="xs:decimal" 
+						maxOccurs="1" minOccurs="1" />
+		               </xs:sequence>
+		               <xs:attribute name="elem" form="unqualified" type="xs:int" />
+		             </xs:complexType>
+		           </xs:element>
+	                 </xs:sequence>
+	                 <xs:attribute name="elem" form="unqualified" type="xs:int" />
+	               </xs:complexType>
+	             </xs:element>
+                   </xs:sequence>
+                   <xs:attribute name="elem" form="unqualified" type="xs:int" />
+                 </xs:complexType>
+               </xs:element>
+               <xs:element name="TAXES" minOccurs="0" maxOccurs="unbounded">
+                 <xs:complexType>
+                   <xs:sequence>
+                     <xs:element name="TAX_CODE" type="xs:string"
+                                 minOccurs="1" />
+                     <xs:element name="TAXPKG_TAX_CODE" type="PinTaxPKGCode"
+                                 minOccurs="1" />
+                     <xs:element name="PERCENT" type="xs:decimal"
+                                 minOccurs="0" />
+                     <xs:element name="VALID_FROM_STR" type="xs:string"
+                                 minOccurs="0" />
+                     <xs:element name="VALID_TO_STR" type="xs:string"
+                                 minOccurs="0" />
+                     <xs:element name="TAX_JURISDICTION" type="PinJurisdictionTypeStr"
+                                 minOccurs="0" />
+                     <xs:element name="TAX_JURISDICTION_LIST" type="xs:string"
+                                 minOccurs="0" />
+                     <xs:element name="DESCR" type="xs:string"
+                                 minOccurs="0" />
+                     <xs:element name="RULE_TYPE" type="PinTaxRuleTypes"
+                                 minOccurs="0" />
+                     <xs:element name="CODE1" type="xs:decimal"
+                                 minOccurs="0" />
+                     <xs:element name="CODE2" type="xs:decimal"
+                                 minOccurs="0" />
+                     <xs:element name="SALES_INDICATOR" type="PinSalesIndicator"
+                                 minOccurs="0" />
+                   </xs:sequence>
+                   <xs:attribute name="elem" type="xs:nonNegativeInteger" />
+                 </xs:complexType>
+               </xs:element>
+               <xs:element name="EXEMPTIONS" minOccurs="0" maxOccurs="unbounded">
+                 <xs:complexType>
+                   <xs:sequence>
+                     <xs:element name="TAX_EXEMPTION_CODE" type="xs:string"
+                                 minOccurs="1" />
+                     <xs:element name="VALID_FROM_STR" type="xs:string"
+                                 minOccurs="0" />
+                     <xs:element name="VALID_TO_STR" type="xs:string"
+                                 minOccurs="0" />
+		     <xs:element name="PERCENT" type="xs:decimal"
+                                 minOccurs="1" />
+                     <xs:element name="TAX_JURISDICTION" type="PinJurisdictionTypeStr"
+                                 minOccurs="1" />
+                   </xs:sequence>
+                   <xs:attribute name="elem" type="xs:nonNegativeInteger" />
+                 </xs:complexType>
+               </xs:element>
+	       <xs:element name="PRICE_TAGS" minOccurs="0" maxOccurs="unbounded">
+                 <xs:complexType>
+                   <xs:sequence>
+                     <xs:element name="NAME"
+                                type="xs:string" minOccurs="1" />
+                     <xs:element name="DESCR"
+                                  type="xs:string" minOccurs="0" />
+                     <xs:element name="RULE_TYPE" minOccurs="0" >
+                       <xs:simpleType>
+                         <xs:restriction base="xs:string">
+                           <xs:enumeration value="ANY"/>
+                           <xs:enumeration value="LIST"/>
+                           <xs:enumeration value="RANGE"/>
+                         </xs:restriction>
+                       </xs:simpleType>
+                     </xs:element>
+                     <xs:element name="CONSTRAINTS"
+                                  type="xs:string" minOccurs="0" />
+                     <xs:element name="RESOURCE_ID"
+                                  type="xs:integer" minOccurs="1" />
+                     <xs:element name="RESOURCE_UNIT"
+                                type="xs:string" minOccurs="1" />
+                     <xs:element name="PERMITTED"
+                                type="xs:string" minOccurs="1" />
+                   </xs:sequence>
+                   <xs:attribute name="elem" type="xs:nonNegativeInteger" />
+                 </xs:complexType>
+               </xs:element>
+             </xs:choice>
+           </xs:sequence>
+           <xs:attribute name="configName" type="xs:string"/>
+           <xs:attribute name="configMode" type="xs:string"/>
+           <xs:attribute name="override"   type="xs:boolean"/>
+         </xs:complexType>
+       </xs:element>
+     </xs:sequence>
+     <xs:attribute name="configMode" type="xs:string"  default="replace"/>
+     <xs:attribute name="override"   type="xs:boolean" default="false"/>
+   </xs:complexType>
+ </xs:element>
+</xs:schema>

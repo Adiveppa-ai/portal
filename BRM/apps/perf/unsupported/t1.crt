@@ -1,0 +1,37 @@
+# Call Record Template test file
+#
+# File Format
+#	comment = /^(#.*)|( *)$/
+#	set variable = /^\s*varname\s*=\s*\(valuelist\)\s*$/
+#	varname = /\w+/
+#	valuelist = /(\w+)( \w+)*/
+#
+
+# ##################################################################
+# File Header Record
+# ##################################################################
+CRH-source = (127.127.12.12)
+
+# ##################################################################
+# CallRecord Key (src | dst | srcport | dstport | protocol | tos
+# ##################################################################
+# Addresses / host names used for source, dest, and gateway addresses
+CR-address = (127.123.2.3 156.151.2.3 1.2.3.4 206.245.190.166 )
+
+# 1 byte value
+CR-tos = (12 2 255)
+
+# #####################################################################################
+# CallRecord Value (packets | bytes | firstFlowStamp | lastFlowStamp | totalActiveTime
+# #####################################################################################
+
+# Constant for now
+CR-packets = (12)
+CR-totalActiveTime = (30)
+
+# bytes
+CR-bytes = (120000 130000 150000 160000)
+
+# lastFlowStamp - firstFlowStamp
+CR-duration = (122)
+

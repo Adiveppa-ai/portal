@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+#       @(#) % %
+#
+# Copyright (c) 1996, 2018, Oracle and/or its affiliates. All rights reserved.
+#      
+#       This material is the confidential property of Oracle Corporation or its
+#       licensors and may be used, reproduced, stored or transmitted only in
+#       accordance with a valid Oracle license or sublicense agreement.
+#
+
+#
+# start__pin_config_distribution
+#
+#
+VERSION=15.0
+PATH=/usr/bin:/bin
+
+PINDIR=/home/pin/opt/portal/BRM
+LOGDIR=/home/pin/opt/portal/BRM/var/multi_db
+
+PIN_CONFIG_DISTRIBUTION=${PINDIR}/bin/pin_config_distribution
+
+PIN_CONFIG_DISTRIBUTIONDIR=${PINDIR}/apps/multi_db
+PIN_CONFIG_DISTRIBUTIONLOG=${LOGDIR}/pin_config_distribution.log
+PIN_CONFIG_DISTRIBUTIONPID=${LOGDIR}/pin_config_distribution.pid
+
+if [ ! -x ${PIN_CONFIG_DISTRIBUTION} ]; then
+  echo "HELP: executable \"${PIN_CONFIG_DISTRIBUTION}\" not found!"
+        exit 1
+fi
+
+if [ \( ! -r  ${PIN_CONFIG_DISTRIBUTIONDIR}/pin.conf \) \
+	-a \( ! -r /etc/pin.conf \)  ]; then
+        echo "HELP: no pin.conf for pin_config_distribution in \"${PIN_CONFIG_DISTRIBUTIONDIR}\" or /etc!"
+        exit 1
+fi
+
+if [ ! -d  ${LOGDIR} ]; then
+        mkdir -p ${LOGDIR}
+        if [ $? -ne 0 ]; then
+                echo "HELP: problem making LOGDIR \"${LOGDIR}\"!"
+                exit 1
+        fi
+fi
+
+# XXX ought to save old log file, or check for > some-size...
+( cd ${PIN_CONFIG_DISTRIBUTIONDIR} ;
+  echo "started PIN_CONFIG_DISTRIBUTION at..." >> \
+		${PIN_CONFIG_DISTRIBUTIONLOG}
+  date >> ${PIN_CONFIG_DISTRIBUTIONLOG}
+  ${PIN_CONFIG_DISTRIBUTION} >> ${PIN_CONFIG_DISTRIBUTIONLOG} 2>&1 &
+  echo $! > ${PIN_CONFIG_DISTRIBUTIONPID} ;
+  chmod 640 ${PIN_CONFIG_DISTRIBUTIONLOG} ;
+  chmod 640 ${PIN_CONFIG_DISTRIBUTIONPID} )
+
+# get rc from pin_config_distribution startup
+exit $?
+

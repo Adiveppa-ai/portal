@@ -1,0 +1,1488 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<registry home="/home/pin/opt/portal" platform="226" sessions="1" xmlns:ns2="http://xmlns.oracle.com/cie/gdr/dei" xmlns:ns3="http://xmlns.oracle.com/cie/gdr/nfo" xmlns="http://xmlns.oracle.com/cie/gdr/rgy">
+   <distributions>
+      <distribution status="installed" name="Billing Revenue Management" version="15.0.1.0.0">
+         <sessions>
+            <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+         </sessions>
+         <features>
+            <feature status="installed" name="BRMServer" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMServer" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BillingAndInvoicing" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BillingAndInvoicing" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="batch_controller" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="batch_controller" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="cm" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="cm" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component status="installed" name="CMCommon" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="dm_oracle" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="dm_oracle" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMServicesFrameworkMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMServicesFrameworkMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="CollectionsMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="CollectionsMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="ContentMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="ContentMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="EAI_FrameworkMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="EAI_FrameworkMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="IPAddressMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="IPAddressMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="InventoryMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="InventoryMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="LDAPMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="LDAPMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="NumberMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="NumberMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="RatedEventLoader" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="RatedEventLoader" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="RevAssuranceMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="RevAssuranceMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="SIMMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="SIMMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="SMSSettlement_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="SMSSettlement_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="SuspenseMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="SuspenseMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="VoucherMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="VoucherMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="cmt" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="cmt" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="GPRSMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="GPRSMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="GSMMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="GSMMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="pipeline" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="pipeline" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+ifw" source="filegroup1.jar" symbol="ifw.symbol" location="ifw" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Interconnect" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Interconnect" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+ifw" source="filegroup1.jar" symbol="ifw.symbol" location="ifw" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Pipeline_ConfMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Pipeline_ConfMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+ifw" source="filegroup1.jar" symbol="ifw.symbol" location="ifw" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Pipeline_PDK" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Pipeline_PDK" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+ifw" source="filegroup1.jar" symbol="ifw.symbol" location="ifw" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature name="upgrade_pipeline" version="15.0.1.0.0">
+               <components>
+                  <component name="upgrade_pipeline" version="15.0.1.0.0"/>
+               </components>
+            </feature>
+            <feature status="installed" name="CIBERRoamingMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="CIBERRoamingMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+ifw" source="filegroup1.jar" symbol="ifw.symbol" location="ifw" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="TAPRoaming" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="TAPRoaming" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+ifw" source="filegroup1.jar" symbol="ifw.symbol" location="ifw" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature singleton="true" status="installed" name="glcm_common_logging" version="13.9.4.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component patch-level="9" status="installed" name="oracle.glcm.logging" version="1.6.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="glcm.logging.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature singleton="true" status="installed" name="glcm_common" version="13.9.4.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component patch-level="9" status="installed" name="oracle.glcm.comdev" version="7.8.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="oracle.glcm.comdev.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component patch-level="9" status="installed" name="oracle.glcm.dependency" version="1.8.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="oracle.glcm.dependency.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component patch-level="9" status="installed" name="oracle.glcm.xmldh" version="3.4.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="oracle.glcm.xmldh.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component patch-level="9" status="installed" name="oracle.glcm.wizard" version="7.8.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="oracle.glcm.wizard.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature singleton="true" status="installed" name="glcm_opatch_common_api" version="13.9.4.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component patch-level="9" status="installed" name="oracle.glcm.opatch.common.api" version="13.9.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+OPatch" source="filegroup1.jar" symbol="oracle.glcm.opatch.common.api.symbol" location="OPatch" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature singleton="true" status="installed" name="nginst_core" version="13.9.4.0.1">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component singleton="true" patch-level="18" status="installed" name="oracle.nginst.common" version="13.9.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oui" source="filegroup1.jar" symbol="oracle.nginst.common.symbol" location="oui" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                        <target qualifier="filegroup5.jar+oui" source="filegroup5.jar" symbol="oracle.nginst.common.symbol" location="oui" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component singleton="true" patch-level="18" status="installed" name="oracle.nginst.core" version="13.9.4.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oui" source="filegroup1.jar" symbol="oracle.nginst.core.symbol" location="oui" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                        <target qualifier="filegroup2.jar+oracle_common" source="filegroup2.jar" symbol="oracle.nginst.thirdparty.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                        <target qualifier="filegroup3.jar+oui" source="filegroup3.jar" symbol="oracle.nginst.core.symbol" location="oui" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature singleton="true" status="installed" name="opatch" version="13.9.4.2.15">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="oracle.swd.opatch" version="13.9.4.2.15">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+OPatch" source="filegroup1.jar" symbol="oracle.swd.opatch.symbol" location="OPatch" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                        <target qualifier="filegroup2.jar+OPatch" source="filegroup2.jar" symbol="oracle.swd.opatch.symbol" location="OPatch" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component name="oracle.swd.opatch" version="13.9.4.2.14"/>
+                  <component name="oracle.swd.opatch" version="13.9.4.2.13"/>
+                  <component name="oracle.swd.opatch" version="13.9.4.2.12"/>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMInvoices_Consumer" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMInvoices_Consumer" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMInvoices_Consumer_Correction" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMInvoices_Consumer_Correction" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMInvoices_Consumer_Replacement" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMInvoices_Consumer_Replacement" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMInvoices_Corporate" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMInvoices_Corporate" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMInvoices_Corp_Correction" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMInvoices_Corp_Correction" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRMInvoices_Corp_Replacement" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRMInvoices_Corp_Replacement" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="AccountMigrationMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="AccountMigrationMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="BRM_SDK" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="BRM_SDK" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Base_BRM_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Base_BRM_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="CORE" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="CORE" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                        <target qualifier="filegroup2.jar+oui" source="filegroup2.jar" symbol="oracle.nginst.core.symbol" location="oui" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Collections_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Collections_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Content_Manager_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Content_Manager_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="GPRS_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="GPRS_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="JCA_Adapter" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="JCA_Adapter" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="MultiDBMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="MultiDBMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="MultiDB_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="MultiDB_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Number_Manager_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Number_Manager_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="PartitionUpg" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="PartitionUpg" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="PaymentechMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="PaymentechMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="PerfMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="PerfMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Revenue_Assurance_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Revenue_Assurance_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Roaming_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Roaming_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="SIM_Card_Manager_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="SIM_Card_Manager_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="SMS_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="SMS_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Sample" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Sample" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Suspense_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Suspense_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="VertexMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="VertexMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="Voucher_Reports" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="Voucher_Reports" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+" source="filegroup1.jar" symbol="root.symbol" location="" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="WebServiceMgr" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="WebServiceMgr" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="cm_proxy" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="cm_proxy" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="cmmp" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="cmmp" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="dm_email" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="dm_email" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="dm_invoice" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="dm_invoice" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="dm_kafka" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="dm_kafka" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="dm_provisioning" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="dm_provisioning" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="eet" version="15.0.1.0.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="eet" version="15.0.1.0.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+BRM" source="filegroup1.jar" symbol="brm.symbol" location="BRM" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature status="installed" name="jrf_presoTools_core" version="12.2.1.4.0">
+               <sessions>
+                  <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+               </sessions>
+               <components>
+                  <component status="installed" name="oracle.bali.share" version="12.2.1.4.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="jewt.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component status="installed" name="oracle.bali.jewt" version="12.2.1.4.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="oracle.bali.jewt.dir" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component status="installed" name="oracle.bali.ice" version="12.2.1.4.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="help.common.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component status="installed" name="oracle.help.share" version="12.2.1.4.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="help.common.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+                  <component status="installed" name="oracle.help.ohj" version="12.2.1.4.0">
+                     <sessions>
+                        <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                     </sessions>
+                     <targets>
+                        <target qualifier="filegroup1.jar+oracle_common" source="filegroup1.jar" symbol="help.common.symbol" location="oracle_common" status="installed">
+                           <sessions>
+                              <session id="1" date="2025-12-31T17:19:02.000-05:00" action="install"/>
+                           </sessions>
+                        </target>
+                     </targets>
+                  </component>
+               </components>
+            </feature>
+            <feature name="upgrade" version="15.0.1.0.0">
+               <components>
+                  <component name="upgrade" version="15.0.1.0.0"/>
+               </components>
+            </feature>
+         </features>
+      </distribution>
+   </distributions>
+</registry>

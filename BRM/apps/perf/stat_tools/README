@@ -1,0 +1,37 @@
+
+  To get statistical information from Infranet DB one can use perl script
+  db_run. This script can display a number of various statistical information
+  which could be useful for DB  estimation and tuning. 
+  There is a configuration file db_conf.pm which contains some parameters and 
+  procedures. Check and change Oracle user, password and connection string in
+  this file. We use an assumption that name of Infranet tablespaces
+  begin with "PIN" and tablespaces for indexes begin with "PINX". All scripts
+  bellow use one argument - " name of file " to store result.
+
+  -a  - obtain the space information by tables (using analyze_pin.sql,
+    pin_tables_stats.sql, process_stat.sh), this script is very time consuming
+    and could be used for small DB.
+  -r   - displays number of column fot each table ( uses sql script
+    pin_profile.sql to perform count(*) for each table ).
+  -s    -displays the size of each used tablespace ( uses sql
+    script space_report.sql ).
+  -p    - obtain statistics information about performance of
+    DB( number of reads, writes, waitings, rollbacks information, occupied 
+    spaces ... ).
+  -h    - help, displays available options.
+
+   Only one of above parameters should be used in the single run. Result of 
+  operation stored in the current directory with name "data.lst". To redirect
+  output file use the option "-f" with following file name.
+
+  Example:
+            db_run -r -f myfile
+
+  Perl should be installed on the computer as well as Oracle client software.
+  If perl is not installed in standard place you can:
+
+      - change first line(s) in db_run to adjust path to perl;
+  OR
+      - start db_run explicitely with perl ( example perl db_run -r -f myfile);
+  OR
+      - copy perl into standard place ( or make symbolic link ).

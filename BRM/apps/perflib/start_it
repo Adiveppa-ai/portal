@@ -1,0 +1,161 @@
+#!/bin/ksh
+#------------------------------------------------------------------------------#
+# SCRIPT: start_it
+#
+# DESCRIPTION:
+#
+# Simple script to start BRM using the performance profiling library. This
+# effectively starts BRM after setting some environment variables which
+# control how the profiling library behaves.
+#
+# A small amount of configuration is avaiable - see the comments for each entry
+# in the perf.env file. This script should be customised as required.
+#
+# INFORMATION:
+#
+# NOTE: This will trace CMs ... if you want to trace batch apps (MTA) then
+#       make sure you set LD_PRELOAD in the environment to trap those opcodes
+#       that are initiated in a client (e.g. start_it pin_bill_accts)
+#
+# REVISION:
+#
+# $Revision: 1.12 $
+# $Author: pin $
+# $Date: 2014/01/10 01:07:42 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# abort - Exit with error message
+#------------------------------------------------------------------------------#
+abort()
+{
+   echo "ERROR : $CMD - $@" >&2
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# usage - Exit with usage message
+#------------------------------------------------------------------------------#
+usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-d<dir>] [-n] <cmd> [<arg1> [<arg2> ...]]
+
+where :  -d<dir>  Defines the directory containing configuration files (and
+                  where the <cmd> will be launched from). By default it is the
+                  directory where '$CMD' is located.
+         -n       Don't preload libperflib.so shared-library (for DM/app use)
+
+         <cmd>    The command to run (e.g. start_cm)
+         <argn>   Optional arguments (e.g. pin_bill_accts -test)
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+CMD=$(basename $0)
+export DIR=$(pwd)
+PRELOAD=Y
+
+#
+# Check options ...
+#
+while getopts "nd:" OPTION
+do
+   case "$OPTION" in
+   d)  DIR=$OPTARG
+       [ -d "$DIR" ] || abort "Directory '$DIR' doesn't exist" 
+       ;;
+   n)  PRELOAD=N
+       ;;
+   \?) echo "Unknown option '$OPTARG'" >&2
+       usage
+       ;;
+   :)  echo "Option '$OPTARG' requires an argument" >&2
+       usage
+       ;;
+   *)  break
+       ;;
+   esac
+done
+shift $((OPTIND - 1))
+
+#
+# Check LIBRARYEXTENSION (we'll abort if it's not set) ...
+#
+[ -n "$LIBRARYEXTENSION" ] || abort "LIBRARYEXTENSION is not set"
+EXT=$LIBRARYEXTENSION
+
+#
+# Check parameters ...
+#
+[ $# -gt 0 ] || usage
+
+if [ -z "$DIR" -o ! -d "$DIR" ]
+then
+   DIR=$(dirname $(which $CMD) 2>/dev/null)  # Determine directory with config.
+   if [ -z "$DIR" ]
+   then
+      echo "WARNING: $CMD is not in the path"
+      DIR=$(pwd)
+   fi
+fi
+echo "Using directory '$DIR' for configuration ..."
+
+#
+# Check the environment file exists ...
+#
+[ -r "$DIR/perf.env" ] || \
+   abort "Configuration file '$DIR/perf.env' cannot be read!"
+
+#
+# Run in a sub-shell to avoid changing directory ...
+#
+(
+   #
+   # Source the principle environment variables and do some checks to make sure
+   # that obligatory parameters are set...
+   #
+   . $DIR/perf.env
+
+   if [ $PRELOAD = N ]
+   then
+      #
+      # Must have a DM shared library defined ...
+      #
+      [ -n "$DM_MON_SHLIB" ] || \
+         abort "DM_MON_SHLIB must be set for dm_mon.so tracing ..."
+      [ -r "$DM_MON_SHLIB" ] || \
+         abort "DM_MON_SHLIB[$DM_MON_SHLIB] does not exist"
+   fi
+
+   #
+   # Check PCM library module (libdmpin.so/libportal.so) - see perf.env ...
+   #
+   [ -n "$PERFLIB_PIN_SHLIB" ] || \
+      abort "PERFLIB_PIN_SHLIB not set in $DIR/perf.env"
+   [ -r "$PERFLIB_PIN_SHLIB" ] || abort "PERFLIB_PIN_SHLIB does not exist"
+
+   #
+   # LD_PRELOAD - define the shared-library that contains the profiling
+   # functions. LD_PRELOAD is the variable applicable to Solaris/Linux/HP-UX
+   # for switching shared-library functions ... On AIX (well done IBM) it is
+   # different - LDR_PRELOAD... it also has a colon separator :-(
+   #
+   # NOTE: Obviously, for dm_mon.so tracing, we don't need to do this as all
+   #       libraries are accessed explicitly.
+   #
+   if [ $PRELOAD = Y ]
+   then
+      PSHLIB="$PIN_HOME/lib/libperflib${EXT}"
+      [ -r "$PSHLIB" ] || abort "PERFLIB[$PSHLIB] does not exist"
+      export LD_PRELOAD="$PIN_HOME/lib/libperflib${EXT} $LD_PRELOAD"
+   fi
+
+   #---------------------------------------------------------------------------#
+   # Start the process ...
+   #---------------------------------------------------------------------------#
+   exec $@
+)

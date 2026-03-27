@@ -1,0 +1,988 @@
+#!/bin/sh
+
+#############################################################################
+# $Id: initset,v 1.24 2003/03/20 15:34:13 pengelbr Exp $
+#
+# Shellscript to initialize the build environment
+#
+# Usage: initset [ compiler-mode ]
+#          compiler-mode must be one of the following values
+#            32  :  produce 32-bit binaries (default)
+#            64  :  produce 64-bit binaries
+#
+#############################################################################
+
+CFG_COMP_NAME=none
+CFG_COMP_VERSION=none
+CFG_COMP_EXE=none
+CFG_FRAMEWORK_ROOT=none
+CFG_RW_PATH=none
+CFG_RW_NO_SUBDIR=false
+CFG_RW_NATIVE_STDLIB=false
+CFG_RW_COMMON_SUBDIR=false
+CFG_JDK_PATH=none
+CFG_CORBA_HOME=none
+CFG_CORBA_CXX=none
+CFG_CORBA_CXXLIB=none
+CFG_CORBA_SHLIB=none
+CFG_CORBA_DEFLIB=none
+CFG_PURE_PATH=none
+CFG_PURE_VERSION=none
+CFG_INST_ANYWHERE_BIN=none
+CFG_ORACLE_HOME=none
+CFG_ORACLE_LIB=none
+CFG_DB2DIR=none
+CFG_DB2LIB=none
+CFG_DB2INSTANCE=none
+CFG_PIN_INCDIR=none
+CFG_PIN_LIBDIR=none
+CFG_NLS_LANG=none
+CFG_INT_PERL_LIB=none
+CFG_INT_BROWSER_HOME=none
+CFG_ORBIX_USED=false
+CFG_TAO_INC_PATHS=none
+TAO_ROOT=none
+ACE_ROOT=none
+
+BUILD_ROOT=`pwd`
+
+if [ $? -ne 0 ] ; then
+  echo
+  echo "Error: command 'pwd' failed."
+  echo
+
+  exit 1
+fi
+
+CFG_HOST=`hostname`
+
+if [ $? -ne 0 ] ; then
+  echo
+  echo "Error: command 'hostname' failed."
+  echo
+
+  exit 1
+fi
+
+COMP_MODE=64
+
+SETTINGS_DIR=settings
+
+SETTINGS_PATH=${BUILD_ROOT}/${SETTINGS_DIR}
+SETTINGS_FILE=${SETTINGS_PATH}/buildroot.inc
+
+CSH_SOURCE=source.me.csh
+SH_SOURCE=source.me.sh
+
+MAK_CFG_SUB=MAK/config
+
+MAK_CFG_FRAME_BASE=frameApi.src
+MAK_CFG_UNKNOWN_BASE=unknown.src
+MAK_CFG_HOST_BASE=${CFG_HOST}${COMP_MODE}.src
+MAK_CFG_ADDON_BASE=${MAK_CFG_HOST_BASE}.addon
+MAK_CFG_UNCONF_BASE=${MAK_CFG_HOST_BASE}.unconf
+
+MAK_CFG_PATH=${BUILD_ROOT}/${MAK_CFG_SUB}
+
+MAK_CFG_FRAME_SUB=${MAK_CFG_SUB}/${MAK_CFG_FRAME_BASE}
+MAK_CFG_FRAME_FILE=${MAK_CFG_PATH}/${MAK_CFG_FRAME_BASE}
+
+MAK_CFG_UNKNOWN_SUB=${MAK_CFG_SUB}/${MAK_CFG_UNKNOWN_BASE}
+MAK_CFG_UNKNOWN_FILE=${MAK_CFG_PATH}/${MAK_CFG_UNKNOWN_BASE}
+
+MAK_CFG_HOST_SUB=${MAK_CFG_SUB}/${MAK_CFG_HOST_BASE}
+MAK_CFG_HOST_FILE=${MAK_CFG_PATH}/${MAK_CFG_HOST_BASE}
+
+MAK_CFG_ADDON_SUB=${MAK_CFG_SUB}/${MAK_CFG_ADDON_BASE}
+MAK_CFG_ADDON_FILE=${MAK_CFG_PATH}/${MAK_CFG_ADDON_BASE}
+
+MAK_CFG_UNCONF_SUB=${MAK_CFG_SUB}/${MAK_CFG_UNCONF_BASE}
+MAK_CFG_UNCONF_FILE=${MAK_CFG_PATH}/${MAK_CFG_UNCONF_BASE}
+
+if [ -d "${SETTINGS_PATH}" ] ; then
+  rm -f ${SETTINGS_FILE} ${SH_SOURCE} ${CSH_SOURCE}
+else
+  echo
+  echo "Error: directory \"$SETTINGS_PATH\" does not exist."
+  echo
+
+  exit 1
+fi
+
+if [ ! -d "${MAK_CFG_PATH}" ] ; then
+  echo
+  echo "Error: directory \"$MAK_CFG_PATH\" does not exist."
+  echo
+  echo "Maybe the working directory to run MAK/initset is incorrect."
+  echo
+
+  exit 1
+fi
+
+if [ -f "${MAK_CFG_FRAME_FILE}" ] ; then
+  echo
+  echo "Current framework API configuration file \"$MAK_CFG_FRAME_SUB\"."
+  echo "If necessary, modify the configuration settings and rerun \"$0 $*\"."
+  echo
+
+  . ${MAK_CFG_FRAME_FILE}
+
+  if [ $? -ne 0 ] ; then
+    exit 1
+  fi
+else
+  if [ -f "${MAK_CFG_HOST_FILE}" ] ; then
+    echo
+    echo "Current configuration file \"$MAK_CFG_HOST_SUB\"."
+    echo
+
+    . ${MAK_CFG_HOST_FILE}
+
+    if [ $? -ne 0 ] ; then
+      exit 1
+    fi
+  else
+    echo
+    echo "Error: Configuration file \"$MAK_CFG_HOST_SUB\" does not exist."
+
+    if [ -f "${MAK_CFG_UNKNOWN_FILE}" ] ; then
+      echo "       An unconfigured file \"$MAK_CFG_UNCONF_SUB\" will be"
+      echo "       created. Please modify the configuration settings, rename"
+      echo "       the file to \"$MAK_CFG_HOST_SUB\" and rerun \"$0 $*\"."
+
+      if [ ! -f "${MAK_CFG_UNCONF_FILE}" ] ; then
+        cp ${MAK_CFG_UNKNOWN_FILE} ${MAK_CFG_UNCONF_FILE}
+
+        chmod 755 ${MAK_CFG_UNCONF_FILE}
+      fi
+    else
+      echo "       Please create the file \"$MAK_CFG_HOST_SUB\", add"
+      echo "       necessary configuration settings and rerun \"$0 $*\"."
+    fi
+
+    echo
+
+    exit 1
+  fi
+
+  if [ -f "${MAK_CFG_ADDON_FILE}" ] ; then
+    echo "Current add on configuration file \"$MAK_CFG_ADDON_SUB\"."
+    echo
+
+    . ${MAK_CFG_ADDON_FILE}
+
+    if [ $? -ne 0 ] ; then
+      exit 1
+    fi
+  else
+    echo "If necessary, create the add on config file \"$MAK_CFG_ADDON_SUB\","
+    echo "add the configuration settings and rerun \"$0 $*\"."
+    echo
+  fi
+fi
+
+#############################################################################
+# determine the operating system
+#############################################################################
+
+UNAME=`uname`
+
+case "$UNAME" in
+  Linux)  OS_NAME=LINUX
+          OS_VERSION=`uname -r | sed "s/\.//g" | sed "s/\-//g"`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+
+          COMP_NAME=GCC
+          COMP_VERSION=2952
+          ;;
+  SunOS)  OSVER=`uname -r | awk -F. '{print $1}'`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+
+          if [ "${OSVER}" = "4" ] ; then
+            OS_NAME=SUNOS
+          else
+            OS_NAME=SOLARIS
+          fi
+
+          OS_VER=solaris_`uname -r`
+
+          OS_VERSION=`uname -r | sed "s/\.//g"`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+
+            COMP_NAME=SUNPRO64
+            RW_PATH=/vobs/rw_rls_unix_vob/rw_rls_unix/solaris8_wspro7_64
+            PIN_LIBDIR=/net/dusty-71/pinbuild/cc_builds/6.5_SP1_cup+good/solaris/legacy_vob/continuus/sys~continuus/sys/lib64
+            # ACE_ROOT and TAO_ROOT don't have corresponding CFG_* variables!
+            if [ "${ACE_ROOT}" = "none" ] ; then
+              ACE_ROOT=/pinmaster/newtools/ACE_TAO_build/solaris8/lib64
+            else
+              echo "Warning: Overriding default Ace root dir with \"$ACE_ROOT\"."
+            fi
+            if [ "${TAO_ROOT}" = "none" ] ; then
+              TAO_ROOT=${ACE_ROOT}/TAO
+            else
+              echo "Warning: Overriding default Tao root dir with \"$TAO_ROOT\"."
+            fi
+            TAO_INC_PATHS="-I${TAO_ROOT} -I${ACE_ROOT} -I${TAO_ROOT}/orbsvcs/orbsvcs"
+            if [ "${CFG_ORBIX_USED}" = "false" ] ; then
+              CORBA_HOME=${TAO_ROOT}/TAO_IDL
+              CORBA_CXXLIB=${TAO_ROOT}/tao
+              CORBA_SHLIB=${ACE_ROOT}/ace
+              CORBA_DEFLIB=${TAO_ROOT}/orbsvcs/orbsvcs
+            else
+              echo "Warning: Overriding default ORBIX_USED from \"false\" to \"true\"."
+              CORBA_HOME=/pinmaster/newtools/iona/orbix2000-1.2.1_64/solaris
+              CORBA_CXX=${CORBA_HOME}/orbix_art/1.2/cxx
+              CORBA_CXXLIB=${CORBA_HOME}/orbix_art/1.2/cxx/lib/sparcv9
+              CORBA_SHLIB=${CORBA_HOME}/shlib/sparcv9
+              CORBA_DEFLIB=${CORBA_HOME}/shlib/default/sparcv9
+            fi
+            ORACLE_HOME=/pinmaster/newtools/oracle_9.2.0.3/solaris
+            ORACLE_LIB=${ORACLE_HOME}/lib
+
+          COMP_EXE=`which CC`
+          COMP_VER_NUM=`${COMP_EXE} -V 2>&1`
+          COMP_VERSION=`echo "${COMP_VER_NUM}" | awk '{print $4}' | sed s'/\.//g'`
+          COMP_VER=`echo "${COMP_VER_NUM}" | sed s'/ /_/g' |sed s'/\//_/g'`
+          PURE_PATH=/tools/pure/releases
+          PURE_VERSION=.sol.2003.06.00
+          PIN_INCDIR=/net/dusty-71/pinbuild/cc_builds/6.5_SP1_cup+good/solaris/legacy_vob/continuus/include~continuus/include
+          NLS_LANG=AMERICAN_AMERICA.WE8ISO8859P9
+          JDK_PATH=/pinmaster/newtools/java1.3/solaris
+          INST_ANYWHERE_BIN=/pinmaster/newtools/InstallAnywhere_3.0_Enterprise/InstallAnywhere
+
+          ;;
+  HP-UX)  OS_NAME=HPUX
+          OS_VERSION=`uname -r | sed "s/\.//g"`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+    
+          OS_VER=hpux_`uname -r`
+
+          #OS_VERSION=`echo ${OS_VERSION} | sed "s/[AB]//g"`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+
+            COMP_NAME=ACC64
+            # Changing default RW for HPUX from 4.1 to 3.1(PRSF00037654)
+            RW_PATH=/vobs/rw_rls_unix_vob/rw_rls_unix/hpux11/hpacc64_A_03_27
+            PIN_LIBDIR=/net/dusty-71/pinbuild/cc_builds/6.5_SP1_cup+good/hpux/legacy_vob/continuus/sys~continuus/sys/lib64
+            # ACE_ROOT and TAO_ROOT don't have corresponding CFG_* variables!
+            if [ "${ACE_ROOT}" = "none" ] ; then
+              ACE_ROOT=/pinmaster/newtools/ACE_TAO_build/hpux11/lib64
+            else
+              echo "Warning: Overriding default Ace root dir with \"$ACE_ROOT\"."
+            fi
+            if [ "${TAO_ROOT}" = "none" ] ; then
+              TAO_ROOT=${ACE_ROOT}/TAO
+            else
+              echo "Warning: Overriding default Tao root dir with \"$TAO_ROOT\"."
+            fi
+            TAO_INC_PATHS="-I${TAO_ROOT} -I${ACE_ROOT} -I${TAO_ROOT}/orbsvcs/orbsvcs"
+            if [ "${CFG_ORBIX_USED}" = "false" ] ; then
+              CORBA_HOME=${TAO_ROOT}/TAO_IDL
+              CORBA_CXXLIB=${TAO_ROOT}/tao
+              CORBA_SHLIB=${ACE_ROOT}/ace
+              CORBA_DEFLIB=${TAO_ROOT}/orbsvcs/orbsvcs
+            else
+              echo "Warning: Overriding default ORBIX_USED from \"false\" to \"true\"."
+              CORBA_HOME=/pinmaster/newtools/iona/orbix2000-1.2.1_64/hpux
+              CORBA_CXX=${CORBA_HOME}/orbix_art/1.2/cxx
+              CORBA_CXXLIB=${CORBA_HOME}/orbix_art/1.2/cxx/lib/pa20_64
+              CORBA_SHLIB=${CORBA_HOME}/shlib/pa20_64
+              CORBA_DEFLIB=${CORBA_HOME}/shlib/default/pa20_64
+            fi
+            ORACLE_HOME=/pinmaster/newtools/oracle_9.2.0.3/hpux
+            ORACLE_LIB=${ORACLE_HOME}/lib
+
+          # Changing default RW for HPUX from 4.1 to 3.1(PRSF00037654)
+		  # Requires 331
+          COMP_EXE=`which aCC`
+          COMP_VER_NUM=`${COMP_EXE} -V 2>&1`
+          COMP_VER=`echo "${COMP_VER_NUM}" | awk '{print $NF}'`
+          COMP_VERSION=`echo "${COMP_VER}" | sed s'/\.//g'`
+          PURE_PATH=/tools/pure/releases
+          PURE_VERSION=.hp.2003.06.00
+          PIN_INCDIR=/net/dusty-71/pinbuild/cc_builds/6.5_SP1_cup+good/hpux/legacy_vob/continuus/include~continuus/include
+          NLS_LANG=AMERICAN_AMERICA.WE8ISO8859P9
+          JDK_PATH=/pinmaster/newtools/java1.3/hpux
+          INST_ANYWHERE_BIN=/pinmaster/newtools/InstallAnywhere_3.0_Enterprise/InstallAnywhere
+
+          ;;
+  AIX)    OS_NAME=AIX
+
+          MINORVERSION=`uname -r`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+
+          MAJORVERSION=`uname -v`
+
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
+
+          OS_VERSION=$MAJORVERSION$MINORVERSION
+
+            COMP_NAME=IBMCC64
+            RW_PATH=/vobs/rw_rls_unix_vob/rw_rls_unix/aix5_va6_64
+            PIN_LIBDIR=/net/dusty-71/pinbuild/cc_builds/6.5_SP1_cup+good/aix/legacy_vob/continuus/sys~continuus/sys/lib64
+            # ACE_ROOT and TAO_ROOT don't have corresponding CFG_* variables!
+            if [ "${ACE_ROOT}" = "none" ] ; then
+              ACE_ROOT=/pinmaster/newtools/ACE_TAO_build/aix51/lib64
+            else
+              echo "Warning: Overriding default Ace root dir with \"$ACE_ROOT\"."
+            fi
+            if [ "${TAO_ROOT}" = "none" ] ; then
+              TAO_ROOT=${ACE_ROOT}/TAO
+            else
+              echo "Warning: Overriding default Tao root dir with \"$TAO_ROOT\"."
+            fi
+            TAO_INC_PATHS="-I${TAO_ROOT} -I${ACE_ROOT} -I${TAO_ROOT}/orbsvcs/orbsvcs"
+            if [ "${CFG_ORBIX_USED}" = "false" ] ; then
+              CORBA_HOME=${TAO_ROOT}/TAO_IDL
+              CORBA_CXXLIB=${TAO_ROOT}/tao
+              CORBA_SHLIB=${ACE_ROOT}/ace
+              CORBA_DEFLIB=${TAO_ROOT}/orbsvcs/orbsvcs
+            else
+              echo "Warning: Overriding default ORBIX_USED from \"false\" to \"true\"."
+              CORBA_HOME=/pinmaster/newtools/iona/orbix2000-1.2.1_64/aix
+              CORBA_CXX=${CORBA_HOME}/orbix_art/1.2/cxx
+              CORBA_CXXLIB=${CORBA_HOME}/orbix_art/1.2/cxx/lib/sparcv9
+              CORBA_SHLIB=${CORBA_HOME}/shlib/sparcv9
+              CORBA_DEFLIB=${CORBA_HOME}/shlib/default/sparcv9
+            fi
+            ORACLE_HOME=/pinmaster/newtools/oracle_9.2.0.3/aix5
+            ORACLE_LIB=${ORACLE_HOME}/lib
+
+          COMP_VERSION=600
+          COMP_EXE=/usr/vacpp/bin/xlC_r
+          COMP_VER=${COMP_VERSION}
+          PURE_PATH=none
+          PURE_VERSION=none
+          PIN_INCDIR=/net/dusty-71/pinbuild/cc_builds/6.5_SP1_cup+good/aix/legacy_vob/continuus/include~continuus/include
+          NLS_LANG=AMERICAN_AMERICA.WE8ISO8859P9
+          JDK_PATH=/pinmaster/newtools/java1.3/aix
+          INST_ANYWHERE_BIN=/pinmaster/newtools/InstallAnywhere_3.0_Enterprise/InstallAnywhere
+
+          ;;
+  *)      echo "Error: unsupported operating system \"$UNAME\"."
+          echo
+
+          exit 1
+          ;;
+esac
+
+if [ "${CFG_RW_PATH}" != "unused" -a "${CFG_RW_PATH}" != "none" ] ; then
+  if [ "${CFG_RW_PATH}" != "${RW_PATH}" ] ; then
+    echo "Warning: Overriding default Rogue Wave path \"$RW_PATH\" with \"$CFG_RW_PATH\"."
+    RW_PATH=${CFG_RW_PATH}
+  fi
+else
+  CFG_RW_PATH=${RW_PATH}
+fi
+
+if [ "${CFG_RW_PATH}" != "unused" -a ! -d "${CFG_RW_PATH}" ] ; then
+  echo "Error: invalid value specified for configuration variable CFG_RW_PATH."
+  echo "       directory \"$CFG_RW_PATH\" does not exist."
+  echo
+
+  exit 1
+else
+  if [ "${CFG_RW_PATH}" = "unused" ] ; then
+    CFG_RW_PATH=none
+    CFG_RW_NO_SUBDIR=false
+    CFG_RW_NATIVE_STDLIB=false
+    CFG_RW_COMMON_SUBDIR=false
+  else
+    if [ -d "${CFG_RW_PATH}/rw" -a -d "${CFG_RW_PATH}/lib" ] ; then
+      CFG_RW_NO_SUBDIR=true
+      CFG_RW_NATIVE_STDLIB=true
+    else
+      CFG_RW_NO_SUBDIR=false
+      CFG_RW_NATIVE_STDLIB=false
+    fi
+
+    if [ -d "${CFG_RW_PATH}/include" ] ; then
+      CFG_RW_NATIVE_STDLIB=false
+    fi
+
+    if [ -d "${CFG_RW_PATH}/../common" ] ; then
+      CFG_RW_COMMON_SUBDIR=true
+    fi
+  fi
+fi
+
+if [ -n "${CFG_COMP_NAME}" -a "${CFG_COMP_NAME}" != "none" ] ; then
+  if [ "${CFG_COMP_NAME}" != "${COMP_NAME}" ] ; then
+    echo "Warning: Overriding default compiler name \"$COMP_NAME\" with \"$CFG_COMP_NAME\"."
+    COMP_NAME=${CFG_COMP_NAME}
+  fi
+else
+  CFG_COMP_NAME=${COMP_NAME}
+fi
+
+if [ -n "${CFG_COMP_VERSION}" -a "${CFG_COMP_VERSION}" != "none" ] ; then
+  if [ "${CFG_COMP_VERSION}" != "${COMP_VERSION}" ] ; then
+    echo "Warning: Overriding default compiler version \"$COMP_VERSION\" with \"$CFG_COMP_VERSION\"."
+    COMP_VERSION=${CFG_COMP_VERSION}
+  fi
+else
+  CFG_COMP_VERSION=${COMP_VERSION}
+fi
+
+if [ -n "${CFG_COMP_EXE}" -a "${CFG_COMP_EXE}" != "none" ] ; then
+  if [ "${CFG_COMP_EXE}" != "${COMP_EXE}" ] ; then
+    echo "Warning: Overriding default compiler exectable \"$COMP_EXE\" with \"$CFG_COMP_EXE\"."
+    COMP_EXE=${CFG_COMP_EXE}
+  fi
+else
+  CFG_COMP_EXE=${COMP_EXE}
+fi
+
+if [ -n "${CFG_PURE_PATH}" -a "${CFG_PURE_PATH}" != "none" ] ; then
+  if [ "${CFG_PURE_PATH}" != "${PURE_PATH}" ] ; then
+    echo "Warning: Overriding default purify path \"$PURE_PATH\" with \"$CFG_PURE_PATH\"."
+    PURE_PATH=${CFG_PURE_PATH}
+  fi
+else
+  CFG_PURE_PATH=${PURE_PATH}
+fi
+
+if [ -n "${CFG_PURE_VERSION}" -a "${CFG_PURE_VERSION}" != "none" ] ; then
+  if [ "${CFG_PURE_VERSION}" != "${PURE_VERSION}" ] ; then
+    echo "Warning: Overriding default purify version \"$PURE_VERSION\" with \"$CFG_PURE_VERSION\"."
+    PURE_VERSION=${CFG_PURE_VERSION}
+  fi
+else
+  CFG_PURE_VERSION=${PURE_VERSION}
+fi
+
+if [ -n "${CFG_PIN_INCDIR}" -a "${CFG_PIN_INCDIR}" != "none" ] ; then
+  if [ "${CFG_PIN_INCDIR}" != "${PIN_INCDIR}" ] ; then
+    echo "Warning: Overriding default Infranet Include dir \"$PIN_INCDIR\" with \"$CFG_PIN_INCDIR\"."
+    PIN_INCDIR=${CFG_PIN_INCDIR}
+  fi
+else
+  CFG_PIN_INCDIR=${PIN_INCDIR}
+fi
+
+if [ -n "${CFG_PIN_LIBDIR}" -a "${CFG_PIN_LIBDIR}" != "none" ] ; then
+  if [ "${CFG_PIN_LIBDIR}" != "${PIN_LIBDIR}" ] ; then
+    echo "Warning: Overriding default Infranet Lib dir \"$PIN_LIBDIR\" with \"$CFG_PIN_LIBDIR\"."
+    PIN_LIBDIR=${CFG_PIN_LIBDIR}
+  fi
+else
+  CFG_PIN_LIBDIR=${PIN_LIBDIR}
+fi
+
+# Check Corba info
+
+if [ -n "${CFG_TAO_INC_PATHS}" -a "${CFG_TAO_INC_PATHS}" != "none" ] ; then
+  if [ "${CFG_TAO_INC_PATHS}" != "${TAO_INC_PATHS}" ] ; then
+    echo "Warning: Overriding default Tao include paths \"$TAO_INC_PATHS\" with \"$CFG_TAO_INC_PATHS\"."
+    TAO_INC_PATHS=${CFG_TAO_INC_PATHS}
+  fi
+else
+  CFG_TAO_INC_PATHS=${TAO_INC_PATHS}
+fi
+
+if [ -n "${CFG_CORBA_HOME}" -a "${CFG_CORBA_HOME}" != "none" ] ; then
+  if [ "${CFG_CORBA_HOME}" != "${CORBA_HOME}" ] ; then
+    echo "Warning: Overriding default Corba Home dir \"$CORBA_HOME\" with \"$CFG_CORBA_HOME\"."
+    CORBA_HOME=${CFG_CORBA_HOME}
+  fi
+else
+  CFG_CORBA_HOME=${CORBA_HOME}
+fi
+
+if [ -n "${CFG_CORBA_CXX}" -a "${CFG_CORBA_CXX}" != "none" ] ; then
+  if [ "${CFG_CORBA_CXX}" != "${CORBA_CXX}" ] ; then
+    echo "Warning: Overriding default Corba CXX dir \"$CORBA_CXX\" with \"$CFG_CORBA_CXX\"."
+    CORBA_CXX=${CFG_CORBA_CXX}
+  fi
+else
+  CFG_CORBA_CXX=${CORBA_CXX}
+fi
+
+if [ -n "${CFG_CORBA_CXXLIB}" -a "${CFG_CORBA_CXXLIB}" != "none" ] ; then
+  if [ "${CFG_CORBA_CXXLIB}" != "${CORBA_CXXLIB}" ] ; then
+    echo "Warning: Overriding default Corba CXX Lib dir \"$CORBA_CXXLIB\" with \"$CFG_CORBA_CXXLIB\"."
+    CORBA_CXXLIB=${CFG_CORBA_CXXLIB}
+  fi
+else
+  CFG_CORBA_CXXLIB=${CORBA_CXXLIB}
+fi
+
+if [ -n "${CFG_CORBA_SHLIB}" -a "${CFG_CORBA_SHLIB}" != "none" ] ; then
+  if [ "${CFG_CORBA_SHLIB}" != "${CORBA_SHLIB}" ] ; then
+    echo "Warning: Overriding default Corba Shared Lib dir \"$CORBA_SHLIB\" with \"$CFG_CORBA_SHLIB\"."
+    CORBA_SHLIB=${CFG_CORBA_SHLIB}
+  fi
+else
+  CFG_CORBA_SHLIB=${CORBA_SHLIB}
+fi
+
+if [ -n "${CFG_CORBA_DEFLIB}" -a "${CFG_CORBA_DEFLIB}" != "none" ] ; then
+  if [ "${CFG_CORBA_DEFLIB}" != "${CORBA_DEFLIB}" ] ; then
+    echo "Warning: Overriding default Corba Default Lib dir \"$CORBA_DEFLIB\" with \"$CFG_CORBA_DEFLIB\"."
+    CORBA_DEFLIB=${CFG_CORBA_DEFLIB}
+  fi
+else
+  CFG_CORBA_DEFLIB=${CORBA_DEFLIB}
+fi
+
+# Check Oracle settings
+
+if [ -n "${CFG_ORACLE_HOME}" -a "${CFG_ORACLE_HOME}" != "none" ] ; then
+  if [ "${CFG_ORACLE_HOME}" != "${ORACLE_HOME}" ] ; then
+    echo "Warning: Overriding default Oracle Home dir \"$ORACLE_HOME\" with \"$CFG_ORACLE_HOME\"."
+    ORACLE_HOME=${CFG_ORACLE_HOME}
+  fi
+else
+  CFG_ORACLE_HOME=${ORACLE_HOME}
+fi
+
+if [ -n "${CFG_ORACLE_LIB}" -a "${CFG_ORACLE_LIB}" != "none" ] ; then
+  if [ "${CFG_ORACLE_LIB}" != "${ORACLE_LIB}" ] ; then
+    echo "Warning: Overriding default Oracle Lib dir \"$ORACLE_LIB\" with \"$CFG_ORACLE_LIB\"."
+    ORACLE_LIB=${CFG_ORACLE_LIB}
+  fi
+else
+  CFG_ORACLE_LIB=${ORACLE_LIB}
+fi
+
+if [ -n "${CFG_NLS_LANG}" -a "${CFG_NLS_LANG}" != "none" ] ; then
+  if [ "${CFG_NLS_LANG}" != "${NLS_LANG}" ] ; then
+    echo "Warning: Overriding default NLS_LANG \"$NLS_LANG\" with \"$CFG_NLS_LANG\"."
+    NLS_LANG=${CFG_NLS_LANG}
+  fi
+else
+  CFG_NLS_LANG=${NLS_LANG}
+fi
+
+if [ -n "${CFG_JDK_PATH}" -a "${CFG_JDK_PATH}" != "none" ] ; then
+  if [ "${CFG_JDK_PATH}" != "${JDK_PATH}" ] ; then
+    echo "Warning: Overriding default JDK_PATH \"$JDK_PATH\" with \"$CFG_JDK_PATH\"."
+    JDK_PATH=${CFG_JDK_PATH}
+  fi
+else
+  CFG_JDK_PATH=${JDK_PATH}
+fi
+
+if [ -n "${CFG_INST_ANYWHERE_BIN}" -a "${CFG_INST_ANYWHERE_BIN}" != "none" ] ; then
+  if [ "${CFG_INST_ANYWHERE_BIN}" != "${INST_ANYWHERE_BIN}" ] ; then
+    echo "Warning: Overriding default InstallAnywhere \"$INST_ANYWHERE_BIN\" with \"$CFG_INST_ANYWHERE_BIN\"."
+    INST_ANYWHERE_BIN=${CFG_INST_ANYWHERE_BIN}
+  fi
+else
+  CFG_INST_ANYWHERE_BIN=${INST_ANYWHERE_BIN}
+fi
+
+#############################################################################
+# write a file in settings to store the variables (with absolute paths)
+#############################################################################
+
+echo "BUILD_ROOT="${BUILD_ROOT} > ${SETTINGS_FILE}
+
+if [ $? -ne 0 ] ; then
+  exit 1
+fi
+
+if [ -n "${CFG_FRAMEWORK_ROOT}" -a "${CFG_FRAMEWORK_ROOT}" != "none" ] ; then
+  echo "FRAMEWORK_ROOT="${CFG_FRAMEWORK_ROOT} >> ${SETTINGS_FILE}
+
+  MY_LD_LIBS="${CFG_FRAMEWORK_ROOT}/lib:${BUILD_ROOT}/lib"
+
+  MY_BIN_PATH="${CFG_FRAMEWORK_ROOT}/bin:${BUILD_ROOT}/bin"
+else
+  echo "FRAMEWORK_ROOT="${BUILD_ROOT} >> ${SETTINGS_FILE}
+
+  MY_LD_LIBS="${BUILD_ROOT}/lib"
+
+  MY_BIN_PATH="${BUILD_ROOT}/bin"
+
+  CFG_FRAMEWORK_ROOT=${BUILD_ROOT}
+fi
+
+if [ -x "${CFG_COMP_EXE}" -a "${CFG_COMP_EXE}" != "none" ] ; then
+  MY_COMP_PATH=`dirname ${CFG_COMP_EXE}`
+
+  if [ $? -ne 0 ] ; then
+    exit 1
+  fi
+
+  if [ -d "${MY_COMP_PATH}" -a "${MY_COMP_PATH}" != "." ] ; then
+    COMP_LIB_PATH=`dirname ${MY_COMP_PATH}`
+
+    if [ $? -ne 0 ] ; then
+      exit 1
+    fi
+
+    if [ "${COMP_LIB_PATH}" != "." ] ; then
+      COMP_LIB_PATH=${COMP_LIB_PATH}/lib
+
+      if [ -d "${COMP_LIB_PATH}" ] ; then
+        MY_LD_LIBS="${COMP_LIB_PATH}:${MY_LD_LIBS}"
+      fi
+    fi
+
+    MY_COMP_PATH=${MY_COMP_PATH}:
+  else
+    MY_COMP_PATH=""
+  fi
+else
+  MY_COMP_PATH=""
+fi
+
+if [ -n "${CFG_RW_PATH}" -a "${CFG_RW_PATH}" != "none" ] ; then
+  if [ -n "${CFG_RW_NO_SUBDIR}" -a "${CFG_RW_NO_SUBDIR}" = "true" ] ; then
+    CFG_RW_OPT_PATH=${CFG_RW_PATH}/lib
+    CFG_RW_DEB_PATH=${CFG_RW_OPT_PATH}
+    MY_LD_LIBS="${MY_LD_LIBS}:${CFG_RW_OPT_PATH}"
+  else
+    CFG_RW_OPT_PATH=${CFG_RW_PATH}/12d/lib
+    CFG_RW_DEB_PATH=${CFG_RW_PATH}/15d/lib
+    MY_LD_LIBS="${MY_LD_LIBS}:${CFG_RW_OPT_PATH}:${CFG_RW_DEB_PATH}"
+  fi
+else
+  CFG_RW_OPT_PATH=none
+  CFG_RW_DEB_PATH=none
+fi
+
+if [ -n "${CFG_ORACLE_HOME}" -a "${CFG_ORACLE_HOME}" != "none" ] ; then
+  if [ -z "${CFG_ORACLE_LIB}" -o "${CFG_ORACLE_LIB}" = "none" ] ; then
+    CFG_ORACLE_LIB=${CFG_ORACLE_HOME}/lib
+  fi
+
+  MY_LD_LIBS="${MY_LD_LIBS}:${CFG_ORACLE_LIB}"
+
+  MY_BIN_PATH="${MY_BIN_PATH}:${CFG_ORACLE_HOME}/bin"
+fi
+
+if [ -n "${CFG_DB2DIR}" -a "${CFG_DB2DIR}" != "none" ] ; then
+  if [ -z "${CFG_DB2LIB}" -o "${CFG_DB2LIB}" = "none" ] ; then
+    CFG_DB2LIB=${CFG_DB2DIR}/lib
+  fi
+
+  MY_LD_LIBS="${MY_LD_LIBS}:${CFG_DB2LIB}"
+
+  MY_BIN_PATH="${MY_BIN_PATH}:${CFG_DB2DIR}/bin"
+  MY_BIN_PATH="${MY_BIN_PATH}:${CFG_DB2DIR}/adm:${CFG_DB2DIR}/misc"
+fi
+
+if [ -n "${CFG_CORBA_CXXLIB}" -a "${CFG_CORBA_CXXLIB}" != "none" ] ; then
+  MY_LD_LIBS="${MY_LD_LIBS}:${CFG_CORBA_CXXLIB}"
+fi
+
+if [ -n "${CFG_CORBA_SHLIB}" -a "${CFG_CORBA_SHLIB}" != "none" ] ; then
+  MY_LD_LIBS="${MY_LD_LIBS}:${CFG_CORBA_SHLIB}"
+fi
+
+if [ -n "${CFG_CORBA_DEFLIB}" -a "${CFG_CORBA_DEFLIB}" != "none" ] ; then
+  MY_LD_LIBS="${MY_LD_LIBS}:${CFG_CORBA_DEFLIB}"
+fi
+
+if [ -n "${CFG_CORBA_HOME}" -a "${CFG_CORBA_HOME}" != "none" ] ; then
+  MY_BIN_PATH="${MY_BIN_PATH}:${CFG_CORBA_HOME}/bin"
+fi
+
+if [ -n "${CFG_PIN_LIBDIR}" -a "${CFG_PIN_LIBDIR}" != "none" ] ; then
+  MY_LD_LIBS="${MY_LD_LIBS}:${CFG_PIN_LIBDIR}"
+fi
+
+echo "SETTINGS_DIR="${SETTINGS_DIR} >> ${SETTINGS_FILE}
+echo "SETTINGS_PATH="${BUILD_ROOT}/${SETTINGS_DIR} >> ${SETTINGS_FILE}
+echo "OS_NAME=${OS_NAME}" >> ${SETTINGS_FILE}
+echo "OS_VERSION=${OS_VERSION}" >> ${SETTINGS_FILE}
+echo "COMP_NAME=${COMP_NAME}" >> ${SETTINGS_FILE}
+echo "COMP_VERSION=${COMP_VERSION}" >> ${SETTINGS_FILE}
+
+if [ -n "${CFG_COMP_EXE}" -a "${CFG_COMP_EXE}" != "none" ] ; then
+  echo "COMP_EXE=${CFG_COMP_EXE}" >> ${SETTINGS_FILE}
+fi
+
+echo "${OS_NAME}=${OS_VERSION}" >> ${SETTINGS_FILE}
+echo "OS_VER=${OS_VER}" >> ${SETTINGS_FILE}
+echo "${COMP_NAME}=${COMP_VERSION}" >> ${SETTINGS_FILE}
+echo "COMP_VER=${COMP_VER}" >> ${SETTINGS_FILE}
+echo "CFG_RW_PATH=${CFG_RW_PATH}" >> ${SETTINGS_FILE}
+echo "CFG_RW_NO_SUBDIR=${CFG_RW_NO_SUBDIR}" >> ${SETTINGS_FILE}
+echo "CFG_RW_NATIVE_STDLIB=${CFG_RW_NATIVE_STDLIB}" >> ${SETTINGS_FILE}
+echo "CFG_RW_COMMON_SUBDIR=${CFG_RW_COMMON_SUBDIR}" >> ${SETTINGS_FILE}
+echo "CFG_JDK_PATH=${CFG_JDK_PATH}" >> ${SETTINGS_FILE}
+echo "CFG_CORBA_HOME=${CFG_CORBA_HOME}" >> ${SETTINGS_FILE}
+echo "CFG_CORBA_CXX=${CFG_CORBA_CXX}" >> ${SETTINGS_FILE}
+echo "CFG_CORBA_CXXLIB=${CFG_CORBA_CXXLIB}" >> ${SETTINGS_FILE}
+echo "CFG_CORBA_SHLIB=${CFG_CORBA_SHLIB}" >> ${SETTINGS_FILE}
+echo "CFG_CORBA_DEFLIB=${CFG_CORBA_DEFLIB}" >> ${SETTINGS_FILE}
+echo "CFG_ORACLE_LIB=${CFG_ORACLE_LIB}" >> ${SETTINGS_FILE}
+echo "CFG_DB2LIB=${CFG_DB2LIB}" >> ${SETTINGS_FILE}
+echo "CFG_PIN_INCDIR=${CFG_PIN_INCDIR}" >> ${SETTINGS_FILE}
+echo "CFG_PIN_LIBDIR=${CFG_PIN_LIBDIR}" >> ${SETTINGS_FILE}
+echo "CFG_PURE_PATH=${CFG_PURE_PATH}" >> ${SETTINGS_FILE}
+echo "CFG_PURE_VERSION=${CFG_PURE_VERSION}" >> ${SETTINGS_FILE}
+echo "CFG_INST_ANYWHERE_BIN=${CFG_INST_ANYWHERE_BIN}" >> ${SETTINGS_FILE}
+echo "CFG_ORBIX_USED=${CFG_ORBIX_USED}" >> ${SETTINGS_FILE}
+
+if [ -n "${CFG_ORBIX_USED}" -a "${CFG_ORBIX_USED}" != "true" ] ; then
+  echo "CFG_TAO_INC_PATHS=${CFG_TAO_INC_PATHS}" >> ${SETTINGS_FILE}
+  echo "ACE_ROOT=${ACE_ROOT}" >> ${SETTINGS_FILE}
+  echo "TAO_ROOT=${TAO_ROOT}" >> ${SETTINGS_FILE}
+fi
+
+#############################################################################
+# write sh file to be sourced from the user
+#############################################################################
+
+echo "SETTINGS_PATH=${BUILD_ROOT}/${SETTINGS_DIR}" > ${SH_SOURCE}
+
+if [ $? -ne 0 ] ; then
+  exit 1
+fi
+
+echo "MAKEFILES=${SETTINGS_FILE}" >> ${SH_SOURCE}
+echo "if [ -z \"\${PATH}\" ] ; then" >> ${SH_SOURCE}
+echo "  PATH=${MY_COMP_PATH}${MY_BIN_PATH}" >> ${SH_SOURCE}
+echo "else" >> ${SH_SOURCE}
+echo "  PATH=${MY_COMP_PATH}\${PATH}:${MY_BIN_PATH}" >> ${SH_SOURCE}
+echo "fi" >> ${SH_SOURCE}
+echo "if [ -z \"\${LD_LIBRARY_PATH}\" ] ; then" >> ${SH_SOURCE}
+echo "  LD_LIBRARY_PATH=${MY_LD_LIBS}" >> ${SH_SOURCE}
+echo "else" >> ${SH_SOURCE}
+echo "  LD_LIBRARY_PATH=${MY_LD_LIBS}:\${LD_LIBRARY_PATH}" >> ${SH_SOURCE}
+echo "fi" >> ${SH_SOURCE}
+echo "if [ -z \"\${SHLIB_PATH}\" ] ; then" >> ${SH_SOURCE}
+echo "  SHLIB_PATH=${MY_LD_LIBS}" >> ${SH_SOURCE}
+echo "else" >> ${SH_SOURCE}
+echo "  SHLIB_PATH=${MY_LD_LIBS}:\${SHLIB_PATH}" >> ${SH_SOURCE}
+echo "fi" >> ${SH_SOURCE}
+echo "if [ -z \"\${LIBPATH}\" ] ; then" >> ${SH_SOURCE}
+echo "  LIBPATH=${MY_LD_LIBS}" >> ${SH_SOURCE}
+echo "else" >> ${SH_SOURCE}
+echo "  LIBPATH=${MY_LD_LIBS}:\${LIBPATH}" >> ${SH_SOURCE}
+echo "fi" >> ${SH_SOURCE}
+echo "export SETTINGS_PATH MAKEFILES PATH" >> ${SH_SOURCE}
+echo "export LD_LIBRARY_PATH SHLIB_PATH LIBPATH" >> ${SH_SOURCE}
+
+#############################################################################
+# write csh file to be sourced from the user
+#############################################################################
+
+echo "setenv SETTINGS_PATH ${BUILD_ROOT}/${SETTINGS_DIR}" > ${CSH_SOURCE}
+
+if [ $? -ne 0 ] ; then
+  exit 1
+fi
+
+echo "setenv MAKEFILES ${SETTINGS_FILE}" >> ${CSH_SOURCE}
+echo "if ( \${?PATH} == 0 ) then" >> ${CSH_SOURCE}
+echo "  setenv PATH ${MY_COMP_PATH}${MY_BIN_PATH}" >> ${CSH_SOURCE}
+echo "else" >> ${CSH_SOURCE}
+echo "  setenv PATH ${MY_COMP_PATH}\${PATH}:${MY_BIN_PATH}" >> ${CSH_SOURCE}
+echo "endif" >> ${CSH_SOURCE}
+echo "if ( \${?LD_LIBRARY_PATH} == 0 ) then" >> ${CSH_SOURCE}
+echo "  setenv LD_LIBRARY_PATH ${MY_LD_LIBS}" >> ${CSH_SOURCE}
+echo "else" >> ${CSH_SOURCE}
+echo "  setenv LD_LIBRARY_PATH ${MY_LD_LIBS}:\${LD_LIBRARY_PATH}" >> ${CSH_SOURCE}
+echo "endif" >> ${CSH_SOURCE}
+echo "if ( \${?SHLIB_PATH} == 0 ) then" >> ${CSH_SOURCE}
+echo "  setenv SHLIB_PATH ${MY_LD_LIBS}" >> ${CSH_SOURCE}
+echo "else" >> ${CSH_SOURCE}
+echo "  setenv SHLIB_PATH ${MY_LD_LIBS}:\${SHLIB_PATH}" >> ${CSH_SOURCE}
+echo "endif" >> ${CSH_SOURCE}
+echo "if ( \${?LIBPATH} == 0 ) then" >> ${CSH_SOURCE}
+echo "  setenv LIBPATH ${MY_LD_LIBS}" >> ${CSH_SOURCE}
+echo "else" >> ${CSH_SOURCE}
+echo "  setenv LIBPATH ${MY_LD_LIBS}:\${LIBPATH}" >> ${CSH_SOURCE}
+echo "endif" >> ${CSH_SOURCE}
+
+#############################################################################
+# write the cfg environment variables into the sh and csh files
+#############################################################################
+
+write_sh_cfg()
+{
+  if [ -n "${CFG_VALUE}" -a "${CFG_VALUE}" != "none" ] ; then
+    echo "${CFG_NAME}=${CFG_VALUE}" >> ${SH_SOURCE}
+    echo "export ${CFG_NAME}" >> ${SH_SOURCE}
+  fi
+}
+
+write_csh_cfg()
+{
+  if [ -n "${CFG_VALUE}" -a "${CFG_VALUE}" != "none" ] ; then
+    echo "setenv ${CFG_NAME} ${CFG_VALUE}" >> ${CSH_SOURCE}
+  fi
+}
+
+CFG_NAME=CFG_COMP_NAME
+CFG_VALUE=${CFG_COMP_NAME}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_COMP_VERSION
+CFG_VALUE=${CFG_COMP_VERSION}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_COMP_EXE
+CFG_VALUE=${CFG_COMP_EXE}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_FRAMEWORK_ROOT
+CFG_VALUE=${CFG_FRAMEWORK_ROOT}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_RW_PATH
+CFG_VALUE=${CFG_RW_PATH}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_RW_OPT_PATH
+CFG_VALUE=${CFG_RW_OPT_PATH}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_RW_DEB_PATH
+CFG_VALUE=${CFG_RW_DEB_PATH}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_JDK_PATH
+CFG_VALUE=${CFG_JDK_PATH}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_CORBA_HOME
+CFG_VALUE=${CFG_CORBA_HOME}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_CORBA_CXX
+CFG_VALUE=${CFG_CORBA_CXX}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_CORBA_CXXLIB
+CFG_VALUE=${CFG_CORBA_CXXLIB}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_CORBA_SHLIB
+CFG_VALUE=${CFG_CORBA_SHLIB}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_CORBA_DEFLIB
+CFG_VALUE=${CFG_CORBA_DEFLIB}
+write_sh_cfg
+write_csh_cfg
+
+if [ -n "${CFG_ORBIX_USED}" -a "${CFG_ORBIX_USED}" = "true" ] ; then
+
+  CFG_NAME=IT_PRODUCT_DIR
+  CFG_VALUE=${CFG_CORBA_HOME}
+  write_sh_cfg
+  write_csh_cfg
+
+else
+
+  CFG_NAME=TAO_ROOT
+  CFG_VALUE=${TAO_ROOT}
+  write_sh_cfg
+  write_csh_cfg
+
+  CFG_NAME=ACE_ROOT
+  CFG_VALUE=${ACE_ROOT}
+  write_sh_cfg
+  write_csh_cfg
+
+  CFG_NAME=CFG_TAO_INC_PATHS
+  CFG_VALUE=\'${CFG_TAO_INC_PATHS}\'
+  write_sh_cfg
+  write_csh_cfg
+
+fi
+
+CFG_NAME=CFG_PURE_PATH
+CFG_VALUE=${CFG_PURE_PATH}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_PURE_VERSION
+CFG_VALUE=${CFG_PURE_VERSION}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_INST_ANYWHERE_BIN
+CFG_VALUE=${CFG_INST_ANYWHERE_BIN}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=ORACLE_HOME
+CFG_VALUE=${CFG_ORACLE_HOME}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_ORACLE_LIB
+CFG_VALUE=${CFG_ORACLE_LIB}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=NLS_LANG
+CFG_VALUE=${CFG_NLS_LANG}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=DB2DIR
+CFG_VALUE=${CFG_DB2DIR}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_DB2LIB
+CFG_VALUE=${CFG_DB2LIB}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=DB2INSTANCE
+CFG_VALUE=${CFG_DB2INSTANCE}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_PIN_INCDIR
+CFG_VALUE=${CFG_PIN_INCDIR}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=CFG_PIN_LIBDIR
+CFG_VALUE=${CFG_PIN_LIBDIR}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=INT_PERL_LIB
+CFG_VALUE=${CFG_INT_PERL_LIB}
+write_sh_cfg
+write_csh_cfg
+
+CFG_NAME=INT_BROWSER_HOME
+CFG_VALUE=${CFG_INT_BROWSER_HOME}
+write_sh_cfg
+write_csh_cfg
+

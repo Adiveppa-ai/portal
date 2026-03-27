@@ -1,0 +1,53 @@
+//==============================================================================
+//
+//             1998, 1999, 2000 (c) Copyright by SOLUTION42 AG
+//                          Quickborn (Germany)
+//
+//                          ALL RIGHTS RESERVED
+//
+//            Reproduction for internal use only is permitted.
+//      Disclosure to any third parties, in any form or circumstances
+//                 whatsoever, is not permitted at all.
+//
+//------------------------------------------------------------------------------
+// Block: API/samples/EXE_Currency
+//------------------------------------------------------------------------------
+// Module Description:
+//   Sample iScript for using the currency extension.
+//   Use 
+//
+//     SCR_InterpreterCheck UseExtCurrency.isc
+//
+//   to execute the script
+//
+// Open Points:
+//   none
+//
+// Review Status:
+//   finished
+//
+//------------------------------------------------------------------------------
+// Responsible: Stefan Deigmueller
+//
+// $RCSfile: UseExtCurrency.isc,v $
+// $Revision: 1.1 $
+// $Author: sd $
+// $Date: 2001/01/17 13:21:06 $
+// $Locker:  $
+//------------------------------------------------------------------------------
+// $Log: UseExtCurrency.isc,v $
+// Revision 1.1  2001/01/17 13:21:06  sd
+// - Initial revision
+//
+//==============================================================================
+
+// load the extension
+use EXT_Currency;
+
+// insert exchange rates 
+setExchangeRates( "EUR->DEM", 1.95583,
+                  "DEM->EUR", 0.51129 );
+
+// use the currency conversion
+logStdout( "1 Euro is " + 
+            decimalToStr(currencyConvert("EUR->DEM", 1.0)) + " DEM\n" );

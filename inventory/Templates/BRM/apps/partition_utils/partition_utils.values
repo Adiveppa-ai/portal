@@ -1,0 +1,123 @@
+#
+#	@(#)%Portal Version: partition_utils.values:PlatformR2Int:3:2006-Sep-12 03:35:19 %
+#
+# Copyright (c) 1996, 2018, Oracle and/or its affiliates. All rights reserved.
+#  
+#	This material is the confidential property of Oracle Corporation or its
+#	licensors and may be used, reproduced, stored or transmitted only in
+#	accordance with a valid Oracle license or sublicense agreement.
+#
+ 
+#===============================================================================
+#  Database Connection Parameters
+#
+#  Provides the Oracle connection information for using sqlplus to connect to
+#  the Infranet database.
+#===============================================================================
+
+#===============
+# Database alias
+#===============
+$MAIN_DB{'alias'} = "BRM";
+
+#==============
+# Database user
+#==============
+$MAIN_DB{'user'} = "pin";
+
+#==================
+# Database password
+#==================
+#$MAIN_DB{'password'} = "pin";
+ 
+#===============================================================================
+#  Adding Partitions - First New Partition
+#
+#  Limits how many days into the future new partitions can be added.
+#  By default, the utility restricts the user from adding new partitions beyond
+#  90 days in the future.
+#===============================================================================
+$MAX_ADD_REAL{'start_date'} = 90;     # Valid range in [2-180]
+$MAX_ADD_DELAYED{'start_date'} = 90;  # Valid range in [2-180]
+$MAX_ADD_PREPAID{'start_date'} = 90;  # Valid range in [2-180]
+ 
+#===============================================================================
+#  Adding Partitions - Number of New Partitions
+#
+#  Limits the number of new partitions added, based on the partition type.
+#  By default, the utility restricts the user from creating more than 60 daily
+#  partitions, or 15 weekly partitions, or 12 monthly partitions.
+#===============================================================================
+$MAX_ADD_REAL{'daily_quantity'} = 60;      # Valid range in [1-150]
+$MAX_ADD_REAL{'weekly_quantity'} = 15;     # Valid range in [1-80]
+$MAX_ADD_REAL{'monthly_quantity'} = 12;     # Valid range in [1-24]
+$MAX_ADD_DELAYED{'daily_quantity'} = 60;   # Valid range in [1-150]
+$MAX_ADD_DELAYED{'weekly_quantity'} = 15;  # Valid range in [1-80]
+$MAX_ADD_DELAYED{'monthly_quantity'} = 12;  # Valid range in [1-24]
+$MAX_ADD_PREPAID{'daily_quantity'} = 60;   # Valid range in [1-150]
+$MAX_ADD_PREPAID{'weekly_quantity'} = 15;  # Valid range in [1-80]
+$MAX_ADD_PREPAID{'monthly_quantity'} = 12;  # Valid range in [1-24]
+ 
+#===============================================================================
+#  Adding Partitions - Width of New Partitions
+#
+#  Limits the width of new partitions added, based on the partition type.
+#  By default, the utility restricts the user from creating daily partitions
+#  wider than 5 days, weekly partitions wider than 3 weeks, and monthly
+#  partitions wider than 2 months.
+#===============================================================================
+$MAX_ADD_REAL{'daily_width'} = 30;       # Valid range in [1-30]
+$MAX_ADD_REAL{'weekly_width'} = 3;      # Valid range in [1-10]
+$MAX_ADD_REAL{'monthly_width'} = 2;     # Valid range in [1-6]
+$MAX_ADD_DELAYED{'daily_width'} = 5;    # Valid range in [1-30] 
+$MAX_ADD_DELAYED{'weekly_width'} = 3;   # Valid range in [1-10]
+$MAX_ADD_DELAYED{'monthly_width'} = 2;  # Valid range in [1-6]
+$MAX_ADD_PREPAID{'daily_width'} = 5;    # Valid range in [1-30]
+$MAX_ADD_PREPAID{'weekly_width'} = 3;   # Valid range in [1-10]
+$MAX_ADD_PREPAID{'monthly_width'} = 2;  # Valid range in [1-6]
+ 
+#===============================================================================
+#  Removing Partitions - Required Age of Partitions
+#
+#  Limits the age of partitions removed.  By default, the utility restricts the
+#  user from removing partitions less than 45 days old.
+#===============================================================================
+$MAX_REMOVE_REAL{'older_than'} = 45;     # valid range: >= 1
+$MAX_REMOVE_DELAYED{'older_than'} = 45;  # valid range: >= 1
+$MAX_REMOVE_PREPAID{'older_than'} = 45;  # valid range: >= 1
+
+#===============================================================================
+#  Purging Partitions - Minimum required percent of Purgable Data
+#  Partitions will be purged only when purgable poids in event_bal_impact_t > PURGE_THRESHOLD
+#===============================================================================
+$PURGE_THRESHOLD = 70;     # valid range: >= 60 and <100
+
+#===============================================================================
+#  Purging Partitions - Required number
+#  Number of processes to run in parallel. Default value = 2
+#  Max. limit depends on the system resources such as:
+#  Max. number of processes that system allows
+#  Max. number of sqlplus sessions that database server allows
+#===============================================================================
+$NUM_OF_PROCESSES = 2; # valid range: >= 1 and <=10
+
+#===============================================================================
+#  Purging Partitions - Required number
+#  Number of records to be deleted in chunk
+#===============================================================================
+$MAX_DEL_REC_CHUNK = 1000; # valid range: >= 500 and <=5000
+
+#===============================================================================
+#  Purging Partitions - Required number
+#  If the purgable poids < this value then delete_in_place approach will be chosen.
+#  DELETE_IN_PLACE method will be chosen either purgable events  < 5 %
+#  or purgable records < MAX_DEL_REC in the partition of the table.
+#===============================================================================
+$MAX_DEL_REC = 10000; # valid range: >=1000 and <=20000
+
+#===============================================================================
+#  This parameter is used by pin_close_items
+#  Batch size for Commit. 
+#  Database Commit is called for batches of size given here.
+#===============================================================================
+$COMMIT_BUNDLE_SIZE = 10000;

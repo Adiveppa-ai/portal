@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2017, Oracle and/or its affiliates. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsARType">
+		<xs:sequence>
+			
+			<xs:element name="SearchBillAmount" type="businessConfig:switch">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">
+					Enable/Disable Search of Bill Object by matching Bill Amount. The parameter values can be
+					0 (disabled), 1 (enabled). Default is 0 (disabled).
+				</xs:documentation>
+			</xs:annotation>
+			</xs:element>
+
+			<xs:element name="AutoWriteOffReversal" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable automatic write-off reversal on Payment receipt.The Parameter values can be
+						0 (disabled), 1 (enabled). Default is 0 (disabled).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="WriteOffLevel">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Level of writeoff to be tracked for the purpose of writeoff reversal. Default is account.
+						Currently only account and billinfo level writeoff reversal is supported.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="account"/>
+						<xs:enumeration value="billinfo"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+	
+			<xs:element name="PaymentIncentive" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable Payment incentives on early payment in full. The parameter values can be 0
+						(disabled), 1 (enabled). Default is 0 (disabled).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="PaymentSuspense" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable Payment Suspense Management . The parameter values can be 0 (disabled), 1 (
+						enabled). Default is 0 (disabled).	
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="NonrefundableCreditItems">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Types of items which will NOT be refunded in case of outstanding credit balance.
+The values should be separated by commas. Default is /item/refund .
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="EventOverAdjust" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Enable/Disable over adjustments of events. The parameter values can be 0 (disabled),
+                                                1 (enabled). Default is 0 (disabled).
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="ItemOverAllocation" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable Overallocation to billable items during payment. The parameter values can be 0 (disabled), 1 (
+						enabled). Default is 1 (enabled).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+                        <xs:element name="MinimumPayment">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Specifies minimum bill amount for credit card collection. The value is expressed in account currency.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+                        <xs:element name="MinimumRefund">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Specifies minimum value for refund.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="BillPaymentDeallocation" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Enable/Disable payment deallocation during bill adjustment. The parameter values can be 0 (disabled),
+                                                1 (enabled). Default is 0 (disabled).
+                                        </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+ 
+			<xs:element name="UseEventRoundingRulesForAdjustment" type="businessConfig:switch">
+ 				<xs:annotation>
+ 					<xs:documentation xml:lang="en">
+ 						Enable/Disable using rounding rule of event for adjustment. The parameter values can be 0 (disabled),
+						1 (enabled). Default is 0 (disabled).
+ 					</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+                        <xs:element name="PINlessDebitProcessing" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Enable/Disable PINless Debit Processing. The parameter values can be 0 (disabled),
+                                                1 (enabled). Default is 0 (disabled).
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="CidRequired" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Require credit-card verification (CID) data for American Express 
+												card transactions, as a method of fraud prevention. 
+												The parameter values can be 0 (disabled) - Do not require CID data,
+                                                1 (enabled) - Require CID data. Default is 0 (disabled).
+                                        </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			       <xs:element name="Cvv2Required" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                       For Paymentech credit-card processor users, specifies whether to require credit-card verification (CVV) data for Visa card transactions, as a method of fraud prevention.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="DDcollect" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Enable/Disable collection of current balance during registration.
+                                                The parameter values can be disabled (0), enabled (1). Default is enabled (1).
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="DDRevalidationInterval">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies the time limit, in seconds, before Infranet tries to revalidate a customer's
+                                                direct-debit account during registration.
+                                                Infranet won't attempt to validate an account if a previous validation failed and
+                                                the specified time hasn't elapsed. The default time limit is 3600 seconds (1 hour).
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="CCRevalidationInterval">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Specifies the time limit, in seconds, for trying to revalidate a customer's credit card during registration.
+						Portal won't attempt to validate a credit card if a previous validation failed and the specified time hasn't
+						elapsed. The default time limit is 3600 seconds (60 minutes).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="CCcollect" type="businessConfig:switch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Enable/Disable collection of current balance during registration.
+						The parameter values can be disabled (0), enabled (1). Default is enabled (1).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="EventAdjustmentUnallocation" type="businessConfig:switch">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Parameter to control the consumable (transfer) amount in event adjustment 
+						such that the sign of an item due will not change.
+						Enable/Disable Event Adjustment Unallocation. The parameter values can be 0 (disabled),
+                                                1 (enabled). Default is 0 (disabled).
+                                        </xs:documentation>
+                                </xs:annotation>
+			</xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="switch">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enabled"/>
+			<xs:enumeration value="disabled"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

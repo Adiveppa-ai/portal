@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="dm_provisioning" version="15.0.1.0.0" description="Provisioning Data Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dm_prov_telco" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="14740" dest="pin.conf" mode="0600"/>
+            <file size="39256" dest="dm_prov_telco.so" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0600" wildcard="pin.conf"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="5116" dest="pin_cnf_dm_prov_telco.pl" mode="0775"/>
+            <file size="1610" dest="pin_cmp_dm_prov_telco.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_cmp_dm_prov_telco.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_dm_prov_telco.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="161952" dest="dm_prov_telco" mode="0755"/>
+         <file size="1821" dest="start_dm_prov_telco" mode="0755"/>
+         <file size="812" dest="stop_dm_prov_telco" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="start_dm_prov_telco"/>
+            <permission mode="0755" wildcard="stop_dm_prov_telco"/>
+            <permission mode="0755" wildcard="dm_prov_telco"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

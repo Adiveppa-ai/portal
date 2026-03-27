@@ -1,0 +1,53 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+# @(#)gen_collect.pl 1.1 99/05/04
+# Copyright (c) 1997, 2009, Oracle and/or its affiliates. All rights reserved. 
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted
+#      only in accordance with a valid Oracle license or sublicense agreement.
+
+
+#$DEBUG = 1;
+$NUM_THREADS = 2;
+$NUM_LINES = 100;
+@KNOWNIPS = ("156.151.0.0","1.2.3.4","127.123.2.3","157.123.12.12","206.245.190.166");
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+($ME = $0) =~ s,.*/,,;
+
+unlink ( "./knownip" );
+system ("rm -rf logs");
+$datestr = get_date ();
+system ("mkdir -p logs/$datestr/dev/CallRecord");
+
+# create known IP's 
+# must match ip's in the table service_broadband_ipaddrs_t
+# also must match IP's in template t1.crt
+open(IPFILE, ">knownip") || die "$ME: cannot create ./knownip\n";
+        for ( $count =1; $count <= @KNOWNIPS; $count++ ) {
+        	print IPFILE "@KNOWNIPS[$count -1]\n";
+        }
+close(IPFILE);
+
+open(CALLFILE, ">filesready.$datestr") || die "$ME: cannot create filesready.$datestr\n";
+
+$num = 0;
+        while ( $num < $NUM_THREADS ) {
+            $num++;
+            print CALLFILE "logs/$datestr/dev/CallRecord/$num\n";
+            `./callrecord -r $NUM_LINES t1 > logs/$datestr/dev/CallRecord/$num`;
+        }
+close(CALLFILE);
+###############################################################################
+# get_date ()
+#       output:
+#               string in format YYYY_MM_DD
+###############################################################################
+sub get_date {
+	$mytime = time();
+                
+	($sec,$min,$hour,$day,$month,$year)=localtime($mytime);
+	$outstr=sprintf ("%04d_%02d_%02d",$year+1900,$month+1,$day);
+	return ($outstr);
+}
+
+
+1;

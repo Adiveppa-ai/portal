@@ -1,0 +1,1924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<price_list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="price_list.xsd" version="7.2">
+<plan_list status="active" type="addon">
+<plan_list_name>CSR</plan_list_name>
+</plan_list>
+<plan_list status="active" type="new">
+<plan_list_name>admintool</plan_list_name>
+<description>The plan list for admintool</description>
+<plan_name>Corporate Plus GSM</plan_name>
+<plan_name>BenchTelcoGSM</plan_name>
+<plan_name>Bench_Basic</plan_name>
+<plan_name>BenchTelcoGSM4</plan_name>
+<plan_name>Bench_Basic4</plan_name>
+<plan_name>Teen GSM</plan_name>
+</plan_list>
+<plan_list status="active" type="addon">
+<plan_list_name>default</plan_list_name>
+<description>The plan list for add on.</description>
+<plan_name>Plan 3 - Unlimited Web Access with Recurring Discounts</plan_name>
+</plan_list>
+<plan_list status="active" type="new">
+<plan_list_name>default</plan_list_name>
+<description>The plan list if the application name can not be found.</description>
+<plan_name>Corporate Plus GSM</plan_name>
+<plan_name>Plan 1 - Measured Web Access with Discounts</plan_name>
+<plan_name>Plan 2 - Unlimited Web Access with Discounts</plan_name>
+<plan_name>BenchTelcoGSM</plan_name>
+<plan_name>Teen GSM</plan_name>
+<plan_name>Vodafone Retail GSM Plan</plan_name>
+</plan_list>
+<plan ondemand_billing="no">
+<plan_name>Corporate Plus Data Add-on</plan_name>
+<description>Corporate Plus Add-on Data Service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<service_deal>
+<service_name>/service/telco/gsm/data</service_name>
+<deal_name>Corporate Plus Data Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Corporate Plus Fax Add-on</plan_name>
+<description>Corporate Plus Basic Fax Service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<service_deal>
+<service_name>/service/telco/gsm/fax</service_name>
+<deal_name>Corporate Plus Fax Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Corporate Plus GSM</plan_name>
+<description>200 euros per month for telephony and SMS access. Usage fee described and managed by Integrate</description>
+<credit_limit>
+<resource_id>978</resource_id>
+<limit>2000.0</limit>
+</credit_limit>
+<service_deal>
+<service_name>/service/telco/gsm/sms</service_name>
+<deal_name>Corporate Plus SMS</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/telco/gsm/telephony</service_name>
+<deal_name>Corporate Plus Telephony</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Plan 1 - Measured Web Access with Discounts</plan_name>
+<service_deal>
+<service_name>/service/email</service_name>
+<deal_name>Deal 1b - Standard Email Access</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/ip</service_name>
+<deal_name>Deal 1a - Measured Internet Service</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Plan 2 - Unlimited Web Access with Discounts</plan_name>
+<service_deal>
+<service_name>/service/email</service_name>
+<deal_name>Deal 2b - Discounted Email Access</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/ip</service_name>
+<deal_name>Deal 2a - Unlimited Internet Service</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Plan 3 - Unlimited Web Access with Recurring Discounts</plan_name>
+<service_deal>
+<service_name>/service/email</service_name>
+<deal_name>Deal 2b - Discounted Email Access</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/ip</service_name>
+<deal_name>Deal 3a - Unlimited Internet Service, Recurring Discounts</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Standard Data Add-on</plan_name>
+<description>Standard Data Add-on Service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<service_deal>
+<service_name>/service/telco/gsm/data</service_name>
+<deal_name>Standard Data Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Standard Fax Add-on</plan_name>
+<description>Standard Fax Add-on Service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<service_deal>
+<service_name>/service/telco/gsm/fax</service_name>
+<deal_name>Standard Fax Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>BenchTelcoGSM</plan_name>
+<description>50 euros per month for telephony and SMS access. Usage fee described and managed by Integrate.</description>
+<credit_limit>
+<resource_id>978</resource_id>
+<limit>500.0</limit>
+</credit_limit>
+<credit_limit>
+<resource_id>1000095</resource_id>
+<limit>1.0</limit>
+</credit_limit>
+<service_deal>
+<service_name>/service/telco/gsm/sms</service_name>
+<deal_name>Standard SMS</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/telco/gsm/telephony</service_name>
+<deal_name>Standard GSM Telephony</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>BenchTelcoGSM4</plan_name>
+<description>50 euros per month for telephony SMS access. 2 additional services.</description>
+<credit_limit>
+<resource_id>978</resource_id>
+<limit>500.0</limit>
+</credit_limit>
+<credit_limit>
+<resource_id>1000001</resource_id>
+<limit>1.0</limit>
+</credit_limit>
+<credit_limit>
+<resource_id>1000002</resource_id>
+<limit>200.0</limit>
+<floor>0.0</floor>
+</credit_limit>
+<credit_limit>
+<resource_id>1000009</resource_id>
+<limit>200.0</limit>
+<floor>0.0</floor>
+</credit_limit>
+<credit_limit>
+<resource_id>1000095</resource_id>
+<limit>200.0</limit>
+<floor>0.0</floor>
+</credit_limit>
+<service_deal>
+<service_name>/service/telco/gsm/sms</service_name>
+<deal_name>Standard SMS</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/telco/gsm/telephony</service_name>
+<deal_name>Standard GSM Telephony</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/telco/gsm/data</service_name>
+<deal_name>Teen Data Add-on</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/telco/gsm/fax</service_name>
+<deal_name>Teen Fax Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Teen Data Add-on</plan_name>
+<description>Corporate Plus Add-on Data Service. 20 euros per month. Usage fee described and managed by Integrate.</description>
+<service_deal>
+<service_name>/service/telco/gsm/data</service_name>
+<deal_name>Teen Data Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Teen Fax Add-on</plan_name>
+<description>Teen Fax Service. 10 euros per month. Usage fee described and managed by Integrate.</description>
+<service_deal>
+<service_name>/service/telco/gsm/fax</service_name>
+<deal_name>Teen Fax Add-on</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Teen GSM</plan_name>
+<description>20 euros per month for telephony and SMS access. Usage fee described and managed by Integrate</description>
+<credit_limit>
+<resource_id>978</resource_id>
+<limit>250.0</limit>
+</credit_limit>
+<service_deal>
+<service_name>/service/telco/gsm/telephony</service_name>
+<deal_name>Teen Telephony</deal_name>
+</service_deal>
+<service_deal>
+<service_name>/service/telco/gsm/sms</service_name>
+<deal_name>Teen SMS</deal_name>
+</service_deal>
+</plan>
+<plan ondemand_billing="no">
+<plan_name>Vodafone Retail GSM Plan</plan_name>
+<credit_limit>
+<resource_id>826</resource_id>
+</credit_limit>
+<service_deal>
+<service_name>/service/telco/gsm/telephony</service_name>
+<deal_name>Vodafone Retail GSM Deal</deal_name>
+</service_deal>
+</plan>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Corporate Plus Data Add-on</deal_name>
+<description>Corporate Plus Add-on Data Service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/data</permitted>
+<deal_product status="active">
+<product_name>Corporate Plus Data Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Corporate Plus Fax Add-on</deal_name>
+<description>Corporate Plus Add-on Fax Service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/fax</permitted>
+<deal_product status="active">
+<product_name>Corporate Plus Fax Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Corporate Plus SMS</deal_name>
+<description>Part of the main plan: Corporate Plus GSM</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<deal_product status="active">
+<product_name>Corporate Plus SMS</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Corporate Plus Telephony</deal_name>
+<description>Part of the main plan: Corporate Plus GSM</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Corporate Plus Telephony</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Corporate Plus Telephony Add-on</deal_name>
+<description>Corporate Plus Add-on Telephony service. 2 euros per month for conference calling  and Friends and Family discount. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Corporate Plus Telephony Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Deal 1a - Measured Internet Service</deal_name>
+<permitted>/service/ip</permitted>
+<deal_product status="active">
+<product_name>Product 1a - Internet Access</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Deal 1b - Standard Email Access</deal_name>
+<permitted>/service/email</permitted>
+<deal_product status="active">
+<product_name>Product 1b - Email Account</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Deal 2a - Unlimited Internet Service</deal_name>
+<permitted>/service/ip</permitted>
+<deal_product status="active">
+<product_name>Product 2a - Internet Access with Free Period</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Deal 2b - Discounted Email Access</deal_name>
+<permitted>/service/email</permitted>
+<deal_product status="active">
+<product_name>Product 2b - Email Account, No Fees</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Deal 3a - Unlimited Internet Service, Recurring Discounts</deal_name>
+<permitted>/service/ip</permitted>
+<deal_product status="active">
+<product_name>Product 3a - Pre-Paid Internet Service with Free Period</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Standard Data Add-on</deal_name>
+<description>Standard  Data Add-on service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/data</permitted>
+<deal_product status="active">
+<product_name>Standard Data Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Standard Fax Add-on</deal_name>
+<description>Standard Fax Add-on service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/fax</permitted>
+<deal_product status="active">
+<product_name>Standard Fax Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Standard GSM Telephony</deal_name>
+<description>Part of the main plan: Standard GSM with 60 min free</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Standard GSM Telephony</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Standard SMS</deal_name>
+<description>Part of the main plan: Standard GSM</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<deal_product status="active">
+<product_name>Standard SMS</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Standard Telephony Add-on</deal_name>
+<description>5 euros per month for call blocking, unconditional call forwarding, roaming, and Home Cell discount. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Standard Telephony Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen Data Add-on</deal_name>
+<description>Teen Data Add-on service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/data</permitted>
+<deal_product status="active">
+<product_name>Standard Data Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+<deal_product status="active">
+<product_name>Teen Data Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen Fax Add-on</deal_name>
+<description>Teen Fax Add-on service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/fax</permitted>
+<deal_product status="active">
+<product_name>Teen Fax Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen SMS</deal_name>
+<description>Teen SMS service. Monthly fee managed by the Standard GSM Telephony. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<deal_product status="active">
+<product_name>Teen SMS</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen SMS add-on</deal_name>
+<description>Teen SMS add-on service with call blocking, unconditional call forwarding, roaming and Home Cell discount for the telephony service. 5 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<deal_product status="active">
+<product_name>Teen SMS Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen Telephony</deal_name>
+<description>Voice Teen service with caller ID, call waiting, voice mail and Birthday and Valentine Day discount. 20 euros per month for telephony and SMS; Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Teen Telephony</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Teen Telephony add-on</deal_name>
+<description>Teen add-on service with call blocking, unconditional call forwarding, roaming and Home Cell discount for the telephony service. 5 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Teen Telephony Add-on</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<deal ondemand_billing="no" customization_flag="optional">
+<deal_name>Vodafone Retail GSM Deal</deal_name>
+<permitted>/service/telco/gsm/telephony</permitted>
+<deal_product status="active">
+<product_name>Vodafone Retail GSM product</product_name>
+<quantity>1.0</quantity>
+<purchase_start unit="day">0</purchase_start>
+<purchase_end unit="day">0</purchase_end>
+<purchase_discount>0.0</purchase_discount>
+<cycle_start unit="day">0</cycle_start>
+<cycle_end unit="day">0</cycle_end>
+<cycle_discount>0.0</cycle_discount>
+<usage_start unit="day">0</usage_start>
+<usage_end unit="day">0</usage_end>
+<usage_discount>0.0</usage_discount>
+</deal_product>
+</deal>
+<product type="subscription" partial="no">
+<product_name>Corporate Plus Data Add-on</product_name>
+<priority>0.0</priority>
+<description>Corporate Plus Data Add-on service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/data</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>CorpPlus</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>CorpPlus</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus Data</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus Data</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>20.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Corporate Plus Fax Add-on</product_name>
+<priority>0.0</priority>
+<description>Corporate Plus Fax Add-on service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/fax</permitted>
+<provisioning>Fax Corporate Plus</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>CorpPlus</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>CorpPlus</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus Fax</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus Fax</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>10.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Corporate Plus SMS</product_name>
+<priority>0.0</priority>
+<description>SMS Corporate Plus service. Monthly fee managed by the Corporate Plus Telephony. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<provisioning>SMS Corporate Plus</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>CorpPlus</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>CorpPlus</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Corporate Plus Telephony</product_name>
+<priority>0.0</priority>
+<description>Corporate Voice Plus service with caller ID, call waiting, call blocking (BAICR and BIOC), unconditional call forwarding, voice mail and auto roam. 200 euros per month for telephony and SMS. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Corporate Plus</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>CorpPlus</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>CorpPlus</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>200.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Corporate Plus Telephony Add-on</product_name>
+<priority>0.0</priority>
+<description>Corporate Plus Add-on Telephony service with Conference Calling and Friends and Familiy discount. 2 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Add On Corporate Plus: Promotions and SS</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus Telephony Add-on</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Corporate Plus Telephony Add-on</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>*</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>2.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Default System Product</product_name>
+<priority>0.0</priority>
+<description>Global rates container</description>
+<purchase_max>1.0</purchase_max>
+<purchase_min>1.0</purchase_min>
+<own_max>1.0</own_max>
+<own_min>1.0</own_min>
+</product>
+<product type="subscription" partial="no">
+<product_name>Product 1a - Internet Access</product_name>
+<priority>0.0</priority>
+<description>Charges for monthly internet access service and hourly usage.</description>
+<permitted>/service/ip</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Service Fee</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$9.95 a month</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable proratable">
+<resource_id>840</resource_id>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>9.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="timed" timezone_mode="server" min_unit="minute" incr_unit="minute" rounding_rule="up">
+<event_type>/event/session</event_type>
+<rum_name>Duration</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Internet Usage Fee</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Internet Usage Fee</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/session</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Hourly Fee for Basic Internet Service</rate_tier_name>
+<priority>1.0</priority>
+<date_range relative_start_unit="none" relative_end_unit="none">
+<date_range_name>Hourly Fee for Basic Internet Service</date_range_name>
+<day_range>
+<day_range_name>Monday - Friday</day_range_name>
+<days_of_week>Mon-Fri</days_of_week>
+<days_of_month>1-31</days_of_month>
+<months_of_year>Jan-Dec</months_of_year>
+<tod_range>
+<tod_range_name>8am-6pm</tod_range_name>
+<tod_start>
+<time hh="8" mm="0" ss="0" tzhr="0" tzmn="0"/>
+</tod_start>
+<tod_end>
+<time hh="18" mm="0" ss="0" tzhr="0" tzmn="0"/>
+</tod_end>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$2 per hour</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="hour" flag="sponsorable">
+<resource_id>840</resource_id>
+<glid>104</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>2.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</tod_range>
+<tod_range>
+<tod_range_name>6pm-8pm</tod_range_name>
+<tod_start>
+<time hh="18" mm="0" ss="0" tzhr="0" tzmn="0"/>
+</tod_start>
+<tod_end>
+<time hh="8" mm="0" ss="0" tzhr="0" tzmn="0"/>
+</tod_end>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$1 per hour</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="hour" flag="sponsorable">
+<resource_id>840</resource_id>
+<glid>104</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</tod_range>
+</day_range>
+<day_range>
+<day_range_name>Saturday - Sunday</day_range_name>
+<days_of_week>Sun Sat</days_of_week>
+<days_of_month>1-31</days_of_month>
+<months_of_year>Jan-Dec</months_of_year>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$1 per hour</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="hour" flag="sponsorable">
+<resource_id>840</resource_id>
+<glid>104</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</day_range>
+</date_range>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Product 1b - Email Account</product_name>
+<priority>0.0</priority>
+<description>Charges monthly for 1 email account.</description>
+<permitted>/service/email</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Email Fee</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$3 a month</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable">
+<resource_id>840</resource_id>
+<glid>104</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>3.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Product 2a - Internet Access with Free Period</product_name>
+<priority>0.0</priority>
+<description>Monthly signup fee and hourly Internet access fee.</description>
+<permitted>/service/ip</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/purchase</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>purchase</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>purchase</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/purchase</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Discounted IP Sign-Up Fee</rate_tier_name>
+<priority>2.0</priority>
+<date_range relative_start_unit="none" relative_end_unit="none">
+<date_range_name>Discounted IP Sign-Up Fee</date_range_name>
+<end_time>
+<datetime>
+<date yyyy="2000" mm="5" dd="31"/>
+<time hh="23" mm="0" ss="0" tzhr="7" tzmn="0"/>
+</datetime>
+</end_time>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$7.50 before 6/1/2000</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>101</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>7.5</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</date_range>
+</rate_tier>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Standard IP Sign-Up Fee</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$15 Sign-Up Fee</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none" flag="sponsorable discountable">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>101</glid>
+<fixed_amount>15.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="relative">
+<rate_tier_name>Third Month Free</rate_tier_name>
+<priority>2.0</priority>
+<date_range relative_start_unit="day" relative_end_unit="day">
+<date_range_name>Third Month Free</date_range_name>
+<relative_start_offset>55</relative_start_offset>
+<relative_end_offset>65</relative_end_offset>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>No Monthly Fee</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>840</resource_id>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</date_range>
+</rate_tier>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Access Fee</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>$19.95 a Month</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>840</resource_id>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>19.95</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Product 2b - Email Account, No Fees</product_name>
+<priority>0.0</priority>
+<purchase_max>1.0</purchase_max>
+<permitted>/service/email</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>cycle_forward_monthly</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Monthly Email Fee</rate_tier_name>
+<priority>1.0</priority>
+<date_range relative_start_unit="none" relative_end_unit="none">
+<date_range_name>Monthly Email Fee</date_range_name>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>No Charges</description>
+<step_resource_id>840</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>840</resource_id>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</date_range>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Product 3a - Pre-Paid Internet Service with Free Period</product_name>
+<priority>0.0</priority>
+<permitted>/service/ip</permitted>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_quarterly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>cycle_forward_quarterly</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>cycle_forward_quarterly</rate_plan_name>
+<currency_id>840</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_quarterly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Quarterly Fee for IP Access</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="resource_quantity">
+<description>$45/quarter, 3rd quarter discount</description>
+<step_resource_id>1000012</step_resource_id>
+<quantity_tier>
+<step_min>0.0</step_min>
+<step_max>3.0</step_max>
+<balance_impact scaled_unit="none">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>45.0</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none">
+<resource_id>1000012</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+<quantity_tier>
+<step_min>3.0</step_min>
+<balance_impact scaled_unit="none" flag="discountable">
+<resource_id>840</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>30.0</scaled_amount>
+</balance_impact>
+<balance_impact scaled_unit="none">
+<resource_id>1000012</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-3.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Standard Data Add-on</product_name>
+<priority>0.0</priority>
+<description>Standard  Data Add-on service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/data</permitted>
+<provisioning>Data Standard Add-on</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Standard</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Standard</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Standard Data</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Standard Data</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>20.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Standard Fax Add-on</product_name>
+<priority>0.0</priority>
+<description>Standard Fax Add-on service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/fax</permitted>
+<provisioning>Fax Standard Add-on</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Standard</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Standard</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Standard Fax</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Standard Fax</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>10.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Standard GSM Telephony</product_name>
+<priority>0.0</priority>
+<description>Voice standard service with caller ID, call waiting, voice mail, and Friends and Family. 50 euros per month for telephony and SMS; Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Standard</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>VF_60</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>VF_60</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Standard</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Standard</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>*</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>50.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/cycle/fold</event_type>
+<rum_name>Fold</rum_name>
+<min_quantity>0.0</min_quantity>
+<incr_quantity>0.0</incr_quantity>
+<rate_plan_selector>
+<rate_plan_selector_name>delete unused hours</rate_plan_selector_name>
+<selector>
+<column operator="equal">
+<field_name>PIN_FLD_FOLD.PIN_FLD_RESOURCE_ID</field_name>
+</column>
+<value_range>
+<value>1000095</value>
+<rate_plan_name>Remove unused hours</rate_plan_name>
+<impact_category>default</impact_category>
+</value_range>
+</selector>
+</rate_plan_selector>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Remove unused hours</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/cycle/fold</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>unused hours</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Unused async bulk houres deleted</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="hour">
+<resource_id>1000095</resource_id>
+<impact_category>default</impact_category>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>-1.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Standard SMS</product_name>
+<priority>0.0</priority>
+<description>SMS Standard service. Monthly fee managed by the Standard GSM Telephony. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<provisioning>SMS Standard</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>VF_60</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>VF_60</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Standard Telephony Add-on</product_name>
+<priority>0.0</priority>
+<description>Standard add-on service with call blocking, unconditional call forwarding, roaming and Home Cell discount for the telephony service. 5 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Add On Standard: Promotions and SS</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Standard Add-on</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Standard Add-on</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>*</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>5.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Teen Data Add-on</product_name>
+<priority>0.0</priority>
+<description>Teen Data Add-on service. 20 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/data</permitted>
+<provisioning>Data Teen Add-on</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Teen</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Teen</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Teen Data</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Teen Data</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>20.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Teen Fax Add-on</product_name>
+<priority>0.0</priority>
+<description>Teen Fax Add-on service. 10 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/fax</permitted>
+<provisioning>Fax Teen Add-on</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Teen</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Teen</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Teen Fax</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Teen Fax</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>default</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>10.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="no">
+<product_name>Teen SMS</product_name>
+<priority>0.0</priority>
+<description>SMS Teen service. Monthly fee managed by the Standard GSM Telephony. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<provisioning>SMS Teen</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Teen</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Teen</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Teen SMS Add-on</product_name>
+<priority>0.0</priority>
+<description>Teen SMS add-on service with call blocking, unconditional call forwarding, roaming and Home Cell discount for the telephony service. 5 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/sms</permitted>
+<provisioning>SMS Teen Add On: Promotions and SS</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Teen SMS</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Teen SMS</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>*</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>5.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Teen Telephony</product_name>
+<priority>0.0</priority>
+<description>Voice Teen service with caller ID, call waiting, voice mail and Birthday and Valentine Day discount. 20 euros per month for telephony and SMS; Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Teen</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Teen</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Teen</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Teen</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Teen</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="default" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>*</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>20.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Teen Telephony Add-on</product_name>
+<priority>0.0</priority>
+<description>Teen Telephony add-on service with call blocking, unconditional call forwarding, roaming and Home Cell discount for the telephony service. 5 euros per month. Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Add On Teen: Promotions and SS</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Monthly GSM Subscription for Teen Add-on</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Monthly GSM Subscription for Teen Add-on</rate_plan_name>
+<currency_id>978</currency_id>
+<event_type>/event/billing/product/fee/cycle/cycle_forward_monthly</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>978</resource_id>
+<impact_category>*</impact_category>
+<glid>102</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>5.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+<product type="subscription" partial="yes">
+<product_name>Vodafone Retail GSM product</product_name>
+<priority>0.0</priority>
+<description>Usage fee described and managed by Integrate</description>
+<permitted>/service/telco/gsm/telephony</permitted>
+<provisioning>Voice Standard</provisioning>
+<event_rating_map tod_mode="start_time" timezone_mode="server" min_unit="none" incr_unit="none" rounding_rule="nearest">
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<rum_name>Occurrence</rum_name>
+<min_quantity>1.0</min_quantity>
+<incr_quantity>1.0</incr_quantity>
+<rate_plan_name>Vodafone Retail</rate_plan_name>
+<rate_plan tax_when="never" advance_billing_unit="day">
+<rate_plan_name>Vodafone Retail</rate_plan_name>
+<currency_id>826</currency_id>
+<event_type>/event/delayed/session/telco/gsm</event_type>
+<advance_billing_offset>0</advance_billing_offset>
+<rate_tier date_range_type="absolute">
+<rate_tier_name>Tier 1</rate_tier_name>
+<priority>1.0</priority>
+<rate type="normal" prorate_first="prorate" prorate_last="full" step_type="total_quantity_rated">
+<description>Rate 1</description>
+<step_resource_id>0</step_resource_id>
+<quantity_tier>
+<balance_impact scaled_unit="none">
+<resource_id>826</resource_id>
+<glid>0</glid>
+<fixed_amount>0.0</fixed_amount>
+<scaled_amount>0.0</scaled_amount>
+</balance_impact>
+</quantity_tier>
+</rate>
+</rate_tier>
+</rate_plan>
+</event_rating_map>
+</product>
+</price_list>
+

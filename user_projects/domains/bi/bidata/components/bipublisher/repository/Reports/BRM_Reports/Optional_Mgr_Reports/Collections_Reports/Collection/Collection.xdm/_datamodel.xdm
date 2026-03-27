@@ -1,0 +1,207 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ floor((BIPEXT.INFSTRTOTIMET(:PARAM_CURRENT_DATE,3) - "COLLECTIONS_SCENARIO_T"."OVERDUE_T")/86400)
+ DAY_OVERDUE,
+ "CONFIG_COLLECTIONS_SCENARIO_T"."OBJ_ID0" "C_SCENARIO_T.OBJ_ID0",
+ "ACCOUNT_T"."POID_ID0" "ACCOUNT_T.POID_ID0",
+ "ACCOUNT_T"."ACCOUNT_NO",
+ "CONFIG_COLLECTIONS_SCENARIO_T"."SCENARIO_NAME",
+ "COLLECTIONS_SCENARIO_T"."OVERDUE_AMOUNT",
+ "ACCOUNT_T"."CURRENCY",
+ "CONFIG_COLLECTIONS_ACTION_T"."OBJ_ID0" "C_ACTION_OBJ_ID0",
+ "COLLECTIONS_ACTION_T"."DUE_T" "OVERDUE_T",
+ "CONFIG_COLLECTIONS_ACTION_T"."ACTION_NAME",
+ "COLLECTIONS_SCENARIO_T"."ENTRY_T",
+ "BILLINFO_T"."EXEMPT_FROM_COLLECTIONS",
+ "BAL_GRP_SUB_BALS_T"."REC_ID2",
+ "BILLINFO_T"."POID_ID0" "BILLINFO_T.POID_ID0",
+ "BILLINFO_T"."BILL_INFO_ID",
+ "CONFIG_COLLECTIONS_PROFILE_T"."PROFILE_NAME",
+ "BILLINFO_T"."ACTG_CYCLE_DOM",
+ "BILLINFO_T"."STATUS",
+ "CONFIG_BEID_BALANCES_T"."NAME",
+ "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "BAL_GRP_SUB_BALS_T"."CURRENT_BAL"
+ FROM (((("COLLECTIONS_SCENARIO_T" "COLLECTIONS_SCENARIO_T"
+ INNER JOIN "COLLECTIONS_ACTION_T" "COLLECTIONS_ACTION_T"
+ ON ("COLLECTIONS_SCENARIO_T"."POID_ID0"="COLLECTIONS_ACTION_T"."SCENARIO_OBJ_ID0")
+ AND ("COLLECTIONS_SCENARIO_T"."BILLINFO_OBJ_ID0"="COLLECTIONS_ACTION_T"."BILLINFO_OBJ_ID0"))
+ INNER JOIN "CONFIG_COLLECTIONS_SCENARIO_T" "CONFIG_COLLECTIONS_SCENARIO_T"
+ ON "COLLECTIONS_SCENARIO_T"."CONFIG_SCENARIO_OBJ_ID0"="CONFIG_COLLECTIONS_SCENARIO_T"."OBJ_ID0")
+ INNER JOIN ((("ACCOUNT_T" "ACCOUNT_T" INNER JOIN "BAL_GRP_T" "BAL_GRP_T"
+ ON "ACCOUNT_T"."POID_ID0"="BAL_GRP_T"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "BAL_GRP_SUB_BALS_T" "BAL_GRP_SUB_BALS_T"
+ ON "BAL_GRP_T"."POID_ID0"="BAL_GRP_SUB_BALS_T"."OBJ_ID0")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T"
+ ON "BAL_GRP_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0")
+ ON "COLLECTIONS_SCENARIO_T"."BILLINFO_OBJ_ID0"="BILLINFO_T"."POID_ID0")
+ INNER JOIN "CONFIG_COLLECTIONS_PROFILE_T" "CONFIG_COLLECTIONS_PROFILE_T"
+ ON "CONFIG_COLLECTIONS_SCENARIO_T"."PROFILE_OBJ_ID0"="CONFIG_COLLECTIONS_PROFILE_T"."OBJ_ID0")
+ INNER JOIN "CONFIG_COLLECTIONS_ACTION_T" "CONFIG_COLLECTIONS_ACTION_T"
+ ON "COLLECTIONS_ACTION_T"."CONFIG_ACTION_OBJ_ID0"="CONFIG_COLLECTIONS_ACTION_T"."OBJ_ID0"
+ INNER JOIN "CONFIG_BEID_BALANCES_T" ON "ACCOUNT_T"."CURRENCY" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T"
+ ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ WHERE
+ (BIPEXT.INFCHECKDATES(:PARAM_STARTDATE, :PARAM_ENDDATE) = 1
+ AND ("COLLECTIONS_SCENARIO_T"."ENTRY_T">=BIPEXT.INFSTRTOTIMET(:PARAM_STARTDATE,2)
+ AND "COLLECTIONS_SCENARIO_T"."ENTRY_T"<=BIPEXT.INFSTRTOTIMET(:PARAM_ENDDATE,2)-1))
+ AND ("ACCOUNT_T"."CURRENCY">=0
+ AND "ACCOUNT_T"."CURRENCY"<=999)
+ AND "ACCOUNT_T"."POID_DB">0
+ AND "CONFIG_COLLECTIONS_SCENARIO_T"."SCENARIO_NAME" LIKE DECODE
+ (:PARAM_MYSCENARIO,null,'%','ALL','%',:PARAM_MYSCENARIO)
+ AND "ACCOUNT_T"."POID_ID0">1
+ AND "BILLINFO_T"."EXEMPT_FROM_COLLECTIONS"<>1
+ AND ("BILLINFO_T"."STATUS">=NVL(:PARAM_BILLINFO_STATUS,10100)
+ AND "BILLINFO_T"."STATUS"<= NVL(:PARAM_BILLINFO_STATUS,10103))
+ AND "BILLINFO_T"."BILL_INFO_ID" LIKE NVL(:PARAM_MYBILLUNIT,"BILLINFO_T"."BILL_INFO_ID")
+ AND ("BILLINFO_T"."ACTG_CYCLE_DOM">=:PARAM_START_BILLING_DAY
+ AND "BILLINFO_T"."ACTG_CYCLE_DOM"<=:PARAM_END_BILLING_DAY)
+ AND ("COLLECTIONS_SCENARIO_T"."OVERDUE_AMOUNT">=:PARAM_START_BILL_AMOUNT
+ AND "COLLECTIONS_SCENARIO_T"."OVERDUE_AMOUNT" <=:PARAM_END_BILL_AMOUNT)
+ AND "CONFIG_COLLECTIONS_PROFILE_T"."PROFILE_NAME" LIKE NVL
+ (:PARAM_PROFILE,"CONFIG_COLLECTIONS_PROFILE_T"."PROFILE_NAME")
+ AND "CONFIG_BEID_BALANCES_T"."NAME" LIKE NVL(:PARAM_RESOURCE,"CONFIG_BEID_BALANCES_T"."NAME")
+ AND floor((BIPEXT.INFSTRTOTIMET(:PARAM_CURRENT_DATE, 3) - "COLLECTIONS_SCENARIO_T"."OVERDUE_T")/86400)
+ >=:PARAM_STARTDAYS_OVERDUE
+ AND floor((BIPEXT.INFSTRTOTIMET(:PARAM_CURRENT_DATE, 3) - "COLLECTIONS_SCENARIO_T"."OVERDUE_T")/86400)
+ <=:PARAM_ENDDAYS_OVERDUE
+ ORDER BY
+ "CONFIG_COLLECTIONS_SCENARIO_T"."OBJ_ID0", "BAL_GRP_SUB_BALS_T"."REC_ID2",
+ "CONFIG_COLLECTIONS_ACTION_T"."OBJ_ID0", "BILLINFO_T"."BILL_INFO_ID",
+ "BILLINFO_T"."STATUS", "ACCOUNT_T"."POID_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="DAY_OVERDUE" value="DAY_OVERDUE" dataType="xsd:integer" label="DAY_OVERDUE" breakOrder="None" fieldOrder="1"/>
+    <element name="C_SCENARIO_T_OBJ_ID0" value="C_SCENARIO_T.OBJ_ID0" dataType="xsd:integer" label="C_SCENARIO_T_OBJ_ID0" breakOrder="None" fieldOrder="2"/>
+    <element name="ACCOUNT_T_POID_ID0" value="ACCOUNT_T.POID_ID0" dataType="xsd:integer" label="ACCOUNT_T_POID_ID0" breakOrder="None" fieldOrder="3"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="4"/>
+    <element name="SCENARIO_NAME" value="SCENARIO_NAME" dataType="xsd:string" label="SCENARIO_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="OVERDUE_AMOUNT" value="OVERDUE_AMOUNT" dataType="xsd:integer" label="OVERDUE_AMOUNT" breakOrder="None" fieldOrder="6"/>
+    <element name="CURRENCY" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="7"/>
+    <element name="C_ACTION_OBJ_ID0" value="C_ACTION_OBJ_ID0" dataType="xsd:integer" label="C_ACTION_OBJ_ID0" breakOrder="None" fieldOrder="8"/>
+    <element name="OVERDUE_T" value="OVERDUE_T" dataType="xsd:integer" label="OVERDUE_T" breakOrder="None" fieldOrder="9"/>
+    <element name="ACTION_NAME" value="ACTION_NAME" dataType="xsd:string" label="ACTION_NAME" breakOrder="None" fieldOrder="10"/>
+    <element name="ENTRY_T" value="ENTRY_T" dataType="xsd:integer" label="ENTRY_T" breakOrder="None" fieldOrder="11"/>
+    <element name="EXEMPT_FROM_COLLECTIONS" value="EXEMPT_FROM_COLLECTIONS" dataType="xsd:integer" label="EXEMPT_FROM_COLLECTIONS" breakOrder="None" fieldOrder="12"/>
+    <element name="REC_ID2" value="REC_ID2" dataType="xsd:integer" label="REC_ID2" breakOrder="None" fieldOrder="13"/>
+    <element name="BILLINFO_T_POID_ID0" value="BILLINFO_T.POID_ID0" dataType="xsd:integer" label="BILLINFO_T_POID_ID0" breakOrder="None" fieldOrder="14"/>
+    <element name="BILL_INFO_ID" value="BILL_INFO_ID" dataType="xsd:string" label="BILL_INFO_ID" breakOrder="None" fieldOrder="15"/>
+    <element name="PROFILE_NAME" value="PROFILE_NAME" dataType="xsd:string" label="PROFILE_NAME" breakOrder="None" fieldOrder="16"/>
+    <element name="ACTG_CYCLE_DOM" value="ACTG_CYCLE_DOM" dataType="xsd:integer" label="ACTG_CYCLE_DOM" breakOrder="None" fieldOrder="17"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="18"/>
+    <element name="NAME" value="NAME" dataType="xsd:string" label="NAME" breakOrder="None" fieldOrder="19"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="20"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="21"/>
+    <element name="CURRENT_BAL" value="CURRENT_BAL" dataType="xsd:integer" label="CURRENT_BAL" breakOrder="None" fieldOrder="22"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="LOV_RESOURCE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "CONFIG_BEID_BALANCES_T"."NAME" FROM "CONFIG_BEID_BALANCES_T"]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_BILLINFO_STATUS">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_REPORT_TYPE">
+         <nvPairs>
+            <nvPair label="SUMMARY" value="SUMMARY"/>
+            <nvPair label="DETAIL" value="DETAIL"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_PROFILE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "CONFIG_COLLECTIONS_PROFILE_T"."PROFILE_NAME" 
+FROM "CONFIG_COLLECTIONS_PROFILE_T", "CONFIG_COLLECTIONS_SCENARIO_T"
+WHERE "CONFIG_COLLECTIONS_PROFILE_T"."OBJ_ID0"= "CONFIG_COLLECTIONS_SCENARIO_T"."PROFILE_OBJ_ID0"]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_MYBILL_UNIT">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT BILL_INFO_ID FROM BILLINFO_T WHERE BILL_INFO_ID IS NOT NULL]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_STARTDATE" dataType="xsd:date">
+         <date label="Enter start date(MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_ENDDATE" dataType="xsd:date">
+         <date label="Enter end Date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_CURRENT_DATE" dataType="xsd:date">
+         <date label="Current Date [To be masked latter]." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_RESOURCE" dataType="string">
+         <select label="Select a resource, or select ALL to include all resources." valueSet="LOV_RESOURCE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_BILLINFO_STATUS" dataType="string">
+         <select label="Select a specific account status, or select ALL to include all accounts." valueSet="LOV_BILLINFO_STATUS" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_BILLING_DAY" dataType="xsd:integer">
+         <input label="Enter Bill Day: Start of Range." size="2"/>
+      </parameter>
+      <parameter name="PARAM_END_BILLING_DAY" dataType="xsd:integer">
+         <input label="Enter Bill Day: End of Range." size="2"/>
+      </parameter>
+      <parameter name="PARAM_START_BILL_AMOUNT" dataType="xsd:integer">
+         <input label="Enter Amount Due: Start of Range." size="2"/>
+      </parameter>
+      <parameter name="PARAM_END_BILL_AMOUNT" dataType="xsd:integer">
+         <input label="Enter Amount Due: End of Range." size="2"/>
+      </parameter>
+      <parameter name="PARAM_REPORT_TYPE" dataType="string">
+         <select label="Select SUMMARY for a summary report or DETAIL for a detail report." valueSet="LOV_REPORT_TYPE" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_PROFILE" dataType="string">
+         <select label="Enter Profile." valueSet="LOV_PROFILE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_MYSCENARIO" dataType="string">
+         <input label="Enter a specific senario, or select ALL to include all senarios." size="30"/>
+      </parameter>
+      <parameter name="PARAM_MYBILLUNIT" dataType="string">
+         <select label="Enter Bill Unit." valueSet="LOV_MYBILL_UNIT" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_STARTDAYS_OVERDUE" dataType="xsd:integer">
+         <input label="Enter Days Overdue: Start of Range." size="2"/>
+      </parameter>
+      <parameter name="PARAM_ENDDAYS_OVERDUE" dataType="xsd:integer">
+         <input label="Enter Days Overdue: End of Range." size="2"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="DATA_DS" left="28px" top="14px"/><layout name="Q1" left="274px" top="17px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

@@ -1,0 +1,558 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="JCA_Adapter" version="15.0.1.0.0" description="JCA Adapter" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="3907" dest="pin_opspec_to_schema" mode="0755"/>
+         <file size="148008" dest="pin_deploy" mode="0755"/>
+         <file size="16889" dest="pin_dd_to_schema" mode="0755"/>
+         <file size="3151" dest="pin_wsdl_generator" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_dd_to_schema"/>
+            <permission mode="0755" wildcard="pin_opspec_to_schema"/>
+            <permission mode="0755" wildcard="pin_wsdl_generator"/>
+            <permission mode="0755" wildcard="pin_deploy"/>
+         </file-perms>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="1238436" dest="xmlparserv2.jar" mode="0755"/>
+         <file size="19122" dest="WSDLGenerator.jar" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="xmlparserv2.jar"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="jca_adapter" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="6753" dest="weblogic_startup.jar" mode="0755"/>
+               <file size="15874" dest="BRMAdapterServletClient.war" mode="0755"/>
+               <file size="2375861" dest="OracleBRMJCA15Adapter.rar" mode="0755"/>
+            </directory>
+            <directory dest="config" mode="750" patchable="true">
+               <file size="10281" dest="pin_wsdl_generator.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="OracleBRMJCA15Adapter.rar"/>
+            <permission mode="0755" wildcard="weblogic_startup.jar"/>
+            <permission mode="0755" wildcard="BRMAdapterServletClient.war"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="jca_adapter" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="test_jca" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="4097" dest="readme.txt" mode="0755"/>
+                  <file size="924" dest="Sample_runJca.bat" mode="0755"/>
+                  <file size="11316" dest="testJca.jar" mode="0755"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="testJca.jar"/>
+            <permission mode="0755" wildcard="Sample_runJca.bat"/>
+            <permission mode="0755" wildcard="readme.txt"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="jca_adapter" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="client" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="src" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <file size="32189" dest="BRMAdapterServletClient.java" mode="0755"/>
+                     <file size="1812" dest="BRMLogger.java" mode="0755"/>
+                     <file size="757" dest="BRMAdapterServletException.java" mode="0755"/>
+                     <file size="1098" dest="XidImp.java" mode="0755"/>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRMAdapterServletClient.java"/>
+            <permission mode="0755" wildcard="BRMAdapterServletException.java"/>
+            <permission mode="0755" wildcard="BRMLogger.java"/>
+            <permission mode="0755" wildcard="XidImp.java"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="6554" dest="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL.xml"/>
+               <file size="2793" dest="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER.xml"/>
+               <file size="4085" dest="PCM_OP_COLLECTIONS_GROUP_MODIFY.xml"/>
+               <file size="3475" dest="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO.xml"/>
+               <file size="2834" dest="PCM_OP_COLLECTIONS_RESCHEDULE_ACTION.xml"/>
+               <file size="8914" dest="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY.xml"/>
+               <file size="3817" dest="PCM_OP_COLLECTIONS_GROUP_SET_PARENT.xml"/>
+               <file size="4387" dest="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS.xml"/>
+               <file size="3241" dest="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER.xml"/>
+               <file size="4998" dest="PCM_OP_COLLECTIONS_ASSIGN_AGENT.xml"/>
+               <file size="7927" dest="PCM_OP_COLLECTIONS_GET_ACTION_HISTORY.xml"/>
+               <file size="4980" dest="PCM_OP_COLLECTIONS_REPLACE_SCENARIO.xml"/>
+               <file size="3403" dest="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY.xml"/>
+               <file size="2032" dest="PCM_OP_COLLECTIONS_GROUP_DELETE.xml"/>
+               <file size="8229" dest="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO.xml"/>
+               <file size="3459" dest="PCM_OP_COLLECTIONS_GROUP_CREATE.xml"/>
+            </directory>
+         </directory>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="wsdls" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="12c" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <file size="3426" dest="BRMBillServices.jca" mode="0755"/>
+                  <file size="1604" dest="BRMInvServices.wsdl" mode="0755"/>
+                  <file size="16909" dest="BRMSubscriptionServices.wsdl" mode="0755"/>
+                  <file size="2901" dest="BRMBalServices.jca" mode="0755"/>
+                  <file size="1758" dest="BRMTXNServices.jca" mode="0755"/>
+                  <file size="2379" dest="BRMPricingServices.jca" mode="0755"/>
+                  <file size="9049" dest="BRMCustServices.jca" mode="0755"/>
+                  <file size="14721" dest="BRMCollectionsServices.wsdl" mode="0755"/>
+                  <file size="2731" dest="BRMBaseServices.wsdl" mode="0755"/>
+                  <file size="4784" dest="BRMBalServices.wsdl" mode="0755"/>
+                  <file size="6478" dest="BRMARServices.jca" mode="0755"/>
+                  <file size="9155" dest="BRMCollectionsServices.jca" mode="0755"/>
+                  <file size="2846" dest="BRMTXNServices.wsdl" mode="0755"/>
+                  <file size="1653" dest="BRMCustcareServices.wsdl" mode="0755"/>
+                  <file size="10966" dest="BRMSubscriptionServices.jca" mode="0755"/>
+                  <file size="5536" dest="BRMBillServices.wsdl" mode="0755"/>
+                  <file size="3961" dest="BRMPricingServices.wsdl" mode="0755"/>
+                  <file size="9864" dest="BRMARServices.wsdl" mode="0755"/>
+                  <file size="1882" dest="BRMBaseServices.jca" mode="0755"/>
+                  <file size="797" dest="BRMCustcareServices.jca" mode="0755"/>
+                  <file size="13405" dest="BRMCustServices.wsdl" mode="0755"/>
+                  <file size="781" dest="BRMInvServices.jca" mode="0755"/>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="BRMARServices.*"/>
+            <permission mode="0755" wildcard="BRMBalServices.*"/>
+            <permission mode="0755" wildcard="BRMCustServices.*"/>
+            <permission mode="0755" wildcard="BRMSubscriptionServices.*"/>
+            <permission mode="0755" wildcard="BRMPymtServices.*"/>
+            <permission mode="0755" wildcard="BRMBaseServices.*"/>
+            <permission mode="0755" wildcard="BRMPricingServices.*"/>
+            <permission mode="0755" wildcard="BRMReadServices.*"/>
+            <permission mode="0755" wildcard="BRMInvServices.*"/>
+            <permission mode="0755" wildcard="BRMCollectionsServices.*"/>
+            <permission mode="0755" wildcard="BRMCustcareServices.*"/>
+            <permission mode="0755" wildcard="BRMBillServices.*"/>
+            <permission mode="0755" wildcard="BRMTXNServices.*"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="7123" dest="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT.xml" mode="0755"/>
+               <file size="3407" dest="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION.xml" mode="0755"/>
+               <file size="8785" dest="PCM_OP_SUBSCRIPTION_SET_BUNDLE.xml" mode="0755"/>
+               <file size="7226" dest="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP.xml" mode="0755"/>
+               <file size="12561" dest="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO.xml" mode="0755"/>
+               <file size="7088" dest="PCM_OP_SUBSCRIPTION_CHANGE_DEAL.xml" mode="0755"/>
+               <file size="72919" dest="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER.xml"/>
+               <file size="6140" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT.xml"/>
+               <file size="5064" dest="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT.xml" mode="0755"/>
+               <file size="8856" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY.xml"/>
+               <file size="7367" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE.xml"/>
+               <file size="5314" dest="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY.xml" mode="0755"/>
+               <file size="5145" dest="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS.xml" mode="0755"/>
+               <file size="33785" dest="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION.xml" mode="0755"/>
+               <file size="9858" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE.xml"/>
+               <file size="5806" dest="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS.xml" mode="0755"/>
+               <file size="19922" dest="PCM_OP_SUBSCRIPTION_SET_PRODINFO.xml" mode="0755"/>
+               <file size="46806" dest="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_BUNDLE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CHANGE_DEAL.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_PRODINFO.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="140462" dest="PCM_OP_PRICE_SET_PRICE_LIST.xml" mode="0755"/>
+               <file size="33610" dest="PCM_OP_PRICE_COMMIT_DISCOUNT.xml" mode="0755"/>
+               <file size="122765" dest="PCM_OP_PRICE_GET_PRICE_LIST.xml" mode="0755"/>
+               <file size="50797" dest="PCM_OP_PRICE_COMMIT_PRODUCT.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_COMMIT_DISCOUNT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_COMMIT_PRODUCT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_SET_PRICE_LIST.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_GET_PRICE_LIST.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="4900" dest="PCM_OP_TRANS_OPEN.xml" mode="0755"/>
+               <file size="2532" dest="PCM_OP_TRANS_ABORT.xml" mode="0755"/>
+               <file size="2738" dest="PCM_OP_TRANS_COMMIT.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_TRANS_OPEN.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_TRANS_ABORT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_TRANS_COMMIT.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="stylesheets" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="50869" dest="pin_opspec_to_schema.xsl" mode="0755"/>
+               <file size="24187" dest="opspec.xsd" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="pin_opspec_to_schema.xsl"/>
+            <permission mode="0755" wildcard="opspec.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="23023" dest="PCM_OP_AR_GET_ACCT_ACTION_ITEMS.xml" mode="0755"/>
+               <file size="12684" dest="PCM_OP_AR_GET_ACCT_BILLS.xml" mode="0755"/>
+               <file size="12083" dest="PCM_OP_AR_BILL_ADJUSTMENT.xml" mode="0755"/>
+               <file size="16037" dest="PCM_OP_AR_GET_BILL_ITEMS.xml" mode="0755"/>
+               <file size="7751" dest="PCM_OP_AR_RESOURCE_AGGREGATION.xml" mode="0755"/>
+               <file size="27985" dest="PCM_OP_AR_ACCOUNT_ADJUSTMENT.xml" mode="0755"/>
+               <file size="12614" dest="PCM_OP_AR_GET_BILLS.xml" mode="0755"/>
+               <file size="27851" dest="PCM_OP_AR_ITEM_ADJUSTMENT.xml" mode="0755"/>
+               <file size="33950" dest="PCM_OP_AR_EVENT_ADJUSTMENT.xml" mode="0755"/>
+               <file size="25348" dest="PCM_OP_AR_GET_ACTION_ITEMS.xml" mode="0755"/>
+               <file size="7540" dest="PCM_OP_AR_GET_ACCT_BAL_SUMMARY.xml" mode="0755"/>
+               <file size="8225" dest="PCM_OP_AR_GET_BAL_SUMMARY.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_AR_ACCOUNT_ADJUSTMENT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_BILL_ADJUSTMENT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_EVENT_ADJUSTMENT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACCT_ACTION_ITEMS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACCT_BAL_SUMMARY.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACCT_BILLS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACTION_ITEMS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_BAL_SUMMARY.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_BILLS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_BILL_ITEMS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_ITEM_ADJUSTMENT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_RESOURCE_AGGREGATION.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="9631" dest="PCM_OP_CUST_CREATE_PROFILE.xml" mode="0755"/>
+               <file size="357729" dest="PCM_OP_CUST_UPDATE_CUSTOMER.xml" mode="0755"/>
+               <file size="17739" dest="PCM_OP_CUST_SET_STATUS.xml" mode="0755"/>
+               <file size="8794" dest="PCM_OP_CUST_GET_NOTE.xml" mode="0755"/>
+               <file size="13232" dest="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE.xml" mode="0755"/>
+               <file size="8249" dest="PCM_OP_CUST_SET_TAXINFO.xml" mode="0755"/>
+               <file size="3155" dest="PCM_OP_CUST_DELETE_PAYINFO.xml" mode="0755"/>
+               <file size="2470" dest="PCM_OP_CUST_DELETE_PROFILE.xml" mode="0755"/>
+               <file size="6639" dest="PCM_OP_CUST_GET_NEWSFEED.xml" mode="0755"/>
+               <file size="16222" dest="PCM_OP_CUST_SET_BAL_GRP.xml" mode="0755"/>
+               <file size="8864" dest="PCM_OP_CUST_MODIFY_PROFILE.xml" mode="0755"/>
+               <file size="624272" dest="PCM_OP_CUST_COMMIT_CUSTOMER.xml" mode="0755"/>
+               <file size="6086" dest="PCM_OP_CUST_SET_NOTE.xml" mode="0755"/>
+               <file size="593212" dest="PCM_OP_CUST_MODIFY_CUSTOMER.xml" mode="0755"/>
+               <file size="3897" dest="PCM_OP_CUST_FIND_PROFILE.xml" mode="0755"/>
+               <file size="28509" dest="PCM_OP_CUST_UPDATE_SERVICES.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_CUST_CREATE_PROFILE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_MODIFY_PROFILE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_DELETE_PROFILE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_COMMIT_CUSTOMER.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_DELETE_PAYINFO.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_MODIFY_CUSTOMER.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_SET_STATUS.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_UPDATE_CUSTOMER.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_UPDATE_SERVICES.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_GET_NEWSFEED.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_GET_NOTE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_SET_NOTE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_SET_TAXINFO.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_FIND_PROFILE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_SET_BAL_GRP.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_CHANGE_BUSINESS_PROFILE.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="10310" dest="PCM_OP_BAL_GET_ACCT_BILLINFO.xml" mode="0755"/>
+               <file size="6890" dest="PCM_OP_BAL_GET_ECE_BALANCES.xml" mode="0755"/>
+               <file size="23519" dest="PCM_OP_BAL_GET_BALANCES.xml" mode="0755"/>
+               <file size="6799" dest="PCM_OP_BAL_GET_ACCT_BAL_GRP_AND_SVC.xml" mode="0755"/>
+               <file size="6716" dest="PCM_OP_BAL_GET_BAL_GRP_AND_SVC.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_BALANCES.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_ECE_BALANCES.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_BAL_GRP_AND_SVC.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_ACCT_BAL_GRP_AND_SVC.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_ACCT_BILLINFO.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="schemas" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="10033" dest="PCM_OP_COLLECTIONS_GET_SCENARIO_DETAIL.xsd"/>
+               <file size="16057" dest="PCM_OP_BAL_GET_ACCT_BILLINFO.xsd" mode="0755"/>
+               <file size="5634" dest="PCM_OP_PYMT_CREATE_SEPA_REQUEST.xsd" mode="0755"/>
+               <file size="35482" dest="PCM_OP_PYMT_TOPUP.xsd"/>
+               <file size="4207" dest="PCM_OP_TRANS_ABORT.xsd"/>
+               <file size="11437" dest="profile.xsd" mode="0755"/>
+               <file size="10683" dest="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS.xsd" mode="0755"/>
+               <file size="8406" dest="PCM_OP_COLLECTIONS_UPDATE_ACTION_PAYMENT_DETAILS.xsd"/>
+               <file size="4466" dest="PCM_OP_TRANS_OPEN.xsd"/>
+               <file size="540433" dest="PCM_OP_CUST_COMMIT_CUSTOMER.xsd" mode="0755"/>
+               <file size="16136" dest="PCM_OP_BILL_GET_ITEM_EVENT_CHARGE_DISCOUNT.xsd" mode="0755"/>
+               <file size="6007" dest="PCM_OP_CUST_DELETE_PAYINFO.xsd" mode="0755"/>
+               <file size="9041" dest="account.xsd" mode="0755"/>
+               <file size="32657" dest="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION.xsd" mode="0755"/>
+               <file size="8452" dest="PCM_OP_BILL_ITEM_REFUND.xsd" mode="0755"/>
+               <file size="13571" dest="PCM_OP_AR_GET_ACCT_BILLS.xsd" mode="0755"/>
+               <file size="4343" dest="discount.xsd" mode="0755"/>
+               <file size="9086" dest="PCM_OP_COLLECTIONS_ASSIGN_AGENT.xsd"/>
+               <file size="8552" dest="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS.xsd" mode="0755"/>
+               <file size="5195" dest="purchased_discount.xsd" mode="0755"/>
+               <file size="151775" dest="PCM_OP_PRICE_SET_PRICE_LIST.xsd" mode="0755"/>
+               <file size="10585" dest="billinfo.xsd" mode="0755"/>
+               <file size="4919" dest="PCM_OP_BILL_GROUP_GET_PARENT.xsd" mode="0755"/>
+               <file size="6070" dest="product.xsd" mode="0755"/>
+               <file size="12872" dest="PCM_OP_INV_VIEW_INVOICE.xsd" mode="0755"/>
+               <file size="120987" dest="event_billing.xsd" mode="0755"/>
+               <file size="7148" dest="PCM_OP_COLLECTIONS_EXEMPT_BILLINFO.xsd"/>
+               <file size="10972" dest="PCM_OP_BAL_GET_ACCT_BAL_GRP_AND_SVC.xsd" mode="0755"/>
+               <file size="6924" dest="payinfo.xsd" mode="0755"/>
+               <file size="245140" dest="event.xsd" mode="0755"/>
+               <file size="28788" dest="service.xsd" mode="0755"/>
+               <file size="11053" dest="PCM_OP_CUST_SET_NOTE.xsd"/>
+               <file size="16120" dest="PCM_OP_SUBSCRIPTION_SET_PRODINFO.xsd" mode="0755"/>
+               <file size="9113" dest="PCM_OP_BAL_GET_ECE_BALANCES.xsd" mode="0755"/>
+               <file size="8519" dest="PCM_OP_AR_GET_BAL_SUMMARY.xsd" mode="0755"/>
+               <file size="21812" dest="PCM_OP_AR_ITEM_ADJUSTMENT.xsd" mode="0755"/>
+               <file size="6646" dest="PCM_OP_COLLECTIONS_REVOKE_PROMISE_TO_PAY.xsd"/>
+               <file size="4610" dest="PCM_OP_CUST_DELETE_ACCT.xsd" mode="0755"/>
+               <file size="101808" dest="PCM_OP_PYMT_COLLECT.xsd" mode="0755"/>
+               <file size="10499" dest="PCM_OP_COLLECTIONS_ADD_ACTION.xsd"/>
+               <file size="7456" dest="purchased_product.xsd" mode="0755"/>
+               <file size="499637" dest="PCM_OP_CUST_MODIFY_CUSTOMER.xsd" mode="0755"/>
+               <file size="7853" dest="PCM_OP_PYMT_PROCESS_SEPA_RESPONSE.xsd" mode="0755"/>
+               <file size="8128" dest="PCM_OP_COLLECTIONS_GROUP_MODIFY.xsd"/>
+               <file size="7686" dest="PCM_OP_SEARCH.xsd" mode="0755"/>
+               <file size="7504" dest="PCM_OP_COLLECTIONS_GROUP_DELETE_MEMBER.xsd"/>
+               <file size="63782" dest="PCM_OP_SUBSCRIPTION_SERVICE_BALGRP_TRANSFER.xsd"/>
+               <file size="55983" dest="PCM_OP_PRICE_COMMIT_PRODUCT.xsd" mode="0755"/>
+               <file size="6167" dest="PCM_OP_COLLECTIONS_SET_ACTION_STATUS.xsd" mode="0755"/>
+               <file size="10672" dest="PCM_OP_CUST_GET_NEWSFEED.xsd"/>
+               <file size="7234" dest="PCM_OP_COLLECTIONS_GROUP_CREATE.xsd"/>
+               <file size="6252" dest="PCM_OP_COLLECTIONS_GROUP_ADD_MEMBER.xsd"/>
+               <file size="12197" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_SET_PARENT.xsd"/>
+               <file size="13920" dest="PCM_OP_CUST_SET_STATUS.xsd" mode="0755"/>
+               <file size="15143" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_CREATE.xsd"/>
+               <file size="8578" dest="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT.xsd" mode="0755"/>
+               <file size="5427" dest="PCM_OP_PYMT_UPDATE_SEPA_REQUEST.xsd" mode="0755"/>
+               <file size="49811" dest="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL.xsd" mode="0755"/>
+               <file size="6691" dest="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION.xsd" mode="0755"/>
+               <file size="2201" dest="PCM_OP_READ_OBJ.xsd" mode="0755"/>
+               <file size="4520" dest="PCM_OP_COLLECTIONS_GROUP_DELETE.xsd"/>
+               <file size="8785" dest="PCM_OP_BILL_MAKE_BILL_NOW.xsd" mode="0755"/>
+               <file size="13181" dest="PCM_OP_AR_GET_BILLS.xsd" mode="0755"/>
+               <file size="136524" dest="PCM_OP_PRICE_GET_PRICE_LIST.xsd" mode="0755"/>
+               <file size="10474" dest="PCM_OP_BAL_GET_BAL_GRP_AND_SVC.xsd" mode="0755"/>
+               <file size="9880" dest="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT.xsd" mode="0755"/>
+               <file size="8471" dest="PCM_OP_AR_RESOURCE_AGGREGATION.xsd" mode="0755"/>
+               <file size="339074" dest="PCM_OP_CUST_UPDATE_CUSTOMER.xsd" mode="0755"/>
+               <file size="7887" dest="PCM_OP_COLLECTIONS_REPLACE_SCENARIO.xsd"/>
+               <file size="19489" dest="PCM_OP_AR_GET_BILL_ITEMS.xsd" mode="0755"/>
+               <file size="32921" dest="PCM_OP_CUST_UPDATE_SERVICES.xsd" mode="0755"/>
+               <file size="12837" dest="PCM_OP_COLLECTIONS_INVOKE_PROMISE_TO_PAY.xsd"/>
+               <file size="1057" dest="PCM_OP_READ_FLDS.xsd" mode="0755"/>
+               <file size="19266" dest="PCM_OP_BAL_GET_BALANCES.xsd" mode="0755"/>
+               <file size="7855" dest="PCM_OP_BILL_GROUP_MOVE_MEMBER.xsd" mode="0755"/>
+               <file size="14650" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_MODIFY.xsd"/>
+               <file size="15342" dest="PCM_OP_CUST_GET_NOTE.xsd"/>
+               <file size="13350" dest="PCM_OP_COLLECTIONS_GET_ACTION_HISTORY.xsd" mode="0755"/>
+               <file size="13889" dest="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO.xsd" mode="0755"/>
+               <file size="12380" dest="PCM_OP_SUBSCRIPTION_SET_BUNDLE.xsd" mode="0755"/>
+               <file size="8815" dest="PCM_OP_AR_BILL_ADJUSTMENT.xsd" mode="0755"/>
+               <file size="21102" dest="PCM_OP_AR_GET_ACTION_ITEMS.xsd" mode="0755"/>
+               <file size="21152" dest="PCM_OP_BILL_SET_LIMIT_AND_CR.xsd" mode="0755"/>
+               <file size="5926" dest="PCM_OP_COLLECTIONS_RESCHEDULE_ACTION.xsd" mode="0755"/>
+               <file size="20472" dest="PCM_OP_AR_GET_ACCT_ACTION_ITEMS.xsd" mode="0755"/>
+               <file size="4648" dest="PCM_OP_CUST_DELETE_PROFILE.xsd" mode="0755"/>
+               <file size="8594" dest="PCM_OP_AR_GET_ACCT_BAL_SUMMARY.xsd" mode="0755"/>
+               <file size="9978" dest="PCM_OP_CUST_MODIFY_PROFILE.xsd" mode="0755"/>
+               <file size="16031" dest="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO.xsd" mode="0755"/>
+               <file size="7695" dest="PCM_OP_COLLECTIONS_GROUP_SET_PARENT.xsd"/>
+               <file size="36807" dest="PCM_OP_BILL_DEBIT.xsd" mode="0755"/>
+               <file size="4300" dest="PCM_OP_TRANS_COMMIT.xsd"/>
+               <file size="43588" dest="PCM_OP_PRICE_COMMIT_DISCOUNT.xsd" mode="0755"/>
+               <file size="32664" dest="PCM_OP_AR_ACCOUNT_ADJUSTMENT.xsd" mode="0755"/>
+               <file size="11613" dest="PCM_OP_SUBSCRIPTION_CHANGE_DEAL.xsd" mode="0755"/>
+               <file size="23776" dest="PCM_OP_CUSTCARE_MOVE_ACCT.xsd" mode="0755"/>
+               <file size="13406" dest="PCM_OP_SUBSCRIPTION_SHARING_GROUP_DELETE.xsd"/>
+               <file size="7688" dest="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY.xsd" mode="0755"/>
+               <file size="8561" dest="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS.xsd" mode="0755"/>
+               <file size="11128" dest="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP.xsd" mode="0755"/>
+               <file size="11429" dest="PCM_OP_CUST_CREATE_PROFILE.xsd" mode="0755"/>
+               <file size="12947" dest="PCM_OP_COLLECTIONS_GROUP_GET_BILLINFO.xsd"/>
+               <file size="10405" dest="PCM_OP_CUST_SET_TAXINFO.xsd" mode="0755"/>
+               <file size="28549" dest="PCM_OP_AR_EVENT_ADJUSTMENT.xsd" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_AR_ACCOUNT_ADJUSTMENT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_BILL_ADJUSTMENT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_EVENT_ADJUSTMENT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACCT_ACTION_ITEMS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACCT_BAL_SUMMARY.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACCT_BILLS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_ACTION_ITEMS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_BAL_SUMMARY.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_BILLS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_GET_BILL_ITEMS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_ITEM_ADJUSTMENT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_BALANCES.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_ECE_BALANCES.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_BAL_GRP_AND_SVC.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_DEBIT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_GET_ITEM_EVENT_CHARGE_DISCOUNT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_GROUP_MOVE_MEMBER.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_ITEM_REFUND.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_MAKE_BILL_NOW.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_SET_LIMIT_AND_CR.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_COMMIT_CUSTOMER.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_DELETE_PAYINFO.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_MODIFY_CUSTOMER.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_SET_STATUS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_UPDATE_CUSTOMER.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_UPDATE_SERVICES.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_SET_TAXINFO.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_INV_VIEW_INVOICE.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_COLLECT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_CREATE_SEPA_REQUEST.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_UPDATE_SEPA_REQUEST.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_PROCESS_SEPA_RESPONSE.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CANCEL_PRODUCT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CANCEL_SUBSCRIPTION.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CANCEL_DISCOUNT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_CHANGE_DEAL.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_PURCHASE_DEAL.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_DISCOUNTINFO.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_DISCOUNT_STATUS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_PRODINFO.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_PRODUCT_STATUS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_TRANSFER_SUBSCRIPTION.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_READ_FLDS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_READ_OBJ.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SEARCH.xsd"/>
+            <permission mode="0755" wildcard="account.xsd"/>
+            <permission mode="0755" wildcard="billinfo.xsd"/>
+            <permission mode="0755" wildcard="event.xsd"/>
+            <permission mode="0755" wildcard="event_billing.xsd"/>
+            <permission mode="0755" wildcard="payinfo.xsd"/>
+            <permission mode="0755" wildcard="profile.xsd"/>
+            <permission mode="0755" wildcard="service.xsd"/>
+            <permission mode="0755" wildcard="product.xsd"/>
+            <permission mode="0755" wildcard="discount.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_GROUP_GET_PARENT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUSTCARE_MOVE_ACCT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_GET_PURCHASED_OFFERINGS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_AR_RESOURCE_AGGREGATION.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_ACCT_BAL_GRP_AND_SVC.xsd"/>
+            <permission mode="0755" wildcard="purchased_product.xsd"/>
+            <permission mode="0755" wildcard="purchased_discount.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_COLLECTIONS_SET_ACTION_STATUS.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_COLLECTIONS_GET_ACTION_HISTORY.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_COLLECTIONS_RESCHEDULE_ACTION.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_SUBSCRIPTION_SET_BUNDLE.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_COMMIT_DISCOUNT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_COMMIT_PRODUCT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_SET_PRICE_LIST.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_PRICE_GET_PRICE_LIST.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_DELETE_ACCT.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_CREATE_PROFILE.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_MODIFY_PROFILE.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_CUST_DELETE_PROFILE.xsd"/>
+            <permission mode="0755" wildcard="PCM_OP_BAL_GET_ACCT_BILLINFO.xsd"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="5000" dest="PCM_OP_BILL_ITEM_REFUND.xml" mode="0755"/>
+               <file size="4912" dest="PCM_OP_BILL_MAKE_BILL_NOW.xml" mode="0755"/>
+               <file size="5431" dest="PCM_OP_BILL_GROUP_MOVE_MEMBER.xml" mode="0755"/>
+               <file size="31276" dest="PCM_OP_BILL_DEBIT.xml" mode="0755"/>
+               <file size="14014" dest="PCM_OP_BILL_GET_ITEM_EVENT_CHARGE_DISCOUNT.xml" mode="0755"/>
+               <file size="20951" dest="PCM_OP_BILL_SET_LIMIT_AND_CR.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_BILL_DEBIT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_GET_ITEM_EVENT_CHARGE_DISCOUNT.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_GROUP_MOVE_MEMBER.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_ITEM_REFUND.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_MAKE_BILL_NOW.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_BILL_SET_LIMIT_AND_CR.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="brm_integrations" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="opspecs" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="10754" dest="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO.xml" mode="0755"/>
+               <file size="5454" dest="PCM_OP_PYMT_PROCESS_SEPA_RESPONSE.xml" mode="0755"/>
+               <file size="2661" dest="PCM_OP_PYMT_UPDATE_SEPA_REQUEST.xml" mode="0755"/>
+               <file size="3448" dest="PCM_OP_PYMT_CREATE_SEPA_REQUEST.xml" mode="0755"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_CREATE_SEPA_REQUEST.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_GET_SEPA_REQUEST_INFO.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_PROCESS_SEPA_RESPONSE.xml"/>
+            <permission mode="0755" wildcard="PCM_OP_PYMT_UPDATE_SEPA_REQUEST.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" mode="750" patchable="true">
+            <file size="1469" dest="pin_cmp_jca_adapter.pl" mode="0755"/>
+         </directory>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="613640" dest="libportal.so" mode="0755"/>
+      </directory>
+      <directory dest="deploy" mode="750" patchable="true">
+         <directory dest="web_services" mode="750" patchable="true">
+            <directory dest="opspecs" mode="750" patchable="true">
+               <file size="10615" dest="PCM_OP_INV_VIEW_INVOICE.xml" mode="0755"/>
+               <file size="112771" dest="PCM_OP_PYMT_COLLECT.xml" mode="0755"/>
+               <file size="30561" dest="PCM_OP_PYMT_TOPUP.xml" mode="0755"/>
+               <file size="3702" dest="PCM_OP_COLLECTIONS_SET_ACTION_STATUS.xml" mode="0755"/>
+            </directory>
+         </directory>
+      </directory>
+   </file-map>
+</component-def>

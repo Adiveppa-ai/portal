@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2021, Oracle and/or its affiliates. All rights reserved.
+                        This material is the confidential property of Oracle Corporation
+                        or its licensors and may be used, reproduced, stored or transmitted
+                        only in accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BusParamsInstallmentType">
+		<xs:sequence>
+			
+			<xs:element name="DueDateReminderNotification">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter is used to send installment due date notification before X days of installment due date.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			
+			<xs:element name="EndDateReminderNotification">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This parameter is used to send installment schedule end date notification before X days of installment due date.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+
+
+</xs:schema>

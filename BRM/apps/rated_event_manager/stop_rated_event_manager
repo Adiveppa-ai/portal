@@ -1,0 +1,146 @@
+#!/bin/bash
+#------------------------------------------------------------------------------#
+# SCRIPT: stop_rated_event_manager
+#
+# DESCRIPTION:
+#
+# Stops the Rated Event Manager ...
+#
+# INFORMATION:
+#
+# None
+#
+# REVISION:
+#
+# $Revision: 1.2 $
+# $Author: ri-user-1 $
+# $Date: 2022/07/12 17:22:33 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# usage
+#------------------------------------------------------------------------------#
+function usage
+{
+   cat - >&2 <<!
+usage : $CMD [-h] [-f] [-w] [-s<schema>]
+
+where : -h          This help message
+        -f          Force terminate (will kill the process)
+        -w          Wait until the process is terminated (by default, this script will return immediately)
+	-s<schema>  Provide the schema number which we wish to stop.
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# main
+#------------------------------------------------------------------------------#
+ME=stop_rated_event_manager
+APP="ECE Rated Event Manager"
+LOGDIR=$PIN_LOG_DIR/rated_event_manager
+APPPID=${LOGDIR}/rem.pid
+FORCE=N
+WAIT_TERMINATE=N
+SCHEMA_ID=
+#
+# Check options ...
+#
+while getopts "hfws:" OPTION
+do
+   case "$OPTION" in
+   h)  usage;;
+   f)  FORCE=Y;;
+   w)  WAIT_TERMINATE=Y;;
+   s)  SCHEMA_ID=$OPTARG;;
+   \?) echo "Unknown option '$OPTARG'" >&2
+       usage
+       ;;
+   :)  echo "Option '$OPTARG' requires an argument" >&2
+       usage
+       ;;
+   *)  break
+       ;;
+   esac
+done
+shift $((OPTIND - 1))
+[ $# -eq 0 ] || usage
+
+[ -n "$SCHEMA_ID" ] && LOGDIR="${LOGDIR}_${SCHEMA_ID}"
+STOP_FILE=${LOGDIR}/rem.stop
+APPPID=${LOGDIR}/rem.pid
+#
+# Let's check it's running first ...
+#
+if [ ! -e $APPPID ]
+then
+   echo "ERROR: could not locate PID file '$APPPID' - process is not running" >&2
+   exit 1
+fi
+PID=$(cat $APPPID 2>/dev/null)
+ps -p $PID >/dev/null
+if [ $? -ne 0 ]
+then
+   echo "ERROR: process with PID[$PID] does not exist - cleanup PID file" >&2
+   rm -f $APPPID
+   exit 1
+fi
+
+#
+# Off we go ...
+#
+if [ "$FORCE" = Y ]
+then
+   if [ ! -f $APPPID ]
+   then
+      echo "$ME : ERROR: no pid file '$APPPID', cannot kill '$APP'"
+      exit 1
+   fi
+   kill $(cat $APPPID)
+   rc=$?
+   if [ $rc -ne 0 ]
+   then
+      echo "$ME : ERROR: kill '$APP' $(cat $APPPID) FAILED" >&2
+      exit $rc
+   else
+      rm $APPPID
+   fi
+else
+    #
+    # Create the stop file and wait for the Rated Event Manager to process it...
+    # If it doesn't get picked-up in a few seconds, there's likely some problem. So
+    # remove the file and fail.
+    #
+    NUM_TRIES=5
+    TRIES=0
+    :>$STOP_FILE
+    while [ "$TRIES" -lt "$NUM_TRIES" ]
+    do
+       sleep 1
+       if [ -e "$STOP_FILE" ]
+       then
+           TRIES=$((TRIES+1))
+       else
+           if [ "$WAIT_TERMINATE" = Y ]
+           then
+              printf "Waiting for process $PID ($APP) to terminate ."
+              while true
+              do 
+                 ps -p $PID >/dev/null
+                 if [ $? -eq 0 ]
+                 then
+                    sleep 1
+                    printf "."
+                 else
+                    printf " terminated in %s seconds\n" "$SECONDS"
+                    exit 0
+                 fi
+              done
+           fi
+           exit 0
+       fi
+    done
+    echo "ERROR: $APP did not process stop file '$STOP_FILE' within $NUM_TRIES seconds - the application may not be stopping"
+    exit 1
+fi
+exit 0

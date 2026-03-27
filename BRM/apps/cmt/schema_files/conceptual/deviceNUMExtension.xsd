@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="deviceExtensions.xsd"/>
+	<xs:complexType name="deviceNUMType">
+		<xs:complexContent>
+			<xs:extension base="deviceExtensionType">
+				<xs:sequence>
+					<xs:element name="FldCategoryId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldCategoryVersion" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldNetworkElement" type="NetworkElement" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldVanity" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldPermitted" type="xs:string" use="optional"/>
+					<xs:element name="FldOrigNetworkId" type="NetworkElement" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldRecentNetorwkId" type="NetworkElement" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+				<xs:attribute name="elem" type="xs:integer" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="DeviceNUMlExtension" type="deviceNUMType" substitutionGroup="DeviceExtension"/>
+</xs:schema>

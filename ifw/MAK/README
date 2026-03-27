@@ -1,0 +1,47 @@
+##################################################################
+# $Id: README,v 1.14 2002/02/12 09:39:12 bt Exp $
+#
+# Top MAK README
+##################################################################
+
+##################################################################
+# Tags for MAK and settings :
+##################################################################
+# previous v4-30 :             MAK        ->   v1-04-06
+#                              settings   ->   v1-05-04
+##################################################################
+# v4-30 old RW libraries :     MAK        ->   v4-30-rw-old
+#                              settings   ->   v4-30-rw-old
+##################################################################
+# v4-30 RW SourcePro :         MAK        ->   v4-30-11
+#                              settings   ->   v4-30-09
+##################################################################
+
+ 1. The makefiles requires the GNU make utility.
+
+ 2. To use the makefile system run the shell script 'initset'
+    in the current working directory. It creates the files 
+    'source.me.sh', 'source.me.csh' and 'settings/buildroot.inc'.
+
+ 3. Before running make source one of the 'source.me.*' files.
+
+ 4. The include directories are specified as values
+    of the 'settings/incs.inc' variable 'GLOB_INC'.
+
+ 5. All subdirectories are specified as values
+    of the 'Makefile' variable 'ALL_SUB_DIRS'.
+
+ 6. To build only one version use one of the targets above.
+
+ 7. The target clean contains the four targets
+    optimizeclean, debugclean, purifyclean and quantifyclean.
+
+ 8. The target purifyclean is equivalent to debugclean,
+    but the purify binaries are deleted.
+
+ 9. The target quantifyclean is equivalent to optimizeclean,
+    but the quantify binaries are deleted.
+
+10. The target realclean contains the target clean. In addition, 
+    the files 'source.me.*' and 'settings/buildroot.inc' are deleted.
+

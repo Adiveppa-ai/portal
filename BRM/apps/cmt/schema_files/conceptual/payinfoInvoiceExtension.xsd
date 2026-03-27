@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="payinfoExtensions.xsd"/>
+	<xs:complexType name="payinfoInvoiceType">
+		<xs:complexContent>
+			<xs:extension base="payinfoExtensionType">
+				<xs:sequence>
+					<xs:element name="FldAddress" type="Address" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="FldCity" type="City" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldCountry" type="Country" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldDeliveryDescr" type="DeliveryDescr" minOccurs="0" maxOccurs="1" />
+					<xs:element name="FldDeliveryPrefer" type="DeliveryPrefer" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldEmailAddr" type="EmailAddr" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldInvInstr" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldName" type="Name" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldState" type="State" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="FldZip" type="Zip" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="payinfoInvoiceExtension" type="payinfoInvoiceType" substitutionGroup="payinfoExtension"/>
+</xs:schema>

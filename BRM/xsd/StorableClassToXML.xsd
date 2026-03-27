@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+  <xsd:element name="flist">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="FIELD" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="FIELD_NAME" type="xsd:string"/>
+              <xsd:element name="FIELD_NUM" type="xsd:integer"/>
+              <xsd:element name="FIELD_TYPE" type="xsd:integer"/>
+              <xsd:element name="TYPE_STR" type="xsd:string"/>
+              <xsd:element name="DESCR" type="xsd:string"/>
+              <xsd:element name="STATUS" type="xsd:integer"/>
+            </xsd:sequence>
+            <xsd:attribute name="elem" type="xsd:integer"/>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="OBJ_DESC" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="NAME" type="xsd:string"/>
+              <xsd:element name="SM_ITEM_NAME" type="xsd:string"/>
+	      <xsd:element name="EVENT_TYPE" type="xsd:string"/>
+              <xsd:element name="STATUS" type="xsd:integer"/>
+              <xsd:element name="VIRTUAL_FLAG" type="xsd:integer"/>
+              <xsd:element name="OBJ_ELEM" type="ObjElemType" minOccurs="0"
+                           maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="elem" type="xsd:integer"/>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ObjElemType">
+    <xsd:sequence>
+      <xsd:element name="FIELD_NAME" type="xsd:string"/>
+      <xsd:element name="FIELD_TYPE" type="xsd:integer"/>
+      <xsd:element name="TYPE_STR" type="xsd:string"/>
+      <xsd:element name="SM_ITEM_NAME" type="xsd:string"/>
+      <xsd:element name="LENGTH" type="xsd:integer"/>
+      <xsd:element name="SERIALIZABLE" type="xsd:string"/>
+      <xsd:element name="OBJ_ELEM" type="ObjElemType" minOccurs="0"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="elem" type="xsd:integer"/>
+  </xsd:complexType>
+</xsd:schema>

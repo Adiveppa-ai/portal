@@ -1,0 +1,100 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_SUBSCRIPTION_ORDERED_BALGRP_BULK_MODIFY" visibility="public" transaction="required" component="XXX" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes         opspec.xsd">
+  <Doc>
+  This op-code allows CSR's to create/modify an ordered-balance-group object.
+  If an account/service wants to use resources from a shared pool that some 
+  other account/service owns, then this account/service will be added as a 
+  member in the resource-sharing object (owned by the owner). In addition the 
+  member account/services will require configuring the order in which the 
+  balance group will be used. For example, if the user is a service and it owns 
+  a balance group and that the service instance can share resources from the 
+  account, in that case there are two balance groups that the 'user' events can
+  consume from: one its own and one from the account. The ordered balance group 
+  list will determine the order in which the balance groups will be used
+  </Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Group instance poid either /group/sharing/discounts, /group/sharing/charges or /group/sharing/profiles object.</Doc>
+        <ClassRef>obj://group.sharing</ClassRef>
+      </Poid>
+      <String name="PIN_FLD_PROGRAM_NAME" use="required" maxlen="256">
+        <Doc> Program name - identifies calling program</Doc>
+      </String>
+      <Timestamp name="PIN_FLD_EFFECTIVE_T" use="optional">
+        <Doc> Effective time</Doc>
+      </Timestamp>
+      <Int name="PIN_FLD_POSITION" use="optional">
+        <Doc>
+	 Priority of the group in the ordered balance group.
+	 This will be either highest (ORDERED_BALGRP_POSITION_TOP)
+	 or least (ORDERED_BALGRP_POSITION_BOTTOM).
+	 If ORDERED_BALGRP_POSITION_TOP is chosen for the Charge Sharing/discount sharing group, 
+	 it will be added to the top of the existing charge sharing/discount sharing group.
+	 If ORDERED_BALGRP_POSITION_BOTTOM is chosen for the Charge Sharing/discount sharing group, 
+	 it will be added to the bottom of the existing charge sharing/discount sharing group. 
+	 Note: All the discount sharing groups are ordered and placed before the
+	 charge sharing group in the ordered_balgroup.
+      </Doc>
+      </Int>
+      <Array name="PIN_FLD_MEMBERS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" maxElements="256" minElemId="0" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+        <Doc>  member details array (list of member account/service instance).  
+      If no members are passed, no action is performed on the members.  
+      If an empty members array element is passed, then no action will be 
+      taken. 
+      </Doc>
+        <Fields>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+            <Doc> Member account object.</Doc>
+            <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_SERVICE_OBJ" use="optional" mode="complete">
+            <Doc> 
+	  	Member service object. If the service object is NULL, it means
+		that the member is an account.
+	  </Doc>
+            <ClassRef>obj://service</ClassRef>
+          </Poid>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>Poid of the group-sharing object modified.</Doc>
+        <ClassRef>obj://group.sharing</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" maxElements="256" minElemId="0" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+        <Doc> Array of results information.</Doc>
+        <Fields>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+            <Doc> Poid of the event object created</Doc>
+            <ClassRef>obj://event</ClassRef>
+          </Poid>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

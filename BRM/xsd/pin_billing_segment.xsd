@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+	targetNamespace="http://www.portal.com/schemas/BusinessConfig" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+ Copyright (c) 2003, 2016, Oracle and/or its affiliates. All rights reserved.
+			This material is the confidential property of Oracle Corporation or its
+			licensors and may be used, reproduced, stored or transmitted only in
+			accordance with a valid Oracle license or sublicense agreement.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="BillingSegmentConfigurationType">
+		<xs:sequence>
+			<xs:element name="BillingSegments" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BillingSegment" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent> 
+									<xs:extension base="businessConfig:bsDescrType">
+										<xs:attribute name="ID" type="bsIDType" use="required"/>
+									</xs:extension>
+								</xs:simpleContent> 
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:unique name="uniqueBillingSegmentID">
+					<xs:selector xpath=".//businessConfig:BillingSegment"/>
+					<xs:field xpath="./@ID"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="DomAssignments" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DomAssignment" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="NumAccounts" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:nonNegativeInteger">
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="NumServices" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:nonNegativeInteger">
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="TotalProcessTime" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:duration">
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="billingSegmentRef" use="required">
+									<xs:simpleType>
+										<xs:restriction base="billingSegmentType">
+											<xs:whiteSpace value="collapse"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="status" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="collapse"/>
+											<xs:enumeration value="open"/>
+											<xs:enumeration value="restricted"/>
+											<xs:enumeration value="closed"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="dom" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:gDay">
+											<xs:minInclusive value="---01"/>
+											<xs:maxInclusive value="---31"/>
+											<xs:whiteSpace value="collapse"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="maxAccounts" use="optional">
+									<xs:simpleType>
+										<xs:restriction base="xs:nonNegativeInteger">
+											<xs:whiteSpace value="collapse"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="maxServices" use="optional">
+									<xs:simpleType>
+										<xs:restriction base="xs:nonNegativeInteger">
+											<xs:whiteSpace value="collapse"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="billingSegmentType">
+		<xs:union memberTypes="businessConfig:ValidTypeBS businessConfig:ZeroTypeBS"/>
+	</xs:simpleType>
+	<xs:simpleType name="ZeroTypeBS">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:maxInclusive value="0"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ValidTypeBS">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:minInclusive value="101"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bsIDType">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:whiteSpace value="collapse"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bsDescrType">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse"/>
+			<xs:maxLength value="1023"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

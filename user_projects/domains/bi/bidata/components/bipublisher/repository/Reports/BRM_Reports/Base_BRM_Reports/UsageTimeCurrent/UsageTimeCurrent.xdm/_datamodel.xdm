@@ -1,0 +1,145 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="as_are"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "account_nameinfo_t"."COUNTRY" "ACCOUNT_NAMEINFO_COUNTRY",
+ 				"account_nameinfo_t"."STATE" "ACCOUNT_NAMEINFO_STATE",
+ 	 "event_t"."POID_TYPE" "EVENT_POID_TYPE",
+ 		 "account_nameinfo_t"."REC_ID" "ACCOUNT_NAMEINFO_REC_ID",
+ 			 "account_t"."POID_DB" "ACCOUNT_POID_DB",
+ 				"account_t"."POID_ID0" "ACCOUNT_POID_ID0",
+ 				"event_t"."START_T" "EVENT_START_T",
+ 				"event_t"."END_T" "EVENT_END_T",
+ floor((bipext.INFSTRTOTIMET(:PARAM_CURRENT_TIME, 1) - "event_t"."START_T")/60) DIFF_MIN,
+ bipext.INFSTRTOTIMET(:PARAM_CURRENT_TIME, 1) "CURRENT_DATE",
+ 			 "BILLINFO_T"."PAY_TYPE" "BILLINFO_PAY_TYPE"
+ FROM (("ACCOUNT_T" "account_t" INNER JOIN "ACCOUNT_NAMEINFO_T" "account_nameinfo_t" ON "account_t"."POID_ID0" = "account_nameinfo_t"."OBJ_ID0")
+ 				INNER JOIN "EVENT_T" "event_t" ON "account_t"."POID_ID0" = "event_t"."ACCOUNT_OBJ_ID0")
+ 				INNER JOIN "BILLINFO_T" "BILLINFO_T" ON "account_nameinfo_t"."OBJ_ID0" = "BILLINFO_T"."ACCOUNT_OBJ_ID0"
+ 			WHERE "account_t"."POID_DB" >
+ 0
+ 				AND "account_t"."POID_ID0" >
+ 1
+ 				AND "account_nameinfo_t"."REC_ID" = 1
+ 				AND "event_t"."END_T" = 0
+ AND "account_nameinfo_t"."STATE" LIKE NVL(:param_State, "account_nameinfo_t"."STATE")
+ AND "account_nameinfo_t"."COUNTRY" LIKE NVL(:param_Country, "account_nameinfo_t"."COUNTRY")
+ AND "BILLINFO_T"."PAY_TYPE"
+ LIKE NVL(:PARAM_PAY_TYPE,"BILLINFO_T"."PAY_TYPE")
+ 		 AND "event_t"."POID_TYPE" LIKE '/event/session/dialup'
+ AND (NVL(:PARAM_OFFSETMINS, -1) >= 0 AND NVL(:PARAM_OFFSETMINS, 1441) <= 1440)
+ AND (NVL(:PARAM_PERIOD1MINS, -1) >= 1 AND NVL(:PARAM_PERIOD1MINS, 1441) <= 1440)
+ AND (NVL(:PARAM_PERIOD2MINS, -1) >= 1 AND NVL(:PARAM_PERIOD2MINS, 1441) <= 1440)
+ AND (NVL(:PARAM_PERIOD3MINS, -1) >= 1 AND NVL(:PARAM_PERIOD3MINS, 1441) <= 1440)
+ 	 ORDER BY "account_nameinfo_t"."COUNTRY", "account_nameinfo_t"."STATE"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="ACCOUNT_NAMEINFO_COUNTRY" value="ACCOUNT_NAMEINFO_COUNTRY" dataType="xsd:string" label="ACCOUNT_NAMEINFO_COUNTRY" breakOrder="None" fieldOrder="1"/>
+    <element name="ACCOUNT_NAMEINFO_STATE" value="ACCOUNT_NAMEINFO_STATE" dataType="xsd:string" label="ACCOUNT_NAMEINFO_STATE" breakOrder="None" fieldOrder="2"/>
+    <element name="EVENT_POID_TYPE" value="EVENT_POID_TYPE" dataType="xsd:string" label="EVENT_POID_TYPE" breakOrder="None" fieldOrder="3"/>
+    <element name="ACCOUNT_NAMEINFO_REC_ID" value="ACCOUNT_NAMEINFO_REC_ID" dataType="xsd:integer" label="ACCOUNT_NAMEINFO_REC_ID" breakOrder="None" fieldOrder="4"/>
+    <element name="ACCOUNT_POID_DB" value="ACCOUNT_POID_DB" dataType="xsd:integer" label="ACCOUNT_POID_DB" breakOrder="None" fieldOrder="5"/>
+    <element name="ACCOUNT_POID_ID0" value="ACCOUNT_POID_ID0" dataType="xsd:integer" label="ACCOUNT_POID_ID0" breakOrder="None" fieldOrder="6"/>
+    <element name="EVENT_START_T" value="EVENT_START_T" dataType="xsd:integer" label="EVENT_START_T" breakOrder="None" fieldOrder="7"/>
+    <element name="EVENT_END_T" value="EVENT_END_T" dataType="xsd:integer" label="EVENT_END_T" breakOrder="None" fieldOrder="8"/>
+    <element name="DIFF_MIN" value="DIFF_MIN" dataType="xsd:integer" label="DIFF_MIN" breakOrder="None" fieldOrder="9"/>
+    <element name="CURRENT_DATE" value="CURRENT_DATE" dataType="xsd:integer" label="CURRENT_DATE" breakOrder="None" fieldOrder="10"/>
+    <element name="BILLINFO_PAY_TYPE" value="BILLINFO_PAY_TYPE" dataType="xsd:integer" label="BILLINFO_PAY_TYPE" breakOrder="None" fieldOrder="11"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="LOV_YES_NO">
+         <nvPairs>
+            <nvPair label="YES" value="YES"/>
+            <nvPair label="NO" value="NO"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_BILLING_TYPE">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="SUBORDINATE" value="10007"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_COUNTRY">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT COUNTRY
+FROM account_nameinfo_t
+where COUNTRY is NOT NULL]]>
+         </sql>
+      </valueSet>
+      <valueSet id="LOV_STATE">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT STATE
+FROM account_nameinfo_t
+where state is NOT NULL]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="param_StateDetails" dataType="xsd:string">
+         <select label="Include state-level details?" valueSet="LOV_YES_NO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_IncludeChart" dataType="xsd:string">
+         <select label="Include charts?" valueSet="LOV_YES_NO" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="param_Country" dataType="xsd:string">
+         <select label="Enter a specific country, or select ALL to include all countries." valueSet="LOV_COUNTRY" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="param_State" dataType="xsd:string">
+         <select label="Enter a specific state, or select ALL to include all states." valueSet="LOV_STATE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_OFFSETMINS" dataType="xsd:float">
+         <input label="Enter the number of minutes a session must have been active to be counted in period 1. Value should be between 0 and 1440" size="10"/>
+      </parameter>
+      <parameter name="PARAM_PERIOD1MINS" dataType="xsd:float">
+         <input label="Enter the length, in minutes, for period 1. Value should be between 1 and 1440" size="10"/>
+      </parameter>
+      <parameter name="PARAM_PERIOD2MINS" dataType="xsd:float">
+         <input label="Enter the length, in minutes, for period 2. Value should be between 1 and 1440" size="10"/>
+      </parameter>
+      <parameter name="PARAM_PERIOD3MINS" dataType="xsd:float">
+         <input label="Enter the length, in minutes, for period 3. Value should be between 1 and 1440" size="10"/>
+      </parameter>
+      <parameter name="PARAM_PAY_TYPE" dataType="xsd:float">
+         <select label="Select a type of billing, or select ALL to include all types of billing." valueSet="LOV_BILLING_TYPE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_CURRENT_TIME" dataType="xsd:date">
+         <date label="Current Date [To be masked latter]." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

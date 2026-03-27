@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:brm="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes" xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TXN" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/BRM/schemas/BusinessOpcodes">
+            <include schemaLocation="../schemas/PCM_OP_TRANS_OPEN.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_TRANS_COMMIT.xsd"/>
+            <include schemaLocation="../schemas/PCM_OP_TRANS_ABORT.xsd"/>
+        </schema>
+    </types>
+    <message name="PCM_OP_TRANS_OPEN_inmsg">
+        <part element="brm:PCM_OP_TRANS_OPEN_inputFlist" name="PCM_OP_TRANS_OPEN_inputFlist"/>
+    </message>
+    <message name="PCM_OP_TRANS_OPEN_outmsg">
+        <part element="brm:PCM_OP_TRANS_OPEN_outputFlist" name="PCM_OP_TRANS_OPEN_outputFlist"/>
+    </message>
+    <message name="PCM_OP_TRANS_COMMIT_inmsg">
+        <part element="brm:PCM_OP_TRANS_COMMIT_inputFlist" name="PCM_OP_TRANS_COMMIT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_TRANS_COMMIT_outmsg">
+        <part element="brm:PCM_OP_TRANS_COMMIT_outputFlist" name="PCM_OP_TRANS_COMMIT_outputFlist"/>
+    </message>
+    <message name="PCM_OP_TRANS_ABORT_inmsg">
+        <part element="brm:PCM_OP_TRANS_ABORT_inputFlist" name="PCM_OP_TRANS_ABORT_inputFlist"/>
+    </message>
+    <message name="PCM_OP_TRANS_ABORT_outmsg">
+        <part element="brm:PCM_OP_TRANS_ABORT_outputFlist" name="PCM_OP_TRANS_ABORT_outputFlist"/>
+    </message>
+    <portType name="BRMTXNService_ptt">
+        <operation name="PCM_OP_TRANS_OPEN">
+            <input message="brm:PCM_OP_TRANS_OPEN_inmsg" name="PCM_OP_TRANS_OPEN_Request"/>
+            <output message="brm:PCM_OP_TRANS_OPEN_outmsg" name="PCM_OP_TRANS_OPEN_Response"/>
+        </operation>
+        <operation name="PCM_OP_TRANS_COMMIT">
+            <input message="brm:PCM_OP_TRANS_COMMIT_inmsg" name="PCM_OP_TRANS_COMMIT_Request"/>
+            <output message="brm:PCM_OP_TRANS_COMMIT_outmsg" name="PCM_OP_TRANS_COMMIT_Response"/>
+        </operation>
+        <operation name="PCM_OP_TRANS_ABORT">
+            <input message="brm:PCM_OP_TRANS_ABORT_inmsg" name="PCM_OP_TRANS_ABORT_Request"/>
+            <output message="brm:PCM_OP_TRANS_ABORT_outmsg" name="PCM_OP_TRANS_ABORT_Response"/>
+        </operation>
+    </portType>
+    <plt:partnerLinkType name="BRMTXNService_plt">
+        <plt:role name="BRMTXNService_role">
+            <plt:portType name="brm:BRMTXNService_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+</definitions>

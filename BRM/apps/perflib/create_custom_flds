@@ -1,0 +1,164 @@
+#!/bin/ksh
+# Copyright (c) 2020, Oracle and/or its affiliates. 
+#------------------------------------------------------------------------------#
+# SCRIPT: create_custom_flds
+#
+# DESCRIPTION:
+#
+# Script to create custom fields for CM and Java applications.
+#
+# INFORMATION:
+#
+# BRM Performance Tools ...
+#
+# REVISION:
+#
+# $Revision: 1.5 $
+# $Author: ihargrea $
+# $Date: 2016/05/26 06:12:45 $
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# Function     : Abort
+#
+# Description  : Write abort message (optionally showing usage message)
+#
+# Input        : -u      Optional argument if set prints usage message
+#                mess    Message string (or strings to display)
+#
+# Output       : None
+#
+# Return       : Script aborts - no return
+#------------------------------------------------------------------------------#
+Abort()
+{
+typeset -i show_usage=0
+
+   [ "$1" = "-u" ] && {
+      show_usage=1
+      shift
+   }
+   printf "\nERROR: $@\n" >&2
+
+   [ $show_usage -ne 0 ] && Usage
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Usage ...
+#------------------------------------------------------------------------------#
+Usage()
+{
+   cat - >&2 <<!
+usage : $CMD [-h] [-d] [-c] [-j] <custom_hdr> [<custom_hdr> ...]
+
+where : -h             This 'help' message
+        -d             Debug (leave source code behind)
+        -c             Build only PCMC memory-mapped file
+        -j             Build only Java jar and properties files
+        <custom_hdr>   A header file for custom fields and/or opcodes ...
+!
+   exit 1
+}
+
+#------------------------------------------------------------------------------#
+# Main ...
+#------------------------------------------------------------------------------#
+CMD=$(basename $0)
+DIR=$(pwd)
+TMPF=$$.tmpf
+TMPDIR=$(pwd)/${CMD}_$(date "+%Y%m%d%H%M%S")
+JCLASS=com.portal.pcm.customfields
+JPATH=com/portal/pcm/customfields
+JPATHBASE=com
+JAR=customfields.jar
+PCMCF=custom_flds.ext
+BUILD_J=Y
+BUILD_C=Y
+DEBUG=N
+
+trap 'cd $DIR; [ $DEBUG = Y ] || rm -rf $TMPDIR' 0 1 2 3 4 5 15
+
+#
+# Process options and arguments ...
+#
+while getopts "hcjd" OPTION
+do
+   case "$OPTION" in
+   d)  DEBUG=Y;;
+   c)  BUILD_C=Y BUILD_J=N;;
+   j)  BUILD_J=Y BUILD_C=N;;
+   h)  Usage;;
+   \?) Abort -u "Unknown option '$OPTARG'";;
+   :)  Abort -u "Option '$OPTARG' requires an argument";;
+   *)  break;;
+   esac
+done
+shift $((OPTIND - 1))
+
+#
+# Check arguments and options are valid ...
+#
+[ $# -ge 1 ] || Usage
+
+#
+# Make temporary directory where we will do our work ... 
+#
+mkdir $TMPDIR || Abort "failed making temp directory '$TMPDIR'"
+
+#
+# Collect all headers with field and opcode definitions ... Do
+# this BEFORE we move to the temp directory just in case someone
+# is using relative paths on the command line.
+#
+printf "Collecting header files ..."
+cat $@ | egrep "#define.*_OP_.*|#define.*PIN_MAKE_FLD.*" > $TMPDIR/$TMPF || Abort "failed collecting header files"
+printf " Done\n"
+
+cd $TMPDIR
+
+#
+# Create PCMC file for use in CM ...
+#
+if [ $BUILD_C = Y ]
+then
+   printf "Create PCMC custom field and opcode interface ..."
+   perl $(which parse_custom_ops_fields.pl) -L pcmc \
+      -I $TMPDIR/$TMPF -O $PCMCF >/dev/null || \
+      Abort "failed generating 'pcmc' custom fields file!"
+   cp $PCMCF ../.
+   printf " Done\n"
+   printf "** CUSTOM PCMC FIELDS GENERATED SUCCESSFULLY! **\n"
+fi
+
+#
+# Create Java class ...
+#
+# 1. Clean and create class directory
+# 2. Parse fields to generate Java code
+# 3. Compile Java code ...
+# 4. Package everything in JAR file ...
+#
+if [ $BUILD_J = Y ]
+then
+   printf "Generating Java archive for custom fields and opcodes ..."
+   mkdir -p $JPATH || Abort "failed creating '$JPATH'"
+
+   perl $(which parse_custom_ops_fields.pl) -L pcmjava \
+      -I $TMPDIR/$TMPF -O $JPATH -P $JCLASS >/dev/null || \
+      Abort "failed generating 'pcmjava' custom fields file!"
+
+   (cd $JPATH; javac -classpath $PIN_HOME/jars/pcm.jar *.java) || \
+      Abort "failed compiling Java code"
+
+   jar cf $JAR $JPATH/*.class
+
+   cp $JPATH/*.properties ../.
+   cp $JAR ../.
+
+   printf " Done\n"
+   printf "** CUSTOM JAVA FIELDS GENERATED SUCCESSFULLY! **\n"
+fi
+[ $DEBUG = Y ] && \
+   printf "\n** Debug data retained in directory '$TMPDIR' **\n"
+exit 0

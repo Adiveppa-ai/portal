@@ -1,0 +1,25 @@
+#------------------------------------------------------------------------------#
+# FILE: component_specification
+#
+# DESCRIPTION:
+#
+# Specification file for this component. This file contains the necessary
+# information to support build and deployment of this componennt.
+#
+# INFORMATION:
+#
+# Rated Event Manager ...
+#
+# REVISION:
+#  
+# $Revision: 1.7 $
+# $Author: ri-user-1 $
+# $Date: 2024/01/24 12:14:00 $
+#------------------------------------------------------------------------------#
+name=rated_event_manager
+version=0.0.36
+directory=apps/rated_event_manager
+description=Rated Event Manager
+min_mem=128m
+max_mem=1024m
+jmx_port=18034

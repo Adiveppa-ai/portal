@@ -1,0 +1,2823 @@
+<!--
+  Copyright (c) 2003, 2021, Oracle and/or its affiliates.
+
+     This software is the confidential and proprietary information of
+     Oracle Corporation.  You shall not disclose such confidential and pro-
+     proprietary information and shall use it only in accordance with the
+     terms of the license agreement you entered into with Oracle Corporation.
+
+     Oracle makes no representations or warranties about the suit-
+     ability of the software, either express or implied, including but not
+     limited to the implied warranties of merchantability, fitness for a
+     particular purpose, or non-infringement.  Oracle Corporation. shall not be
+     liable for any damages suffered by licensee as a result of using,
+     modifying or distributing this software or its derivatives.
+
+     Oracle Corporation is located at http://www.oracle.com.
+
+     This notice may not be removed or altered.
+     and open the template in the editor.
+  -->
+
+<PayloadConfig>
+    <PublisherDefs>
+        <!--
+          For each additional publisher, add an entry of element type
+          Publisher, with the events to be published.
+      -->
+        <Publisher DB="0.0.0.0" Format="XML">
+            <!--
+                * Business events for AMT
+                *
+               -->
+            HoldCDRProcessing,
+            ResumeCDRProcessing,
+            MigrateAcct,
+            MigrateSource,
+            MigrateDestination,
+            <!--
+                * Business events for Rerate
+                *
+               -->
+            PrepareToRerate,
+            ReratingDeltaBalances,
+            Rerating Condition=ReratingCondition,
+            ReratingCompleted,
+            <!--
+               *Business events for products syncronization
+               *
+               -->
+            ProductInfoChange,
+            DiscountInfoChange,
+            SponsorshipInfoChange,
+
+            <!--
+           * OfferProfile Events
+           *
+            -->
+            OfferProfileCreate,
+            OfferProfileUpdate,
+            OfferProfileDelete
+
+        </Publisher>
+        <Publisher DB="0.0.9.8" Format="XML">
+            CustCreate,
+            CustUpdate,
+            CustDelete,
+            BillInfoUpdate,
+            ProductPurchase,
+            ProductCancel,
+            DiscountPurchase,
+            DiscountCancel,
+            AccountStatusUpdate,
+            ProductStatusUpdate,
+            ProductModify,
+            ProductSetValidity,
+            DiscountStatusUpdate,
+            DiscountModify,
+            DiscountSetValidity,
+            CreateGroupSharingDiscounts,
+            ModifyGroupSharingDiscounts,
+            DeleteGroupSharingDiscounts,
+            CreateGroupSharingCharges,
+            ModifyGroupSharingCharges,
+            DeleteGroupSharingCharges,
+            CreateGroupSharingProfiles,
+            ModifyGroupSharingProfiles,
+            DeleteGroupSharingProfiles,
+            AddBillingUnit,
+            ModifyBillingUnit,
+            AddBalance,
+            ModifyBalance,
+            ModifyTempBalance,
+            ModifyMappingTable,
+            AddOrderedBalanceGroup,
+            ModifyOrderedBalanceGroup,
+            DeleteOrderedBalanceGroup,
+            CreateProfile,
+            ModifyProfile,
+            DeleteProfile,
+            UpdateServices,
+            DeviceReplace,
+            ServiceLogin,
+            LineTransfer,
+            BillNow,
+            PartialBilling,
+            BillDelay,
+            ServiceBalanceGroupTransfer,
+            ModifyMonitorBalance,
+            CreateGroupSharingProducts,
+            ModifyGroupSharingProducts,
+            DeleteGroupSharingProducts,
+            <!--
+                * New business events for Integrate Framework Resource
+                * Balance synchronization
+                *
+               -->
+            EventAdjustment,
+            AccountAdjustment,
+            ItemAdjustment,
+            TaxAdjustment,
+            CancelPenalty,
+            AccountWriteOff,
+            AccountBillWriteOff,
+            AccountBillItemWriteOff,
+            AccountBillItemWriteOffTax,
+            CreditCardPymt,
+            VoucherTopUp,
+            CashPymt,
+            WireTransfer,
+            CheckPymt,
+            DirectDebitPymt,
+            PostalOrderPymt,
+            SepaPymt,
+            AccountBillDiscount,
+            CreditCardPayRev,
+            DDPayRev,
+            CheckPayRev,
+            CashPayRev,
+            SepaPayRev,
+            CreditCardPayRef,
+            DDPayRef,
+            CheckPayRef,
+            CashPayRef,
+            SepaPayRef,
+            ResourceAdjustmentCredit,
+            ResourceAdjustmentDebit,
+            CycleForward,
+            CycleRollover,
+            CycleFold,
+            Purchase,
+            RecycleRequest,
+            ResubmitBatchRequest,
+            ModifySubBalValidity,
+            <!--
+                * Dispute and settlement related events
+            -->
+            EventSettlement,
+            AccountSettlement,
+            ItemSettlement,
+            TaxSettlement,
+            EventDispute,
+            AccountDispute,
+            ItemDispute,
+            TaxDispute,
+
+            <!--
+                * Balance Monitor events
+                *
+               -->
+            CreateGroupSharingMonitors,
+            ModifyGroupSharingMonitors,
+            DeleteGroupSharingMonitors,
+            <!--
+                * TailorMadePlan events
+                *
+               -->
+            TailorMadeProductCreate,
+            TailorMadeProductModify,
+            BalanceTransfer,
+            CreateTopUp,
+            DeleteTopUp,
+            <!--
+                * Loan and topup events
+                *
+                -->
+            BalanceTransferFee,
+            TopUp,
+            LoanFee,
+            LoanDebit,
+            LoanCredit,
+            LoanGrant,
+            LoanRecoveryReversal,
+            LoanRecovery,
+            LoanPullback,
+            LoanLateFee,
+            <!--
+                * Deposit related events
+                *
+                -->
+            DepositInterestCredit,
+            PurchaseFeeDeposit,
+            DepositReversal,
+            PurchaseFeeDepositRefund,
+            DepositInterestDebit,
+            <!--
+                * Installment related events
+                *
+                -->
+            InstallmentDebit,
+            InstallmentCredit,
+
+            OfferingOverrideModify,
+            OfferingOverrideDelete,
+        </Publisher>
+    </PublisherDefs>
+
+    <ConditionDefs>
+        <!--
+          Define the condition for which the event can be published.
+          The possible value for Operator are:
+              EQ		- EQualto
+              NE		- Not-Equalto
+              LT		- LessThan
+              GT		- GreaterThan
+              LE		- Lessthan-Equalto
+              GE		- Greaterthan-Equalto
+              CHECK-BITS	- For checking specified bits for Integers.
+          You can group the BooleanExpressions using the following mode:
+              <AndExpression>
+              <OrExpression>
+              <NotExpression>
+
+          Example:
+              <NotExpression>
+                  <BooleanExpression PinFld="OP_FLAGS" Value="0x8000" Operator="CHECK-BITS"/>
+              </NotExpression>
+
+              <BooleanExpression PinFld="PIN_FLD_FLAGS" Value="128" Operator="NE"/>
+      -->
+        <ReratingCondition>
+            <NotExpression>
+                <BooleanExpression PinFld="OP_FLAGS" Value="0x8000" Operator="CHECK-BITS"/>
+            </NotExpression>
+        </ReratingCondition>
+    </ConditionDefs>
+
+    <ElementDefs>
+        <ReratingAccounts Source="EVENT" PinFld="PIN_FLD_ACCOUNTS"
+                          DataFrom="PIN_FLD_ACCOUNTS" Tag="ReratingAccounts">
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+        </ReratingAccounts>
+
+        <ReratedAccounts Source="EVENT" PinFld="PIN_FLD_RERATE_ACCOUNTS"
+                         DataFrom="PIN_FLD_RERATE_ACCOUNTS" Tag="ReratedAccounts">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_PRODUCTS" Tag="Products">
+                <Field PinFld="PIN_FLD_POID" Tag="PurchasedProdObj"/>
+                <Field PinFld="PIN_FLD_PURCHASE_START_T" Tag="PurchaseStart"/>
+                <Field PinFld="PIN_FLD_PURCHASE_END_T" Tag="PurchaseEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_T" Tag="UsageStart"/>
+                <Field PinFld="PIN_FLD_USAGE_END_T" Tag="UsageEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_DETAILS" Tag="UsageStartDetails"/>
+                <Field PinFld="PIN_FLD_USAGE_END_DETAILS" Tag="UsageEndDetails"/>
+                <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+                <Field PinFld="PIN_FLD_INSTANTIATED_T" Tag="InstantiatedTime"/>
+                <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            </ExtendedInfo>
+
+            <ExtendedInfo PinFld="PIN_FLD_DISCOUNTS" Tag="Discounts">
+                <Field PinFld="PIN_FLD_POID" Tag="PurchasedDiscountObj"/>
+                <Field PinFld="PIN_FLD_PURCHASE_START_T" Tag="PurchaseStart"/>
+                <Field PinFld="PIN_FLD_PURCHASE_END_T" Tag="PurchaseEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_T" Tag="UsageStart"/>
+                <Field PinFld="PIN_FLD_USAGE_END_T" Tag="UsageEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_DETAILS" Tag="UsageStartDetails"/>
+                <Field PinFld="PIN_FLD_USAGE_END_DETAILS" Tag="UsageEndDetails"/>
+                <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+                <Field PinFld="PIN_FLD_INSTANTIATED_T" Tag="InstantiatedTime"/>
+                <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            </ExtendedInfo>
+
+            <ExtendedInfo PinFld="PIN_FLD_SERVICES" Tag="Services">
+                <Field PinFld="PIN_FLD_POID" Tag="ServiceObj"/>
+                <Field PinFld="PIN_FLD_LIFECYCLE_STATE" Tag="LifeCycleState"/>
+                <Field PinFld="PIN_FLD_SERVICE_STATE_EXPIRATION_T" Tag="ExpirationTime"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_BAL_INFO" Tag="BalanceInfo">
+                <Field PinFld="PIN_FLD_POID" Tag="BalGrpObj"/>
+                <ExtendedInfo PinFld="PIN_FLD_BALANCES" Tag="Balances">
+                    <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+                    <Field PinFld="PIN_FLD_CREDIT_PROFILE" Tag="CreditProfile"/>
+                    <Field PinFld="PIN_FLD_CONSUMPTION_RULE" Tag="ConsumptionRule"/>
+                    <ExtendedInfo PinFld="PIN_FLD_SUB_BALANCES" Tag="SubBalances">
+                        <Field PinFld="PIN_FLD_CURRENT_BAL" Tag="CurrentBal"/>
+                        <Field PinFld="PIN_FLD_SUBTYPE" Tag="Type"/>
+                        <Field PinFld="PIN_FLD_GRANTED_BAL" Tag="OriginalBalance"/>
+                        <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                        <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+                        <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+                        <Field PinFld="PIN_FLD_VALID_FROM_DETAILS" Tag="ValidFromDetails"/>
+                        <Field PinFld="PIN_FLD_VALID_TO_DETAILS" Tag="ValidToDetails"/>
+                        <Field PinFld="PIN_FLD_GRANTOR_OBJ" Tag="Grantor"/>
+                    </ExtendedInfo>
+                </ExtendedInfo>
+            </ExtendedInfo>
+        </ReratedAccounts>
+        <Logins Source="EVENT" PinFld="PIN_FLD_LOGINS" UseElementId="1"
+                DataFrom="PIN_FLD_LOGINS" Tag="Logins">
+            <Field PinFld="PIN_FLD_LOGIN" Tag="Login"/>
+            <ExtendedInfo PinFld="PIN_FLD_ALIAS_LIST" Tag="AliasList">
+                <Field PinFld="PIN_FLD_NAME" Tag="Alias"/>
+            </ExtendedInfo>
+        </Logins>
+        <LineAccount Source="EVENT" PinFld="PIN_FLD_ACCOUNT"
+                     DataFrom="PIN_FLD_ACCOUNT" Tag="LineDevices">
+            <Field PinFld="PIN_FLD_FROM_OBJ" Tag="FromObj"/>
+            <Field PinFld="PIN_FLD_TO_OBJ" Tag="ToObj"/>
+        </LineAccount>
+        <LineDevices Source="EVENT" PinFld="PIN_FLD_DEVICES"
+                     DataFrom="PIN_FLD_DEVICES" Tag="LineDevices">
+            <Field PinFld="PIN_FLD_DEVICE_OBJ" Tag="DeviceObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+        </LineDevices>
+        <LineProfiles Source="EVENT" PinFld="PIN_FLD_PROFILES"
+                      DataFrom="PIN_FLD_PROFILES" Tag="LineProfiles">
+            <Field PinFld="PIN_FLD_PROFILE_OBJ" Tag="ProfileObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+        </LineProfiles>
+        <LineServices Source="EVENT" PinFld="PIN_FLD_SERVICES"
+                      DataFrom="PIN_FLD_SERVICES" Tag="LineServices">
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="ItemPoidList"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="NextItemPoidList"/>
+            <Field PinFld="PIN_FLD_LOGIN" Tag="Login"/>
+            <Field PinFld="PIN_FLD_ALIAS_LIST" Tag="AliasList"/>
+            <ExtendedInfo PinFld="PIN_FLD_TRANSFER_LIST" Tag="TransferList">
+                <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+                <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+                <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillinfoObj"/>
+                <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="ItemPoidList"/>
+                <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="NextItemPoidList"/>
+                <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            </ExtendedInfo>
+        </LineServices>
+        <LineBalanceGroups Source="EVENT" PinFld="PIN_FLD_BALANCE_GROUPS"
+                           DataFrom="PIN_FLD_BALANCE_GROUPS" Tag="LineBalanceGroups">
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_FROM_BILLINFO_OBJ" Tag="FromBillinfoObj"/>
+            <Field PinFld="PIN_FLD_TO_BILLINFO_OBJ" Tag="ToBillinfoObj"/>
+        </LineBalanceGroups>
+        <ActionInfo Source="EVENT" PinFld="PIN_FLD_ACTION_INFO"
+                    DataFrom="PIN_FLD_ACTION_INFO" Tag="ActionInfo" UseElementId="1">
+            <Field PinFld="PIN_FLD_PURCHASE_START_T" Tag="PurchaseStart"/>
+            <Field PinFld="PIN_FLD_PURCHASE_END_T" Tag="PurchaseEnd"/>
+            <Field PinFld="PIN_FLD_USAGE_START_T" Tag="UsageStart"/>
+            <Field PinFld="PIN_FLD_USAGE_END_T" Tag="UsageEnd"/>
+            <Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+            <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="Flags"/>
+            <Field PinFld="PIN_FLD_PACKAGE_ID" Tag="PackageId"/>
+            <Field PinFld="PIN_FLD_DEAL_OBJ" Tag="DealObj"/>
+            <Field PinFld="PIN_FLD_PLAN_OBJ" Tag="PlanObj"/>
+        </ActionInfo>
+        <Service Source="/service" PinFld="PIN_FLD_SERVICES"
+                 Tag="Service">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_SERVICE_OBJ"/>
+            <Field PinFld="PIN_FLD_POID" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_LOGIN" Tag="Login"/>
+            <Field PinFld="PIN_FLD_PASSWD" Tag="Password"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="ItemList"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="NextItemList"/>
+            <Field PinFld="PIN_FLD_SERVICE_STATE_EXPIRATION_T" Tag="ExpirationTime"/>
+            <Field PinFld="PIN_FLD_LIFECYCLE_STATE" Tag="LifeCycleState"/>
+            <Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+            <Field PinFld="PIN_FLD_SUBSCRIPTION_OBJ" Tag="SubscriptionServiceObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_ALIAS_LIST" Tag="Aliases">
+                <Field PinFld="PIN_FLD_NAME" Tag="Alias"/>
+            </ExtendedInfo>
+        </Service>
+        <PurchasedProductOfferingPackageInfo Source="/purchased_product" PinFld="PIN_FLD_PRODUCT"
+                                             Tag="PackageIdInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_OFFERING_OBJ"
+                    SearchValFrom="PIN_FLD_PRODUCT"/>
+            <Field PinFld="PIN_FLD_POID" Tag="OfferingId"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="Flags"/>
+            <Field PinFld="PIN_FLD_PACKAGE_ID" Tag="PackageId"/>
+        </PurchasedProductOfferingPackageInfo>
+        <PurchasedDiscountOfferingPackageInfo Source="/purchased_discount" PinFld="PIN_FLD_DISCOUNTS"
+                                              Tag="PackageIdInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_OFFERING_OBJ"
+                    SearchValFrom="PIN_FLD_DISCOUNTS"/>
+            <Field PinFld="PIN_FLD_POID"  Tag="OfferingId"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="Flags"/>
+            <Field PinFld="PIN_FLD_PACKAGE_ID" Tag="PackageId"/>
+        </PurchasedDiscountOfferingPackageInfo>
+        <ProductOfferingOverrideValue Source="/purchased_product" PinFld="PIN_FLD_PRODUCT"
+                                      Tag="OfferingOverride">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_OFFERING_OBJ"
+                    SearchValFrom="PIN_FLD_PRODUCT"/>
+            <Field PinFld="PIN_FLD_OFFERING_OVERRIDE_VALUES_OBJ" Tag="OfferingOverrideObj"/>
+        </ProductOfferingOverrideValue>
+        <DiscountOfferingOverrideValue Source="/purchased_discount" PinFld="PIN_FLD_AC_DISCOUNT"
+                                      Tag="OfferingOverride">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_OFFERING_OBJ"
+                    SearchValFrom="PIN_FLD_AC_DISCOUNT"/>
+                <Field PinFld="PIN_FLD_OFFERING_OVERRIDE_VALUES_OBJ" Tag="OfferingOverrideObj"/>
+        </DiscountOfferingOverrideValue>
+        <ServiceInfoForProduct Source="/purchased_product" PinFld="PIN_FLD_PRODUCT"
+                               Tag="ServiceInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_OFFERING_OBJ"
+                    SearchValFrom="PIN_FLD_PRODUCT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+        </ServiceInfoForProduct>
+        <ServiceInfoForDiscount Source="/purchased_discount" PinFld="PIN_FLD_DISCOUNTS"
+                                Tag="ServiceInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_OFFERING_OBJ"
+                    SearchValFrom="PIN_FLD_AC_DISCOUNT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+        </ServiceInfoForDiscount>
+        <Products Source="EVENT" PinFld="PIN_FLD_PRODUCTS"
+                  Tag="PurchasedOfferings">
+            <ExtendedInfo PinFld="PIN_FLD_PRODUCT" Tag="Product">
+                <Field PinFld="PIN_FLD_PRODUCT_OBJ" Tag="ProductObj"/>
+                <Field PinFld="PIN_FLD_OFFERING_OBJ" Tag="OfferingObj"/>
+            </ExtendedInfo>
+            <Field PinFld="PIN_FLD_SYS_DESCR" Tag="ProductDescr"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_ACTION_INFO" Tag="Details" UseElementId="1">
+                <Field PinFld="PIN_FLD_PURCHASE_START_T" Tag="PurchaseStart"/>
+                <Field PinFld="PIN_FLD_PURCHASE_END_T" Tag="PurchaseEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_T" Tag="UsageStart"/>
+                <Field PinFld="PIN_FLD_USAGE_END_T" Tag="UsageEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_DETAILS" Tag="UsageStartDetails"/>
+                <Field PinFld="PIN_FLD_USAGE_END_Details" Tag="UsageEndDetails"/>
+                <Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+                <Field PinFld="PIN_FLD_INSTANTIATED_T" Tag="InstantiatedTime"/>
+                <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+                <Field PinFld="PIN_FLD_DEAL_OBJ" Tag="DealObj"/>
+                <Field PinFld="PIN_FLD_PLAN_OBJ" Tag="PlanObj"/>
+            </ExtendedInfo>
+        </Products>
+        <Discounts Source="EVENT" PinFld="PIN_FLD_DISCOUNTS"
+                   Tag="PurchasedOfferings">
+            <ExtendedInfo PinFld="PIN_FLD_AC_DISCOUNT" Tag="Discount">
+                <Field PinFld="PIN_FLD_DISCOUNT_OBJ" Tag="DiscountObj"/>
+                <Field PinFld="PIN_FLD_OFFERING_OBJ" Tag="OfferingObj"/>
+            </ExtendedInfo>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_ACTION_INFO" Tag="Details" UseElementId="1">
+                <Field PinFld="PIN_FLD_PURCHASE_START_T" Tag="PurchaseStart"/>
+                <Field PinFld="PIN_FLD_PURCHASE_END_T" Tag="PurchaseEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_T" Tag="UsageStart"/>
+                <Field PinFld="PIN_FLD_USAGE_END_T" Tag="UsageEnd"/>
+                <Field PinFld="PIN_FLD_USAGE_START_DETAILS" Tag="UsageStartDetails"/>
+                <Field PinFld="PIN_FLD_USAGE_END_Details" Tag="UsageEndDetails"/>
+                <Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+                <Field PinFld="PIN_FLD_INSTANTIATED_T" Tag="InstantiatedTime"/>
+                <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+                <Field PinFld="PIN_FLD_DEAL_OBJ" Tag="DealObj"/>
+                <Field PinFld="PIN_FLD_PLAN_OBJ" Tag="PlanObj"/>
+            </ExtendedInfo>
+        </Discounts>
+
+        <ModifyGroupSharingMonitor Source="/group/sharing/monitor" Tag="ModifyGroupSharingMonitor">
+            <Search SearchFld="PIN_FLD_POID" SearchVal="PIN_FLD_GROUP_OBJ"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_POID" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_TYPE_STR" Tag="TypeStr"/>
+            <ExtendedInfo PinFld="PIN_FLD_MEMBERS" Tag="Members" UseElementId="1">
+                <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+                <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            </ExtendedInfo>
+        </ModifyGroupSharingMonitor>
+
+        <AddOrderedBalGroup Source="/ordered_balgrp" Tag="AddOrderedBalGroup">
+            <Search SearchFld="PIN_FLD_POID" SearchVal="PIN_FLD_GROUP_OBJ"/>
+            <Field PinFld="PIN_FLD_POID" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_MOD_T" Tag="ModT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <ExtendedInfo PinFld="PIN_FLD_ORDERED_BALGROUPS" Tag="BalGrpInfo" UseElementId="1">
+                <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="BalGroupObj"/>
+            </ExtendedInfo>
+        </AddOrderedBalGroup>
+
+
+        <SharedDiscounts Source="EVENT" PinFld="PIN_FLD_DISCOUNTS"
+                         DataFrom="PIN_FLD_DISCOUNTS" Tag="Discounts">
+            <Field PinFld="PIN_FLD_DISCOUNT_OBJ" Tag="DiscountObj"/>
+            <Field PinFld="PIN_FLD_OFFERING_OBJ" Tag="OfferingObj"/>
+        </SharedDiscounts>
+        <Sponsors Source="EVENT" PinFld="PIN_FLD_SPONSORS"
+                  DataFrom="PIN_FLD_SPONSORS" Tag="Sponsors">
+            <Field PinFld="PIN_FLD_SPONSOR_OBJ" Tag="OfferingObj"/>
+        </Sponsors>
+        <Profiles Source="EVENT" PinFld="PIN_FLD_PROFILES"
+                  DataFrom="PIN_FLD_PROFILES" Tag="Profiles">
+            <Field PinFld="PIN_FLD_PROFILE_OBJ" Tag="ProfileObj"/>
+        </Profiles>
+        <GroupMembers Source="EVENT" PinFld="PIN_FLD_MEMBERS"
+                      DataFrom="PIN_FLD_MEMBERS" Tag="Members">
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+        </GroupMembers>
+        <BalanceGrpInfo Source="/balance_group" PinFld="PIN_FLD_BAL_INFO"
+                        Tag="BalGrpInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_BAL_GRP_OBJ"
+                    SearchValFrom="PIN_FLD_BAL_IMPACTS"/>
+            <Field PinFld="PIN_FLD_POID" Tag="BalGrpObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_BALANCES" Tag="Balances" UseElementId="1">
+                <Field PinFld="PIN_FLD_CREDIT_PROFILE" Tag="CreditProfile"/>
+                <Field PinFld="PIN_FLD_CONSUMPTION_RULE" Tag="ConsumptionRule"/>
+            </ExtendedInfo>
+        </BalanceGrpInfo>
+        <BalImpacts Source="EVENT" PinFld="PIN_FLD_BAL_IMPACTS"
+                    DataFrom="PIN_FLD_BAL_IMPACTS" Tag="BalImpacts">
+            <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="Flags"/>
+            <Field PinFld="PIN_FLD_PRODUCT_OBJ" Tag="ProductObj"/>
+            <Field PinFld="PIN_FLD_EVENT_NAME" Tag="EventName"/>
+            <Field PinFld="PIN_FLD_OUTSTANDING_AMOUNT" Tag="OutstandingAmount"/>
+        </BalImpacts>
+
+        <SubBalImpacts Source="EVENT" PinFld="PIN_FLD_SUB_BAL_IMPACTS"
+                       DataFrom="PIN_FLD_SUB_BAL_IMPACTS" Tag="SubBalImpacts">
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_CONSUMPTION_RULE" Tag="ConsumptionRule"/>
+            <Field PinFld="PIN_FLD_CREDIT_PROFILE" Tag="CreditProfile"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_SUB_BALANCES" Tag="SubBalances" UseElementId="1">
+                <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+                <Field PinFld="PIN_FLD_SUBTYPE" Tag="Type"/>
+                <Field PinFld="PIN_FLD_GRANTED_BAL" Tag="OriginalBalance"/>
+                <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+                <Field PinFld="PIN_FLD_VALID_FROM_DETAILS" Tag="ValidFromDetails"/>
+                <Field PinFld="PIN_FLD_VALID_TO_DETAILS" Tag="ValidToDetails"/>
+                <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+                <Field PinFld="PIN_FLD_GRANTOR_OBJ" Tag="Grantor"/>
+                <Field PinFld="PIN_FLD_ROLLOVER_DATA" Tag="RolloverData"/>
+            </ExtendedInfo>
+        </SubBalImpacts>
+
+        <CycleInfo Source="EVENT" PinFld="PIN_FLD_CYCLE_INFO" DataFrom="PIN_FLD_CYCLE_INFO" Tag="CycleInfo">
+            <Field PinFld="PIN_FLD_CYCLE_END_T" Tag="CycleEndT"/>
+        </CycleInfo>
+
+        <CycleForwardProducts Source="EVENT" PinFld="PIN_FLD_PRODUCTS" DataFrom="PIN_FLD_PRODUCTS" Tag="CycleForwardProducts">
+            <Field PinFld="PIN_FLD_CYCLE_END_T" Tag="CycleEndT"/>
+        </CycleForwardProducts>
+
+        <SubBalAudits Source="EVENT" PinFld="PIN_FLD_SUB_BAL_AUDIT"
+                      DataFrom="PIN_FLD_SUB_BAL_AUDIT" Tag="SubBalAudit">
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_CONSUMPTION_RULE" Tag="ConsumptionRule"/>
+            <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+            <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+            <Field PinFld="PIN_FLD_VALID_TO_DETAILS" Tag="ValidToDetails"/>
+            <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+        </SubBalAudits>
+
+        <BillInfo Source="EVENT" PinFld="PIN_FLD_BILLINFO"
+                  DataFrom="PIN_FLD_BILLINFO" Tag="BillInfo" UseOnlyElement="1">
+            <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+            <Field PinFld="PIN_FLD_ACTG_LAST_T" Tag="ActgLast"/>
+            <Field PinFld="PIN_FLD_ACTG_NEXT_T" Tag="ActgNext"/>
+            <Field PinFld="PIN_FLD_ACTG_FUTURE_T" Tag="ActgFuture"/>
+            <Field PinFld="PIN_FLD_LAST_BILL_T" Tag="BillLast"/>
+            <Field PinFld="PIN_FLD_NEXT_BILL_T" Tag="BillNext"/>
+            <Field PinFld="PIN_FLD_FUTURE_BILL_T" Tag="BillFuture"/>
+            <Field PinFld="PIN_FLD_BILL_WHEN" Tag="BillWhen"/>
+            <Field PinFld="PIN_FLD_BUSINESS_PROFILE_OBJ" Tag="BusinessProfile"/>
+        </BillInfo>
+
+        <BillingState Source="/billinfo" PinFld="PIN_FLD_BILLINFO"
+                      Tag="BillingStateInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_BILLINFO_OBJ" SearchValFrom="PIN_FLD_BILLINFO"/>
+            <Field PinFld="PIN_FLD_POID" Tag="BillInfoObj"/>
+            <Field PinFld="PIN_FLD_BILLING_STATE" Tag="BillingState"/>
+        </BillingState>
+
+        <BalancesInfo Source="/balance_group" PinFld="PIN_FLD_BAL_INFO"
+                      Tag="BalInfo">
+            <Search SearchFld="PIN_FLD_ACCOUNT_OBJ"
+                    SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+            <Field PinFld="PIN_FLD_POID" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_BALANCES" Tag="Balances" UseElementId="1">
+                <Field PinFld="PIN_FLD_CREDIT_PROFILE" Tag="CreditProfile"/>
+                <Field PinFld="PIN_FLD_CONSUMPTION_RULE" Tag="ConsumptionRule"/>
+                <ExtendedInfo PinFld="PIN_FLD_SUB_BALANCES" Tag="SubBal" UseElementId="1">
+                    <Field PinFld="PIN_FLD_CURRENT_BAL" Tag="Amount"/>
+                    <Field PinFld="PIN_FLD_SUBTYPE" Tag="Type"/>
+                    <Field PinFld="PIN_FLD_GRANTED_BAL" Tag="OriginalBalance"/>
+                    <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                    <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+                    <Field PinFld="PIN_FLD_VALID_FROM_DETAILS" Tag="ValidFromDetails"/>
+                    <Field PinFld="PIN_FLD_VALID_TO_DETAILS" Tag="ValidToDetails"/>
+                    <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+                    <Field PinFld="PIN_FLD_GRANTOR_OBJ" Tag="Grantor"/>
+                </ExtendedInfo>
+            </ExtendedInfo>
+        </BalancesInfo>
+
+        <DefaultBalGrp Source="/account" PinFld="PIN_FLD_BAL_INFO"
+                       Tag="DefaultBalGrp">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="DefaultBalanceId"/>
+        </DefaultBalGrp>
+
+        <BalInfo Source="EVENT" PinFld="PIN_FLD_BAL_INFO"
+                 DataFrom="PIN_FLD_BAL_INFO" Tag="BalInfo">
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+            <Field PinFld="PIN_FLD_OBJECT_CACHE_TYPE" Tag="ObjectCacheType"/>
+            <ExtendedInfo PinFld="PIN_FLD_BALANCES" Tag="Balances" UseElementId="1">
+                <Field PinFld="PIN_FLD_CREDIT_PROFILE" Tag="CreditProfile"/>
+                <Field PinFld="PIN_FLD_DELTA_CREDIT_LIMIT" Tag="DeltaCreditLimit"/>
+            </ExtendedInfo>
+        </BalInfo>
+
+        <SubBalInfo Source="EVENT" PinFld="PIN_FLD_SUB_BAL_IMPACTS"
+                    DataFrom="PIN_FLD_SUB_BAL_IMPACTS" Tag="SubBalInfo">
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_CONSUMPTION_RULE" Tag="ConsumptionRule"/>
+        </SubBalInfo>
+
+        <MonitorBalImpacts Source="EVENT" PinFld="PIN_FLD_MONITOR_IMPACTS"
+                        DataFrom="PIN_FLD_MONITOR_IMPACTS" Tag="MonitorBalImpacts">
+            <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+        </MonitorBalImpacts>
+
+        <MonitorSubBalImpacts Source="EVENT" PinFld="PIN_FLD_MONITOR_SUB_BAL_IMPACTS"
+                           DataFrom="PIN_FLD_MONITOR_SUB_BAL_IMPACTS" Tag="MonitorSubBalImpacts">
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_SUB_BALANCES" Tag="SubBalances" UseElementId="1">
+                <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+                <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+                <Field PinFld="PIN_FLD_VALID_FROM_DETAILS" Tag="ValidFromDetails"/>
+                <Field PinFld="PIN_FLD_VALID_TO_DETAILS" Tag="ValidToDetails"/>
+                <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+            </ExtendedInfo>
+        </MonitorSubBalImpacts>
+
+        <TempSubBalImpacts Source="EVENT" PinFld="PIN_FLD_SUB_BAL_IMPACTS"
+                       DataFrom="PIN_FLD_SUB_BAL_IMPACTS" Tag="TempSubBalImpacts">
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <ExtendedInfo PinFld="PIN_FLD_SUB_BALANCES" Tag="SubBalances" UseElementId="1">
+                <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+                <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+                <Field PinFld="PIN_FLD_VALID_FROM_DETAILS" Tag="ValidFromDetails"/>
+                <Field PinFld="PIN_FLD_VALID_TO_DETAILS" Tag="ValidToDetails"/>
+                <Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+            </ExtendedInfo>
+        </TempSubBalImpacts>
+
+        <CycleEndBillInfo Source="EVENT" PinFld="PIN_FLD_BILLINFO"
+                          DataFrom="PIN_FLD_BILLINFO" Tag="CycleEndBillInfo" UseOnlyElement="1">
+            <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+            <Field PinFld="PIN_FLD_BILLING_STATE" Tag="BillingState"/>
+        </CycleEndBillInfo>
+        <Services Source="EVENT" PinFld="PIN_FLD_SERVICES"
+                  DataFrom="PIN_FLD_SERVICES" Tag="Services">
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_TO_OBJ" Tag="ToObj"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="SrvItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="SrvItemNext"/>
+        </Services>
+        <ActgInfo Source="EVENT" PinFld="PIN_FLD_ACTGINFO"
+                  DataFrom="PIN_FLD_ACTGINFO" Tag="ActgInfo">
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="AccItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="AccItemNext"/>
+        </ActgInfo>
+        <JobBatches Source="EVENT" PinFld="PIN_FLD_BATCHES"
+                    DataFrom="PIN_FLD_BATCHES" Tag="Batches">
+            <Field PinFld="PIN_FLD_OBJECT" Tag="BatchObj"/>
+        </JobBatches>
+        <ProductInfo Source="EVENT" PinFld="PIN_FLD_PRODUCTS"
+                     DataFrom="PIN_FLD_PRODUCTS" Tag="ProductInfo">
+            <Field PinFld="PIN_FLD_POID" Tag="ProductPoid"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+            <Field PinFld="PIN_FLD_CODE" Tag="Code"/>
+            <Field PinFld="PIN_FLD_TYPE" Tag="Type"/>
+            <Field PinFld="PIN_FLD_TAX_SUPPLIER" Tag="TaxSupplierId"/>
+            <Field PinFld="PIN_FLD_PERMITTED" Tag="PermittedTypes"/>
+        </ProductInfo>
+        <DiscountInfo Source="EVENT" PinFld="PIN_FLD_DISCOUNTS"
+                      DataFrom="PIN_FLD_DISCOUNTS" Tag="DiscountInfo">
+            <Field PinFld="PIN_FLD_POID" Tag="DiscountPoid"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+            <Field PinFld="PIN_FLD_CODE" Tag="Code"/>
+            <Field PinFld="PIN_FLD_TYPE" Tag="Type"/>
+            <Field PinFld="PIN_FLD_PERMITTED" Tag="PermittedTypes"/>
+        </DiscountInfo>
+        <SponsorshipInfo Source="EVENT" PinFld="PIN_FLD_SPONSORSHIPS"
+                         DataFrom="PIN_FLD_SPONSORSHIPS" Tag="SponsorshipInfo">
+            <Field PinFld="PIN_FLD_POID" Tag="SponsorshipPoid"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+            <Field PinFld="PIN_FLD_CODE" Tag="Code"/>
+        </SponsorshipInfo>
+        <BalGrpInfo Source="EVENT" PinFld="PIN_FLD_ORDERED_BALGROUPS"
+                    DataFrom="PIN_FLD_ORDERED_BALGROUPS" Tag="BalGrpInfo">
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="BalGroupObj"/>
+        </BalGrpInfo>
+        <LifeCycleStateInfo Source="EVENT" PinFld="PIN_FLD_STATUSES"
+                            DataFrom="PIN_FLD_STATUSES" Tag="LifeCycleStateInfo" UseOnlyElement="1">
+            <Field PinFld="PIN_FLD_SERVICE_STATE_EXPIRATION_T" Tag="ExpirationTime"/>
+            <Field PinFld="PIN_FLD_LIFECYCLE_STATE" Tag="LifeCycleState"/>
+            <Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+        </LifeCycleStateInfo>
+        <AccountClosed Source="EVENT" PinFld="PIN_FLD_STATUSES"
+                       DataFrom="PIN_FLD_STATUSES" Tag="AccountClosed" UseOnlyElement="1">
+            <Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+        </AccountClosed>
+        <TailorMadeProductInfo Source="EVENT" PinFld="PIN_FLD_PRODUCTS"
+                               DataFrom="PIN_FLD_PRODUCTS" Tag="TailorMadeProductInfo">
+            <Field PinFld="PIN_FLD_POID" Tag="Poid"/>
+            <Field PinFld="PIN_FLD_PERMITTED" Tag="Permitted"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+            <Field PinFld="PIN_FLD_CREATED_T" Tag="CreatedT"/>
+            <Field PinFld="PIN_FLD_START_T" Tag="StartT"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_PRIORITY" Tag="Priority"/>
+            <Field PinFld="PIN_FLD_TYPE" Tag="Type"/>
+            <Field PinFld="PIN_FLD_PIPELINE_RATEPLANS" Tag="RatePlans"/>
+            <ExtendedInfo PinFld="PIN_FLD_USAGE_MAP" Tag="UsageMap">
+                <Field PinFld="PIN_FLD_RATE_PLAN_NAME" Tag="RatePlanName"/>
+                <Field PinFld="PIN_FLD_EVENT_TYPE" Tag="EventType"/>
+                <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            </ExtendedInfo>
+        </TailorMadeProductInfo>
+        <TransferBalanceGroups Source="EVENT" PinFld="PIN_FLD_BALANCE_GROUPS"
+                               DataFrom="PIN_FLD_BALANCE_GROUPS" Tag="TransferBalanceGroups">
+            <Field PinFld="PIN_FLD_FROM_BAL_GRP_OBJ" Tag="FromBalGrpObj"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_FROM_BILLINFO_OBJ" Tag="FromBillinfoObj"/>
+            <Field PinFld="PIN_FLD_TO_BILLINFO_OBJ" Tag="ToBillinfoObj"/>
+        </TransferBalanceGroups>
+
+        <ProfileInfo Source="/profile" PinFld="PIN_FLD_DATA_ARRAY"
+                     Tag="ProfileInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_PROFILE_OBJ"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="ProfileName"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <ExtendedInfo PinFld="PIN_FLD_EXTRATING" Tag="Extrating">
+                <Field PinFld="PIN_FLD_LABEL" Tag="Label"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_DATA_ARRAY" Tag="ProfileData">
+                <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+                <Field PinFld="PIN_FLD_VALUE" Tag="Value"/>
+                <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_SUBSCRIBER_PREFERENCES" Tag="ProfileData">
+                <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+                <Field PinFld="PIN_FLD_VALUE" Tag="Value"/>
+                <Field PinFld="PIN_FLD_SUBSCRIBER_PREFERENCE_ID" Tag="Id"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_LOAN_INFO" Tag="LoanData">
+                <Field PinFld="PIN_FLD_EXTERNAL_ELIGIBILITY" Tag="loanEligibility"/>
+            </ExtendedInfo>
+        </ProfileInfo>
+
+        <!-- This is an workaround for deletion of rating profile
+         Once the bug 16968916 is fixed this workaround can be removed -->
+        <DeleteProfileInfo Source="/au_profile" PinFld="PIN_FLD_DATA_ARRAY"
+                           Tag="ProfileInfo" UseOnlyElement="1">
+            <Search SearchFld="PIN_FLD_AU_PARENT_OBJ"
+                    SearchVal="PIN_FLD_PROFILE_OBJ"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="ProfileName"/>
+            <ExtendedInfo PinFld="PIN_FLD_EXTRATING" Tag="Extrating">
+                <Field PinFld="PIN_FLD_LABEL" Tag="Label"/>
+            </ExtendedInfo>
+        </DeleteProfileInfo>
+
+        <!-- In order to use this Element IPC needs to be enabled in BRM -->
+        <OfferProfileInfo Source="EVENT" PinFld="PIN_FLD_OFFER_PROFILES"
+                          DataFrom="PIN_FLD_OFFER_PROFILES" Tag="offer_profile_info">
+            <Field PinFld="PIN_FLD_POID" Tag="offer_profile_poid"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="offer_profile_name"/>
+            <Field PinFld="PIN_FLD_CODE" Tag="offer_profile_code"/>
+            <Field PinFld="PIN_FLD_DESCR" Tag="offer_profile_descr"/>
+            <ExtendedInfo PinFld="PIN_FLD_POLICY_LABELS" Tag="policy_label_info">
+                <Field PinFld="PIN_FLD_LABEL" Tag="label"/>
+                <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="resource_id"/>
+                <Field PinFld="PIN_FLD_RESOURCE_NAME" Tag="resource_name"/>
+                <Field PinFld="PIN_FLD_UNIT" Tag="unit"/>
+                <ExtendedInfo PinFld="PIN_FLD_TIERS" Tag="tiers">
+                    <Field PinFld="PIN_FLD_STATUS_LABEL" Tag="status_label"/>
+                    <Field PinFld="PIN_FLD_TIER_START_RANGE" Tag="tier_start_range"/>
+                    <Field PinFld="PIN_FLD_TIER_END_RANGE" Tag="tier_end_range"/>
+                </ExtendedInfo>
+            </ExtendedInfo>
+        </OfferProfileInfo>
+
+        <TransferBalance Source="EVENT" PinFld="PIN_FLD_BALANCE_GROUPS"
+                         DataFrom="PIN_FLD_BALANCE_GROUPS" Tag="TransferBalance">
+            <Field PinFld="PIN_FLD_POID" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="account_obj"/>
+            <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+        </TransferBalance>
+
+        <Profile Source="/profile" PinFld="PIN_FLD_DATA_ARRAY"
+                 Tag="ProfileInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_PROFILE_OBJ"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_POID" Tag="ProfileObj"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="ProfileName"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <ExtendedInfo PinFld="PIN_FLD_EXTRATING" Tag="Extrating">
+                <Field PinFld="PIN_FLD_LABEL" Tag="Label"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_DATA_ARRAY" Tag="ProfileData">
+                <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+                <Field PinFld="PIN_FLD_VALUE" Tag="Value"/>
+                <Field PinFld="PIN_FLD_VALID_FROM" Tag="ValidFrom"/>
+                <Field PinFld="PIN_FLD_VALID_TO" Tag="ValidTo"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_SUBSCRIBER_PREFERENCES" Tag="ProfileData">
+                <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+                <Field PinFld="PIN_FLD_VALUE" Tag="Value"/>
+                <Field PinFld="PIN_FLD_SUBSCRIBER_PREFERENCE_ID" Tag="Id"/>
+            </ExtendedInfo>
+            <ExtendedInfo PinFld="PIN_FLD_LOAN_INFO" Tag="LoanData">
+                <Field PinFld="PIN_FLD_EXTERNAL_ELIGIBILITY" Tag="loanEligibility"/>
+            </ExtendedInfo>
+        </Profile>
+        <AccountAttributes Source="/account" Tag="AccountInfo">
+            <Search SearchFld="PIN_FLD_POID"
+                    SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="AccItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="AccItemNext"/>
+            <Field PinFld="PIN_FLD_CURRENCY" Tag="PrimaryCurrency"/>
+            <Field PinFld="PIN_FLD_CURRENCY_SECONDARY"
+                   Tag="SecondaryCurrency"/>
+        </AccountAttributes>
+
+        <ExtendedCustomerAttributes Source="/account" Tag="ExtendedAttributes">
+            <Search SearchFld="PIN_FLD_POID" SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+        </ExtendedCustomerAttributes>
+
+        <GroupInfo Source="/group" Tag="GroupInfo">
+            <Search SearchFld="PIN_FLD_POID" SearchVal="PIN_FLD_GROUP_OBJ"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="GroupName"/>
+        </GroupInfo>
+
+        <CreateTopUpInfo Source="EVENT" PinFld="PIN_FLD_TOPUP_INFO"
+                         DataFrom="PIN_FLD_TOPUP_INFO" Tag="TopUpInfo">
+            <Field PinFld="PIN_FLD_POID" Tag="TopUpObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+            <Field PinFld="PIN_FLD_TYPE" Tag="TopUpType"/>
+        </CreateTopUpInfo>
+
+        <DeleteTopUpInfo Source="EVENT" PinFld="PIN_FLD_TOPUP_INFO"
+                         DataFrom="PIN_FLD_TOPUP_INFO" Tag="TopUpInfo">
+            <Field PinFld="PIN_FLD_POID" Tag="TopUpObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_RESOURCE_ID" Tag="ResourceId"/>
+        </DeleteTopUpInfo>
+
+        <SharedProducts Source="EVENT" PinFld="PIN_FLD_PRODUCTS"
+                         DataFrom="PIN_FLD_PRODUCTS" Tag="Products">
+            <Field PinFld="PIN_FLD_PRODUCT_OBJ" Tag="ProductObj"/>
+            <Field PinFld="PIN_FLD_OFFERING_OBJ" Tag="OfferingObj"/>
+        </SharedProducts>
+
+        <OfferingOverrides Source="EVENT" Tag="OfferingOverrides">
+            <ExtendedInfo PinFld="PIN_FLD_RESULTS" Tag="Results">
+                    <Field PinFld="PIN_FLD_POID" Tag="OfferingOverrideObj"/>
+                    <Field PinFld="PIN_FLD_OFFERING_OBJ" Tag="OfferingObj"/>
+                    <ExtendedInfo PinFld="PIN_FLD_USAGE_MAP" Tag="UsageMap">
+                        <Field PinFld="PIN_FLD_EVENT_TYPE" Tag="EventType"/>
+                        <Field PinFld="PIN_FLD_END_T" Tag="EndTime"/>
+                        <ExtendedInfo PinFld="PIN_FLD_DATE_RANGES" Tag="DateRanges">
+                            <ExtendedInfo PinFld="PIN_FLD_PRICE_TAGS" Tag="PriceTags">
+                                    <Field PinFld="PIN_FLD_NAME" Tag="Name"/>
+                                    <Field PinFld="PIN_FLD_PERCENT" Tag="Percent"/>
+                                    <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+                            </ExtendedInfo>
+                            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+                            <Field PinFld="PIN_FLD_START_T" Tag="StartT"/>
+                        </ExtendedInfo>
+                    </ExtendedInfo>
+            </ExtendedInfo>
+        </OfferingOverrides>
+
+
+
+    </ElementDefs>
+
+    <EventDefs>
+        <CustCreate Source="EVENT"
+                    Tag="CustCreate"
+                    StartEvent="/event/notification/account/create"
+                    EndEvent="/event/notification/customer/reg_complete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="AccountAttributes"
+                        OnEvent="/event/notification/customer/reg_complete"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/notification/bal_grp/create"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/purchase"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/purchase"/>
+            <SubElement Name="PurchasedProductOfferingPackageInfo"
+                        OnEvent="/event/billing/product/action/purchase"/>
+            <SubElement Name="PurchasedDiscountOfferingPackageInfo"
+                        OnEvent="/event/billing/discount/action/purchase"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/notification/service/create"/>
+            <SubElement Name="Profile"
+                        OnEvent="/event/notification/profile/create"/>
+            <SubElement Name="BillInfo"
+                        OnEvent="/event/customer/billinfo/create"/>
+            <SubElement Name="BillingState"
+                        OnEvent="/event/customer/billinfo/create"/>
+            <SubElement Name="DefaultBalGrp"
+                        OnEvent="/event/notification/customer/reg_complete"/>
+            <SubElement Name="BalancesInfo"
+                        OnEvent="/event/notification/customer/reg_complete"/>
+            <SubElement Name="ExtendedCustomerAttributes"
+                        OnEvent="/event/notification/customer/reg_complete"/>
+            <SubElement Name="ModifyGroupSharingMonitor"
+                        OnEvent="/event/group/sharing/monitor/modify"/>
+            <SubElement Name="AddOrderedBalGroup"
+                        OnEvent="/event/billing/ordered_balgrp/create"/>
+            <SubElement Name="CycleInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="CycleForwardProducts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="OfferingOverrides"
+                        OnEvent="/event/notification/offering_override/create"/>
+        </CustCreate>
+        <CustDelete Source="EVENT"
+                    Tag="CustDelete"
+                    StartEvent="/event/notification/account/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="DeletionFlag"/>
+        </CustDelete>
+        <BillInfoUpdate Source="EVENT"
+                        Tag="BillInfoUpdate"
+                        StartEvent="/event/customer/billinfo">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="AccItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="AccItemNext"/>
+        </BillInfoUpdate>
+        <ProductPurchase Source="EVENT"
+                         Tag="ProductPurchaseEvent"
+                         StartEvent="/event/billing/product/action/purchase">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/purchase"/>
+            <SubElement Name="PurchasedProductOfferingPackageInfo"
+                        OnEvent="/event/billing/product/action/purchase"/>
+            <SubElement Name="ProductOfferingOverrideValue"
+                        OnEvent="/event/billing/product/action/purchase"/>
+        </ProductPurchase>
+        <ProductInfoChange Source="EVENT"
+                           Tag="ProductInfoChange"
+                           StartEvent="/event/notification/price/products/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ProductInfo"
+                        OnEvent="/event/notification/price/products/modify"/>
+        </ProductInfoChange>
+        <DiscountInfoChange Source="EVENT"
+                            Tag="DiscountInfoChange"
+                            StartEvent="/event/notification/price/discounts/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="DiscountInfo"
+                        OnEvent="/event/notification/price/discounts/modify"/>
+        </DiscountInfoChange>
+        <SponsorshipInfoChange Source="EVENT"
+                               Tag="SponsorshipInfoChange"
+                               StartEvent="/event/notification/price/sponsorships/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="SponsorshipInfo"
+                        OnEvent="/event/notification/price/sponsorships/modify"/>
+        </SponsorshipInfoChange>
+        <ProductCancel Source="EVENT"
+                       Tag="ProductCancelEvent"
+                       StartEvent="/event/billing/product/action/cancel">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/cancel"/>
+        </ProductCancel>
+        <DiscountPurchase Source="EVENT"
+                          Tag="DiscountPurchaseEvent"
+                          StartEvent="/event/billing/discount/action/purchase">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/purchase"/>
+            <SubElement Name="PurchasedDiscountOfferingPackageInfo"
+                        OnEvent="/event/billing/discount/action/purchase"/>
+            <SubElement Name="DiscountOfferingOverrideValue"
+                        OnEvent="/event/billing/discount/action/purchase"/>
+        </DiscountPurchase>
+        <DiscountCancel Source="EVENT"
+                        Tag="DiscountCancelEvent"
+                        StartEvent="/event/billing/discount/action/cancel">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/cancel"/>
+        </DiscountCancel>
+        <AccountStatusUpdate Source="EVENT"
+                             Tag="AccountStatusUpdate"
+                             StartEvent="/event/customer/status">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="AccountClosed"
+                        OnEvent="/event/customer/status"/>
+            <SubElement Name="LifeCycleStateInfo"
+                        OnEvent="/event/customer/status"/>
+        </AccountStatusUpdate>
+        <ProductStatusUpdate Source="EVENT"
+                             Tag="ProductStatusUpdateEvent"
+                             StartEvent="/event/billing/product/action/modify/status">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ServiceInfoForProduct" OnEvent="/event/billing/product/action/modify/status"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/modify/status"/>
+        </ProductStatusUpdate>
+        <ProductModify Source="EVENT"
+                       Tag="ProductModifyEvent"
+                       StartEvent="/event/billing/product/action/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ServiceInfoForProduct" OnEvent="/event/billing/product/action/modify"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/modify"/>
+            <SubElement Name="ProductOfferingOverrideValue"
+                        OnEvent="/event/billing/product/action/purchase"/>
+        </ProductModify>
+        <ProductSetValidity Source="EVENT"
+                            Tag="ProductSetValidityEvent"
+                            StartEvent="/event/billing/product/action/set_validity">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ServiceInfoForProduct" OnEvent="/event/billing/product/action/set_validity"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/set_validity"/>
+        </ProductSetValidity>
+        <DiscountStatusUpdate Source="EVENT"
+                              Tag="DiscountStatusUpdateEvent"
+                              StartEvent="/event/billing/discount/action/modify/status">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/modify/status"/>
+        </DiscountStatusUpdate>
+        <DiscountModify Source="EVENT"
+                        Tag="DiscountModifyEvent"
+                        StartEvent="/event/billing/discount/action/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ServiceInfoForDiscount" OnEvent="/event/billing/discount/action/modify"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/modify"/>
+        </DiscountModify>
+        <DiscountSetValidity Source="EVENT"
+                             Tag="DiscountSetValidityEvent"
+                             StartEvent="/event/billing/discount/action/set_validity">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_OWNER_OBJ" Tag="OwnerObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ServiceInfoForDiscount" OnEvent="/event/billing/discount/action/set_validity"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/set_validity"/>
+        </DiscountSetValidity>
+        <CreateGroupSharingDiscounts Source="EVENT"
+                                     Tag="CreateGroupSharingDiscounts"
+                                     StartEvent="/event/group/sharing/discounts/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="GroupInfo"
+                        OnEvent="/event/group/sharing/discounts/create"/>
+            <SubElement Name="SharedDiscounts"
+                        OnEvent="/event/group/sharing/discounts/create"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/discounts/create"/>
+        </CreateGroupSharingDiscounts>
+        <ModifyGroupSharingDiscounts Source="EVENT"
+                                     Tag="ModifyGroupSharingDiscounts"
+                                     StartEvent="/event/group/sharing/discounts/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="GroupInfo"
+                        OnEvent="/event/group/sharing/discounts/modify"/>
+            <SubElement Name="SharedDiscounts"
+                        OnEvent="/event/group/sharing/discounts/modify"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/discounts/modify"/>
+        </ModifyGroupSharingDiscounts>
+        <DeleteGroupSharingDiscounts Source="EVENT"
+                                     Tag="DeleteGroupSharingDiscounts"
+                                     StartEvent="/event/group/sharing/discounts/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="SharedDiscounts"
+                        OnEvent="/event/group/sharing/discounts/delete"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/discounts/delete"/>
+        </DeleteGroupSharingDiscounts>
+        <CreateGroupSharingCharges Source="EVENT"
+                                   Tag="CreateGroupSharingCharges"
+                                   StartEvent="/event/group/sharing/charges/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="GroupInfo"
+                        OnEvent="/event/group/sharing/charges/create"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/charges/create"/>
+            <SubElement Name="Sponsors"
+                        OnEvent="/event/group/sharing/charges/create"/>
+        </CreateGroupSharingCharges>
+        <ModifyGroupSharingCharges Source="EVENT"
+                                   Tag="ModifyGroupSharingCharges"
+                                   StartEvent="/event/group/sharing/charges/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="GroupInfo"
+                        OnEvent="/event/group/sharing/charges/modify"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/charges/modify"/>
+            <SubElement Name="Sponsors"
+                        OnEvent="/event/group/sharing/charges/modify"/>
+        </ModifyGroupSharingCharges>
+        <DeleteGroupSharingCharges Source="EVENT"
+                                   Tag="DeleteGroupSharingCharges"
+                                   StartEvent="/event/group/sharing/charges/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/charges/delete"/>
+            <SubElement Name="Sponsors"
+                        OnEvent="/event/group/sharing/charges/delete"/>
+        </DeleteGroupSharingCharges>
+        <CreateGroupSharingProfiles Source="EVENT"
+                                    Tag="CreateGroupSharingProfiles"
+                                    StartEvent="/event/group/sharing/profiles/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <SubElement Name="Profiles"
+                        OnEvent="/event/group/sharing/profiles/create"/>
+        </CreateGroupSharingProfiles>
+        <ModifyGroupSharingProfiles Source="EVENT"
+                                    Tag="ModifyGroupSharingProfiles"
+                                    StartEvent="/event/group/sharing/profiles/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/profiles/modify"/>
+            <SubElement Name="Profiles"
+                        OnEvent="/event/group/sharing/profiles/modify"/>
+        </ModifyGroupSharingProfiles>
+        <DeleteGroupSharingProfiles Source="EVENT"
+                                    Tag="DeleteGroupSharingProfiles"
+                                    StartEvent="/event/group/sharing/profiles/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/profiles/delete"/>
+            <SubElement Name="Profiles"
+                        OnEvent="/event/group/sharing/profiles/delete"/>
+        </DeleteGroupSharingProfiles>
+        <AddBillingUnit Source="EVENT"
+                        Tag="AddBillingUnitEvent"
+                        StartEvent="/event/customer/billinfo/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="AccItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="AccItemNext"/>
+            <SubElement Name="BillInfo"
+                        OnEvent="/event/customer/billinfo/create"/>
+            <SubElement Name="BillingState"
+                        OnEvent="/event/customer/billinfo/create"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/customer/billinfo/create"/>
+        </AddBillingUnit>
+        <ModifyBillingUnit Source="EVENT"
+                           Tag="ModifyBillingUnitEvent"
+                           StartEvent="/event/customer/billinfo/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="AccItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="AccItemNext"/>
+            <SubElement Name="BillInfo"
+                        OnEvent="/event/customer/billinfo/modify"/>
+            <SubElement Name="BillingState"
+                        OnEvent="/event/customer/billinfo/modify"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/customer/billinfo/modify"/>
+        </ModifyBillingUnit>
+        <AddBalance Source="EVENT"
+                    Tag="AddBalEvent"
+                    StartEvent="/event/notification/bal_grp/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="BalInfo"
+                        OnEvent="/event/notification/bal_grp/create"/>
+        </AddBalance>
+        <ModifyBalance Source="EVENT"
+                       Tag="ModifyBalEvent"
+                       StartEvent="/event/notification/bal_grp/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="BalInfo"
+                        OnEvent="/event/notification/bal_grp/modify"/>
+            <SubElement Name="SubBalInfo"
+                        OnEvent="/event/notification/bal_grp/modify"/>
+        </ModifyBalance>
+
+        <ModifyTempBalance Source="EVENT"
+                       Tag="ModifyTempBalEvent"
+                       StartEvent="/event/billing/limit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="TempSubBalImpacts"
+                        OnEvent="/event/billing/limit"/>
+        </ModifyTempBalance>
+
+        <ModifyMappingTable Source="EVENT"
+                            Tag="ModifyMappingTable"
+                            StartEvent="/event/billing/mapping_table/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+        </ModifyMappingTable>
+        <AddOrderedBalanceGroup Source="EVENT"
+                                Tag="AddOrderedBalanceGroup"
+                                StartEvent="/event/billing/ordered_balgrp/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_MOD_T" Tag="ModT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <SubElement Name="BalGrpInfo"
+                        OnEvent="/event/billing/ordered_balgrp/create"/>
+        </AddOrderedBalanceGroup>
+        <ModifyOrderedBalanceGroup Source="EVENT"
+                                   Tag="ModifyOrderedBalanceGroup"
+                                   StartEvent="/event/billing/ordered_balgrp/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <SubElement Name="BalGrpInfo"
+                        OnEvent="/event/billing/ordered_balgrp/modify"/>
+        </ModifyOrderedBalanceGroup>
+        <DeleteOrderedBalanceGroup Source="EVENT"
+                                   Tag="DeleteOrderedBalanceGroup"
+                                   StartEvent="/event/billing/ordered_balgrp/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="EffectiveTime"/>
+            <SubElement Name="BalGrpInfo"
+                        OnEvent="/event/billing/ordered_balgrp/delete"/>
+        </DeleteOrderedBalanceGroup>
+        <CreateProfile Source="EVENT"
+                       Tag="CreateProfile"
+                       StartEvent="/event/notification/profile/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_PROFILE_OBJ" Tag="ProfileObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ProfileInfo" OnEvent="/event/notification/profile/create"/>
+        </CreateProfile>
+        <ModifyProfile Source="EVENT"
+                       Tag="ModifyProfile"
+                       StartEvent="/event/notification/profile/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_PROFILE_OBJ" Tag="ProfileObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ProfileInfo" OnEvent="/event/notification/profile/modify"/>
+        </ModifyProfile>
+
+        <!-- DeleteProfileInfo can be replaced with ProfileInfo once the bug 16968916 is fixed -->
+        <DeleteProfile Source="EVENT"
+                       Tag="DeleteProfile"
+                       StartEvent="/event/notification/profile/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_PROFILE_OBJ" Tag="ProfileObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="DeleteProfileInfo" OnEvent="/event/notification/profile/delete"/>
+        </DeleteProfile>
+        <UpdateServices Source="EVENT"
+                        Tag="UpdateServicesEvent"
+                        StartEvent="/event/notification/service/pre_create"
+                        EndEvent="/event/notification/service/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/purchase"/>
+            <SubElement Name="Discounts"
+                        OnEvent="/event/billing/discount/action/purchase"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/notification/service/create"/>
+            <SubElement Name="Profile"
+                        OnEvent="/event/notification/profile/create"/>
+            <SubElement Name="OfferingOverrides"
+                        OnEvent="/event/notification/offering_override/create"/>
+        </UpdateServices>
+        <ModifyService Source="EVENT"
+                       Tag="ModifyServiceEvent"
+                       StartEvent="/event/notification/service/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/notification/service/modify"/>
+        </ModifyService>
+        <DeviceReplace Source="EVENT"
+                       Tag="DeviceReplace"
+                       StartEvent="/event/device/replace">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+        </DeviceReplace>
+        <ServiceLogin Source="EVENT"
+                      Tag="ServiceLogin"
+                      StartEvent="/event/customer/login">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="Logins"
+                        OnEvent="/event/customer/login"/>
+        </ServiceLogin>
+        <BillNow Source="EVENT"
+                 Tag="BillNowEvent"
+                 StartEvent="/event/notification/service_item/bill_now">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_ITEM_POID_LIST" Tag="AccItemLast"/>
+            <Field PinFld="PIN_FLD_NEXT_ITEM_POID_LIST" Tag="AccItemNext"/>
+            <SubElement Name="BillInfo"
+                        OnEvent="/event/notification/service_item/bill_now"/>
+            <SubElement Name="Services"
+                        OnEvent="/event/notification/service_item/bill_now"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/notification/service_item/bill_now"/>
+        </BillNow>
+
+        <BillDelay Source="EVENT"
+                   Tag="BillDelay"
+                   StartEvent="/event/notification/service_item/bill_delay">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+        </BillDelay>
+        <!--
+           *
+           * New events for IntegRate Framework resource balance
+           * synchronization
+           *
+           -->
+        <EventAdjustment Source="EVENT"
+                         Tag="AccountAdjustmentEvent"
+                         StartEvent="/event/billing/adjustment/event"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/adjustment/event"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/adjustment/event"
+            />
+        </EventAdjustment>
+        <AccountAdjustment Source="EVENT"
+                           Tag="AccountAdjustmentEvent"
+                           StartEvent="/event/billing/adjustment/account"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/adjustment/account"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/adjustment/account"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/adjustment/account"
+            />
+        </AccountAdjustment>
+        <ItemDispute Source="EVENT"
+                     Tag="AccountAdjustmentEvent"
+                     StartEvent="/event/billing/dispute/item">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/dispute/item"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/dispute/item"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/dispute/item"/>
+        </ItemDispute>
+        <CancelPenalty Source="EVENT"
+                       Tag="AccountAdjustmentEvent"
+                       StartEvent="/event/billing/product/fee/cancel/penalty">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cancel/penalty"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cancel/penalty"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cancel/penalty"/>
+        </CancelPenalty>
+        <ItemAdjustment Source="EVENT"
+                        Tag="AccountAdjustmentEvent"
+                        StartEvent="/event/billing/adjustment/item"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/adjustment/item"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/adjustment/item"
+            />
+        </ItemAdjustment>
+        <TaxAdjustment Source="EVENT"
+                       Tag="AccountAdjustmentEvent"
+                       StartEvent="/event/billing/adjustment/tax_event"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/adjustment/tax_event"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/adjustment/tax_event"
+            />
+        </TaxAdjustment>
+        <CycleForward Source="EVENT"
+                      Tag="CycleForwardEvent"
+                      StartEvent="/event/notification/cycle/start"
+                      EndEvent="/event/notification/cycle/end">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual" />
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="CycleEndBillInfo"
+                        OnEvent="/event/notification/service_item/make_bill_start"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/fold"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/fold"/>
+            <SubElement Name="CycleInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="CycleForwardProducts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+        </CycleForward>
+        <AccountWriteOff Source="EVENT"
+                         Tag="AccountWriteOffEvent"
+                         StartEvent="/event/billing/writeoff/billinfo"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/writeoff/billinfo"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/writeoff/billinfo"
+            />
+        </AccountWriteOff>
+        <AccountBillWriteOff Source="EVENT"
+                             Tag="AccountBillWriteOffEvent"
+                             StartEvent="/event/billing/writeoff/bill"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/writeoff/bill"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/writeoff/bill"
+            />
+        </AccountBillWriteOff>
+        <CreditCardPymt Source="EVENT"
+                        Tag="CreditCardPymtEvent"
+                        StartEvent="/event/billing/payment/cc"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/cc"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/cc"
+            />
+        </CreditCardPymt>
+        <VoucherTopUp Source="EVENT"
+                      Tag="VoucherTopUpEvent"
+                      StartEvent="/event/billing/payment/voucher"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/voucher"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/voucher"
+            />
+        </VoucherTopUp>
+        <VoucherTopUp Source="EVENT"
+                      Tag="VoucherTopUpEvent"
+                      StartEvent="/event/billing/vouchertopup"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/vouchertopup"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/vouchertopup"
+            />
+        </VoucherTopUp>
+        <CashPymt Source="EVENT"
+                  Tag="CashPymtEvent"
+                  StartEvent="/event/billing/payment/cash"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/cash"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/cash"
+            />
+        </CashPymt>
+        <WireTransfer Source="EVENT"
+                      Tag="WireTransferEvent"
+                      StartEvent="/event/billing/payment/wtransfer"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/wtransfer"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/wtransfer"
+            />
+        </WireTransfer>
+        <CheckPymt Source="EVENT"
+                   Tag="CheckPymtEvent"
+                   StartEvent="/event/billing/payment/check"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/check"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/check"
+            />
+        </CheckPymt>
+        <DirectDebitPymt Source="EVENT"
+                         Tag="DirectDebitPymtEvent"
+                         StartEvent="/event/billing/payment/dd"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/dd"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/dd"
+            />
+        </DirectDebitPymt>
+        <PostalOrderPymt Source="EVENT"
+                         Tag="PostalOrderPymtEvent"
+                         StartEvent="/event/billing/payment/postalorder"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/postalorder"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/postalorder"
+            />
+        </PostalOrderPymt>
+        <SepaPymt Source="EVENT"
+                  Tag="SepaPymtEvent"
+                  StartEvent="/event/billing/payment/sepa"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/payment/sepa"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/payment/sepa"
+            />
+        </SepaPymt>
+        <AccountBillItemWriteOff Source="EVENT"
+                                 Tag="AccountBillItemWriteOffEvent"
+                                 StartEvent="/event/billing/writeoff/item"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/writeoff/item"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/writeoff/item"
+            />
+        </AccountBillItemWriteOff>
+        <AccountBillItemWriteOffTax Source="EVENT"
+                                    Tag="AccountBillItemWriteOffTaxEvent"
+                                    StartEvent="/event/billing/writeoff/tax_item"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/writeoff/tax_item"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/writeoff/tax_item"
+            />
+        </AccountBillItemWriteOffTax>
+        <AccountBillDiscount Source="EVENT"
+                             Tag="AccountDiscountEvent"
+                             StartEvent="/event/billing/cycle/discount"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/discount"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/discount"
+            />
+        </AccountBillDiscount>
+        <CreditCardPayRev Source="EVENT"
+                          Tag="CreditCardPayRevEvent"
+                          StartEvent="/event/billing/reversal/cc"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/reversal/cc"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/reversal/cc"
+            />
+        </CreditCardPayRev>
+        <DDPayRev Source="EVENT"
+                          Tag="DDPayRevEvent"
+                          StartEvent="/event/billing/reversal/dd"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/reversal/dd"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/reversal/dd"
+            />
+        </DDPayRev>
+        <CheckPayRev Source="EVENT"
+                  Tag="CheckPayRevEvent"
+                  StartEvent="/event/billing/reversal/check"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/reversal/check"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/reversal/check"
+            />
+        </CheckPayRev>
+        <CashPayRev Source="EVENT"
+                     Tag="CashPayRevEvent"
+                     StartEvent="/event/billing/reversal/cash"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/reversal/cash"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/reversal/cash"
+            />
+        </CashPayRev>
+        <SepaPayRev Source="EVENT"
+                    Tag="SepaPayRevEvent"
+                    StartEvent="/event/billing/reversal/sepa"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/reversal/sepa"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/reversal/sepa"
+            />
+        </SepaPayRev>
+
+        <CreditCardPayRef Source="EVENT"
+                          Tag="CreditCardPayRefEvent"
+                          StartEvent="/event/billing/refund/cc"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/refund/cc"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/refund/cc"
+            />
+        </CreditCardPayRef>
+        <DDPayRef Source="EVENT"
+                  Tag="DDPayRefEvent"
+                  StartEvent="/event/billing/refund/dd"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/refund/dd"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/refund/dd"
+            />
+        </DDPayRef>
+        <CheckPayRef Source="EVENT"
+                     Tag="CheckPayRefEvent"
+                     StartEvent="/event/billing/refund/check"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/refund/check"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/refund/check"
+            />
+        </CheckPayRef>
+        <CashPayRef Source="EVENT"
+                    Tag="CashPayRefEvent"
+                    StartEvent="/event/billing/refund/cash"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/refund/cash"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/refund/cash"
+            />
+        </CashPayRef>
+        <SepaPayRef Source="EVENT"
+                    Tag="SepaPayRefEvent"
+                    StartEvent="/event/billing/refund/sepa"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/refund/sepa"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/refund/sepa"
+            />
+        </SepaPayRef>
+
+        <ResourceAdjustmentCredit Source="EVENT"
+                                  Tag="ResourceAdjustmentCredit"
+                                  StartEvent="/event/billing/credit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_PROGRAM_NAME" Tag="ProgramName"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/credit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/credit"/>
+        </ResourceAdjustmentCredit>
+        <ResourceAdjustmentDebit Source="EVENT"
+                                 Tag="ResourceAdjustmentDebit"
+                                 StartEvent="/event/billing/debit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_PROGRAM_NAME" Tag="ProgramName"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/debit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/debit"/>
+        </ResourceAdjustmentDebit>
+        <CycleForward Source="EVENT"
+                      Tag="CycleForwardEvent"
+                      StartEvent="/event/notification/billing/start"
+                      EndEvent="/event/notification/billing/end">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Attribute Tag="BusinessEvent" Value="Billing"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="BalanceGrpInfo"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="BillInfo"
+                        OnEvent="/event/notification/service_item/make_bill"/>
+            <SubElement Name="SubBalAudits"
+                        OnEvent="/event/billing/sub_bal_validity"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="Service"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="CycleEndBillInfo"
+                        OnEvent="/event/notification/service_item/make_bill_start"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/tax"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/tax"/>
+            <SubElement Name="Services"
+                        OnEvent="/event/notification/service_item/make_bill"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/fold"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/fold"/>
+        </CycleForward>
+        <CycleRollover Source="EVENT"
+                       Tag="CycleRolloverEvent"
+                       StartEvent="/event/notification/billing/start"
+                       EndEvent="/event/notification/billing/end">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="BillInfo"
+                        OnEvent="/event/notification/service_item/make_bill"/>
+        </CycleRollover>
+        <CycleFold Source="EVENT"
+                   Tag="CycleFoldEvent"
+                   StartEvent="/event/notification/billing/start"
+                   EndEvent="/event/notification/billing/end">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/fold"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/fold"/>
+        </CycleFold>
+        
+        <PartialBilling Source="EVENT"
+                        Tag="PartialBilling"
+                        StartEvent="/event/notification/billing/start_partial"
+                        EndEvent="/event/notification/billing/end_partial">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Attribute Tag="BusinessEvent" Value="PartialBilling"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_monthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_bimonthly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_quarterly"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_semiannual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_annual"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_forward_arrear"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/cycle/rollover/monthly"/>
+            <SubElement Name="CycleEndBillInfo"
+                        OnEvent="/event/notification/service_item/make_bill_start"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/action/modify/status"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cycle/cycle_arrear"/>
+        </PartialBilling>
+
+        <Purchase Source="EVENT"
+                  Tag="PurchaseEvent"
+                  StartEvent="/event/billing/product/fee/purchase">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/purchase"/>
+        </Purchase>
+        <BalanceTransferFee Source="EVENT"
+                            Tag="BalanceTransferFeeEvent"
+                            StartEvent="/event/billing/fee/balance_transfer">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/fee/balance_transfer"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/fee/balance_transfer"/>
+        </BalanceTransferFee>
+        <TopUp Source="EVENT"
+               Tag="TopUpEvent"
+               StartEvent="/event/billing/topup">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/topup"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/topup"/>
+        </TopUp>
+        <LoanFee Source="EVENT"
+                 Tag="LoanFeeEvent"
+                 StartEvent="/event/billing/loan_fee">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_fee"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_fee"/>
+        </LoanFee>
+        <LoanDebit Source="EVENT"
+                   Tag="LoanDebitEvent"
+                   StartEvent="/event/billing/loan_debit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_debit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_debit"/>
+        </LoanDebit>
+        <LoanCredit Source="EVENT"
+                    Tag="LoanCreditEvent"
+                    StartEvent="/event/billing/loan_credit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_credit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_credit"/>
+        </LoanCredit>
+        <LoanGrant Source="EVENT"
+                   Tag="LoanGrantEvent"
+                   StartEvent="/event/billing/loan_grant">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_grant"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_grant"/>
+        </LoanGrant>
+        <LoanRecovery Source="EVENT"
+                   Tag="LoanRecoveryEvent"
+                   StartEvent="/event/billing/loan_recovery">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_recovery"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_recovery"/>
+        </LoanRecovery>
+        <LoanRecoveryReversal Source="EVENT"
+                   Tag="LoanRecoveryReversalEvent"
+                   StartEvent="/event/billing/loan_recovery_reversal">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_recovery_reversal"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_recovery_reversal"/>
+        </LoanRecoveryReversal>
+        <LoanPullback Source="EVENT"
+                   Tag="LoanPullbackEvent"
+                   StartEvent="/event/billing/loan_pullback">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_pullback"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_pullback"/>
+        </LoanPullback>
+        <LoanLateFee Source="EVENT"
+                   Tag="LoanLateFeeEvent"
+                   StartEvent="/event/billing/loan_late_fee">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/loan_late_fee"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/loan_late_fee"/>
+        </LoanLateFee>
+        <DepositInterestCredit Source="EVENT"
+                    Tag="DepositInterestCreditEvent"
+                    StartEvent="/event/billing/deposit/interest/credit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/deposit/interest/credit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/deposit/interest/credit"/>
+        </DepositInterestCredit>
+        <PurchaseFeeDeposit Source="EVENT"
+                    Tag="PurchaseFeeDepositEvent"
+                    StartEvent="/event/billing/product/fee/purchase/deposit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase/deposit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase/deposit"/>
+        </PurchaseFeeDeposit>
+        <DepositReversal Source="EVENT"
+                    Tag="DepositReversalEvent"
+                    StartEvent="/event/billing/deposit/reversal">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/deposit/reversal"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/deposit/reversal"/>
+        </DepositReversal>
+        <PurchaseFeeDepositRefund Source="EVENT"
+                    Tag="PurchaseFeeDepositRefundEvent"
+                    StartEvent="/event/billing/product/fee/purchase/deposit/refund">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase/deposit/refund"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/purchase/deposit/refund"/>
+        </PurchaseFeeDepositRefund>
+        <DepositInterestDebit Source="EVENT"
+                    Tag="DepositInterestDebitEvent"
+                    StartEvent="/event/billing/deposit/interest/debit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/deposit/interest/debit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/deposit/interest/debit"/>
+        </DepositInterestDebit>
+        <InstallmentDebit Source="EVENT"
+                    Tag="InstallmentDebitEvent"
+                    StartEvent="/event/billing/installment/debit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/installment/debit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/installment/debit"/>
+        </InstallmentDebit>
+        <InstallmentCredit Source="EVENT"
+                    Tag="InstallmentCreditEvent"
+                    StartEvent="/event/billing/installment/credit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/installment/credit"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/installment/credit"/>
+        </InstallmentCredit>
+
+        <OfferingOverrideModify Source="EVENT"
+                                Tag="OfferingOverrideModifyEvent"
+                                StartEvent="/event/notification/offering_override/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="OfferingOverrides"
+                        OnEvent="/event/notification/offering_override/modify"/>
+        </OfferingOverrideModify>
+        <OfferingOverrideDelete Source="EVENT"
+                                Tag="OfferingOverrideDeleteEvent"
+                                StartEvent="/event/notification/offering_override/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="OfferingOverrides"
+                        OnEvent="/event/notification/offering_override/delete"/>
+        </OfferingOverrideDelete>
+        <Cancel Source="EVENT"
+                Tag="CancelEvent"
+                StartEvent="/event/billing/product/fee/cancel">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/billing/product/fee/cancel"/>
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/billing/product/fee/cancel"/>
+            <SubElement Name="Products"
+                        OnEvent="/event/billing/product/fee/cancel"/>
+        </Cancel>
+        <RecycleRequest Source="EVENT"
+                        Tag="RecycleRequest"
+                        StartEvent="/event/notification/suspense/recycle">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_ACTIONS" Tag="Actions"/>
+        </RecycleRequest>
+        <ResubmitBatchRequest Source="EVENT"
+                              Tag="ResubmitBatchRequest"
+                              StartEvent="/event/notification/suspense/batch_resubmit">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_ACTIONS" Tag="Actions"/>
+        </ResubmitBatchRequest>
+        <ModifySubBalValidity Source="EVENT"
+                              Tag="ModifySubBalValidity"
+                              StartEvent="/event/billing/sub_bal_validity">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="SubBalAudits"
+                        OnEvent="/event/billing/sub_bal_validity"/>
+        </ModifySubBalValidity>
+        <LineTransfer Source="EVENT"
+                      Tag="LineTransfer"
+                      StartEvent="/event/audit/subscription/transfer">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="LineAccount"
+                        OnEvent="/event/audit/subscription/transfer"/>
+            <SubElement Name="LineDevices"
+                        OnEvent="/event/audit/subscription/transfer"/>
+            <SubElement Name="LineServices"
+                        OnEvent="/event/audit/subscription/transfer"/>
+            <SubElement Name="LineProfiles"
+                        OnEvent="/event/audit/subscription/transfer"/>
+            <SubElement Name="LineBalanceGroups"
+                        OnEvent="/event/audit/subscription/transfer"/>
+        </LineTransfer>
+        <HoldCDRProcessing Source="EVENT"
+                           Tag="HoldCDRProcessing"
+                           StartEvent="/event/notification/amt/HoldCDRProcessing">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="AmtJobId"/>
+            <Field PinFld="PIN_FLD_SRC_DATABASE" Tag="AmtSrcDB"/>
+            <Field PinFld="PIN_FLD_DEST_DATABASE" Tag="AmtDestDB"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="AmtString"/>
+            <SubElement Name="JobBatches"
+                        OnEvent="/event/notification/amt/HoldCDRProcessing"/>
+        </HoldCDRProcessing>
+        <ResumeCDRProcessing Source="EVENT"
+                             Tag="ResumeCDRProcessing"
+                             StartEvent="/event/notification/amt/ResumeCDRProcessing">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="AmtJobId"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="AmtString"/>
+            <Field PinFld="PIN_FLD_SRC_DATABASE" Tag="AmtSrcDB"/>
+            <Field PinFld="PIN_FLD_DEST_DATABASE" Tag="AmtDestDB"/>
+            <SubElement Name="JobBatches"
+                        OnEvent="/event/notification/amt/ResumeCDRProcessing"/>
+        </ResumeCDRProcessing>
+        <MigrateAcct Source="EVENT"
+                     Tag="MigrateAcct"
+                     StartEvent="/event/notification/amt/MigrateAcct">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="AmtJobId"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="AmtString"/>
+            <Field PinFld="PIN_FLD_SRC_DATABASE" Tag="AmtSrcDB"/>
+            <Field PinFld="PIN_FLD_DEST_DATABASE" Tag="AmtDestDB"/>
+            <SubElement Name="JobBatches"
+                        OnEvent="/event/notification/amt/MigrateAcct"/>
+        </MigrateAcct>
+        <MigrateSource Source="EVENT"
+                       Tag="MigrateSource"
+                       StartEvent="/event/notification/amt/MigrateSource">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="AmtJobId"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="AmtString"/>
+            <Field PinFld="PIN_FLD_SRC_DATABASE" Tag="AmtSrcDB"/>
+            <Field PinFld="PIN_FLD_DEST_DATABASE" Tag="AmtDestDB"/>
+            <SubElement Name="JobBatches"
+                        OnEvent="/event/notification/amt/MigrateSource"/>
+        </MigrateSource>
+        <MigrateDestination Source="EVENT"
+                            Tag="MigrateDestination"
+                            StartEvent="/event/notification/amt/MigrateDestination">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="AmtJobId"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="AmtString"/>
+            <Field PinFld="PIN_FLD_SRC_DATABASE" Tag="AmtSrcDB"/>
+            <Field PinFld="PIN_FLD_DEST_DATABASE" Tag="AmtDestDB"/>
+            <SubElement Name="JobBatches"
+                        OnEvent="/event/notification/amt/MigrateDestination"/>
+        </MigrateDestination>
+        <PrepareToRerate Source="EVENT"
+                         Tag="PrepareToRerate"
+                         StartEvent="/event/notification/rerating/PrepareToRerate">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="ReratingJobId"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="ReratingString"/>
+            <SubElement Name="ReratingAccounts"
+                        OnEvent="/event/notification/rerating/PrepareToRerate"/>
+        </PrepareToRerate>
+        <ReratingDeltaBalances Source="EVENT"
+                               Tag="ReratingDeltaBalancesEvent"
+                               StartEvent="/event/notification/rerating/delta_balances"
+        >
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_FLAGS" Tag="EventFlag"/>
+            <SubElement Name="BalImpacts"
+                        OnEvent="/event/notification/rerating/delta_balances"
+            />
+            <SubElement Name="SubBalImpacts"
+                        OnEvent="/event/notification/rerating/delta_balances"
+            />
+        </ReratingDeltaBalances>
+        <Rerating Source="EVENT"
+                  Tag="Rerating"
+                  StartEvent="/event/notification/rerating/start"
+                  EndEvent="/event/notification/rerating/end">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+        </Rerating>
+        <ReratingCompleted Source="EVENT"
+                           Tag="ReratingCompleted"
+                           StartEvent="/event/notification/rerating/ReratingCompleted">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_START_T" Tag="StartT"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_JOB_OBJ" Tag="ReratingJobId"/>
+            <Field PinFld="PIN_FLD_STRING" Tag="ReratingString"/>
+            <SubElement Name="ReratedAccounts" OnEvent="/event/notification/rerating/ReratingCompleted"/>
+        </ReratingCompleted>
+        <CreateGroupSharingMonitors Source="EVENT"
+                                    Tag="CreateGroupSharingMonitors"
+                                    StartEvent="/event/group/sharing/monitor/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="GroupName"/>
+        </CreateGroupSharingMonitors>
+        <ModifyGroupSharingMonitors Source="EVENT"
+                                    Tag="ModifyGroupSharingMonitors"
+                                    StartEvent="/event/group/sharing/monitor/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="GroupName"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/monitor/modify"/>
+        </ModifyGroupSharingMonitors>
+        <DeleteGroupSharingMonitors Source="EVENT"
+                                    Tag="DeleteGroupSharingMonitors"
+                                    StartEvent="/event/group/sharing/monitor/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_NAME" Tag="GroupName"/>
+        </DeleteGroupSharingMonitors>
+        <TailorMadeProductCreate Source="EVENT"
+                                 Tag="TailorMadeProductCreate"
+                                 StartEvent="/event/notification/price/tailormade_products/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <SubElement Name="TailorMadeProductInfo"
+                        OnEvent="/event/notification/price/tailormade_products/create"/>
+        </TailorMadeProductCreate>
+
+        <TailorMadeProductModify Source="EVENT"
+                                 Tag="TailorMadeProductModify"
+                                 StartEvent="/event/notification/price/tailormade_products/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <SubElement Name="TailorMadeProductInfo"
+                        OnEvent="/event/notification/price/tailormade_products/modify"/>
+        </TailorMadeProductModify>
+
+        <CustUpdate Source="EVENT"
+                    Tag="CustUpdate"
+                    StartEvent="/event/audit/customer/account">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_CURRENCY" Tag="PrimaryCurrency"/>
+            <Field PinFld="PIN_FLD_CURRENCY_SECONDARY" Tag="SecondaryCurrency"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="ExtendedCustomerAttributes"
+                        OnEvent="/event/audit/customer/account"/>
+        </CustUpdate>
+        <ServiceBalanceGroupTransfer Source="EVENT"
+                                     Tag="ServiceBalanceGroupTransfer"
+                                     StartEvent="/event/notification/service_balgrp_transfer/data">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="LineAccount"
+                        OnEvent="/event/notification/service_balgrp_transfer/data"/>
+            <SubElement Name="LineServices"
+                        OnEvent="/event/notification/service_balgrp_transfer/data"/>
+            <SubElement Name="TransferBalanceGroups"
+                        OnEvent="/event/notification/service_balgrp_transfer/data"/>
+        </ServiceBalanceGroupTransfer>
+
+        <OfferProfileCreate Source="EVENT"
+                            Tag="OfferProfileCreate"
+                            StartEvent="/event/notification/offer_profile/create">
+            <Attribute Tag="InstanceId" Value="BRM"/>
+            <Attribute Tag="xmlns" Value="http://xmlns.oracle.com/communications/schemas/IPC"/>
+            <Attribute Tag="xmlns:xsi" Value="http://www.w3.org/2001/XMLSchema-instance"/>
+            <Attribute Tag="xsi:schemaLocation"
+                       Value="http://xmlns.oracle.com/communications/schemas/IPC/OfferProfileCreate.xsd"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="account_obj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="OfferProfileInfo"
+                        OnEvent="/event/notification/offer_profile/create"/>
+        </OfferProfileCreate>
+
+        <OfferProfileUpdate Source="EVENT"
+                            Tag="OfferProfileUpdate"
+                            StartEvent="/event/notification/offer_profile/update">
+            <Attribute Tag="InstanceId" Value="BRM"/>
+            <Attribute Tag="xmlns" Value="http://xmlns.oracle.com/communications/schemas/IPC"/>
+            <Attribute Tag="xmlns:xsi" Value="http://www.w3.org/2001/XMLSchema-instance"/>
+            <Attribute Tag="xsi:schemaLocation"
+                       Value="http://xmlns.oracle.com/communications/schemas/IPC/OfferProfileUpdate.xsd"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="account_obj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="OfferProfileInfo"
+                        OnEvent="/event/notification/offer_profile/update"/>
+        </OfferProfileUpdate>
+
+        <OfferProfileDelete Source="EVENT"
+                            Tag="OfferProfileDelete"
+                            StartEvent="/event/notification/offer_profile/delete">
+            <Attribute Tag="InstanceId" Value="BRM"/>
+            <Attribute Tag="xmlns" Value="http://xmlns.oracle.com/communications/schemas/IPC"/>
+            <Attribute Tag="xmlns:xsi" Value="http://www.w3.org/2001/XMLSchema-instance"/>
+            <Attribute Tag="xsi:schemaLocation"
+                       Value="http://xmlns.oracle.com/communications/schemas/IPC/OfferProfileDelete.xsd"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="account_obj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="OfferProfileInfo"
+                        OnEvent="/event/notification/offer_profile/delete"/>
+        </OfferProfileDelete>
+
+        <BalanceTransfer Source="EVENT"
+                         Tag="BalanceTransfer"
+                         StartEvent="/event/notification/billing/item/transfer">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_POID" Tag="Poid"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="account_obj"/>
+            <Field PinFld="PIN_FLD_BAL_GRP_OBJ" Tag="BalGrpObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_PROGRAM_NAME" Tag="ProgramName"/>
+            <Field PinFld="PIN_FLD_CURRENCY" Tag="Currency"/>
+            <Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+            <SubElement Name="TransferBalance"
+                        OnEvent="/event/notification/billing/item/transfer"/>
+        </BalanceTransfer>
+
+        <CreateTopUp Source="EVENT"
+                     Tag="CreateTopUp"
+                     StartEvent="/event/notification/topup/create">
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="CreateTopUpInfo"
+                        OnEvent="/event/notification/topup/create"/>
+        </CreateTopUp>
+
+        <DeleteTopUp Source="EVENT"
+                     Tag="DeleteTopUp"
+                     StartEvent="/event/notification/topup/delete">
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement  Name="DeleteTopUpInfo"
+                         OnEvent="/event/notification/topup/delete"/>
+        </DeleteTopUp>
+
+        <CreateGroupSharingProducts Source="EVENT"
+                                     Tag="CreateGroupSharingProducts"
+                                     StartEvent="/event/group/sharing/products/create">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="SharedProducts"
+                        OnEvent="/event/group/sharing/products/create"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/products/create"/>
+        </CreateGroupSharingProducts>
+
+        <ModifyGroupSharingProducts Source="EVENT"
+                                    Tag="ModifyGroupSharingProducts"
+                                    StartEvent="/event/group/sharing/products/modify">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="SharedProducts"
+                        OnEvent="/event/group/sharing/products/modify"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/products/modify"/>
+        </ModifyGroupSharingProducts>
+
+        <DeleteGroupSharingProducts Source="EVENT"
+                                    Tag="DeleteGroupSharingProducts"
+                                    StartEvent="/event/group/sharing/products/delete">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <Field PinFld="PIN_FLD_GROUP_OBJ" Tag="GroupObj"/>
+            <Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+            <SubElement Name="SharedProducts"
+                        OnEvent="/event/group/sharing/products/delete"/>
+            <SubElement Name="GroupMembers"
+                        OnEvent="/event/group/sharing/products/delete"/>
+        </DeleteGroupSharingProducts>
+
+        <ModifyMonitorBalance Source="EVENT"
+                              Tag="ModifyMonitorBalanceEvent"
+                              StartEvent="/event/billing/monitor/update">
+            <Attribute Tag="Version" Value="1.0"/>
+            <Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+            <Field PinFld="PIN_FLD_END_T" Tag="EndT"/>
+            <SubElement Name="MonitorBalImpacts"
+                        OnEvent="/event/billing/monitor/update"/>
+            <SubElement Name="MonitorSubBalImpacts"
+                        OnEvent="/event/billing/monitor/update"/>
+        </ModifyMonitorBalance>
+
+    </EventDefs>
+</PayloadConfig>
+

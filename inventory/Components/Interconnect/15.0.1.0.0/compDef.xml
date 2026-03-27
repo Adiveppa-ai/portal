@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="Interconnect" version="15.0.1.0.0" description="Interconnect Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="ifw.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="releaseNotes" mode="750" patchable="true">
+         <file size="10467" dest="RELEASE_NOTES.DAT_InterConnect" mode="0664"/>
+         <file size="3586" dest="RELEASE_NOTES.DAT_Tadig2Plmn" mode="0664"/>
+         <file size="9587" dest="RELEASE_NOTES.FCT_CarrierIcRating" mode="0664"/>
+         <file size="2868" dest="RELEASE_NOTES.FCT_Tadig2Plmn" mode="0664"/>
+         <file-perms>
+            <permission mode="0664" wildcard="RELEASE_NOTES.DAT_Tadig2Plmn"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.DAT_InterConnect"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_CarrierIcRating"/>
+            <permission mode="0664" wildcard="RELEASE_NOTES.FCT_Tadig2Plmn"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="115976" dest="libDAT_Tadig2Plmn.so" mode="0664"/>
+         <file size="339424" dest="libDAT_InterConnect.so" mode="0664"/>
+         <file size="155160" dest="libFCT_CarrierIcRating.so" mode="0664"/>
+         <file size="106064" dest="libFCT_Tadig2Plmn.so" mode="0664"/>
+      </directory>
+   </file-map>
+</component-def>

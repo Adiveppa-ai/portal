@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="CMT_Balances.xsd"/>
+	<xs:include schemaLocation="CMT_Types.xsd"/>
+	<!-- Extension schemas -->
+	<xs:include schemaLocation="serviceExtensions.xsd"/>
+	<xs:include schemaLocation="serviceTelcoGSMExtension.xsd"/>
+	<xs:include schemaLocation="payinfoExtensions.xsd"/>
+	<xs:include schemaLocation="payinfoCreditCardExtension.xsd"/>
+	<xs:include schemaLocation="payinfoDebitCardExtension.xsd"/>
+	<xs:include schemaLocation="payinfoInvoiceExtension.xsd"/>
+	<xs:include schemaLocation="promotionExtensions.xsd"/>
+	<xs:include schemaLocation="promotionAccountLevelExtension.xsd"/>
+	<xs:include schemaLocation="promotionServiceLevelExtension.xsd"/>
+	<xs:include schemaLocation="deviceExtensions.xsd"/>
+	<xs:include schemaLocation="deviceNUMExtension.xsd"/>
+	<xs:include schemaLocation="deviceSIMExtension.xsd"/>
+	<xs:element name="Subscribers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AccountSubscriber" type="Subscriber" maxOccurs="unbounded"/>
+				<xs:element name="SubcriptionParams" type="SubcriptionParamsType" minOccurs="0" maxOccurs="1" nillable="false"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SubcriptionParamsType">
+		<xs:sequence>
+			<xs:element name="FldPlanObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Subscriber">
+	   <xs:sequence>
+		<xs:element name="AccountSubscriptions" type="Subscriptions" minOccurs="1" maxOccurs="1" nillable="false"/>
+		<xs:element name="PurchasedProduct" type="PurchasedProductType" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="PurchasedDiscount" type="PurchasedDiscountType" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="OfferingOverride" type="OfferingOverrideType" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="PurchasedBundle" type="PurchasedBundleType" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="AccountDevices" type="Devices" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="AccountBillinfo" type="Billinfo" minOccurs="1" maxOccurs="unbounded"/>
+		<xs:element name="AccountPayinfo" type="Payinfo" minOccurs="1" maxOccurs="unbounded"/>
+		<xs:element name="AccountBalances" type="AccountBalancesType" minOccurs="0" maxOccurs="1"/>
+	   </xs:sequence>
+	   <xs:attribute name="parenRef" type="Id" use="optional"/>
+	   <xs:attribute name="id" type="Id" use="required"/>
+	   <xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+	   <!-- global attribute signifies user permission to read or write the object -->	
+	   <xs:attribute name="PayingParentRef" type="Id" use="optional"/>
+	   <xs:attribute name="isParent" type="YesOrNo" use="optional"/>
+	   <xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>
+	   <!-- Count of the number of members in the members array of class /group -->
+	   <xs:attribute name="bal_grp_name" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="PurchasedProductType">
+		<xs:sequence>
+			<xs:element name="FldCycleDiscount" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldCycleDiscAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldCycleFeeAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldCycleEndT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="FldCycleEndDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldCycleStartT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldCycleStartDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldDealObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldPlanObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldProductObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldPurchaseDiscount" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldPurchaseDiscAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldPurchaseFeeAmt" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldPurchaseEndT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="FldPurchaseEndDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldPurchaseStartT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldPurchaseStartDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldProductsStatus" type="ProductsStatus" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldUsageDiscount" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldQuantity" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldUsageEndT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="FldUsageEndDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldUsageStartT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldUsageStartDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldStFlags" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldFlag" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EffctT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PurchasedProductCycleFees" type="PurchasedProductCycleType" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="FldPriceListName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldRetryCount" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldNextRetryT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldCalendarDom" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldGracePeriod" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldRenewalMode" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldBaseProductObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="OfferingOverrideRef" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="xs:string" use="optional"/>
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+	        <xs:attribute name="bundleRef" type="xs:string" use="optional"/>
+	</xs:complexType>
+        <xs:complexType name="PurchasedProductCycleType">
+                <xs:sequence>
+                        <xs:element name="ChargedFrom" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="ChargedTo" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="CycleFeeStart" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="CycleFeeEnd" type="xs:dateTime" minOccurs="1" maxOccurs="1"  />
+                        <xs:element name="Unit" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="Count" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+        </xs:complexType>
+	<xs:complexType name="PurchasedDiscountType">
+		<xs:sequence>
+			<xs:element name="FldCycleEndT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="FldCycleEndDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldCycleStartT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldCycleStartDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldDealObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldPlanObj" type="Poid" minOccurs="0" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldDiscountObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldPurchaseEndT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="FldPurchaseEndDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldPurchaseStartT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldPurchaseStartDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldQuantity" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldDiscountsStatus" type="ProductsStatus" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldUsageEndT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="FldUsageEndDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldUsageStartT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldUsageStartDetails" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldStFlags" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldFlag" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EffctT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OfferingOverrideRef" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldGracePeriod" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="xs:string" use="optional"/>
+		<xs:attribute name="pkgId" type="xs:string" use="required"/>
+		<xs:attribute name="bundleRef" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<!-- OfferingOverrideValues -->
+	<xs:complexType name="OfferingOverrideType">
+		<xs:sequence>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldModT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OfferingOverrideUsagemap" type="OfferingOverrideUsagemapType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="offeringRef" type="xs:string" use="required"/>
+		<xs:attribute name="offeringTypeRef" type="xs:string" use="required"/>
+	</xs:complexType>
+	<!-- OfferingOverrideUsagemap -->
+	<xs:complexType name="OfferingOverrideUsagemapType">
+		<xs:sequence>
+			<xs:element name="FldEndT" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldEventType" type="Event" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Date_ranges" type="DateRanges" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateRanges">
+		<xs:sequence>
+			<xs:element name="Start_t" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="End_t" type="dateTime-or-zero" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Price_tags" type="PriceTags" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PriceTags">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Amount" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Percent" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchasedBundleType">
+		<xs:sequence>
+			<xs:element name="FldName" type="xs:string" minOccurs="0" maxOccurs="1"/> 
+                        <xs:element name="FldDescr" type="xs:string" minOccurs="0" maxOccurs="1"/> 
+                        <xs:element name="FldVldFrm" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldVldTo" type="xs:dateTime" minOccurs="0" maxOccurs="1"/> 
+                        <xs:element name="FldStatus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Subscriptions">
+		<xs:sequence>
+			<xs:element name="AccountService" type="Service" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Service">
+	    <xs:sequence>
+		<xs:element name="FldCloseWhenT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="FldLogin" minOccurs="1" maxOccurs="1" nillable="false">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="255"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:element>
+		<xs:element name="FldPassword" minOccurs="1" maxOccurs="1" nillable="false">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="255"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:element>
+		<xs:element name="FldServiceStatus" type="ServiceStatus" default="A" minOccurs="1" maxOccurs="1"/>
+		<xs:element name="FldLifeCycleState" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="FldLastStatusT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="FldEffectiveT" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+		<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="FldSubscriptionObject" type="Id" minOccurs="0" maxOccurs="1"/>
+		<xs:element name="ServiceAliasListArray" type="AliasListArray" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceGroupSharingDisc" type="GroupSharingDiscount" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceGroupSharingCharge" type="GroupSharingCharge" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceMembersOfGroupSharing" type="MemberOfGroupCharge" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceMembersOfGroupDiscount" type="MemberOfGroupDiscount" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="SrvAACAccess" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACPkg" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACPromo" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACSerial" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACSrc" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="SrvAACVen" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                                <xs:maxLength value="60"/>
+                                        </xs:restriction>
+                                </xs:simpleType>
+                        </xs:element>
+		<xs:element name="DeviceRefArr" minOccurs="1" maxOccurs="unbounded">
+		<xs:element name="StateExpirationT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="DeviceRef" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="SubClassInfo" minOccurs="0" maxOccurs="1">
+		<!-- This element is mandatory for Telco GSM Extensions. Optional for other Service types. -->
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="ServiceExtension" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="ServiceLevelPromotion" type="Promotion" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceGroupSharingProfile" type="GroupSharingProfile" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceMembersOfProfileSharing" 
+			type="MemberOfProfileSharing" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceID" type="xs:string" minOccurs="O" maxOccurs="1"/>
+		<xs:element name="ServiceGroupSharingProd" type="GroupSharingProduct" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element name="ServiceMembersOfGroupProduct" type="MemberOfGroupProduct" minOccurs="0" maxOccurs="unbounded"/>
+		<!-- The service status will be deafulted to 'active' -->
+		<!-- The subscription object is the reference of the service -->
+	    </xs:sequence>
+	    <xs:attribute name="id" type="Id" use="required"/>
+	    <xs:attribute name="type" type="xs:string" use="required"/>
+	    <xs:attribute name="precreate" type="xs:string" use="optional" default="/item/misc "/>
+	    <xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+	    <!-- global attribute signifies user permission to read or write the object -->	
+            <xs:attribute name="bal_grp" type="xs:string" use="optional" default="false"/>
+            <xs:attribute name="skip_bal_grp_crt" type="xs:string" use="optional" default="false"/>
+            <xs:attribute name="bal_grp_name" type="xs:string" use="optional"/>
+	    <xs:attribute name="billInfoElem" type="xs:integer" use="optional"/>
+	    <!-- type is the type of service like /service/telco/gsm -->
+	    <!-- Service type like /service/telco/gsm -->
+	    <!-- precreate used for creating service level item defualt value = /item/misc -->		
+	</xs:complexType>
+	<xs:complexType name="AliasListArray">
+		<xs:sequence>
+			<xs:element name="FldName" type="Name" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Promotion">
+                <xs:sequence>
+                        <xs:element name="FldPromotionName" type="PromotionName" minOccurs="0" maxOccurs="1"/>
+                        <xs:element ref="PromotionExtension" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="Id" use="required"/>
+                <xs:attribute name="type" type="xs:string" use="required"/>
+                <xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+                <!-- type is the type of promotion like /profile/acct_extrating -->
+        </xs:complexType>
+	<xs:complexType name="Devices">
+		<xs:sequence> 
+			<xs:element name="DeviceInfo" type="DeviceInfoType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence> 
+	</xs:complexType>
+	<xs:complexType name="DeviceInfoType">
+                <xs:sequence>
+                        <xs:element name="Device" type="DeviceType" minOccurs="1" maxOccurs="1"/>
+                        <xs:element ref="DeviceExtension" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+        </xs:complexType>
+	<xs:complexType name="DeviceType">
+		<xs:sequence>
+			<xs:element name="FldDeviceId" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FldSource" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FldManufacturer" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FldModel" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldStateId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="DeviceExtension" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="true"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<!-- device type can be /device/sim -->
+	</xs:complexType>
+
+	<xs:complexType name="Billinfo">
+		<xs:sequence>
+			<xs:element name="FldActgCycleDom" type="xs:integer" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldActgCycleLeft" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldActgType" type="ActgType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldActgNextT" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldEffectiveT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldBillWhen" type="xs:integer" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldBillingSegment" type="BillingSegment" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldPayType" type="PayType" minOccurs="1" maxOccurs="1" nillable="false"/>
+			<xs:element name="FldStatus" type="BillinfoStatus" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldBillingStatus" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<!-- 'ActgCycleDOM' is the value from 1 to 31 -->
+			<!-- 'BillWhen' is billing frequency like for quarterly it is 3, 
+			      default will be taken as 1 same as actg cylce -->
+			<!-- 'Status' is the status of the billinfo. Valid values are A(Active), I(Inactive) and 
+			     C(Closed). Default is Active. -->
+			<xs:element name="FldExemptFromCollection" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldBiStaFlags" type="xs:integer"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldBillInfoId" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldPendingRecv" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldBusinessProfileObj" type="Poid" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="spnrCnt" type="xs:integer" use="optional"/>
+		<xs:attribute name="spnreeCnt" type="xs:integer" use="optional"/>
+		<xs:attribute name="elem" type="xs:integer" use="optional"/>
+		<xs:attribute name="parentElem" type="xs:integer" use="optional"/>
+		<xs:attribute name="bal_grp" type="xs:string" use="optional"/>
+		<xs:attribute name="bal_grp_name" type="xs:string" use="optional"/>
+		<xs:attribute name="payInfoRefId" type="Id" use="optional"/>
+		<xs:attribute name="hasNoPayInfoRef" type="xs:string" use="optional"/>
+		<xs:attribute name="thisActHierarchy" type="xs:string" use="optional" default="false"/>
+		<xs:attribute name="isAccBillinfo" type="YesOrNo" use="optional" default="N"/>
+		<xs:attribute name="payingParentRefId" type="Id" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Payinfo">
+		<xs:sequence>
+			<xs:element name="FldDueDom" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldPaymentTerm" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldRelativeDueT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldAch" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="payinfoExtension" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<!-- payinfo type can be /payinfo/inv -->
+	</xs:complexType>
+	<xs:complexType name="GroupSharingDiscount">
+		<xs:sequence>
+			<xs:element name="FldDiscountObj" type="Poid" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldTypeStr" type="AutoGSDiscHierarchy"  minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+	</xs:complexType>
+	<xs:complexType name="GroupSharingCharge">
+		<xs:sequence>
+			<xs:element name="FldSponsorsObj" type="Poid" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+	</xs:complexType>
+	<xs:complexType name="GroupSharingProfile">
+		<xs:sequence>
+			<xs:element name="FldProfileObj" type="Poid" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+	</xs:complexType>
+	<xs:complexType name="MemberOfGroupDiscount">
+		<xs:sequence>
+			<xs:element name="DiscountGroupRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MemberOfGroupCharge">
+		<xs:sequence>
+			<xs:element name="ChargeGroupRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MemberOfProfileSharing">
+		<xs:sequence>
+			<xs:element name="ProfileGroupRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AccountBalancesType">
+		<xs:sequence>
+			<xs:element name="AccountBalancesArray" type="BalancesArray" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GroupSharingProduct">
+		<xs:sequence>
+			<xs:element name="FldProductObj" type="Poid" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="FldCreatedT" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldTypeStr" type="AutoGSProdHierarchy"  minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="Id" use="required"/>
+		<xs:attribute name="global" type="xs:string" use="optional" default="false"/>
+		<!-- global attribute signifies user permission to read or write the object -->
+		<xs:attribute name="numOfChlds" type="xs:integer" use="optional" default="0"/>		<!-- Count of the number of members in the members array of class /group -->
+	</xs:complexType>
+        <xs:complexType name="MemberOfGroupProduct">
+                <xs:sequence>
+                        <xs:element name="ProductGroupRef" type="Id" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+        </xs:complexType>
+</xs:schema>

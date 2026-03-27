@@ -1,0 +1,217 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description>
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties>
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets>
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "LEDGER_REPORT_ACCTS_T"."BILL_NO",
+  "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID",
+  "LEDGER_REPORT_ACCTS_T"."GL_ID",
+  "LEDGER_REPORT_T"."CREATED_T",
+  "LEDGER_REPORT_ACCTS_T"."EFFECTIVE_T",
+  "ACCOUNT_T"."POID_ID0",
+  "LEDGER_REPORT_ACCTS_T"."AR_NET_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."AR_DISC_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."AR_TAX_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."AR_GROSS_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."DB_AR_NET_AMT",
+  "LEDGER_REPORT_ACCTS_T"."DB_AR_DISC_AMT",
+  "LEDGER_REPORT_ACCTS_T"."DB_AR_TAX_AMT",
+  "LEDGER_REPORT_ACCTS_T"."DB_AR_GROSS_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_AR_NET_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_AR_DISC_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_AR_TAX_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_AR_GROSS_AMT",
+  "LEDGER_REPORT_ACCTS_T"."OFF_NET_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."OFF_DISC_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."OFF_TAX_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."OFF_GROSS_GL_ACCT",
+  "LEDGER_REPORT_ACCTS_T"."DB_OFF_NET_AMT",
+  "LEDGER_REPORT_ACCTS_T"."DB_OFF_DISC_AMT",
+  "LEDGER_REPORT_ACCTS_T"."DB_OFF_TAX_AMT",
+  "LEDGER_REPORT_ACCTS_T"."DB_OFF_GROSS_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_OFF_NET_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_OFF_DISC_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_OFF_TAX_AMT",
+  "LEDGER_REPORT_ACCTS_T"."CR_OFF_GROSS_AMT",
+  decode(:param_gl_attribute,   1,   "LEDGER_REPORT_ACCTS_T"."AR_NET_GL_ACCT",   2,   "LEDGER_REPORT_ACCTS_T"."AR_DISC_GL_ACCT",   4,   "LEDGER_REPORT_ACCTS_T"."AR_TAX_GL_ACCT",   8,   "LEDGER_REPORT_ACCTS_T"."AR_GROSS_GL_ACCT",   0) ar_gl_acct,
+  decode(:param_gl_attribute,   1,   "LEDGER_REPORT_ACCTS_T"."DB_AR_NET_AMT",   2,   "LEDGER_REPORT_ACCTS_T"."DB_AR_DISC_AMT",   4,   "LEDGER_REPORT_ACCTS_T"."DB_AR_TAX_AMT",   8,   "LEDGER_REPORT_ACCTS_T"."DB_AR_GROSS_AMT",   0) db_ar_amt,
+  decode(:param_gl_attribute,   1,   "LEDGER_REPORT_ACCTS_T"."CR_AR_NET_AMT",   2,   "LEDGER_REPORT_ACCTS_T"."CR_AR_DISC_AMT",   4,   "LEDGER_REPORT_ACCTS_T"."CR_AR_TAX_AMT",   8,   "LEDGER_REPORT_ACCTS_T"."CR_AR_GROSS_AMT",   0) cr_ar_amt,
+  decode(:param_gl_attribute,   1,   "LEDGER_REPORT_ACCTS_T"."OFF_NET_GL_ACCT",   2,   "LEDGER_REPORT_ACCTS_T"."OFF_DISC_GL_ACCT",   4,   "LEDGER_REPORT_ACCTS_T"."OFF_TAX_GL_ACCT",   8,   "LEDGER_REPORT_ACCTS_T"."OFF_GROSS_GL_ACCT",   0) off_gl_acct,
+  decode(:param_gl_attribute,   1,   "LEDGER_REPORT_ACCTS_T"."DB_OFF_NET_AMT",   2,   "LEDGER_REPORT_ACCTS_T"."DB_OFF_DISC_AMT",   4,   "LEDGER_REPORT_ACCTS_T"."DB_OFF_TAX_AMT",   8,   "LEDGER_REPORT_ACCTS_T"."DB_OFF_GROSS_AMT",   0) db_off_amt,
+  decode(:param_gl_attribute,   1,   "LEDGER_REPORT_ACCTS_T"."CR_OFF_NET_AMT",   2,   "LEDGER_REPORT_ACCTS_T"."CR_OFF_DISC_AMT",   4,   "LEDGER_REPORT_ACCTS_T"."CR_OFF_TAX_AMT",   8,   "LEDGER_REPORT_ACCTS_T"."CR_OFF_GROSS_AMT",   0) cr_off_amt,
+  "CONFIG_GLID_T"."DESCR",
+  "LEDGER_REPORT_ACCTS_T"."REC_ID",
+  "LEDGER_REPORT_ACCTS_T"."ITEM_NO",
+  "LEDGER_REPORT_ACCTS_T"."ITEM_NAME",
+  "ACCOUNT_T"."ACCOUNT_NO",
+  "LEDGER_REPORT_T"."TYPE",
+  "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+  "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+  "CONFIG_BEID_BALANCES_T"."NAME"
+FROM((("LEDGER_REPORT_T" "LEDGER_REPORT_T"
+INNER JOIN "LEDGER_REPORT_ACCTS_T" "LEDGER_REPORT_ACCTS_T" ON "LEDGER_REPORT_T"."POID_ID0" = "LEDGER_REPORT_ACCTS_T"."OBJ_ID0")
+INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "LEDGER_REPORT_ACCTS_T"."ACCOUNT_NO" = "ACCOUNT_T"."ACCOUNT_NO")
+INNER JOIN "CONFIG_GLID_T" "CONFIG_GLID_T" ON "LEDGER_REPORT_ACCTS_T"."GL_ID" = "CONFIG_GLID_T"."REC_ID")
+INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0" = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+INNER JOIN "CONFIG_BEID_BALANCES_T" ON "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+WHERE "LEDGER_REPORT_T"."GL_SEGMENT" LIKE nvl(:param_gl_segment,   '')
+ AND "CONFIG_GLID_T"."DESCR" LIKE nvl(:param_gl_desc,   "CONFIG_GLID_T"."DESCR")
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+ AND "LEDGER_REPORT_T"."TYPE" = :param_report_type
+ AND "LEDGER_REPORT_T"."GL_REPORT_TYPE" = 1
+ AND(bipext.infcheckdates(:param_start_date,   :param_end_date) = 1
+ AND "LEDGER_REPORT_T"."START_T" >= bipext.infstrtotimet(:param_start_date,   2)
+ AND "LEDGER_REPORT_T"."END_T" <= bipext.infstrtotimet(:param_end_date,   2))
+ AND("LEDGER_REPORT_ACCTS_T"."RESOURCE_ID" >= decode(:param_resource_name,   100000,   :param_resource_name,   0)
+ AND "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID" <= decode(:param_resource_name,   100000,   9999999,   0,   9999999,   99999))
+ AND "ACCOUNT_T"."POID_ID0" > 1
+ AND "LEDGER_REPORT_T"."CREATED_T" IN
+  (SELECT MAX("LEDGER_REPORT_T"."CREATED_T")
+   FROM((("LEDGER_REPORT_T" "LEDGER_REPORT_T"
+   INNER JOIN "LEDGER_REPORT_ACCTS_T" "LEDGER_REPORT_ACCTS_T" ON "LEDGER_REPORT_T"."POID_ID0" = "LEDGER_REPORT_ACCTS_T"."OBJ_ID0")
+   INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "LEDGER_REPORT_ACCTS_T"."ACCOUNT_NO" = "ACCOUNT_T"."ACCOUNT_NO")
+   INNER JOIN "CONFIG_GLID_T" "CONFIG_GLID_T" ON "LEDGER_REPORT_ACCTS_T"."GL_ID" = "CONFIG_GLID_T"."REC_ID")
+   INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0" = "ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+   INNER JOIN "CONFIG_BEID_BALANCES_T" ON "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID" = "CONFIG_BEID_BALANCES_T"."REC_ID"
+   WHERE "LEDGER_REPORT_T"."GL_SEGMENT" LIKE nvl(:param_gl_segment,    '')
+   AND "CONFIG_GLID_T"."DESCR" LIKE nvl(:param_gl_desc,    "CONFIG_GLID_T"."DESCR")
+   AND "ACCOUNT_NAMEINFO_T"."REC_ID" = 1
+   AND "LEDGER_REPORT_T"."TYPE" = :param_report_type
+   AND "LEDGER_REPORT_T"."GL_REPORT_TYPE" = 1
+   AND "LEDGER_REPORT_T"."START_T" >= bipext.infstrtotimet(:param_start_date,    2)
+   AND "LEDGER_REPORT_T"."END_T" <= bipext.infstrtotimet(:param_end_date,    2)
+   AND("LEDGER_REPORT_ACCTS_T"."RESOURCE_ID" >= decode(:param_resource_name,    100000,    :param_resource_name,    0)
+   AND "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID" <= decode(:param_resource_name,    100000,    9999999,    0,    9999999,    99999)))
+ORDER BY "LEDGER_REPORT_T"."CREATED_T",
+  "ACCOUNT_T"."POID_ID0",
+  "LEDGER_REPORT_ACCTS_T"."GL_ID",
+  "LEDGER_REPORT_ACCTS_T"."RESOURCE_ID"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="BILL_NO" value="BILL_NO" dataType="xsd:string" label="BILL_NO" breakOrder="None" fieldOrder="1"/>
+    <element name="RESOURCE_ID" value="RESOURCE_ID" dataType="xsd:integer" label="RESOURCE_ID" breakOrder="None" fieldOrder="2"/>
+    <element name="GL_ID" value="GL_ID" dataType="xsd:integer" label="GL_ID" breakOrder="None" fieldOrder="3"/>
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="4"/>
+    <element name="EFFECTIVE_T" value="EFFECTIVE_T" dataType="xsd:integer" label="EFFECTIVE_T" breakOrder="None" fieldOrder="5"/>
+    <element name="POID_ID0" value="POID_ID0" dataType="xsd:integer" label="POID_ID0" breakOrder="None" fieldOrder="6"/>
+    <element name="AR_NET_GL_ACCT" value="AR_NET_GL_ACCT" dataType="xsd:string" label="AR_NET_GL_ACCT" breakOrder="None" fieldOrder="7"/>
+    <element name="AR_DISC_GL_ACCT" value="AR_DISC_GL_ACCT" dataType="xsd:string" label="AR_DISC_GL_ACCT" breakOrder="None" fieldOrder="8"/>
+    <element name="AR_TAX_GL_ACCT" value="AR_TAX_GL_ACCT" dataType="xsd:string" label="AR_TAX_GL_ACCT" breakOrder="None" fieldOrder="9"/>
+    <element name="AR_GROSS_GL_ACCT" value="AR_GROSS_GL_ACCT" dataType="xsd:string" label="AR_GROSS_GL_ACCT" breakOrder="None" fieldOrder="10"/>
+    <element name="DB_AR_NET_AMT" value="DB_AR_NET_AMT" dataType="xsd:integer" label="DB_AR_NET_AMT" breakOrder="None" fieldOrder="11"/>
+    <element name="DB_AR_DISC_AMT" value="DB_AR_DISC_AMT" dataType="xsd:integer" label="DB_AR_DISC_AMT" breakOrder="None" fieldOrder="12"/>
+    <element name="DB_AR_TAX_AMT" value="DB_AR_TAX_AMT" dataType="xsd:integer" label="DB_AR_TAX_AMT" breakOrder="None" fieldOrder="13"/>
+    <element name="DB_AR_GROSS_AMT" value="DB_AR_GROSS_AMT" dataType="xsd:integer" label="DB_AR_GROSS_AMT" breakOrder="None" fieldOrder="14"/>
+    <element name="CR_AR_NET_AMT" value="CR_AR_NET_AMT" dataType="xsd:integer" label="CR_AR_NET_AMT" breakOrder="None" fieldOrder="15"/>
+    <element name="CR_AR_DISC_AMT" value="CR_AR_DISC_AMT" dataType="xsd:integer" label="CR_AR_DISC_AMT" breakOrder="None" fieldOrder="16"/>
+    <element name="CR_AR_TAX_AMT" value="CR_AR_TAX_AMT" dataType="xsd:integer" label="CR_AR_TAX_AMT" breakOrder="None" fieldOrder="17"/>
+    <element name="CR_AR_GROSS_AMT" value="CR_AR_GROSS_AMT" dataType="xsd:integer" label="CR_AR_GROSS_AMT" breakOrder="None" fieldOrder="18"/>
+    <element name="OFF_NET_GL_ACCT" value="OFF_NET_GL_ACCT" dataType="xsd:string" label="OFF_NET_GL_ACCT" breakOrder="None" fieldOrder="19"/>
+    <element name="OFF_DISC_GL_ACCT" value="OFF_DISC_GL_ACCT" dataType="xsd:string" label="OFF_DISC_GL_ACCT" breakOrder="None" fieldOrder="20"/>
+    <element name="OFF_TAX_GL_ACCT" value="OFF_TAX_GL_ACCT" dataType="xsd:string" label="OFF_TAX_GL_ACCT" breakOrder="None" fieldOrder="21"/>
+    <element name="OFF_GROSS_GL_ACCT" value="OFF_GROSS_GL_ACCT" dataType="xsd:string" label="OFF_GROSS_GL_ACCT" breakOrder="None" fieldOrder="22"/>
+    <element name="DB_OFF_NET_AMT" value="DB_OFF_NET_AMT" dataType="xsd:integer" label="DB_OFF_NET_AMT" breakOrder="None" fieldOrder="23"/>
+    <element name="DB_OFF_DISC_AMT" value="DB_OFF_DISC_AMT" dataType="xsd:integer" label="DB_OFF_DISC_AMT" breakOrder="None" fieldOrder="24"/>
+    <element name="DB_OFF_TAX_AMT" value="DB_OFF_TAX_AMT" dataType="xsd:integer" label="DB_OFF_TAX_AMT" breakOrder="None" fieldOrder="25"/>
+    <element name="DB_OFF_GROSS_AMT" value="DB_OFF_GROSS_AMT" dataType="xsd:integer" label="DB_OFF_GROSS_AMT" breakOrder="None" fieldOrder="26"/>
+    <element name="CR_OFF_NET_AMT" value="CR_OFF_NET_AMT" dataType="xsd:integer" label="CR_OFF_NET_AMT" breakOrder="None" fieldOrder="27"/>
+    <element name="CR_OFF_DISC_AMT" value="CR_OFF_DISC_AMT" dataType="xsd:integer" label="CR_OFF_DISC_AMT" breakOrder="None" fieldOrder="28"/>
+    <element name="CR_OFF_TAX_AMT" value="CR_OFF_TAX_AMT" dataType="xsd:integer" label="CR_OFF_TAX_AMT" breakOrder="None" fieldOrder="29"/>
+    <element name="CR_OFF_GROSS_AMT" value="CR_OFF_GROSS_AMT" dataType="xsd:integer" label="CR_OFF_GROSS_AMT" breakOrder="None" fieldOrder="30"/>
+    <element name="AR_GL_ACCT" value="AR_GL_ACCT" dataType="xsd:string" label="AR_GL_ACCT" breakOrder="None" fieldOrder="31"/>
+    <element name="DB_AR_AMT" value="DB_AR_AMT" dataType="xsd:integer" label="DB_AR_AMT" breakOrder="None" fieldOrder="32"/>
+    <element name="CR_AR_AMT" value="CR_AR_AMT" dataType="xsd:integer" label="CR_AR_AMT" breakOrder="None" fieldOrder="33"/>
+    <element name="OFF_GL_ACCT" value="OFF_GL_ACCT" dataType="xsd:string" label="OFF_GL_ACCT" breakOrder="None" fieldOrder="34"/>
+    <element name="DB_OFF_AMT" value="DB_OFF_AMT" dataType="xsd:integer" label="DB_OFF_AMT" breakOrder="None" fieldOrder="35"/>
+    <element name="CR_OFF_AMT" value="CR_OFF_AMT" dataType="xsd:integer" label="CR_OFF_AMT" breakOrder="None" fieldOrder="36"/>
+    <element name="DESCR" value="DESCR" dataType="xsd:string" label="DESCR" breakOrder="None" fieldOrder="37"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="38"/>
+    <element name="ITEM_NO" value="ITEM_NO" dataType="xsd:string" label="ITEM_NO" breakOrder="None" fieldOrder="39"/>
+    <element name="ITEM_NAME" value="ITEM_NAME" dataType="xsd:string" label="ITEM_NAME" breakOrder="None" fieldOrder="40"/>
+    <element name="ACCOUNT_NO" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="41"/>
+    <element name="TYPE" value="TYPE" dataType="xsd:integer" label="TYPE" breakOrder="None" fieldOrder="42"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="43"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="44"/>
+    <element name="NAME" value="NAME" dataType="xsd:string" label="NAME" breakOrder="None" fieldOrder="45"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers/>
+   <lexicals/>
+   <valueSets>
+      <valueSet id="LOV_REPORT_TYPE">
+         <nvPairs>
+            <nvPair label="BILLED" value="2"/>
+            <nvPair label="UNBILLED" value="1"/>
+            <nvPair label="BILLED EARNED" value="8"/>
+            <nvPair label="BILLED UNEARNED" value="32"/>
+            <nvPair label="UNBILLED EARNED" value="4"/>
+            <nvPair label="UNBILLED UNEARNED" value="16"/>
+            <nvPair label="PREV BILLED EARNED" value="64"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_RESOURCE_NAME">
+         <nvPairs>
+            <nvPair label="All Resources" value="0"/>
+            <nvPair label="All Currencies" value="1"/>
+            <nvPair label="All Non-Currencies" value="100000"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_GL_ATTRIBUTE">
+         <nvPairs>
+            <nvPair label="NET" value="1"/>
+            <nvPair label="DISC" value="2"/>
+            <nvPair label="TAX" value="4"/>
+            <nvPair label="GROSS" value="8"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="LOV_GL_DESC">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT DISTINCT "CONFIG_GLID_T"."DESCR" FROM "CONFIG_GLID_T"]]>
+         </sql>
+      </valueSet>
+   </valueSets>
+   <parameters>
+      <parameter name="PARAM_REPORT_TYPE" dataType="xsd:string">
+         <select label="Select a type of billing item. " valueSet="LOV_REPORT_TYPE" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_RESOURCE_NAME" dataType="xsd:float">
+         <select label="Select a resource, or select All Resources to include all resources affected by G/L account entries." valueSet="LOV_RESOURCE_NAME" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_GL_ATTRIBUTE" dataType="xsd:string">
+         <select label="Select a G/L account pair attribute." valueSet="LOV_GL_ATTRIBUTE" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_GL_SEGMENT" dataType="xsd:string">
+         <input label="Enter the G/L segment specified in pin_ledger_report, or select the period ( . ) to use the default Infranet segment value." size="30"/>
+      </parameter>
+      <parameter name="PARAM_GL_DESC" dataType="xsd:string">
+         <select label="Select a particular G/L ID, or select ALL to include all G/L IDs." valueSet="LOV_GL_DESC" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label=" Enter start date (MM/DD/YYYY)." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label=" Enter end date (MM/DD/YYYY). " size="25" format="MM/dd/yyyy"/>
+      </parameter>
+   </parameters>
+   <bursting/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

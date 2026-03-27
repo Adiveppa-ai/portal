@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+# @(#)start_pin_channel_export.sh 1.00 99/12/14
+#
+# Copyright (c) 1998, 2018, Oracle and/or its affiliates. All rights reserved.
+#
+#      This material is the confidential property of Oracle Corporation or
+#      its licensors and may be used, reproduced, stored or transmitted only 
+#      in accordance with a valid Oracle license or sublicense agreement.
+#
+
+#
+# start_pin_channel_export
+#
+
+VERSION=15.0
+PCEDIR=/home/pin/opt/portal/BRM/apps/exportapps
+LOGDIR=/home/pin/opt/portal/BRM/var/exportapps
+
+PATH=/usr/bin:/bin
+
+PCE=/home/pin/opt/portal/BRM/bin/pin_channel_export
+
+PCELOG=${LOGDIR}/pin_channel_export.log
+PCEPID=${LOGDIR}/pin_channel_export.pid
+
+if [ ! -x ${PCE} ]; then
+	echo "HELP: executable \"${PCE}\" not found!"
+	exit 1
+fi       
+
+if [ \( ! -r  ${PCEDIR}/pin.conf \) -a \( ! -r /etc/pin.conf \)  ]; then
+	echo "HELP: no pin.conf for `basename ${PCE}` in \"${PCEDIR}\" or /etc!"
+	exit 1
+fi       
+
+if [ ! -d  ${LOGDIR} ]; then
+	mkdir -p ${LOGDIR}
+	if [ $? -ne 0 ]; then
+		echo "HELP: problem making LOGDIR \"${LOGDIR}\"!"
+		exit 1
+	fi
+fi       
+
+# XXX ought to save old log file, or check for > some-size...
+( cd ${PCEDIR} ;
+  echo "started `basename ${PCE}` at..." >> ${PCELOG}
+  date >> ${PCELOG}
+  ${PCE} $1 $2 >> ${PCELOG} 2>&1 &
+  echo $! > ${PCEPID} ;
+  chmod 640 ${PCELOG} ;
+  chmod 640 ${PCEPID} )
+
+# get rc from pin_channel_export startup
+exit $?

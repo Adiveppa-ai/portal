@@ -1,0 +1,227 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+
+# ---------------------------------------------------------------------------------
+#      
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#      This tool is meant to setup and configure a basic version of the pipeline
+#      engine.It will work as a harness and call other scripts which will do the
+#      necessary configurations.
+
+use functions;
+#open the logfile#
+functions::createlog();
+#load the config parameters#
+functions::configinit(%Configvar);
+functions::LoadSteps();
+my $zeroprog="pin_setup"; #make it simple for now
+$masterdir= functions::returnval("MasterDir");
+my $fullargs=join(" ",@ARGV); #save for posterity
+my $dotee=1;
+my $userdie=0;
+if(functions::ostype ne "Windows") {
+  chomp( $ENV{"CFGpipeline_hostname"} = `/bin/hostname 2>/dev/null` ) unless exists $ENV{"CFGpipeline_hostname"};
+}
+else
+{
+  chomp( $ENV{"CFGpipeline_hostname"} = `hostname` ) unless exists $ENV{"CFGpipeline_hostname"};
+}
+my @timedate=localtime();
+my $dts;
+#($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)
+$ENV{'CFGpipeline_dts'}=$dts=sprintf("%02d%02d%02d%02d%02d%02d",
+  $timedate[5] % 100, #two year date
+  1+$timedate[4], #month
+  $timedate[3], #day of month
+  $timedate[2],$timedate[1],$timedate[0], #HMS
+  );
+
+
+################################################################################################
+
+my $pipelineos=${{ "hpux" => "HPUX", "solaris" => "Solaris", "aix" => "aix", "windows" => "Windows", }}{$^O};
+$pipelineos="Solaris" if $ifwos eq ""; #darn demos! well, actually, this lets me do printouts on linux...
+
+$ENV{'CFGpipeline_OSLIBEXT'}=${{ "hpux" => "sl", "solaris" => "so", "aix" => "so", "windows" => "dll", }}{$^O};
+while( @ARGV ){
+# IFW install args
+   my $clarg=shift;
+    if($clarg eq "-recover_last")
+      {$recover_last=1;next;}
+    if( $clarg eq "-runone" ){
+    $runone=1;
+    $RunStep=shift;
+    next;
+    }
+    #general
+  if( $clarg eq "-notee" ){
+    $dotee=0;
+    next;
+    }
+
+  #default & drop-out.
+  print "$zeroprog:  bad argument \"$clarg\"\n" unless $clarg eq "--help" || $clarg eq "-h";
+############# HELP ########## HELP ########## HELP ########## HELP #############
+  print <<FEOF;
+
+syntax:  $INT_HOME/setup/$zeroprog  [OPTIONS]
+version: $version
+
+general options:
+  -h   --help                     : show this help
+  -notee                          : do not display running log to screen
+
+install modes:
+  -recover_last                   : restart pipeline setup at last point
+  -runone STEPNAME                : execute a single step or file
+
+FEOF
+  
+  print <<FEOF;
+
+
+FEOF
+############# END  ########## END  ########## END  ########## END  #############
+  exit 33;
+}
+
+
+################################################################################################
+
+################################################################################################
+
+
+################################################################################################
+# basic sanity checks
+################################################################################################
+# setup exported environment
+$ENV{"DB_SID"}=functions::returnval("PLDBSid");
+$ENV{"INT_USER"}=functions::returnval("PLDBUserid"); 
+$ENV{"INT_UPSWD"}=$ENV{"INT_PSWD"}=functions::returnval("PLDBPasswd");
+$ENV{"JSA_USER"}=functions::returnval("JSDBUserid");
+$ENV{"JSA_UPSWD"}=$ENV{"JSA_PSWD"}=functions::returnval("JSDBPasswd");
+$ENV{"QUE_USER"}=functions::returnval("QDBUserid");
+$ENV{"QUE_UPSWD"}=$ENV{'QUE_PSWD'}=functions::returnval("QDBPasswd");
+$ENV{'QUE_SID'}=functions::returnval("QDBSID");
+$ENV{"INF_USER"}=functions::returnval("InfraDBUserid");
+$ENV{"INF_UPSWD"}=$ENV{'INF_PSWD'}=functions::returnval("InfraDBPasswd");
+$ENV{'INF_SID'}=functions::returnval("InfraDBSID");
+$ENV{"INT_HOME"}=$masterdir;
+$ENV{"DB_PATH"}=functions::returnval("DataFilePath");
+$ENV{"INSTALL_DIR"}=functions::returnval("InstallDir");
+$ENV{"LD_LIBRARY_PATH"}=$ENV{"LD_LIBRARY_PATH"} . ":" . $ENV{"INSTALL_DIR"}."/"."lib";
+$ENV{"LD_LIBRARY_PATH_64"}=$ENV{"LD_LIBRARY_PATH_64"} . ":" . $ENV{"INSTALL_DIR"}."/"."lib";
+$ENV{"QUE_NAME"}=functions::returnval("QName");
+$ENV{'DB_LIBRARY'}=functions::returnval("DBLibrary");
+$ENV{"REGISTRY_PATH"}="$ENV{'INT_HOME'}/conf/wireless.reg";
+$ENV{"SYSTEM_USER"}=functions::returnval("SystemUser");
+$ENV{"SYSTEM_PASSWD"}=functions::returnval("SystemPasswd");
+$ENV{"HOST_NAME"}=functions::returnval("Hostname");
+$ENV{"REALTIME_TCP_PORT"}=functions::returnval("Port");
+$ENV{"UNIX_SOCK_FILE"}=functions::returnval("UnixSockFile");
+$ENV{"INP_MAPPING_SCRIPT"}=functions::returnval("InpMappingScript");
+$ENV{"OUT_MAPPING_SCRIPT"}=functions::returnval("OutMappingScript");
+$ENV{"OS_TYPE"}=functions::ostype();
+$ENV{"DISC_OPC_MAP_XML"}=functions::returnval("DiscountOpcodeMapXml");
+$ENV{"GSM_OPC_MAP_XML"}=functions::returnval("GSMOpcodeMapXml");
+$ENV{"GPRS_OPC_MAP_XML"}=functions::returnval("GPRSOpcodeMapXml");
+$ENV{"ZONE_OPC_MAP_XML"}=functions::returnval("ZoneOpcodeMapXml");
+#########################################################
+########################################
+#encrypt passwords
+#################################################################################################
+#pipeline
+functions::calldbPasswd($ENV{"INT_USER"},$ENV{"INT_PSWD"},$ENV{"INT_PSWD"});
+$ENV{"INT_PSWD"}=functions::readencryptedpasswd();
+#oracle queues
+functions::calldbPasswd($ENV{"QUE_USER"},$ENV{"QUE_PSWD"},$ENV{"QUE_PSWD"});
+$ENV{"QUE_PSWD"}=functions::readencryptedpasswd();
+#infranet
+functions::calldbPasswd($ENV{"INF_USER"},$ENV{"INF_PSWD"},$ENV{"INF_PSWD"});
+$ENV{"INF_PSWD"}=functions::readencryptedpasswd();
+###################################################################################################
+
+my $installlog="Log/pin_setup.log";
+if($ENV{'OS_TYPE'} ne "Windows") {
+  functions::teelog($installlog,$dotee);
+  $ENV{"CFGpipeline_didteelog"}=1; 
+}
+else {
+  open (STDOUT,">".$installlog);
+}
+
+#force stuff to go to logfile, even for kiddies
+open(STDERR,">&STDOUT") or functions::fulldie "ERROR: STDERR redirect failed";
+select(STDERR); $|=1;
+select(STDOUT); $|=1;
+
+
+################################################################################################
+# choice #2: we're trying to recover a previous install which broke someplace
+my %donesteps=();
+my $lastone;
+if( $recover_last==1 && open(AIST,"<Log/steptracker.log") ){
+  #basically, run updateifw, but skip steps you've already done, then restart the failed one 
+  functions::fulldie "None of the steps have been executed!. Please run the pin_setup from the beginning.....\n" if (-z "./Log/steptracker.log");
+  %donesteps=map{ chomp; $lastone=$_; ($_,0) } <AIST>;
+  delete $donesteps{$lastone};
+  close(AIST);
+  }
+
+
+################################################################################################
+# choice #3: if we got this far, we must be doing some sort of  pipeline setup
+open(AIST,">Log/steptracker.log") || functions::fulldie "ERROR: could not open(Log/steptracker.log)";
+select(AIST); $|=1; select(STDOUT); #make sure it's tracked well
+
+# do it... for the children.
+$ENV{"perl"}='/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl'unless exists $ENV{"perl"};
+
+if( $runone==1){
+   $cmd = "\"$ENV{'perl'}\" \"$RunStep\"";
+   $res = system ($cmd);
+   if( $res == -1 || $res&128){ $res=255; }
+   else{ $res >>= 8; }
+   print "\n<-><-><-><-> $zeroprog CALLED $RunStep RETURN $res <-><-><-><->\n";
+   functions::fulldie "ERROR: install step failed" if $res;
+  }
+else{
+my $nSteps=functions::RetLength();
+print "No of Steps: " ,$nSteps ,"\n";
+my $currentStepNo=0;
+my $laststep=0;
+while ($currentStepNo<$nSteps){
+  my $Step=functions::GetStep($currentStepNo);
+  $currentStepNo++;
+
+#check if it is in the recover_last mode,and dont execute steps which have been completed earlier  
+if(($recover_last == 1) && ($Step eq $lastone))
+  {$laststep=1;} 
+elsif(($recover_last==1) &&($laststep==0))
+  {next;} 
+  print "<><><><> $zeroprog CALLING $Step <><><><>\n";
+  $cmd = "\"$ENV{'perl'}\" \"$Step\"";
+  $es = system ($cmd);
+  print AIST "$Step","\n";
+  if( $es == -1 || $es&128){ $es=255; }
+  else{ $es >>= 8; }
+  print "\n<-><-><-><-> $zeroprog CALLED $Step RETURN $es <-><-><-><->\n";
+  functions::fulldie "ERROR: install step failed" if $es;
+  }
+}
+#if we got this far, it must be good.
+#closedir(IND);
+print "\n$zeroprog: pin_setup FINISHED ";
+print "\n$zeroprog: exiting pin_setup...\n" if $topinstmode eq $instmode;
+print "$zeroprog: returning to caller...\n" if $topinstmode ne $instmode;
+functions::stopbgproc();
+exit 0;
+
+# END
+################################################################################################

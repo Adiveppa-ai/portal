@@ -1,0 +1,39 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="MultiDB_Reports" version="15.0.1.0.0" description="MultiDB Reports" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="root.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" mode="750" patchable="true">
+            <directory dest="bi" mode="750" patchable="true">
+               <directory dest="bidata" mode="750" patchable="true">
+                  <directory dest="components" mode="750" patchable="true">
+                     <directory dest="bipublisher" mode="750" patchable="true">
+                        <directory dest="repository" mode="750" patchable="true">
+                           <directory dest="Reports" mode="750" patchable="true">
+                              <directory dest="BRM_Reports" mode="750" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" mode="750" patchable="true">
+                                    <directory dest="MultiDB_Reports" mode="750" patchable="true">
+                                       <directory dest="ARSummaryMDB" mode="750" patchable="true">
+                                          <directory dest="ARSummaryMDB.xdm" mode="750" patchable="true">
+                                             <file size="12352" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="2382328" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                          <directory dest="ARSummaryMDB.xdo" mode="750" patchable="true">
+                                             <file size="8504" dest="ARSummaryMDB.rtf.png" mode="0755"/>
+                                             <file size="6857823" dest="ARSummaryMDB_en_US.rtf" mode="0755"/>
+                                             <file size="1345" dest="_report.xdo" mode="0755"/>
+                                             <file size="160" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+      </directory>
+   </file-map>
+</component-def>

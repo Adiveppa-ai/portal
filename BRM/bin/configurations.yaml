@@ -1,0 +1,33 @@
+# Copyright (c) 2021 Oracle Corporation and/or its affiliates. All rights reserved.
+pushgateway:
+    host: "localhost"
+    port: 9091
+    protocol: "http"
+
+prometheus:
+  service_monitoring:
+      brm_status_metric_name: "brm_service_status"
+      scrape_interval:  5
+  memory_monitoring:
+      brm_status_metric_name: "brm_service_memory_usage_total"
+      scrape_interval:  5
+
+brm-services:
+  - cmmp
+  - cm
+  - dm_oracle
+  - eai_js
+  - dm_ifw_sync
+  - dm_aq
+  - dm_eai
+  - dm_vertex
+  - dm_prov_telco
+  - dm_ldap
+  - dm_invoice
+  - dm_fusa
+  - batch_controller
+  - rel_daemon
+  - formatter
+  - pin_job_executor
+  - batch_pipeline
+  - realtime pipeline

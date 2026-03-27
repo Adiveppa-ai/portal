@@ -1,0 +1,17 @@
+# template for admin_load.control
+OP-find-cust                   100 op-find-acct
+OP-update-cust-addr            100 op-find-acct,op-update-addr
+OP-update-cust-addr_r          100 op-find-acct,op-read-acct,op-update-addr
+OP-find-usage                  100 op-find-acct,op-find-acct-by-num
+OP-find-usage_r                100 op-find-acct,op-find-acct-by-num
+OP-find-event                  100 op-find-acct,op-find-event
+OP-find-bill                   100 op-find-acct,op-find-bill
+OP-update-bill-info            100 op-find-acct,op-read-acct,op-update-bill-info,op-find-bill,op-find-invoice,op-make-invoice
+OP-find-invoice                100 op-find-acct,op-find-bill,op-find-invoice
+OP-make_invoice                100 op-find-acct,op-find-bill,op-make-invoice
+OP-find-usage-update-bill-info  100 op-find-acct,op-read-acct,op-find-acct-by-num,op-find-dialup-event,op-update-bill-info
+OP-find-verify                  100 op-find-verify
+OP-bal-impact                   100 op-find-acct,op-bal-impact
+OP-create-event                 100 op-find-acct,op-create-event
+OP-purchase-product             100 op-find-acct,op-purchase-product
+

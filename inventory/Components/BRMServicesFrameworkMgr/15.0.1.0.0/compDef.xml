@@ -1,0 +1,137 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="BRMServicesFrameworkMgr" version="15.0.1.0.0" description="BRMServices Framework Manager" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="dd" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="801" dest="create_indexes_service_order.source" mode="0664"/>
+               <file size="4226" dest="7.3Patch_7.3.1_dd_objects_svcfw_perm_svc_types.source" mode="0664"/>
+               <file size="2854" dest="6.5_FP3_6.7_FP1_dd_objects_telco.source" mode="0664"/>
+               <file size="540" dest="drop_tables_service_order.source" mode="0664"/>
+               <file size="3267" dest="dd_objects_config_accountera.source" mode="0664"/>
+               <file size="11922" dest="6.7_FP1_7.0_dd_objects_telco.source" mode="0664"/>
+               <file size="3875" dest="dd_objects_service_order.source" mode="0664"/>
+               <file size="12558" dest="7.2_7.3_dd_objects_telco.source" mode="0664"/>
+               <file size="103504" dest="dd_objects_telco.source" mode="0664"/>
+               <file size="10114" dest="6.7_FP1_7.0_dd_objects_telco_gsm.source" mode="0664"/>
+               <file size="4806" dest="create_indexes_telco_oracle.source" mode="0664"/>
+               <file size="870" dest="create_indexes_config_accountera_oracle.source" mode="0664"/>
+               <file size="1229" dest="drop_indexes_telco_oracle.source" mode="0664"/>
+               <file size="1631" dest="drop_tables_telco_oracle.source" mode="0664"/>
+               <file size="436" dest="drop_indexes_service_order_oracle.source" mode="0664"/>
+               <file size="538" dest="drop_tables_config_accountera_oracle.source" mode="0664"/>
+               <file size="434" dest="drop_indexes_config_accountera_oracle.source" mode="0664"/>
+            </directory>
+         </directory>
+         <directory dest="msgs" mode="750" patchable="true">
+            <directory dest="telcofeaturesandprofilesstates" mode="750" patchable="true">
+               <file size="4028" dest="telco_features_and_profiles_states.en_US" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="6.5_FP3_6.7_FP1_dd_objects_telco.source"/>
+            <permission mode="0664" wildcard="6.7_FP1_7.0_dd_objects_telco_gsm.source"/>
+            <permission mode="0664" wildcard="6.7_FP1_7.0_dd_objects_telco.source"/>
+            <permission mode="0664" wildcard="7.2_7.3_dd_objects_telco.source"/>
+            <permission mode="0664" wildcard="7.3Patch_7.3.1_dd_objects_svcfw_perm_svc_types.source"/>
+            <permission mode="0664" wildcard="create_indexes_service_order.source"/>
+            <permission mode="0664" wildcard="dd_objects_telco.source"/>
+            <permission mode="0664" wildcard="dd_objects_config_accountera.source"/>
+            <permission mode="0664" wildcard="dd_objects_service_order.source"/>
+            <permission mode="0664" wildcard="drop_tables_service_order.source"/>
+         </file-perms>
+      </directory>
+      <directory dest="sys" mode="750" patchable="true">
+         <directory dest="data" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="config" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1056" dest="pin_device_permit_map_num_telco" mode="0664"/>
+               <file size="861" dest="pin_device_permit_map_sim_telco_gprs" mode="0664"/>
+               <file size="2742" dest="pin_notify_telco" mode="0664"/>
+               <file size="2662" dest="pin_telco_provisioning" mode="0664"/>
+               <file size="11034" dest="pin_telco_tags" mode="0664"/>
+               <file size="1048" dest="pin_device_permit_map_num_telco_gprs" mode="0664"/>
+               <file size="8306" dest="pin_event_map_telco" mode="0664"/>
+               <file size="921" dest="pin_service_framework_permitted_service_types.xml" mode="0664"/>
+               <file size="2025" dest="pin_telco_service_order_state" mode="0664"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="pin_telco_provisioning"/>
+            <permission mode="0664" wildcard="pin_notify_telco"/>
+            <permission mode="0664" wildcard="pin_telco_tags"/>
+            <permission mode="0664" wildcard="pin_telco_service_order_state"/>
+            <permission mode="0664" wildcard="pin_device_permit_map_num_telco"/>
+            <permission mode="0664" wildcard="pin_device_permit_map_num_telco_gprs"/>
+            <permission mode="0664" wildcard="pin_device_permit_map_sim_telco_gprs"/>
+            <permission mode="0664" wildcard="pin_event_map_telco"/>
+            <permission mode="0664" wildcard="pin_service_framework_permitted_service_types.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="source" mode="750" patchable="true">
+         <directory dest="sys" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="fm_tcf_pol" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="6695" dest="fm_tcf_pol_apply_parameter.c" mode="0644"/>
+               <file size="1453" dest="Makefile" mode="0755"/>
+               <file size="1318" dest="fm_tcf_pol_config.c" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="fm_tcf_pol_apply_parameter.c"/>
+            <permission mode="0644" wildcard="fm_tcf_pol_config.c"/>
+            <permission mode="0755" wildcard="Makefile"/>
+         </file-perms>
+      </directory>
+      <directory dest="apps" mode="750" patchable="true">
+         <directory dest="telco" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="53718" dest="PerlParser.pm" mode="0664"/>
+            <file size="272" dest="RunSimulator" mode="0755"/>
+            <file size="15605" dest="agent_sim.pl" mode="0664"/>
+         </directory>
+         <file-perms>
+            <permission mode="0664" wildcard="agent_sim.pl"/>
+            <permission mode="0664" wildcard="PerlParser.pm"/>
+            <permission mode="0755" wildcard="RunSimulator"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="26112" dest="fm_prov.so" mode="0755"/>
+         <file size="25416" dest="fm_prov_pol.so" mode="0755"/>
+         <file size="24120" dest="fm_tcf_pol.so" mode="0755"/>
+         <file size="314064" dest="fm_tcf.so" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="fm_tcf.so"/>
+            <permission mode="0755" wildcard="fm_tcf_pol.so"/>
+            <permission mode="0755" wildcard="fm_prov_pol.so"/>
+            <permission mode="0755" wildcard="fm_prov.so"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="7006" dest="pin_cnf_tcframework.pl" mode="0775"/>
+            <file size="14463" dest="pin_cmp_tcframework.pl" mode="0775"/>
+         </directory>
+         <file-perms>
+            <permission mode="0775" wildcard="pin_cmp_tcframework.pl"/>
+            <permission mode="0775" wildcard="pin_cnf_tcframework.pl"/>
+         </file-perms>
+      </directory>
+      <directory dest="bin" mode="750" patchable="true">
+         <file size="54904" dest="load_pin_telco_provisioning" mode="0755"/>
+         <file size="84640" dest="load_pin_service_framework_permitted_service_types" mode="0755"/>
+         <file size="37224" dest="load_pin_telco_service_order_state" mode="0755"/>
+         <file size="59656" dest="load_pin_telco_tags" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="load_pin_telco_provisioning"/>
+            <permission mode="0755" wildcard="load_pin_telco_service_order_state"/>
+            <permission mode="0755" wildcard="load_pin_telco_tags"/>
+            <permission mode="0755" wildcard="load_pin_service_framework_permitted_service_types"/>
+         </file-perms>
+      </directory>
+      <directory dest="xsd" mode="750" patchable="true">
+         <file size="1891" dest="pin_service_framework_permitted_service_types.xsd" mode="0664"/>
+      </directory>
+      <directory dest="jars" mode="750" patchable="true">
+         <file size="5025" dest="agentsimulator.jar" mode="0664"/>
+      </directory>
+   </file-map>
+</component-def>

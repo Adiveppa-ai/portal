@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="Sample" version="15.0.1.0.0" description="Sample" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="brm.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="source" mode="750" patchable="true">
+         <directory dest="apps" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="sample" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="32664" dest="sample_app" mode="0755"/>
+               <file size="9572" dest="sample_who.c" mode="0644"/>
+               <file size="13017" dest="sample_app.c" mode="0644"/>
+               <file size="28192" dest="sample_who" mode="0755"/>
+               <file size="28240" dest="sample_search" mode="0755"/>
+               <file size="17502" dest="sample_search.c" mode="0644"/>
+               <file size="4569" dest="sample_del.c" mode="0644"/>
+               <file size="1278" dest="Makefile" mode="0644"/>
+               <file size="23888" dest="sample_del" mode="0755"/>
+               <file size="21653" dest="sample_act.c" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="Makefile"/>
+            <permission mode="0644" wildcard="sample_app.c"/>
+            <permission mode="0755" wildcard="sample_app"/>
+            <permission mode="0644" wildcard="sample_act.c"/>
+            <permission mode="0644" wildcard="sample_del.c"/>
+            <permission mode="0755" wildcard="sample_del"/>
+            <permission mode="0644" wildcard="sample_search.c"/>
+            <permission mode="0755" wildcard="sample_search"/>
+            <permission mode="0644" wildcard="sample_who.c"/>
+            <permission mode="0755" wildcard="sample_who"/>
+         </file-perms>
+      </directory>
+      <directory dest="source" mode="750" patchable="true">
+         <directory dest="apps" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="mta_sample" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="1367" dest="Makefile" mode="0644"/>
+               <file size="32963" dest="pin_mta_test.c" mode="0644"/>
+               <file size="199" dest="hot_list" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="Makefile"/>
+            <permission mode="0644" wildcard="pin_mta_test.c"/>
+            <permission mode="0644" wildcard="hot_list"/>
+         </file-perms>
+      </directory>
+      <directory dest="source" mode="750" patchable="true">
+         <directory dest="apps" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="sampleviewer" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <file size="11860" dest="invoice.short.name.xsl" mode="0644"/>
+               <file size="30478" dest="pin_inv_view.pl" mode="0755"/>
+               <file size="1669" dest="image.gif" mode="0644"/>
+               <file size="4428" dest="README" mode="0644"/>
+               <file size="3433" dest="pin_inv_view.conf" mode="0644"/>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="README"/>
+            <permission mode="0644" wildcard="image.gif"/>
+            <permission mode="0644" wildcard="invoice.short.name.xsl"/>
+            <permission mode="0755" wildcard="pin_inv_view.pl"/>
+            <permission mode="0644" wildcard="pin_inv_view.conf"/>
+         </file-perms>
+      </directory>
+      <directory dest="lib" mode="750" patchable="true">
+         <file size="260072" dest="libpcp.a" mode="0755"/>
+         <file size="13120" dest="libpin_cc_internal.a" mode="0755"/>
+         <file size="31924" dest="libpinlog.a" mode="0755"/>
+         <file-perms>
+            <permission mode="0755" wildcard="libpinlog.a"/>
+            <permission mode="0755" wildcard="libpin_cc_internal.a"/>
+            <permission mode="0755" wildcard="libpcp.a"/>
+         </file-perms>
+      </directory>
+      <directory dest="setup" mode="750" patchable="true">
+         <directory dest="scripts" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <file size="20320" dest="basicISP.xml" mode="0644"/>
+            <file size="3254" dest="pin_cmp_sample.pl" mode="0755"/>
+         </directory>
+         <file-perms>
+            <permission mode="0644" wildcard="basicISP.xml"/>
+         </file-perms>
+      </directory>
+   </file-map>
+   <variables>
+      <product-variable name="SETUP_PRICING" value="2" type="number" helpid="" publish="true"/>
+   </variables>
+</component-def>

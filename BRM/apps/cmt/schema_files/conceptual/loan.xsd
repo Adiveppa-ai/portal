@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.portal.com/InfranetXMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portal.com/InfranetXMLSchema" elementFormDefault="qualified">
+        <!-- Loan data is processed during the initial load accounts to create loan items, events and journals -->
+	<xs:element name="Loan">
+		<xs:complexType>
+			<xs:sequence>
+                                <xs:element name="SubscribersProfileLoanArray" type="ProfileLoanArray" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element name="SubscribersLoanArray" type="LoanArray" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+        <xs:complexType name="ProfileLoanArray">
+                <xs:sequence>
+                        <xs:element name="FldCreatedT" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldConfigLoanObj" type="Poid" minOccurs="1" maxOccurs="1" nillable="false"/>
+                        <xs:element name="FldCreditAmount" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldExternalEligibility" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldMaxActiveLoans" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldNumberOfActiveLoans" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldNumberOfLoans" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldPullback" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldRepaymentDays" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldOptLoan" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="SubscribersProfileLoanLimitArray" type="ProfileLoanLimitArray" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="serviceRef" type="Id" use="optional"/>
+                <xs:attribute name="elem" type="xs:integer" use="required"/>
+                <!-- serviceRef is the account global reference to which these loan belong -->
+        </xs:complexType>
+        <xs:complexType name="ProfileLoanLimitArray">
+                <xs:sequence>
+                        <xs:element name="FldCreditLimit" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldValidFrom" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="FldValidTo" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="elem" type="xs:integer" use="required"/>
+        </xs:complexType>
+	<xs:complexType name="LoanArray">
+		<xs:sequence>
+			<xs:element name="FldCreatedT" type="dateTime-or-zero" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldLoanAmount" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="FldLoanTaxAmount" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldLoanAmountGlId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldLoanFeeAmount" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldLoanFeeTaxAmount" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FldLoanFeeGlId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldLoanAmountRecovered" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="FldLoanFeeRecovered" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="serviceRef" type="Id" use="optional"/>
+		<xs:attribute name="elem" type="xs:integer" use="required"/>
+		<!-- serviceRef is the service global reference to which these loan belongs -->
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,489 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<distribution-info name="Billing Revenue Management" version="15.0.1.0.0" xmlns="http://xmlns.oracle.com/cie/gdr/di">
+   <oraparam>
+      <platforms generate-default-oraparam="true">
+         <platform name="IBM_AIXPPC64"/>
+         <platform name="Solaris_SPARC64"/>
+         <platform name="Linux_AMD64"/>
+         <platform name="MAC-OS-IN"/>
+         <platform name="Linux"/>
+         <platform name="Intel_Solaris"/>
+         <platform name="NT_AMD64"/>
+         <platform name="MAC-OS-IN64"/>
+         <platform name="NT_X86"/>
+         <platform name="Linux_S390"/>
+         <platform name="HP_IA64"/>
+      </platforms>
+      <sections>
+         <section name="Oracle">
+            <property name="SHOW_HOSTNAME" value="NEVER_SHOW"/>
+            <property name="USEJDKONLY" value="TRUE"/>
+            <property name="DISTRIBUTION" value="TRUE"/>
+            <property name="DEFAULT_HOME_NAME" value="oraclehome"/>
+            <property name="NO_BROWSE" value="/net"/>
+            <property name="DEFAULT_HOME_LOCATION" value="nginst"/>
+            <property name="INSTALL_CLASS" value="com.oracle.cie.wizard.WizardController"/>
+            <property name="JAVA_VERSION" value="1.8"/>
+            <property name="THIN_JDBC_FILENAME" value="classes12.jar"/>
+            <property name="NLS_ENABLED" value="TRUE"/>
+            <property name="BUILD_NUMBER" value="2405290448"/>
+            <property name="FEATURESET_UNINSTALL_SUPPORTED" value="TRUE"/>
+            <property name="CUSTOM_FEATURESET_SELECTOR" value="FALSE"/>
+            <property name="SHOW_LANGUAGE_SELECTION" value="FALSE"/>
+            <property name="SHOW_JAVA_HOME_SELECTION" value="FALSE"/>
+            <property name="POST_INSTALL_SCRIPT" value="BRM/setup/runPinSetup"/>
+            <property name="EXT_CLASSPATH">
+               <value>setup/BRMScreens.jar</value>
+               <value>setup/helpset.jar</value>
+               <value>setup/helpset_fr.jar</value>
+               <value>setup/helpset_es.jar</value>
+               <value>setup/helpset_it.jar</value>
+               <value>setup/helpset_ja.jar</value>
+               <value>setup/helpset_ko.jar</value>
+               <value>setup/helpset_pt_BR.jar</value>
+               <value>setup/helpset_ru_RU.jar</value>
+               <value>setup/helpset_zh_CN.jar</value>
+               <value>setup/helpset_zh_TW.jar</value>
+               <value>oracle_common/modules/oracle.help/oracle_ice.jar</value>
+            </property>
+            <property name="PREREQ_CONFIG_LOCATION" value="oui/brm/prereq"/>
+            <platform-specific name="Linux">
+               <property name="PREREQ_CONFIG_LOCATION" value="oui/brm/prereq/linux"/>
+               <property name="ENTRY_POINT" value="all"/>
+            </platform-specific>
+         </section>
+         <section name="Generic Prereqs">
+            <property name="TEMP_SPACE" value="300"/>
+            <property name="JAVA_USE_64BIT">
+               <value>MAC-OS-IN64</value>
+               <value>MAC-OS-IN</value>
+               <value>Solaris</value>
+               <value>Solaris_SPARC64</value>
+               <value>HP_IA64</value>
+               <value>HP_IA32</value>
+               <value>Intel_Solaris</value>
+               <value>Intel_Solaris32</value>
+            </property>
+            <property name="SWAP_SPACE" value="512"/>
+            <property name="CPU" value="300"/>
+            <property name="MIN_DISPLAY_COLORS" value="256"/>
+         </section>
+         <section name="IMAGES"/>
+      </sections>
+   </oraparam>
+   <shiphomeproperties/>
+   <response-files>
+      <response-file name="BRM.rsp">
+         <variable name="ORACLE_HOME">
+            <description>
+          Full path of the directory where BRM Components
+	  will be installed
+        </description>
+         </variable>
+         <variable name="BRM_VERSION" value="15.0.1.0.0">
+            <description>
+          BRM Installer Version 
+	  Kindly do not modify this value 
+        </description>
+         </variable>
+         <variable name="OVERLAY" value="false" exValue="false,true">
+            <description>
+          Internal Flag to differentiate Base Install and Patchset
+	  Kindly do not change the value 
+        </description>
+         </variable>
+         <variable name="BRM_THIRDPARTY_LIBRARIES" value="/Thirdparty">
+            <description>
+          Location where thirdparty jar ojdbc*.jar is located
+        </description>
+         </variable>
+         <variable name="OJDBC" value="ojdbc8.jar" exValue="ojdbc8.jar">
+            <description>
+          Name of ojdbc*.jar Library
+        </description>
+         </variable>
+         <variable name="SSL" value="true" exValue="false,true">
+            <description>
+	  Set flag as true to Secure BRM , otherwise false  
+        </description>
+         </variable>
+         <variable name="IS_UPGRADE" value="0" exValue="0,1">
+            <description>
+	  Set flag as 0 for Fresh Portalbase Install
+	  Set flag as 1 for Portalbase Upgrade Install
+        </description>
+         </variable>
+         <variable name="IS_PIPE_UPGRADE" value="0" exValue="0,1">
+            <description>
+	  Set flag as 0 for Fresh Pipeline Install
+	  Set flag as 1 for Pipeline Upgrade Install
+        </description>
+         </variable>
+         <variable name="BRM_VAR" value="/var">
+            <description>
+          BRM log directory 
+        </description>
+         </variable>
+         <variable name="SYS_DBALIAS" value="pindbhostname">
+            <description>
+	  Enter your database alias. The default is pindbhostname. 
+        </description>
+         </variable>
+         <variable name="SYS_HOSTNAME" value="localhost" exValue="localhost.us.oracle.com">
+            <description>
+          BRM Database Host Name
+        </description>
+         </variable>
+         <variable name="SYS_PORT" value="1521">
+            <description>
+          BRM Database Port Number 
+        </description>
+         </variable>
+         <variable name="SYS_DBALIAS_PIPELINE" value="pindb">
+            <description>
+          Enter your database alias. The default is pindb.
+        </description>
+         </variable>
+         <variable name="SYS_HOSTNAME_PIPELINE" value="localhost" exValue="localhost.us.oracle.com">
+            <description>
+          BRM Database Host Name
+        </description>
+         </variable>
+         <variable name="SYS_PORT_PIPELINE" value="1521">
+            <description>
+          BRM Database Port Number
+        </description>
+         </variable>
+         <variable name="SYS_USERNAME" value="system">
+            <description>
+          BRM Database System User Name
+        </description>
+         </variable>
+         <variable name="SYS_USERNAME_PIPELINE" value="system">
+            <description>
+          Pipeline Database System User Name
+        </description>
+         </variable>
+         <variable name="CM_PORT" value="11960">
+            <description>
+          Connection Manager Port
+        </description>
+         </variable>
+         <variable name="CMMP_PORT" value="11959">
+            <description>
+          Connection Manager Main Process Port
+        </description>
+         </variable>
+         <variable name="CMP_PORT" value="11953">
+            <description>
+          Connection Manager Proxy Port
+        </description>
+         </variable>
+         <variable name="CM_HOST" value="12950">
+            <description>
+          Connection Manager Host
+        </description>
+         </variable>
+         <variable name="DB_USERNAME" value="pin">
+            <description>
+          Database username
+	  NOTE : The user can be pre-created or it will be created by installer
+        </description>
+         </variable>
+         <variable name="DME_PORT" value="12820">
+            <description>
+          Data Manager Email Port
+        </description>
+         </variable>
+         <variable name="DMI_PORT" value="12860">
+            <description>
+          Data Manager Invoice Port
+        </description>
+         </variable>
+         <variable name="DMO_PORT" value="12950">
+            <description>
+          Oracle Data Manager Port
+        </description>
+         </variable>
+         <variable name="DB_NUMBER" value="0.0.0.1">
+            <description>
+          Oracle Database Number
+        </description>
+         </variable>
+         <variable name="DM_HOSTNAME" value="localhost" exValue="localhost">
+            <description>
+          Data Manager Host
+        </description>
+         </variable>
+         <variable name="DROP_TABLES" value="1" exValue="1,2">
+            <description>
+	  Enter whether you want to drop the database tables. The default is flag 1(Yes).
+	  If you select 2 (No), the installer uses your existing BRM tables. 
+	  In test systems, select 1 (Yes) to reinitialize the database. 
+        </description>
+         </variable>
+         <variable name="EAI_PORT" value="11970">
+            <description>
+          EAI Port
+        </description>
+         </variable>
+         <variable name="INDEX_GROUP" value="pinx00">
+            <description>
+          Tablespace name for Indexes:
+        </description>
+         </variable>
+         <variable name="TABLE_GROUP" value="pin00">
+            <description>
+          Tablespace name for Tables:
+        </description>
+         </variable>
+         <variable name="PARTITION_FIX" value="1" exValue="1,2">
+            <description>
+	  Add 12 fixed (monthly) partitions to all event tables? 
+	  This prompt is displayed only if you enter 1 (Yes) to Partition event tables
+
+	  Enter 1 (Yes) to have the installer add 12 monthly partitions, a historic partition, and a last partition to your event tables
+	  Enter 2 (No) if you want the installer to add only a historic partition and a last partition to the tables
+        </description>
+         </variable>
+         <variable name="PARTITION_EVENT_TABLE" value="1" exValue="1,2">
+            <description>
+	  Specify whether you want to enable partitioning. The default is 1 (Yes). 
+	  If you select 2 (No) and then change your mind after you've installed BRM, you will have to upgrade your BRM database from a nonpartitioned to a partitioned version before you can partition your tables
+	  If you select 1 (Yes), you must configure pin_setup to set up any non-event partitions. Your event tables will be partitioned automatically
+        </description>
+         </variable>
+         <variable name="PARTITION_DETAILS" value="journal,journal_master,user_activity,newsfeed,sepa">
+            <description>
+          List of objects to be partitioned 
+	  NOTE : If variable 'PARTITION_EVENT_TABLE' is set as 1 , then kindly update this variable as well .
+        </description>
+         </variable>
+         <variable name="IFW_USER_FLAG" value="1" exValue="1,2">
+            <description>
+	  Create New Pipeline DB User? 
+
+          Set flag 1 to create new pipeline db user
+	  Set flag 2 to use existing portal db user 
+        </description>
+         </variable>
+         <variable name="IFW_DB_USERNAME" value="integrate">
+            <description>
+	  New Pipeline DB Login UserName
+        </description>
+         </variable>
+         <variable name="INFRANET_DB_USERNAME" value="pin">
+            <description>
+          Existing Portal DB Login UserName
+        </description>
+         </variable>
+         <variable name="INFRANET_TABLESPACE_TABLE" value="pin00">
+            <description>
+          Pipeline Tablespace for Indexes:
+        </description>
+         </variable>
+         <variable name="INFRANET_TABLESPACE_INDEX" value="pinx00">
+            <description>
+          Pipeline Tablespace for Tables:
+        </description>
+         </variable>
+         <variable name="IFW_TABLESPACE_TABLE" value="pin00">
+            <description>
+          Pipeline Tablespace for Indexes:
+        </description>
+         </variable>
+         <variable name="IFW_TABLESPACE_INDEX" value="pinx00">
+            <description>
+          Pipeline Tablespace for Tables:
+        </description>
+         </variable>
+         <variable name="RUN_PIN_SETUP" value="1" exValue="1,2">
+            <description>
+	  Set flag 1 to execute pin_setup from installer
+	  Set flag 2 to skip pin_setup execution from installer
+        </description>
+         </variable>
+         <variable name="UPGRADE_WALLET_LOCATION">
+            <description>
+	  Existing Root key wallet location
+        </description>
+         </variable>
+         <variable name="SETUP_PRICING" value="2" exValue="1,2">
+            <description>
+	  Set flag 1 to load Default pricing plans 
+	  Set flag 2 to skip loading default pricing plans
+	  NOTE : This variable is applicable for Sample Featureset
+        </description>
+         </variable>
+         <variable name="STORAGE_MODEL_NUM" value="4" exValue="1,2,3,4">
+            <description>
+          Storage Model used for Oracle tablespaces: 
+		  Set flag 1 (Test)  for test or demonstration databases smaller than 700 MB. 
+		  Set flag 2 (Small) for demonstration databases smaller than 1.5 GB. 
+		  Set flag 3 (Medium) for production databases smaller than 30 GB. 
+		  Set flag 4 (Large) for production databases larger than 30 GB. 
+        </description>
+         </variable>
+         <variable name="IS_PIPELINE" value="0" exValue="1 or 0">
+            <description>
+          Flag to set if pipeline is installed with portalbase or if only pipeline
+		is selected. 
+        </description>
+         </variable>
+         <variable name="SYS_PASSWD" exValue="manager">
+            <description>
+          BRM System Data Base Password
+        </description>
+         </variable>
+         <variable name="SYS_PASSWD_PIPELINE" exValue="manager">
+            <description>
+          Pipeline System Data Base Password
+        </description>
+         </variable>
+         <variable name="DB_PASSWORD" exValue="pin">
+            <description>
+          Database password
+        </description>
+         </variable>
+         <variable name="DB_PASSWORD_CONFIRM" exValue="pin">
+            <description>
+          Confirm Database password
+        </description>
+         </variable>
+         <variable name="IFW_DB_PASSWORD" exValue="integrate">
+            <description>
+          New Pipeline DB Login password
+        </description>
+         </variable>
+         <variable name="IFW_DB_PASSWORD_CONFIRM" exValue="integrate">
+            <description>
+          New Pipeline DB Confirm Login password
+        </description>
+         </variable>
+         <variable name="INFRANET_DB_PASSWORD" exValue="integrate">
+            <description>
+          Existing Portal DB Login password
+        </description>
+         </variable>
+         <variable name="BRM_ROOT_PW" exValue="password">
+            <description>
+          BRM Root Password
+        </description>
+         </variable>
+         <variable name="BRM_ROOT_PW_CONFIRM" exValue="password">
+            <description>
+          BRM Confirm Root Password
+        </description>
+         </variable>
+         <variable name="BRM_ROLE_PW" exValue="password">
+            <description>
+          BRM User Password
+        </description>
+         </variable>
+         <variable name="BRM_ROLE_PW_CONFIRM" exValue="password">
+            <description>
+          BRM Confirm User Password
+        </description>
+         </variable>
+         <variable name="CLIENT_WALLET_PASSWD" exValue="Welcome1">
+            <description>
+          Client Wallet Password
+        </description>
+         </variable>
+         <variable name="CLIENT_WALLET_PASSWD_CONFIRM" exValue="Welcome1">
+            <description>
+          Confirm Client Wallet Password
+        </description>
+         </variable>
+         <variable name="ROOT_WALLET_PASSWD" exValue="Welcome1">
+            <description>
+          Root Wallet Password
+        </description>
+         </variable>
+         <variable name="ROOT_WALLET_PASSWD_CONFIRM" exValue="Welcome1">
+            <description>
+          Confirm Root Wallet Password
+        </description>
+         </variable>
+         <variable name="SERVER_WALLET_PASSWD" exValue="Welcome1">
+            <description>
+          Server Wallet Password
+        </description>
+         </variable>
+         <variable name="SERVER_WALLET_PASSWD_CONFIRM" exValue="Welcome1">
+            <description>
+          Confirm Server Wallet Password
+        </description>
+         </variable>
+         <variable name="UPGRADE_ROOT_KEY_WALLET_PASSWD" exValue="Welcome1">
+            <description>
+          Existing Root Wallet Password
+        </description>
+         </variable>
+         <variable name="DB_SSL_MODE" exValue="1">
+            <description>
+		Database SSL information
+		Set flag 0 for No Database SSL
+		Set flag 1 for One way Database SSL enabled
+		Set flag 2 for One way Database SSL enabled
+        </description>
+         </variable>
+         <variable name="DB_SSL_TRUSTSTORE_TYPE" exValue="0">
+            <description>
+		Database SSl truststore type
+		Set flag 0 for SSO
+		Set flag 1 for PKCS12
+        </description>
+         </variable>
+         <variable name="DB_SSL_TRUSTSTORE_LOC" exValue="">
+            <description>
+		Location where truststore user certificate is present
+        </description>
+         </variable>
+         <variable name="DB_SSL_TRUSTSTORE_PASSWD" exValue="">
+            <description>
+		password for truststore certificate
+        </description>
+         </variable>
+         <variable name="DB_SSL_KEYSTORE_TYPE" exValue="0">
+            <description>
+		Database SSl keystore type
+		Set flag 0 for SSO
+		Set flag 1 for PKCS12
+        </description>
+         </variable>
+         <variable name="DB_SSL_KEYSTORE_LOC" exValue="">
+            <description>
+		Location where keystore user certificate is present
+        </description>
+         </variable>
+         <variable name="DB_SSL_KEYSTORE_PASSWD" exValue="">
+            <description>
+		password for keystore certificate
+        </description>
+         </variable>
+         <variable name="IS_PRIMARY_DB" exValue="">
+            <description>
+		Primary database information
+		set 1 for the primary db
+		set 0 for the secondary db
+        </description>
+         </variable>
+         <variable name="MULTIDB_PRIMARY_DBALIAS" exValue="">
+            <description>
+		primary databse name
+        </description>
+         </variable>
+         <variable name="MULTIDB_PRIMARY_DBUSER" exValue="">
+            <description>
+		primary databse user name
+        </description>
+         </variable>
+         <variable name="MULTIDB_PRIMARY_DBPASSWD" exValue="">
+            <description>
+		primary databse password
+        </description>
+         </variable>
+      </response-file>
+   </response-files>
+</distribution-info>

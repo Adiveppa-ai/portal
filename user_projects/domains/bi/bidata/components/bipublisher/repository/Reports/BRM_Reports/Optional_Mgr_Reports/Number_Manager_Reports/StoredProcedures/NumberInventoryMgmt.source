@@ -1,0 +1,113 @@
+--
+-- Copyright (c) 2008, 2009, Oracle and/or its affiliates. 
+-- All rights reserved. 
+--
+-- This material is the confidential property of Oracle Corporation
+-- or its licensors and may be used, reproduced, stored or transmitted
+-- only in accordance with a valid Oracle license or sublicense agreement.
+--
+create or replace
+PACKAGE NumberInventory AS 
+TYPE refcursor IS REF CURSOR;
+ 
+FUNCTION NumberInventoryMgmt(
+              	   PARAM_REPORT_TYPE IN NUMBER,
+	   	 	   PARAM_START_DATE IN VARCHAR2,
+			   PARAM_END_DATE IN VARCHAR2) RETURN NumberInventory.refcursor;
+END;
+/
+create or replace
+PACKAGE BODY  NumberInventory AS
+ 
+FUNCTION NumberInventoryMgmt(
+            PARAM_REPORT_TYPE IN NUMBER,
+	   	 	PARAM_START_DATE IN VARCHAR2,
+			PARAM_END_DATE IN VARCHAR2) 
+	RETURN NumberInventory.refcursor IS 
+ l_cursor NumberInventory.refcursor;
+
+BEGIN
+    --- write the exact query with the exact where clause based conditionally on the paramter value
+  IF (PARAM_REPORT_TYPE = 1 ) THEN
+
+OPEN l_cursor FOR
+	SELECT 
+		"BLOCK_T"."ACCOUNT_OBJ_ID0", 
+		"DEVICE_T"."POID_ID0" "DEVICE_T.POID_ID0",
+		"DEVICE_T"."DEVICE_ID",
+		"DEVICE_T"."STATE_ID",
+		"DEVICE_NUM_T"."CATEGORY_ID", 
+		"ACCOUNT_T"."POID_ID0",
+		"DEVICE_T"."CREATED_T", 
+		"ACCOUNT_NAMEINFO_T"."FIRST_NAME", 
+		"ACCOUNT_NAMEINFO_T"."LAST_NAME", 
+		"ACCOUNT_NAMEINFO_T"."REC_ID", 
+		"BLOCK_T"."POID_ID0" "BLOCK_T.POID_ID0", 
+		"BLOCK_T"."NAME", 
+		"BLOCK_T"."START_NUMBER",
+		"BLOCK_T"."END_NUMBER",
+		"STRINGS_T"."STRING" 
+	FROM  
+		((("BLOCK_T" "BLOCK_T" INNER JOIN "DEVICE_T" "DEVICE_T" ON "BLOCK_T"."ACCOUNT_OBJ_ID0"="DEVICE_T"."ACCOUNT_OBJ_ID0") 
+		INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "BLOCK_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0") 
+		INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+		INNER JOIN "DEVICE_NUM_T" "DEVICE_NUM_T" ON "DEVICE_T"."POID_ID0"="DEVICE_NUM_T"."OBJ_ID0"
+        INNER JOIN "STRINGS_T" ON ("DEVICE_T"."STATE_ID" = "STRINGS_T"."STRING_ID" AND "STRINGS_T"."DOMAIN" = 'config_device_state_num')
+	WHERE
+		bipext.infCheckDates(PARAM_START_DATE, PARAM_END_DATE) = 1 AND  
+		("DEVICE_T"."CREATED_T">=BIPEXT.infStrToTimet( PARAM_START_DATE ,2) AND 
+		 "DEVICE_T"."CREATED_T"<=BIPEXT.infStrToTimet( PARAM_END_DATE ,2)-1) AND 
+		"ACCOUNT_NAMEINFO_T"."REC_ID"=1 AND
+		("DEVICE_T"."DEVICE_ID" >= "BLOCK_T"."START_NUMBER" AND
+		"DEVICE_T"."DEVICE_ID" <= "BLOCK_T"."END_NUMBER")
+	ORDER BY 
+		"BLOCK_T"."POID_ID0", 
+		"BLOCK_T"."ACCOUNT_OBJ_ID0", 
+		"DEVICE_T"."STATE_ID",
+		"DEVICE_NUM_T"."CATEGORY_ID", 
+		"DEVICE_T"."POID_ID0";
+ELSE
+OPEN l_cursor FOR
+	SELECT 
+		"BLOCK_T"."NAME", 
+		"BLOCK_T"."END_NUMBER", 
+		"BLOCK_T"."START_NUMBER", 
+		"BLOCK_T"."ACCOUNT_OBJ_ID0", 
+		"DEVICE_T"."DEVICE_ID",
+		"DEVICE_T"."STATE_ID",
+		"DEVICE_NUM_T"."VANITY",
+		"ACCOUNT_T"."POID_ID0", 
+		"DEVICE_T"."CREATED_T", 
+		"ACCOUNT_NAMEINFO_T"."FIRST_NAME", 
+		"ACCOUNT_NAMEINFO_T"."LAST_NAME", 
+		"ACCOUNT_NAMEINFO_T"."REC_ID",
+		"STRINGS_T"."STRING" 
+	 FROM 
+	 	  
+	      ((("BLOCK_T" "BLOCK_T" INNER JOIN "DEVICE_T" "DEVICE_T" ON "BLOCK_T"."ACCOUNT_OBJ_ID0"="DEVICE_T"."ACCOUNT_OBJ_ID0") 
+		INNER JOIN "ACCOUNT_T" "ACCOUNT_T" ON "BLOCK_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_T"."POID_ID0") 
+		INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0") 
+		INNER JOIN "DEVICE_NUM_T" "DEVICE_NUM_T" ON "DEVICE_T"."POID_ID0"="DEVICE_NUM_T"."OBJ_ID0"
+        INNER JOIN "STRINGS_T" ON ("DEVICE_T"."STATE_ID" = "STRINGS_T"."STRING_ID" AND "STRINGS_T"."DOMAIN" = 'config_device_state_num')
+
+	WHERE 
+		bipext.infCheckDates(PARAM_START_DATE, PARAM_END_DATE) = 1 AND
+		("DEVICE_T"."CREATED_T">=BIPEXT.infStrToTimet( PARAM_START_DATE ,2) AND 
+		 "DEVICE_T"."CREATED_T"<=BIPEXT.infStrToTimet( PARAM_END_DATE ,2)-1) AND 
+		("DEVICE_T"."DEVICE_ID" >= "BLOCK_T"."START_NUMBER" AND
+		 "DEVICE_T"."DEVICE_ID" <= "BLOCK_T"."END_NUMBER") AND
+		"ACCOUNT_NAMEINFO_T"."REC_ID"=1
+		
+	ORDER BY 
+		"BLOCK_T"."NAME",
+		"BLOCK_T"."ACCOUNT_OBJ_ID0",
+		"DEVICE_NUM_T"."VANITY",
+		"DEVICE_T"."STATE_ID",
+        "DEVICE_T"."DEVICE_ID";
+END IF;
+
+RETURN l_cursor;
+
+END NumberInventoryMgmt;
+END NumberInventory;
+/

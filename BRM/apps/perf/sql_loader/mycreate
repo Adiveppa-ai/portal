@@ -1,0 +1,411 @@
+#!/tools/CGBU/contrib/DO/BRM/Perl/15.0.1.0.0/latest/linux/bin/perl
+###########
+# Copyright (c) 1997, 2010, Oracle and/or its affiliates. All rights reserved. 
+#       This material is the confidential property of Oracle Corporation or its
+#       licensors and may be used, reproduced, stored or transmitted
+#       only in accordance with a valid Oracle license or sublicense agreement.
+###########
+require "../db_conf.pm";
+######################################################################
+## Configuration stuff
+######################################################################
+$CONF_BEG_ID0=1000000;   # starting number for login 
+$CONF_NUM_THREADS=10;      # how many parallel processes we are going to use
+$BRAND_LOGIN = "'root.0.0.0.1'"; # login root.0.0.0.1 is for no brand
+$BRAND_PERMISSION = "'L'";
+
+$ARRAY_SIZE=50;
+$ACCOUNT_BASE_SIZE=0;   # starting poid sequence for account creation
+                        # 0 - use sequence ( default)
+                        # > 0 used for multiDB to create unique account poids
+                        # note that normally we need 2*total_num_accounts*ARRAY_SIZE per run
+$PROFILE_ID=15;         # profile from cfg_credit_profile_t for currency
+$PROFILE_FREERES_ID=16;    # profile from cfg_credit_profile_t for NC resources
+$CONF_DEBUG="false";          # false or true
+$CONF_COMMIT_FREQ=10;
+$FREE_RESOURCES=3600;    # all free or used resources beside currency will
+                      # have the same values 
+#############################
+# below is parameters structure
+# 1)plan; 
+# 2)number accounts to create per thread;
+# 3)account type:invoice = 0, cc = 1, prepaid = 2
+# 4)residency type:convergent = 0, pre-paid  = 1, batch = 2, db_only(inactive) =3
+# 5) GL segment
+############################
+@ACCOUNTS= (
+          #"'BenchTelcoGSMD'" , 2000, 2,1,"'.'",   # Prepaid Accounts
+          "'Bench_Basic'" , 100000, 0,0,"'.'",   # invoice Basic Accounts
+	  );
+#---------------------------------------------------------------------
+# pinaft outputs create_t (today), actg_next_t, actg_future_t and 
+# actg_dom. Note that if today is 29-31 then actg_dom, actg_next_t and 
+# actg_future_t will be auto adjusted to 1st.
+#---------------------------------------------------------------------
+$PINAFT_OUTPUT=`./pinaft`;
+($CONF_CREATE_T,$CONF_ACTG_DOM,$CONF_ACTG_NEXT_T,$CONF_ACTG_FUTURE_T,
+   $CONF_DATE_STRG ) = split (' ',$PINAFT_OUTPUT,99);
+
+$CONF_DATE_STR="'$CONF_DATE_STRG'";
+$ENCRYPT=encrypt_poid ($CONF_CREATE_T);
+#--------------------------------------------
+# end of configuration section
+#--------------------------------------------
+#=============================================================================
+
+$sqlout="";
+#--------------------------------------
+#--------------------------------------
+$sqlcommand =<<END
+set serveroutput on
+\@debug.sql
+\@ldacnts.sql
+END
+;
+
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+$sqlcommand =<<SQLPLUSENDPROC
+set pagesize 0
+select pin_sequence.get_nextval() from dual;
+select g.account_obj_db, g.account_obj_id0,g.poid_id0 from group_t g, service_t s where s.login = $BRAND_LOGIN and s.poid_type = '/service/admin_client' and s.account_obj_id0 = g.account_obj_id0 and g.account_obj_id0=g.parent_id0 ;
+select count (*) from cfg_credit_profile_t where rec_id = $PROFILE_ID;
+select max(m.rec_id) from group_t g, service_t s ,group_billing_members_t m where s.login = $BRAND_LOGIN and s.account_obj_id0 = g.account_obj_id0 and g.account_obj_id0=g.parent_id0 and m.obj_id0 = g.poid_id0;
+SQLPLUSENDPROC
+;
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+
+#print $sqlout;
+
+($origin_start_seq_no,$db_no,$brand_id, $group_poid, $num_credit_profiles,$rec_id)=split (' ',$sqlout,99);
+${start_log_no} = $CONF_BEG_ID0;
+
+# db_base is without logical partition
+$db_base = $db_no & 0xFF;
+
+if ( $num_credit_profiles == 0 && $db_base == 1 ) {
+print "WARNING!Credit profile $PROFILE_ID is not set in DB \n";
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+$sqlcommand =<<SQLPLUSEND1
+insert into cfg_credit_profile_t values ( 201, $PROFILE_ID, -10000000 , 100000,0,'' );
+insert into cfg_credit_profile_t values ( 201, $PROFILE_FREERES_ID, -10000000 , 100000,0,'' );
+commit;
+SQLPLUSEND1
+;
+exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+print "Inserted credit profile $PROFILE_ID in cfg_credit_profile_t\n";
+#print "Please restart CM before starting any application/workload\n";
+}
+if ( $brand_id > $origin_start_seq_no ) {
+$start_seq_no = $brand_id +10000;
+$origin_start_seq_no = $brand_id;
+}
+else {
+$start_seq_no = $origin_start_seq_no +10000;
+}
+#adjust first poid for multiDB
+if ( $ACCOUNT_BASE_SIZE > 0 ) {
+ if ( $ACCOUNT_BASE_SIZE > $start_seq_no ) {
+    $start_seq_no =  $ACCOUNT_BASE_SIZE;
+ }
+}
+
+# calculating number of sequence poids for one account
+#
+# if config items set we allocate items /misc for each service
+# for current period and next period and  additional ( account +next+ payment for cc)
+$poids_per_account=($CONFIG_ITEMS+1) * $ARRAY_SIZE;
+
+$currtime0 = time();
+
+$index = 0;
+$total_num_accnts= 0;
+if ( $rec_id eq "" ) { $rec_id = 0 };
+$rec_id = $rec_id +1;
+
+while ( $index < @ACCOUNTS ) {
+
+$currtime1 = time();
+$plan = $ACCOUNTS[$index];
+$num_accounts = $ACCOUNTS[$index+1];
+$account_type = $ACCOUNTS[$index+2];
+$residence_flag   = $ACCOUNTS[$index+3];
+$gl_segment   = $ACCOUNTS[$index+4];
+
+$index = $index +5;
+
+$current_thread=$CONF_NUM_THREADS;
+
+while ( $current_thread > 0 ) {
+#--------------------------------------
+$sqlcmnd_array[$current_thread] =<<SQLPLUSEND 
+DECLARE
+myloadinfo	pin_load_db.LoadInfoTyp;
+myinsinfo	pin_load_db.InsertInfoTyp;
+service_type VARCHAR2(255);
+deal INTEGER;
+bal_index INTEGER;
+subscript_index INTEGER;
+counts INTEGER;
+product INTEGER;
+num_products INTEGER;
+permitted VARCHAR2(255);
+
+-- 
+-- set up cursors to fetch some of the configuration stuff from the database.
+--
+-- Get the plan id for, say, 'Power' plan
+cursor plan_id0 is 
+	select poid_id0 from plan_t 
+		where name = $plan and account_obj_id0 = $brand_id;
+
+-- Get the deal,services using plan
+cursor service_id0 is
+	select deal_obj_id0,service_obj_type, bal_info_index, subscription_index from plan_services_t
+		where obj_id0 = myinsinfo.plan_id0;
+
+-- Get the product     using deal
+cursor deal_id0 is
+	select product_obj_id0 from deal_products_t
+		where obj_id0 = deal;
+
+-- Get the discount     using deal
+cursor dealdisc_id0 is
+	select discount_obj_id0 from deal_discounts_t
+		where obj_id0 = deal;
+
+-- Get the service assigned
+cursor prod_id0 is
+	select permitted from product_t
+		where poid_id0 = product;
+
+cursor disc_id0 is
+	select permitted from discount_t
+		where poid_id0 = product and type = 602;
+
+BEGIN
+	-- (CONFIGURE) -- number of accounts
+	myloadinfo.num_acnt 	:= ${num_accounts};		
+
+	myloadinfo.beg_id0	:= ${start_seq_no};
+	myloadinfo.db_id	:= ${db_base};
+	myloadinfo.brand_db	:= ${db_no};
+	myloadinfo.logical_partitions	:= ${LOGICAL_PARTITIONS};
+	myloadinfo.brand_id0	:= ${brand_id};
+	myinsinfo.brand_perm	:= ${BRAND_PERMISSION};
+	myinsinfo.group_poid	:= ${group_poid};
+	myinsinfo.rec_id	:= ${rec_id};
+	myloadinfo.login_num	:= ${start_log_no};
+	myloadinfo.encrypt	:= ${ENCRYPT};
+	myloadinfo.config_items	:= ${CONFIG_ITEMS};
+	myloadinfo.user_prefix	:= '${USER_PREFIX}';
+	myloadinfo.user_passwd	:= '${USER_PASSWORD}';
+	myloadinfo.credit_prof_id := '${PROFILE_ID}';
+	myloadinfo.credit_prof_id1 := '${PROFILE_FREERES_ID}';
+
+	-- (CONFIGURE) commit frequency
+	myloadinfo.commit_freq 	:= ${CONF_COMMIT_FREQ};
+
+	-- (CONFIGURE) print debug info
+	myloadinfo.debug	:= ${CONF_DEBUG};
+
+	-- (CONFIGURE) current time in unix time format
+	myinsinfo.create_t	:= ${CONF_CREATE_T};
+
+	-- (CONFIGURE) next time accouting should run (usually a month from now)
+	-- Again, unix time format, rounded to midnight. So, for example if 
+	-- today is July 5, actg_next_t would be August 5 midnight
+	myinsinfo.actg_next_t	:= ${CONF_ACTG_NEXT_T};
+
+	-- (CONFIGURE) a month from actg_next_t (for example Sept 5 midnight)
+	myinsinfo.actg_future_t	:= ${CONF_ACTG_FUTURE_T};
+
+	-- (CONFIGURE) day on which accounting is done (For example, 5)
+	myinsinfo.actg_cycle	:= ${CONF_ACTG_DOM};
+
+	-- (CONFIGURE) creditcard/invoice account?
+	myinsinfo.cc		:= ${account_type};
+
+	-- (CONFIGURE) residency ?
+	myinsinfo.residency		:= ${residence_flag};
+
+	-- (CONFIGURE) free time per month account?
+	myinsinfo.free_time	:= ${FREE_RESOURCES} * (-1);
+
+	-- (CONFIGURE) AUTH date used for the cc payment event
+	myinsinfo.date_str	:=  ${CONF_DATE_STR};
+
+	-- (CONFIGURE) AUTH date used for the cc payment event
+	myinsinfo.gl_segm	:=  ${gl_segment};
+
+	-- Use the defined cursors to fetch the plan/deal/product ids.
+	open plan_id0;
+	fetch plan_id0 into myinsinfo.plan_id0;
+	close plan_id0;
+        -- do we have multiple balance groups
+        select count (*) INTO myloadinfo.bal_service from bal_info_t where obj_id0 = myinsinfo.plan_id0;
+
+        open service_id0;
+	num_products := 0;
+     FOR counts IN 1..$ARRAY_SIZE LOOP
+        fetch service_id0 into deal, service_type, bal_index, subscript_index;
+        EXIT WHEN service_id0%NOTFOUND;
+	myloadinfo.num_services:= counts;
+	open deal_id0;
+	while ( num_products < $ARRAY_SIZE ) LOOP
+		fetch deal_id0 into product;
+		EXIT WHEN deal_id0%NOTFOUND;
+		permitted := '?';
+		open prod_id0;
+		fetch prod_id0 into permitted;
+		close prod_id0;
+
+		if ( service_type = permitted ) THEN
+	  		num_products := num_products +1;
+		        myinsinfo.prod_id( num_products) := product;
+		        myinsinfo.services( num_products) := service_type;
+		        myinsinfo.deal_id( num_products) := deal;
+		        myinsinfo.prod_type ( num_products) := 0;  -- real product
+        	end IF;
+        end LOOP;
+        close deal_id0;
+        -- now we process discounts
+	open dealdisc_id0;
+	while ( num_products < $ARRAY_SIZE ) LOOP
+		fetch dealdisc_id0 into product;
+		EXIT WHEN dealdisc_id0%NOTFOUND;
+		permitted := '?';
+		open disc_id0;
+		fetch disc_id0 into permitted;
+		close disc_id0;
+
+		if ( service_type = permitted ) THEN
+	  		num_products := num_products +1;
+		        myinsinfo.prod_id( num_products) := product;
+		        myinsinfo.services( num_products) := service_type;
+		        myinsinfo.deal_id( num_products) := deal;
+		        myinsinfo.prod_type ( num_products) := 1;  -- this is discount
+        	end IF;
+        end LOOP;
+        close dealdisc_id0;
+	myinsinfo.service_type(COUNTS) := service_type;
+        myinsinfo.balance_index( COUNTS) := bal_index;
+        myinsinfo.subscription_index( COUNTS) := subscript_index;
+     END LOOP;
+     close service_id0;
+																 --
+	-- Call insert_accounts to actually create the accounts
+	--
+	myloadinfo.num_products:=  num_products;
+	myloadinfo.array_size:=  $ARRAY_SIZE;
+	pin_load_db.insert_accounts(myloadinfo, myinsinfo);
+
+
+END;
+/
+
+SQLPLUSEND
+;
+$current_thread=$current_thread - 1;
+$start_seq_no=$start_seq_no + $poids_per_account * $num_accounts;  
+$start_log_no=$start_log_no + $num_accounts;
+$rec_id = $rec_id +$num_accounts;
+# end of while
+}
+
+#  end of while
+##################################################
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+{
+if ( $^O =~ /win/i )
+{
+# special code for Windows 
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+	print $sqlout;
+}
+else
+{
+$procid[$current_thread] = fork();
+#--------------------------------------
+#  child process
+#--------------------------------------
+if ( $procid[$current_thread] == 0 ) {
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcmnd_array[$current_thread]);
+
+print $sqlout;
+exit;    # this terminates child process
+}
+# this is a parent process
+}
+
+$current_thread=$current_thread + 1;
+}
+if (!( $^O =~ /win/i ))
+{
+#
+# waiting while all processes were completed
+#
+$current_thread = 1;
+while ( $current_thread <= $CONF_NUM_THREADS )
+ {
+  waitpid ($procid[$current_thread], 0 );
+  $current_thread=$current_thread + 1;
+ }
+}
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime1;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$accounts = $num_accounts * $CONF_NUM_THREADS;
+$total_num_accnts = $total_num_accnts + $accounts;
+print "***************************************************************\n";
+printf " $accounts accounts  plan $plan were created in %d h %d min %d sec.\n",
+	   $ehours,$emin,$esec;
+print "***************************************************************\n";
+# go to the next plan from config array
+}
+
+$currtime2 = time();
+$elapstime = $currtime2 - $currtime0;
+$ehours = $elapstime / 3600;
+$elapstime = $elapstime % 3600;
+$emin = $elapstime / 60;
+$esec = $elapstime % 60;
+$accounts = $total_num_accnts;
+print "***************************************************************\n";
+printf " $accounts accounts were created in %d h %d min %d sec.\n",
+	   $ehours,$emin,$esec;
+print "***************************************************************\n";
+
+# fix sequence
+#
+$INCREMENT=$start_seq_no + 10000 - $origin_start_seq_no;
+
+if ( $brand_id != 1 ) {
+$sql_comnd = "update group_t set count = count + $accounts where poid_id0 = $group_poid;"
+}
+else {
+$sql_comnd = "--"
+}
+
+# update sequence to point beyond max used
+$sqlcommand =<<SQLPLUSEND2
+update data_t set inc_by=${INCREMENT} where name='STANDARD_POIDS';
+commit;
+select pin_sequence.get_nextval() from dual;
+update data_t set inc_by=1 where name='STANDARD_POIDS';
+commit;
+$sql_comnd
+SQLPLUSEND2
+;
+	exec_sqlcommand($CONF_OWNER,$CONF_DBNAME,$sqlcommand);
+#print $sqlout;
+
+1;
+
+
+
+
+

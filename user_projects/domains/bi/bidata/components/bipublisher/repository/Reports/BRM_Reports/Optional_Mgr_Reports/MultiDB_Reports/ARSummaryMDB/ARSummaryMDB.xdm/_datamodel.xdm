@@ -1,0 +1,205 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "ACCOUNT_NAMEINFO_T"."COUNTRY", "ITEM_T"."DUE",
+ (BIPEXT.INFSTRTOTIMET(:PARAM_CURRENT_DATE,3) - "ITEM_T"."EFFECTIVE_T")
+ "AGING_DURATION" ,"ACCOUNT_NAMEINFO_T"."STATE", "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "BILLINFO_T"."PAY_TYPE", "ITEM_T"."ACCOUNT_OBJ_ID0",
+ "ACCOUNT_T"."STATUS", "ACCOUNT_T"."CURRENCY",
+ "CONFIG_BEID_BALANCES_T"."NAME" "RESOURCE_NAME", "ACCOUNT_T"."ACCOUNT_NO"
+ FROM ((("ACCOUNT_T" "ACCOUNT_T"
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T"
+ ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T"
+ ON "ACCOUNT_T"."CURRENCY"="CONFIG_BEID_BALANCES_T"."REC_ID")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T"
+ ON "ACCOUNT_T"."POID_ID0"="BILLINFO_T"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "ITEM_T" "ITEM_T" ON "BILLINFO_T"."POID_ID0"="ITEM_T"."AR_BILLINFO_OBJ_ID0"
+ WHERE "ACCOUNT_T"."POID_DB"=1
+ AND "ACCOUNT_T"."POID_ID0">1
+ AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(:PARAM_PAY_TYPE,"BILLINFO_T"."PAY_TYPE")
+ AND ("ACCOUNT_T"."STATUS">=NVL(:PARAM_ACCOUNT_STATUS,10100)
+ AND "ACCOUNT_T"."STATUS"<=NVL(:PARAM_ACCOUNT_STATUS,10103))
+ AND "ITEM_T"."DUE"<>0
+ AND "ITEM_T"."EFFECTIVE_T">0
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(DECODE
+ (:PARAM_STATE, 'ALL','%',:PARAM_STATE),'')
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY"
+ LIKE NVL(DECODE(:PARAM_COUNTRY, 'ALL','%',:PARAM_COUNTRY),'')
+ AND nvl(:PARAM_PERIOD1_DAYS,0) >=1 AND nvl(:PARAM_PERIOD1_DAYS,367) <= 366
+ AND nvl(:PARAM_PERIOD2_DAYS,0) >=1 AND nvl(:PARAM_PERIOD2_DAYS,367) <= 366
+ AND nvl(:PARAM_PERIOD3_DAYS,0) >=1 AND nvl(:PARAM_PERIOD3_DAYS,367) <= 366
+ ORDER BY "ACCOUNT_T"."CURRENCY", upper("ACCOUNT_NAMEINFO_T"."COUNTRY"),
+ upper("ACCOUNT_NAMEINFO_T"."STATE"), "ITEM_T"."ACCOUNT_OBJ_ID0"]]>
+         </sql>
+      </dataSet>
+      <dataSet name="Q2" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT "ACCOUNT_NAMEINFO_T"."COUNTRY", "ITEM_T"."DUE",
+ (BIPEXT.INFSTRTOTIMET(:PARAM_CURRENT_DATE,3) - "ITEM_T"."EFFECTIVE_T")
+ "AGING_DURATION" ,"ACCOUNT_NAMEINFO_T"."STATE", "ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ "ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ "BILLINFO_T"."PAY_TYPE", "ITEM_T"."ACCOUNT_OBJ_ID0",
+ "ACCOUNT_T"."STATUS", "ACCOUNT_T"."CURRENCY",
+ "CONFIG_BEID_BALANCES_T"."NAME" "RESOURCE_NAME", "ACCOUNT_T"."ACCOUNT_NO"
+ FROM ((("ACCOUNT_T" "ACCOUNT_T"
+ INNER JOIN "ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T"
+ ON "ACCOUNT_T"."POID_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0")
+ INNER JOIN "CONFIG_BEID_BALANCES_T" "CONFIG_BEID_BALANCES_T"
+ ON "ACCOUNT_T"."CURRENCY"="CONFIG_BEID_BALANCES_T"."REC_ID")
+ INNER JOIN "BILLINFO_T" "BILLINFO_T"
+ ON "ACCOUNT_T"."POID_ID0"="BILLINFO_T"."ACCOUNT_OBJ_ID0")
+ INNER JOIN "ITEM_T" "ITEM_T" ON "BILLINFO_T"."POID_ID0"="ITEM_T"."AR_BILLINFO_OBJ_ID0"
+ WHERE "ACCOUNT_T"."POID_DB"=2
+ AND "ACCOUNT_T"."POID_ID0">1
+ AND "BILLINFO_T"."PAY_TYPE" LIKE NVL(:PARAM_PAY_TYPE,"BILLINFO_T"."PAY_TYPE")
+ AND ("ACCOUNT_T"."STATUS">=NVL(:PARAM_ACCOUNT_STATUS,10100)
+ AND "ACCOUNT_T"."STATUS"<=NVL(:PARAM_ACCOUNT_STATUS,10103))
+ AND "ITEM_T"."DUE"<>0
+ AND "ITEM_T"."EFFECTIVE_T">0
+ AND "ACCOUNT_NAMEINFO_T"."REC_ID"=1
+ AND "ACCOUNT_NAMEINFO_T"."STATE" LIKE NVL(DECODE
+ (:PARAM_STATE, 'ALL','%',:PARAM_STATE),'')
+ AND "ACCOUNT_NAMEINFO_T"."COUNTRY"
+ LIKE NVL(DECODE(:PARAM_COUNTRY, 'ALL','%',:PARAM_COUNTRY),'')
+ AND nvl(:PARAM_PERIOD1_DAYS,0) >=1 AND nvl(:PARAM_PERIOD1_DAYS,367) <= 366
+ AND nvl(:PARAM_PERIOD2_DAYS,0) >=1 AND nvl(:PARAM_PERIOD2_DAYS,367) <= 366
+ AND nvl(:PARAM_PERIOD3_DAYS,0) >=1 AND nvl(:PARAM_PERIOD3_DAYS,367) <= 366
+ ORDER BY "ACCOUNT_T"."CURRENCY", upper("ACCOUNT_NAMEINFO_T"."COUNTRY"),
+ upper("ACCOUNT_NAMEINFO_T"."STATE"), "ITEM_T"."ACCOUNT_OBJ_ID0"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="COUNTRY_1" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="1"/>
+    <element name="DUE_1" value="DUE" dataType="xsd:integer" label="DUE" breakOrder="None" fieldOrder="2"/>
+    <element name="AGING_DURATION_1" value="AGING_DURATION" dataType="xsd:integer" label="AGING_DURATION" breakOrder="None" fieldOrder="3"/>
+    <element name="STATE_1" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="4"/>
+    <element name="FIRST_NAME_1" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="LAST_NAME_1" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="6"/>
+    <element name="PAY_TYPE" value="PAY_TYPE" dataType="xsd:integer" label="PAY_TYPE" breakOrder="None" fieldOrder="7"/>
+    <element name="ACCOUNT_OBJ_ID0_1" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="8"/>
+    <element name="STATUS_1" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="9"/>
+    <element name="CURRENCY_1" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="10"/>
+    <element name="RESOURCE_NAME_1" value="RESOURCE_NAME" dataType="xsd:string" label="RESOURCE_NAME" breakOrder="None" fieldOrder="11"/>
+    <element name="ACCOUNT_NO_1" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="12"/>
+  </group>
+  <group name="Q2" source="Q2" label="Q2">
+    <element name="COUNTRY_1" value="COUNTRY" dataType="xsd:string" label="COUNTRY" breakOrder="None" fieldOrder="1"/>
+    <element name="DUE_1" value="DUE" dataType="xsd:integer" label="DUE" breakOrder="None" fieldOrder="2"/>
+    <element name="AGING_DURATION_1" value="AGING_DURATION" dataType="xsd:integer" label="AGING_DURATION" breakOrder="None" fieldOrder="3"/>
+    <element name="STATE_1" value="STATE" dataType="xsd:string" label="STATE" breakOrder="None" fieldOrder="4"/>
+    <element name="FIRST_NAME_1" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="LAST_NAME_1" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="6"/>
+    <element name="PAY_TYPE_1" value="PAY_TYPE" dataType="xsd:integer" label="PAY_TYPE" breakOrder="None" fieldOrder="7"/>
+    <element name="ACCOUNT_OBJ_ID0_1" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="8"/>
+    <element name="STATUS_1" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="9"/>
+    <element name="CURRENCY_1" value="CURRENCY" dataType="xsd:integer" label="CURRENCY" breakOrder="None" fieldOrder="10"/>
+    <element name="RESOURCE_NAME_1" value="RESOURCE_NAME" dataType="xsd:string" label="RESOURCE_NAME" breakOrder="None" fieldOrder="11"/>
+    <element name="ACCOUNT_NO_1" value="ACCOUNT_NO" dataType="xsd:string" label="ACCOUNT_NO" breakOrder="None" fieldOrder="12"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="STATE_DEATILS_LOV">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="ACCOUNT_DETAILS_LOV">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="INCLUDE_CHART_LOV">
+         <nvPairs>
+            <nvPair label="NO" value="0"/>
+            <nvPair label="YES" value="1"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="PAY_TYPE_LOV">
+         <nvPairs>
+            <nvPair label="CASH" value="10011"/>
+            <nvPair label="CHECK" value="10012"/>
+            <nvPair label="CREDIT CARD" value="10003"/>
+            <nvPair label="DIRECT DEBIT" value="10005"/>
+            <nvPair label="FAILED" value="10017"/>
+            <nvPair label="INVOICE" value="10001"/>
+            <nvPair label="INTERBANK TRANSFER" value="10014"/>
+            <nvPair label="POSTAL ORDER" value="10015"/>
+            <nvPair label="PREPAID" value="10000"/>
+            <nvPair label="UNDEFINED" value="0"/>
+            <nvPair label="VOUCHER" value="10016"/>
+            <nvPair label="WIRE-TRANSFER" value="10013"/>
+         </nvPairs>
+      </valueSet>
+      <valueSet id="ACCOUNT_STATUS_LOV">
+         <nvPairs>
+            <nvPair label="ACTIVE" value="10100"/>
+            <nvPair label="INACTIVE" value="10102"/>
+            <nvPair label="CLOSED" value="10103"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_ACCOUNT_STATUS" dataType="xsd:float">
+         <select label="Select a specific account status, or select ALL to include all accounts" valueSet="ACCOUNT_STATUS_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_PAY_TYPE" dataType="xsd:float">
+         <select label="Select a type of billing, or select ALL to include all types of billing" valueSet="PAY_TYPE_LOV" multiple="false" all="true" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_COUNTRY" dataType="xsd:string">
+         <input label="Enter a specific country, or select ALL to include all countries" size="30"/>
+      </parameter>
+      <parameter name="PARAM_STATE" dataType="xsd:string">
+         <input label="Enter a specific state, or select ALL to include all states" size="30"/>
+      </parameter>
+      <parameter name="PARAM_PERIOD1_DAYS" dataType="xsd:float">
+         <input label="Enter the length, in days, for aging period 1( min value 1, max value 366)" size="3"/>
+      </parameter>
+      <parameter name="PARAM_PERIOD2_DAYS" dataType="xsd:float">
+         <input label="Enter the length, in days, for aging period 2(min value 1, max value 366)" size="3"/>
+      </parameter>
+      <parameter name="PARAM_PERIOD3_DAYS" dataType="xsd:float">
+         <input label="Enter the length, in days, for aging period 3(min value 1, max value 366)" size="3"/>
+      </parameter>
+      <parameter name="PARAM_CURRENT_DATE" dataType="xsd:date">
+         <date label="Current Date [To be masked latter]." size="25" format="MM/dd/yyyy"/>
+      </parameter>
+      <parameter name="PARAM_STATE_DETAILS" defaultValue="NO" dataType="xsd:string">
+         <select label="Include state-level details?" valueSet="STATE_DEATILS_LOV" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_ACCOUNT_DETAILS" defaultValue="NO" dataType="xsd:string">
+         <select label="Include account-level details?" valueSet="ACCOUNT_DETAILS_LOV" multiple="false" all="false" allValue="null"/>
+      </parameter>
+      <parameter name="PARAM_INCLUDE_CHART" defaultValue="NO" dataType="xsd:string">
+         <select label="Include charts?" valueSet="INCLUDE_CHART_LOV" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q2" left="451px" top="130px"/><layout name="Q1" left="145px" top="104px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

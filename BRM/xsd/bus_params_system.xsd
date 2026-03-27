@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  **************************************************************************
+* Copyright (c) 2016, 2022, Oracle and/or its affiliates. All rights reserved.
+  *
+  * This material is the confidential property of Oracle Corporation
+  * or its licensors and may be used, reproduced, stored or transmitted
+  * only in accordance with a valid Oracle license or sublicense agreement.
+  **************************************************************************
+-->
+<xs:schema
+        targetNamespace="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:businessConfig="http://www.portal.com/schemas/BusinessConfig"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+        <xs:annotation>
+                <xs:documentation xml:lang="en">
+ Copyright (c) 2004, 2018, Oracle and/or its affiliates. All rights reserved.
+                        This material is the confidential property of Oracle Corporation or its
+                        licensors and may be used, reproduced, stored or transmitted only in
+                        accordance with a valid Oracle license or sublicense agreement.
+                </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType name="BusParamsSystemType">
+                <xs:sequence>
+
+                        <xs:element name="ConfigCacheRefreshInterval">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies the interval in minutes after which config params cached data will be considered stale.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="PrepaidEngine">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies the rating engine used for prepaid events. Valid values are 0 and 1. When set to 0, c_rating is used and When set to 1, ece_rating is used . Default value is 0.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>								
+                        <xs:element name="PrepaidPartitionSet">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies the partition set for prepaid events. Valid values are 0 and 2 - 7. When set to 0, prepaid partitioning is disabled. Default value is 0.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>				
+			<xs:element name="NotificationSubscriberPreferences">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Specifies the comma seperated list of subscriber preferences that needs to be part of notification messages.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+			<xs:element name="NotificationSilentPeriod">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Default silent period value is 21:00-07:00. This values would be used when SilentPeriod is enabled in /config/notification_spec for the BusinessEvent being processed.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="AcceptableDelayTime">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies the amount of acceptable delay in notification delivery from Notification Scheduled Time or Preferred Time. Default acceptable delay time value.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SilentDaysCalendarName">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies the name of the notification calendar to be used for Silent Days. Default value is NotificationSilentDays.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="EnableExternalIds">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Generation of unique IDs for Event, Balance Group, Billinfo, payinfo can be Enabled/Disabled. Default value is 0.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CrossSchemaSharingGroup">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+                                                Specifies whether the parent and member accounts in sharing groups can be present in different schemas. Default value is Disabled meaning parent and member account must be present in same schema.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="CMAuthorization">
+                                <xs:annotation>
+                                        <xs:documentation xml:lang="en">
+						Specifies whether the CM authorization will be provided for pcm_client and admin_client applications. Default value is enabled.
+                                        </xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                </xs:sequence>
+        </xs:complexType>
+
+</xs:schema>

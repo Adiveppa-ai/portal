@@ -1,0 +1,165 @@
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_COLLECTIONS_GET_ACTION_HISTORY" visibility="public" transaction="required" component="fm_collections" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc><!--h:p>
+			<h:i>
+ Copyright (c) 2009, 2017, Oracle and/or its affiliates. All rights reserved.
+				This material is the confidential property of Oracle
+				Corporation or its licensors and may be used, reproduced,
+				stored or transmitted only in accordance with a valid Oracle
+				license or sublicense agreement.
+			</h:i>
+		</h:p-->
+		Finds historic information about a particular collections action.
+	</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The /collections_action poid</Doc>
+        <ClassRef>obj://collections_action</ClassRef>
+      </Poid>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="complete">
+        <Doc>The /collections_action poid</Doc>
+        <ClassRef>obj://collections_action</ClassRef>
+      </Poid>
+      <Array name="PIN_FLD_RESULTS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" maxElements="256" minElemId="0" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+        <Doc> The result array</Doc>
+        <Fields>
+          <Enum name="PIN_FLD_STATUS" use="required">
+            <Doc> The action status, 
+							could be one of the following values:
+						<h:ul><h:li>0 - Action pending.</h:li><h:li>1 - Action cancelled.</h:li><h:li>2 - Action completed.</h:li><h:li>3 - Action error.</h:li></h:ul>
+						</Doc>
+            <Values>
+              <Value>0</Value>
+              <Doc>ACTION PENDING.</Doc>
+            </Values>
+            <Values>
+              <Value>1</Value>
+              <Doc>ACTION CANCELLED.</Doc>
+            </Values>
+            <Values>
+              <Value>2</Value>
+              <Doc>ACTION COMPLETED.</Doc>
+            </Values>
+            <Values>
+              <Value>3</Value>
+              <Doc>ACTION ERROR.</Doc>
+            </Values>
+            <Values>
+              <Value>4</Value>
+              <Doc>ACTION NO_EXECUTE</Doc>
+            </Values>
+            <Values>
+              <Value>5</Value>
+              <Doc>ACTION WAITING_FOR_DEPENDENT</Doc>
+            </Values>
+          </Enum>
+          <Poid name="PIN_FLD_POID" use="required" mode="complete">
+          <Doc>The /event/audit/collections/action poid</Doc>
+          <ClassRef>obj://event</ClassRef>
+          </Poid>
+          <Poid name="PIN_FLD_ACCOUNT_OBJ" use="required" mode="complete">
+          <Doc> The account poid</Doc>
+          <ClassRef>obj://account</ClassRef>
+          </Poid>
+          <String name="PIN_FLD_SYS_DESCR" use="required" maxlen="255">
+          <Doc>System generated description - describes event programmatically.</Doc>
+          </String>
+          <Poid name="PIN_FLD_USERID" use="required" mode="complete">
+          <Doc> The poid of an /service/pcm_client object</Doc>
+          <ClassRef>obj://service.pcm_client</ClassRef>
+          </Poid>
+          <Array name="PIN_FLD_EVENT_AUDIT" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="1" minElemId="0" isElemIdAssignAllowed="false" isElemIdAnyAllowed="false" isRecursive="false">
+          <Doc>This array will store poid of the object
+                                under change</Doc>
+           <Fields>
+              <Poid name="PIN_FLD_OBJECT" use="required" mode="complete">
+              <Doc>Scenario poid or action poid.</Doc>
+              <ClassRef>obj://collections_action</ClassRef>
+              </Poid>
+            </Fields>
+          </Array>
+          <Timestamp name="PIN_FLD_DUE_T" use="required">
+            <Doc> The action due date</Doc>
+          </Timestamp>
+          <String name="PIN_FLD_DESCR" use="required" maxlen="1024">
+            <Doc> The description for the change</Doc>
+          </String>
+          <Timestamp name="PIN_FLD_LAST_MODIFIED_T" use="required">
+            <Doc> The last change date</Doc>
+          </Timestamp>
+          <String name="PIN_FLD_EXTERNAL_USER" use="required" maxlen="255">
+            <Doc> External user assigned as collections agent</Doc>
+          </String>
+          <Array name="PIN_FLD_AGENT_INFO" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="1" maxElements="256" minElemId="1" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+            <Doc> The agent info array</Doc>
+            <Fields>
+              <Poid name="PIN_FLD_POID" use="required" mode="complete">
+                <Doc> The agent poid</Doc>
+                <ClassRef>obj://account</ClassRef>
+              </Poid>
+              <String name="PIN_FLD_ACCOUNT_NO" use="required" maxlen="255">
+                <Doc> The agent account No.</Doc>
+              </String>
+              <String name="PIN_FLD_FIRST_NAME" use="required" maxlen="90">
+                <Doc> The agent first name</Doc>
+              </String>
+              <String name="PIN_FLD_MIDDLE_NAME" use="required" maxlen="90">
+                <Doc> The agent middle name</Doc>
+              </String>
+              <String name="PIN_FLD_LAST_NAME" use="required" maxlen="90">
+                <Doc> The agent last name</Doc>
+              </String>
+            </Fields>
+          </Array>
+          <Array name="PIN_FLD_USER_INFO" use="required" elemIdMode="ignored" iterationOrder="undefined" minElements="1" maxElements="256" minElemId="1" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+            <Doc> The user info array, who created history instance for a given action</Doc>
+            <Fields>
+              <Poid name="PIN_FLD_POID" use="required" mode="complete">
+                <Doc> The user poid</Doc>
+                <ClassRef>obj://account</ClassRef>
+              </Poid>
+              <String name="PIN_FLD_ACCOUNT_NO" use="required" maxlen="255">
+                <Doc> The user info</Doc>
+              </String>
+              <String name="PIN_FLD_FIRST_NAME" use="required" maxlen="90">
+                <Doc> The user first name</Doc>
+              </String>
+              <String name="PIN_FLD_MIDDLE_NAME" use="required" maxlen="90">
+                <Doc> The user middle name</Doc>
+              </String>
+              <String name="PIN_FLD_LAST_NAME" use="required" maxlen="90">
+                <Doc> The user last name</Doc>
+              </String>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

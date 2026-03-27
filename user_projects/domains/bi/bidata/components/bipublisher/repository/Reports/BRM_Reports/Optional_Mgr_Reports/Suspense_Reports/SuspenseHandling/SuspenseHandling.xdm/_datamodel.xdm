@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<dataModel version="2.0" xmlns="http://xmlns.oracle.com/oxp/xmlp" xmlns:xdm="http://xmlns.oracle.com/oxp/xmlp" xmlns:xsd="http://wwww.w3.org/2001/XMLSchema" defaultDataSourceRef="BRM_DATA_SOURCE">
+   <description xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <![CDATA[undefined]]>
+   </description>
+   <dataProperties xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <property name="include_parameters" value="true"/>
+      <property name="include_null_Element" value="true"/>
+      <property name="include_rowsettag" value="true"/>
+      <property name="xml_tag_case" value="upper"/>
+   </dataProperties>
+   <dataSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <dataSet name="Q1" type="complex">
+         <sql dataSourceRef="BRM_DATA_SOURCE">
+            <![CDATA[SELECT
+ 					"SUSPENDED_USAGE_T"."CREATED_T",
+ 					"ACCOUNT_NAMEINFO_T"."REC_ID",
+ 					"ACCOUNT_NAMEINFO_T"."OBJ_ID0",
+ 					"ACCOUNT_NAMEINFO_T"."FIRST_NAME",
+ 					"ACCOUNT_NAMEINFO_T"."LAST_NAME",
+ 					"SUSPENDED_USAGE_T"."SUSPENSE_REASON",
+ 					"SUSPENDED_USAGE_T"."STATUS",
+ 					"SUSPENDED_USAGE_T"."ACCOUNT_OBJ_ID0",
+ 					"SUSP_USAGE_TELCO_INFO_T"."START_TIME",
+ 					"SUSPENDED_USAGE_T"."FILENAME",
+ 					"SUSPENDED_USAGE_T"."NUM_RECYCLES",
+ 					"SUSP_USAGE_TELCO_INFO_T"."CALL_DURATION",
+ 					"SUSP_USAGE_TELCO_INFO_T"."CALLING_FROM",
+ 					"SUSP_USAGE_TELCO_INFO_T"."CALLED_TO"
+ 				 FROM
+ 					("SUSPENDED_USAGE_T" "SUSPENDED_USAGE_T" INNER JOIN
+ 					"SUSP_USAGE_TELCO_INFO_T" "SUSP_USAGE_TELCO_INFO_T" ON
+ 					"SUSPENDED_USAGE_T"."POID_ID0"="SUSP_USAGE_TELCO_INFO_T"."OBJ_ID0") INNER JOIN
+ 					"ACCOUNT_NAMEINFO_T" "ACCOUNT_NAMEINFO_T" ON
+ 					"SUSPENDED_USAGE_T"."ACCOUNT_OBJ_ID0"="ACCOUNT_NAMEINFO_T"."OBJ_ID0"
+ 				WHERE
+ 					bipext.infCheckDates(:PARAM_START_DATE, :PARAM_END_DATE) = 1 AND
+ 					("SUSPENDED_USAGE_T"."CREATED_T">=bipext.infstrtotimet(:PARAM_START_DATE,2) AND
+ 					"SUSPENDED_USAGE_T"."CREATED_T"<=DECODE((INSTR(:PARAM_END_DATE, ':', 1, 2)), 0, bipext.infstrtotimet(:PARAM_END_DATE, 2)-1, bipext.INFSTRTOTIMET(:PARAM_END_DATE, 2))) AND
+ 					"ACCOUNT_NAMEINFO_T"."REC_ID"=1
+
+ 				ORDER BY
+ 					"SUSPENDED_USAGE_T"."ACCOUNT_OBJ_ID0",
+ 					"SUSPENDED_USAGE_T"."SUSPENSE_REASON",
+ 					"SUSPENDED_USAGE_T"."STATUS"]]>
+         </sql>
+      </dataSet>
+   </dataSets>
+   <output xmlns="http://xmlns.oracle.com/oxp/xmlp" uniqueRowName="false">
+      <nodeList name="data-structure">
+         <dataStructure tagName="DATA_DS">
+  <group name="Q1" source="Q1" label="Q1">
+    <element name="CREATED_T" value="CREATED_T" dataType="xsd:integer" label="CREATED_T" breakOrder="None" fieldOrder="1"/>
+    <element name="REC_ID" value="REC_ID" dataType="xsd:integer" label="REC_ID" breakOrder="None" fieldOrder="2"/>
+    <element name="OBJ_ID0" value="OBJ_ID0" dataType="xsd:integer" label="OBJ_ID0" breakOrder="None" fieldOrder="3"/>
+    <element name="FIRST_NAME" value="FIRST_NAME" dataType="xsd:string" label="FIRST_NAME" breakOrder="None" fieldOrder="4"/>
+    <element name="LAST_NAME" value="LAST_NAME" dataType="xsd:string" label="LAST_NAME" breakOrder="None" fieldOrder="5"/>
+    <element name="SUSPENSE_REASON" value="SUSPENSE_REASON" dataType="xsd:integer" label="SUSPENSE_REASON" breakOrder="None" fieldOrder="6"/>
+    <element name="STATUS" value="STATUS" dataType="xsd:integer" label="STATUS" breakOrder="None" fieldOrder="7"/>
+    <element name="ACCOUNT_OBJ_ID0" value="ACCOUNT_OBJ_ID0" dataType="xsd:integer" label="ACCOUNT_OBJ_ID0" breakOrder="None" fieldOrder="8"/>
+    <element name="START_TIME" value="START_TIME" dataType="xsd:integer" label="START_TIME" breakOrder="None" fieldOrder="9"/>
+    <element name="FILENAME" value="FILENAME" dataType="xsd:string" label="FILENAME" breakOrder="None" fieldOrder="10"/>
+    <element name="NUM_RECYCLES" value="NUM_RECYCLES" dataType="xsd:integer" label="NUM_RECYCLES" breakOrder="None" fieldOrder="11"/>
+    <element name="CALL_DURATION" value="CALL_DURATION" dataType="xsd:integer" label="CALL_DURATION" breakOrder="None" fieldOrder="12"/>
+    <element name="CALLING_FROM" value="CALLING_FROM" dataType="xsd:string" label="CALLING_FROM" breakOrder="None" fieldOrder="13"/>
+    <element name="CALLED_TO" value="CALLED_TO" dataType="xsd:string" label="CALLED_TO" breakOrder="None" fieldOrder="14"/>
+  </group>
+ </dataStructure>
+      </nodeList>
+   </output>
+   <eventTriggers xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <lexicals xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <valueSets xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <valueSet id="PARAM_REPORT_TYPE">
+         <nvPairs>
+            <nvPair label="SUMMARY" value="1"/>
+            <nvPair label="DETAILS" value="2"/>
+         </nvPairs>
+      </valueSet>
+   </valueSets>
+   <parameters xmlns="http://xmlns.oracle.com/oxp/xmlp">
+      <parameter name="PARAM_START_DATE" dataType="xsd:date">
+         <date label="Enter start date and time (MM/DD/YYYY  hh:mm:ss)" size="25" format="MM/dd/yyyy HH:mm:ss"/>
+      </parameter>
+      <parameter name="PARAM_END_DATE" dataType="xsd:date">
+         <date label="Enter end date and time (MM/DD/YYYY  hh:mm:ss)" size="25" format="MM/dd/yyyy HH:mm:ss"/>
+      </parameter>
+      <parameter name="PARAM_REPORT_TYPE" dataType="xsd:string">
+         <select label="Select SUMMARY for a summary report or DETAIL for a detail report. " valueSet="PARAM_REPORT_TYPE" multiple="false" all="false" allValue="null"/>
+      </parameter>
+   </parameters>
+   <bursting xmlns="http://xmlns.oracle.com/oxp/xmlp"/>
+   <display>
+<layouts><layout name="Q1" left="274px" top="17px"/><layout name="DATA_DS" left="28px" top="14px"/><layout name="dsModalMask" left="" top=""/></layouts><groupLinks>
+</groupLinks>
+</display>
+</dataModel>

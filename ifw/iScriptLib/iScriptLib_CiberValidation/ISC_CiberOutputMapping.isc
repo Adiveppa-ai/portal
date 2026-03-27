@@ -1,0 +1,585 @@
+//==============================================================================
+//
+//      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+//      
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_CiberOutputMapping 
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module can be used to map the EDR container fields into the associate
+//   ciber container to be used by the output grammar.
+//
+//------------------------------------------------------------------------------
+// $Log: ISC_CiberOutPutMapping.isc,v $
+// Revision 1.1  2003/02/21 njalel 
+// Initial import of CiberOutputMapping script.
+//
+//==============================================================================
+
+//==============================================================================
+// Constant Variables
+//==============================================================================
+
+Bool debug;
+
+String reg_CiberScript;
+String reg_AirRum;
+String reg_TollRum;
+String reg_OCCRum;
+
+String	airRum;
+String	tollRum;
+String	occRum;
+
+const Long   LOG_NORMAL = 0;
+const Long   LOG_WARNING = 1;
+const Long   LOG_MINOR = 2;
+const Long   LOG_MAJOR = 3;
+const Long   LOG_CRITICAL = 4;
+
+Decimal airChargedAmountValue;
+Decimal tollChargedAmountValue;
+Decimal ocChargedAmountValue;
+
+//==============================================================================
+// BEGIN Container
+//==============================================================================
+function BEGIN
+{
+  debug = false;
+  //debug =true ;
+
+  reg_CiberScript       = registryNodeName();
+  reg_AirRum 		= reg_CiberScript + ".AirRum";
+  reg_TollRum 		= reg_CiberScript + ".TollRum";
+  reg_OCCRum 		= reg_CiberScript + ".OCCRum";
+  airRum		= regString(reg_AirRum);
+  tollRum		= regString(reg_TollRum);
+  occRum		= regString(reg_OCCRum);
+  
+  if (debug) {
+    logStdout("reg_CiberScript " + reg_CiberScript + "\n");
+    logStdout("reg_AirRum " + reg_AirRum + "\n");
+    logStdout("airRum " + airRum + "\n");
+    logStdout("tollRum " + tollRum + "\n");
+    logStdout("occRum " + occRum + "\n");
+  }
+
+}
+   
+//==============================================================================
+// Function declarations
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// init()
+//------------------------------------------------------------------------------
+function init
+{
+  if ( debug )
+    logStdout("init()\n");
+
+  airChargedAmountValue = 0.0;
+  tollChargedAmountValue = 0.0;
+  ocChargedAmountValue = 0.0;
+}
+
+
+//------------------------------------------------------------------------------
+// setCiberCurrency()
+//
+// Convert the currency type form Integrate standard format 
+// into ciber currency type.
+//------------------------------------------------------------------------------
+function setCiberCurrency
+{
+  Long packetIndex = 0;
+  Long blockIndex = 0;
+  String chargedAmountCurrency = "UNDEFINED";
+  String ciberCurrency = "UNDEFINED";
+
+  if (debug)
+    logStdout("setCiberCurrency()\n");
+
+  // Get the currency from the first charge packet
+   
+  if ( debug ) {
+    logStdout( edrString( DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE, blockIndex, packetIndex ) + "\n" );
+  }
+
+  chargedAmountCurrency = edrString( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_CURRENCY,
+                                          blockIndex,
+                                          packetIndex );
+
+  switch (chargedAmountCurrency) {
+  case "USD":
+    ciberCurrency = "01";  // US Dollars
+    break;
+
+  case "CAD":
+    ciberCurrency = "02";  // Canadian Dollars
+    break;
+
+  case "GBP":
+    ciberCurrency = "03";  // UK Pound
+    break;
+
+  case "JPY":
+    ciberCurrency = "04";  // Japanies Yen
+    break;
+
+  case "MXN":
+    ciberCurrency = "05";  // Mexico Peso (old)
+    break;
+
+  case "SZL":
+    ciberCurrency = "06";  // Switzerland Franc
+    break;
+
+  case "HKD":
+    ciberCurrency = "07";  // Hong Kong Dollar
+    break;
+
+  case "CLP":
+    ciberCurrency = "08";  // Chile Peso
+    break;
+
+  case "ARS":
+    ciberCurrency = "09";  // Argentina Peso 
+    break;
+
+  case "BOB":
+    ciberCurrency = "10";  // Bolivia Boliviano 
+    break;
+
+  case "BRL":
+    ciberCurrency = "11";  // Brazil Real 
+    break;
+
+  case "COP":
+    ciberCurrency = "12";  // Colombia Peso 
+    break;
+
+  case "CRC":
+    ciberCurrency = "13";  // Costa Rica Colon 
+    break;
+
+  case "NZD":
+    ciberCurrency = "14";  // New Zealand Dollar 
+    break;
+
+  case "PEN":
+    ciberCurrency = "15";  // Pero Nuevo Sol 
+    break;
+
+  case "UYU":
+    ciberCurrency = "16";  // Uruguay Peso
+    break;
+
+  case "VEB":
+    ciberCurrency = "17";  // Venezuela Bolivar 
+    break;
+
+  case "MXP":
+    ciberCurrency = "18";  // Mexico Peso (New) 
+    break;
+
+  case "BSD":
+    ciberCurrency = "19";  // Bahama Dollar
+    break;
+
+  case "BMD":
+    ciberCurrency = "20";  // Bermuda Dollar 
+    break;
+
+  case "AUD":
+    ciberCurrency = "21";  // Australia Dollar 
+    break;
+
+  case "ATS":
+    ciberCurrency = "22";  // Austria Schilling 
+    break;
+
+  case "BBD":
+    ciberCurrency = "23";  // Barbados Dollar 
+    break;
+
+  case "BEF":
+    ciberCurrency = "24";  // Belgium Frank 
+    break;
+
+  case "BGL":
+    ciberCurrency = "25";  // Bulgaria Lev 
+    break;
+
+  case "XCD":
+    ciberCurrency = "26";  // Cayman Islands Dollar 
+    break;
+
+  case "CNY":
+    ciberCurrency = "27";  // China Yaun Renminbi
+    break;
+
+  case "CYP":
+    ciberCurrency = "28";  // Cyprus Pound
+    break;
+
+  case "CZK":
+    ciberCurrency = "29";  // Czechoslovakia Koruna 
+    break;
+
+  case "DKK":
+    ciberCurrency = "30";  // Denmark Krone 
+    break;
+
+  case "DOP":
+    ciberCurrency = "31";  // Dominican Republic Peso 
+    break;
+
+  }
+
+  // Set the ciber currency in the associated ciber extension
+  Long ciberExt = edrNumDatablocks( DETAIL.ASS_CIBER_EXT);
+  if (edrNumDatablocks( DETAIL.ASS_CIBER_EXT) > 0 )
+  {
+    edrString(DETAIL.ASS_CIBER_EXT.CURRENCY_TYPE, 0) = ciberCurrency;
+  } 
+  else
+  {
+    logPipeline ("Associate CIBER Block does not exist, Create One", 
+		LOG_WARNING);
+
+    if ( edrAddDatablock( DETAIL.ASS_CIBER_EXT ) == false )
+    {
+        edrAddError("ERR: failed to add ASSOCIATED_CIBER_EXT datablock.", 
+		LOG_MAJOR);
+    }
+    else 
+    {
+         edrString(DETAIL.ASS_CIBER_EXT.CURRENCY_TYPE, 0) = ciberCurrency;
+     }
+  }
+  return ;
+}
+
+//------------------------------------------------------------------------------
+// setTollNetworkCarrierId ()
+// Set the network carrier id routing the toll part of the call.
+//------------------------------------------------------------------------------
+function setTollNetworkCarrierId
+{
+  String  tollTariffDescriptor="UNDEFINED";
+
+  if (debug)
+    logStdout("setTollNetworkCarrierId()\n");
+
+  // We set the toll network carrier Id if it is 
+  // not already set
+
+  if (edrString(DETAIL.ASS_CIBER_EXT.TOLL_NETWORK_CARRIER_ID, 0) == "") {
+    // Get the Toll Tariff Descriptor from the EDR
+    if ( debug ) {
+      logStdout( edrString(DETAIL.ASS_CIBER_EXT.TOLL_TARIFF_DESC, 0) + "\n" );
+    }
+
+    tollTariffDescriptor = edrString(DETAIL.ASS_CIBER_EXT.TOLL_TARIFF_DESC, 0);
+
+    // If there is no toll call (00) or local call (07) or
+    // IntraLata call then we set the toll network carrier id to 
+    // 00000
+
+    if (tollTariffDescriptor == "00" or 
+        tollTariffDescriptor == "07" or 
+        tollTariffDescriptor == "04" or tollTariffDescriptor == "06" or 
+        tollTariffDescriptor == "10" or tollTariffDescriptor == "11" or
+        tollTariffDescriptor == "14" ) {
+        edrString(DETAIL.ASS_CIBER_EXT.TOLL_NETWORK_CARRIER_ID, 0) = "99001";
+    }
+    else {
+        edrString(DETAIL.ASS_CIBER_EXT.TOLL_NETWORK_CARRIER_ID, 0) = "00000";
+    }
+  }
+  else {
+    // Do nothing, the field is already set.
+  }
+  return;
+}
+
+//------------------------------------------------------------------------------
+// sumTotalCharge( Long )
+// Sum the total charges associated with the call.
+//------------------------------------------------------------------------------
+function sumTotalCharge( Long blockIndex )
+{
+  if ( debug )
+    logStdout("sumTotalCharge()\n");
+
+  Long packetIndex;
+  Long packetEntries = edrNumDatablocks( DETAIL.ASS_CBD.CP, blockIndex );
+
+  for ( packetIndex = 0 ; 
+        packetIndex < packetEntries ; 
+        packetIndex = packetIndex + 1 )
+  {
+    if ( debug ) {
+      logStdout( edrString( DETAIL.ASS_CBD.CP.RUM, blockIndex, packetIndex ) + "\n" );
+      logStdout( edrString( DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE, blockIndex, packetIndex ) + "\n" );
+      logStdout( edrString( DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE, blockIndex, packetIndex ) + "\n" );
+    }
+
+    // Get the air charge
+    // Currency Type of R means rated, will be set by the main rating 
+    // plugin.
+    // Currency type of H means home, will be set by the currency exchange
+    // plugin.
+    // Price type of S and A means, standard and alternative price type. Will
+    // be set by the main rating plugin.
+
+    if (edrString( DETAIL.ASS_CBD.CP.RUM, blockIndex, packetIndex ) == airRum) 
+    {
+	if (((edrString(DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE, 
+				blockIndex, packetIndex ) == "R") or
+            (edrString(DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE,
+				blockIndex, packetIndex ) == "H")) and
+	    ((edrString(DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE,
+				blockIndex, packetIndex ) == "S") or
+	     (edrString(DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE, 
+				blockIndex, packetIndex ) == "A")))
+         {
+           airChargedAmountValue = airChargedAmountValue
+                               + edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE,
+                                             blockIndex,
+                                             packetIndex );
+
+         }	
+     }
+
+    // Get the Toll charge
+    if (edrString( DETAIL.ASS_CBD.CP.RUM, blockIndex, packetIndex ) == tollRum) 
+    {
+	if (((edrString(DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE, 
+				blockIndex, packetIndex ) == "R") or
+            (edrString(DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE,
+				blockIndex, packetIndex ) == "H")) and
+	    ((edrString(DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE, 
+				blockIndex, packetIndex ) == "S") or
+	     (edrString(DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE, 
+				blockIndex, packetIndex ) == "A")))
+         {
+            tollChargedAmountValue = tollChargedAmountValue
+                               + edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE,
+                                             blockIndex,
+                                             packetIndex );
+
+         }	
+     }
+
+
+    // Get the Other charge
+    if (edrString( DETAIL.ASS_CBD.CP.RUM, blockIndex, packetIndex ) == occRum) 
+    {
+	if (((edrString(DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE, 
+				blockIndex, packetIndex ) == "R") or
+            (edrString(DETAIL.ASS_CBD.CP.CHARGED_CURRENCY_TYPE,
+				blockIndex, packetIndex ) == "H")) and
+	    ((edrString(DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE, 
+				blockIndex, packetIndex ) == "S") or
+	     (edrString(DETAIL.ASS_CBD.CP.PRICEMODEL_TYPE,
+				blockIndex, packetIndex ) == "A")))
+         {
+           ocChargedAmountValue = ocChargedAmountValue
+                               + edrDecimal( DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE,
+                                             blockIndex,
+                                             packetIndex );
+
+         }	
+     }
+  }
+}
+
+//------------------------------------------------------------------------------
+// setTotalCharge()
+// Set the ciber charge amount in the ciber extension.
+//------------------------------------------------------------------------------
+function setTotalCharge
+{
+  if ( debug )
+    logStdout("setTotalCharge()\n");
+
+  // Get the record type. For record type 10.
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "10" ){ 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.SSU_CHARGE, 0) = airChargedAmountValue;
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) = ocChargedAmountValue;
+     // edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = airChargedAmountValue + 
+     //		ocChargedAmountValue;
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = 
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE); 
+   }
+
+  // Get the record type. For record type 22.
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "22") {
+      // Check if the air duration is 0
+      if (edrString(DETAIL.ASS_CIBER_EXT.AIR_CHARGEABLE_TIME, 0) == "000000") {
+	  edrDecimal(DETAIL.ASS_CIBER_EXT.AIR_CHARGE, 0) = 0.0;
+      } 
+      else {
+          edrDecimal(DETAIL.ASS_CIBER_EXT.AIR_CHARGE, 0) = airChargedAmountValue;
+      }
+      // Check if the toll duration is 0
+      if (edrString(DETAIL.ASS_CIBER_EXT.TOLL_CHARGEABLE_TIME, 0) == "000000"){ 
+	  edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) = 0.0;
+      }
+      else {
+          edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) = tollChargedAmountValue;
+      }
+      edrDecimal(DETAIL.ASS_CIBER_EXT.OTHER_CHARGE_1, 0) = ocChargedAmountValue;
+      //edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = airChargedAmountValue + 
+      //		tollChargeAmountValue+ocChargedAmountValue;
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = 
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE); 
+  }
+
+  // Get the record type. For record type 20.
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "20") { 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.SSU_CHARGE, 0) = airChargedAmountValue;
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOLL_CHARGE, 0) = tollChargedAmountValue;
+      edrDecimal(DETAIL.ASS_CIBER_EXT.MISC_SURCHARGE, 0) = ocChargedAmountValue;
+      //edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = airChargedAmountValue + 
+      //		tollChargedAmountValue+ocChargedAmountValue;
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = 
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE); 
+   }
+
+  // Get the record type. For record type 11, 30, 32, 42.
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "11" or
+      edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "30" or
+      edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "32" or
+      edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "42") {
+      edrDecimal(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1, 0) = ocChargedAmountValue;
+      //edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = ocChargedAmountValue; 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = 
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE); 
+  }
+
+  // Get the record type. For record type 50, 52.
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "50" or
+      edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "52" ) {
+      edrDecimal(DETAIL.ASS_CIBER_EXT.OCC_CHARGE, 0) = ocChargedAmountValue;
+      //edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = ocChargedAmountValue; 
+      edrDecimal(DETAIL.ASS_CIBER_EXT.TOTAL_CHARGE_AND_TAX, 0) = 
+		edrDecimal(DETAIL.WHOLESALE_CHARGED_AMOUNT_VALUE); 
+  }
+}
+
+function processCiberCharges
+{
+//----------------------------------------------------------------------------
+// Loop for all Assoc. Charge Breakdowns and sum the total charges 
+//----------------------------------------------------------------------------
+  Long blockIndex;
+  Long blockEntries = edrNumDatablocks( DETAIL.ASS_CBD );
+
+  for ( blockIndex = 0 ; blockIndex < blockEntries ; blockIndex = blockIndex + 1 )
+  {
+    if ( debug ) {
+	logStdout( edrString( DETAIL.ASS_CBD.RECORD_TYPE, blockIndex ) + "\n" );
+    }
+    sumTotalCharge( blockIndex );
+  }
+
+  setTotalCharge();
+}
+
+
+
+//------------------------------------------------------------------------------
+// setRateAndMultiRatePeriod()
+// Set the rate period and multi rate period for the CIBER records
+// The logic defined here need to be customized by the customer.
+// The logic will be based on the time model and time interval defined by the
+// user.
+// The logic defined in this method is set based on TES requirement.
+//------------------------------------------------------------------------------
+function setRateAndMultiRatePeriod
+{
+
+ // Set the air rate period to 00 and multi rate period to 0 if
+ // the air charge is 0
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "22"){
+    if (airChargedAmountValue == 0.0) {
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_RATE_PERIOD, 0) = "00";
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_MULTIRATE_PERIOD, 0) = "0";
+    }
+    else if (edrString(DETAIL.ASS_CIBER_EXT.SPECIAL_FEATURES_USED, 0) == "F") {
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_RATE_PERIOD, 0) = "00";
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_MULTIRATE_PERIOD, 0) = "0";
+       edrDecimal(DETAIL.ASS_CIBER_EXT.AIR_CHARGE, 0) = 0.0;
+    }
+    else {
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_RATE_PERIOD, 0) = "01";
+       edrString(DETAIL.ASS_CIBER_EXT.AIR_MULTIRATE_PERIOD, 0) = "0";
+    }
+ 
+    if (tollChargedAmountValue == 0.0) {
+       edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATE_PERIOD, 0) = "00";
+       edrString(DETAIL.ASS_CIBER_EXT.TOLL_MULTIRATE_PERIOD, 0) = "0";
+    }
+    else {
+       edrString(DETAIL.ASS_CIBER_EXT.TOLL_RATE_PERIOD, 0) = "01";
+       edrString(DETAIL.ASS_CIBER_EXT.TOLL_MULTIRATE_PERIOD, 0) = "0";
+    }
+  }
+ 
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "32"){
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) = "17";  // Directory Assistant
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_RATE_PERIOD, 0) = "01"; //Peak Value
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_MULTIRATE_PERIOD, 0) = "1";
+  }
+
+  if (edrString(DETAIL.ASS_CIBER_EXT.CIBER_RECORD_TYPE, 0) == "42"){
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_IND, 0) = "12";  // Directory Assistant
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_RATE_PERIOD, 0) = "04"; //Other Period
+      edrString(DETAIL.ASS_CIBER_EXT.CHARGE_NO_1_MULTIRATE_PERIOD, 0) = "1";
+  }
+
+return;
+
+}
+
+//==============================================================================
+// Process EDR record 
+//==============================================================================
+function onDetailEdr
+{
+  //----------------------------------------------------------------------------
+  // initialize global variables
+  //----------------------------------------------------------------------------
+  init();
+
+  //----------------------------------------------------------------------------
+  // set the ciber currency 
+  //----------------------------------------------------------------------------
+  setCiberCurrency();
+
+  //----------------------------------------------------------------------------
+  // set the toll network carrier id 
+  //----------------------------------------------------------------------------
+  setTollNetworkCarrierId();
+
+  //----------------------------------------------------------------------------
+  // Find the charges associated with each EDR
+  //----------------------------------------------------------------------------
+  processCiberCharges();
+
+
+  //----------------------------------------------------------------------------
+  // Set the rate and multirate period 
+  //----------------------------------------------------------------------------
+  setRateAndMultiRatePeriod();
+
+
+} // end onDetailEdr + end iScript

@@ -1,0 +1,115 @@
+<!--  $Header: bus_platform_vob/financial/opcodes/fm_pymt/op_specs/PCM_OP_PYMT_PROCESS_SEPA_RESPONSE.xml /cgbubrm_7.5.0.portalbase/1 2015/11/27 05:44:35 nishahan Exp $ -->
+<!-- 
+ Copyright (c) 2014, 2015, Oracle and/or its affiliates. All rights reserved.
+
+   NAME
+     PCM_OP_PYMT_PROCESS_SEPA_RESPONSE.xml
+
+   DESCRIPTION
+     Describes the input and output specification for the 
+     opcode PCM_OP_PYMT_PROCESS_SEPA_RESPONSE 
+
+   MODIFIED   (MM/DD/YY)
+   kpramod     03/27/14 - Creation
+
+-->
+<Opcode xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.portal.com/schemas/BusinessOpcodes" name="PCM_OP_PYMT_PROCESS_SEPA_RESPONSE" visibility="private" transaction="required" component="fm_pymt" xsi:schemaLocation="http://www.portal.com/schemas/BusinessOpcodes opspec.xsd">
+  <Doc><!--h:p>
+			<h:i>
+				Copyright © 2014 Oracle. All rights reserved.
+				This material is the confidential property of Oracle
+				Corporation or its licensors and may be used, reproduced,
+				stored or transmitted only in accordance with a valid Oracle
+				license or sublicense agreement.
+			</h:i>
+		</h:p-->
+		Processes the response recevied from the bank for the sepa request
+	</Doc>
+  <Input>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="dbonly">
+        <Doc> Router poid.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Int name="PIN_FLD_BATCH_TYPE" use="required">
+        <Doc> Type of the sepa request whose response is being processed.
+				      Possible values are: 1 - SDD Request, 2 - SCT Request.
+				</Doc>
+      </Int>
+      <String name="PIN_FLD_MSG_ID" use="optional" maxlen="35">
+        <Doc> Unique Id of the sepa request file, which is rejected by the bank.
+				      This field will be ignored if PYMT_INFO array is passed.
+				</Doc>
+      </String>
+      <String name="PIN_FLD_REASON_CODE" use="optional" maxlen="4">
+        <Doc> Code of the reason due to which bank rejected the sepa request.
+				      This field will be ignored if PYMT_INFO array is passed.
+				</Doc>
+      </String>
+      <Array name="PIN_FLD_PYMT_INFO" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" maxElements="256" minElemId="0" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+        <Doc>List of payment information identifiers and transactions which are rejected by the bank.</Doc>
+        <Fields>
+          <String name="PIN_FLD_PYMT_INFO_ID" use="optional" maxlen="35">
+            <Doc> Unique Id of the payment information, which is rejected by the bank.
+						      This field will be ignored if TRANSACTIONS array is passed.
+						</Doc>
+          </String>
+          <String name="PIN_FLD_REASON_CODE" use="optional" maxlen="4">
+            <Doc> Code of the reason due to which bank rejected the sepa request.
+						      This field will be ignored if TRANSACTIONS array is passed.
+						</Doc>
+          </String>
+          <Array name="PIN_FLD_TRANSACTIONS" use="optional" elemIdMode="ignored" iterationOrder="undefined" minElements="0" maxElements="256" minElemId="0" maxElemId="256" isElemIdAssignAllowed="true" isElemIdAnyAllowed="true" isRecursive="true" allowedElemIds="256">
+            <Doc>List of transaction identifiers which are rejected.</Doc>
+            <Fields>
+              <String name="PIN_FLD_TRANS_ID" use="optional" maxlen="35">
+                <Doc> Unique Id of the transaction, which is rejected by the bank.
+								</Doc>
+              </String>
+              <String name="PIN_FLD_REASON_CODE" use="optional" maxlen="4">
+                <Doc> Code of the reason due to which bank rejected the sepa request.
+								</Doc>
+              </String>
+            </Fields>
+          </Array>
+        </Fields>
+      </Array>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Input>
+  <Output>
+    <Fields>
+      <Poid name="PIN_FLD_POID" use="required" mode="dbonly">
+        <Doc> Router poid.</Doc>
+        <ClassRef>obj://account</ClassRef>
+      </Poid>
+      <Enum name="PIN_FLD_RESULT" use="required">
+        <Doc> Specifies whether the processing completed successfully or not
+				      Possible values:
+				<h:ul><h:li>0 - Processing of the rejected sepa request Failed</h:li><h:li>1 - Processing of the rejected sepa request Passed</h:li></h:ul>
+				</Doc>
+      </Enum>
+      <Substruct name="PIN_FLD_CONTEXT_INFO" use="optional">
+        <Doc>Substruct to pass information from external clients.</Doc>
+        <Fields>
+          <String name="PIN_FLD_CORRELATION_ID" use="optional" maxlen="128">
+            <Doc>Correlation id passed by an external system to BRM.</Doc>
+          </String>
+          <String name="PIN_FLD_EXTERNAL_USER" use="optional" maxlen="128">
+            <Doc>User of an external system connecting to BRM.</Doc>
+          </String>
+        </Fields>
+      </Substruct>
+    </Fields>
+  </Output>
+</Opcode>

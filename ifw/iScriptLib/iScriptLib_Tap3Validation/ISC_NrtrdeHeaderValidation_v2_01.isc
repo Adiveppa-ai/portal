@@ -1,0 +1,118 @@
+//==============================================================================
+//
+// Copyright (c) 2009, Oracle and/or its affiliates. All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation or its
+//      licensors and may be used, reproduced, stored or transmitted only in
+//      accordance with a valid Oracle license or sublicense agreement.
+//
+//------------------------------------------------------------------------------
+// Block: ISC_NrtrdeHeaderValidation_v2_01
+//------------------------------------------------------------------------------
+//   Module Description:
+//   This module can be used to validate NRTRDE header records 
+//   for Sender, Recipient and FileSequenceNumber.
+//   The validations will be based on the NRTRDE2_01 standard.
+//
+//==============================================================================
+// Constant Variables
+//==============================================================================
+
+String  tapFileName;
+const Long   LOG_MAJOR          = 4;
+
+//------------------------------------------------------------------------------
+// validateSender()
+//
+// This function will be used to validate the sender
+//------------------------------------------------------------------------------
+function validateSender
+{
+  Long   headerState = edrInputState(HEADER.SENDER);
+  Long   headerStateI = edrInternalState(HEADER.SENDER);
+  String senderName = edrString(HEADER.SENDER);
+  String senderFileName = strSubstr(tapFileName, 2, 5);
+  if (senderName != senderFileName and headerStateI != STATE_CLEARED and headerState != EDR_INPUT_MISSING)
+  {
+    edrAddError("ERR_TAP3_FATAL", LOG_MAJOR, "Sender", "38", "404", "The item does not match the Sender on the filename.");
+    edrAddError("ERR_TAP3_RET", 4, "fatal", "404", "38", "0", "-1", "-1", "The item does not match the Sender on the filename.");
+    edrDemandRollback();
+  }
+}
+
+//------------------------------------------------------------------------------
+// validateRecipient()
+//
+// This function will be used to validate the recipient
+//------------------------------------------------------------------------------
+function validateRecipient
+{
+  Long headerState = edrInputState(HEADER.RECIPIENT);
+  Long headerStateI = edrInternalState(HEADER.RECIPIENT);
+
+  String recipientName = edrString(HEADER.RECIPIENT);
+  String recipientFileName = strSubstr(tapFileName, 7, 5);
+  if (recipientName != recipientFileName and headerStateI != STATE_CLEARED and headerState != EDR_INPUT_MISSING)
+  {
+    edrAddError("ERR_TAP3_FATAL", LOG_MAJOR, "Recipient", "36", "402", "The item does not match the Recipient on the filename.");
+    edrAddError("ERR_TAP3_RET", 4, "fatal", "402", "36", "0", "-1", "-1", "The item does not match the Recipient on the filename.");
+    edrDemandRollback();
+  }
+  
+}
+
+//------------------------------------------------------------------------------
+// validateFileSequenceNumber()
+//
+// This function will be used to validate the file sequence number
+//------------------------------------------------------------------------------
+function validateFileSequenceNumber
+{
+  Long headerState = edrInputState(HEADER.SEQUENCE_NUMBER);
+  Long headerStateI = edrInternalState(HEADER.SEQUENCE_NUMBER);
+  Long headerSequence = edrLong(HEADER.SEQUENCE_NUMBER);
+  Long fileSequence = strToLong(strSubstr(tapFileName, 12, 7));
+  if (headerSequence != fileSequence and headerStateI != STATE_CLEARED and headerState != EDR_INPUT_MISSING)
+  {
+    edrAddError("ERR_TAP3_FATAL", LOG_MAJOR, "File Sequence Number", "39", "403",
+                                             "The item does not match the File Sequence Number on the filename");
+    edrAddError("ERR_TAP3_RET", 4, "fatal", "403", "39", "0", "-1", "-1",
+                                             "The item does not match the File Sequence Number on the filename");
+    edrDemandRollback();
+  }
+  
+}
+
+//------------------------------------------------------------------------------
+// getTapFileName()
+// This function will be used to find the tap file name
+//------------------------------------------------------------------------------
+function getTapFileName
+{
+  tapFileName = edrString(INTERNAL.STREAM_NAME);
+}
+
+//------------------------------------------------------------------------------
+// initBegin()
+//------------------------------------------------------------------------------
+function initBegin
+{
+  tapFileName = "";
+}
+
+//==============================================================================
+// Process Begin EDR record
+//==============================================================================
+function onBeginEdr
+{
+  initBegin();
+  getTapFileName();
+} // end onBeginEdr
+
+
+function onHeaderEdr
+{
+  validateSender();
+  validateRecipient();
+  validateFileSequenceNumber();
+}

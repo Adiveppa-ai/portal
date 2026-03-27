@@ -1,0 +1,79 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#      This step is used to parse the sql template files and implements a find and replace
+#      mechanism which will create new sql files with the correct values for DB user name
+#      password and tablespace names and path.These sql files will be fired by the downstream scripts.
+# ---------------------------------------------------------------------------------
+####################################################################################
+#Open new files to write the sql converted from template form .
+####################################################################################
+open(DTFILEIFW,">$ENV{'INT_HOME'}/database/Oracle/Scripts/data_file_ifw.sql");
+open(DTFILEJSA,">$ENV{'INT_HOME'}/database/Oracle/Scripts/data_file_jsa.sql");
+open(SQLIFW,">$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_supersql.sql");
+open(SQLJSA,">$ENV{'INT_HOME'}/database/Oracle/Scripts/jsa_supersql.sql");
+open(SQLIFWC,">$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_supercreate.sql");
+
+####################################################################################
+#Open the template files in read only mode.
+####################################################################################
+open(IFW,"$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_Tablespaces.sql");
+open(IFWC,"$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_Create.sql");
+open(JSA,"$ENV{'INT_HOME'}/database/Oracle/Scripts/JSA_Tablespaces.sql");
+open(IFWS,"$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_Roles_temp.sql");
+open(JSAS,"$ENV{'INT_HOME'}/database/Oracle/Scripts/JSA_Roles.sql");
+
+####################################################################################
+#This section of the script reads each line of the template files and replaces the template strings with actual
+#values,and writes these lines into the new files opened for writing .
+####################################################################################
+
+#####################################################################################
+#do template replacement and file write for the datafile path in ifw_Tablespaces.sql
+#####################################################################################
+map{s{datafile\s+'ORA_DAT_PATH/ORA_SID/(.*?)'\s+}{datafile '$ENV{"DB_PATH"}$1' }i;
+s{datafile\s+'ORA_IDX_PATH/ORA_SID/(.*?)'\s+}{datafile '$ENV{"DB_PATH"}$1' }i;
+s{^(\s*(?:--\s*)?create\s.*?)\s+SIZE\s+(\d+M)}{"$1 size ".($2>50?"50M":$2)." reuse "}ie;
+s/INTEGRATE/$ENV{"INT_USER"}/gis; 
+m{^\s*(?:--\s*)?create\s.*\sAUTOEXTEND\s+ON\s+MAXSIZE\s+UNLIMITED\s*}i
+        or s{^(\s*(?:--\s*)?create\s.*?);\s*$}{$1 autoextend on maxsize unlimited;}i;
+  print DTFILEIFW $_    }<IFW>;
+  close(IFW);
+ close(DTFILEIFW);
+
+#####################################################################################
+#do template replacement and file write for the datafile path in JSA_Tablespaces.sql
+#####################################################################################
+map{s{(JSA_TS_1_DAT\s+datafile\s+')[^']*'\s+}{$1$ENV{"DB_PATH"}JSA_TS_1_DAT.DBF' }i;
+s{(JSA_TS_1_IDX\s+datafile\s+')[^']*'\s+}{$1$ENV{"DB_PATH"}JSA_TS_1_IDX.DBF' }i;
+s{^(\s*(?:--\s*)?create\s.*?)\s+SIZE\s+(\d+M)}{"$1 size ".($2>50?"50M":$2)." reuse "}ie;
+m{^\s*(?:--\s*)?create\s.*\sAUTOEXTEND\s+ON\s+MAXSIZE\s+UNLIMITED\s*}i
+        or s{^(\s*(?:--\s*)?create\s.*?);\s*$}{$1 autoextend on maxsize unlimited;}i;
+        print DTFILEJSA $_}<JSA>;
+        close(JSA);
+     close(DTFILEJSA);
+
+#####################################################################################
+#do template replacement and file write for userid and password in  
+#ifw_Create.sql,JSA_Roles.sql and ifw_Roles_temp.sql
+#####################################################################################
+map{ s/INTEGRATE/$ENV{"INT_USER"}/gis;  s/password/$ENV{"INT_UPSWD"}/gis;print SQLIFW $_}<IFWS>;
+map{ s{'JSA'}{'$ENV{"JSA_USER"}'}is; s{'password'}{'$ENV{"JSA_UPSWD"}'}is; print SQLJSA $_}<JSAS>;
+map{ s/INTEGRATE/$ENV{"INT_USER"}/gis; print SQLIFWC $_}<IFWC>;
+
+#####################################################################################
+#close all open file pointers.
+#####################################################################################
+close(IFWS);
+close(SQLIFW);
+close(JSAS);
+close(SQLJSA);
+close(IFWC);
+close(SQLIFWC);

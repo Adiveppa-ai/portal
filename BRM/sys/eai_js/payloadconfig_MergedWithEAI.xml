@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<PayloadConfig>
+<PublisherDefs>
+<Publisher DB="0.0.9.1" Format="XML">CustCreate,
+NameInfoUpdate,
+BillInfoUpdate,
+DealPurchase,
+DealCancel,
+ProductCancel,
+ProductPurchase,
+ServicePasswd,
+ServiceLogin,
+CustDelete,
+StatusUpdate,
+CCPayinfoUpdate,
+DDPayinfoUpdate,
+InvPayinfoUpdate,
+PayinfoChange,
+Payment,
+Refund,
+FailedPayment,
+Reversal</Publisher>
+</PublisherDefs>
+<ElementDefs>
+<NameInfo DataFrom="PIN_FLD_NAMEINFO" PinFld="PIN_FLD_NAMEINFO" Source="EVENT" Tag="NameInfo" UseOnlyElement="1">
+<Field PinFld="PIN_FLD_ZIP" Tag="Zip"/>
+<Field PinFld="PIN_FLD_CITY" Tag="City"/>
+<Field PinFld="PIN_FLD_ADDRESS" Tag="Address"/>
+<Field PinFld="PIN_FLD_ELEMENT_ID" Tag="ElementId"/>
+<Field PinFld="PIN_FLD_LAST_NAME" Tag="LastName"/>
+<Field PinFld="PIN_FLD_STATE" Tag="State"/>
+<Field PinFld="PIN_FLD_FIRST_NAME" Tag="FirstName"/>
+<Field PinFld="PIN_FLD_MIDDLE_NAME" Tag="MiddleName"/>
+<ExtendedInfo PinFld="PIN_FLD_PHONES" Tag="Phones">
+<Field PinFld="PIN_FLD_PHONE" Tag="Phone"/>
+<Field PinFld="PIN_FLD_TYPE" Tag="Type"/>
+</ExtendedInfo>
+</NameInfo>
+<BillInfo DataFrom="PIN_FLD_BILLINFO" PinFld="PIN_FLD_BILLINFO" Source="EVENT" Tag="BillInfo" UseOnlyElement="1">
+<Field PinFld="PIN_FLD_MERCHANT" Tag="Merchant"/>
+<Field PinFld="PIN_FLD_CURRENCY" Tag="Currency"/>
+<Field PinFld="PIN_FLD_ACCOUNT_NO" Tag="AccountNo"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<Field PinFld="PIN_FLD_ACCESS_CODE2" Tag="AccessCode2"/>
+<Field PinFld="PIN_FLD_ACCESS_CODE1" Tag="AccessCode1"/>
+<Field PinFld="PIN_FLD_BILL_TYPE" Tag="BillType"/>
+</BillInfo>
+<PayInfoOld DataFrom="PIN_FLD_BILLINFO" PinFld="PIN_FLD_BILLINFO" Source="EVENT" Tag="PayInfoOld" UseOnlyElement="0">
+<Field PinFld="PIN_FLD_PAYINFO_OBJ" Tag="PayInfo"/>
+<Field PinFld="PIN_FLD_PAY_TYPE" Tag="PayType"/>
+</PayInfoOld>
+<PayInfoNew DataFrom="PIN_FLD_BILLINFO" PinFld="PIN_FLD_BILLINFO" Source="EVENT" Tag="PayInfoNew" UseOnlyElement="1">
+<Field PinFld="PIN_FLD_PAYINFO_OBJ" Tag="PayInfo"/>
+<Field PinFld="PIN_FLD_PAY_TYPE" Tag="PayType"/>
+</PayInfoNew>
+<Payment DataFrom="PIN_FLD_PAYMENT" PinFld="PIN_FLD_PAYMENT" Source="EVENT" Tag="Payment">
+<Field PinFld="PIN_FLD_TRANS_ID" Tag="TransactionId"/>
+<Field PinFld="PIN_FLD_PAY_TYPE" Tag="Paytype"/>
+<Field PinFld="PIN_FLD_ACCOUNT_NO" Tag="AccountNo"/>
+<Field PinFld="PIN_FLD_BILL_NO" Tag="BillNo"/>
+<Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+</Payment>
+<ReversalTransIdInfo DataFrom="PIN_FLD_PAYMENT" PinFld="PIN_FLD_PAYMENT" Source="EVENT" Tag="TransIdInfo">
+<Field PinFld="PIN_FLD_TRANS_ID" Tag="PaymentReversalTransactionId"/>
+<Field PinFld="PIN_FLD_PAYMENT_TRANS_ID" Tag="PaymentTransactionId"/>
+</ReversalTransIdInfo>
+<ReversalInfo DataFrom="PIN_FLD_BAL_IMPACTS" PinFld="PIN_FLD_BAL_IMPACTS" Source="EVENT" Tag="PaymentReversal">
+<Field PinFld="PIN_FLD_RESOURCE_ID" Tag="Currency"/>
+<Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+</ReversalInfo>
+<PaymentReasons DataFrom="PIN_FLD_PAYMENT_REASONS" PinFld="PIN_FLD_PAYMENT_REASONS" Source="EVENT" Tag="PaymentReasons">
+<Field PinFld="PIN_FLD_REASON_DOMAIN_ID" Tag="ReasonDomainId"/>
+<Field PinFld="PIN_FLD_REASON_ID" Tag="ReasonId"/>
+</PaymentReasons>
+<Bills DataFrom="PIN_FLD_BILLS" PinFld="PIN_FLD_BILLS" Source="EVENT" Tag="Bills">
+<Field PinFld="PIN_FLD_BILL_NO" Tag="BillNo"/>
+</Bills>
+<Refund DataFrom="PIN_FLD_REFUND" PinFld="PIN_FLD_REFUND" Source="EVENT" Tag="Refund">
+<Field PinFld="PIN_FLD_CURRENCY" Tag="Currency"/>
+<Field PinFld="PIN_FLD_TRANS_ID" Tag="TransactionId"/>
+<Field PinFld="PIN_FLD_PAY_TYPE" Tag="Paytype"/>
+<Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+</Refund>
+<CashInfo DataFrom="PIN_FLD_CASH_INFO" PinFld="PIN_FLD_CASH_INFO" Source="EVENT" Tag="CashInfo">
+<Field PinFld="PIN_FLD_RECEIPT_NO" Tag="ReceiptNo"/>
+<Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="Date"/>
+</CashInfo>
+<CheckInfo DataFrom="PIN_FLD_CHECK_INFO" PinFld="PIN_FLD_CHECK_INFO" Source="EVENT" Tag="CheckInfo">
+<Field PinFld="PIN_FLD_CHECK_NO" Tag="CheckNo"/>
+<Field PinFld="PIN_FLD_EFFECTIVE_T" Tag="Date"/>
+</CheckInfo>
+<PayInfo PinFld="PIN_FLD_PAYINFO" Source="/payinfo" Tag="PayInfo">
+<Search SearchFld="PIN_FLD_ACCOUNT_OBJ" SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+<ExtendedInfo PinFld="PIN_FLD_INV_INFO" Tag="PayInfo.Invoice">
+<Field PinFld="PIN_FLD_PO_ORDER_NO" Tag="POOrderNo"/>
+<Field PinFld="PIN_FLD_PO_BAL_THRESHOLD" Tag="POBalThreshold"/>
+<Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+<Field PinFld="PIN_FLD_INV_INSTR" Tag="InvInstr"/>
+<Field PinFld="PIN_FLD_DELIVERY_DESCR" Tag="DeliveryDesc"/>
+<Field PinFld="PIN_FLD_PO_AMOUNT" Tag="POAmount"/>
+<Field PinFld="PIN_FLD_DELIVERY_PREFER" Tag="DeliveryPrefer"/>
+<Field PinFld="PIN_FLD_PO_EXP" Tag="POExp"/>
+<Field PinFld="PIN_FLD_PO_EXP_THRESHOLD" Tag="POExpThreshold"/>
+</ExtendedInfo>
+<ExtendedInfo PinFld="PIN_FLD_CC_INFO" Tag="PayInfo.CC">
+<Field PinFld="PIN_FLD_DEBIT_EXP" Tag="DebitExp"/>
+<Field PinFld="PIN_FLD_SECURITY_ID" Tag="SecurityId"/>
+<Field PinFld="PIN_FLD_DEBIT_NUM" Tag="DebitNum"/>
+</ExtendedInfo>
+<ExtendedInfo PinFld="PIN_FLD_DD_INFO" Tag="PayInfo.DD">
+<Field PinFld="PIN_FLD_ACCOUNT_TYPE" Tag="DDType"/>
+<Field PinFld="PIN_FLD_DEBIT_NUM" Tag="DebitNum"/>
+<Field PinFld="PIN_FLD_BANK_NO" Tag="BankNo"/>
+</ExtendedInfo>
+</PayInfo>
+<DealInfo DataFrom="PIN_FLD_DEAL_INFO" PinFld="PIN_FLD_DEAL_INFO" Source="EVENT" Tag="DealInfo">
+<Field PinFld="PIN_FLD_DEAL_OBJ" Tag="DealObj"/>
+</DealInfo>
+<ProductInfo PinFld="PIN_FLD_EXTENDED_INFO" Source="EVENT" Tag="ProductInfo">
+<ExtendedInfo PinFld="PIN_FLD_PRODUCT" Tag="Product">
+<Field PinFld="PIN_FLD_NODE_LOCATION" Tag="NodeLocation"/>
+<Field PinFld="PIN_FLD_PRODUCT_OBJ" Tag="ProductObj"/>
+</ExtendedInfo>
+<ExtendedInfo PinFld="PIN_FLD_ACTION_INFO" Tag="ActionInfo">
+<Field PinFld="PIN_FLD_DEAL_OBJ" Tag="DealObj"/>
+<Field PinFld="PIN_FLD_QUANTITY" Tag="Quantity"/>
+<Field PinFld="PIN_FLD_PLAN_OBJ" Tag="PlanObj"/>
+<Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+</ExtendedInfo>
+</ProductInfo>
+<ProductDetail PinFld="PIN_FLD_PRODUCT" Source="/product" Tag="ProductDetail">
+<Search SearchFld="PIN_FLD_POID" SearchVal="PIN_FLD_PRODUCT_OBJ" SearchValFrom="PIN_FLD_PRODUCT"/>
+<Field PinFld="PIN_FLD_POID" Tag="ProductObj"/>
+<Field PinFld="PIN_FLD_PROVISIONING_TAG" Tag="ProvisioningTag"/>
+</ProductDetail>
+<Passwords DataFrom="PIN_FLD_PASSWORDS" PinFld="PIN_FLD_PASSWORDS" Source="EVENT" Tag="Passwords" UseOnlyElement="1">
+<Field PinFld="PIN_FLD_PASSWD" Tag="Passwd"/>
+</Passwords>
+<Logins DataFrom="PIN_FLD_LOGINS" PinFld="PIN_FLD_LOGINS" Source="EVENT" Tag="Logins" UseOnlyElement="1">
+<Field PinFld="PIN_FLD_LOGIN" Tag="Login"/>
+</Logins>
+<Statuses DataFrom="PIN_FLD_STATUSES" PinFld="PIN_FLD_STATUSES" Source="EVENT" Tag="Statuses" UseOnlyElement="1">
+<Field PinFld="PIN_FLD_STATUS_FLAGS" Tag="StatusFlags"/>
+<Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+</Statuses>
+<Service PinFld="PIN_FLD_SERVICES" Source="/service" Tag="Service">
+<Search SearchFld="PIN_FLD_ACCOUNT_OBJ" SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+<Field PinFld="PIN_FLD_LOGIN" Tag="Login"/>
+<Field PinFld="PIN_FLD_POID" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_STATUS_FLAGS" Tag="StatusFlags"/>
+<Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+<Field PinFld="PIN_FLD_PASSWD" Tag="Passwd"/>
+<ExtendedInfo PinFld="PIN_FLD_SERVICE_IP" Tag="ServiceIp">
+<Field PinFld="PIN_FLD_PROTOCOL" Tag="Protocol"/>
+<Field PinFld="PIN_FLD_IPADDR" Tag="Ipaddr"/>
+<Field PinFld="PIN_FLD_COMPRESSION" Tag="Compression"/>
+</ExtendedInfo>
+<ExtendedInfo PinFld="PIN_FLD_SERVICE_EMAIL" Tag="ServiceEmail">
+<Field PinFld="PIN_FLD_MAX_MSG_SIZE" Tag="MaxMsgSize"/>
+<Field PinFld="PIN_FLD_MAIL_SERVER_ID" Tag="MailServerId"/>
+<Field PinFld="PIN_FLD_MAX_MSG_CNT" Tag="MaxMsgCnt"/>
+<Field PinFld="PIN_FLD_MAX_MBOX_SIZE" Tag="MaxMboxSize"/>
+<Field PinFld="PIN_FLD_PATH" Tag="Path"/>
+</ExtendedInfo>
+</Service>
+<Profile PinFld="PIN_FLD_PROFILES" Source="/profile" Tag="Profile">
+<Search SearchFld="PIN_FLD_ACCOUNT_OBJ" SearchVal="PIN_FLD_POID"/>
+<Field PinFld="PIN_FLD_POID" Tag="ProfileObj"/>
+<ExtendedInfo PinFld="PIN_FLD_LDAP_INFO" Tag="LdapInfo">
+<Field PinFld="PIN_FLD_DN" Tag="Dn"/>
+</ExtendedInfo>
+</Profile>
+</ElementDefs>
+<EventDefs>
+<CustCreate DTD="custcreate.dtd" EndEvent="/event/notification/customer/reg_complete" Source="/account" StartEvent="/event/notification/account/create" Tag="Portal.Infranet.Events.CustCreate">
+<Attribute Tag="Version" Value="1.0"/>
+<Search SearchFld="PIN_FLD_POID" SearchVal="PIN_FLD_ACCOUNT_OBJ"/>
+<Field PinFld="PIN_FLD_POID" Tag="AccountObj"/>
+<Field PinFld="PIN_FLD_STATUS_FLAGS" Tag="StatusFlags"/>
+<Field PinFld="PIN_FLD_STATUS" Tag="Status"/>
+<SubElement Name="ProductDetail" OnEvent="/event/billing/product/action/purchase"/>
+<SubElement Name="NameInfo" OnEvent="/event/customer/nameinfo"/>
+<SubElement Name="Profile"/>
+<SubElement Name="ProductInfo" OnEvent="/event/billing/product/action/purchase"/>
+<SubElement Name="DealInfo" OnEvent="/event/billing/deal/purchase"/>
+<SubElement Name="PayInfo" OnEvent="/event/notification/customer/reg_complete"/>
+<SubElement Name="BillInfo" OnEvent="/event/customer/billinfo"/>
+<SubElement Name="Service" OnEvent="/event/notification/customer/reg_complete"/>
+</CustCreate>
+<NameInfoUpdate DTD="nameinfoupdt.dtd" Source="EVENT" StartEvent="/event/customer/nameinfo" Tag="Portal.Infranet.Events.NameInfoUpdate">
+<Attribute Tag="Version" Value="1.0"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="NameInfo" OnEvent="/event/customer/nameinfo"/>
+</NameInfoUpdate>
+<BillInfoUpdate DTD="billinfoupdt.dtd" Source="EVENT" StartEvent="/event/customer/billinfo" Tag="Portal.Infranet.Events.BillInfoUpdate">
+<Attribute Tag="Version" Value="1.0"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="PayInfo"/>
+<SubElement Name="BillInfo" OnEvent="/event/customer/billinfo"/>
+</BillInfoUpdate>
+<PayinfoChange DTD="billinfoupdt.dtd" Source="EVENT" StartEvent="/event/notification/billinfo/paytype/modify" Tag="Portal.Infranet.Events.PayinfoChange">
+<Attribute Tag="Version" Value="1.0"/>
+<Field PinFld="PIN_FLD_BILLINFO_ID" Tag="BillInfoId"/>
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="PayInfoNew" OnEvent="/event/notification/billinfo/paytype/modify"/>
+<SubElement Name="PayInfoOld" OnEvent="/event/notification/billinfo/paytype/modify"/>
+</PayinfoChange>
+<DealPurchase DTD="dealpurch.dtd" Source="EVENT" StartEvent="/event/billing/deal/purchase" Tag="Portal.Infranet.Events.DealPurchase">
+<Attribute Tag="Version" Value="1.0"/>
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="DealInfo" OnEvent="/event/billing/deal/purchase"/>
+</DealPurchase>
+<DealCancel DTD="dealcanc.dtd" Source="EVENT" StartEvent="/event/billing/deal/cancel" Tag="Portal.Infranet.Events.DealCancel">
+<Attribute Tag="Version" Value="1.0"/>
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="DealInfo" OnEvent="/event/billing/deal/cancel"/>
+</DealCancel>
+<ProductPurchase DTD="pdtpurch.dtd" Source="EVENT" StartEvent="/event/billing/product/action/purchase" Tag="Portal.Infranet.Events.ProductPurchase">
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ProductDetail" OnEvent="/event/billing/product/action/purchase"/>
+<SubElement Name="ProductInfo" OnEvent="/event/billing/product/action/purchase"/>
+</ProductPurchase>
+<ProductCancel DTD="pdtcanc.dtd" Source="EVENT" StartEvent="/event/billing/product/action/cancel" Tag="Portal.Infranet.Events.ProductCancel">
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ProductInfo" OnEvent="/event/billing/product/action/cancel"/>
+</ProductCancel>
+<ServicePasswd DTD="srvcpasswd.dtd" Source="EVENT" StartEvent="/event/customer/password" Tag="Portal.Infranet.Events.ServicePasswd">
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Passwords" OnEvent="/event/customer/password"/>
+</ServicePasswd>
+<ServiceLogin DTD="srvclogin.dtd" Source="EVENT" StartEvent="/event/customer/login" Tag="Portal.Infranet.Events.ServiceLogin">
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Logins" OnEvent="/event/customer/login"/>
+</ServiceLogin>
+<CustDelete DTD="custdelete.dtd" Source="EVENT" StartEvent="/event/notification/account/delete" Tag="Portal.Infranet.Events.CustDelete">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+</CustDelete>
+<StatusUpdate DTD="statupdate.dtd" Source="EVENT" StartEvent="/event/customer/status" Tag="Portal.Infranet.Events.StatusUpdate">
+<Field PinFld="PIN_FLD_SERVICE_OBJ" Tag="ServiceObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Statuses" OnEvent="/event/customer/status"/>
+</StatusUpdate>
+<CCPayinfoUpdate DTD="payinfoupdt.dtd" Source="EVENT" StartEvent="/event/audit/customer/payinfo/cc" Tag="Portal.Infranet.Events.PayInfoUpdate">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="PayInfo"/>
+</CCPayinfoUpdate>
+<DDPayinfoUpdate DTD="payinfoupdt.dtd" Source="EVENT" StartEvent="/event/audit/customer/payinfo/dd" Tag="Portal.Infranet.Events.PayInfoUpdate">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="PayInfo"/>
+</DDPayinfoUpdate>
+<InvPayinfoUpdate DTD="payinfoupdt.dtd" Source="EVENT" StartEvent="/event/audit/customer/payinfo/invoice" Tag="Portal.Infranet.Events.PayInfoUpdate">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="PayInfo"/>
+</InvPayinfoUpdate>
+<Refund DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/refund/cc" Tag="Portal.Infranet.Events.Refund">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Refund"/>
+</Refund>
+<Refund DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/refund/dd" Tag="Portal.Infranet.Events.Refund">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Refund"/>
+</Refund>
+<Refund DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/refund/sepa" Tag="Portal.Infranet.Events.Refund">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Refund"/>
+</Refund>
+<Refund DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/refund/check" Tag="Portal.Infranet.Events.Refund">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Refund"/>
+</Refund>
+<Refund DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/refund/cash" Tag="Portal.Infranet.Events.Refund">
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="Refund"/>
+</Refund>
+<Payment DTD="payment.dtd" Source="EVENT" StartEvent="/event/notification/payment" Tag="Portal.Infranet.Events.Payment">
+<Field PinFld="PIN_FLD_CURRENCY" Tag="Currency"/>
+<Field PinFld="PIN_FLD_TRANS_ID" Tag="TransactionId"/>
+<Field PinFld="PIN_FLD_PAY_TYPE" Tag="PayType"/>
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+<SubElement Name="Bills"/>
+</Payment>
+<FailedPayment DTD="payment.dtd" Source="EVENT" StartEvent="/event/notification/payment/failed" Tag="Portal.Infranet.Events.FailedPayment">
+<Field PinFld="PIN_FLD_CURRENCY" Tag="Currency"/>
+<Field PinFld="PIN_FLD_PAY_TYPE" Tag="PayType"/>
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<Field PinFld="PIN_FLD_AMOUNT" Tag="Amount"/>
+<SubElement Name="Bills"/>
+<SubElement Name="PaymentReasons"/>
+</FailedPayment>
+<Reversal DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/reversal/cc" Tag="Portal.Infranet.Events.Reversal">
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ReversalInfo"/>
+<SubElement Name="ReversalTransIdInfo"/>
+</Reversal>
+<Reversal DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/reversal/dd" Tag="Portal.Infranet.Events.Reversal">
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ReversalInfo"/>
+<SubElement Name="ReversalTransIdInfo"/>
+</Reversal>
+<Reversal DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/reversal/cash" Tag="Portal.Infranet.Events.Reversal">
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ReversalInfo"/>
+<SubElement Name="ReversalTransIdInfo"/>
+</Reversal>
+<Reversal DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/reversal/check" Tag="Portal.Infranet.Events.Reversal">
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ReversalInfo"/>
+<SubElement Name="ReversalTransIdInfo"/>
+</Reversal>
+<Reversal DTD="payment.dtd" Source="EVENT" StartEvent="/event/billing/reversal/sepa" Tag="Portal.Infranet.Events.Reversal">
+<Field PinFld="PIN_FLD_BILLINFO_OBJ" Tag="BillInfoObj"/>
+<Field PinFld="PIN_FLD_ACCOUNT_OBJ" Tag="AccountObj"/>
+<SubElement Name="ReversalInfo"/>
+<SubElement Name="ReversalTransIdInfo"/>
+</Reversal>
+</EventDefs>
+<ConditionDefs/>
+</PayloadConfig>

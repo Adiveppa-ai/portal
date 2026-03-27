@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<DATA>
+<PARAM_COUNTRY></PARAM_COUNTRY>
+<PARAM_STATE></PARAM_STATE>
+<PARAM_ACCOUNT_STATUS></PARAM_ACCOUNT_STATUS>
+<PARAM_CHARGE_DECLINE>1</PARAM_CHARGE_DECLINE>
+<PARAM_START_DATE>2010-12-14T21:00:00.000-11:00</PARAM_START_DATE>
+<PARAM_END_DATE>2013-12-14T21:00:00.000-11:00</PARAM_END_DATE>
+<PARAM_MASKCCNO>1</PARAM_MASKCCNO>
+<Q1>
+<ROW>
+<Q1>
+<Q1_ROW>
+<event_amount>8.95</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>218486</account_POID_IDO>
+<account_account_NO>0.0.0.1-218486</account_account_NO>
+<event_TRANS_ID>T1,11,0</event_TRANS_ID>
+<event_name>gnv_cacc gnv_cacc gnv_cacc</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>gnv_cacc</event_state>
+<account_status>10100</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1201804608</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+<Q1_ROW>
+<event_amount>450.25</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>218486</account_POID_IDO>
+<account_account_NO>0.0.0.1-218486</account_account_NO>
+<event_TRANS_ID>T1,b,0</event_TRANS_ID>
+<event_name>gnv_cacc gnv_cacc gnv_cacc</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>gnv_cacc</event_state>
+<account_status>10100</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1199125850</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+<Q1_ROW>
+<event_amount>11.65</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>224805</account_POID_IDO>
+<account_account_NO>0.0.0.1-224805</account_account_NO>
+<event_TRANS_ID>T1,11,1</event_TRANS_ID>
+<event_name>test_ccacc test_ccacc test_ccacc</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>test_ccacc</event_state>
+<account_status>10100</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1201804608</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+<Q1_ROW>
+<event_amount>453.25</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>224805</account_POID_IDO>
+<account_account_NO>0.0.0.1-224805</account_account_NO>
+<event_TRANS_ID>T1,b,1</event_TRANS_ID>
+<event_name>test_ccacc test_ccacc test_ccacc</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>test_ccacc</event_state>
+<account_status>10100</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1199125850</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+<Q1_ROW>
+<event_amount>25.9</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>228453</account_POID_IDO>
+<account_account_NO>0.0.0.1-228453</account_account_NO>
+<event_TRANS_ID>T1,11,2</event_TRANS_ID>
+<event_name>cc_acc_exp cc_acc_exp cc_acc_exp</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>cc_acc_exp</event_state>
+<account_status>10100</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1201804608</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+<Q1_ROW>
+<event_amount>25.9</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>233370</account_POID_IDO>
+<account_account_NO>0.0.0.1-233370</account_account_NO>
+<event_TRANS_ID>T1,11,3</event_TRANS_ID>
+<event_name>account_credit_card account_credit_card account_credit_card</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>account_credit_card</event_state>
+<account_status>10103</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1201804608</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+<Q1_ROW>
+<event_amount>12.95</event_amount>
+<event_currency>840</event_currency>
+<event_country>in</event_country>
+<account_POID_IDO>233370</account_POID_IDO>
+<account_account_NO>0.0.0.1-233370</account_account_NO>
+<event_TRANS_ID>T1,b,2</event_TRANS_ID>
+<event_name>account_credit_card account_credit_card account_credit_card</event_name>
+<event_DEBIT_NUM>4444333311112222</event_DEBIT_NUM>
+<event_result>1</event_result>
+<event_state>account_credit_card</event_state>
+<account_status>10103</account_status>
+<event_command>4</event_command>
+<event_ENT_T>1199125850</event_ENT_T>
+<account_POID_DB>1</account_POID_DB>
+<config_name>US Dollar</config_name>
+</Q1_ROW>
+</Q1>
+</ROW>
+</Q1>
+</DATA>

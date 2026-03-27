@@ -1,0 +1,168 @@
+Instructions for loading accounts into a 6.7 (APOLLO) PIN database. 
+
+This script quickly creates accounts with defined services. You can choose
+how many accounts are created, what services are assigned to the accounts
+and whether the accounts are credit card or invoice accounts. The services
+you can choose are limited to price list and plans loaded into the database.
+
+This script assumes that the pin database has been created and price lists
+and plans are known and loaded. You can find out which plans are present
+in the database by using select name,descr from plan_t; 
+
+The steps necessary to load multiple accounts using sql_loader are as follows:
+
+- Change directory to .../apps/perf/sql_loader  (this directory)
+
+- Edit ../db_conf.pm
+  - set the variables at the top of the file to suit your database
+    E.G.
+     $CONF_OWNER="pin";
+     $CONF_PASSWD="pin";
+     $SYS_OWNER="system";
+     $SYS_PASSWD="manager";
+     $CONF_DBNAME="pindb_some_host";   <-- the database alias in tnsnames.ora
+
+     To test that you have set these value correctly, you should be able to
+     type (using the examples above) sqlplus pin/pin@pindb_some_host and
+     sqlplus system/manager@pindb_some_host
+  
+- Edit the mycreate (mycreate.bat on NT)
+  - set the $CONF_xxx variables
+    $CONF_BEG_ID0     is the starting number for accounts. All accounts created
+                      will have a login name of the format userNNNN where NNNN
+                      starts at $CONF_BEG_ID0 and increments for each account.
+                      You can check the the accounts created by using
+                      select login from service_t; (If you have have created
+                      many thousands of accounts, use select login from 
+                      service_t where rownum < 300; (for example). This will
+                      limit the screen output.)
+                      
+    $CONF_NUM_THREADS This controls how many accounts will be created. The
+                      total number of accounts created will be $CONF_NUM_THREADS
+                      * number accounts to create per thread (see below)
+
+    @ACCOUNTS structure.
+        This is where you specify the accounts services (plan) required, the
+        number of accounts to create and the type of account (credit or
+        invoice)
+
+        Example :
+        @ACCOUNTS= (
+                    "'Bench_Basic'" , 40000, 1,"'.'"
+                   );
+ 
+         - Bench_Basic (which must be in double and single quotes) is the plan (as
+           seen in the NAME field of plan_t
+         - 40000 is the number of accounts to create per thread. If the
+           $CONF_NUM_THREADS is set to 5 then 200,000 accounts will be
+           created. If $CONF_BEG_ID0 is set to 5000, for example, the
+           accounts will be created with the LOGIN fields (in service_t) set
+           to user5000, user5001 ... user204999.
+         - 1 indicates credit card accounts (0 for invoice)
+         - The last field is the GL segment
+
+        Example :
+        @ACCOUNTS= (
+                    "'Basic'" , 40000, 1,"'.'",
+                    "'IPT and IP Dial-up'" , 200, 0,"'.'"
+                   );
+
+         - The 200,000 Basic accounts will be created as described in the
+           above example. NOTE the use of the comma (,) to delimit the
+           entries in the structure.
+         - 200 * $CONF_NUM_THREADS, 'IPT and IP Dial-up' accounts will also
+           be created. These will be invoice accounts. Note that the
+           'IPT and IP Dial-up' is and EXACT string match from 
+           select name from plan_t;
+
+- Run "perl mycreate" from the command line as user pin
+
+NOTES:
+
+1.	If the number of accounts being created is very big (more than 200000),
+	we recommend dropping indexes before running "mycreate". 
+
+1.1     Proceedure to drop the indexes:
+        - make sure the database is running 
+        - run sqlplus pin/pin@<database alias> @/opt/portal/6.7/sys/dm_oracle/data/drop_indexes.source
+
+        - run mycreate to auto generate accounts (perl mycreate)
+
+1.2     Procedure to re-create the indexes
+
+        When the account creation is complete the indexes should be recreated in
+        "unrecoverable parallel" mode (I.E. using the NOLOGGING PARALLEL option)
+
+        To do this, edit the the pin_tables.values file in /opt/portal/6.7/setup/scripts
+        and locate the storage definition for the configuration you are using. 
+          [  If you dont know what configuration you are using, look in the pin_setup.values file
+             in the /opt/portal/6.7/setup directory. There, search for line
+                  $MAIN_DB{'storage_model'} = "<some size, Small, Medium, Large>"; 
+          ]
+ 
+        Back in the pin_tables.values file, if you are using the Large storage model, 
+        for example, the PIN_CONF_STORAGE model to search for is PIN_CONF_STORAGE_HUGE.
+        (PIN_CONF_STORAGE_MINI for Small, PIN_CONF_STORAGE_MIDSIZE for Medium.) 
+        Locate the eight entries that look like
+
+             "storage (initial NNm next NNNm pctincrease 0 ) ",
+
+        and add the 'nologging parallel' option thus :
+
+             "storage (initial NNm next NNNm pctincrease 0 ) nologging parallel ",
+
+        Repeat for the other entries.
+
+        - cd to /opt/portal/6.7/setup/scripts
+        - run  perl pin_crt_idx.pl
+
+        --> if pin_crt_idx.pl does not exist then create the file. The contents of the file
+            should read :
+              #!/opt/portal/6.7/bin/perl
+              #
+              # Create Infranet indexes
+              # This script must be run as user 'pin' from the /opt/portal/6.7/setup/scripts directory
+              #
+
+              require "pin_res.pl";
+              require "pin_functions.pl";
+              require "pin_oracle_functions.pl";
+              require "../pin_setup.values";
+
+              &ExecuteSQL_Statement_From_File( "/opt/portal/6.7/sys/dm_oracle/data/create_indexes.source", 
+                                   TRUE, 
+                                   TRUE, 
+                                   %{%DM_ORACLE->{"db"}} );
+
+1.3     Having recreated the indexes, you may wish to switch logging back on for the
+        indexes. To do this efficiently, make a copy of the drop_indexes.source file
+        in /opt/portal/6.7/sys/dm_oracle/data (call it logging_indexes.source) and
+        replace the 'drop' (at the beginning of each line) with 'alter' and then 
+        replace the semi-colon (;) at the end of each line, with 'logging;'
+
+         E.G. drop index i_account__id; will be replaced with
+              alter index i_account__id logging;
+
+              In vi, use the commands 16,$ s/^drop/alter/   and  16,$ s/;/ logging;/
+
+        run the script from sql E.G. sqlplus pin/pin@<alias> @logging_indexes.source
+
+       
+
+=========================================================================================================
+
+Using update
+
+ There is possibility to make a portion of DB created by "mycreate" billable by
+ Infranet. Perl script "update" is very similar to "mycreate", most of 
+ configuration parameters are same and values for them should be same as 
+ values in the "mycreate" during creating DB. 
+
+ New for "update" configuration parameter is CONF_PERIODS . Value for this 
+ parameter defined what part of DB to bill and actually is a step , how many 
+ accounts to skip before billing next account. 
+ if CONF_PERIODS=3 "update" will make each third parameter billable. To make 
+ parameter billable "update" updates field "actg_next_t" in the table account_t.
+ After updating table account_t "update" rebuild index by "actg_next_t".
+ Location of the index is given by parameter CONF_TABLESPACE.
+ 

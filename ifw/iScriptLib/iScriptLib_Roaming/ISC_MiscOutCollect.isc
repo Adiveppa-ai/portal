@@ -1,0 +1,144 @@
+//==============================================================================
+//  @(#)$Id: ISC_MiscOutCollect.isc /cgbubrm_7.3.2.pipeline/4 2010/08/23 21:48:31 mvenkate Exp $
+// Copyright (c) 2006, 2010, Oracle and/or its affiliates. 
+// All rights reserved. 
+//
+//      This material is the confidential property of Oracle Corporation
+//      or its licensors and may be used, reproduced, stored or transmitted
+//      only in accordance with a valid Oracle license or sublicense agreement.
+//------------------------------------------------------------------------------
+// Block: ISC_MiscOutCollect.isc
+//------------------------------------------------------------------------------
+// Module Description:
+//   This module adds basic service and supplementary service block.Rum of Charge
+//   packets will also be adjusted as per the out grammar.
+//
+//------------------------------------------------------------------------------
+// Responsible: Archan Misra
+//
+//------------------------------------------------------------------------------
+Decimal wholesaleamt;
+String Msg;
+const Long   LOG_MAJOR    = 3;
+//==============================================================================
+// add basic service packet information
+//==============================================================================
+function addBasicServicePacket
+{
+  if (edrAddDatablock(DETAIL.ASS_GSMW_EXT.BS_PACKET,0) == false )
+  {
+    Msg = "ERROR:Failed to add the BS block";
+    edrAddError("ERR_Add_BS_FAILURE", LOG_MAJOR, Msg);
+    edrSetIsValidDetail( false );
+    return;
+  }
+  edrString( DETAIL.ASS_GSMW_EXT.BS_PACKET.RECORD_TYPE , 0, 0) = "520";
+  edrLong(DETAIL.ASS_GSMW_EXT.BS_PACKET.RECORD_NUMBER,0,0) = 0;
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHAIN_REFERENCE,0,0) = "1";
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.LONG_DURATION_INDICATOR,0,0) = "S";
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.BASIC_SERVICE,0,0) = edrString(DETAIL.BASIC_SERVICE);
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.QOS_REQUESTED,0,0) = "0";
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.QOS_USED,0,0) = "0";
+  edrDate(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHARGING_START_TIMESTAMP,0,0) = edrDate(DETAIL.CHARGING_START_TIMESTAMP);
+  edrDate(DETAIL.ASS_GSMW_EXT.BS_PACKET.CHARGING_END_TIMESTAMP,0,0) = edrDate(DETAIL.CHARGING_END_TIMESTAMP);
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.UTC_TIME_OFFSET,0,0) = edrString(DETAIL.UTC_TIME_OFFSET); 
+  edrDecimal(DETAIL.ASS_GSMW_EXT.BS_PACKET.WHOLESALE_CHARGED_AMOUNT_VALUE,0,0) = wholesaleamt;
+  edrLong(DETAIL.ASS_GSMW_EXT.BS_PACKET.WHOLESALE_CHARGED_TAX_RATE,0,0) = edrLong(DETAIL.ASS_CBD.CP.CHARGED_TAX_RATE,0,0);
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.SPEECH_VERSION_REQUESTED,0,0) = "1";
+  edrString(DETAIL.ASS_GSMW_EXT.BS_PACKET.SPEECH_VERSION_USED,0,0) = "1";
+}
+//==============================================================================
+// add Supplementary block information
+//==============================================================================
+function addSupplementaryBlock
+{
+  String  ssEvent;
+  ssEvent = strSubstr( edrString(DETAIL.BASIC_SERVICE), 2, 2);
+  if (edrAddDatablock(DETAIL.ASS_GSMW_EXT.SS_PACKET,0) == false )
+  {
+    Msg = "ERROR:Failed to add the SS block";
+    edrAddError("ERR_Add_SS_FAILURE", LOG_MAJOR, Msg);
+    edrSetIsValidDetail( false );
+    return;
+  }
+  edrString( DETAIL.ASS_GSMW_EXT.SS_PACKET.RECORD_TYPE , 0, 0) = "620";
+  edrLong(DETAIL.ASS_GSMW_EXT.SS_PACKET.RECORD_NUMBER,0,0) = 0;
+  edrString(DETAIL.ASS_GSMW_EXT.SS_PACKET.SS_EVENT,0,0) = ssEvent;
+  edrString(DETAIL.ASS_GSMW_EXT.SS_PACKET.ACTION_CODE,0,0) = edrString(DETAIL.CONNECT_TYPE);
+}
+//==============================================================================
+// adjust record number field of GPRS block
+//==============================================================================
+function adjustGprsPacket
+{
+  edrLong(DETAIL.ASS_GPRS_EXT.RECORD_NUMBER,0) = 0;
+}
+//==============================================================================
+// adjust RUM fields of CP block for TAP Out Grammar
+//==============================================================================
+function adjustCPPacket
+{
+  Long cpEntries;
+  Long cpIndex;
+  Long blockIndex;
+  wholesaleamt = 0.0;
+  
+  //----------------------------------------------------------------------------
+  // check whether any charge block has come or not
+  //----------------------------------------------------------------------------
+  Long blockEntries = edrNumDatablocks( DETAIL.ASS_CBD);
+
+  for(blockIndex = 0; blockIndex < blockEntries; blockIndex = blockIndex + 1)
+  {
+    cpEntries = edrNumDatablocks( DETAIL.ASS_CBD.CP,blockIndex);
+
+    for(cpIndex = 0; cpIndex < cpEntries; cpIndex = cpIndex + 1)
+    {
+      //Renaming of Rum is needed as outgrammar understands those only 
+      if(edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) == "DUR")
+        edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) = "D"; 
+      if(edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) == "SND")
+        edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) = "V"; 
+      if(edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) == "REC")
+        edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) = "W"; 
+      if(edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex)  == "EVT") 
+        edrString(DETAIL.ASS_CBD.CP.RUM,blockIndex,cpIndex) = "E"; 
+
+      wholesaleamt = wholesaleamt + edrDecimal(DETAIL.ASS_CBD.CP.CHARGED_AMOUNT_VALUE,blockIndex,cpIndex);
+
+      if(edrString(DETAIL.ASS_CBD.CP.IMPACT_CATEGORY,blockIndex,cpIndex) != "00")
+      {
+        edrString(DETAIL.ASS_CBD.CP.IMPACT_CATEGORY,blockIndex,cpIndex) = "01";
+      }
+    }
+  }
+}
+function onDetailEdr
+{ 
+  adjustCPPacket();
+  if(edrNumDatablocks(DETAIL.ASS_GSMW_EXT) > 0)
+  {
+    addBasicServicePacket();
+    if(edrString(DETAIL.CONNECT_TYPE) != "")
+    {
+      addSupplementaryBlock ();			
+    }
+  }
+  if(edrNumDatablocks(DETAIL.ASS_GPRS_EXT) > 0)
+  {
+    adjustGprsPacket();
+  }
+
+  if(edrString(DETAIL.ASS_GSMW_EXT.SMSC_ADDRESS, 0) != "" )
+  {
+    if( (edrString(DETAIL.BASIC_SERVICE) == "020") or  (edrString(DETAIL.BASIC_SERVICE) == "022" ) )
+    {
+      edrString(DETAIL.ASS_ROAMING_EXT.SMS_DESTINATION_NUMBER, 0) = edrString(DETAIL.B_NUMBER);
+    }
+    else if ( (edrString(DETAIL.BASIC_SERVICE) == "020") or  (edrString(DETAIL.BASIC_SERVICE) == "021") )
+    {
+      edrString(DETAIL.ASS_ROAMING_EXT.SMS_ORIGINATOR, 0) = edrString(DETAIL.A_NUMBER);
+    }
+  }
+
+}

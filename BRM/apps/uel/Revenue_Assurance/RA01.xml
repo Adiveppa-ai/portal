@@ -1,0 +1,72 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE template SYSTEM "template61.dtd">
+<template>
+	<version>6.1</version>
+	<name>RA01</name>
+	<start_line>1</start_line>
+	<loading_controls group_by="none"/>
+	<file_type>Text</file_type>
+	<file_format>Delimited</file_format>
+	<global_record_info>
+		<record_delimiter>newline</record_delimiter>
+		<ignore_record_types/>
+	</global_record_info>
+	<global_field_info>
+		<trim_white_space>true</trim_white_space>
+		<field_delimiter>;</field_delimiter>
+		<consecutive_delimiters_is_one>false</consecutive_delimiters_is_one>
+	</global_field_info>
+	<records>
+		<record name="data record" event_class="/event" service_class="/service/admin_client" event_opcode_name="PCM_OP_PROCESS_AUDIT_CREATE_AND_LINK" event_opcode_num="4302" user_info_opcode_name="PCM_OP_ACT_FIND" user_info_opcode_num="159">
+			<field_definitions>
+				<field name="A" position="0"/>
+				<field name="B" position="1"/>
+				<field name="C" position="2"/>
+				<field name="D" position="3"/>
+				<field name="E" position="4"/>
+				<field name="F" position="5"/>
+				<field name="G" position="6"/>
+				<field name="H" position="7"/>
+				<field name="I" position="8"/>
+				<field name="J" position="9"/>
+				<field name="K" position="10"/>
+				<field name="L" position="11"/>
+				<field name="M" position="12"/>
+				<field name="N" position="13"/>
+				<field name="O" position="14"/>
+				<field name="P" position="15"/>
+				<field name="Q" position="16"/>
+				<field name="R" position="17"/>
+			</field_definitions>
+			<user_mapping_info>
+				<field position="0" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldLogin" inf_field_num="92" data_type="ascii_str" override_value="root.0.0.0.1" default_value="root.0.0.0.1"/>
+			</user_mapping_info>
+			<event_mapping_info>
+				<field position="0" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldProcessName" inf_field_num="8201"/>
+				<field position="6" inf_data_type="EnumField" inf_data_type_num="3" inf_field_name="FldProcessStatus" inf_field_num="8213"/>
+				<field inf_data_type="SubStructField" inf_data_type_num="10" inf_field_name="FldBatchStat" inf_field_num="9005">
+					<field position="3" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldBatchId" inf_field_num="933"/>
+				</field>
+				<field inf_data_type="ArrayField" inf_data_type_num="9" inf_field_name="FldGroupDetails" inf_field_num="9003" elem_position="0">
+					<field position="4" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldOriginalBatchId" inf_field_num="9018"/>
+					<field position="5" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldSuspendedFromBatchId" inf_field_num="9027"/>
+					<field position="7" inf_data_type="IntField" inf_data_type_num="1" inf_field_name="FldEventCount" inf_field_num="9007"/>
+					<field position="8" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldOldRetailValue" inf_field_num="9025"/>
+					<field position="9" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldRetailValue" inf_field_num="9011"/>
+					<field position="10" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldWholesaleValue" inf_field_num="9012"/>
+					<field position="11" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldOldDiscountValue" inf_field_num="9026"/>
+					<field position="12" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldDiscountValue" inf_field_num="9013"/>
+					<field position="13" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldEventDuration" inf_field_num="9008"/>
+					<field position="14" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldVolumeSent" inf_field_num="9009"/>
+					<field position="15" inf_data_type="DecimalField" inf_data_type_num="14" inf_field_name="FldVolumeReceived" inf_field_num="9010"/>
+					<field position="16" inf_data_type="TStampField" inf_data_type_num="8" inf_field_name="FldUsageStartT" inf_field_num="269"/>
+					<field position="17" inf_data_type="TStampField" inf_data_type_num="8" inf_field_name="FldUsageEndT" inf_field_num="270"/>
+				</field>
+				<field position="1" inf_data_type="TStampField" inf_data_type_num="8" inf_field_name="FldProcessStartT" inf_field_num="8204"/>
+				<field position="2" inf_data_type="TStampField" inf_data_type_num="8" inf_field_name="FldProcessEndT" inf_field_num="8205"/>
+				<field position="0" inf_data_type="StrField" inf_data_type_num="5" inf_field_name="FldObjectType" inf_field_num="9019" override_value="/process_audit/batchstat/simple" default_value="/process_audit/batchstat/simple"/>
+			</event_mapping_info>
+			<filters/>
+		</record>
+	</records>
+</template>

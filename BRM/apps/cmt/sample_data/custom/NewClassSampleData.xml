@@ -1,0 +1,20 @@
+<CustomClass>
+        <NewClass  id="1243" type="/myclass" table="myclass_t" read="L" write="L" >
+            <AcctObj>500870042</AcctObj>
+	    <CrtT type="date">2004-05-26T01:22:15-07:00</CrtT>
+            <myArray table="myclass_rules_t" elem="0">
+                <rum_id type="integer">222</rum_id>
+                <descr type="string">sachin</descr>
+                <start_t type="date">2006-10-02T01:22:15-07:00</start_t>
+                <myArray table="myclass_remit_t" elem="0">
+                    <remit_fld type="string">one1</remit_fld>
+                </myArray>
+                <myArray table="myclass_remit_t" elem="1">
+                    <remit_fld type="string">two1</remit_fld>
+                </myArray>
+                <myArray table="myclass_remit_t" elem="2">
+                    <remit_fld type="string">three1</remit_fld>
+                </myArray>
+            </myArray>
+        </NewClass>
+</CustomClass>

@@ -1,0 +1,50 @@
+######################################################################
+# 
+# Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+# 
+#  This material is the confidential property of Oracle Corporation or
+#  its licensors and may be used, reproduced, stored or transmitted only
+#  in accordance with a valid Oracle license or sublicense agreement.
+# 
+#
+######################################################################
+
+
+# This file defines macros used by nmake to build Infranet
+# source samples on Unix. This file should be included by all
+# Unix makefiles. 
+# 
+# IMPORTANT: Make sure env.unix file is included in Unix makefiles 
+# before this file!!!
+
+OS=linux
+
+JAVAC_linux = $(JDK_HOME)/bin/javac
+#the sh directory is there in JDK_HOME on AIX
+
+JAVAC = $(JAVAC_$(OS))
+
+CLASSPATH=$(PCM_JAR):$(PCMEXT_JAR):$(CLASSPATH_$(OS))
+
+CFLAGS_linux =
+CFLAGS = $(CFLAGS_$(OS)) -I$(INCDIR)
+
+CPPFLAGS_linux = -g
+CPPFLAGS = $(CPPFLAGS_$(OS)) -I$(INCDIR) -I$(RW_INCDIR) -D_RWCONFIG_12d
+
+
+LDFLAGS_linux= 
+LDFLAGS = -L$(LIBDIR) $(LDFLAGS_$(OS))
+
+
+LDLIBS= -lportal $(OS_LIBS_$(OS))
+CPPLDLIBS= $(LDLIBS) -lpcmcpp60
+
+INCFILES= $(INCDIR)/pcm.h \
+	$(INCDIR)/pin_bill.h $(INCDIR)/pin_cust.h $(INCDIR)/pin_act.h \
+	$(INCDIR)/pin_errs.h $(INCDIR)/pinlog.h
+
+CC_linux= gcc
+CPP=$(CC_$(OS))
+CC=$(CC_$(OS))
+

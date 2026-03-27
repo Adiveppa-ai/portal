@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<component-def name="Voucher_Reports" version="15.0.1.0.0" description="Voucher Reports" gdr-version="1.8.4.0" xmlns:ns2="http://xmlns.oracle.com/cie/stringsubs" xmlns="http://xmlns.oracle.com/cie/gdr/cpd">
+   <file-map symbol="root.symbol" source="filegroup1.jar" expanded="true" compacted="true" bootstrap="true">
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Voucher_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="VoucherDeviceMgmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="VoucherDeviceMgmt.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="4576" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="72320" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Voucher_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="VoucherDeviceMgmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="VoucherDeviceMgmt.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="104297" dest="VoucherDeviceMgmt_en_US.rtf" mode="0755"/>
+                                             <file size="8070" dest="VoucherDeviceMgmt.rtf.png" mode="0755"/>
+                                             <file size="1376" dest="_report.xdo" mode="0755"/>
+                                             <file size="160" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="VoucherDeviceMgmt.rtf.png"/>
+            <permission mode="0755" wildcard="VoucherDeviceMgmt_en_US.rtf"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Voucher_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="VoucherInventoryMgmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="VoucherInventoryMgmt.xdm" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="4999" dest="_datamodel.xdm" mode="0755"/>
+                                             <file size="18104" dest="sample.xml" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="_datamodel.xdm"/>
+            <permission mode="0755" wildcard="sample.xml"/>
+         </file-perms>
+      </directory>
+      <directory dest="user_projects" mode="750" patchable="true">
+         <directory dest="domains" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+            <directory dest="bi" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+               <directory dest="bidata" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                  <directory dest="components" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                     <directory dest="bipublisher" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                        <directory dest="repository" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                           <directory dest="Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                              <directory dest="BRM_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                 <directory dest="Optional_Mgr_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                    <directory dest="Voucher_Reports" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                       <directory dest="VoucherInventoryMgmt" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                          <directory dest="VoucherInventoryMgmt.xdo" recurse="true" include-empty-dirs="false" mode="750" preserve-symlinks="false" patchable="true">
+                                             <file size="42019" dest="VoucherInventoryMgmt_en_US.rtf" mode="0755"/>
+                                             <file size="7855" dest="VoucherInventoryMgmt.rtf.png" mode="0755"/>
+                                             <file size="1440" dest="_report.xdo" mode="0755"/>
+                                             <file size="160" dest="xdo.cfg" mode="0755"/>
+                                          </directory>
+                                       </directory>
+                                    </directory>
+                                 </directory>
+                              </directory>
+                           </directory>
+                        </directory>
+                     </directory>
+                  </directory>
+               </directory>
+            </directory>
+         </directory>
+         <file-perms>
+            <permission mode="0755" wildcard="VoucherInventoryMgmt.rtf.png"/>
+            <permission mode="0755" wildcard="VoucherInventoryMgmt_en_US.rtf"/>
+            <permission mode="0755" wildcard="_report.xdo"/>
+            <permission mode="0755" wildcard="xdo.cfg"/>
+         </file-perms>
+      </directory>
+   </file-map>
+</component-def>

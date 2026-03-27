@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# Copyright (c) 2020, 2023, Oracle and/or its affiliates.
+#
+#
+#
+VERSION=15.0
+
+PINDIR=/home/pin/opt/portal/BRM
+LOGDIR=/home/pin/opt/portal/BRM/var/pin_job_executor
+
+JSDIR=${PINDIR}/apps/pin_job_executor
+JSLOG=${LOGDIR}/pin_job_executor.log
+JSPID=${LOGDIR}/pje.pid
+
+if [ -r ${JSPID} ]; then
+  /bin/ps -f -p `cat ${JSPID}` | grep pin_job_executor > /dev/null
+  if [ $? -eq 0 ]; then
+        echo "ERROR: pin_job_executor is already running"
+        exit 1
+  fi
+fi
+
+# does the propreties file for the Java Server
+if [ ! -r  ${JSDIR}/Infranet.properties ]; then
+		echo "HELP: no Infranet.properties for pin_job_executor in \"${JSDIR}\"!"
+				exit 1
+fi
+
+
+if [ ! -d  ${LOGDIR} ]; then
+	mkdir -p ${LOGDIR}
+	if [ $? -ne 0 ]; then
+		echo "HELP: problem making LOGDIR \"${LOGDIR}\"!"
+		exit 1
+	fi
+fi       
+
+# set JAR_DIR to be the full pathname of the dir where the
+# jar files are located
+JAR_DIR=${PINDIR}/jars
+COMMONS_LOGGING_JAR_FILE="commons-logging-1.2-0a2317f.jar"
+CLASSPATH=.:$JAR_DIR/js.jar:$JAR_DIR/pcm.jar:$JAR_DIR/pcmext.jar:$JAR_DIR/pin_job_executor.jar:$JAR_DIR/oraclepki.jar:$JAR_DIR/osdt_cert.jar:$JAR_DIR/osdt_core.jar:${PINDIR}/apps/pin_job_executor:$JAR_DIR/httpclient-4.5.11.jar:$JAR_DIR/httpcore-4.4.13.jar:$JAR_DIR/$COMMONS_LOGGING_JAR_FILE
+
+export CLASSPATH
+
+JAVA=$JAVA_HOME/bin/java
+
+# XXX ought to save old log file, or check for > some-size...
+( cd ${JSDIR} ;
+  echo "started JS at..." >> ${JSLOG}
+  date >> ${JSLOG}
+	$JAVA -Dpin_job_executor=1 -mx33554432 -ms33554432 -ss1m com.portal.js.JSMain >> ${JSLOG} 2>&1 &
+  echo $! > ${JSPID} ;
+  chmod 640 ${JSLOG} ;
+  chmod 640 ${JSPID} )
+
+# get rc from cm startup
+exit $?

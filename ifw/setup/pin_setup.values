@@ -1,0 +1,134 @@
+# ---------------------------------------------------------------------------------
+#      
+#      
+#      Copyright (c) 1996 - 2009 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#      
+# ---------------------------------------------------------------------------------
+#      This file is meant to store all the configuration data for the pipeline setup.
+#      This can be changed by the user so as to customise his installation.
+
+#######################################################################################
+#REL->Give the Release number of Pipeline
+#######################################################################################
+Rel=7.4
+
+########################################################################################
+#InstallDir -> this is the directory in which the install.ksh will initially install the pipeline.
+########################################################################################
+InstallDir=/home2/pthomas/pipeline-install/ifw
+
+########################################################################################
+#MasterDir -> top level directory into which pin_setup will copy the directories and files created .
+########################################################################################
+MasterDir=/home2/pthomas/PORTAL42/opt/ifw
+
+
+#########################################################################################
+#StepDir->this parameter will specify all the directories under the Step folder to be searched for scripts that can be executed
+#during the pipeline config. The format will be dir1,dir2,dir3 i.e. the names of all directories to be included in the search 
+#path, separated by commas.
+# StepDirs Should have Oracle or SQLServer.
+# Setup -> Contains step to copy and update pipeline registry files.
+# Oracle/SQLServer -> Contains step to create database tables and load sample data on it.
+#                     SQLServer is for Windows only.
+#########################################################################################
+StepDirs=Setup,Oracle
+
+
+##########################################################################################
+#PLDBSid -> the SID of the Oracle database, in which the pipeline objects will be created.
+#PLDBUserId -> the userid to be created for the pipeline DB.
+#PLDBPasswd -> the password for the pipeline DB userid.
+##########################################################################################
+PLDBSid=test
+PLDBUserid=pipeline
+PLDBPasswd=integrate
+
+
+######################################################################################
+#JSDBUserId -> the userid to be created for the JS DB.
+#JSDBPasswd -> the password for the JS DB userid
+######################################################################################
+JSDBUserid=jsa
+JSDBPasswd=jsa
+
+
+######################################################################################
+#InfraDBUserid -> the userid of the Infranet DB.
+#InfraDBPasswd -> the password of the Infranet DB.
+#InfraDBSID -> the SID of the Oracle Database, in which the Infranet objects reside.
+######################################################################################
+InfraDBUserid=pin
+InfraDBPasswd=pin
+InfraDBSID=usrdb
+
+
+######################################################################################
+#QDBUserid -> the userid for the Oracle queues.
+#QDBPasswd -> the password for the Oracle queues.
+#QDBSID -> the SID for the Oracle queues. 
+#Qname -> the name given to the queue
+######################################################################################
+QDBUserid=pinq
+QDBPasswd=pinq
+QDBSID=usrdb
+QName=IFW_SYNC_QUEUE
+
+######################################################################################
+#SystemUser -> The system user id of the database. (Only for SQLServer).
+#SystemPasswd->The system password for the system userid of the database.
+#HostName -> Hostname on which database is created (Only for SQLServer).
+######################################################################################
+SystemUser=system
+SystemPasswd=manager
+Hostname=
+
+######################################################################################
+#DatafilePath -> This is the path to the directory in which the data files will be created.
+#DBLibrary -> The rogue wave library which will be used for db access
+#             For SQLServer DBLibrary=msq60.
+######################################################################################
+DataFilePath=d:\oracle\oradata\test\
+DBLibrary=or952
+
+######################################################################################
+#SMRegPath -> Path to the SMACC server.properties file.
+#SMObPort -> SMACC Observer port number.
+######################################################################################
+SMRegPath=/home2/pthomas/PORTAL42/opt/ifw/SmaccServer.properties
+SMObPort=12430
+
+###########################################################################################
+# Port -> TCP/IP port for wirelessRealtime.reg (i,e cm em_pointer)
+# UnixSockFile -> Realtime Pipeline file For Unix Sock. NOT SUPPORTED in Windows platform.
+#                 If it is empty then this field will be commented in wirelessRealtime.reg.
+# MappingScript -> mapping .isc script filename.
+#                 If it is empty then this field will be commented in wirelessRealtime.reg.
+###########################################################################################
+Port=1234
+UnixSockFile=
+InpMappingScript=./iScriptLib/iScriptLib_Standard/ISC_InMap.isc
+OutMappingScript=./iScriptLib/iScriptLib_Standard/ISC_OutMap.isc
+
+###################################################################################
+# Optional field values to update OpcodeMapping field in wirelessrealtime.reg.
+# DiscountOpcodeMapXml -> DiscountPipeline opcode mapping xml file.
+#          default value: ./formatDesc/Formats/Realtime/discount_event.xml
+# GSMOpcodeMapXml -> RealtimePipelineGSM opcode mapping xml file.
+#          default value: ./formatDesc/Formats/Realtime/rate_event.xml
+# GPRSOpcodeMapXml -> RealtimePipelineGPRS opcode mapping xml file.
+#          default value: ./formatDesc/Formats/Realtime/rate_event.xml
+# ZoneOpcodeMapXml -> RealtimePipelineZone opcode mapping xml file.
+#          default value: ./formatDesc/Formats/Realtime/zonemap_event.xml
+# If you want override default values, uncomment below fields and put relative path
+#   of the xml file with respect to <IFW_HOME>
+####################################################################################
+#DiscountOpcodeMapXml=
+#GSMOpcodeMapXml=
+#GPRSOpcodeMapXml=
+#ZoneOpcodeMapXml=
+

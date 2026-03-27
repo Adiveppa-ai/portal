@@ -1,0 +1,35 @@
+#!/home/pin/opt/portal/Thirdparty/perl-5.38.2/bin/perl
+# ---------------------------------------------------------------------------------
+#      
+#      Copyright (c) 1996 - 2006 Oracle. All rights reserved.
+#      
+#      This material is the confidential property of Oracle Corporation or its
+#      licensors and may be used, reproduced, stored or transmitted only in
+#      accordance with a valid Oracle license or sublicense agreement.
+#
+# ---------------------------------------------------------------------------------
+#      
+#      This step fires the sql files created by the previous step (16dbinit).Basically
+#      the sql files create the jsa and pipeline users and also the tablespaces.
+#
+# ---------------------------------------------------------------------------------
+
+
+$osid = $ENV{'DB_SID'};
+if ("a$osid" eq "a") {
+   $osid = $ENV{'ORACLE_SID'};
+}
+
+print "** IFW database setup using sqlplus system\/$ENV{'SYSTEM_PASSWD'}\@$osid";
+
+open (stream, ">$ENV{'INT_HOME'}/tmp.sql") || die ("Could not open file. $!");
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/data_file_jsa.sql\n";
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/jsa_supersql.sql\n";
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/data_file_ifw.sql\n";
+print stream "\@$ENV{'INT_HOME'}/database/Oracle/Scripts/ifw_supersql.sql\n";
+print stream "exit;";
+close(stream);
+$cmd = "sqlplus -S system\/$ENV{'SYSTEM_PASSWD'}\@$osid \@$ENV{'INT_HOME'}/tmp.sql";
+system($cmd);
+
+exit 0;
