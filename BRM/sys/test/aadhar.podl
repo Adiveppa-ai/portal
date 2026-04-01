@@ -13,7 +13,11 @@ POID PIN_FLD_ACCOUNT_OBJ {
 STRING PIN_FLD_FIRST_NAME {
         ID = 159;
 }
- 
+
+STRING PIN_FLD_MIDDLE_NAME {
+        ID = 160;
+}
+
 STRING PIN_FLD_LAST_NAME {
         ID = 161;
 }
@@ -58,13 +62,20 @@ STORABLE CLASS /aadhar {
                 MODIFY = Writeable;
         }
  
-    STRING PIN_FLD_FIRST_NAME { 
-		DESCR = "First Name"; 
-		LENGTH = 100; 
-		CREATE = Required; 
-		MODIFY = Writeable; 
+    STRING PIN_FLD_FIRST_NAME {
+		DESCR = "First Name";
+		LENGTH = 100;
+		CREATE = Required;
+		MODIFY = Writeable;
 	}
- 
+
+    STRING PIN_FLD_MIDDLE_NAME {
+		DESCR = "Middle Name";
+		LENGTH = 100;
+		CREATE = Optional;
+		MODIFY = Writeable;
+	}
+
     STRING PIN_FLD_LAST_NAME {
         	DESCR = "Last Name";
         	LENGTH = 100;
@@ -117,7 +128,11 @@ STORABLE CLASS /aadhar IMPLEMENTATION ORACLE7 {
 	STRING PIN_FLD_FIRST_NAME {
         	SQL_COLUMN = "first_name";
 	}
- 
+
+	STRING PIN_FLD_MIDDLE_NAME {
+        	SQL_COLUMN = "middle_name";
+	}
+
     STRING PIN_FLD_LAST_NAME {
         	SQL_COLUMN = "last_name";
 	}

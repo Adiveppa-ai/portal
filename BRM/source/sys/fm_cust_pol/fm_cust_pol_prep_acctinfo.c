@@ -551,6 +551,7 @@ fm_cust_create_obj(
 {
 	char*           fname = NULL;
         char*           lname = NULL;
+	char*           mname = NULL;
 	pin_flist_t     *tmp_flistp = NULL;
 	pin_flist_t     *s_flistp = NULL;
         pin_flist_t     *out_flistp = NULL;
@@ -571,6 +572,7 @@ fm_cust_create_obj(
 	PIN_ERR_LOG_FLIST( PIN_ERR_LEVEL_DEBUG,"temp flistp input Flist",tmp_flistp);
 	fname = PIN_FLIST_FLD_GET(tmp_flistp, PIN_FLD_FIRST_NAME, 1, ebufp);
         lname = PIN_FLIST_FLD_GET(tmp_flistp, PIN_FLD_LAST_NAME, 1, ebufp);
+	mname = PIN_FLIST_FLD_GET(tmp_flistp, PIN_FLD_MIDDLE_NAME, 1, ebufp);
 
 	s_flistp = PIN_FLIST_CREATE(ebufp);
 
@@ -584,6 +586,7 @@ fm_cust_create_obj(
 	 vp = PIN_POID_CREATE(primary_db_no, "/aadhar", -1, ebufp);
          PIN_FLIST_FLD_PUT(s_flistp, PIN_FLD_POID, vp, ebufp);
 	 PIN_FLIST_FLD_SET(s_flistp, PIN_FLD_FIRST_NAME, fname, ebufp);
+	 PIN_FLIST_FLD_SET(s_flistp, PIN_FLD_MIDDLE_NAME, mname, ebufp);
 	 PIN_FLIST_FLD_SET(s_flistp, PIN_FLD_LAST_NAME,  lname, ebufp);
 	 
 	 PIN_ERR_LOG_FLIST( PIN_ERR_LEVEL_DEBUG,"s_flistp input Flist",s_flistp);
